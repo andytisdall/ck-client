@@ -1,0 +1,9 @@
+.sent-success {
+  background-color: rgb(111, 255, 111);
+  margin-top: 3rem;
+  font-size: 2rem;
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid black
+}
