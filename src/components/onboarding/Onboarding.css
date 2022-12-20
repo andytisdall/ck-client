@@ -1,0 +1,42 @@
+.onboarding {
+  background-color: rgb(232, 209, 253);
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.file-upload {
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+}
+
+.file-upload label {
+  font-size: 1.5rem;
+  font-weight:600;
+  margin-bottom: 1rem;
+}
+
+.file-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.file-success {
+  margin-bottom: 3rem;
+}
+
+.calendar {
+  width: 200px;
+}
+
+.restaurant {
+  color: rgb(0, 94, 99);
+  padding-bottom: .5rem;
+  margin-left: 1rem;
+  border-bottom: 2px rgb(0, 94, 99) solid;
+}

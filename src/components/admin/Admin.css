@@ -1,0 +1,29 @@
+.admin {
+  background-color: brown;
+  color: white;
+}
+
+.admin-item {
+  border: 2px solid rgb(189, 255, 253);
+  padding: 1rem;
+  margin-right: 2rem;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  min-height: 300px;
+  justify-content: space-between;
+
+}
+
+.create-main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.alert-box {
+  height: 200px;
+  color: black
+}

@@ -1,3 +1,8 @@
+.send-text {
+  display: flex;
+  align-items: flex-start;
+}
+
 .sent-success {
   background-color: rgb(111, 255, 111);
   margin-top: 3rem;
@@ -6,4 +11,14 @@
   padding: 1rem;
   text-align: center;
   border: 1px solid black
+}
+
+.send-btn {
+  align-self: flex-end;
+}
+
+.text-area {
+  width: 25rem;
+  height: 7rem;
+  word-wrap: normal;
 }

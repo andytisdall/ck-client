@@ -1,21 +1,41 @@
 .header {
-  min-height: 15vh;
-  padding: 1.5rem;
-  background-color: antiquewhite;
-  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(106, 106, 106);
+  padding: .5rem 2rem;
 }
 
-.input {
-  margin: 0 3rem 0 1rem;
-}
-
-.header-items {
+.header-left {
   display: flex;
   align-items: center;
 }
 
-input[type=submit], button {
-  margin: 0 1rem;
-  background-color: aqua;
-  padding: .5rem
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  width: 200px;
+  margin: 1rem;
+}
+
+.signin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signin-title {
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 20px;
+}
+
+.main {
+  padding: 1.5rem;
+  border-top: solid black 2px;
+  min-height: 85vh;
+  padding-bottom: 5rem;
 }

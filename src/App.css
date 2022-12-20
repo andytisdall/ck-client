@@ -1,5 +1,41 @@
 .app {
   position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.home {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.home-link {
+  font-weight: 600;
+  display: block;
+  margin: 1rem;
+  background-color: white;
+  width: 10rem;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: -.2rem .5rem .5rem gray;
+  transition: all .2s;
+}
+
+.home-link:visited {
+  color: black;
+}
+
+.home-link:active {
+  transform: translateY(3px);
+  box-shadow: -.1rem .2rem .2rem gray;;
+}
+.home-link:hover {
+  background-color: aquamarine;
 }
 
 .error {
@@ -16,4 +52,21 @@
 
 a {
   text-decoration: none;
+}
+
+input {
+  margin: 0 2rem 0 .5rem;
+}
+
+input[type=submit], button {
+  margin: 0 1rem;
+  background-color: aqua;
+  padding: .5rem
+}
+
+.page-header {
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid black;
+  width: 50%;
 }

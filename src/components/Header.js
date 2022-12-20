@@ -1,59 +1,49 @@
 import { useState } from 'react';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
+import { signIn, signOut } from '../actions';
 import './Header.css';
-import server from '../api';
 
-const Header = ({ user, setUser, setError, userLoading }) => {
+const Header = ({ user, signOut, signIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const signIn = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await server.post('/signin', {
-        username,
-        password,
-      });
-      setUser(res.data.user);
-      localStorage.setItem('ck-token', res.data.token);
-    } catch (err) {
-      setError(err.response?.data || "Sign in didn't work");
-    }
-  };
-
-  const signOut = () => {
-    localStorage.removeItem('ck-token');
-    setUser(null);
+    signIn(username, password);
   };
 
   const renderSignIn = () => {
     return (
-      <form onSubmit={signIn}>
-        <label htmlFor="username">Username:</label>
-        <input
-          name="username"
-          className="input"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          name="password"
-          className="input"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input type="submit" />
-      </form>
+      <div className="signin">
+        <div className="signin-title">Sign In</div>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username:</label>
+          <input
+            name="username"
+            className="input"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            name="password"
+            className="input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input type="submit" />
+        </form>
+      </div>
     );
   };
 
   const showUser = () => {
     return (
-      <div className="header-items">
+      <div className="header-right">
         <div>Logged in as {user.username}</div>
         <button onClick={signOut}>Sign Out</button>
       </div>
@@ -65,18 +55,34 @@ const Header = ({ user, setUser, setError, userLoading }) => {
   };
 
   return (
-    <div className="header">
-      <a href="/">
-        <h1>CK Text Service</h1>
-      </a>
-      {userLoading ? (
-        <Spinner size={20} color="black" />
-      ) : (
-        // 'Loading'
-        renderBasedOnUserStatus()
-      )}
-    </div>
+    <>
+      <div className="header">
+        <div className="header-left">
+          <Link to=".." relative="path">
+            <button>Back</button>
+          </Link>
+          <Link to="/">
+            <img
+              src="/images/ck-logo.png"
+              alt="ck logo"
+              className="header-logo"
+            />
+          </Link>
+        </div>
+
+        {renderBasedOnUserStatus()}
+      </div>
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps, { signIn, signOut })(Header);
