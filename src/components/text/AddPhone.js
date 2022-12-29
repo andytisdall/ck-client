@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { addPhone } from '../../actions';
+import { REGION_CODES } from './regionCodes';
 
 const AddPhone = ({ addPhone, alert }) => {
   const [phone, setPhone] = useState('');
+  const [region, setRegion] = useState(REGION_CODES.EAST_OAKLAND);
 
   const submitPhone = async (e) => {
     e.preventDefault();
-    addPhone(phone);
+    addPhone(phone, region);
     setPhone('');
   };
 
@@ -28,6 +30,15 @@ const AddPhone = ({ addPhone, alert }) => {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
+        <label htmlFor="region">Region:</label>
+        <select
+          name="region"
+          value={region}
+          onChange={(e) => setRegion(e.target.value)}
+        >
+          <option value={REGION_CODES.EAST_OAKLAND}>East Oakland</option>
+          <option value={REGION_CODES.WEST_OAKLAND}>West Oakland</option>
+        </select>
         <input type="submit" />
       </form>
       {alert && renderSuccess()}

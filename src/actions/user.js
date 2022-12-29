@@ -4,10 +4,11 @@ import {
   GET_ALL_USERS,
   CREATE_USER,
   USER_CREATED,
-  CLEAR_MESSAGES,
+  EDIT_USER
 } from './types';
 import server from './api';
 import { setError } from './error';
+import { setAlert } from './alert';
 
 export const getUser = () => async (dispatch) => {
   const token = localStorage.getItem('ck-token');
@@ -55,11 +56,21 @@ export const createUser = (username, password) => async (dispatch) => {
       password,
     });
     dispatch({ type: CREATE_USER, payload: res.data });
-    dispatch({ type: USER_CREATED });
-    setTimeout(() => {
-      dispatch({ type: CLEAR_MESSAGES });
-    }, 10000);
+    dispatch(setAlert('User Created'));
   } catch (err) {
     dispatch(setError(err));
   }
 };
+
+export const editUser = (user, username, password) => async (dispatch) => {
+  try {
+    const res = await server.patch('/user', {
+      user,
+      username,
+      password,
+    });
+    dispatch({ type: EDIT_USER, payload: res.data });
+  }catch (err) {
+    dispatch(setError(err));
+  }
+}

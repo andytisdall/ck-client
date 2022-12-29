@@ -12,7 +12,7 @@ export const uploadFiles = (form) => async (dispatch, getState) => {
       postBody.append('expiration', input.value);
     }
   });
-  const restaurantId = getState().restaurant.id;
+  const restaurantId = getState().restaurant.restaurant.id;
   postBody.append('restaurant', restaurantId);
   try {
     const res = await server.post('/files', postBody, {

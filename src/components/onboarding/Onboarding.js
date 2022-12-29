@@ -40,14 +40,14 @@ const OnboardingHome = ({ getRestaurant, restaurant, user }) => {
     <div className="main onboarding">
       <h1 className="page-header">Onboarding</h1>
       {loading && <Spinner size={20} color="black" className="spinner" />}
-      {user && restaurant.name && renderRestaurant()}
+      {user && restaurant && renderRestaurant()}
       {!user && renderSignIn()}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.user.user, restaurant: state.restaurant };
+  return { user: state.user.user, restaurant: state.restaurant.restaurant };
 };
 
 export default connect(mapStateToProps, { getRestaurant })(OnboardingHome);

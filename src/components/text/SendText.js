@@ -7,10 +7,12 @@ import 'react-activity/dist/Spinner.css';
 
 import { sendText } from '../../actions';
 import './SendText.css';
+import { REGION_CODES } from './regionCodes';
 
-const SendText = ({ sendText, alert }) => {
+const SendText = ({ sendText, alert, error }) => {
   const [message, setMessage] = useState('');
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
+  const [region, setRegion] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -27,24 +29,54 @@ const SendText = ({ sendText, alert }) => {
     if (alert) {
       navigate('../text-success');
     }
-  }, [alert, navigate]);
+    if (error) {
+      setLoading(false);
+    }
+  }, [alert, navigate, error]);
 
   return (
     <div>
       <h2>Send a Text</h2>
       <div className="send-text">
-        <label htmlFor="date">Choose date</label>
-        <input
-          name="date"
-          type="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
-        />
-        <textarea
-          className="text-area"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
+        <div className="send-text-variables">
+          <div className="send-text-variables-item">
+            <label htmlFor="date">Choose date:</label>
+            <input
+              name="date"
+              type="date"
+              onChange={(e) => setDate(e.target.value)}
+              value={date}
+            />
+          </div>
+          <div className="send-text-variables-item">
+            <label htmlFor="region">Select a Region to Send to:</label>
+            <select
+              name="region"
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              required
+            >
+              <option value="">Select a Region</option>
+              <option value={REGION_CODES.EAST_OAKLAND}>East Oakland</option>
+              <option value={REGION_CODES.WEST_OAKLAND}>West Oakland</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          {' '}
+          <textarea
+            className="text-area"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          {message !== template && (
+            <div className="text-area-warning">
+              Warning: if you change the date, your changes to the message will
+              be erased.
+            </div>
+          )}
+        </div>
+
         {loading ? (
           <Spinner size={15} color="black" style={{ margin: '2rem' }} />
         ) : (
@@ -52,7 +84,7 @@ const SendText = ({ sendText, alert }) => {
             className="send-btn"
             onClick={() => {
               setLoading(true);
-              sendText(message);
+              sendText(message, region);
             }}
           >
             Send Message
@@ -66,6 +98,7 @@ const SendText = ({ sendText, alert }) => {
 const mapStateToProps = (state) => {
   return {
     alert: state.alert.message,
+    error: state.error.error,
   };
 };
 

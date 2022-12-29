@@ -11,7 +11,8 @@ const Docusign = () => {
       const res = await server.post('/docusign/sign', {
         authCode,
       });
-      window.location.href = res.data;
+      const { redirectUrl } = res.data;
+      window.location.href = redirectUrl;
     };
     getRedirectUrl();
   }, []);

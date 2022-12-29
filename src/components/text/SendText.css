@@ -22,3 +22,25 @@
   height: 7rem;
   word-wrap: normal;
 }
+
+.text-area-warning {
+  width: 25rem;
+}
+
+.send-text-variables {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: flex-start;
+}
+
+label {
+  margin-bottom: .5rem;
+}
+
+.send-text-variables-item {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}

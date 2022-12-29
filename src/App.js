@@ -1,10 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
-
-import { getUser } from './actions';
 
 import './App.css';
 import AddPhone from './components/text/AddPhone';
@@ -28,6 +23,7 @@ import Home from './components/Home';
 import Admin from './components/admin/Admin';
 import AdminHome from './components/admin/AdminHome';
 import Create from './components/admin/Create';
+import Edit from './components/admin/Edit';
 
 const router = createBrowserRouter([
   {
@@ -72,42 +68,35 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <AdminHome /> },
           { path: 'create', element: <Create /> },
+          { path: 'edit', element: <Edit /> },
         ],
       },
     ],
   },
 ]);
 
-const App = ({ user, getUser, error }) => {
-  const [userLoading, setUserLoading] = useState(false);
+const App = ({ alert, error }) => {
 
-  useEffect(() => {
-    setUserLoading(true);
-    getUser();
-  }, [getUser]);
-
-  useEffect(() => {
-    setUserLoading(false);
-  }, [user]);
 
   const renderError = () => {
     return <div className="error">{error}</div>;
   };
 
-  if (userLoading) {
-    return <Spinner size={20} color="black" />;
-  }
+  const renderAlert = () => {
+    return <div className="error alert">{alert}</div>;
+  };
 
   return (
     <div className="app">
       <RouterProvider router={router} />
       {error && renderError()}
+      {alert && renderAlert()}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.user.user, error: state.error.error };
+  return { error: state.error.error, alert: state.alert.message };
 };
 
-export default connect(mapStateToProps, { getUser })(App);
+export default connect(mapStateToProps)(App);

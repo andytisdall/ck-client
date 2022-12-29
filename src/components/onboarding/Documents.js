@@ -9,7 +9,7 @@ import FileUpload from './FileUpload';
 import { uploadFiles } from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
 
-const Documents = ({ uploadFiles, alert }) => {
+const Documents = ({ uploadFiles, alert, error }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -23,7 +23,10 @@ const Documents = ({ uploadFiles, alert }) => {
     if (alert) {
       navigate('../file-success');
     }
-  }, [alert, navigate]);
+    if (error) {
+      setLoading(false)
+    }
+  }, [alert, navigate, error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +61,7 @@ const Documents = ({ uploadFiles, alert }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { alert: state.alert.message };
+  return { alert: state.alert.message, error: state.error.error };
 };
 
 export default connect(mapStateToProps, { uploadFiles })(Documents);

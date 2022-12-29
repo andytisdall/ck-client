@@ -1,29 +1,57 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { getAllUsers, createRestaurant } from '../../actions';
+import { getAllUsers, editRestaurant, getAllRestaurants } from '../../actions';
 
-const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
-  const [name, setName] = useState('');
+const EditRestaurant = ({ users, restaurants, getAllUsers, editRestaurant, getAllRestaurants }) => {
+  const [restaurant, setRestaurant] = useState('');
+    const [name, setName] = useState('');
   const [salesforceId, setSalesforceId] = useState('');
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
     getAllUsers();
-  }, [getAllUsers]);
+    getAllRestaurants();
+  }, [getAllUsers, getAllRestaurants]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createRestaurant(name, salesforceId, userId);
+    editRestaurant(restaurant, name, salesforceId, userId);
+    setRestaurant('');
     setName('');
     setSalesforceId('');
     setUserId('');
   };
 
+  const renderRestaurants = () => {
+    return Object.values(restaurants).map(u => {
+      return <option key={u.id} value={u.id}>{u.name}</option>
+    })
+  }
+
+  const onRestaurantSelect = (e) => {
+    setRestaurant(e.target.value);
+    const rest = restaurants[e.target.value]
+    if (rest) {
+      setName(rest.name)
+      setSalesforceId(rest.salesforceId);
+      setUserId(rest.user)
+    } else {
+      setRestaurant('');
+      setName('');
+      setSalesforceId('');
+      setUserId('');
+    }
+  }
+
   return (
     <div className="admin-item">
-      <h2>Create a Restaurant</h2>
+      <h2>Edit a Restaurant</h2>
       <form onSubmit={handleSubmit} className="admin-form">
+      <select name="restaurant" value={restaurant} onChange={onRestaurantSelect}>
+            <option value=''>Select a Restaurant</option>
+            {renderRestaurants()}
+        </select>
         <label htmlFor="name">Restaurant Name:</label>
         <input
           name="name"
@@ -48,7 +76,7 @@ const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
           onChange={(e) => setUserId(e.target.value)}
         >
           <option value="">Select a User</option>
-          {users.map((u) => {
+          {Object.values(users).map((u) => {
             return (
               <option value={u.id} key={u.id}>
                 {u.username}
@@ -64,10 +92,11 @@ const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
 
 const mapStateToProps = (state) => {
   return {
-    users: Object.values(state.user.users),
+    users: state.user.users,
+    restaurants: state.restaurant.restaurants
   };
 };
 
-export default connect(mapStateToProps, { getAllUsers, createRestaurant })(
-  CreateRestaurant
+export default connect(mapStateToProps, { getAllUsers, editRestaurant, getAllRestaurants })(
+  EditRestaurant
 );

@@ -1,28 +1,57 @@
 import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { createUser, setError } from '../../actions';
+import { editUser, setError, getAllUsers } from '../../actions';
 
-const CreateUser = ({ setError, createUser }) => {
+const EditUser = ({ setError, editUser, users, getAllUsers }) => {
+    const [user, setUser] = useState('');
   const [username, setUsername] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
+
+  useEffect(() => {
+    getAllUsers();
+  }, [getAllUsers])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password1 !== password2) {
       return setError({ message: 'Passwords do not match' });
     }
-    createUser(username, password1);
+    editUser(user, username, password1);
+    setUser('')
     setUsername('');
     setPassword1('');
     setPassword2('');
   };
 
+  const renderUsers = () => {
+    return Object.values(users).map(u => {
+      return <option key={u.id} value={u.id}>{u.username}</option>
+    })
+  }
+
+  const onUserSelect = (e) => {
+    const usr = users[e.target.value]
+    if (usr) {
+      setUser(usr.id);
+      setUsername(usr.username)
+    } else {
+      setUser('')
+      setUsername('');
+      setPassword1('');
+      setPassword2('');
+    }
+  }
+
   return (
     <div className="admin-item">
-      <h2>Create a User</h2>
+      <h2>Edit a User</h2>
       <form onSubmit={handleSubmit} className="admin-form">
+        <select name="user" value={user} onChange={onUserSelect}>
+            <option value=''>Select a User</option>
+            {renderUsers()}
+        </select>
         <label htmlFor="name">Username:</label>
         <input
           name="name"
@@ -53,4 +82,10 @@ const CreateUser = ({ setError, createUser }) => {
   );
 };
 
-export default connect(null, { setError, createUser })(CreateUser);
+const mapStateToProps = (state) => {
+  return {
+    users: state.user.users,
+  };
+};
+
+export default connect(mapStateToProps, { setError, editUser, getAllUsers })(EditUser);

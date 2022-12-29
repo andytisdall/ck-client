@@ -38,16 +38,22 @@
   background-color: aquamarine;
 }
 
+
+
 .error {
   background-color: red;
   padding: 1rem;
-  position: absolute;
+  position: fixed;
   border: solid black 2px;
   top: 1rem;
   left: 23%;
   width: 50%;
   text-align: center;
   box-sizing: border-box;
+}
+
+.alert {
+  background-color: rgb(167, 255, 167);
 }
 
 a {
