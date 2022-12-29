@@ -10,16 +10,15 @@ import server from './api';
 import { setError } from './error';
 import { setAlert } from './alert';
 
-export const getUser = () => async (dispatch) => {
-  const token = localStorage.getItem('ck-token');
-  if (token) {
+export const getUser = (token) => async (dispatch) => {
+
     try {
       const res = await server.get('/user');
       dispatch({ type: SIGN_IN, payload: res.data });
     } catch (err) {
       dispatch(setError(err));
     }
-  }
+  
 };
 
 export const getAllUsers = () => async (dispatch) => {

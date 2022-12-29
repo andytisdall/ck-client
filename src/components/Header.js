@@ -8,19 +8,22 @@ import { getUser, signOut } from '../actions';
 import SignUp from './SignUp';
 import "./Header.css"
 
-const Header = ({ getUser, user, signOut }) => {
+const Header = ({ getUser, user, signOut, error }) => {
     const [userLoading, setUserLoading] = useState(false);
 
     useEffect(() => {
-      setUserLoading(true);
-      getUser();
+      const token = localStorage.getItem('ck-token');
+      if (token) {
+        setUserLoading(true);
+        getUser();
+      }
     }, [getUser]);
   
     useEffect(() => {
-      if (user) {
+      if (user || error) {
         setUserLoading(false);
-        }
-    }, [user]);
+      }
+    }, [user, error]);
 
 
   const showUser = () => {
@@ -65,7 +68,7 @@ const Header = ({ getUser, user, signOut }) => {
 
 const mapStateToProps = (state) => {
     return {
-      user: state.user.user,
+      user: state.user.user, error: state.error.error
     };
   };
 
