@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { editUser, setError, getAllUsers } from '../../actions';
 
 const EditUser = ({ setError, editUser, users, getAllUsers }) => {
-    const [user, setUser] = useState('');
+  const [user, setUser] = useState('');
   const [username, setUsername] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
   useEffect(() => {
     getAllUsers();
-  }, [getAllUsers])
+  }, [getAllUsers]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,38 +19,42 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
       return setError({ message: 'Passwords do not match' });
     }
     editUser(user, username, password1);
-    setUser('')
+    setUser('');
     setUsername('');
     setPassword1('');
     setPassword2('');
   };
 
   const renderUsers = () => {
-    return Object.values(users).map(u => {
-      return <option key={u.id} value={u.id}>{u.username}</option>
-    })
-  }
+    return Object.values(users).map((u) => {
+      return (
+        <option key={u.id} value={u.id}>
+          {u.username}
+        </option>
+      );
+    });
+  };
 
   const onUserSelect = (e) => {
-    const usr = users[e.target.value]
+    const usr = users[e.target.value];
     if (usr) {
       setUser(usr.id);
-      setUsername(usr.username)
+      setUsername(usr.username);
     } else {
-      setUser('')
+      setUser('');
       setUsername('');
       setPassword1('');
       setPassword2('');
     }
-  }
+  };
 
   return (
     <div className="admin-item">
       <h2>Edit a User</h2>
       <form onSubmit={handleSubmit} className="admin-form">
-        <select name="user" value={user} onChange={onUserSelect}>
-            <option value=''>Select a User</option>
-            {renderUsers()}
+        <select required name="user" value={user} onChange={onUserSelect}>
+          <option value="">Select a User</option>
+          {renderUsers()}
         </select>
         <label htmlFor="name">Username:</label>
         <input
@@ -65,12 +69,10 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
           name="password1"
           type="password"
           value={password1}
-          required
           onChange={(e) => setPassword1(e.target.value)}
         />
         <label htmlFor="user">Re-Enter Password:</label>
         <input
-          required
           type="password"
           value={password2}
           name="password2"
@@ -88,4 +90,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setError, editUser, getAllUsers })(EditUser);
+export default connect(mapStateToProps, { setError, editUser, getAllUsers })(
+  EditUser
+);

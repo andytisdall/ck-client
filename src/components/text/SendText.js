@@ -17,7 +17,7 @@ const SendText = ({ sendText, alert, error }) => {
 
   const navigate = useNavigate();
 
-  const template = `Hello everyone, you are receiving this text because the CK text service is being tested. Do not panic. The date that I am inserting into this message is ${moment(
+  const template = `Hello everyone, the CK text service is being tested. Do not panic. The date that I am inserting into this message is ${moment(
     date
   ).format('M/D/YY')}. Good day!`;
 
@@ -63,9 +63,9 @@ const SendText = ({ sendText, alert, error }) => {
           </div>
         </div>
         <div>
-          {' '}
           <textarea
             className="text-area"
+            maxLength={320}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />

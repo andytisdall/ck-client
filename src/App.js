@@ -25,6 +25,11 @@ import AdminHome from './components/admin/AdminHome';
 import Create from './components/admin/Create';
 import Edit from './components/admin/Edit';
 
+import User from './components/user/User';
+import UserHome from './components/user/UserHome';
+import ChangePassword from './components/user/ChangePassword';
+import ChangeUsername from './components/user/ChangeUsername';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -71,13 +76,20 @@ const router = createBrowserRouter([
           { path: 'edit', element: <Edit /> },
         ],
       },
+      {
+        path: 'user',
+        element: <User />,
+        children: [
+          { index: true, element: <UserHome /> },
+          { path: 'change-password', element: <ChangePassword /> },
+          { path: 'change-username', element: <ChangeUsername /> },
+        ],
+      },
     ],
   },
 ]);
 
 const App = ({ alert, error }) => {
-
-
   const renderError = () => {
     return <div className="error">{error}</div>;
   };

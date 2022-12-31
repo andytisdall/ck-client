@@ -1,4 +1,8 @@
-import { FETCH_RESTAURANT, FETCH_ALL_RESTAURANTS, EDIT_RESTAURANT } from './types';
+import {
+  FETCH_RESTAURANT,
+  FETCH_ALL_RESTAURANTS,
+  EDIT_RESTAURANT,
+} from './types';
 import server from './api';
 import { setError } from './error';
 import { setAlert } from './alert';
@@ -35,16 +39,17 @@ export const createRestaurant =
     }
   };
 
-export const editRestaurant = (restaurant, user, username, password) => async (dispatch) => {
-  try {
-    const res = await server.patch('/restaurant', {
-      restaurant,
-      user,
-      username,
-      password,
-    });
-    dispatch({ type: EDIT_RESTAURANT, payload: res.data });
-  }catch (err) {
-    dispatch(setError(err));
-  }
-}
+export const editRestaurant =
+  (restaurantId, name, salesforceId, userId) => async (dispatch) => {
+    try {
+      const res = await server.patch('/restaurant', {
+        restaurantId,
+        name,
+        salesforceId,
+        userId,
+      });
+      dispatch({ type: EDIT_RESTAURANT, payload: res.data });
+    } catch (err) {
+      dispatch(setError(err));
+    }
+  };

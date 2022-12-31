@@ -2,7 +2,7 @@ import {
   MESSAGE_SENT,
   CLEAR_MESSAGES,
   FILES_UPLOADED,
-  ALERT
+  ALERT,
 } from '../actions/types';
 
 const INITIAL_STATE = {

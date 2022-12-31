@@ -3,9 +3,15 @@ import { useState, useEffect } from 'react';
 
 import { getAllUsers, editRestaurant, getAllRestaurants } from '../../actions';
 
-const EditRestaurant = ({ users, restaurants, getAllUsers, editRestaurant, getAllRestaurants }) => {
+const EditRestaurant = ({
+  users,
+  restaurants,
+  getAllUsers,
+  editRestaurant,
+  getAllRestaurants,
+}) => {
   const [restaurant, setRestaurant] = useState('');
-    const [name, setName] = useState('');
+  const [name, setName] = useState('');
   const [salesforceId, setSalesforceId] = useState('');
   const [userId, setUserId] = useState('');
 
@@ -24,33 +30,41 @@ const EditRestaurant = ({ users, restaurants, getAllUsers, editRestaurant, getAl
   };
 
   const renderRestaurants = () => {
-    return Object.values(restaurants).map(u => {
-      return <option key={u.id} value={u.id}>{u.name}</option>
-    })
-  }
+    return Object.values(restaurants).map((u) => {
+      return (
+        <option key={u.id} value={u.id}>
+          {u.name}
+        </option>
+      );
+    });
+  };
 
   const onRestaurantSelect = (e) => {
     setRestaurant(e.target.value);
-    const rest = restaurants[e.target.value]
+    const rest = restaurants[e.target.value];
     if (rest) {
-      setName(rest.name)
+      setName(rest.name);
       setSalesforceId(rest.salesforceId);
-      setUserId(rest.user)
+      setUserId(rest.user);
     } else {
       setRestaurant('');
       setName('');
       setSalesforceId('');
       setUserId('');
     }
-  }
+  };
 
   return (
     <div className="admin-item">
       <h2>Edit a Restaurant</h2>
       <form onSubmit={handleSubmit} className="admin-form">
-      <select name="restaurant" value={restaurant} onChange={onRestaurantSelect}>
-            <option value=''>Select a Restaurant</option>
-            {renderRestaurants()}
+        <select
+          name="restaurant"
+          value={restaurant}
+          onChange={onRestaurantSelect}
+        >
+          <option value="">Select a Restaurant</option>
+          {renderRestaurants()}
         </select>
         <label htmlFor="name">Restaurant Name:</label>
         <input
@@ -93,10 +107,12 @@ const EditRestaurant = ({ users, restaurants, getAllUsers, editRestaurant, getAl
 const mapStateToProps = (state) => {
   return {
     users: state.user.users,
-    restaurants: state.restaurant.restaurants
+    restaurants: state.restaurant.restaurants,
   };
 };
 
-export default connect(mapStateToProps, { getAllUsers, editRestaurant, getAllRestaurants })(
-  EditRestaurant
-);
+export default connect(mapStateToProps, {
+  getAllUsers,
+  editRestaurant,
+  getAllRestaurants,
+})(EditRestaurant);
