@@ -23,7 +23,7 @@ const alertReducer = (state = INITIAL_STATE, action) => {
     case CLEAR_MESSAGES:
       return INITIAL_STATE;
     default:
-      return state;
+      return INITIAL_STATE;
   }
 };
 

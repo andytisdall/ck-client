@@ -6,6 +6,7 @@ import Spinner from 'react-activity/dist/Spinner';
 import 'react-activity/dist/Spinner.css';
 
 import { sendText } from '../../actions';
+import TextPreview from './TextPreview';
 import './SendText.css';
 import { REGION_CODES } from './regionCodes';
 
@@ -13,6 +14,7 @@ const SendText = ({ sendText, alert, error }) => {
   const [message, setMessage] = useState('');
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const [region, setRegion] = useState('');
+  const [preview, setPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -34,9 +36,10 @@ const SendText = ({ sendText, alert, error }) => {
     }
   }, [alert, navigate, error]);
 
-  return (
-    <div>
-      <h2>Send a Text</h2>
+  const composeText = () => {
+    const btnActive = region && date && message;
+    const redText = region ? { color: 'black' } : { color: 'red' };
+    return (
       <div className="send-text">
         <div className="send-text-variables">
           <div className="send-text-variables-item">
@@ -49,7 +52,9 @@ const SendText = ({ sendText, alert, error }) => {
             />
           </div>
           <div className="send-text-variables-item">
-            <label htmlFor="region">Select a Region to Send to:</label>
+            <label htmlFor="region" style={redText}>
+              Select a Region to Send to:
+            </label>
             <select
               name="region"
               value={region}
@@ -62,8 +67,10 @@ const SendText = ({ sendText, alert, error }) => {
             </select>
           </div>
         </div>
-        <div>
+        <div className="send-text-variables-item">
+          <label htmlFor="message-area">Message:</label>
           <textarea
+            name="message-area"
             className="text-area"
             maxLength={320}
             value={message}
@@ -76,21 +83,44 @@ const SendText = ({ sendText, alert, error }) => {
             </div>
           )}
         </div>
-
-        {loading ? (
-          <Spinner size={15} color="black" style={{ margin: '2rem' }} />
-        ) : (
-          <button
-            className="send-btn"
-            onClick={() => {
-              setLoading(true);
-              sendText(message, region);
-            }}
-          >
-            Send Message
-          </button>
-        )}
+        <button
+          className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
+          onClick={() => {
+            if (btnActive) {
+              setPreview(true);
+            }
+          }}
+        >
+          Preview Message
+        </button>
       </div>
+    );
+  };
+
+  const renderContent = () => {
+    if (loading) {
+      return <Spinner size={15} color="black" style={{ margin: '2rem' }} />;
+    }
+    if (!preview) {
+      return composeText();
+    }
+    return (
+      <TextPreview
+        message={message}
+        region={region}
+        onSubmit={() => {
+          sendText(message, region);
+          setLoading(true);
+        }}
+        onCancel={() => setPreview(false)}
+      />
+    );
+  };
+
+  return (
+    <div>
+      <h2>Send a Text</h2>
+      {renderContent()}
     </div>
   );
 };

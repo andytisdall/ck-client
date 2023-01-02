@@ -8,7 +8,7 @@ const ChangeUsername = ({ user, editUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editUser(user, username);
+    editUser(user.id, username);
   };
 
   return (

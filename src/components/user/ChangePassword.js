@@ -12,7 +12,7 @@ const ChangePassword = ({ user, editUser, setError }) => {
     if (password1 !== password2) {
       return setError({ message: 'Passwords do not match' });
     }
-    editUser(user, user.username, password1);
+    editUser(user.id, user.username, password1);
     setPassword1('');
     setPassword2('');
   };

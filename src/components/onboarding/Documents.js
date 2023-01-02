@@ -24,7 +24,7 @@ const Documents = ({ uploadFiles, alert, error }) => {
       navigate('../file-success');
     }
     if (error) {
-      setLoading(false)
+      setLoading(false);
     }
   }, [alert, navigate, error]);
 
@@ -53,9 +53,6 @@ const Documents = ({ uploadFiles, alert, error }) => {
           <input type="submit" />
         )}
       </form>
-      <Link to="../docusign/login">
-        <button>Sign Documents</button>
-      </Link>
     </div>
   );
 };

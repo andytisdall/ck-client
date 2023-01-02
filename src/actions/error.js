@@ -10,6 +10,6 @@ export const setError = (err) => (dispatch) => {
   console.log(err);
   setTimeout(() => {
     dispatch({ type: ERROR, payload: null });
-  }, 10000);
+  }, 7000);
   dispatch({ type: ERROR, payload: message });
 };

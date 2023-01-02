@@ -1,6 +1,7 @@
 .send-text {
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
 }
 
 .sent-success {
@@ -11,10 +12,6 @@
   padding: 1rem;
   text-align: center;
   border: 1px solid black
-}
-
-.send-btn {
-  align-self: flex-end;
 }
 
 .text-area {
@@ -43,4 +40,9 @@ label {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+}
+
+.text-preview {
+  margin-bottom: 2rem;
+  width: 50%;
 }

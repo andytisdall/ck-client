@@ -1,0 +1,40 @@
+const TextPreview = ({ onSubmit, message, region, onCancel }) => {
+  const getRegion = () => {
+    let reg = 'Region not set';
+    if (region === 'EAST_OAKLAND') {
+      reg = 'East Oakland';
+    }
+    if (region === 'WEST_OAKLAND') {
+      reg = 'West Oakland';
+    }
+    return reg;
+  };
+
+  return (
+    <div>
+      <h3>Confirm Your Message:</h3>
+      <div className="text-preview">{message}</div>
+      <div>
+        <p>Region: {getRegion()}</p>
+      </div>
+      <button
+        className="send-btn"
+        onClick={() => {
+          onSubmit();
+        }}
+      >
+        Send Message
+      </button>
+      <button
+        className="send-btn"
+        onClick={() => {
+          onCancel();
+        }}
+      >
+        Go Back to Text Compose
+      </button>
+    </div>
+  );
+};
+
+export default TextPreview;

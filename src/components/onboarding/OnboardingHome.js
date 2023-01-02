@@ -6,6 +6,9 @@ const OnboardingHome = () => {
       <Link to="documents" className="home-link">
         Upload your documents
       </Link>
+      <Link to="docusign/login" className="home-link">
+        Sign Documents
+      </Link>
     </div>
   );
 };

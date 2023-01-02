@@ -65,9 +65,13 @@ input {
 }
 
 input[type=submit], button {
-  margin: 0 1rem;
+  margin:  1rem;
   background-color: aqua;
   padding: .5rem
+}
+
+label {
+  margin-right:.5rem;
 }
 
 .page-header {
@@ -75,4 +79,8 @@ input[type=submit], button {
   padding-bottom: 1rem;
   border-bottom: 3px solid black;
   width: 50%;
+}
+
+.btn-inactive {
+  background-color: grey;
 }
