@@ -7,7 +7,7 @@ import './Onboarding.css';
 import { getRestaurant } from '../../actions';
 import { Outlet } from 'react-router-dom';
 
-const OnboardingHome = ({ getRestaurant, restaurant, user }) => {
+const Onboarding = ({ getRestaurant, restaurant, user }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -50,4 +50,4 @@ const mapStateToProps = (state) => {
   return { user: state.user.user, restaurant: state.restaurant.restaurant };
 };
 
-export default connect(mapStateToProps, { getRestaurant })(OnboardingHome);
+export default connect(mapStateToProps, { getRestaurant })(Onboarding);

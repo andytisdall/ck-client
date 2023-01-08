@@ -15,7 +15,6 @@ import FileSuccess from './components/onboarding/FileSuccess';
 import DocusignSign from './components/onboarding/DocusignSign';
 import DSLogin from './components/onboarding/DSLogin';
 import DocusignSuccess from './components/onboarding/DocusignSuccess';
-import Docusign from './components/onboarding/Docusign';
 
 import Header from './components/Header';
 import Home from './components/Home';
@@ -30,7 +29,17 @@ import UserHome from './components/user/UserHome';
 import ChangePassword from './components/user/ChangePassword';
 import ChangeUsername from './components/user/ChangeUsername';
 
+import HomeChef from './components/homeChef/HomeChef';
+import HomeChefHome from './components/homeChef/HomeChefHome';
+import HomeChefOnboarding from './components/homeChef/HomeChefOnboarding';
+import Resources from './components/homeChef/Resources';
+import HomeChefDocuments from './components/homeChef/HomeChefDocuments';
+import InterestForm from './components/homeChef/InterestForm';
+import FormSent from './components/homeChef/FormSent';
+
 const router = createBrowserRouter([
+  { path: 'form', element: <InterestForm /> },
+  { path: 'form-sent', element: <FormSent /> },
   {
     path: '/',
     element: <Header />,
@@ -57,7 +66,6 @@ const router = createBrowserRouter([
           { path: 'documents', element: <Documents /> },
           {
             path: 'docusign',
-            element: <Docusign />,
             children: [
               { path: 'sign', element: <DocusignSign /> },
               { path: 'login', element: <DSLogin /> },
@@ -83,6 +91,21 @@ const router = createBrowserRouter([
           { index: true, element: <UserHome /> },
           { path: 'change-password', element: <ChangePassword /> },
           { path: 'change-username', element: <ChangeUsername /> },
+        ],
+      },
+      {
+        path: 'home-chef',
+        element: <HomeChef />,
+        children: [
+          { index: true, element: <HomeChefHome /> },
+          { path: 'resources', element: <Resources /> },
+          {
+            path: 'onboarding',
+            children: [
+              { index: true, element: <HomeChefOnboarding /> },
+              { path: 'documents', element: <HomeChefDocuments /> },
+            ],
+          },
         ],
       },
     ],

@@ -1,0 +1,79 @@
+.interest-form-background {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(255, 241, 244);
+}
+
+.form-sent {
+  height: 100vh;
+}
+
+.interest-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 750px;
+}
+
+.interest-form-item {
+  display: flex;
+  flex-direction: column;
+  margin: .5rem;
+  border: rgb(205, 205, 205) solid 1px;
+  border-radius: 10px;
+  padding: 2rem;
+  align-items: flex-start;
+  background-color: white;
+}
+
+.interest-form-item input[type='text'], input[type='email'], input[type='tel'] {
+  border: none;
+  border-bottom: 1px rgb(176, 176, 176) solid;
+  width: 300px
+}
+
+.interest-form-item input[type='text']:focus-visible, input[type='email']:focus-visible, input[type='tel']:focus-visible {
+  outline: none;
+  border: none;
+  border-bottom: 2px rgb(109, 0, 0) solid;
+  width: 300px
+}
+
+.interest-form-checkbox {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.interest-form-item label {
+  margin-bottom: 2rem;
+}
+
+.interest-form-item p, li {
+  margin: 0;
+  line-height: 1.3rem;
+  font-size: .9rem;
+}
+
+.interest-form-item h1 {
+  margin-top: 0;
+}
+
+.bold {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.interest-form-image {
+  background-color: transparent;
+  padding: .5rem 1.5rem;
+}
+
+.required {
+  margin-left: 10px;
+  color: red;
+}
+
+.required-error {
+  color: red;
+}

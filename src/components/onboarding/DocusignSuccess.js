@@ -7,29 +7,30 @@ import server from '../../actions/api';
 const DocusignSuccess = ({ restaurant }) => {
   const [result, setResult] = useState('');
   const [envelopeId, setEnvelopeId] = useState('');
-  const [token, setToken] = useState('');
 
   useEffect(() => {
-    const searchParams = window.location.search.split('?')[1].split('&');
+    const envelopeIdParam = window.location.search.split('?')[1];
     // const event = searchParams[2].replace('event=', '');
     // if (event !== 'signing_complete') {
     //   setResult('Fail');
     // } else {
     setResult('Succeed');
-    setEnvelopeId(searchParams[0].replace('envelopeId=', ''));
-    setToken(searchParams[1].replace('token=', ''));
+    setEnvelopeId(envelopeIdParam.replace('envelopeId=', ''));
     // }
   }, []);
 
-  // useEffect(() => {
-  //   if (result) {
-  //     const updateSalesforce = async () => {
-  //       const filesAdded = await server.post('/docusign/getDoc', { envelopeId, token });
-  //       console.log('Files added: ' + filesAdded)
-  //     }
-  //     updateSalesforce();
-  //   }
-  // }, [result])
+  useEffect(() => {
+    if (result === 'Succeed') {
+      const updateSalesforce = async () => {
+        const filesAdded = await server.post('/docusign/getDoc', {
+          restaurantId: restaurant.id,
+          envelopeId,
+        });
+        console.log('Files added: ' + filesAdded);
+      };
+      updateSalesforce();
+    }
+  }, [result]);
 
   return (
     <div>

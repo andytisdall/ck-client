@@ -16,7 +16,7 @@ export const addPhone = (phone, region) => async (dispatch) => {
 
 export const sendText = (message, region) => async (dispatch) => {
   try {
-    const res = await server.post('/sms', { message, region });
+    const res = await server.post('/text/outgoing', { message, region });
     dispatch({ type: MESSAGE_SENT, payload: res.data });
   } catch (err) {
     dispatch(setError(err));

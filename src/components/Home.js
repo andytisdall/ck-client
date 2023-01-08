@@ -4,6 +4,9 @@ const Home = () => {
   return (
     <div className="home main">
       <h1>Home</h1>
+      <Link to="home-chef">
+        <div className="home-link">Home Chef</div>
+      </Link>
       <Link to="onboarding">
         <div className="home-link">Meal Program Onboarding</div>
       </Link>
