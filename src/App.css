@@ -84,3 +84,8 @@ label {
 .btn-inactive {
   background-color: grey;
 }
+
+.col {
+  display: flex;
+  flex-direction: column;
+}

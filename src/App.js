@@ -12,9 +12,10 @@ import Onboarding from './components/onboarding/Onboarding';
 import OnboardingHome from './components/onboarding/OnboardingHome';
 import Documents from './components/onboarding/Documents';
 import FileSuccess from './components/onboarding/FileSuccess';
-import DocusignSign from './components/onboarding/DocusignSign';
-import DSLogin from './components/onboarding/DSLogin';
-import DocusignSuccess from './components/onboarding/DocusignSuccess';
+
+import DocusignSign from './components/docusign/DocusignSign';
+import DSLogin from './components/docusign/DSLogin';
+import DocusignSuccess from './components/docusign/DocusignSuccess';
 
 import Header from './components/Header';
 import Home from './components/Home';
@@ -36,6 +37,7 @@ import Resources from './components/homeChef/Resources';
 import HomeChefDocuments from './components/homeChef/HomeChefDocuments';
 import InterestForm from './components/homeChef/InterestForm';
 import FormSent from './components/homeChef/FormSent';
+import UploadFoodHandler from './components/homeChef/UploadFoodHandler';
 
 const router = createBrowserRouter([
   { path: 'form', element: <InterestForm /> },
@@ -67,9 +69,17 @@ const router = createBrowserRouter([
           {
             path: 'docusign',
             children: [
-              { path: 'sign', element: <DocusignSign /> },
-              { path: 'login', element: <DSLogin /> },
-              { path: 'success', element: <DocusignSuccess /> },
+              {
+                path: 'sign',
+                element: <DocusignSign accountType="restaurant" docCode="RC" />,
+              },
+              { path: 'login', element: <DSLogin accountType="restaurant" /> },
+              {
+                path: 'success',
+                element: (
+                  <DocusignSuccess accountType="restaurant" docCode="RC" />
+                ),
+              },
             ],
           },
           { path: 'file-success', element: <FileSuccess /> },
@@ -103,7 +113,36 @@ const router = createBrowserRouter([
             path: 'onboarding',
             children: [
               { index: true, element: <HomeChefOnboarding /> },
-              { path: 'documents', element: <HomeChefDocuments /> },
+              {
+                path: 'documents',
+                element: <HomeChefDocuments />,
+              },
+              {
+                path: 'upload-food-handler',
+                element: <UploadFoodHandler />,
+              },
+              { path: 'file-success', element: <FileSuccess /> },
+              {
+                path: 'docusign',
+                children: [
+                  {
+                    path: 'sign',
+                    element: (
+                      <DocusignSign accountType="contact" docCode="HC" />
+                    ),
+                  },
+                  {
+                    path: 'login',
+                    element: <DSLogin accountType="contact" />,
+                  },
+                  {
+                    path: 'success',
+                    element: (
+                      <DocusignSuccess accountType="contact" docCode="HC" />
+                    ),
+                  },
+                ],
+              },
             ],
           },
         ],

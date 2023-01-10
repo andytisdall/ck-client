@@ -4,10 +4,16 @@ const HomeChefDocuments = () => {
   return (
     <div>
       <h2>Upload Your Documents</h2>
-      <div>
-        <Link>Sign the Volunteer Agreement</Link>
-        <Link>Upload Your Food Handler Certification</Link>
-        <Link>Apply for your Food Handler Ceritifcation</Link>
+      <div className="col">
+        <Link to="../docusign/login">
+          <button>Sign the Volunteer Agreement</button>
+        </Link>
+        <Link to="../upload-food-handler">
+          <button>Upload Your Food Handler Certification</button>
+        </Link>
+        <Link>
+          <button>Apply for your Food Handler Ceritifcation</button>
+        </Link>
       </div>
     </div>
   );

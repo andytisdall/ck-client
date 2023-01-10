@@ -5,9 +5,11 @@ const HomeChefOnboarding = () => {
     <div>
       <h2>Home Chef Onboarding</h2>
       <div>
-        <Link>Watch the Orientation Video</Link>
-        <Link>Get Connected to our Slack Channel</Link>
-        <Link to="documents">Upload your Documents</Link>
+        <Link className="home-link">Watch the Orientation Video</Link>
+        <Link className="home-link">Get Connected to our Slack Channel</Link>
+        <Link to="documents" className="home-link">
+          Upload your Documents
+        </Link>
       </div>
     </div>
   );

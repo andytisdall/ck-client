@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import Spinner from 'react-activity/dist/Spinner';
 import 'react-activity/dist/Spinner.css';
 
@@ -11,6 +11,8 @@ import './Header.css';
 const Header = ({ getUser, user, signOut, error }) => {
   const [userLoading, setUserLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const token = localStorage.getItem('ck-token');
     if (token) {
@@ -20,10 +22,16 @@ const Header = ({ getUser, user, signOut, error }) => {
   }, [getUser]);
 
   useEffect(() => {
-    if (user || error) {
+    if (user) {
+      setUserLoading(false);
+      if (!user.active) {
+        navigate('user/change-password');
+      }
+    }
+    if (error) {
       setUserLoading(false);
     }
-  }, [user, error]);
+  }, [user, error, navigate]);
 
   const showUser = () => {
     return (

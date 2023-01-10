@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-activity/dist/Spinner';
 import 'react-activity/dist/Spinner.css';
-import { Link } from 'react-router-dom';
 
 import FileUpload from './FileUpload';
 import { uploadFiles } from '../../actions';
@@ -31,7 +30,7 @@ const Documents = ({ uploadFiles, alert, error }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    uploadFiles(e.target);
+    uploadFiles(e.target, 'restaurant');
   };
 
   return (

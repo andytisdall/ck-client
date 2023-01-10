@@ -8,11 +8,10 @@ export const ERROR = 'ERROR';
 
 export const MESSAGE_SENT = 'MESSAGE_SENT';
 export const ALERT = 'ALERT';
-export const FILES_UPLOADED = 'FILES_UPLOADED';
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 
 export const FETCH_RESTAURANT = 'FETCH_RESTAURANT';
 export const FETCH_ALL_RESTAURANTS = 'FETCH_ALL_RESTAURANTS';
-export const EDIT_RESTAURANT = 'EDIT_RESTAURANT'
+export const EDIT_RESTAURANT = 'EDIT_RESTAURANT';
 
 export const GET_AUTH_URL = 'GET_AUTH_URL';
