@@ -1,11 +1,12 @@
+import { Outlet } from 'react-router-dom';
+
 const Resources = () => {
-  return <h2>Home Chef Resources</h2>;
+  return (
+    <div>
+      <h2>Home Chef Resources</h2>
+      <Outlet />
+    </div>
+  );
 };
 
 export default Resources;
-
-// recipes
-// ingredient label template
-// slack channel invite link
-// sign up link
-// training videos

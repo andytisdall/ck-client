@@ -39,6 +39,10 @@ import InterestForm from './components/homeChef/InterestForm';
 import FormSent from './components/homeChef/FormSent';
 import UploadFoodHandler from './components/homeChef/UploadFoodHandler';
 
+import ResourcesList from './components/homeChef/ResourcesList';
+import RecipeList from './components/homeChef/recipes/RecipeList';
+import Recipe from './components/homeChef/recipes/Recipe';
+
 const router = createBrowserRouter([
   { path: 'form', element: <InterestForm /> },
   { path: 'form-sent', element: <FormSent /> },
@@ -103,12 +107,26 @@ const router = createBrowserRouter([
           { path: 'change-username', element: <ChangeUsername /> },
         ],
       },
+
       {
         path: 'home-chef',
         element: <HomeChef />,
         children: [
           { index: true, element: <HomeChefHome /> },
-          { path: 'resources', element: <Resources /> },
+          {
+            path: 'resources',
+            element: <Resources />,
+            children: [
+              { index: true, element: <ResourcesList /> },
+              {
+                path: 'recipes',
+                children: [
+                  { index: true, element: <RecipeList /> },
+                  { path: ':recipeId', element: <Recipe /> },
+                ],
+              },
+            ],
+          },
           {
             path: 'onboarding',
             children: [
