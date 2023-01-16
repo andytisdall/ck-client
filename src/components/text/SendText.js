@@ -8,24 +8,25 @@ import 'react-activity/dist/Spinner.css';
 import { sendText } from '../../actions';
 import TextPreview from './TextPreview';
 import './SendText.css';
-import { REGION_CODES } from './regionCodes';
+import { townFridges } from './townFridges';
 
 const SendText = ({ sendText, alert, error }) => {
-  const [message, setMessage] = useState('');
+  const [fridge, setFridge] = useState('');
+  const [mealCount, setMealCount] = useState('');
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-  const [region, setRegion] = useState('');
+  const [time, setTime] = useState('');
+  const [source, setSource] = useState('CK Home Chef Volunteers');
+  const [name, setName] = useState('');
   const [preview, setPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const template = `Hello everyone, the CK text service is being tested. Do not panic. The date that I am inserting into this message is ${moment(
-    date
-  ).format('M/D/YY')}. Good day!`;
+  const SURVEY_URL = '';
 
-  useEffect(() => {
-    setMessage(template);
-  }, [date, template]);
+  const message =
+    fridge &&
+    `Good afternoon! ${townFridges[fridge].name} at ${townFridges[fridge].address} has been stocked with ${mealCount} on ${date} at ${time} made with love by ${source}! The meal today is ${name}.  Please respond to this message with any feedback.  If you are able to complete our short survey, it is anonymous and helps greatly with funding to provide free meals to the people. ${SURVEY_URL} Enjoy!`;
 
   useEffect(() => {
     if (alert) {
@@ -36,53 +37,65 @@ const SendText = ({ sendText, alert, error }) => {
     }
   }, [alert, navigate, error]);
 
+  const getRegion = () => {
+    const { region } = townFridges[fridge];
+    if (region === 'EAST_OAKLAND') {
+      return 'East Oakland';
+    }
+    if (region === 'WEST_OAKLAND') {
+      return 'West Oakland';
+    }
+  };
+
   const composeText = () => {
-    const btnActive = region && date && message;
-    const redText = region ? { color: 'black' } : { color: 'red' };
+    const btnActive =
+      fridge && date && message && time && source && name && mealCount;
     return (
       <div className="send-text">
         <div className="send-text-variables">
           <div className="send-text-variables-item">
-            <label htmlFor="date">Choose date:</label>
+            <label htmlFor="date">Date:</label>
             <input
+              required
               name="date"
               type="date"
               onChange={(e) => setDate(e.target.value)}
               value={date}
             />
           </div>
+
           <div className="send-text-variables-item">
-            <label htmlFor="region" style={redText}>
-              Select a Region to Send to:
-            </label>
-            <select
-              name="region"
-              value={region}
-              onChange={(e) => setRegion(e.target.value)}
+            <label htmlFor="time">Time:</label>
+            <input
               required
-            >
-              <option value="">Select a Region</option>
-              <option value={REGION_CODES.EAST_OAKLAND}>East Oakland</option>
-              <option value={REGION_CODES.WEST_OAKLAND}>West Oakland</option>
-            </select>
+              name="time"
+              type="time"
+              onChange={(e) => setTime(e.target.value)}
+              value={time}
+            />
           </div>
+
+          <div className="send-text-variables-item"></div>
         </div>
+
         <div className="send-text-variables-item">
-          <label htmlFor="message-area">Message:</label>
-          <textarea
-            name="message-area"
-            className="text-area"
-            maxLength={320}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          {message !== template && (
-            <div className="text-area-warning">
-              Warning: if you change the date, your changes to the message will
-              be erased.
-            </div>
-          )}
+          <label htmlFor="fridge">Town Fridge Location:</label>
+          <select
+            required
+            name="fridge"
+            value={fridge}
+            onChange={(e) => setFridge(e.target.value)}
+          >
+            <option value="">Select a Town Fridge</option>
+            {townFridges.map((f, i) => (
+              <option value={i} key={f.name}>
+                {f.name}
+              </option>
+            ))}
+          </select>
         </div>
+        <p>{fridge && `Address: ${townFridges[fridge].address}`}</p>
+        <p>{fridge && `Region: ${getRegion()}`}</p>
         <button
           className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
           onClick={() => {
@@ -107,9 +120,9 @@ const SendText = ({ sendText, alert, error }) => {
     return (
       <TextPreview
         message={message}
-        region={region}
+        region={getRegion()}
         onSubmit={() => {
-          sendText(message, region);
+          sendText(message, townFridges[fridge].region);
           setLoading(true);
         }}
         onCancel={() => setPreview(false)}

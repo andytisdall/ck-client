@@ -1,0 +1,227 @@
+/*-------------------------------------------------------------------- 
+	SAMPLE CSS that gives a reasonable form layout 
+-----------------------------------------------------------------------*/
+
+/* body {
+    font-family: Arial, FreeSans, sans-serif;
+    font-size: 85%;
+		padding: 2rem;
+}
+
+a {
+    border-bottom: 0.1em solid #CCC;
+    color: #2A6BAC;
+    text-decoration: none;
+    }
+
+a:hover {
+    color: #30B457; 
+    text-decoration: none;
+    }
+
+.cssForm {
+	background-color: transparent;
+}
+
+.cssLabelsColumn {
+	width: 160px;
+	font-weight: bold;
+	text-align: right;	
+}
+
+.cssInputFieldsColumn {
+	vertical-align: top;
+}
+
+.cssTextArea {
+	width: 250px;
+}
+
+.cssJobName {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.cssSignupDisplayName {
+	font-weight: bold;
+}
+
+.cssJobSkills {
+	font-style: italic;
+}
+
+.cssJobLocationAddress {
+
+}
+
+.cssJobLocationMap {
+
+}
+
+.cssGoogleMapIFrame {
+	height: 300px;
+	width: 400px;
+	border: 0;
+} 
+
+.cssThankYou {
+
+}
+
+.ui-widget {
+	font-family: Arial,Verdana,sans-serif;
+	font-weight: normal;
+	font-size: .8em;
+}
+
+.ui-widget input {
+	font-family: Arial,Verdana,sans-serif;
+}
+
+.requiredInput {
+	color: red;
+}
+
+.externalJob {
+	
+}
+
+.externalJobLink {
+	
+}
+
+.pastEvent {
+	
+} */
+/* =======================================================================
+
+    SAMPLE UGLY CSS for the Volunteers Job Listing pages that while ugly,
+	makes it clear what you can visually control.
+	Comment out the CSS above, and remove the trailing comment
+	on this CSS to see some ugly stuff!
+
+the following classes affect the main listing page display:
+
+cssJobName
+sfdc_richText - the Job Description and Job Location fields are controlled by this Salesforces style you can override.
+cssJobshiftSignup - this style controls all of the text in each shift's row, or the Signup button if shifts aren't shown.
+cssJobSkills - this style controls the desired skills line.
+cssJobLocationAddress - this style controls the address fields.
+body - if you want the page to use a different background.
+
+
+the remaining classes affect the signup popup dialog:
+
+cssForm
+cssLabelsColumn
+cssInputFieldsColumn
+cssInputFields
+ui-widget - jQuery style you can override for the styles used in the popup dialog.
+ui-widget input - the textboxes in the popup signup dialog is controlled by this jQuery style you can override. 
+cssThankYou - the thank you in the dialog needs its own matching style to ui-widget input. 
+  */
+
+body {
+	padding: 1rem;
+	font-family: sans-serif
+}
+
+a {
+	color: white;
+	text-decoration: none;
+	text-transform: uppercase;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: .5rem;
+	background-image:linear-gradient(to bottom right, rgb(108, 21, 108), rgb(38, 0, 115));
+	box-shadow: 0 5px 5px rgb(133, 133, 133);
+	opacity: .75;
+	transition: .5s
+}
+
+a:hover {
+	opacity: 1;
+}
+
+.cssJobName {
+	color: Purple;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.sfdc_richtext {
+	color: DarkBlue;
+	font-family: Jokerman;
+	font-weight: normal;
+	font-size: 14px;
+}
+
+.cssJobShiftSignup {
+	color: black;
+	font-weight: normal;
+	font-size: 14px;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid black;
+}
+
+.cssJobSkills {
+	font-style: italic;
+}
+ 
+.cssJobLocationAddress {
+}
+
+.cssForm {
+	background-color: Gainsboro;
+}
+
+.cssLabelsColumn {
+	color: DarkBlue;
+	vertical-align: top;
+	font-weight: normal;
+}
+
+.cssInputFieldsColumn {
+	background-color: LightBlue;
+}
+
+.cssInputFields {
+	color: red;
+	background-color: LightYellow;
+	font-family: Magneto, Georgia, Serif;
+	border-style: groove;
+	border-color: DodgerBlue;
+}
+
+.ui-widget {
+
+}
+
+.ui-widget input {
+
+}
+
+.cssThankYou {
+
+}
+
+form {
+	padding: 1rem;
+}
+
+.cssButton {
+	margin-right: 2rem;
+	background-color: purple;
+	color: white;
+	padding: .7rem;
+}
+
+.cssGoogleMapIFrame {
+	height: 300px;
+	width: 400px;
+	border: 0;
+}
+
+
+/* =================================================================== */

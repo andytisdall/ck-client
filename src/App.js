@@ -38,6 +38,7 @@ import HomeChefDocuments from './components/homeChef/HomeChefDocuments';
 import InterestForm from './components/homeChef/InterestForm';
 import FormSent from './components/homeChef/FormSent';
 import UploadFoodHandler from './components/homeChef/UploadFoodHandler';
+import ShiftSignUp from './components/homeChef/ShiftSignUp';
 
 import ResourcesList from './components/homeChef/ResourcesList';
 import RecipeList from './components/homeChef/recipes/RecipeList';
@@ -113,6 +114,7 @@ const router = createBrowserRouter([
         element: <HomeChef />,
         children: [
           { index: true, element: <HomeChefHome /> },
+          { path: 'signup', element: <ShiftSignUp /> },
           {
             path: 'resources',
             element: <Resources />,

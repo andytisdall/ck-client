@@ -1,5 +1,6 @@
 .text-home {
-  background-color: rgb(216, 241, 178);
+  background-image: linear-gradient(rgb(0, 91, 64), rgb(25, 61, 18));
+  color: white
 }
 
 .text-main {
