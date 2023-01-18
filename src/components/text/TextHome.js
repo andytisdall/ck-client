@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const Main = () => {
+const TextHome = () => {
   return (
     <div className="text-main">
       <Link to="add-phone">
@@ -13,4 +13,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default TextHome;

@@ -15,7 +15,7 @@ const VolunteerJob = ({ job, shifts }) => {
       .sort((a, b) => (a.startTime > b.startTime ? 1 : -1))
       .map((shift) => {
         return (
-          <div className="jobListing" key={shift.id}>
+          <div className="job-listing" key={shift.id}>
             <Link to={`../shift/${shift.id}`}>
               <button>Sign Up</button>
             </Link>
@@ -28,14 +28,14 @@ const VolunteerJob = ({ job, shifts }) => {
   const arrow = expand ? <>&darr;</> : <>&rarr;</>;
 
   return (
-    <div className="jobContainer">
-      <div className="jobName">
+    <div className="job-container">
+      <div className="job-name">
         <div className="expand-btn" onClick={() => setExpand(!expand)}>
           {arrow}
         </div>
         <h3>{job.name}</h3>
       </div>
-      <div className="jobList">{expand && renderShifts()}</div>
+      <div className="shift-list">{expand && renderShifts()}</div>
     </div>
   );
 };

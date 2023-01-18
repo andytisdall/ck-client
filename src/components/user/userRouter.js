@@ -2,6 +2,9 @@ import { connect } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 import './User.css';
+import ChangePassword from './ChangePassword';
+import ChangeUsername from './ChangeUsername';
+import UserHome from './UserHome';
 
 const User = ({ user }) => {
   if (!user) {
@@ -26,4 +29,16 @@ const mapStateToProps = (state) => {
   return { user: state.user.user };
 };
 
-export default connect(mapStateToProps)(User);
+const ConnectedUser = connect(mapStateToProps)(User);
+
+const userRouter = {
+  path: 'user',
+  element: <ConnectedUser />,
+  children: [
+    { index: true, element: <UserHome /> },
+    { path: 'change-password', element: <ChangePassword /> },
+    { path: 'change-username', element: <ChangeUsername /> },
+  ],
+};
+
+export default userRouter;

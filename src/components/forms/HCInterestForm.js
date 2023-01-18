@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { submitInterestForm } from '../../../actions';
-import './InterestForm.css';
+import { submitInterestForm } from '../../actions';
+import './Form.css';
 
 const InterestForm = ({ submitInterestForm }) => {
   const initialDays = {
@@ -100,14 +100,14 @@ const InterestForm = ({ submitInterestForm }) => {
     ];
 
     return (
-      <div className="interest-form-item">
+      <div className="form-item">
         <label>
           What day of the week are you available to deliver meals?
           <span className="required">*</span>
         </label>
         {days.map((d) => {
           return (
-            <div className="interest-form-checkbox" key={d}>
+            <div className="form-checkbox" key={d}>
               <input
                 type="checkbox"
                 name={d}
@@ -134,14 +134,14 @@ const InterestForm = ({ submitInterestForm }) => {
       <img
         src="images/ck-header.png"
         alt="ckname"
-        className="interest-form-item interest-form-image"
+        className="form-item form-image"
       />
     );
   };
 
   const header = () => {
     return (
-      <div className="interest-form-item">
+      <div className="form-item">
         <h1>CK Home Chef Meals for Town Fridges</h1>
         <p>
           Thank you so much for your interest in becoming a CK Home Chef! This
@@ -179,12 +179,12 @@ const InterestForm = ({ submitInterestForm }) => {
   };
 
   return (
-    <div className="interest-form-background">
-      <div className="interest-form">
+    <div className="form-background">
+      <div className="form">
         {headerImage()}
         {header()}
-        <form onSubmit={onSubmit} className="interest-form">
-          <div className="interest-form-item">
+        <form onSubmit={onSubmit} className="form">
+          <div className="form-item">
             <label htmlFor="email">
               Email<span className="required">*</span>
             </label>
@@ -197,7 +197,7 @@ const InterestForm = ({ submitInterestForm }) => {
             />
           </div>
 
-          <div className="interest-form-item">
+          <div className="form-item">
             <label htmlFor="firstName">
               First Name<span className="required">*</span>
             </label>
@@ -210,7 +210,7 @@ const InterestForm = ({ submitInterestForm }) => {
             />
           </div>
 
-          <div className="interest-form-item">
+          <div className="form-item">
             <label htmlFor="lastName">
               Last Name<span className="required">*</span>
             </label>
@@ -223,7 +223,7 @@ const InterestForm = ({ submitInterestForm }) => {
             />
           </div>
 
-          <div className="interest-form-item">
+          <div className="form-item">
             <label htmlFor="phoneNumber">
               Phone Number<span className="required">*</span>
             </label>
@@ -236,7 +236,7 @@ const InterestForm = ({ submitInterestForm }) => {
             />
           </div>
 
-          <div className="interest-form-item">
+          <div className="form-item">
             <label htmlFor="instagramHandle">Instagram Handle</label>
             <input
               name="instagramHandle"
@@ -246,199 +246,204 @@ const InterestForm = ({ submitInterestForm }) => {
             />
           </div>
 
-          <div className="interest-form-item">
-            <label htmlFor="commit">
+          <div className="form-item">
+            <label>
               Are you able to commit to cooking and delivering 25 meals two-four
               days per month?<span className="required">*</span>
             </label>
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
-                name="commit"
+                name="commit-yes"
                 type="radio"
                 onChange={(e) => {
-                  setCommit(true);
                   if (e.target.checked) {
+                    setCommit(true);
                     setErrors({ ...errors, commit: false });
                   }
                 }}
               />
-              <div>Yes</div>
+              <label htmlFor="commit-yes">Yes</label>
             </div>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
-                name="commit"
+                name="commit-no"
                 type="radio"
                 onChange={(e) => {
-                  setCommit(true);
                   if (e.target.checked) {
+                    setCommit(false);
                     setErrors({ ...errors, commit: false });
                   }
                 }}
               />
-              <div>No</div>
+              <label htmlFor="commit-no">No</label>
             </div>
             {errors.commit && showError()}
           </div>
 
-          <div className="interest-form-item">
-            <label htmlFor="foodHandler">
+          <div className="form-item">
+            <label>
               If you do not have a CA Food Handlers Card, are you able to
               complete the online Food Safety training and exam in order to
               participate in the Volunteer Program? (It is 90 minutes long, and
               CK can reimburse for the cost).<span className="required">*</span>
             </label>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
                 name="foodHandler"
                 type="radio"
                 onChange={(e) => {
-                  setFoodHandler(true);
                   if (e.target.checked) {
+                    setFoodHandler(true);
                     setErrors({ ...errors, foodHandler: false });
                   }
                 }}
               />
-              <div>Yes</div>
+              <label htmlFor="foodHandler-yes">Yes</label>
             </div>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
-                name="foodHandler"
+                name="foodHandler-no"
                 type="radio"
                 onChange={(e) => {
-                  setFoodHandler(false);
                   if (e.target.checked) {
+                    setFoodHandler(false);
                     setErrors({ ...errors, foodHandler: false });
                   }
                 }}
               />
-              <div>No</div>
+              <label htmlFor="foodHandler-no">No</label>
             </div>
             {errors.foodHandler && showError()}
           </div>
 
           {daysOfWeek()}
 
-          <div className="interest-form-item">
-            <label htmlFor="experience">
+          <div className="form-item">
+            <label>
               Do you have any cooking experience?
               <span className="required">*</span>
             </label>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
                 type="radio"
-                name="experience"
-                onChange={(e) => setExperience('Yes')}
-              />
-              <div>Yes, at a Restaurant</div>
-            </div>
-
-            <div className="interest-form-checkbox">
-              <input
-                type="radio"
-                name="experience"
+                name="experience-rest"
                 onChange={(e) => {
-                  setExperience('No');
                   if (e.target.checked) {
+                    setExperience('Restaurant');
                     setErrors({ ...errors, experience: false });
                   }
                 }}
               />
-              <div>Yes, at Home</div>
+              <label htmlFor="experience-rest">Yes, at a Restaurant</label>
             </div>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
                 type="radio"
-                name="experience"
+                name="experience-home"
                 onChange={(e) => {
-                  setExperience('Maybe');
                   if (e.target.checked) {
+                    setExperience('Home');
                     setErrors({ ...errors, experience: false });
                   }
                 }}
               />
-              <div>No</div>
+              <label htmlFor="experience-home">Yes, at Home</label>
+            </div>
+
+            <div className="form-checkbox">
+              <input
+                type="radio"
+                name="experience-no"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setExperience('None');
+                    setErrors({ ...errors, experience: false });
+                  }
+                }}
+              />
+              <label htmlFor="experience-no">No</label>
             </div>
             {errors.experience && showError()}
           </div>
 
-          <div className="interest-form-item">
-            <label htmlFor="attend">
+          <div className="form-item">
+            <label>
               Are you able to attend a CK Home Chef Zoom info session or watch
               the recording?<span className="required">*</span>
             </label>
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
                 type="radio"
-                name="attend"
+                name="attend-yes"
                 onChange={(e) => {
-                  setAttend(true);
                   if (e.target.checked) {
+                    setAttend(true);
                     setErrors({ ...errors, attend: false });
                   }
                 }}
               />
-              <div>Yes</div>
+              <label htmlFor="attend-yes">Yes</label>
             </div>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
                 type="radio"
                 name="attend"
                 onChange={(e) => {
-                  setAttend(false);
                   if (e.target.checked) {
+                    setAttend(false);
                     setErrors({ ...errors, attend: false });
                   }
                 }}
               />
-              <div>No</div>
+              <label htmlFor="attend-no">No</label>
             </div>
             {errors.attend && showError()}
           </div>
 
-          <div className="interest-form-item">
-            <label htmlFor="pickup">
+          <div className="form-item">
+            <label>
               Are you interested in picking up meals from various events and
               delivering to Town Fridges on an as needed basis?
               <span className="required">*</span>
             </label>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
-                name="pickup"
+                name="pickup-yes"
                 type="radio"
                 onChange={(e) => {
-                  setPickup(true);
                   if (e.target.checked) {
+                    setPickup(true);
                     setErrors({ ...errors, pickup: false });
                   }
                 }}
               />
-              <div>Yes</div>
+              <label htmlFor="pickup-yes">Yes</label>
             </div>
 
-            <div className="interest-form-checkbox">
+            <div className="form-checkbox">
               <input
-                name="pickup"
+                name="pickup-no"
                 type="radio"
                 onChange={(e) => {
-                  setPickup(false);
                   if (e.target.checked) {
+                    setPickup(false);
                     setErrors({ ...errors, pickup: false });
                   }
                 }}
               />
-              <div>No</div>
+              <label htmlFor="pickup-no">No</label>
             </div>
             {errors.pickup && showError()}
           </div>
 
-          <div className="interest-form-item">
+          <div className="form-item">
             <label htmlFor="source">
               How did you hear about Community Kitchens?
               <span className="required">*</span>
@@ -453,7 +458,7 @@ const InterestForm = ({ submitInterestForm }) => {
             {errors.source && showError()}
           </div>
 
-          <div className="interest-form-item">
+          <div className="form-item">
             <label htmlFor="extraInfo">
               Anything else you would like us to know?
             </label>

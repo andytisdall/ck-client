@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import Spinner from 'react-activity/dist/Spinner';
+import 'react-activity/dist/Spinner.css';
 
 import VolunteerJob from './VolunteerJob';
 
@@ -9,7 +11,11 @@ const VolunteerJobsList = ({ jobs }) => {
     });
   };
 
-  return <div>{jobs && renderJobs()}</div>;
+  return (
+    <div className="jobs-list">
+      {jobs.length ? renderJobs() : <Spinner size={20} color="black" />}
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {

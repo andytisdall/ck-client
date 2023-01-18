@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-activity/dist/Spinner';
 import 'react-activity/dist/Spinner.css';
 
-import FileUpload from './FileUpload';
+import FileUpload from '../documents/FileUpload';
 import { uploadFiles } from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
 

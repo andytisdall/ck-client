@@ -12,9 +12,9 @@ import { townFridges } from './townFridges';
 
 const SendText = ({ sendText, alert, error }) => {
   const [fridge, setFridge] = useState('');
-  const [mealCount, setMealCount] = useState('');
+  const [mealCount, setMealCount] = useState(25);
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState('12:00');
   const [source, setSource] = useState('CK Home Chef Volunteers');
   const [name, setName] = useState('');
   const [preview, setPreview] = useState(false);
@@ -26,7 +26,13 @@ const SendText = ({ sendText, alert, error }) => {
 
   const message =
     fridge &&
-    `Good afternoon! ${townFridges[fridge].name} at ${townFridges[fridge].address} has been stocked with ${mealCount} on ${date} at ${time} made with love by ${source}! The meal today is ${name}.  Please respond to this message with any feedback.  If you are able to complete our short survey, it is anonymous and helps greatly with funding to provide free meals to the people. ${SURVEY_URL} Enjoy!`;
+    `Good afternoon! ${townFridges[fridge].name}, at ${
+      townFridges[fridge].address
+    } has been stocked with ${mealCount} meals on ${moment(
+      `${date} ${time}`
+    ).format(
+      'MM/DD [at] hh:mm a'
+    )}, made with love by ${source}! The meal today is ${name}.  Please respond to this message with any feedback.  If you are able to complete our short survey, it is anonymous and helps greatly with funding to provide free meals to the people. ${SURVEY_URL} Enjoy!`;
 
   useEffect(() => {
     if (alert) {
@@ -49,7 +55,8 @@ const SendText = ({ sendText, alert, error }) => {
 
   const composeText = () => {
     const btnActive =
-      fridge && date && message && time && source && name && mealCount;
+      fridge && date && message && time && source && name && mealCount > 0;
+
     return (
       <div className="send-text">
         <div className="send-text-variables">
@@ -70,42 +77,85 @@ const SendText = ({ sendText, alert, error }) => {
               required
               name="time"
               type="time"
+              step={3600}
               onChange={(e) => setTime(e.target.value)}
               value={time}
             />
           </div>
 
-          <div className="send-text-variables-item"></div>
-        </div>
+          <div className="send-text-variables-item">
+            <label htmlFor="name">Name of Meal:</label>
+            <textarea
+              value={name}
+              name="name"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
-        <div className="send-text-variables-item">
-          <label htmlFor="fridge">Town Fridge Location:</label>
-          <select
-            required
-            name="fridge"
-            value={fridge}
-            onChange={(e) => setFridge(e.target.value)}
+          <div className="send-text-variables-item">
+            <label htmlFor="mealCount">Number of Meals:</label>
+            <input
+              type="number"
+              value={mealCount}
+              name="mealCount"
+              onChange={(e) => setMealCount(e.target.value)}
+              min={1}
+            />
+          </div>
+
+          <div className="send-text-variables-item">
+            <label htmlFor="source">Prepared By:</label>
+            <textarea
+              value={source}
+              name="source"
+              onChange={(e) => setSource(e.target.value)}
+            />
+          </div>
+
+          <div className="send-text-variables-item">
+            <label htmlFor="fridge">Town Fridge Location:</label>
+            <div className="fridge">
+              <select
+                required
+                name="fridge"
+                value={fridge}
+                onChange={(e) => setFridge(e.target.value)}
+              >
+                <option value="">Select a Town Fridge</option>
+                {townFridges.map((f, i) => (
+                  <option value={i} key={f.name}>
+                    {f.name}
+                  </option>
+                ))}
+              </select>
+
+              {fridge && (
+                <div>
+                  <span className="fridge-info">Address: </span>
+                  {townFridges[fridge].address}
+                </div>
+              )}
+
+              {fridge && (
+                <div>
+                  <span className="fridge-info">Region: </span>
+                  {getRegion()}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <button
+            className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
+            onClick={() => {
+              if (btnActive) {
+                setPreview(true);
+              }
+            }}
           >
-            <option value="">Select a Town Fridge</option>
-            {townFridges.map((f, i) => (
-              <option value={i} key={f.name}>
-                {f.name}
-              </option>
-            ))}
-          </select>
+            Preview Message
+          </button>
         </div>
-        <p>{fridge && `Address: ${townFridges[fridge].address}`}</p>
-        <p>{fridge && `Region: ${getRegion()}`}</p>
-        <button
-          className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
-          onClick={() => {
-            if (btnActive) {
-              setPreview(true);
-            }
-          }}
-        >
-          Preview Message
-        </button>
       </div>
     );
   };

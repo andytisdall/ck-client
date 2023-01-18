@@ -1,6 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import AdminHome from './AdminHome';
+import Create from './Create';
+import Edit from './Edit';
 import './Admin.css';
 
 const Admin = ({ user }) => {
@@ -22,4 +25,16 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Admin);
+const ConnectedAdmin = connect(mapStateToProps, null)(Admin);
+
+const adminRouter = {
+  path: 'admin',
+  element: <ConnectedAdmin />,
+  children: [
+    { index: true, element: <AdminHome /> },
+    { path: 'create', element: <Create /> },
+    { path: 'edit', element: <Edit /> },
+  ],
+};
+
+export default adminRouter;

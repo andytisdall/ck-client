@@ -1,8 +1,8 @@
-.jobContainer {
+.job-container {
   transition: all 1s;
 }
 
-.jobName {
+.job-name {
   display: flex;
   align-items: center;
 }
@@ -14,13 +14,17 @@
   cursor: pointer;
 }
 
-.jobListing {
+.job-listing {
   display: flex;
   align-items: center;
   border-bottom: 1px solid black;
 }
 
-.jobList {
+.jobs-list {
+  margin: 1.5rem;
+}
+
+.shift-list {
   display: flex;
   flex-direction: column;
   transition: all 1s;
