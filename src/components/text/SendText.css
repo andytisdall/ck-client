@@ -32,9 +32,6 @@ textarea {
   align-items: flex-start;
 }
 
-label {
-  margin-bottom: .5rem;
-}
 
 .send-text-variables-item {
   margin-bottom: 1rem;

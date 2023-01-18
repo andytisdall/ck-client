@@ -34,9 +34,9 @@ const router = createBrowserRouter([
       onboardingRouter,
       userRouter,
       homeChefRouter,
-      formsRouter,
     ],
   },
+  formsRouter,
 ]);
 
 const App = ({ alert, error }) => {

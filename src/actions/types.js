@@ -20,4 +20,5 @@ export const CREATE_RECIPE = 'CREATE_RECIPE';
 export const EDIT_RECIPE = 'EDIT_RECIPE';
 
 export const GET_SHIFTS = 'GET_SHIFTS';
-export const SUBMIT_INTEREST_FORM = 'SUBMIT_INTEREST_FORM';
+
+export const SUBMIT_FORM = 'SUBMIT_FORM';

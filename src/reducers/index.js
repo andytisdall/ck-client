@@ -6,6 +6,7 @@ import alertReducer from './alertReducer';
 import restaurantReducer from './restaurantReducer';
 import recipeReducer from './recipeReducer';
 import homeChefReducer from './homeChefReducer';
+import formsReducer from './formReducer';
 
 const appReducer = combineReducers({
   user: userReducer,
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
   restaurant: restaurantReducer,
   recipes: recipeReducer,
   homeChef: homeChefReducer,
+  forms: formsReducer,
 });
 
 export default appReducer;

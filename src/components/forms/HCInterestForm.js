@@ -1,11 +1,16 @@
 import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Spinner from 'react-activity/dist/Spinner';
+import 'react-activity/dist/Spinner.css';
 
-import { submitInterestForm } from '../../actions';
+import { submitForm } from '../../actions';
 import './Form.css';
 
-const InterestForm = ({ submitInterestForm }) => {
+const successMessage =
+  'A Community Kitchens staff member will be in touch with you. Thanks for helping out!';
+
+const InterestForm = ({ submitForm, alert, error }) => {
   const initialDays = {
     Tuesday: false,
     Wednesday: false,
@@ -31,6 +36,19 @@ const InterestForm = ({ submitInterestForm }) => {
   const [source, setSource] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      setLoading(false);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (alert) {
+      navigate('../form-sent');
+    }
+  }, [alert, navigate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -66,23 +84,24 @@ const InterestForm = ({ submitInterestForm }) => {
       return;
     }
 
-    submitInterestForm(
-      email,
-      firstName,
-      lastName,
-      phoneNumber,
-      instagramHandle,
-      commit,
-      foodHandler,
-      daysAvailable,
-      experience,
-      attend,
-      pickup,
-      source,
-      extraInfo
+    submitForm(
+      {
+        email,
+        firstName,
+        lastName,
+        phoneNumber,
+        instagramHandle,
+        commit,
+        foodHandler,
+        daysAvailable,
+        experience,
+        attend,
+        pickup,
+        source,
+        extraInfo,
+      },
+      { name: 'HOME_CHEF', successMessage }
     );
-
-    navigate('../form-sent');
   };
 
   const showError = () => {
@@ -110,7 +129,8 @@ const InterestForm = ({ submitInterestForm }) => {
             <div className="form-checkbox" key={d}>
               <input
                 type="checkbox"
-                name={d}
+                name="days"
+                id={d}
                 onChange={(e) => {
                   const { checked } = e.target;
                   setDaysAvailable({ ...daysAvailable, [d]: checked });
@@ -120,22 +140,12 @@ const InterestForm = ({ submitInterestForm }) => {
                   }
                 }}
               />
-              <div>{d}</div>
+              <label htmlFor={d}>{d}</label>
             </div>
           );
         })}
         {errors.days && showError()}
       </div>
-    );
-  };
-
-  const headerImage = () => {
-    return (
-      <img
-        src="images/ck-header.png"
-        alt="ckname"
-        className="form-item form-image"
-      />
     );
   };
 
@@ -179,302 +189,318 @@ const InterestForm = ({ submitInterestForm }) => {
   };
 
   return (
-    <div className="form-background">
-      <div className="form">
-        {headerImage()}
-        {header()}
-        <form onSubmit={onSubmit} className="form">
-          <div className="form-item">
-            <label htmlFor="email">
-              Email<span className="required">*</span>
-            </label>
+    <>
+      {header()}
+      <form onSubmit={onSubmit} className="form">
+        <div className="form-item">
+          <label htmlFor="email">
+            Email<span className="required">*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="firstName">
+            First Name<span className="required">*</span>
+          </label>
+          <input
+            id="firstName"
+            type="text"
+            required
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="lastName">
+            Last Name<span className="required">*</span>
+          </label>
+          <input
+            id="lastName"
+            type="text"
+            required
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="phoneNumber">
+            Phone Number<span className="required">*</span>
+          </label>
+          <input
+            id="phoneNumber"
+            type="tel"
+            required
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="instagramHandle">Instagram Handle</label>
+          <input
+            id="instagramHandle"
+            type="text"
+            value={instagramHandle}
+            onChange={(e) => setInstagramHandle(e.target.value)}
+          />
+        </div>
+
+        <div className="form-item">
+          <label>
+            Are you able to commit to cooking and delivering 25 meals two-four
+            days per month?<span className="required">*</span>
+          </label>
+          <div className="form-checkbox">
             <input
-              name="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="commit-yes"
+              name="commit"
+              type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setCommit(true);
+                  setErrors({ ...errors, commit: false });
+                }
+              }}
             />
+            <label htmlFor="commit-yes">Yes</label>
           </div>
 
-          <div className="form-item">
-            <label htmlFor="firstName">
-              First Name<span className="required">*</span>
-            </label>
+          <div className="form-checkbox">
             <input
-              name="firstName"
-              type="text"
-              required
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              id="commit-no"
+              name="commit"
+              type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setCommit(false);
+                  setErrors({ ...errors, commit: false });
+                }
+              }}
             />
+            <label htmlFor="commit-no">No</label>
           </div>
+          {errors.commit && showError()}
+        </div>
 
-          <div className="form-item">
-            <label htmlFor="lastName">
-              Last Name<span className="required">*</span>
-            </label>
+        <div className="form-item">
+          <label>
+            If you do not have a CA Food Handlers Card, are you able to complete
+            the online Food Safety training and exam in order to participate in
+            the Volunteer Program? (It is 90 minutes long, and CK can reimburse
+            for the cost).<span className="required">*</span>
+          </label>
+
+          <div className="form-checkbox">
             <input
-              name="lastName"
-              type="text"
-              required
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              id="foodHandler-yes"
+              name="foodHandler"
+              type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setFoodHandler(true);
+                  setErrors({ ...errors, foodHandler: false });
+                }
+              }}
             />
+            <label htmlFor="foodHandler-yes">Yes</label>
           </div>
 
-          <div className="form-item">
-            <label htmlFor="phoneNumber">
-              Phone Number<span className="required">*</span>
-            </label>
+          <div className="form-checkbox">
             <input
-              name="phoneNumber"
-              type="tel"
-              required
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              id="foodHandler-no"
+              name="foodHandler"
+              type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setFoodHandler(false);
+                  setErrors({ ...errors, foodHandler: false });
+                }
+              }}
             />
+            <label htmlFor="foodHandler-no">No</label>
           </div>
+          {errors.foodHandler && showError()}
+        </div>
 
-          <div className="form-item">
-            <label htmlFor="instagramHandle">Instagram Handle</label>
+        {daysOfWeek()}
+
+        <div className="form-item">
+          <label>
+            Do you have any cooking experience?
+            <span className="required">*</span>
+          </label>
+
+          <div className="form-checkbox">
             <input
-              name="instagramHandle"
-              type="text"
-              value={instagramHandle}
-              onChange={(e) => setInstagramHandle(e.target.value)}
+              type="radio"
+              id="experience-rest"
+              name="experience"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setExperience('Restaurant');
+                  setErrors({ ...errors, experience: false });
+                }
+              }}
             />
+            <label htmlFor="experience-rest">Yes, at a Restaurant</label>
           </div>
 
-          <div className="form-item">
-            <label>
-              Are you able to commit to cooking and delivering 25 meals two-four
-              days per month?<span className="required">*</span>
-            </label>
-            <div className="form-checkbox">
-              <input
-                name="commit-yes"
-                type="radio"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setCommit(true);
-                    setErrors({ ...errors, commit: false });
-                  }
-                }}
-              />
-              <label htmlFor="commit-yes">Yes</label>
-            </div>
-
-            <div className="form-checkbox">
-              <input
-                name="commit-no"
-                type="radio"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setCommit(false);
-                    setErrors({ ...errors, commit: false });
-                  }
-                }}
-              />
-              <label htmlFor="commit-no">No</label>
-            </div>
-            {errors.commit && showError()}
-          </div>
-
-          <div className="form-item">
-            <label>
-              If you do not have a CA Food Handlers Card, are you able to
-              complete the online Food Safety training and exam in order to
-              participate in the Volunteer Program? (It is 90 minutes long, and
-              CK can reimburse for the cost).<span className="required">*</span>
-            </label>
-
-            <div className="form-checkbox">
-              <input
-                name="foodHandler"
-                type="radio"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setFoodHandler(true);
-                    setErrors({ ...errors, foodHandler: false });
-                  }
-                }}
-              />
-              <label htmlFor="foodHandler-yes">Yes</label>
-            </div>
-
-            <div className="form-checkbox">
-              <input
-                name="foodHandler-no"
-                type="radio"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setFoodHandler(false);
-                    setErrors({ ...errors, foodHandler: false });
-                  }
-                }}
-              />
-              <label htmlFor="foodHandler-no">No</label>
-            </div>
-            {errors.foodHandler && showError()}
-          </div>
-
-          {daysOfWeek()}
-
-          <div className="form-item">
-            <label>
-              Do you have any cooking experience?
-              <span className="required">*</span>
-            </label>
-
-            <div className="form-checkbox">
-              <input
-                type="radio"
-                name="experience-rest"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setExperience('Restaurant');
-                    setErrors({ ...errors, experience: false });
-                  }
-                }}
-              />
-              <label htmlFor="experience-rest">Yes, at a Restaurant</label>
-            </div>
-
-            <div className="form-checkbox">
-              <input
-                type="radio"
-                name="experience-home"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setExperience('Home');
-                    setErrors({ ...errors, experience: false });
-                  }
-                }}
-              />
-              <label htmlFor="experience-home">Yes, at Home</label>
-            </div>
-
-            <div className="form-checkbox">
-              <input
-                type="radio"
-                name="experience-no"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setExperience('None');
-                    setErrors({ ...errors, experience: false });
-                  }
-                }}
-              />
-              <label htmlFor="experience-no">No</label>
-            </div>
-            {errors.experience && showError()}
-          </div>
-
-          <div className="form-item">
-            <label>
-              Are you able to attend a CK Home Chef Zoom info session or watch
-              the recording?<span className="required">*</span>
-            </label>
-            <div className="form-checkbox">
-              <input
-                type="radio"
-                name="attend-yes"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setAttend(true);
-                    setErrors({ ...errors, attend: false });
-                  }
-                }}
-              />
-              <label htmlFor="attend-yes">Yes</label>
-            </div>
-
-            <div className="form-checkbox">
-              <input
-                type="radio"
-                name="attend"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setAttend(false);
-                    setErrors({ ...errors, attend: false });
-                  }
-                }}
-              />
-              <label htmlFor="attend-no">No</label>
-            </div>
-            {errors.attend && showError()}
-          </div>
-
-          <div className="form-item">
-            <label>
-              Are you interested in picking up meals from various events and
-              delivering to Town Fridges on an as needed basis?
-              <span className="required">*</span>
-            </label>
-
-            <div className="form-checkbox">
-              <input
-                name="pickup-yes"
-                type="radio"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setPickup(true);
-                    setErrors({ ...errors, pickup: false });
-                  }
-                }}
-              />
-              <label htmlFor="pickup-yes">Yes</label>
-            </div>
-
-            <div className="form-checkbox">
-              <input
-                name="pickup-no"
-                type="radio"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setPickup(false);
-                    setErrors({ ...errors, pickup: false });
-                  }
-                }}
-              />
-              <label htmlFor="pickup-no">No</label>
-            </div>
-            {errors.pickup && showError()}
-          </div>
-
-          <div className="form-item">
-            <label htmlFor="source">
-              How did you hear about Community Kitchens?
-              <span className="required">*</span>
-            </label>
+          <div className="form-checkbox">
             <input
-              name="source"
-              required
-              type="text"
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
+              type="radio"
+              id="experience-home"
+              name="experience"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setExperience('Home');
+                  setErrors({ ...errors, experience: false });
+                }
+              }}
             />
-            {errors.source && showError()}
+            <label htmlFor="experience-home">Yes, at Home</label>
           </div>
 
-          <div className="form-item">
-            <label htmlFor="extraInfo">
-              Anything else you would like us to know?
-            </label>
+          <div className="form-checkbox">
             <input
-              name="extraInfo"
-              type="text"
-              value={extraInfo}
-              onChange={(e) => setExtraInfo(e.target.value)}
+              type="radio"
+              id="experience-no"
+              name="experience"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setExperience('None');
+                  setErrors({ ...errors, experience: false });
+                }
+              }}
             />
+            <label htmlFor="experience-no">No</label>
+          </div>
+          {errors.experience && showError()}
+        </div>
+
+        <div className="form-item">
+          <label>
+            Are you able to attend a CK Home Chef Zoom info session or watch the
+            recording?<span className="required">*</span>
+          </label>
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="attend-yes"
+              name="attend"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setAttend(true);
+                  setErrors({ ...errors, attend: false });
+                }
+              }}
+            />
+            <label htmlFor="attend-yes">Yes</label>
           </div>
 
-          <input type="submit"></input>
-        </form>
-      </div>
-    </div>
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="attend"
+              name="attend"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setAttend(false);
+                  setErrors({ ...errors, attend: false });
+                }
+              }}
+            />
+            <label htmlFor="attend-no">No</label>
+          </div>
+          {errors.attend && showError()}
+        </div>
+
+        <div className="form-item">
+          <label>
+            Are you interested in picking up meals from various events and
+            delivering to Town Fridges on an as needed basis?
+            <span className="required">*</span>
+          </label>
+
+          <div className="form-checkbox">
+            <input
+              id="pickup-yes"
+              name="pickup"
+              type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setPickup(true);
+                  setErrors({ ...errors, pickup: false });
+                }
+              }}
+            />
+            <label htmlFor="pickup-yes">Yes</label>
+          </div>
+
+          <div className="form-checkbox">
+            <input
+              id="pickup-no"
+              name="pickup"
+              type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setPickup(false);
+                  setErrors({ ...errors, pickup: false });
+                }
+              }}
+            />
+            <label htmlFor="pickup-no">No</label>
+          </div>
+          {errors.pickup && showError()}
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="source">
+            How did you hear about Community Kitchens?
+            <span className="required">*</span>
+          </label>
+          <input
+            id="source"
+            required
+            type="text"
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+          />
+          {errors.source && showError()}
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="extraInfo">
+            Anything else you would like us to know?
+          </label>
+          <input
+            id="extraInfo"
+            type="text"
+            value={extraInfo}
+            onChange={(e) => setExtraInfo(e.target.value)}
+          />
+        </div>
+
+        {!loading ? (
+          <input type="submit" />
+        ) : (
+          <Spinner size={20} color="black" />
+        )}
+      </form>
+    </>
   );
 };
 
-export default connect(null, { submitInterestForm })(InterestForm);
+const mapStateToProps = (state) => {
+  return { alert: state.alert.message, error: state.error.error };
+};
+
+export default connect(mapStateToProps, { submitForm })(InterestForm);

@@ -1,13 +1,12 @@
-const FormSent = () => {
+import { connect } from 'react-redux';
+
+const FormSent = ({ successMessage }) => {
   return (
     <div className="interest-form-background form-sent">
       <div className="interest-form">
         <div className="interest-form-item">
           <h1>Your Submission Was Successful!</h1>
-          <p>
-            A Community Kitchens staff member will be in touch with you. Thanks
-            for helping out!
-          </p>
+          <p>{successMessage}</p>
           <a href="https://ckoakland.org">
             <button>Go Back to the CK Home Page</button>
           </a>
@@ -17,4 +16,8 @@ const FormSent = () => {
   );
 };
 
-export default FormSent;
+const mapStateToProps = (state) => {
+  return { successMessage: state.forms.successMessage };
+};
+
+export default connect(mapStateToProps)(FormSent);
