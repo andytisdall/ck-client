@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import './ShiftSignUp.css';
+import './OldShiftSignUp.css';
 
 const SALESFORCE_BASE_URL = 'https://communitykitchens.my.salesforce-sites.com';
 

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Spinner from 'react-activity/dist/Spinner';
 import 'react-activity/dist/Spinner.css';
 
-import { getRecipe } from '../../../actions';
+import { getRecipe } from '../../../../actions';
 import './Recipe.css';
 
 const Recipe = ({ recipes, getRecipe }) => {

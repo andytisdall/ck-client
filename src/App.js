@@ -2,47 +2,59 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.css';
+import Header from './components/Header';
+import Home from './components/Home';
+
+// text service
 import AddPhone from './components/text/AddPhone';
 import Text from './components/text/Text';
 import TextMain from './components/text/TextMain';
 import SendText from './components/text/SendText';
 import TextSuccess from './components/text/TextSuccess';
 
+// meal program onboarding
 import Onboarding from './components/onboarding/Onboarding';
 import OnboardingHome from './components/onboarding/OnboardingHome';
 import Documents from './components/onboarding/Documents';
 import FileSuccess from './components/onboarding/FileSuccess';
 
+// docusign
 import DocusignSign from './components/docusign/DocusignSign';
 import DSLogin from './components/docusign/DSLogin';
 import DocusignSuccess from './components/docusign/DocusignSuccess';
 
-import Header from './components/Header';
-import Home from './components/Home';
-
+// admin
 import Admin from './components/admin/Admin';
 import AdminHome from './components/admin/AdminHome';
 import Create from './components/admin/Create';
 import Edit from './components/admin/Edit';
 
+// user settings
 import User from './components/user/User';
 import UserHome from './components/user/UserHome';
 import ChangePassword from './components/user/ChangePassword';
 import ChangeUsername from './components/user/ChangeUsername';
 
+// home chef
 import HomeChef from './components/homeChef/HomeChef';
 import HomeChefHome from './components/homeChef/HomeChefHome';
-import HomeChefOnboarding from './components/homeChef/HomeChefOnboarding';
-import Resources from './components/homeChef/Resources';
-import HomeChefDocuments from './components/homeChef/HomeChefDocuments';
-import InterestForm from './components/homeChef/InterestForm';
-import FormSent from './components/homeChef/FormSent';
-import UploadFoodHandler from './components/homeChef/UploadFoodHandler';
-import ShiftSignUp from './components/homeChef/ShiftSignUp';
-
-import ResourcesList from './components/homeChef/ResourcesList';
-import RecipeList from './components/homeChef/recipes/RecipeList';
-import Recipe from './components/homeChef/recipes/Recipe';
+//home chef onboarding
+import HomeChefOnboarding from './components/homeChef/onboarding/HomeChefOnboarding';
+import HomeChefDocuments from './components/homeChef/onboarding/HomeChefDocuments';
+import UploadFoodHandler from './components/homeChef/onboarding/UploadFoodHandler';
+// home chef interest form
+import InterestForm from './components/homeChef/generalInterest/InterestForm';
+import FormSent from './components/homeChef/generalInterest/FormSent';
+// home chef shift sign up
+import ShiftSignup from './components/homeChef/shiftSignup/ShiftSignup';
+import VolunteerJobsList from './components/homeChef/shiftSignup/VolunteerJobsList';
+import Calendar from './components/homeChef/shiftSignup/Calendar';
+import VJobSingle from './components/homeChef/shiftSignup/VJobSingle';
+// home chef resources
+import Resources from './components/homeChef/resources/Resources';
+import ResourcesList from './components/homeChef/resources/ResourcesList';
+import RecipeList from './components/homeChef/resources/recipes/RecipeList';
+import Recipe from './components/homeChef/resources/recipes/Recipe';
 
 const router = createBrowserRouter([
   { path: 'form', element: <InterestForm /> },
@@ -114,7 +126,15 @@ const router = createBrowserRouter([
         element: <HomeChef />,
         children: [
           { index: true, element: <HomeChefHome /> },
-          { path: 'signup', element: <ShiftSignUp /> },
+          {
+            path: 'signup',
+            element: <ShiftSignup />,
+            children: [
+              { path: 'list', element: <VolunteerJobsList /> },
+              { path: 'fridge/:jobId', element: <VJobSingle /> },
+              { path: 'calendar', element: <Calendar /> },
+            ],
+          },
           {
             path: 'resources',
             element: <Resources />,

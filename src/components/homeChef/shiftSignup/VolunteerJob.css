@@ -1,0 +1,27 @@
+.jobContainer {
+  transition: all 1s;
+}
+
+.jobName {
+  display: flex;
+  align-items: center;
+}
+
+.expand-btn {
+  margin-right: 1rem;
+  background-color: white;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.jobListing {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.jobList {
+  display: flex;
+  flex-direction: column;
+  transition: all 1s;
+}

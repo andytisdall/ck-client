@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { submitInterestForm } from '../../../actions';
 import './InterestForm.css';
 
-const InterestForm = () => {
+const InterestForm = ({ submitInterestForm }) => {
   const initialDays = {
     Tuesday: false,
     Wednesday: false,
@@ -64,6 +65,22 @@ const InterestForm = () => {
       setErrors({ ...errors, ...newErrors });
       return;
     }
+
+    submitInterestForm(
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      instagramHandle,
+      commit,
+      foodHandler,
+      daysAvailable,
+      experience,
+      attend,
+      pickup,
+      source,
+      extraInfo
+    );
 
     navigate('../form-sent');
   };
@@ -455,4 +472,4 @@ const InterestForm = () => {
   );
 };
 
-export default connect()(InterestForm);
+export default connect(null, { submitInterestForm })(InterestForm);

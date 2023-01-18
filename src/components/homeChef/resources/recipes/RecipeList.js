@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getRecipes } from '../../../actions';
+import { getRecipes } from '../../../../actions';
 
 const RecipeList = ({ recipes, getRecipes }) => {
   useEffect(() => {

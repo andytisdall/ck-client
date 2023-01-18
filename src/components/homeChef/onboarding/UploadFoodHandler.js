@@ -5,8 +5,8 @@ import Spinner from 'react-activity/dist/Spinner';
 import 'react-activity/dist/Spinner.css';
 
 import { requiredDocuments } from './requiredDocuments';
-import FileUpload from '../onboarding/FileUpload';
-import { uploadFiles } from '../../actions';
+import FileUpload from '../../onboarding/FileUpload';
+import { uploadFiles } from '../../../actions';
 
 const UploadFoodHandler = ({ alert, error, uploadFiles }) => {
   const [loading, setLoading] = useState(false);
