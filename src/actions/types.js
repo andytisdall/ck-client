@@ -7,6 +7,10 @@ export const EDIT_USER = 'EDIT_USER';
 export const ERROR = 'ERROR';
 
 export const MESSAGE_SENT = 'MESSAGE_SENT';
+export const GET_FEEDBACK = 'GET_FEEDBACK';
+export const EDIT_FEEDBACK = 'GET_FEEDBACK';
+export const DELETE_FEEDBACK = 'GET_FEEDBACK';
+
 export const ALERT = 'ALERT';
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 
