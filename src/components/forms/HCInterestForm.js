@@ -191,7 +191,7 @@ const InterestForm = ({ submitForm, alert, error }) => {
   return (
     <>
       {header()}
-      <form onSubmit={onSubmit} className="form">
+      <form onSubmit={onSubmit}>
         <div className="form-item">
           <label htmlFor="email">
             Email<span className="required">*</span>

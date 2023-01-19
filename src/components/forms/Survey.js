@@ -57,7 +57,7 @@ const Survey = ({ submitForm, error, alert }) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="form">
+    <form onSubmit={onSubmit}>
       <div className="form-item">
         <h1>Community Kitchens Meal Survey</h1>
       </div>
