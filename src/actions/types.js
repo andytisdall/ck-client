@@ -8,8 +8,8 @@ export const ERROR = 'ERROR';
 
 export const MESSAGE_SENT = 'MESSAGE_SENT';
 export const GET_FEEDBACK = 'GET_FEEDBACK';
-export const EDIT_FEEDBACK = 'GET_FEEDBACK';
-export const DELETE_FEEDBACK = 'GET_FEEDBACK';
+export const EDIT_FEEDBACK = 'EDIT_FEEDBACK';
+export const DELETE_FEEDBACK = 'DELETE_FEEDBACK';
 
 export const ALERT = 'ALERT';
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';

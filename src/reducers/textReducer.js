@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { GET_FEEDBACK, EDIT_FEEDBACK, DELETE_FEEDBACK } from '../actions/types';
 
 const INITIAL_STATE = {
-  feedback: [],
+  feedback: {},
 };
 
 const textReducer = (state = INITIAL_STATE, action) => {
@@ -19,9 +19,9 @@ const textReducer = (state = INITIAL_STATE, action) => {
         feedback: { ...state.feedback, [action.payload.id]: action.payload },
       };
     case DELETE_FEEDBACK:
-      const newState = state;
-      delete newState.feedback[action.payload];
-      return newState;
+      const { feedback } = state;
+      delete feedback[action.payload];
+      return { ...state, feedback };
     default:
       return state;
   }

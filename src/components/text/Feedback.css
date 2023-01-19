@@ -1,0 +1,29 @@
+.feedback-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.feedback-item {
+  padding: 1rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  max-width: 400px;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.feedback-line {
+  margin-bottom: .5rem;
+}
+
+.feedback-delete {
+  color: rgb(255, 120, 145);
+  border: rgb(255, 120, 145) 1px solid;
+  position: absolute;
+  right: 3%;
+  bottom: 7%;
+  border-radius: 50%;
+  padding: .2rem .6rem;
+  cursor: pointer;
+}
