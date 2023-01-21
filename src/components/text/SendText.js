@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import { sendText } from '../../actions';
 import TextPreview from './TextPreview';
 import './SendText.css';
 import { townFridges } from './townFridges';
+import Loading from '../reusable/Loading';
 
 const SendText = ({ sendText, alert, error }) => {
   const [fridge, setFridge] = useState('');
@@ -162,7 +161,7 @@ const SendText = ({ sendText, alert, error }) => {
 
   const renderContent = () => {
     if (loading) {
-      return <Spinner size={15} color="black" style={{ margin: '2rem' }} />;
+      return <Loading />;
     }
     if (!preview) {
       return composeText();

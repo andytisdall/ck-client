@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import './Onboarding.css';
 import { getRestaurant } from '../../actions';
@@ -12,9 +10,10 @@ import FileSuccess from '../documents/FileSuccess';
 import DocusignSign from '../documents/DocusignSign';
 import DSLogin from '../documents/DSLogin';
 import DocusignSuccess from '../documents/DocusignSuccess';
+import Loading from '../reusable/Loading';
 
 const Onboarding = ({ getRestaurant, restaurant, user }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -24,7 +23,9 @@ const Onboarding = ({ getRestaurant, restaurant, user }) => {
   }, [user, getRestaurant]);
 
   useEffect(() => {
-    setLoading(false);
+    if (restaurant) {
+      setLoading(false);
+    }
   }, [restaurant]);
 
   const renderRestaurant = () => {
@@ -45,7 +46,7 @@ const Onboarding = ({ getRestaurant, restaurant, user }) => {
   return (
     <div className="main onboarding">
       <h1 className="page-header">Onboarding</h1>
-      {loading && <Spinner size={20} color="black" className="spinner" />}
+      {user && loading && <Loading />}
       {user && restaurant && renderRestaurant()}
       {!user && renderSignIn()}
     </div>

@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../documents/FileUpload';
 import { uploadFiles } from '../../../actions';
+import Loading from '../../reusable/Loading';
 
 const UploadFoodHandler = ({ alert, error, uploadFiles }) => {
   const [loading, setLoading] = useState(false);
@@ -31,11 +30,7 @@ const UploadFoodHandler = ({ alert, error, uploadFiles }) => {
   return (
     <form onSubmit={onSubmit}>
       <FileUpload doc={requiredDocuments.foodHandler} />
-      {loading ? (
-        <Spinner size={15} color="black" style={{ marginLeft: '2rem' }} />
-      ) : (
-        <input type="submit" />
-      )}
+      {loading ? <Loading /> : <input type="submit" />}
     </form>
   );
 };

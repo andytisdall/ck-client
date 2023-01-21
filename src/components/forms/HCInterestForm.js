@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
+import Loading from '../reusable/Loading';
 import { submitForm } from '../../actions';
 import './Form.css';
 
@@ -489,11 +488,7 @@ const InterestForm = ({ submitForm, alert, error }) => {
           />
         </div>
 
-        {!loading ? (
-          <input type="submit" />
-        ) : (
-          <Spinner size={20} color="black" />
-        )}
+        {!loading ? <input type="submit" /> : <Loading />}
       </form>
     </>
   );

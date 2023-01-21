@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import server from '../../actions/api';
 import { setError } from '../../actions';
+import Loading from '../reusable/Loading';
 
 const Docusign = ({ accountType, docCode, setError }) => {
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ const Docusign = ({ accountType, docCode, setError }) => {
 
   return (
     <div>
-      <Spinner size={20} color="black" />
+      <Loading />
       <p>Generating contracts...</p>
     </div>
   );

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   list-style: none;
+  padding-top: 2rem;
 }
 
 .feedback-item {
@@ -13,8 +14,17 @@
   position: relative;
 }
 
+.feedback-field {
+  color: yellow;
+}
+
 .feedback-line {
   margin-bottom: .5rem;
+}
+
+.feedback-line p {
+  margin-left: 1rem;
+  padding: 1rem;
 }
 
 .feedback-delete {

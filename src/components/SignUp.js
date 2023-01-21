@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import { signIn, signOut } from '../actions';
+import Loading from './reusable/Loading';
 
 const Header = ({ signIn, error }) => {
   const [username, setUsername] = useState('');
@@ -27,7 +26,7 @@ const Header = ({ signIn, error }) => {
   };
 
   if (loading) {
-    return <Spinner size={30} />;
+    return <Loading />;
   }
 
   return (

@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import FileUpload from '../documents/FileUpload';
 import { uploadFiles } from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
+import Loading from '../reusable/Loading';
 
 const Documents = ({ uploadFiles, alert, error }) => {
   const [loading, setLoading] = useState(false);
@@ -46,11 +45,7 @@ const Documents = ({ uploadFiles, alert, error }) => {
             <input type="date" name="expiration" className="calendar" />
           </div>
         </div>
-        {loading ? (
-          <Spinner size={15} color="black" style={{ marginLeft: '2rem' }} />
-        ) : (
-          <input type="submit" />
-        )}
+        {loading ? <Loading /> : <input type="submit" />}
       </form>
     </div>
   );

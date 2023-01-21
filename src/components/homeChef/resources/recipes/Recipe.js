@@ -1,9 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
+import Loading from '../../../reusable/Loading';
 import { getRecipe } from '../../../../actions';
 import './Recipe.css';
 
@@ -25,7 +24,7 @@ const Recipe = ({ recipes, getRecipe }) => {
   const recipe = recipes[recipeId];
 
   if (!recipe) {
-    return <Spinner size={20} color="black" />;
+    return <Loading />;
   }
 
   return (

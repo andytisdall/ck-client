@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import { getUser, signOut } from '../actions';
+import Loading from './reusable/Loading';
 import SignUp from './SignUp';
 import './Header.css';
 
@@ -36,12 +35,12 @@ const Header = ({ getUser, user, signOut, error }) => {
   const showUser = () => {
     return (
       <>
+        <button onClick={signOut}>Sign Out</button>
         <div>
           <Link to="/user" className="user-link">
             {user.username}
           </Link>
         </div>
-        <button onClick={signOut}>Sign Out</button>
       </>
     );
   };
@@ -66,7 +65,7 @@ const Header = ({ getUser, user, signOut, error }) => {
           </Link>
         </div>
         <div className="header-right">
-          {userLoading && <Spinner size={30} />}
+          {userLoading && <Loading />}
           {!userLoading && renderBasedOnUserStatus()}
         </div>
       </div>

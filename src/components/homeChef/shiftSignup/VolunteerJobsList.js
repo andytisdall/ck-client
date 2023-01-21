@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import VolunteerJob from './VolunteerJob';
+import Loading from '../../reusable/Loading';
 
 const VolunteerJobsList = ({ jobs }) => {
   const renderJobs = () => {
@@ -12,9 +11,7 @@ const VolunteerJobsList = ({ jobs }) => {
   };
 
   return (
-    <div className="jobs-list">
-      {jobs.length ? renderJobs() : <Spinner size={20} color="black" />}
-    </div>
+    <div className="jobs-list">{jobs.length ? renderJobs() : <Loading />}</div>
   );
 };
 

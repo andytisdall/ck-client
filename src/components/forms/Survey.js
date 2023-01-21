@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
+import Loading from '../reusable/Loading';
 import { submitForm } from '../../actions';
 
 const successMessage =
@@ -294,7 +293,7 @@ const Survey = ({ submitForm, error, alert }) => {
         />
       </div>
 
-      {!loading ? <input type="submit" /> : <Spinner size={20} color="black" />}
+      {!loading ? <input type="submit" /> : <Loading />}
     </form>
   );
 };

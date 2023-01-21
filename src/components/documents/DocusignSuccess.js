@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Spinner from 'react-activity/dist/Spinner';
-import 'react-activity/dist/Spinner.css';
 
 import server from '../../actions/api';
 import { setError } from '../../actions';
+import Loading from '../reusable/Loading';
 
 const DocusignSuccess = ({
   restaurant,
@@ -60,7 +59,7 @@ const DocusignSuccess = ({
       return (
         <div>
           <p>Uploading signed documents...</p>
-          <Spinner size={20} color="black" />
+          <Loading />
         </div>
       );
     }
@@ -83,7 +82,7 @@ const DocusignSuccess = ({
     <div>
       {success && renderSuccess()}
       {success === false && renderFailure()}
-      {success === null && <Spinner size={20} color="black" />}
+      {success === null && <Loading />}
       <Link to="../..">
         <button>Go back to Section Home</button>
       </Link>
