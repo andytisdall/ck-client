@@ -55,6 +55,9 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
             <div className="feedback-line">
               <p>{fb.message}</p>
             </div>
+            {fb.images.map((i) => (
+              <img src={i} alt="attached" />
+            ))}
             <div className="feedback-line">
               <span className="feedback-field">Region:</span>{' '}
               {regions[fb.region]}
