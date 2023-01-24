@@ -1,0 +1,15 @@
+.add-phone {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.add-phone-item {
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+}
+
+.add-phone-item label {
+  margin-right: 1rem;
+}
+

@@ -21,9 +21,10 @@ const SendText = ({ sendText, alert, error }) => {
 
   const navigate = useNavigate();
 
-  const address = townFridges[fridge].address
-    ? `, at ${townFridges[fridge].address},`
-    : '';
+  const address =
+    fridge && townFridges[fridge].address
+      ? `, at ${townFridges[fridge].address},`
+      : '';
 
   const message =
     fridge &&

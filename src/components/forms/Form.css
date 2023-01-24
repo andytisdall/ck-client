@@ -24,13 +24,13 @@
   background-color: white;
 }
 
-.form-item input[type='text'], input[type='email'], input[type='tel'] {
+.form-item input[type='text'], .form-item input[type='email'], .form-item input[type='tel'] {
   border: none;
   border-bottom: 1px rgb(176, 176, 176) solid;
   width: 80%
 }
 
-.form-item input[type='text']:focus-visible, input[type='email']:focus-visible, input[type='tel']:focus-visible {
+.form-item input[type='text']:focus-visible, .form-item input[type='email']:focus-visible, .form-item input[type='tel']:focus-visible {
   outline: none;
   border: none;
   border-bottom: 2px rgb(109, 0, 0) solid;
@@ -43,7 +43,7 @@
   align-items: center;
 }
 
-label {
+.form label {
   margin-bottom: 2rem;
 }
 

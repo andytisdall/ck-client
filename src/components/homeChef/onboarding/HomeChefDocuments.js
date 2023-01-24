@@ -5,14 +5,14 @@ const HomeChefDocuments = () => {
     <div>
       <h2>Upload Your Documents</h2>
       <div className="col">
-        <Link to="../docusign/login">
-          <button>Sign the Volunteer Agreement</button>
+        <Link to="../docusign/login" className="home-link">
+          Sign the Volunteer Agreement
         </Link>
-        <Link to="../upload-food-handler">
-          <button>Upload Your Food Handler Certification</button>
+        <Link to="../upload-food-handler" className="home-link">
+          Upload Your Food Handler Certification
         </Link>
-        <Link>
-          <button>Apply for your Food Handler Ceritifcation</button>
+        <Link className="home-link">
+          Apply for your Food Handler Ceritifcation
         </Link>
       </div>
     </div>

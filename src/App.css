@@ -59,18 +59,21 @@ a {
   text-decoration: none;
 }
 
-input {
+input, select, label {
   margin-right: 1rem;
+  margin-bottom: 1rem;
 }
+
 
 input[type=submit], button {
   background-color: rgb(98, 163, 255);
   border-radius: 50px;
   padding: .5rem 1rem;
+  margin-right: 1rem;
   border: none;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 1rem;
-  box-shadow: 0 3px 7px rgba(186, 186, 186, 0.562);
+  box-shadow: 0 2px 5px rgba(186, 186, 186, 0.562);
   transition: .3s;
 }
 
@@ -96,6 +99,10 @@ input[type=submit]:active, button:active {
 }
 
 .btn-inactive {
+  background-color: grey;
+}
+
+.btn-inactive:hover {
   background-color: grey;
 }
 
