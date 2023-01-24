@@ -22,11 +22,12 @@
   width: 10rem;
   padding: 1rem;
   text-align: center;
-  box-shadow: -.2rem .3rem .3rem rgb(85, 85, 85);
+  box-shadow: 0 .3rem .3rem rgb(85, 85, 85);
   transition: all .2s;
+  border-radius: 50px;
 }
 
-.home-link:visited {
+a:visited {
   color: black;
 }
 
@@ -35,10 +36,8 @@
   box-shadow: -.1rem .2rem .2rem gray;;
 }
 .home-link:hover {
-  background-color: aquamarine;
+  background-color: rgb(137, 212, 137);
 }
-
-
 
 .error {
   background-color: red;
@@ -65,9 +64,27 @@ input {
 }
 
 input[type=submit], button {
-  margin:  1rem;
-  background-color: aqua;
-  padding: .5rem
+  background-color: rgb(98, 163, 255);
+  border-radius: 50px;
+  padding: .5rem 1rem;
+  border: none;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 3px 7px rgba(186, 186, 186, 0.562);
+  transition: .3s;
+}
+
+input[type=submit] {
+  margin-top: 1.5rem;
+}
+
+input[type=submit]:hover, button:hover {
+  background-color: rgb(128, 193, 285);
+}
+
+input[type=submit]:active, button:active {
+  transform: translateY(5px);
+  box-shadow: none;
 }
 
 

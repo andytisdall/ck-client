@@ -8,6 +8,7 @@ import { requiredDocuments } from './requiredDocuments';
 import Loading from '../reusable/Loading';
 
 const Documents = ({ uploadFiles, alert, error }) => {
+  const [expirationDate, setExpirationDate] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -32,17 +33,25 @@ const Documents = ({ uploadFiles, alert, error }) => {
     uploadFiles(e.target, 'restaurant');
   };
 
+  const calendarStyle = expirationDate ? 'field-completed' : '';
+
   return (
     <div>
       <div>Upload documents.</div>
       <form onSubmit={handleSubmit}>
         <div className="file-form">
           {renderUploadForms()}
-          <div className="file-upload">
+          <div className={`file-upload ${calendarStyle}`}>
             <label htmlFor="expiration">
               Health Department Permit Expiration Date
             </label>
-            <input type="date" name="expiration" className="calendar" />
+            <input
+              type="date"
+              name="expiration"
+              className="calendar"
+              value={expirationDate}
+              onChange={(e) => setExpirationDate(e.target.value)}
+            />
           </div>
         </div>
         {loading ? <Loading /> : <input type="submit" />}

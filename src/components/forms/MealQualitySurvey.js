@@ -16,9 +16,7 @@ const Survey = ({ submitForm, error, alert }) => {
   const [type, setType] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [days, setDays] = useState('');
-  const [age, setAge] = useState('');
-  const [ethnicity, setEthnicity] = useState('');
-  const [zip, setZip] = useState('');
+
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -47,9 +45,6 @@ const Survey = ({ submitForm, error, alert }) => {
         type,
         ingredients,
         days,
-        age,
-        ethnicity,
-        zip,
       },
       { name: 'MEAL_SURVEY', successMessage }
     );
@@ -259,37 +254,6 @@ const Survey = ({ submitForm, error, alert }) => {
           value={days}
           type="number"
           onChange={(e) => setDays(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="age">What is your age?</label>
-        <input
-          id="age"
-          value={age}
-          type="number"
-          min="0"
-          onChange={(e) => setAge(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="ethnicity">What is your ethnicity?</label>
-        <input
-          id="ethnicity"
-          value={ethnicity}
-          type="text"
-          onChange={(e) => setEthnicity(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="zip">What is your zip code?</label>
-        <input
-          id="zip"
-          value={zip}
-          type="text"
-          onChange={(e) => setZip(e.target.value)}
         />
       </div>
 

@@ -2,7 +2,8 @@ import { Outlet } from 'react-router-dom';
 
 import HCInterestForm from './HCInterestForm';
 import FormSent from './FormSent';
-import Survey from './Survey';
+import MealQualitySurvey from './MealQualitySurvey';
+import TextSignupSurvey from './TextSignupSurvey';
 
 const Forms = () => {
   const headerImage = () => {
@@ -30,7 +31,8 @@ const formsRouter = {
   element: <Forms />,
   children: [
     { path: 'home-chef', element: <HCInterestForm /> },
-    { path: 'meal-survey', element: <Survey /> },
+    { path: 'meal-survey', element: <MealQualitySurvey /> },
+    { path: 'text-signup-survey', element: <TextSignupSurvey /> },
     { path: 'form-sent', element: <FormSent /> },
   ],
 };

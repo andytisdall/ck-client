@@ -6,16 +6,17 @@ import { setAlert } from './alert';
 
 export const submitForm = (formValues, form) => async (dispatch) => {
   const urls = {
-    MEAL_SURVEY: 'meal-survey',
-    HOME_CHEF_INTEREST: 'home-chef',
+    MEAL_SURVEY: '/text/meal-survey',
+    HOME_CHEF_INTEREST: '/home-chef/signup',
+    TEXT_SIGNUP_SURVEY: '/text/signup-survey',
   };
   const url = urls[form.name];
 
   try {
-    await server.post(`/forms/${url}`, formValues);
+    await server.post(url, formValues);
     dispatch({ type: SUBMIT_FORM, payload: form.successMessage });
     dispatch(setAlert('Form Submitted'));
   } catch (err) {
-    setError(err);
+    dispatch(setError(err));
   }
 };

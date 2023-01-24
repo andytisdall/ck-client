@@ -255,8 +255,8 @@ const InterestForm = ({ submitForm, alert, error }) => {
 
         <div className="form-item">
           <label>
-            Are you able to commit to cooking and delivering 25 meals two-four
-            days per month?<span className="required">*</span>
+            Are you able to commit to cooking and delivering 25 meals 2-4 days
+            per month?<span className="required">*</span>
           </label>
           <div className="form-checkbox">
             <input

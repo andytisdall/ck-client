@@ -20,8 +20,12 @@ export const townFridges = [
     region: REGIONS.WEST_OAKLAND,
   },
   {
-    name: 'City Slickers Fridge',
+    name: 'City Slickers Town Fridge',
     address: '2847 Peralta St',
+    region: REGIONS.WEST_OAKLAND,
+  },
+  {
+    name: '44th St. & Telegraph Town Fridge',
     region: REGIONS.WEST_OAKLAND,
   },
 ];

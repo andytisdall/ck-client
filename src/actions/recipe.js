@@ -5,7 +5,7 @@ import { GET_RECIPES, GET_RECIPE, CREATE_RECIPE, EDIT_RECIPE } from './types';
 
 export const getRecipes = () => async (dispatch) => {
   try {
-    const res = await server.get('/recipes');
+    const res = await server.get('/home-chef/recipes');
     dispatch({ type: GET_RECIPES, payload: res.data });
   } catch (err) {
     dispatch(setError(err));
@@ -14,7 +14,7 @@ export const getRecipes = () => async (dispatch) => {
 
 export const getRecipe = (id) => async (dispatch) => {
   try {
-    const res = await server.get(`/recipe/${id}`);
+    const res = await server.get(`/home-chef/recipe/${id}`);
     dispatch({ type: GET_RECIPE, payload: res.data });
   } catch (err) {
     dispatch(setError(err));
@@ -31,7 +31,7 @@ export const createRecipe = (form) => async (dispatch) => {
     }
   });
   try {
-    const res = await server.post('/recipe', postBody, {
+    const res = await server.post('/home-chef/recipe', postBody, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     dispatch({ type: CREATE_RECIPE, payload: res.data });
@@ -47,7 +47,10 @@ export const editRecipe = (formValues) => async (dispatch) => {
     postBody.append(key, formValues[key]);
   }
   try {
-    const res = await server.patch(`/recipe/${formValues.recipeId}`, postBody);
+    const res = await server.patch(
+      `/home-chef/recipe/${formValues.recipeId}`,
+      postBody
+    );
     dispatch({ type: EDIT_RECIPE, payload: res.data });
     dispatch(setAlert('Recipe Edited'));
   } catch (err) {

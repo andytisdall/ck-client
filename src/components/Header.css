@@ -1,6 +1,7 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: rgb(106, 106, 106);
   padding: .5rem 2rem;
   flex-wrap: wrap;
@@ -41,7 +42,7 @@
   padding-bottom: 5rem;
 }
 
-.user-link {
+.user-link, .user-link:visited {
   color: white;
   text-decoration: underline;
   font-size: 1.5rem;

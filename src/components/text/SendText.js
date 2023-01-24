@@ -21,17 +21,19 @@ const SendText = ({ sendText, alert, error }) => {
 
   const navigate = useNavigate();
 
-  const SURVEY_URL = '';
+  const address = townFridges[fridge].address
+    ? `, at ${townFridges[fridge].address},`
+    : '';
 
   const message =
     fridge &&
-    `Good afternoon! ${townFridges[fridge].name}, at ${
-      townFridges[fridge].address
-    } has been stocked with ${mealCount} meals on ${moment(
+    `Good afternoon! ${
+      townFridges[fridge].name
+    }${address} has been stocked with ${mealCount} meals on ${moment(
       `${date} ${time}`
     ).format(
       'MM/DD [at] hh:mm a'
-    )}, made with love by ${source}! The meal today is ${name}.  Please respond to this message with any feedback.  If you are able to complete our short survey, it is anonymous and helps greatly with funding to provide free meals to the people. ${SURVEY_URL} Enjoy!`;
+    )}, made with love by ${source}! The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`;
 
   useEffect(() => {
     if (alert) {

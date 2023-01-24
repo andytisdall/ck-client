@@ -32,7 +32,7 @@ export const sendText = (message, region) => async (dispatch) => {
 
 export const getFeedback = () => async (dispatch) => {
   try {
-    const res = await server.get('/feedback');
+    const res = await server.get('/text/feedback');
     dispatch({ type: GET_FEEDBACK, payload: res.data });
   } catch (err) {
     setError(err);
@@ -41,7 +41,7 @@ export const getFeedback = () => async (dispatch) => {
 
 export const editFeedback = (id) => async (dispatch) => {
   try {
-    const res = await server.patch(`/feedback/${id}`);
+    const res = await server.patch(`/text/feedback/${id}`);
     dispatch({ type: EDIT_FEEDBACK, payload: res.data });
   } catch (err) {
     setError(err);
@@ -50,7 +50,7 @@ export const editFeedback = (id) => async (dispatch) => {
 
 export const deleteFeedback = (id) => async (dispatch) => {
   try {
-    const res = await server.delete(`/feedback/${id}`);
+    const res = await server.delete(`/text/feedback/${id}`);
     dispatch({ type: DELETE_FEEDBACK, payload: res.data });
   } catch (err) {
     setError(err);
