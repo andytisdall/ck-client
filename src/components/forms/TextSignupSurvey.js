@@ -53,6 +53,7 @@ const TextSignupSurvey = ({ alert, error, submitForm }) => {
           value={age}
           type="number"
           min="0"
+          max="120"
           onChange={(e) => setAge(e.target.value)}
         />
       </div>
@@ -62,6 +63,7 @@ const TextSignupSurvey = ({ alert, error, submitForm }) => {
         <input
           id="ethnicity"
           value={ethnicity}
+          maxLength={50}
           type="text"
           onChange={(e) => setEthnicity(e.target.value)}
         />
@@ -71,6 +73,7 @@ const TextSignupSurvey = ({ alert, error, submitForm }) => {
         <label htmlFor="zip">What is your zip code?</label>
         <input
           id="zip"
+          maxLength={5}
           value={zip}
           type="text"
           onChange={(e) => setZip(e.target.value)}
