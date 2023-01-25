@@ -8,8 +8,8 @@ export const setError = (err) => (dispatch) => {
     message = err.message;
   }
   console.log(err);
-  // setTimeout(() => {
-  //   dispatch({ type: ERROR, payload: null });
-  // }, 7000);
+  setTimeout(() => {
+    dispatch({ type: ERROR, payload: null });
+  }, 7000);
   dispatch({ type: ERROR, payload: message });
 };

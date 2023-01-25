@@ -9,7 +9,7 @@ const errorReducer = (state = INITIAL_STATE, action) => {
     case ERROR:
       return { error: action.payload };
     default:
-      return state;
+      return INITIAL_STATE;
   }
 };
 

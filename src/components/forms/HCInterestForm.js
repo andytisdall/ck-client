@@ -99,7 +99,7 @@ const InterestForm = ({ submitForm, alert, error }) => {
         source,
         extraInfo,
       },
-      { name: 'HOME_CHEF', successMessage }
+      { name: 'HOME_CHEF_INTEREST', successMessage }
     );
   };
 

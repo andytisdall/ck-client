@@ -47,26 +47,141 @@ const TextSignupSurvey = ({ alert, error, submitForm }) => {
         <h1>Community Kitchens Survey</h1>
       </div>
       <div className="form-item">
-        <label htmlFor="age">What is your age?</label>
-        <input
-          id="age"
-          value={age}
-          type="number"
-          min="0"
-          max="120"
-          onChange={(e) => setAge(e.target.value)}
-        />
+        <label>What is your age?</label>
+        <div className="form-checkbox">
+          <input
+            id="age-1"
+            name="age"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setAge('0-17');
+              }
+            }}
+          />
+          <label htmlFor="age-1">0 - 17</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="age-2"
+            name="age"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setAge('18-26');
+              }
+            }}
+          />
+          <label htmlFor="age-2">18 - 26</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="age-3"
+            name="age"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setAge('27-50');
+              }
+            }}
+          />
+          <label htmlFor="age-3">27 - 50</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="age-4"
+            name="age"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setAge('50-60');
+              }
+            }}
+          />
+          <label htmlFor="age-4">50 - 60</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="age-5"
+            name="age"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setAge('60+');
+              }
+            }}
+          />
+          <label htmlFor="age-5">60+</label>
+        </div>
       </div>
 
       <div className="form-item">
-        <label htmlFor="ethnicity">What is your ethnicity?</label>
-        <input
-          id="ethnicity"
-          value={ethnicity}
-          maxLength={50}
-          type="text"
-          onChange={(e) => setEthnicity(e.target.value)}
-        />
+        <label>What is your ethnicity?</label>
+        <div className="form-checkbox">
+          <input
+            id="ethnicity-1"
+            name="ethnicity"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setEthnicity('African American/Black');
+              }
+            }}
+          />
+          <label htmlFor="ethnicity-1">African American / Black</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="ethnicity-2"
+            name="ethnicity"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setEthnicity('Asian/Pacific Islander');
+              }
+            }}
+          />
+          <label htmlFor="ethnicity-2">Asian / Pacific Islander</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="ethnicity-3"
+            name="ethnicity"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setEthnicity('Latina/Latino');
+              }
+            }}
+          />
+          <label htmlFor="ethnicity-3">Latina / Latino</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="ethnicity-4"
+            name="ethnicity"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setEthnicity('Native American/American Indian');
+              }
+            }}
+          />
+          <label htmlFor="ethnicity-4">Native American / American Indian</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="ethnicity-5"
+            name="ethnicity"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setEthnicity('White/Caucasian');
+              }
+            }}
+          />
+          <label htmlFor="ethnicity-5">White / Caucasian</label>
+        </div>
       </div>
 
       <div className="form-item">
