@@ -72,12 +72,12 @@ const onboardingRouter = {
       children: [
         {
           path: 'sign',
-          element: <DocusignSign accountType="restaurant" docCode="RC" />,
+          element: <DocusignSign accountType="restaurant" />,
         },
         { path: 'login', element: <DSLogin accountType="restaurant" /> },
         {
           path: 'success',
-          element: <DocusignSuccess accountType="restaurant" docCode="RC" />,
+          element: <DocusignSuccess accountType="restaurant" />,
         },
       ],
     },

@@ -21,16 +21,19 @@ const SendText = ({ sendText, alert, error }) => {
 
   const navigate = useNavigate();
 
-  const address =
-    fridge && townFridges[fridge].address
-      ? `, at ${townFridges[fridge].address},`
-      : '';
+  const getAddress = () => {
+    if (townFridges[fridge].address) {
+      return `, at ${townFridges[fridge].address},`;
+    } else {
+      return '';
+    }
+  };
 
   const message =
     fridge &&
     `Good afternoon! ${
       townFridges[fridge].name
-    }${address} has been stocked with ${mealCount} meals on ${moment(
+    }${getAddress()} has been stocked with ${mealCount} meals on ${moment(
       `${date} ${time}`
     ).format(
       'MM/DD [at] hh:mm a'

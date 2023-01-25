@@ -1,6 +1,5 @@
 {
   "name": "ck-client",
-  "homepage": "https://coherent-vision-368820.uw.r.appspot.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

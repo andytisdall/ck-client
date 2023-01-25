@@ -6,7 +6,7 @@ import server from '../../actions/api';
 import { setError } from '../../actions';
 import Loading from '../reusable/Loading';
 
-const Docusign = ({ accountType, docCode, setError }) => {
+const Docusign = ({ accountType, setError }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,7 +16,6 @@ const Docusign = ({ accountType, docCode, setError }) => {
         const res = await server.post('/docusign/sign', {
           authCode,
           accountType,
-          docCode,
         });
         const redirectUrl = res.data;
         window.location.href = redirectUrl;
@@ -26,7 +25,7 @@ const Docusign = ({ accountType, docCode, setError }) => {
       }
     };
     getRedirectUrl();
-  }, [accountType, docCode, navigate, setError]);
+  }, [accountType, navigate, setError]);
 
   return (
     <div>

@@ -6,13 +6,7 @@ import server from '../../actions/api';
 import { setError } from '../../actions';
 import Loading from '../reusable/Loading';
 
-const DocusignSuccess = ({
-  restaurant,
-  accountType,
-  user,
-  docCode,
-  setError,
-}) => {
+const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
   const [fileCount, setFileCount] = useState(0);
   const [success, setSuccess] = useState(null);
 
@@ -35,7 +29,6 @@ const DocusignSuccess = ({
             accountId: account.id,
             envelopeId,
             accountType,
-            docCode,
           });
           setFileCount(data.filesAdded);
         } catch (err) {
@@ -46,7 +39,7 @@ const DocusignSuccess = ({
     } else {
       setSuccess(false);
     }
-  }, [accountType, restaurant, user, docCode, setError]);
+  }, [accountType, restaurant, user, setError]);
 
   const renderFileCount = () => {
     if (fileCount) {

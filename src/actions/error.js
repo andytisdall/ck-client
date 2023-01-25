@@ -2,7 +2,7 @@ import { ERROR } from './types';
 
 export const setError = (err) => (dispatch) => {
   let message;
-  if (err.response?.data?.err) {
+  if (err.response?.data?.error) {
     message = err.response.data.error;
   } else {
     message = err.message;

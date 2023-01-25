@@ -89,7 +89,7 @@ const homeChefRouter = {
           children: [
             {
               path: 'sign',
-              element: <DocusignSign accountType="contact" docCode="HC" />,
+              element: <DocusignSign accountType="contact" />,
             },
             {
               path: 'login',
@@ -97,7 +97,7 @@ const homeChefRouter = {
             },
             {
               path: 'success',
-              element: <DocusignSuccess accountType="contact" docCode="HC" />,
+              element: <DocusignSuccess accountType="contact" />,
             },
           ],
         },
