@@ -1,7 +1,8 @@
-import { MESSAGE_SENT, CLEAR_MESSAGES, ALERT } from '../actions/types';
+import { MESSAGE_SENT, ALERT } from '../actions/types';
 
 const INITIAL_STATE = {
   message: null,
+  data: null,
 };
 
 const alertReducer = (state = INITIAL_STATE, action) => {
@@ -10,8 +11,6 @@ const alertReducer = (state = INITIAL_STATE, action) => {
       return { message: 'Message Sent!', data: action.payload };
     case ALERT:
       return { message: action.payload };
-    case CLEAR_MESSAGES:
-      return INITIAL_STATE;
     default:
       return INITIAL_STATE;
   }

@@ -14,7 +14,8 @@ const TextSuccess = ({ alert, clearMessages }) => {
       <h1>Success!</h1>
       <div className="file-success">
         <p>You have successfully sent this text:</p>
-        <p>{alert.data}</p>
+        <p>Region: {alert.data.region}</p>
+        <p>{alert.data.message}</p>
       </div>
       <Link to="../">
         <button>Back to Text Home</button>

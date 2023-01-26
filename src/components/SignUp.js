@@ -31,25 +31,29 @@ const Header = ({ signIn, error }) => {
 
   return (
     <div className="signin">
-      <div className="signin-title">Sign In</div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
-        <input
-          name="username"
-          className="input"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          name="password"
-          className="input"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input type="submit" />
+        <div className="signin-button">
+          <div className="signin-title">Sign In</div>
+          <input type="submit" />
+        </div>
+        <div className="signin-fields">
+          <input
+            name="username"
+            className="input"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            name="password"
+            className="input"
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
       </form>
     </div>
   );
