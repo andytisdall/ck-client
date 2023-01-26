@@ -57,11 +57,15 @@ a, a:visited {
   background-color: rgb(167, 255, 167);
 }
 
+input, select {
+  padding: .3rem;
+}
 
 input, select, label {
   margin-right: 1.5rem;
   margin-bottom: .7rem;
   margin-top: 0;
+
 }
 
 
@@ -89,6 +93,15 @@ input[type=submit]:active, button:active {
   box-shadow: none;
 }
 
+textarea {
+  box-sizing: border-box;
+  width: 30rem;
+  height: 3rem;
+  padding: .5rem;
+  word-wrap: normal;
+  font-size: 1rem;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
 
 .page-header {
   margin-bottom: 3rem;

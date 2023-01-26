@@ -6,10 +6,10 @@ import { getRestaurant } from '../../actions';
 import { Outlet } from 'react-router-dom';
 import OnboardingHome from './OnboardingHome';
 import Documents from './Documents';
-import FileSuccess from '../documents/FileSuccess';
-import DocusignSign from '../documents/DocusignSign';
-import DSLogin from '../documents/DSLogin';
-import DocusignSuccess from '../documents/DocusignSuccess';
+import FileSuccess from '../reusable/FileSuccess';
+import DocusignSign from '../reusable/DocusignSign';
+import DSLogin from '../reusable/DSLogin';
+import DocusignSuccess from '../reusable/DocusignSuccess';
 import Loading from '../reusable/Loading';
 
 const Onboarding = ({ getRestaurant, restaurant, user }) => {

@@ -5,14 +5,15 @@ import Loading from '../../reusable/Loading';
 
 const VolunteerJobsList = ({ jobs }) => {
   const renderJobs = () => {
+    if (!jobs.length) {
+      return 'No jobs could be found.';
+    }
     return jobs.map((job) => {
       return <VolunteerJob job={job} key={job.id} />;
     });
   };
 
-  return (
-    <div className="jobs-list">{jobs.length ? renderJobs() : <Loading />}</div>
-  );
+  return <div className="jobs-list">{jobs ? renderJobs() : <Loading />}</div>;
 };
 
 const mapStateToProps = (state) => {

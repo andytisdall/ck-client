@@ -18,10 +18,10 @@ import ResourcesList from './resources/ResourcesList';
 import RecipeList from './resources/recipes/RecipeList';
 import Recipe from './resources/recipes/Recipe';
 // documents
-import FileSuccess from '../documents/FileSuccess';
-import DSLogin from '../documents/DSLogin';
-import DocusignSign from '../documents/DocusignSign';
-import DocusignSuccess from '../documents/DocusignSuccess';
+import FileSuccess from '../reusable/FileSuccess';
+import DSLogin from '../reusable/DSLogin';
+import DocusignSign from '../reusable/DocusignSign';
+import DocusignSuccess from '../reusable/DocusignSuccess';
 
 const OnboardingHome = ({ user }) => {
   const renderSignIn = () => {

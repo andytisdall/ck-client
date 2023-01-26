@@ -16,6 +16,7 @@ const SendText = ({ sendText, alert, error }) => {
   const [time, setTime] = useState('12:00');
   const [source, setSource] = useState('CK Home Chef Volunteers');
   const [name, setName] = useState('');
+  const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -58,6 +59,20 @@ const SendText = ({ sendText, alert, error }) => {
     }
   };
 
+  const processPhoto = (e) => {
+    const { files } = e.target;
+    if (files[0]) {
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //   setPhoto(reader.result);
+      // };
+      // reader.readAsDataURL(files[0]);
+      setPhoto(files[0]);
+    } else {
+      setPhoto(null);
+    }
+  };
+
   const composeText = () => {
     const btnActive =
       fridge && date && message && time && source && name && mealCount > 0;
@@ -82,7 +97,6 @@ const SendText = ({ sendText, alert, error }) => {
               required
               name="time"
               type="time"
-              step={3600}
               onChange={(e) => setTime(e.target.value)}
               value={time}
             />
@@ -150,6 +164,11 @@ const SendText = ({ sendText, alert, error }) => {
             </div>
           </div>
 
+          <div className="send-text-variables-item">
+            <label htmlFor="photo">Photo (optional):</label>
+            <input type="file" id="photo" onChange={processPhoto} />
+          </div>
+
           <button
             className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
             onClick={() => {
@@ -176,8 +195,9 @@ const SendText = ({ sendText, alert, error }) => {
       <TextPreview
         message={message}
         region={getRegion()}
+        photo={photo}
         onSubmit={() => {
-          sendText(message, townFridges[fridge].region);
+          sendText(message, townFridges[fridge].region, photo);
           setLoading(true);
         }}
         onCancel={() => setPreview(false)}

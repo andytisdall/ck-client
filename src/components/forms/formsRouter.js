@@ -9,7 +9,7 @@ const Forms = () => {
   const headerImage = () => {
     return (
       <img
-        src="../images/ck-header.png"
+        src="../images/logos/ck-header.png"
         alt="Community Kitchens"
         className="form-item form-image"
       />

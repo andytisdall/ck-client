@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { requiredDocuments } from './requiredDocuments';
-import FileUpload from '../../documents/FileUpload';
+import FileUpload from '../../reusable/FileUpload';
 import { uploadFiles } from '../../../actions';
 import Loading from '../../reusable/Loading';
 

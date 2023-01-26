@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import FileUpload from '../documents/FileUpload';
+import FileUpload from '../reusable/FileUpload';
 import { uploadFiles } from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
 import Loading from '../reusable/Loading';

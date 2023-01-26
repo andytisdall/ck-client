@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { GET_SHIFTS } from '../actions/types';
 
 const INITIAL_STATE = {
-  jobs: [],
-  shifts: {},
+  jobs: null,
+  shifts: null,
 };
 
 const homeChefReducer = (state = INITIAL_STATE, action) => {

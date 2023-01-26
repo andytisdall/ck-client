@@ -30,7 +30,7 @@ const Recipe = ({ recipes, getRecipe }) => {
   return (
     <div>
       <img
-        src={recipe.image}
+        src={`recipes/${recipe.image}`}
         alt={recipe.name + ' photo'}
         className="recipe-photo"
       />

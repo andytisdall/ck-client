@@ -9,7 +9,6 @@ import './Header.css';
 
 const Header = ({ getUser, user, signOut, error }) => {
   const [userLoading, setUserLoading] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,7 +57,7 @@ const Header = ({ getUser, user, signOut, error }) => {
           </Link>
           <Link to="/">
             <img
-              src="/images/ck-logo.png"
+              src="images/logos/ck-logo.png"
               alt="ck logo"
               className="header-logo"
             />
