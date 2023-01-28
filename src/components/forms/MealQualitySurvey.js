@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Loading from '../reusable/Loading';
 import { submitForm } from '../../actions';
@@ -20,6 +20,7 @@ const Survey = ({ submitForm, error, alert }) => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { phone } = useParams();
 
   useEffect(() => {
     if (error) {
@@ -45,6 +46,7 @@ const Survey = ({ submitForm, error, alert }) => {
         type,
         ingredients,
         days,
+        phone,
       },
       { name: 'MEAL_SURVEY', successMessage }
     );

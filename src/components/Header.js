@@ -57,7 +57,7 @@ const Header = ({ getUser, user, signOut, error }) => {
           </Link>
           <Link to="/">
             <img
-              src="images/logos/ck-logo.png"
+              src="/images/logos/ck-logo.png"
               alt="ck logo"
               className="header-logo"
             />

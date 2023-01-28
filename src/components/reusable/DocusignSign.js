@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import server from '../../actions/api';
 import { setError } from '../../actions';
@@ -8,10 +8,12 @@ import Loading from '../reusable/Loading';
 
 const Docusign = ({ accountType, setError }) => {
   const navigate = useNavigate();
+  const searchParams = useSearchParams()[0];
 
   useEffect(() => {
+    const authCode = searchParams.get('code');
     const getRedirectUrl = async () => {
-      const authCode = window.location.search.replace('?code=', '');
+      // const authCode = window.location.search.replace('?code=', '');
       try {
         const res = await server.post('/docusign/sign', {
           authCode,
@@ -25,7 +27,7 @@ const Docusign = ({ accountType, setError }) => {
       }
     };
     getRedirectUrl();
-  }, [accountType, navigate, setError]);
+  }, [accountType, navigate, setError, searchParams]);
 
   return (
     <div>

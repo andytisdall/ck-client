@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { clearMessages } from '../../actions';
 
-const TextSuccess = ({ alert, clearMessages }) => {
+const TextSuccess = ({ message, clearMessages }) => {
   useEffect(() => {
     return () => clearMessages();
   }, [clearMessages]);
@@ -14,8 +14,15 @@ const TextSuccess = ({ alert, clearMessages }) => {
       <h1>Success!</h1>
       <div className="file-success">
         <p>You have successfully sent this text:</p>
-        <p>Region: {alert.data.region}</p>
-        <p>{alert.data.message}</p>
+        <p>Region: {message.region}</p>
+        <p>{message.message}</p>
+        {message.photoUrl && (
+          <img
+            src={message.photoUrl}
+            alt="attached"
+            className="photo-preview"
+          />
+        )}
       </div>
       <Link to="../">
         <button>Back to Text Home</button>
@@ -25,7 +32,7 @@ const TextSuccess = ({ alert, clearMessages }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { alert: state.alert };
+  return { message: state.text.sent };
 };
 
 export default connect(mapStateToProps, { clearMessages })(TextSuccess);

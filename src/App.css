@@ -78,6 +78,7 @@ input[type=submit], button {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 1rem;
   transition: .3s;
+  cursor: pointer;
 }
 
 input[type=submit] {

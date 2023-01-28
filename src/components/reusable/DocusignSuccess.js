@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import server from '../../actions/api';
@@ -10,10 +10,14 @@ const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
   const [fileCount, setFileCount] = useState(0);
   const [success, setSuccess] = useState(null);
 
+  const searchParams = useSearchParams()[0];
+
   useEffect(() => {
-    const params = window.location.search.split('?')[1].split('&');
-    const envelopeId = params[0].replace('envelopeId=', '');
-    const event = params[1].replace('event=', '');
+    // const params = window.location.search.split('?')[1].split('&');
+    // const envelopeId = params[0].replace('envelopeId=', '');
+    // const event = params[1].replace('event=', '');
+    const event = searchParams.get('event');
+    const envelopeId = searchParams.get('envelopeId');
     if (event === 'signing_complete') {
       setSuccess(true);
       const updateSalesforce = async () => {
@@ -39,7 +43,7 @@ const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
     } else {
       setSuccess(false);
     }
-  }, [accountType, restaurant, user, setError]);
+  }, [accountType, restaurant, user, setError, searchParams]);
 
   const renderFileCount = () => {
     if (fileCount) {

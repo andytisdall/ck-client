@@ -1,7 +1,8 @@
 import { setError } from './error';
+import { setAlert } from './alert';
 import {
   CLEAR_MESSAGES,
-  MESSAGE_SENT,
+  SEND_TEXT,
   ALERT,
   GET_FEEDBACK,
   EDIT_FEEDBACK,
@@ -21,10 +22,17 @@ export const addPhone = (phone, region) => async (dispatch) => {
   }
 };
 
-export const sendText = (message, region) => async (dispatch) => {
+export const sendText = (message, region, photo) => async (dispatch) => {
   try {
-    const res = await server.post('/text/outgoing', { message, region });
-    dispatch({ type: MESSAGE_SENT, payload: res.data });
+    const postBody = new FormData();
+    postBody.append('message', message);
+    postBody.append('region', region);
+    postBody.append('photo', photo);
+    const res = await server.post('/text/outgoing', postBody, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    dispatch({ type: SEND_TEXT, payload: res.data });
+    dispatch(setAlert('Message Sent'));
   } catch (err) {
     dispatch(setError(err));
   }

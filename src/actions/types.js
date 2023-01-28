@@ -6,7 +6,7 @@ export const EDIT_USER = 'EDIT_USER';
 
 export const ERROR = 'ERROR';
 
-export const MESSAGE_SENT = 'MESSAGE_SENT';
+export const SEND_TEXT = 'SEND_TEXT';
 export const GET_FEEDBACK = 'GET_FEEDBACK';
 export const EDIT_FEEDBACK = 'EDIT_FEEDBACK';
 export const DELETE_FEEDBACK = 'DELETE_FEEDBACK';
