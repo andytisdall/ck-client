@@ -18,7 +18,7 @@ const Forms = () => {
 
   return (
     <div className="form-background">
-      <div className="form">
+      <div className="form main">
         {headerImage()}
         <Outlet />
       </div>
