@@ -30,8 +30,8 @@ const Recipe = ({ recipes, getRecipe }) => {
   return (
     <div>
       <img
-        src={`recipes/${recipe.image}`}
-        alt={recipe.name + ' photo'}
+        src={`/api/db/images/${recipe.image}`}
+        alt={recipe.name}
         className="recipe-photo"
       />
       <h1>{recipe.name}</h1>

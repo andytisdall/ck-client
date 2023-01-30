@@ -37,7 +37,7 @@ const SendText = ({ sendText, alert, error }) => {
     }${getAddress()} has been stocked with ${mealCount} meals on ${moment(
       `${date} ${time}`
     ).format(
-      'MM/DD [at] hh:mm a'
+      'M/DD [at] h:mm a'
     )}, made with love by ${source}! The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`;
 
   useEffect(() => {
