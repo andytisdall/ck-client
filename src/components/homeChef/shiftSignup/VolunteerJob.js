@@ -16,10 +16,19 @@ const VolunteerJob = ({ job, shifts }) => {
       .map((shift) => {
         return (
           <div className="job-listing" key={shift.id}>
-            <Link to={`../shift/${shift.id}`}>
-              <button>Sign Up</button>
-            </Link>
-            {moment(shift.startTime).format('MM/DD/YYYY')}
+            {shift.open ? (
+              <Link to={`../shift/${shift.id}`}>
+                <button>Sign Up</button>
+              </Link>
+            ) : (
+              <div className="job-full">full</div>
+            )}
+            <div className={`job-date ${shift.open ? '' : 'job-date-full'}`}>
+              {moment(shift.startTime).format('M/D/YY')}
+            </div>
+            <div className={`job-time ${shift.open ? '' : 'job-date-full'}`}>
+              {moment(shift.startTime).format('dddd')}
+            </div>
           </div>
         );
       });

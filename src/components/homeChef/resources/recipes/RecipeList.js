@@ -22,6 +22,9 @@ const RecipeList = ({ recipes, getRecipes }) => {
   return (
     <div>
       <h1>Recipes</h1>
+      <Link to="add-recipe">
+        <button>Add a Recipe</button>
+      </Link>
       <ul>{renderRecipes()}</ul>
     </div>
   );

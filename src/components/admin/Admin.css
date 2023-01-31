@@ -8,6 +8,7 @@
   padding: 1rem;
   margin-right: 2rem;
   height: fit-content;
+  width: fit-content;
 }
 
 .admin-form {
@@ -24,4 +25,14 @@
 .alert-box {
   height: 200px;
   color: black
+}
+
+.admin-form textarea {
+  height: 200px;
+  width: 300px;
+  margin-bottom: 2rem;
+}
+
+.admin-form label {
+  margin-top: 1rem;
 }

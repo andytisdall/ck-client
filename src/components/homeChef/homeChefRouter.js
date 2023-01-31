@@ -12,11 +12,13 @@ import ShiftSignup from './shiftSignup/ShiftSignup';
 import VolunteerJobsList from './shiftSignup/VolunteerJobsList';
 import Calendar from './shiftSignup/Calendar';
 import VJobSingle from './shiftSignup/VJobSingle';
+import ShiftDetail from './shiftSignup/ShiftDetail';
 // home chef resources
 import Resources from './resources/Resources';
 import ResourcesList from './resources/ResourcesList';
 import RecipeList from './resources/recipes/RecipeList';
 import Recipe from './resources/recipes/Recipe';
+import CreateRecipe from './resources/recipes/CreateRecipe';
 // documents
 import FileSuccess from '../reusable/FileSuccess';
 import DSLogin from '../reusable/DSLogin';
@@ -55,6 +57,7 @@ const homeChefRouter = {
         { path: 'list', element: <VolunteerJobsList /> },
         { path: 'fridge/:jobId', element: <VJobSingle /> },
         { path: 'calendar', element: <Calendar /> },
+        { path: 'shift/:shiftId', element: <ShiftDetail /> },
       ],
     },
     {
@@ -67,6 +70,7 @@ const homeChefRouter = {
           children: [
             { index: true, element: <RecipeList /> },
             { path: ':recipeId', element: <Recipe /> },
+            { path: 'add-recipe', element: <CreateRecipe /> },
           ],
         },
       ],

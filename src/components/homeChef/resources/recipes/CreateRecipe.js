@@ -1,16 +1,34 @@
 import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { createRecipe } from '../../actions';
+import { createRecipe } from '../../../../actions';
 import './CreateRecipe.css';
+import Loading from '../../../reusable/Loading';
 
-const CreateRecipe = ({ createRecipe }) => {
+const CreateRecipe = ({ createRecipe, alert, error }) => {
   const [name, setName] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      setLoading(false);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (alert) {
+      navigate('..');
+    }
+  }, [alert, navigate]);
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     createRecipe(e.target);
     setName('');
@@ -57,11 +75,15 @@ const CreateRecipe = ({ createRecipe }) => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <label htmlFor="image">Photo</label>
-        <input type="file" name="image" />
-        <input type="submit" />
+        <input type="file" name="image" accept="image/*" />
+        {loading ? <Loading /> : <input type="submit" />}
       </form>
     </div>
   );
 };
 
-export default connect(null, { createRecipe })(CreateRecipe);
+const mapStateToProps = (state) => {
+  return { alert: state.alert.message, error: state.error.error };
+};
+
+export default connect(mapStateToProps, { createRecipe })(CreateRecipe);

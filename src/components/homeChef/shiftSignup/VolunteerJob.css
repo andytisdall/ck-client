@@ -23,6 +23,7 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid black;
+  padding: .5rem 0;
 }
 
 .jobs-list {
@@ -37,4 +38,20 @@
 
 .job-location {
   margin-left: 3rem;
+}
+
+.job-full {
+  margin: .5rem 3rem .5rem 2rem;
+  color: red;
+}
+.job-date {
+  font-size: 1.3rem;
+}
+
+.job-date-full {
+  color: grey;
+}
+
+.job-time {
+  margin-left: 1rem;
 }
