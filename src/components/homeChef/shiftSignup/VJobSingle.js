@@ -1,12 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import Loading from '../../reusable/Loading';
 import VolunteerJob from './VolunteerJob';
 
 const VJobSingle = ({ jobs }) => {
   const { jobId } = useParams();
 
-  return <VolunteerJob job={jobs.find((j) => j.Id === jobId)} />;
+  if (!jobs) {
+    return <Loading />;
+  }
+
+  const job = jobs.find((j) => j.id === jobId);
+
+  return <VolunteerJob job={job} />;
 };
 
 const mapStateToProps = (state) => {

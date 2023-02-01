@@ -7,7 +7,7 @@
 }
 
 .home {
-  background-color: black;
+  background-image: linear-gradient(rgb(134, 134, 134), rgb(0, 0, 0));
   color: white;
   display: flex;
   flex-direction: column;

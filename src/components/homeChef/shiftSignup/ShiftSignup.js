@@ -11,8 +11,8 @@ const ShiftSignup = ({ getShifts }) => {
   }, [getShifts]);
 
   return (
-    <div>
-      <h3>Shift Sign Up</h3>
+    <div className="shift-signup">
+      <h1>Town Fridge Sign Up</h1>
       <div className="shift-signup-links">
         <NavLink to="list">
           <button>List View</button>

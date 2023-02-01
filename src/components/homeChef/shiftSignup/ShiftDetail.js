@@ -39,11 +39,14 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error, alert }) => {
   const job = jobs.find((j) => j.id === shift.job);
 
   return (
-    <div>
-      <h2>{moment(shift.startTime).format('dddd, M/D/YY')}</h2>
-      <h3>
-        Enter the number of meals you are commiting to bring to {job.name}
-      </h3>
+    <div className="shift-detail">
+      <h2>
+        Signing up for:{' '}
+        <span className="signup-form-date">
+          {moment(shift.startTime).format('dddd, M/D/YY')}
+        </span>
+      </h2>
+
       <form onSubmit={onSubmit}>
         <label htmlFor="meal-count">Number of Meals:</label>
         <input
@@ -54,6 +57,11 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error, alert }) => {
           value={mealCount}
           onChange={(e) => setMealCount(e.target.value)}
         />
+        <div>
+          Enter the number of meals you are commiting to bring to{' '}
+          <span className="signup-form-fridge">{job.name}</span>.
+        </div>
+        <h3>Click submit to sign up for this slot.</h3>
         {loading ? <Loading /> : <input type="submit" />}
       </form>
     </div>

@@ -1,3 +1,28 @@
+.shift-signup {
+  padding-bottom: 10rem;
+}
+
 .shift-signup-links {
   display: flex;
+}
+
+.shift-detail {
+  margin-top: 3rem;
+margin-left: 2rem;
+border-left: solid 1px rgb(167, 3, 3);
+padding-left: 2rem;
+}
+
+.signup-form-date {
+  color: rgb(167, 3, 3);
+  font-size: 2rem;
+padding-left: 2rem;
+}
+
+.signup-form-fridge {
+  color: rgb(167, 3, 3);
+}
+
+.shift-detail h3 {
+  margin-top: 3rem;
 }

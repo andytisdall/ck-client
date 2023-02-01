@@ -45,7 +45,7 @@ const Onboarding = ({ getRestaurant, restaurant, user }) => {
 
   return (
     <div className="main onboarding">
-      <h1 className="page-header">Onboarding</h1>
+      <h1 className="page-header">Meal Program Onboarding</h1>
       {user && loading && <Loading />}
       {user && restaurant && renderRestaurant()}
       {!user && renderSignIn()}

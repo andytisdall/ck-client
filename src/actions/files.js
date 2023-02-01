@@ -26,7 +26,9 @@ export const uploadFiles =
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       dispatch(
-        setAlert(`You have successfully uploaded ${res.data.filesAdded} files`)
+        setAlert(
+          `You have successfully uploaded ${res.data.numberOfFilesUploaded} files`
+        )
       );
     } catch (err) {
       dispatch(setError(err));
