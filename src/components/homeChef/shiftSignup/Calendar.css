@@ -70,6 +70,8 @@
   cursor: pointer;
 }
 
+
+
 .calendar-job-0 {
   background-color: rgb(193, 255, 193);
 }
@@ -120,4 +122,13 @@
 
 .calendar-set-current {
   font-size: 12px;
+}
+.calendar-shift-disabled {
+  background-color: rgb(202, 202, 202);
+  opacity: .5;
+  cursor:default
+}
+
+.calendar-shift-disabled:hover {
+  background-color: rgb(202, 202, 202);
 }

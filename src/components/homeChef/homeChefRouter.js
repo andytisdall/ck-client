@@ -13,6 +13,7 @@ import VolunteerJobsList from './shiftSignup/VolunteerJobsList';
 import Calendar from './shiftSignup/Calendar';
 import VJobSingle from './shiftSignup/VJobSingle';
 import ShiftDetail from './shiftSignup/ShiftDetail';
+import ChefShifts from './chef/ChefShifts';
 // home chef resources
 import Resources from './resources/Resources';
 import ResourcesList from './resources/ResourcesList';
@@ -60,6 +61,7 @@ const homeChefRouter = {
         { path: 'shift/:shiftId', element: <ShiftDetail /> },
       ],
     },
+    { path: 'chef', element: <ChefShifts /> },
     {
       path: 'resources',
       element: <Resources />,

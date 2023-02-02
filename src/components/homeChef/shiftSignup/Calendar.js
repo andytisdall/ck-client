@@ -40,11 +40,13 @@ const Calendar = ({ jobs, shifts }) => {
         dayShifts = orderedShifts[d].map((sh) => {
           const jobIndex = jobs.findIndex((j) => j.id === sh.job);
           const job = jobs[jobIndex];
+          const status = sh.open ? '' : 'calendar-shift-disabled';
+          const link = () => navigate('../shift/' + sh.id);
           return (
             <div
               key={sh.id}
-              className={`calendar-item calendar-job-${jobIndex}`}
-              onClick={() => navigate('../shift/' + sh.id)}
+              className={`calendar-item calendar-job-${jobIndex} ${status}`}
+              onClick={() => sh.open && link()}
             >
               {job.name}
             </div>
@@ -58,7 +60,7 @@ const Calendar = ({ jobs, shifts }) => {
         </div>
       );
     });
-  }, [month, jobs, orderedShifts]);
+  }, [month, jobs, orderedShifts, navigate]);
 
   const calendar = () => {
     return <div className="calendar">{getDays()}</div>;

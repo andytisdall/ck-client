@@ -15,7 +15,7 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error, alert }) => {
 
   useEffect(() => {
     if (alert) {
-      navigate('..');
+      navigate('../../chef');
     }
   }, [alert, navigate]);
 
@@ -37,6 +37,10 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error, alert }) => {
 
   const shift = shifts[shiftId];
   const job = jobs.find((j) => j.id === shift.job);
+
+  if (!shift.open) {
+    return <p>This shift is not available for signup</p>;
+  }
 
   return (
     <div className="shift-detail">
