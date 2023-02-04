@@ -37,7 +37,7 @@ const SendText = ({ sendText, alert, error }) => {
     }${getAddress()} has been stocked with ${mealCount} meals on ${moment(
       `${date} ${time}`
     ).format(
-      'M/DD [at] h:mm a'
+      'M/D [at] h:mm a'
     )}, made with love by ${source}! The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`;
 
   useEffect(() => {
@@ -62,14 +62,7 @@ const SendText = ({ sendText, alert, error }) => {
   const processPhoto = (e) => {
     const { files } = e.target;
     if (files[0]) {
-      // const reader = new FileReader();
-      // reader.onload = () => {
-      //   setPhoto(reader.result);
-      // };
-      // reader.readAsDataURL(files[0]);
       setPhoto(files[0]);
-    } else {
-      setPhoto(null);
     }
   };
 
@@ -166,6 +159,19 @@ const SendText = ({ sendText, alert, error }) => {
 
           <div className="send-text-variables-item">
             <label htmlFor="photo">Photo (optional):</label>
+            <div className="file-input-container">
+              <label htmlFor="photo" className="file-input">
+                choose file
+              </label>
+              {photo ? (
+                <>
+                  <div className="file-name">{photo.name}</div>
+                  <div onClick={() => setPhoto(null)} className="file-delete">
+                    x
+                  </div>
+                </>
+              ) : null}
+            </div>
             <input type="file" id="photo" onChange={processPhoto} />
           </div>
 

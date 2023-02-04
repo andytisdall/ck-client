@@ -22,6 +22,17 @@ const Recipe = ({ recipes, getRecipe }) => {
   };
 
   const recipe = recipes[recipeId];
+  const renderImage = () => {
+    if (recipe.image) {
+      return (
+        <img
+          src={`/api/db/images/${recipe.image}`}
+          alt={recipe.name}
+          className="recipe-photo"
+        />
+      );
+    }
+  };
 
   if (!recipe) {
     return <Loading />;
@@ -29,11 +40,7 @@ const Recipe = ({ recipes, getRecipe }) => {
 
   return (
     <div>
-      <img
-        src={`/api/db/images/${recipe.image}`}
-        alt={recipe.name}
-        className="recipe-photo"
-      />
+      {renderImage()}
       <h1>{recipe.name}</h1>
       <h3>{recipe.description}</h3>
       <h2>Ingredients:</h2>
