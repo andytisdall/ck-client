@@ -7,7 +7,7 @@ import { setError } from '../../actions';
 import Loading from '../reusable/Loading';
 
 const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
-  const [fileCount, setFileCount] = useState(0);
+  const [fileCount, setFileCount] = useState(null);
   const [success, setSuccess] = useState(null);
 
   const searchParams = useSearchParams()[0];
@@ -46,7 +46,7 @@ const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
   }, [accountType, restaurant, user, setError, searchParams]);
 
   const renderFileCount = () => {
-    if (fileCount) {
+    if (fileCount !== null) {
       return (
         <div>
           <p>{fileCount} document(s) uploaded.</p>

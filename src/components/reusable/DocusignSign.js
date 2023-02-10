@@ -11,12 +11,12 @@ const Docusign = ({ accountType, setError }) => {
   const searchParams = useSearchParams()[0];
 
   useEffect(() => {
-    const authCode = searchParams.get('code');
+    // const authCode = searchParams.get('code');
     const getRedirectUrl = async () => {
       // const authCode = window.location.search.replace('?code=', '');
       try {
         const res = await server.post('/docusign/sign', {
-          authCode,
+          // authCode,
           accountType,
         });
         const redirectUrl = res.data;

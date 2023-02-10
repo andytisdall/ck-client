@@ -5,7 +5,7 @@ const HomeChefDocuments = () => {
     <div>
       <h2>Upload Your Documents</h2>
       <div className="col">
-        <Link to="../docusign/login" className="home-link">
+        <Link to="../docusign/sign" className="home-link">
           Sign the Volunteer Agreement
         </Link>
         <Link to="../upload-food-handler" className="home-link">
