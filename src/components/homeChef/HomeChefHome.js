@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const HomeChefHome = () => {
   return (
     <div>
-      <Link to="signup" className="home-link">
+      <Link to="signup/list" className="home-link">
         Sign Up to Stock a Town Fridge
       </Link>
       <Link to="chef" className="home-link">

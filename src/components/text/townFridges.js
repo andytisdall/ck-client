@@ -5,27 +5,27 @@ export const REGIONS = {
 
 export const townFridges = [
   {
-    name: 'Bartlett Town Fridge',
+    name: 'Bartlett',
     address: '2440 Bartlett St',
     region: REGIONS.EAST_OAKLAND,
   },
   {
-    name: 'Homies Town Fridge',
+    name: 'Homies',
     address: '7631 MacArthur Blvd',
     region: REGIONS.EAST_OAKLAND,
   },
   {
-    name: 'Omni Commons Town Fridge',
+    name: 'Omni Commons',
     address: '4799 Shattuck Ave',
     region: REGIONS.WEST_OAKLAND,
   },
   {
-    name: 'City Slickers Town Fridge',
+    name: 'City Slicker Farms',
     address: '2847 Peralta St',
     region: REGIONS.WEST_OAKLAND,
   },
   {
-    name: '44th St. & Telegraph Town Fridge',
+    name: '44th St. & Telegraph',
     region: REGIONS.WEST_OAKLAND,
   },
 ];

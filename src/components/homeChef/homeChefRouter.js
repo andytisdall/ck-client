@@ -98,10 +98,6 @@ const homeChefRouter = {
               element: <DocusignSign accountType="contact" />,
             },
             {
-              path: 'login',
-              element: <DSLogin accountType="contact" />,
-            },
-            {
               path: 'success',
               element: <DocusignSuccess accountType="contact" />,
             },
