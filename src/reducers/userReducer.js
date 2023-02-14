@@ -7,6 +7,7 @@ import {
   SIGN_OUT,
   EDIT_USER,
   GET_USER_INFO,
+  UPLOAD_FILES,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -39,6 +40,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
       };
     case GET_USER_INFO:
       return { ...state, user: { ...state.user, ...action.payload } };
+    case UPLOAD_FILES:
+      const filesAdded = action.payload;
+      const newUser = { ...state.user };
+      if (filesAdded.includes('Food Handler Certification')) {
+        newUser.foodHandler = true;
+      }
+      if (filesAdded.includes('Volunteer Agreement')) {
+        newUser.volunteerAgreement = true;
+      }
+      return { ...state, user: newUser };
     default:
       return state;
   }

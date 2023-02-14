@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
+import { getUserInfo } from '../../actions';
 import './HomeChef.css';
 import HomeChefHome from './HomeChefHome';
 //home chef onboarding
@@ -26,7 +28,11 @@ import FileSuccess from '../reusable/FileSuccess';
 import DocusignSign from '../reusable/DocusignSign';
 import DocusignSuccess from '../reusable/DocusignSuccess';
 
-const OnboardingHome = ({ user }) => {
+const HomeChef = ({ user, getUserInfo }) => {
+  useEffect(() => {
+    getUserInfo();
+  }, [getUserInfo]);
+
   const renderSignIn = () => {
     return <h3>Sign in to access this page.</h3>;
   };
@@ -46,7 +52,7 @@ const mapStateToProps = (state) => {
   return { user: state.user.user };
 };
 
-const ConnectedHomeChef = connect(mapStateToProps)(OnboardingHome);
+const ConnectedHomeChef = connect(mapStateToProps, { getUserInfo })(HomeChef);
 
 const homeChefRouter = {
   path: 'home-chef',

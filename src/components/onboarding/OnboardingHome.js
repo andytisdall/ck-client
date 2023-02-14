@@ -3,34 +3,27 @@ import { connect } from 'react-redux';
 
 const OnboardingHome = ({ restaurant }) => {
   const renderChecklist = () => {
+    const renderAsLi = (doc) => {
+      return <li key={doc}>{doc}</li>;
+    };
+
+    if (!restaurant.remainingDocs.length) {
+      return <div>You have completed all onboarding actions</div>;
+    }
+
     return (
       <div>
         <h4>Checklist</h4>
         <div className="onboarding-checklist">
           <div>Completed Documents:</div>
-          <ul>
-            {restaurant.completedDocs.map((doc) => {
-              return (
-                <li key={doc} className="completed-doc">
-                  {doc}
-                </li>
-              );
-            })}
+          <ul className="completed-doc">
+            {restaurant.completedDocs.map(renderAsLi)}
           </ul>
-          {restaurant.remainingDocs ? (
-            <>
-              <div>Documents to Complete:</div>
-              <ul>
-                {restaurant.remainingDocs.map((doc) => {
-                  return (
-                    <li key={doc} className="incomplete-doc">
-                      {doc}
-                    </li>
-                  );
-                })}
-              </ul>
-            </>
-          ) : null}
+
+          <div>Documents to Complete:</div>
+          <ul className="incomplete-doc">
+            {restaurant.remainingDocs.map(renderAsLi)}
+          </ul>
         </div>
       </div>
     );

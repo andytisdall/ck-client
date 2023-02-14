@@ -4,29 +4,19 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import './ChefShifts.css';
-import { getHours, getShifts, getUserInfo } from '../../../actions';
+import { getHours, getShifts } from '../../../actions';
 import Loading from '../../reusable/Loading';
 
-const ChefShifts = ({
-  jobs,
-  getHours,
-  hours,
-  getShifts,
-  user,
-  getUserInfo,
-}) => {
+const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
   const [upcomingExpand, setUpcomingExpand] = useState(false);
   const [pastExpand, setPastExpand] = useState(false);
 
   useEffect(() => {
     getShifts();
     getHours();
-    if (!user.firstName) {
-      getUserInfo();
-    }
-  }, [getHours, getShifts, user, getUserInfo]);
+  }, [getHours, getShifts]);
 
-  const renderShift = (shift, period) => {
+  const renderShift = (shift) => {
     const job = jobs.find((j) => j.id === shift.job);
     return (
       <li className="chef-hours" key={shift.id}>
@@ -70,7 +60,7 @@ const ChefShifts = ({
         filterFunc = (h) => h.time > moment().format();
       }
       const renderedList = hoursArray.filter(filterFunc).map((hour) => {
-        return renderShift(hour, period);
+        return renderShift(hour);
       });
       if (renderedList.length) {
         return <ul>{renderedList}</ul>;
@@ -130,6 +120,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getHours, getShifts, getUserInfo })(
-  ChefShifts
-);
+export default connect(mapStateToProps, { getHours, getShifts })(ChefShifts);

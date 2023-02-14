@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../reusable/FileUpload';
@@ -28,10 +28,18 @@ const UploadFoodHandler = ({ alert, error, uploadFiles }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <FileUpload doc={requiredDocuments.foodHandler} />
-      {loading ? <Loading /> : <input type="submit" />}
-    </form>
+    <div>
+      <form onSubmit={onSubmit}>
+        <FileUpload doc={requiredDocuments.foodHandler} />
+        {loading ? <Loading /> : <input type="submit" />}
+      </form>
+      <p>
+        Don't have your food handler certificate yet?{' '}
+        <Link className="retro-link" to="">
+          Click here to apply.
+        </Link>
+      </p>
+    </div>
   );
 };
 
