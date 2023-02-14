@@ -14,6 +14,7 @@ import Calendar from './shiftSignup/Calendar';
 import VJobSingle from './shiftSignup/VJobSingle';
 import ShiftDetail from './shiftSignup/ShiftDetail';
 import ChefShifts from './chef/ChefShifts';
+import EditShift from './chef/EditShift';
 // home chef resources
 import Resources from './resources/Resources';
 import ResourcesList from './resources/ResourcesList';
@@ -22,7 +23,6 @@ import Recipe from './resources/recipes/Recipe';
 import CreateRecipe from './resources/recipes/CreateRecipe';
 // documents
 import FileSuccess from '../reusable/FileSuccess';
-import DSLogin from '../reusable/DSLogin';
 import DocusignSign from '../reusable/DocusignSign';
 import DocusignSuccess from '../reusable/DocusignSuccess';
 
@@ -61,7 +61,13 @@ const homeChefRouter = {
         { path: 'shift/:shiftId', element: <ShiftDetail /> },
       ],
     },
-    { path: 'chef', element: <ChefShifts /> },
+    {
+      path: 'chef',
+      children: [
+        { index: true, element: <ChefShifts /> },
+        { path: 'edit-shift/:id', element: <EditShift /> },
+      ],
+    },
     {
       path: 'resources',
       element: <Resources />,

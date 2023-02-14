@@ -52,9 +52,8 @@ const Header = ({ getUser, user, signOut, error }) => {
     <>
       <div className="header">
         <div className="header-left">
-          <Link to=".." relative="path">
-            <button>Back</button>
-          </Link>
+          <button onClick={() => navigate(-1)}>Back</button>
+
           <Link to="/">
             <img
               src="/images/logos/ck-logo.png"

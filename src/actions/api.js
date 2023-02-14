@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const baseURL = process.env.NODE_ENV === 'production' ? 'https://coherent-vision-368820.uw.r.appspot.com/api' : 'http://localhost:3001/api'
+const baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://coherent-vision-368820.uw.r.appspot.com/api'
+    : 'http://localhost:3001/api';
 
 const instance = axios.create({
   baseURL,

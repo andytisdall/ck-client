@@ -4,15 +4,25 @@ import {
   GET_ALL_USERS,
   CREATE_USER,
   EDIT_USER,
+  GET_USER_INFO,
 } from './types';
 import server from './api';
 import { setError } from './error';
 import { setAlert } from './alert';
 
-export const getUser = (token) => async (dispatch) => {
+export const getUser = () => async (dispatch) => {
   try {
     const res = await server.get('/user');
     dispatch({ type: SIGN_IN, payload: res.data });
+  } catch (err) {
+    dispatch(setError(err));
+  }
+};
+
+export const getUserInfo = () => async (dispatch) => {
+  try {
+    const res = await server.get('/user/userInfo');
+    dispatch({ type: GET_USER_INFO, payload: res.data });
   } catch (err) {
     dispatch(setError(err));
   }

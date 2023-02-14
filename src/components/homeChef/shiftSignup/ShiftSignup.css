@@ -9,20 +9,25 @@
 .shift-detail {
   margin-top: 3rem;
 margin-left: 2rem;
-border-left: solid 1px rgb(167, 3, 3);
+border-left: solid 1px rgb(161, 30, 148);
 padding-left: 2rem;
 }
 
 .signup-form-date {
-  color: rgb(167, 3, 3);
+  color: rgb(161, 30, 148);
   font-size: 2rem;
-padding-left: 2rem;
+padding-left: 1rem;
 }
 
 .signup-form-fridge {
-  color: rgb(167, 3, 3);
+  color: rgb(161, 30, 148);
 }
 
 .shift-detail h3 {
-  margin-top: 3rem;
+  margin-top: 1rem;
+}
+
+.shift-signup-form {
+  padding-top: 1rem;
+  margin-left: 2rem;
 }

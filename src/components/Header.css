@@ -58,7 +58,9 @@
 .main {
   padding: 1.5rem;
   min-height: 85vh;
+  height: fit-content;
   padding-bottom: 5rem;
+  min-width: fit-content 
 }
 
 .user-link, .user-link:visited {

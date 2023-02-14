@@ -51,7 +51,12 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error, alert }) => {
         </span>
       </h2>
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="shift-signup-form">
+        <div>
+          Enter the number of meals you are commiting to bring to{' '}
+          <span className="signup-form-fridge">{job.name}</span>.
+        </div>
+        <br></br>
         <label htmlFor="meal-count">Number of Meals:</label>
         <input
           type="number"
@@ -61,10 +66,7 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error, alert }) => {
           value={mealCount}
           onChange={(e) => setMealCount(e.target.value)}
         />
-        <div>
-          Enter the number of meals you are commiting to bring to{' '}
-          <span className="signup-form-fridge">{job.name}</span>.
-        </div>
+
         <h3>Click submit to sign up for this slot.</h3>
         {loading ? <Loading /> : <input type="submit" />}
       </form>

@@ -6,10 +6,11 @@ import {
   SIGN_IN,
   SIGN_OUT,
   EDIT_USER,
+  GET_USER_INFO,
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  user: null,
+  user: undefined,
   users: {},
 };
 
@@ -36,6 +37,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
         user,
         users: { ...state.users, [action.payload.id]: action.payload },
       };
+    case GET_USER_INFO:
+      return { ...state, user: { ...state.user, ...action.payload } };
     default:
       return state;
   }

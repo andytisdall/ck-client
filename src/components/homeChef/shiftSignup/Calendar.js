@@ -48,7 +48,7 @@ const Calendar = ({ jobs, shifts }) => {
               className={`calendar-item calendar-job-${jobIndex} ${status}`}
               onClick={() => sh.open && link()}
             >
-              {job.name}
+              {job.name.replace('Town Fridge', '')}
             </div>
           );
         });

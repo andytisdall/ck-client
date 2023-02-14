@@ -28,6 +28,7 @@ const VolunteerJob = ({ job, shifts }) => {
             </div>
             <div className={`job-time ${shift.open ? '' : 'job-date-full'}`}>
               {moment(shift.startTime).format('dddd')}
+              <span className="job-name-small"> - {job.name}</span>
             </div>
           </div>
         );
@@ -44,7 +45,13 @@ const VolunteerJob = ({ job, shifts }) => {
         </div>
         <h3>{job.name}</h3>
       </div>
-      <div className="job-location">{expand && <h4>{job.location}</h4>}</div>
+      <div className="job-location">
+        {expand && (
+          <div>
+            Location: <span>{job.location}</span>
+          </div>
+        )}
+      </div>
       <div className="shift-list">{expand && renderShifts()}</div>
     </div>
   );

@@ -3,6 +3,7 @@ export const SIGN_OUT = 'SIGN_OUT';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const CREATE_USER = 'CREATE_USER';
 export const EDIT_USER = 'EDIT_USER';
+export const GET_USER_INFO = 'GET_USER_INFO';
 
 export const ERROR = 'ERROR';
 
@@ -26,5 +27,6 @@ export const EDIT_RECIPE = 'EDIT_RECIPE';
 export const GET_SHIFTS = 'GET_SHIFTS';
 export const SIGN_UP_FOR_SHIFT = 'SIGN_UP_FOR_SHIFT';
 export const GET_HOURS = 'GET_HOURS';
+export const EDIT_HOURS = 'EDIT_HOURS';
 
 export const SUBMIT_FORM = 'SUBMIT_FORM';

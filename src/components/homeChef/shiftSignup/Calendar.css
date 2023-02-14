@@ -1,7 +1,7 @@
 .calendar {
   display: grid;
-  grid-template-columns: repeat(7, minmax(8rem, 15rem));
-  grid-auto-rows: 12rem;
+  grid-template-columns: repeat(7, minmax(10rem, 15rem));
+  grid-auto-rows: 13rem;
   width: 90%;
 }
 
@@ -18,11 +18,11 @@
   height: 1rem;
   width: 1rem;
   margin-bottom: .5rem;
-  padding: .5rem;
+  padding: .3rem;
   background-color: rgb(195, 195, 195);
-  border: 1px black solid;
+  border: 1px rgb(109, 109, 109) solid;
   border-radius: 50px;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 .calendar-top {
@@ -64,8 +64,8 @@
 .calendar-item {
   border: 1px solid black;
   border-radius: 5px;
-  padding: 5px 10px;
-  font-size: .8rem;
+  padding: 5px 7px;
+  font-size: .7rem;
   margin-bottom: 5px;
   cursor: pointer;
 }

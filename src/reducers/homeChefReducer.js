@@ -1,6 +1,11 @@
 import _ from 'lodash';
 
-import { GET_SHIFTS, SIGN_UP_FOR_SHIFT, GET_HOURS } from '../actions/types';
+import {
+  GET_SHIFTS,
+  SIGN_UP_FOR_SHIFT,
+  GET_HOURS,
+  EDIT_HOURS,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   jobs: null,
@@ -25,6 +30,10 @@ const homeChefReducer = (state = INITIAL_STATE, action) => {
       };
     case GET_HOURS:
       return { ...state, hours: _.mapKeys(action.payload, (i) => i.id) };
+    case EDIT_HOURS:
+      const hours = state.hours[action.payload.id];
+      const newHours = { ...hours, ...action.payload };
+      return { ...state, hours: { ...state.hours, [newHours.id]: newHours } };
     default:
       return state;
   }

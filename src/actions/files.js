@@ -21,8 +21,9 @@ export const uploadFiles =
       accountId = getState().user.user.id;
     }
     postBody.append('accountId', accountId);
+    postBody.append('accountType', accountType);
     try {
-      const res = await server.post('/files/' + accountType, postBody, {
+      const res = await server.post('/files', postBody, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       dispatch(

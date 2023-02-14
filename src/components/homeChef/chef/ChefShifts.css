@@ -3,7 +3,30 @@
 }
 
 .chef-hours-list {
-  margin-left: 3rem;
+  /* margin-left: 3rem; */
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.chef-hours-date {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.chef-hours-meals {
+  background-color: rgba(210, 255, 47, 0.558);
+  padding: 5px 7px;
+  border-radius: 25px;
+}
+
+.chef-hours-edit {
+  margin-left: 1rem;
+  background-color:rgba(153, 53, 247, 0.346);
+  padding: 5px 7px;
+  font-size: .7rem;
+  border-radius: 25px;
+}
+
+.chef-total-meals {
+  padding-bottom: 1rem;
 }

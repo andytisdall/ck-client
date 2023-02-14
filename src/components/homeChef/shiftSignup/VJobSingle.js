@@ -13,7 +13,11 @@ const VJobSingle = ({ jobs }) => {
 
   const job = jobs.find((j) => j.id === jobId);
 
-  return <VolunteerJob job={job} />;
+  return (
+    <div className="jobs-list">
+      <VolunteerJob job={job} />
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
