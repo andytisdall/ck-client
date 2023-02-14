@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 
 import './HomeChef.css';
 import HomeChefHome from './HomeChefHome';
@@ -33,7 +33,9 @@ const OnboardingHome = ({ user }) => {
 
   return (
     <div className="main home-chef">
-      <h1 className="page-header">Home Chef</h1>
+      <Link to="/home-chef">
+        <h1 className="page-header">Home Chef</h1>
+      </Link>
       {user && <Outlet />}
       {!user && renderSignIn()}
     </div>

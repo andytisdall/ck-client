@@ -8,6 +8,7 @@ import recipeReducer from './recipeReducer';
 import homeChefReducer from './homeChefReducer';
 import formsReducer from './formReducer';
 import textReducer from './textReducer';
+import fileReducer from './fileReducer';
 
 const appReducer = combineReducers({
   user: userReducer,
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
   homeChef: homeChefReducer,
   forms: formsReducer,
   text: textReducer,
+  files: fileReducer,
 });
 
 export default appReducer;

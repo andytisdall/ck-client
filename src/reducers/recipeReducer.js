@@ -5,6 +5,7 @@ import {
   GET_RECIPES,
   CREATE_RECIPE,
   EDIT_RECIPE,
+  DELETE_RECIPE,
 } from '../actions/types';
 
 const recipeReducer = (state = {}, action) => {
@@ -17,6 +18,10 @@ const recipeReducer = (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload };
     case EDIT_RECIPE:
       return { ...state, [action.payload.id]: action.payload };
+    case DELETE_RECIPE:
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
     default:
       return state;
   }

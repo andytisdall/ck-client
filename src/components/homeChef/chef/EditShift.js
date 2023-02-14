@@ -32,6 +32,7 @@ const EditShift = ({ hours, getHours, editHours }) => {
 
   return (
     <div>
+      <h2>Edit Home Chef Delivery Details</h2>
       <div>Date: {moment(hour.time).format('M/D/YY')}</div>
 
       <label>Number of Meals:</label>

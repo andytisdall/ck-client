@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Outlet, Link } from 'react-router-dom';
 
 import './Onboarding.css';
 import { getRestaurant } from '../../actions';
-import { Outlet } from 'react-router-dom';
 import OnboardingHome from './OnboardingHome';
 import Documents from './Documents';
 import FileSuccess from '../reusable/FileSuccess';
 import DocusignSign from '../reusable/DocusignSign';
-import DSLogin from '../reusable/DSLogin';
 import DocusignSuccess from '../reusable/DocusignSuccess';
 import Loading from '../reusable/Loading';
 
@@ -45,7 +44,9 @@ const Onboarding = ({ getRestaurant, restaurant, user }) => {
 
   return (
     <div className="main onboarding">
-      <h1 className="page-header">Meal Program Onboarding</h1>
+      <Link to="/onboarding">
+        <h1 className="page-header">Meal Program Onboarding</h1>
+      </Link>
       {user && loading && <Loading />}
       {user && restaurant && renderRestaurant()}
       {!user && renderSignIn()}
@@ -74,7 +75,6 @@ const onboardingRouter = {
           path: 'sign',
           element: <DocusignSign accountType="restaurant" />,
         },
-        { path: 'login', element: <DSLogin accountType="restaurant" /> },
         {
           path: 'success',
           element: <DocusignSuccess accountType="restaurant" />,

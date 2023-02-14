@@ -1,6 +1,7 @@
 import server from './api';
 import { setError } from './error';
 import { setAlert } from './alert';
+import { UPLOAD_FILES } from './types';
 
 export const uploadFiles =
   (form, accountType) => async (dispatch, getState) => {
@@ -26,9 +27,10 @@ export const uploadFiles =
       const res = await server.post('/files', postBody, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+      dispatch({ type: UPLOAD_FILES, payload: res.data.filesAdded });
       dispatch(
         setAlert(
-          `You have successfully uploaded ${res.data.numberOfFilesUploaded} files`
+          `You have successfully uploaded ${res.data.filesAdded.length} files`
         )
       );
     } catch (err) {

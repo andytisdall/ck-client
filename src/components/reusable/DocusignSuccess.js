@@ -2,71 +2,46 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import server from '../../actions/api';
-import { setError } from '../../actions';
+import { uploadDocsToSalesforce } from '../../actions';
 import Loading from '../reusable/Loading';
 
-const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
-  const [fileCount, setFileCount] = useState(null);
+const DocusignSuccess = ({
+  accountType,
+  uploadDocsToSalesforce,
+  alert,
+  error,
+}) => {
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const searchParams = useSearchParams()[0];
 
   useEffect(() => {
-    // const params = window.location.search.split('?')[1].split('&');
-    // const envelopeId = params[0].replace('envelopeId=', '');
-    // const event = params[1].replace('event=', '');
     const event = searchParams.get('event');
     const envelopeId = searchParams.get('envelopeId');
     if (event === 'signing_complete') {
-      setSuccess(true);
-      const updateSalesforce = async () => {
-        let account;
-        if (accountType === 'restaurant') {
-          account = restaurant;
-        }
-        if (accountType === 'contact') {
-          account = user;
-        }
-        try {
-          const { data } = await server.post('/docusign/getDoc', {
-            accountId: account.id,
-            envelopeId,
-            accountType,
-          });
-          setFileCount(data.filesAdded);
-        } catch (err) {
-          setError(err);
-        }
-      };
-      updateSalesforce();
+      uploadDocsToSalesforce(accountType, envelopeId);
     } else {
       setSuccess(false);
+      setLoading(false);
     }
-  }, [accountType, restaurant, user, setError, searchParams]);
+  }, [accountType, searchParams, uploadDocsToSalesforce]);
 
-  const renderFileCount = () => {
-    if (fileCount !== null) {
-      return (
-        <div>
-          <p>{fileCount} document(s) uploaded.</p>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <p>Uploading signed documents...</p>
-          <Loading />
-        </div>
-      );
+  useEffect(() => {
+    if (alert) {
+      setSuccess(true);
+      setLoading(false);
     }
-  };
+    if (error) {
+      setSuccess(false);
+      setLoading(false);
+    }
+  }, [error, alert]);
 
   const renderSuccess = () => {
     return (
       <>
-        <h2>Docs Signed Successfully</h2>
-        {renderFileCount()}
+        <h2>Signing Successful and Documents uploaded.</h2>
       </>
     );
   };
@@ -77,9 +52,14 @@ const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
 
   return (
     <div>
-      {success && renderSuccess()}
+      {!loading && success && renderSuccess()}
       {success === false && renderFailure()}
-      {success === null && <Loading />}
+      {success === null && (
+        <div>
+          <p>Uploading Signed Documents...</p>
+          <Loading />
+        </div>
+      )}
       <Link to="../..">
         <button>Go back to Section Home</button>
       </Link>
@@ -88,7 +68,14 @@ const DocusignSuccess = ({ restaurant, accountType, user, setError }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { restaurant: state.restaurant.restaurant, user: state.user.user };
+  return {
+    restaurant: state.restaurant.restaurant,
+    user: state.user.user,
+    alert: state.alert.message,
+    error: state.error.error,
+  };
 };
 
-export default connect(mapStateToProps, { setError })(DocusignSuccess);
+export default connect(mapStateToProps, { uploadDocsToSalesforce })(
+  DocusignSuccess
+);

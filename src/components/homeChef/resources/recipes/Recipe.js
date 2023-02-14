@@ -1,19 +1,53 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import CreateRecipe from './CreateRecipe';
 import Loading from '../../../reusable/Loading';
-import { getRecipe } from '../../../../actions';
+import { getRecipe, deleteRecipe } from '../../../../actions';
 import './Recipe.css';
 
-const Recipe = ({ recipes, getRecipe }) => {
+const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
   const { recipeId } = useParams();
+  const [loading, setLoading] = useState(!recipes[recipeId]);
+  const [edit, setEdit] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!recipes[recipeId]) {
       getRecipe(recipeId);
+    } else {
+      setLoading(false);
     }
   }, [recipes, recipeId, getRecipe]);
+
+  useEffect(() => {
+    if (error) {
+      setLoading(false);
+    }
+  }, [error]);
+
+  const renderAdmin = () => {
+    if (user.admin) {
+      return (
+        <div className="recipe-admin">
+          <div className="recipe-edit" onClick={() => setEdit(!edit)}>
+            edit this recipe
+          </div>
+          {edit && <CreateRecipe recipe={recipes[recipeId]} />}
+          <div
+            className="recipe-delete"
+            onClick={() => {
+              deleteRecipe(recipeId);
+              navigate('..');
+            }}
+          >
+            delete this recipe
+          </div>
+        </div>
+      );
+    }
+  };
 
   const renderList = (list) => {
     return list.map((i) => {
@@ -26,7 +60,7 @@ const Recipe = ({ recipes, getRecipe }) => {
     if (recipe.image) {
       return (
         <img
-          src={`/api/db/images/${recipe.image}`}
+          src={`/api/files/images/${recipe.image}`}
           alt={recipe.name}
           className="recipe-photo"
         />
@@ -34,25 +68,39 @@ const Recipe = ({ recipes, getRecipe }) => {
     }
   };
 
-  if (!recipe) {
+  if (loading) {
     return <Loading />;
   }
 
+  if (!recipe) {
+    return <p>Recipe not found.</p>;
+  }
+
   return (
-    <div>
+    <div className="recipe">
+      <Link to="..">
+        <button>All Recipes</button>
+      </Link>
+      <h1 className="recipe-title">{recipe.name}</h1>
       {renderImage()}
-      <h1>{recipe.name}</h1>
-      <h3>{recipe.description}</h3>
+
+      <h3 className="recipe-description">{recipe.description}</h3>
       <h2>Ingredients:</h2>
       <ul>{renderList(recipe.ingredients)}</ul>
       <h2>Instructions:</h2>
       <ol>{renderList(recipe.instructions)}</ol>
+      {recipe.author ? <h3>Author: {recipe.author}</h3> : null}
+      {renderAdmin()}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { recipes: state.recipes };
+  return {
+    recipes: state.recipes,
+    user: state.user.user,
+    error: state.error.error,
+  };
 };
 
-export default connect(mapStateToProps, { getRecipe })(Recipe);
+export default connect(mapStateToProps, { getRecipe, deleteRecipe })(Recipe);

@@ -1,3 +1,38 @@
+.recipe {
+  display: flex;
+  flex-direction: column;
+}
+
 .recipe-photo {
-  max-width: 500px;
+  max-width: 50%;
+  align-self: center;
+}
+
+.recipe-description {
+  padding-top: 1rem;
+  align-self: center;
+}
+
+.recipe-admin {
+  padding-top: 2rem;
+  font-size: .7rem;
+}
+
+.recipe-edit {
+  color: rgb(8, 8, 153);
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.recipe-delete {
+  padding-top: 5px;
+  color: rgb(138, 0, 0);
+  cursor: pointer;
+}
+
+.recipe-title {
+  font-size: 4rem;
+  align-self: center;
+  border-bottom: black solid 3px;
+  width: fit-content
 }

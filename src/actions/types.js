@@ -23,6 +23,7 @@ export const GET_RECIPES = 'GET_RECIPES';
 export const GET_RECIPE = 'GET_RECIPE';
 export const CREATE_RECIPE = 'CREATE_RECIPE';
 export const EDIT_RECIPE = 'EDIT_RECIPE';
+export const DELETE_RECIPE = 'DELETE_RECIPE';
 
 export const GET_SHIFTS = 'GET_SHIFTS';
 export const SIGN_UP_FOR_SHIFT = 'SIGN_UP_FOR_SHIFT';
@@ -30,3 +31,6 @@ export const GET_HOURS = 'GET_HOURS';
 export const EDIT_HOURS = 'EDIT_HOURS';
 
 export const SUBMIT_FORM = 'SUBMIT_FORM';
+
+export const GET_DOCUSIGN_URL = 'GET_DOCUSIGN_URL';
+export const UPLOAD_FILES = 'UPLOAD_FILES';

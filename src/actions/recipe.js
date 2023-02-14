@@ -1,7 +1,13 @@
 import server from './api';
 import { setError } from './error';
 import { setAlert } from './alert';
-import { GET_RECIPES, GET_RECIPE, CREATE_RECIPE, EDIT_RECIPE } from './types';
+import {
+  GET_RECIPES,
+  GET_RECIPE,
+  CREATE_RECIPE,
+  EDIT_RECIPE,
+  DELETE_RECIPE,
+} from './types';
 
 export const getRecipes = () => async (dispatch) => {
   try {
@@ -53,6 +59,16 @@ export const editRecipe = (formValues) => async (dispatch) => {
     );
     dispatch({ type: EDIT_RECIPE, payload: res.data });
     dispatch(setAlert('Recipe Edited'));
+  } catch (err) {
+    dispatch(setError(err));
+  }
+};
+
+export const deleteRecipe = (id) => async (dispatch) => {
+  try {
+    await server.delete(`/home-chef/recipe/${id}`);
+    dispatch({ type: DELETE_RECIPE, payload: id });
+    dispatch(setAlert('Recipe Deleted'));
   } catch (err) {
     dispatch(setError(err));
   }

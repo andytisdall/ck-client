@@ -1,33 +1,28 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import server from '../../actions/api';
-import { setError } from '../../actions';
+import { setError, getDocusignUrl } from '../../actions';
 import Loading from '../reusable/Loading';
 
-const Docusign = ({ accountType, setError }) => {
+const Docusign = ({ accountType, error, getDocusignUrl, docusignUrl }) => {
   const navigate = useNavigate();
-  const searchParams = useSearchParams()[0];
 
   useEffect(() => {
-    // const authCode = searchParams.get('code');
-    const getRedirectUrl = async () => {
-      // const authCode = window.location.search.replace('?code=', '');
-      try {
-        const res = await server.post('/docusign/sign', {
-          // authCode,
-          accountType,
-        });
-        const redirectUrl = res.data;
-        window.location.href = redirectUrl;
-      } catch (err) {
-        setError(err);
-        navigate('../..');
-      }
-    };
-    getRedirectUrl();
-  }, [accountType, navigate, setError, searchParams]);
+    getDocusignUrl(accountType);
+  }, [getDocusignUrl, accountType]);
+
+  useEffect(() => {
+    if (docusignUrl) {
+      window.location.href = docusignUrl;
+    }
+  }, [docusignUrl]);
+
+  useEffect(() => {
+    if (error) {
+      navigate('../..');
+    }
+  }, [error, navigate]);
 
   return (
     <div>
@@ -38,7 +33,7 @@ const Docusign = ({ accountType, setError }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { error: state.error.error };
+  return { error: state.error.error, docusignUrl: state.files.docusignUrl };
 };
 
-export default connect(mapStateToProps, { setError })(Docusign);
+export default connect(mapStateToProps, { setError, getDocusignUrl })(Docusign);

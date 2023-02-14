@@ -18,7 +18,7 @@ export const getRestaurant = () => async (dispatch) => {
 
 export const getAllRestaurants = () => async (dispatch) => {
   try {
-    const res = await server.get('/restaurants');
+    const res = await server.get('/restaurant/all');
     dispatch({ type: FETCH_ALL_RESTAURANTS, payload: res.data });
   } catch (err) {
     dispatch(setError(err));

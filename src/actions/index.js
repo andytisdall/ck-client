@@ -7,3 +7,4 @@ export * from './alert';
 export * from './recipe';
 export * from './homeChef';
 export * from './forms';
+export * from './docusign';

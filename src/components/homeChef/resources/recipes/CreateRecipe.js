@@ -2,15 +2,19 @@ import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { createRecipe } from '../../../../actions';
+import { createRecipe, editRecipe } from '../../../../actions';
 import './CreateRecipe.css';
 import Loading from '../../../reusable/Loading';
 
-const CreateRecipe = ({ createRecipe, alert, error }) => {
-  const [name, setName] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [description, setDescription] = useState('');
+const CreateRecipe = ({ createRecipe, alert, error, recipe }) => {
+  const [name, setName] = useState(recipe?.name || '');
+  const [ingredients, setIngredients] = useState(
+    recipe?.ingredients.join('\n') || ''
+  );
+  const [instructions, setInstructions] = useState(
+    recipe?.instructions.join('\n') || ''
+  );
+  const [description, setDescription] = useState(recipe?.description || '');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -30,16 +34,22 @@ const CreateRecipe = ({ createRecipe, alert, error }) => {
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    createRecipe(e.target);
+    if (recipe) {
+      editRecipe(e.target);
+    } else {
+      createRecipe(e.target);
+    }
     setName('');
     setIngredients('');
     setInstructions('');
     setDescription('');
   };
 
+  const action = recipe ? 'Edit this' : 'Create a ';
+
   return (
     <div className="admin-item">
-      <h2>Create a Recipe</h2>
+      <h2>{action} Recipe</h2>
       <form onSubmit={handleSubmit} className="admin-form">
         <label htmlFor="name">Name:</label>
         <input

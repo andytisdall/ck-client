@@ -48,7 +48,7 @@ const Documents = ({ uploadFiles, alert, error }) => {
             <input
               type="date"
               name="expiration"
-              className="calendar"
+              className="date-picker"
               value={expirationDate}
               onChange={(e) => setExpirationDate(e.target.value)}
             />

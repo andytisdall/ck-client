@@ -1,5 +1,5 @@
 .job-container {
-  transition: all 1s;
+
 }
 
 .job-name {
@@ -22,6 +22,11 @@
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
+  transition: all .3s;
+}
+
+.expanded {
+  transform: rotate(90deg);
 }
 
 .job-listing {
@@ -38,8 +43,12 @@
 .shift-list {
   display: flex;
   flex-direction: column;
-  transition: all 1s;
+  transition: all .5s;
   margin-left: 2.5rem;
+}
+
+.closed {
+  transform: scaleY(.05) translateY(-60%);
 }
 
 .job-location {

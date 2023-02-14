@@ -35,11 +35,9 @@ const ChefShifts = ({
         </span>{' '}
         - <Link to={'../signup/fridge/' + job.id}>{job.name}</Link> -{' '}
         <span className="chef-hours-meals">{shift.mealCount || 0} Meals</span>
-        {period === 'past' ? (
-          <Link to={`edit-shift/${shift.id}`} className="chef-hours-edit">
-            edit
-          </Link>
-        ) : null}
+        <Link to={`edit-shift/${shift.id}`} className="chef-hours-edit">
+          edit
+        </Link>
       </li>
     );
   };

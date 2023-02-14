@@ -35,13 +35,16 @@ const VolunteerJob = ({ job, shifts }) => {
       });
   };
 
-  const arrow = expand ? <>&darr;</> : <>&rarr;</>;
+  const expanded = expand ? 'expanded' : '';
 
   return (
     <div className="job-container">
       <div className="job-name">
-        <div className="expand-btn" onClick={() => setExpand(!expand)}>
-          {arrow}
+        <div
+          className={`expand-btn ${expanded}`}
+          onClick={() => setExpand(!expand)}
+        >
+          &rarr;
         </div>
         <h3>{job.name}</h3>
       </div>
@@ -52,7 +55,9 @@ const VolunteerJob = ({ job, shifts }) => {
           </div>
         )}
       </div>
-      <div className="shift-list">{expand && renderShifts()}</div>
+      <div className={`shift-list ${expanded ? '' : 'closed'}`}>
+        {expand && renderShifts()}
+      </div>
     </div>
   );
 };
