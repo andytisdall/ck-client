@@ -6,14 +6,14 @@ const HomeChefHome = ({ user }) => {
     if (!user?.homeChefStatus) {
       return;
     }
-    // if (user.homeChefStatus === 'Active') {
-    //   return (
-    //     <p>
-    //       You are done with the onboarding process and may sign up for Town
-    //       Fridge deliveries
-    //     </p>
-    //   );
-    // }
+    if (user.homeChefStatus === 'Active') {
+      return (
+        <p>
+          You are done with the onboarding process and may sign up for Town
+          Fridge deliveries
+        </p>
+      );
+    }
     const foodHandler =
       'Obtain a Food Handler certification and upload the certificate';
     const volunteerAgreement = 'Sign our volunteer agreement';

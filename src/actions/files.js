@@ -27,7 +27,7 @@ export const uploadFiles =
       const res = await server.post('/files', postBody, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      dispatch({ type: UPLOAD_FILES, payload: res.data.filesAdded });
+      dispatch({ type: UPLOAD_FILES, payload: res.data });
       dispatch(
         setAlert(
           `You have successfully uploaded ${res.data.filesAdded.length} files`

@@ -5,6 +5,18 @@
   width: 90%;
 }
 
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(10rem, 15rem));
+  grid-template-rows: 2rem;
+}
+
+.calendar-day {
+  height: fit-content;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
 .calendar-date {
   border: 1px solid black;
   padding: .4rem;

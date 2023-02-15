@@ -77,11 +77,16 @@ const onboardingRouter = {
         },
         {
           path: 'success',
-          element: <DocusignSuccess accountType="restaurant" />,
+          element: (
+            <DocusignSuccess
+              accountType="restaurant"
+              returnLink="/onboarding"
+            />
+          ),
         },
       ],
     },
-    { path: 'file-success', element: <FileSuccess /> },
+    { path: 'file-success', element: <FileSuccess returnLink="/onboarding" /> },
   ],
 };
 

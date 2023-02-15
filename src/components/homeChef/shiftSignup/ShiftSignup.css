@@ -9,18 +9,19 @@
 .shift-detail {
   margin-top: 3rem;
 margin-left: 2rem;
-border-left: solid 1px rgb(161, 30, 148);
+border-left: solid 1px rgb(113, 19, 103);
 padding-left: 2rem;
 }
 
 .signup-form-date {
-  color: rgb(161, 30, 148);
+  color: rgb(113, 19, 103);
   font-size: 2rem;
-padding-left: 1rem;
+  padding-left: 1rem;
 }
 
 .signup-form-fridge {
-  color: rgb(161, 30, 148);
+  color: rgb(113, 19, 103);
+  font-weight: 600;
 }
 
 .shift-detail h3 {

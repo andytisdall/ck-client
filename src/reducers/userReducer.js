@@ -41,7 +41,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case GET_USER_INFO:
       return { ...state, user: { ...state.user, ...action.payload } };
     case UPLOAD_FILES:
-      const filesAdded = action.payload;
+      const { filesAdded } = action.payload;
       const newUser = { ...state.user };
       if (filesAdded.includes('Food Handler Certification')) {
         newUser.foodHandler = true;

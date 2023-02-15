@@ -28,13 +28,20 @@ const Calendar = ({ jobs, shifts }) => {
 
   const getDays = useCallback(() => {
     const days = [];
+    const firstDay = moment(`${moment(month).format('YYYY-M')}-1`).format('d');
+    for (let i = 0; i < firstDay; i++) {
+      days.push(null);
+    }
     for (let i = 1; i < 32; i++) {
       const date = `${moment(month).format('YYYY-M')}-${i}`;
       if (moment(date).format('M') === month.format('M')) {
         days.push(moment(date).format('YYYY-MM-DD'));
       }
     }
-    return days.map((d) => {
+    return days.map((d, i) => {
+      if (!d) {
+        return <div key={i}></div>;
+      }
       let dayShifts = [];
       if (orderedShifts[d]) {
         dayShifts = orderedShifts[d].map((sh) => {
@@ -63,7 +70,20 @@ const Calendar = ({ jobs, shifts }) => {
   }, [month, jobs, orderedShifts, navigate]);
 
   const calendar = () => {
-    return <div className="calendar">{getDays()}</div>;
+    return (
+      <>
+        <div className="calendar-days">
+          <div className="calendar-day">Sun</div>
+          <div className="calendar-day">Mon</div>
+          <div className="calendar-day">Tue</div>
+          <div className="calendar-day">Wed</div>
+          <div className="calendar-day">Thu</div>
+          <div className="calendar-day">Fri</div>
+          <div className="calendar-day">Sat</div>
+        </div>
+        <div className="calendar">{getDays()}</div>
+      </>
+    );
   };
 
   if (!jobs || !shifts) {

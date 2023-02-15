@@ -10,6 +10,7 @@ const DocusignSuccess = ({
   uploadDocsToSalesforce,
   alert,
   error,
+  returnLink,
 }) => {
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ const DocusignSuccess = ({
           <Loading />
         </div>
       )}
-      <Link to="../..">
+      <Link to={returnLink}>
         <button>Go back to Section Home</button>
       </Link>
     </div>

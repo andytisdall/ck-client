@@ -103,7 +103,10 @@ const homeChefRouter = {
           path: 'upload-food-handler',
           element: <UploadFoodHandler />,
         },
-        { path: 'file-success', element: <FileSuccess /> },
+        {
+          path: 'file-success',
+          element: <FileSuccess returnLink="/home-chef" />,
+        },
         {
           path: 'docusign',
           children: [
@@ -113,7 +116,12 @@ const homeChefRouter = {
             },
             {
               path: 'success',
-              element: <DocusignSuccess accountType="contact" />,
+              element: (
+                <DocusignSuccess
+                  accountType="contact"
+                  returnLink="/home-chef"
+                />
+              ),
             },
           ],
         },

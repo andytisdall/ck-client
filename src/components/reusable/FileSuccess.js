@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { clearMessages } from '../../actions';
 
-const FileSuccess = ({ alert, clearMessages }) => {
+const FileSuccess = ({ alert, clearMessages, returnLink }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const FileSuccess = ({ alert, clearMessages }) => {
     <div>
       <h1>Success!</h1>
       <div className="file-success">{message}</div>
-      <Link to="../">
+      <Link to={returnLink}>
         <button>Back to Onboarding Home</button>
       </Link>
     </div>
