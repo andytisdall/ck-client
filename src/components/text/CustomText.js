@@ -171,7 +171,7 @@ const CustomText = ({ error, alert, sendCustomText }) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { error: state.error.error, alert: state.alert.message };
 };
 
 export default connect(mapStateToProps, { sendCustomText })(CustomText);

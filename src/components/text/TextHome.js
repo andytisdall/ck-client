@@ -6,7 +6,7 @@ const TextHome = () => {
       <Link to="send-text" className="home-link">
         Send a Town Fridge Delivery Alert
       </Link>
-      <Link to="send-text" className="home-link">
+      <Link to="send-custom-text" className="home-link">
         Send a Custom Alert
       </Link>
       <Link to="add-phone" className="home-link">

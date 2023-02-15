@@ -85,7 +85,7 @@ const CreateRecipe = ({ createRecipe, alert, error, recipe }) => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <label htmlFor="image">Photo</label>
-        <input type="file" name="image" accept="image/*" />
+        <input type="file" name="image" />
         {loading ? <Loading /> : <input type="submit" />}
       </form>
     </div>
