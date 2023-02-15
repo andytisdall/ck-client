@@ -6,6 +6,7 @@ import TextHome from './TextHome';
 import SendText from './SendText';
 import TextSuccess from './TextSuccess';
 import Feedback from './Feedback';
+import CustomText from './CustomText';
 import './TextHome.css';
 import { getUser } from '../../actions';
 
@@ -38,6 +39,7 @@ const textRouter = {
       element: <AddPhone />,
     },
     { path: 'send-text', element: <SendText /> },
+    { path: 'send-custom-text', element: <CustomText /> },
     { path: 'text-success', element: <TextSuccess /> },
     { path: 'feedback', element: <Feedback /> },
   ],

@@ -12,7 +12,7 @@ import server from './api';
 
 export const addPhone = (phone, region) => async (dispatch) => {
   try {
-    await server.post('/addphone', { phone, region });
+    await server.post('/text/addphone', { phone, region });
     dispatch({ type: ALERT, payload: 'Phone Number Added' });
     setTimeout(() => {
       dispatch({ type: CLEAR_MESSAGES });
@@ -27,6 +27,22 @@ export const sendText = (message, region, photo) => async (dispatch) => {
     const postBody = new FormData();
     postBody.append('message', message);
     postBody.append('region', region);
+    postBody.append('photo', photo);
+    const res = await server.post('/text/outgoing', postBody, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    dispatch({ type: SEND_TEXT, payload: res.data });
+    dispatch(setAlert('Message Sent'));
+  } catch (err) {
+    dispatch(setError(err));
+  }
+};
+
+export const sendCustomText = (message, to, photo) => async (dispatch) => {
+  try {
+    const postBody = new FormData();
+    postBody.append('message', message);
+    postBody.append('region', to);
     postBody.append('photo', photo);
     const res = await server.post('/text/outgoing', postBody, {
       headers: { 'Content-Type': 'multipart/form-data' },

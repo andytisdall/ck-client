@@ -49,6 +49,9 @@ const userReducer = (state = INITIAL_STATE, action) => {
       if (filesAdded.includes('Volunteer Agreement')) {
         newUser.volunteerAgreement = true;
       }
+      if (newUser.volunteerAgreement && newUser.foodHandler) {
+        newUser.homeChefStatus = 'Active';
+      }
       return { ...state, user: newUser };
     default:
       return state;

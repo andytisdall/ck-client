@@ -37,6 +37,11 @@
   flex-direction: column;
 }
 
+.send-text-variables-radio {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
 .text-preview {
   font-size: 1.3rem;
   margin-bottom: 2rem;
