@@ -1,0 +1,6 @@
+.home {
+  background-image: linear-gradient(rgb(20, 1, 130), rgb(1, 43, 65));
+  color: white;
+  display: flex;
+  flex-direction: column;
+}

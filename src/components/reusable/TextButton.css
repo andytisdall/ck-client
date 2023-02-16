@@ -1,0 +1,44 @@
+.text-button {
+  display: flex;
+  align-items: center;
+  max-width: 40rem;
+  min-width: 30rem;
+  height: fit-content;
+}
+
+.text-button-link {
+  font-weight: 600;
+  display: block;
+  background-color: white;
+  width: 30%;
+  padding: 1rem;
+  text-align: center;
+  transition: all .15s;
+  border-radius: 50px;
+  border: 2px solid grey;
+  box-sizing: border-box;
+}
+
+.text-button-link:active {
+  transform: translateY(3px);
+  box-shadow: -.1rem .2rem .2rem gray;;
+}
+.text-button:hover > .text-button-link{
+  background-color: rgba(106, 44, 249, 0.307);
+  color: white;
+}
+
+.text-button-description {
+  font-size: .9rem;
+  color: white;
+  width: 70%;
+  margin: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: 50px;
+  transition: all .15s;
+}
+
+.text-button:hover > .text-button-description {
+  background-color: rgba(240, 248, 255, 0.323);
+}

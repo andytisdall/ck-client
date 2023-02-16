@@ -11,7 +11,10 @@ const HomeChefDocuments = () => {
         <Link to="../upload-food-handler" className="home-link">
           Upload Your Food Handler Certification
         </Link>
-        <Link className="home-link">
+        <Link
+          to="https://premierfoodsafety.com/food-handlers-card/california"
+          className="home-link"
+        >
           Apply for your Food Handler Ceritifcation
         </Link>
       </div>

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { getUserInfo } from '../../actions';
 import './HomeChef.css';
@@ -28,13 +28,42 @@ import FileSuccess from '../reusable/FileSuccess';
 import DocusignSign from '../reusable/DocusignSign';
 import DocusignSuccess from '../reusable/DocusignSuccess';
 
-const HomeChef = ({ user, getUserInfo }) => {
+import Loading from '../reusable/Loading';
+
+const HomeChef = ({ user, getUserInfo, error }) => {
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    getUserInfo();
-  }, [getUserInfo]);
+    if (user && !user.homeChefStatus) {
+      getUserInfo();
+      setLoading(true);
+    }
+  }, [getUserInfo, user]);
+
+  useEffect(() => {
+    if (user?.firstName || error) {
+      setLoading(false);
+    }
+  }, [user, error]);
 
   const renderSignIn = () => {
     return <h3>Sign in to access this page.</h3>;
+  };
+
+  const renderNoChef = () => {
+    if (!loading) {
+      return (
+        <div>
+          <h3>You must be a CK Home Chef to access this page.</h3>
+          <h3>
+            To get started,{' '}
+            <Link to="/forms/home-chef" className="retro-link">
+              please complete the signup form.
+            </Link>
+          </h3>
+        </div>
+      );
+    }
   };
 
   return (
@@ -42,14 +71,15 @@ const HomeChef = ({ user, getUserInfo }) => {
       <Link to="/home-chef">
         <h1 className="page-header">Home Chef</h1>
       </Link>
-      {user && <Outlet />}
+      {loading && <Loading />}
       {!user && renderSignIn()}
+      {user && user.homeChefStatus ? <Outlet /> : renderNoChef()}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.user.user };
+  return { user: state.user.user, error: state.error.error };
 };
 
 const ConnectedHomeChef = connect(mapStateToProps, { getUserInfo })(HomeChef);
