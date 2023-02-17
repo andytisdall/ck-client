@@ -1,20 +1,36 @@
-import { Link } from 'react-router-dom';
+import TextButton from '../reusable/TextButton';
+
+const textAlertDescription =
+  "Send out a text message to one of the subscriber lists, using a pre-written template, to let people know there's been a food dropoff at a town fridge.";
+const customAlertDescription =
+  'Send a text message to one of the lists or an individual phone number, not using a template.';
+const addNumberDescription = 'Add a number to one of the subscriber lists';
+const feedbackDescription =
+  'See the messages that people text back to our alert numbers.';
 
 const TextHome = () => {
   return (
     <div className="text-main">
-      <Link to="send-text" className="home-link">
-        Send a Town Fridge Delivery Alert
-      </Link>
-      <Link to="send-custom-text" className="home-link">
-        Send a Custom Alert
-      </Link>
-      <Link to="add-phone" className="home-link">
-        Add a Phone Number to the List
-      </Link>
-      <Link to="feedback" className="home-link">
-        Review Feedback
-      </Link>
+      <TextButton
+        buttonText="Send a Town Fridge Delivery Alert"
+        descriptionText={textAlertDescription}
+        to="send-text"
+      />
+      <TextButton
+        buttonText="Send a Custom Alert"
+        descriptionText={customAlertDescription}
+        to="send-custom-text"
+      />
+      <TextButton
+        buttonText="Add a Phone Number"
+        descriptionText={addNumberDescription}
+        to="add-phone"
+      />
+      <TextButton
+        buttonText="Review Feedback"
+        descriptionText={feedbackDescription}
+        to="feedback"
+      />
     </div>
   );
 };

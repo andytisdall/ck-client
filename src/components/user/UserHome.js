@@ -15,11 +15,11 @@ const UserHome = ({ user, restaurant, getRestaurant }) => {
         <p>You are logged in as {user.username}</p>
         <p>Your restaurant: {restaurant?.name || 'None'}</p>
       </div>
-      <div style={{ marginTop: '2rem' }}>
-        <Link to="change-password" className="home-link">
+      <div style={{ marginTop: '2rem', display: 'flex' }}>
+        <Link className="text-button-link" to="change-password">
           Change Password
         </Link>
-        <Link to="change-username" className="home-link">
+        <Link className="text-button-link" to="change-username" buttonText="">
           Change Username
         </Link>
       </div>

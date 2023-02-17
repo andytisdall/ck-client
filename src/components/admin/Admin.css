@@ -3,6 +3,10 @@
   color: white;
 }
 
+.admin-home {
+  display: flex;
+}
+
 .admin-item {
   border: 2px solid rgb(189, 255, 253);
   padding: 1rem;

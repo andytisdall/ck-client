@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import TextButton from '../reusable/TextButton';
+
 const OnboardingHome = ({ restaurant }) => {
   const renderChecklist = () => {
     const renderAsLi = (doc) => {
@@ -32,12 +34,18 @@ const OnboardingHome = ({ restaurant }) => {
   return (
     <div>
       {renderChecklist()}
-      <Link to="documents" className="home-link">
-        Upload your documents
-      </Link>
-      <Link to="docusign/sign" className="home-link">
-        Sign Documents
-      </Link>
+
+      <TextButton
+        to="documents"
+        buttonText="Upload your documents"
+        descriptionText="Provide the documents you need to get started in the meal program."
+      />
+
+      <TextButton
+        to="docusign/sign"
+        buttonText="Sign Documents"
+        descriptionText="Sign the required forms using Docusign."
+      />
     </div>
   );
 };

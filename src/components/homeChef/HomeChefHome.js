@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import TextButton from '../reusable/TextButton';
+
+const shiftSignupDescription = '';
+const chefDescription = '';
+const resourcesDescription = '';
+const onboardingDescription = '';
+
 const HomeChefHome = ({ user }) => {
   const renderStatus = () => {
     if (!user?.homeChefStatus) {
@@ -77,18 +84,26 @@ const HomeChefHome = ({ user }) => {
   return (
     <div>
       {renderStatus()}
-      <Link to="signup/list" className="home-link">
-        Sign Up to Stock a Town Fridge
-      </Link>
-      <Link to="chef" className="home-link">
-        See Fridges You've Signed Up For
-      </Link>
-      <Link to="resources" className="home-link">
-        Home Chef Resources
-      </Link>
-      <Link to="onboarding" className="home-link">
-        Onboarding
-      </Link>
+      <TextButton
+        to="signup/list"
+        buttonText="Sign Up to Stock a Town Fridge"
+        descriptionText={shiftSignupDescription}
+      />
+      <TextButton
+        to="chef"
+        buttonText="See Fridges You've Signed Up For"
+        descriptionText={chefDescription}
+      />
+      <TextButton
+        to="resources"
+        buttonText="Home Chef Resources"
+        descriptionText={resourcesDescription}
+      />
+      <TextButton
+        to="onboarding"
+        buttonText="Onboarding"
+        descriptionText={onboardingDescription}
+      />
     </div>
   );
 };

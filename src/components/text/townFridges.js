@@ -5,11 +5,6 @@ export const REGIONS = {
 
 export const townFridges = [
   {
-    name: 'Bartlett',
-    address: '2440 Bartlett St',
-    region: REGIONS.EAST_OAKLAND,
-  },
-  {
     name: 'Homies',
     address: '7631 MacArthur Blvd',
     region: REGIONS.EAST_OAKLAND,
