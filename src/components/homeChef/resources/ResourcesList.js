@@ -1,11 +1,16 @@
-import { Link } from 'react-router-dom';
+import TextButton from '../../reusable/TextButton';
+
+const recipesDescription =
+  "Browse the CK recipe library, featuring dishes from some of Oakland's most beloved restaurants and some of our top home chefs, or add a recipe of your own.";
 
 const ResourcesList = () => {
   return (
     <div>
-      <Link to="recipes" className="home-link">
-        Recipes
-      </Link>
+      <TextButton
+        to="recipes"
+        buttonText="Recipes"
+        descriptionText={recipesDescription}
+      />
     </div>
   );
 };

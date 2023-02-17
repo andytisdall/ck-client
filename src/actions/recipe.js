@@ -47,16 +47,20 @@ export const createRecipe = (form) => async (dispatch) => {
   }
 };
 
-export const editRecipe = (formValues) => async (dispatch) => {
+export const editRecipe = (id, form) => async (dispatch) => {
   const postBody = new FormData();
-  for (let key in formValues) {
-    postBody.append(key, formValues[key]);
-  }
+  Array.from(form.elements).forEach((input) => {
+    if (input.files) {
+      console.log(input.name);
+      postBody.append(input.name, input.files[0]);
+    } else if (input.name) {
+      postBody.append(input.name, input.value);
+    }
+  });
   try {
-    const res = await server.patch(
-      `/home-chef/recipe/${formValues.recipeId}`,
-      postBody
-    );
+    const res = await server.patch(`/home-chef/recipe/${id}`, postBody, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     dispatch({ type: EDIT_RECIPE, payload: res.data });
     dispatch(setAlert('Recipe Edited'));
   } catch (err) {

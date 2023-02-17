@@ -3,14 +3,27 @@
   flex-direction: column;
 }
 
-.recipe-photo {
-  max-width: 50%;
-  align-self: center;
+.recipe-body {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.recipe-description {
-  padding-top: 1rem;
-  align-self: center;
+.recipe-text {
+  min-width: 200px;
+  max-width: 400px;
+  flex: 1;
+}
+
+.recipe-photo {
+  flex: 1;
+  width: fit-content;
+}
+
+.recipe-img {
+  max-height: 600px;
+  min-width: 400px;
+  max-width: 700px;
+  width: 100%
 }
 
 .recipe-admin {
@@ -32,7 +45,6 @@
 
 .recipe-title {
   font-size: 4rem;
-  align-self: center;
   border-bottom: black solid 3px;
   width: fit-content
 }

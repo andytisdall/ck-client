@@ -6,7 +6,7 @@ import { createRecipe, editRecipe } from '../../../../actions';
 import './CreateRecipe.css';
 import Loading from '../../../reusable/Loading';
 
-const CreateRecipe = ({ createRecipe, alert, error, recipe }) => {
+const CreateRecipe = ({ createRecipe, alert, error, recipe, editRecipe }) => {
   const [name, setName] = useState(recipe?.name || '');
   const [ingredients, setIngredients] = useState(
     recipe?.ingredients.join('\n') || ''
@@ -35,7 +35,7 @@ const CreateRecipe = ({ createRecipe, alert, error, recipe }) => {
     setLoading(true);
     e.preventDefault();
     if (recipe) {
-      editRecipe(e.target);
+      editRecipe(recipe.id, e.target);
     } else {
       createRecipe(e.target);
     }
@@ -96,4 +96,6 @@ const mapStateToProps = (state) => {
   return { alert: state.alert.message, error: state.error.error };
 };
 
-export default connect(mapStateToProps, { createRecipe })(CreateRecipe);
+export default connect(mapStateToProps, { createRecipe, editRecipe })(
+  CreateRecipe
+);

@@ -44,7 +44,7 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
     if (hours) {
       return Object.values(hours)
         .filter((h) => h.time < moment().format())
-        .reduce((total, current) => total + current.mealCount, 0);
+        .reduce((total, current) => total + parseInt(current.mealCount), 0);
     }
   }, [hours]);
 

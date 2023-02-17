@@ -59,11 +59,13 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
   const renderImage = () => {
     if (recipe.image) {
       return (
-        <img
-          src={`/api/files/images/${recipe.image}`}
-          alt={recipe.name}
-          className="recipe-photo"
-        />
+        <div className="recipe-photo">
+          <img
+            src={`https://coherent-vision-368820.uw.r.appspot.com/api/files/images/${recipe.image}`}
+            alt={recipe.name}
+            className="recipe-img"
+          />
+        </div>
       );
     }
   };
@@ -82,14 +84,17 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
         <button>All Recipes</button>
       </Link>
       <h1 className="recipe-title">{recipe.name}</h1>
-      {renderImage()}
-
-      <h3 className="recipe-description">{recipe.description}</h3>
-      <h2>Ingredients:</h2>
-      <ul>{renderList(recipe.ingredients)}</ul>
-      <h2>Instructions:</h2>
-      <ol>{renderList(recipe.instructions)}</ol>
-      {recipe.author ? <h3>Author: {recipe.author}</h3> : null}
+      <div className="recipe-body">
+        {recipe.author ? <h3>Provided by: {recipe.author}</h3> : null}
+        <div className="recipe-text">
+          <h3 className="recipe-description">{recipe.description}</h3>
+          <h2>Ingredients:</h2>
+          <ul>{renderList(recipe.ingredients)}</ul>
+          <h2>Instructions:</h2>
+          <ol>{renderList(recipe.instructions)}</ol>
+        </div>
+        {renderImage()}
+      </div>
       {renderAdmin()}
     </div>
   );
