@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
 
+import renderWithFallback from '../reusable/renderWithFallback';
+import Loading from '../reusable/Loading';
 import './Onboarding.css';
 import { getRestaurant } from '../../actions';
-import OnboardingHome from './OnboardingHome';
-import Documents from './Documents';
-import FileSuccess from '../reusable/FileSuccess';
-import DocusignSign from '../reusable/DocusignSign';
-import DocusignSuccess from '../reusable/DocusignSuccess';
-import Loading from '../reusable/Loading';
+const OnboardingHome = React.lazy(() => import('./OnboardingHome'));
+const Documents = React.lazy(() => import('./Documents'));
+const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
+const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
+const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 
 const Onboarding = ({ getRestaurant, restaurant, user }) => {
   const [loading, setLoading] = useState(true);
@@ -66,18 +67,20 @@ const onboardingRouter = {
   path: 'onboarding',
   element: <ConnectedOnboarding />,
   children: [
-    { index: true, element: <OnboardingHome /> },
-    { path: 'documents', element: <Documents /> },
+    { index: true, element: renderWithFallback(<OnboardingHome />) },
+    { path: 'documents', element: renderWithFallback(<Documents />) },
     {
       path: 'docusign',
       children: [
         {
           path: 'sign',
-          element: <DocusignSign accountType="restaurant" />,
+          element: renderWithFallback(
+            <DocusignSign accountType="restaurant" />
+          ),
         },
         {
           path: 'success',
-          element: (
+          element: renderWithFallback(
             <DocusignSuccess
               accountType="restaurant"
               returnLink="/onboarding"
@@ -86,7 +89,10 @@ const onboardingRouter = {
         },
       ],
     },
-    { path: 'file-success', element: <FileSuccess returnLink="/onboarding" /> },
+    {
+      path: 'file-success',
+      element: renderWithFallback(<FileSuccess returnLink="/onboarding" />),
+    },
   ],
 };
 

@@ -1,10 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
+import React from 'react';
 
-import AdminHome from './AdminHome';
-import Create from './Create';
-import Edit from './Edit';
 import './Admin.css';
+
+import renderWithFallback from '../reusable/renderWithFallback';
+
+const AdminHome = React.lazy(() => import('./AdminHome'));
+const Create = React.lazy(() => import('./Create'));
+const Edit = React.lazy(() => import('./Edit'));
 
 const Admin = ({ user }) => {
   const renderForbidden = () => {
@@ -31,9 +35,12 @@ const adminRouter = {
   path: 'admin',
   element: <ConnectedAdmin />,
   children: [
-    { index: true, element: <AdminHome /> },
-    { path: 'create', element: <Create /> },
-    { path: 'edit', element: <Edit /> },
+    {
+      index: true,
+      element: renderWithFallback(<AdminHome />),
+    },
+    { path: 'create', element: renderWithFallback(<Create />) },
+    { path: 'edit', element: renderWithFallback(<Edit />) },
   ],
 };
 

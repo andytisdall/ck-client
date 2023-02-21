@@ -7,7 +7,7 @@ const TextPreview = ({ onSubmit, message, region, photo, onCancel }) => {
   const [image, setImage] = useState(photo);
 
   useEffect(() => {
-    if (photo.name.toLowerCase().includes('.heic')) {
+    if (photo?.name.toLowerCase().includes('.heic')) {
       setImage(null);
       const convert = async () => {
         const pic = await heic2any({

@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 import { sendText } from '../../actions';
-import TextPreview from './TextPreview';
+import renderWithFallback from '../reusable/renderWithFallback';
 import './SendText.css';
 import { townFridges } from './townFridges';
 import Loading from '../reusable/Loading';
+
+const TextPreview = React.lazy(() => import('./TextPreview'));
 
 const SendText = ({ sendText, alert, error }) => {
   const [fridge, setFridge] = useState('');
@@ -197,7 +199,7 @@ const SendText = ({ sendText, alert, error }) => {
     if (!preview) {
       return composeText();
     }
-    return (
+    return renderWithFallback(
       <TextPreview
         message={message}
         region={getRegion()}

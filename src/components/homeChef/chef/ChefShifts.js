@@ -43,25 +43,29 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
   const totalMeals = useMemo(() => {
     if (hours) {
       return Object.values(hours)
-        .filter((h) => h.time < moment().format())
+        .filter((h) => h.status === 'Completed')
         .reduce((total, current) => total + parseInt(current.mealCount), 0);
     }
   }, [hours]);
 
   const renderHours = (period) => {
     if (hours && jobs) {
-      let filterFunc;
+      let status;
       let hoursArray;
       if (period === 'past') {
         hoursArray = [...sortedHours].reverse();
-        filterFunc = (h) => h.time < moment().format();
+        status = 'Completed';
+        // filterFunc = (h) => h.time < moment().format();
       } else {
         hoursArray = sortedHours;
-        filterFunc = (h) => h.time > moment().format();
+        status = 'Confirmed';
+        // filterFunc = (h) => h.time > moment().format();
       }
-      const renderedList = hoursArray.filter(filterFunc).map((hour) => {
-        return renderShift(hour);
-      });
+      const renderedList = hoursArray
+        .filter((h) => h.status === status)
+        .map((hour) => {
+          return renderShift(hour);
+        });
       if (renderedList.length) {
         return <ul>{renderedList}</ul>;
       } else {

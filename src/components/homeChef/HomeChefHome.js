@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 
 import TextButton from '../reusable/TextButton';
 
-const shiftSignupDescription = '';
-const chefDescription = '';
-const resourcesDescription = '';
-const onboardingDescription = '';
+const shiftSignupDescription =
+  'See availability for town fridges and sign up to make a delivery.';
+const chefDescription =
+  "See upcoming deliveries you've signed up for, and past deliveries you've made.";
+const resourcesDescription =
+  'Get access to the CK recipe library and connect with other Home Chefs on slack';
+const onboardingDescription =
+  'Complete the tasks necessary to start making deliveries';
 
 const HomeChefHome = ({ user }) => {
   const renderStatus = () => {

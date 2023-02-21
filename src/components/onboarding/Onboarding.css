@@ -49,7 +49,21 @@
   font-weight: 600;
 }
 
+.completed-doc li {
+  padding: .5rem;
+}
+
 .incomplete-doc {
   color: rgb(78, 0, 19);
   font-weight: 600;
+}
+
+.incomplete-doc li {
+  padding: .5rem;
+  border-radius: 25px;
+  width: fit-content;
+}
+
+.incomplete-doc li:hover {
+  background-color: rgba(240, 248, 255, 0.432);
 }

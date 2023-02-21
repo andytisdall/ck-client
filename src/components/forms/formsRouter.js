@@ -1,9 +1,12 @@
 import { Outlet } from 'react-router-dom';
+import React from 'react';
 
-import HCInterestForm from './HCInterestForm';
-import FormSent from './FormSent';
-import MealQualitySurvey from './MealQualitySurvey';
-import TextSignupSurvey from './TextSignupSurvey';
+import renderWithFallback from '../reusable/renderWithFallback';
+
+const HCInterestForm = React.lazy(() => import('./HCInterestForm'));
+const FormSent = React.lazy(() => import('./FormSent'));
+const MealQualitySurvey = React.lazy(() => import('./MealQualitySurvey'));
+const TextSignupSurvey = React.lazy(() => import('./TextSignupSurvey'));
 
 const Forms = () => {
   const headerImage = () => {
@@ -30,10 +33,13 @@ const formsRouter = {
   path: 'forms',
   element: <Forms />,
   children: [
-    { path: 'home-chef', element: <HCInterestForm /> },
-    { path: 'meal-survey', element: <MealQualitySurvey /> },
-    { path: 'text-signup-survey', element: <TextSignupSurvey /> },
-    { path: 'form-sent', element: <FormSent /> },
+    { path: 'home-chef', element: renderWithFallback(<HCInterestForm />) },
+    { path: 'meal-survey', element: renderWithFallback(<MealQualitySurvey />) },
+    {
+      path: 'text-signup-survey',
+      element: renderWithFallback(<TextSignupSurvey />),
+    },
+    { path: 'form-sent', element: renderWithFallback(<FormSent />) },
   ],
 };
 

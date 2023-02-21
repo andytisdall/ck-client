@@ -30,3 +30,8 @@
 .chef-total-meals {
   padding-bottom: 1rem;
 }
+
+.chef-cancel {
+  margin: 1rem 0;
+  color: red;
+}

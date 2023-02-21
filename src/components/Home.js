@@ -22,7 +22,7 @@ const adminDescription =
 
 const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   useEffect(() => {
-    if (user) {
+    if (user && !user.lastName) {
       getRestaurant();
       getUserInfo();
     }

@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+import React from 'react';
 
+import renderWithFallback from '../reusable/renderWithFallback';
 import './User.css';
-import ChangePassword from './ChangePassword';
-import ChangeUsername from './ChangeUsername';
-import UserHome from './UserHome';
+
+const ChangePassword = React.lazy(() => import('./ChangePassword'));
+const ChangeUsername = React.lazy(() => import('./ChangeUsername'));
+const UserHome = React.lazy(() => import('./UserHome'));
 
 const User = ({ user }) => {
   if (!user) {
@@ -35,9 +38,15 @@ const userRouter = {
   path: 'user',
   element: <ConnectedUser />,
   children: [
-    { index: true, element: <UserHome /> },
-    { path: 'change-password', element: <ChangePassword /> },
-    { path: 'change-username', element: <ChangeUsername /> },
+    { index: true, element: renderWithFallback(<UserHome />) },
+    {
+      path: 'change-password',
+      element: renderWithFallback(<ChangePassword />),
+    },
+    {
+      path: 'change-username',
+      element: renderWithFallback(<ChangeUsername />),
+    },
   ],
 };
 

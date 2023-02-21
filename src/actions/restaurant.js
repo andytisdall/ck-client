@@ -49,6 +49,7 @@ export const editRestaurant =
         userId,
       });
       dispatch({ type: EDIT_RESTAURANT, payload: res.data });
+      dispatch(setAlert('Restaurant Edited'));
     } catch (err) {
       dispatch(setError(err));
     }

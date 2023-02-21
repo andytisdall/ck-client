@@ -1,14 +1,17 @@
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
+import React from 'react';
 
-import AddPhone from './AddPhone';
-import TextHome from './TextHome';
-import SendText from './SendText';
-import TextSuccess from './TextSuccess';
-import Feedback from './Feedback';
-import CustomText from './CustomText';
-import './TextHome.css';
+import renderWithFallback from '../reusable/renderWithFallback';
 import { getUser } from '../../actions';
+import './TextHome.css';
+
+const AddPhone = React.lazy(() => import('./AddPhone'));
+const TextHome = React.lazy(() => import('./TextHome'));
+const SendText = React.lazy(() => import('./SendText'));
+const TextSuccess = React.lazy(() => import('./TextSuccess'));
+const Feedback = React.lazy(() => import('./Feedback'));
+const CustomText = React.lazy(() => import('./CustomText'));
 
 const Text = ({ user }) => {
   const renderSignIn = () => {
@@ -33,15 +36,15 @@ const textRouter = {
   path: 'text',
   element: <ConnectedText />,
   children: [
-    { index: true, element: <TextHome /> },
+    { index: true, element: renderWithFallback(<TextHome />) },
     {
       path: 'add-phone',
       element: <AddPhone />,
     },
-    { path: 'send-text', element: <SendText /> },
-    { path: 'send-custom-text', element: <CustomText /> },
-    { path: 'text-success', element: <TextSuccess /> },
-    { path: 'feedback', element: <Feedback /> },
+    { path: 'send-text', element: renderWithFallback(<SendText />) },
+    { path: 'send-custom-text', element: renderWithFallback(<CustomText />) },
+    { path: 'text-success', element: renderWithFallback(<TextSuccess />) },
+    { path: 'feedback', element: renderWithFallback(<Feedback />) },
   ],
 };
 

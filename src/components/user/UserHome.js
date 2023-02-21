@@ -2,18 +2,33 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
-import { getRestaurant } from '../../actions';
+import { getRestaurant, getUserInfo } from '../../actions';
 
-const UserHome = ({ user, restaurant, getRestaurant }) => {
+const UserHome = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   useEffect(() => {
     getRestaurant();
-  }, [getRestaurant]);
+    getUserInfo();
+  }, [getRestaurant, getUserInfo]);
+
+  const renderRestarant = () => {
+    if (restaurant) {
+      return <p>Your restaurant: {restaurant.name}</p>;
+    }
+  };
+
+  const renderHomeChef = () => {
+    const status = user.homeChefStatus ? 'Active' : 'Not Yet Active';
+    if (user.homeChefStatus) {
+      return <p>Your Home Chef Status: {status}</p>;
+    }
+  };
 
   return (
     <div>
       <div>
         <p>You are logged in as {user.username}</p>
-        <p>Your restaurant: {restaurant?.name || 'None'}</p>
+        {renderRestarant()}
+        {renderHomeChef()}
       </div>
       <div style={{ marginTop: '2rem', display: 'flex' }}>
         <Link className="text-button-link" to="change-password">
@@ -34,4 +49,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getRestaurant })(UserHome);
+export default connect(mapStateToProps, { getRestaurant, getUserInfo })(
+  UserHome
+);

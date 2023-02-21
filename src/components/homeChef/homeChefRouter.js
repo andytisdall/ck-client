@@ -1,34 +1,45 @@
 import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { getUserInfo } from '../../actions';
 import './HomeChef.css';
-import HomeChefHome from './HomeChefHome';
-//home chef onboarding
-import HomeChefOnboarding from './onboarding/HomeChefOnboarding';
-import HomeChefDocuments from './onboarding/HomeChefDocuments';
-import UploadFoodHandler from './onboarding/UploadFoodHandler';
-// home chef shift sign up
-import ShiftSignup from './shiftSignup/ShiftSignup';
-import VolunteerJobsList from './shiftSignup/VolunteerJobsList';
-import Calendar from './shiftSignup/Calendar';
-import VJobSingle from './shiftSignup/VJobSingle';
-import ShiftDetail from './shiftSignup/ShiftDetail';
-import ChefShifts from './chef/ChefShifts';
-import EditShift from './chef/EditShift';
-// home chef resources
-import Resources from './resources/Resources';
-import ResourcesList from './resources/ResourcesList';
-import RecipeList from './resources/recipes/RecipeList';
-import Recipe from './resources/recipes/Recipe';
-import CreateRecipe from './resources/recipes/CreateRecipe';
-// documents
-import FileSuccess from '../reusable/FileSuccess';
-import DocusignSign from '../reusable/DocusignSign';
-import DocusignSuccess from '../reusable/DocusignSuccess';
-
 import Loading from '../reusable/Loading';
+import renderWithFallback from '../reusable/renderWithFallback';
+
+const HomeChefHome = React.lazy(() => import('./HomeChefHome'));
+//home chef onboarding
+const HomeChefOnboarding = React.lazy(() =>
+  import('./onboarding/HomeChefOnboarding')
+);
+const HomeChefDocuments = React.lazy(() =>
+  import('./onboarding/HomeChefDocuments')
+);
+const UploadFoodHandler = React.lazy(() =>
+  import('./onboarding/UploadFoodHandler')
+);
+// home chef shift sign up
+const ShiftSignup = React.lazy(() => import('./shiftSignup/ShiftSignup'));
+const VolunteerJobsList = React.lazy(() =>
+  import('./shiftSignup/VolunteerJobsList')
+);
+const Calendar = React.lazy(() => import('./shiftSignup/Calendar'));
+const VJobSingle = React.lazy(() => import('./shiftSignup/VJobSingle'));
+const ShiftDetail = React.lazy(() => import('./shiftSignup/ShiftDetail'));
+const ChefShifts = React.lazy(() => import('./chef/ChefShifts'));
+const EditShift = React.lazy(() => import('./chef/EditShift'));
+// home chef resources
+const Resources = React.lazy(() => import('./resources/Resources'));
+const ResourcesList = React.lazy(() => import('./resources/ResourcesList'));
+const RecipeList = React.lazy(() => import('./resources/recipes/RecipeList'));
+const Recipe = React.lazy(() => import('./resources/recipes/Recipe'));
+const CreateRecipe = React.lazy(() =>
+  import('./resources/recipes/CreateRecipe')
+);
+// documents
+const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
+const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
+const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 
 const HomeChef = ({ user, getUserInfo, error }) => {
   const [loading, setLoading] = useState(false);
@@ -88,35 +99,41 @@ const homeChefRouter = {
   path: 'home-chef',
   element: <ConnectedHomeChef />,
   children: [
-    { index: true, element: <HomeChefHome /> },
+    { index: true, element: renderWithFallback(<HomeChefHome />) },
     {
       path: 'signup',
-      element: <ShiftSignup />,
+      element: renderWithFallback(<ShiftSignup />),
       children: [
-        { path: 'list', element: <VolunteerJobsList /> },
-        { path: 'fridge/:jobId', element: <VJobSingle /> },
-        { path: 'calendar', element: <Calendar /> },
-        { path: 'shift/:shiftId', element: <ShiftDetail /> },
+        { path: 'list', element: renderWithFallback(<VolunteerJobsList />) },
+        { path: 'fridge/:jobId', element: renderWithFallback(<VJobSingle />) },
+        { path: 'calendar', element: renderWithFallback(<Calendar />) },
+        {
+          path: 'shift/:shiftId',
+          element: renderWithFallback(<ShiftDetail />),
+        },
       ],
     },
     {
       path: 'chef',
       children: [
-        { index: true, element: <ChefShifts /> },
-        { path: 'edit-shift/:id', element: <EditShift /> },
+        { index: true, element: renderWithFallback(<ChefShifts />) },
+        { path: 'edit-shift/:id', element: renderWithFallback(<EditShift />) },
       ],
     },
     {
       path: 'resources',
-      element: <Resources />,
+      element: renderWithFallback(<Resources />),
       children: [
-        { index: true, element: <ResourcesList /> },
+        { index: true, element: renderWithFallback(<ResourcesList />) },
         {
           path: 'recipes',
           children: [
-            { index: true, element: <RecipeList /> },
-            { path: ':recipeId', element: <Recipe /> },
-            { path: 'add-recipe', element: <CreateRecipe /> },
+            { index: true, element: renderWithFallback(<RecipeList />) },
+            { path: ':recipeId', element: renderWithFallback(<Recipe />) },
+            {
+              path: 'add-recipe',
+              element: renderWithFallback(<CreateRecipe />),
+            },
           ],
         },
       ],
@@ -124,29 +141,31 @@ const homeChefRouter = {
     {
       path: 'onboarding',
       children: [
-        { index: true, element: <HomeChefOnboarding /> },
+        { index: true, element: renderWithFallback(<HomeChefOnboarding />) },
         {
           path: 'documents',
-          element: <HomeChefDocuments />,
+          element: renderWithFallback(<HomeChefDocuments />),
         },
         {
           path: 'upload-food-handler',
-          element: <UploadFoodHandler />,
+          element: renderWithFallback(<UploadFoodHandler />),
         },
         {
           path: 'file-success',
-          element: <FileSuccess returnLink="/home-chef" />,
+          element: renderWithFallback(<FileSuccess returnLink="/home-chef" />),
         },
         {
           path: 'docusign',
           children: [
             {
               path: 'sign',
-              element: <DocusignSign accountType="contact" />,
+              element: renderWithFallback(
+                <DocusignSign accountType="contact" />
+              ),
             },
             {
               path: 'success',
-              element: (
+              element: renderWithFallback(
                 <DocusignSuccess
                   accountType="contact"
                   returnLink="/home-chef"

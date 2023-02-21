@@ -9,6 +9,7 @@ import Loading from '../../reusable/Loading';
 const EditShift = ({ hours, getHours, editHours }) => {
   const { id } = useParams();
   const [mealCount, setMealCount] = useState(0);
+  const [cancel, setCancel] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +31,29 @@ const EditShift = ({ hours, getHours, editHours }) => {
 
   const hour = hours[id];
 
+  const renderCancel = () => {
+    let text;
+    if (hour.status === 'Confirmed') {
+      text = 'Check here to cancel this delivery';
+    }
+    if (hour.status === 'Completed') {
+      text = 'Check here if you did not make this delivery';
+    }
+    return (
+      <div className="chef-cancel">
+        <label htmlFor="cancel">{text}</label>
+        <input
+          type="checkbox"
+          id="cancel"
+          value={cancel}
+          onChange={(e) => setCancel(e.target.checked)}
+        />
+      </div>
+    );
+  };
+
+  const meals = cancel ? 0 : mealCount;
+
   return (
     <div>
       <h2>Edit Home Chef Delivery Details</h2>
@@ -38,9 +62,10 @@ const EditShift = ({ hours, getHours, editHours }) => {
       <label>Number of Meals:</label>
       <input
         type="number"
-        value={mealCount}
+        value={meals}
         onChange={(e) => setMealCount(e.target.value)}
       />
+      {renderCancel()}
       <button onClick={onSubmit}>Submit</button>
     </div>
   );

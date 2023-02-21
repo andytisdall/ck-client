@@ -1,22 +1,23 @@
-import { Link } from 'react-router-dom';
+import TextButton from '../../reusable/TextButton';
 
 const HomeChefDocuments = () => {
   return (
     <div>
       <h2>Upload Your Documents</h2>
       <div className="col">
-        <Link to="../docusign/sign" className="home-link">
-          Sign the Volunteer Agreement
-        </Link>
-        <Link to="../upload-food-handler" className="home-link">
-          Upload Your Food Handler Certification
-        </Link>
-        <Link
+        <TextButton
+          to="../docusign/sign"
+          buttonText="Sign the Volunteer Agreement"
+        />
+        <TextButton
+          to="../upload-food-handler"
+          buttonText="Upload Your Food Handler Certification"
+        />
+
+        <TextButton
           to="https://premierfoodsafety.com/food-handlers-card/california"
-          className="home-link"
-        >
-          Apply for your Food Handler Ceritifcation
-        </Link>
+          buttonText="Apply for your Food Handler Ceritifcation"
+        />
       </div>
     </div>
   );

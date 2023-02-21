@@ -29,7 +29,7 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
     case FETCH_ALL_RESTAURANTS:
       return { ...state, restaurants: _.mapKeys(action.payload, (i) => i.id) };
     case EDIT_RESTAURANT:
-      let restaurant = state.restaurant;
+      let restaurant = { ...state.restaurant };
       if (action.payload.id === state.restaurant?.id) {
         restaurant = action.payload;
       }
@@ -38,7 +38,7 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
         restaurant,
         restaurants: {
           ...state.restaurants,
-          [action.payload.id]: action.paylaod,
+          [action.payload.id]: action.payload,
         },
       };
     case UPLOAD_FILES:

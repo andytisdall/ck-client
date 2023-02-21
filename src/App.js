@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { connect } from 'react-redux';
+import React from 'react';
 
 import './App.css';
-import Header from './components/Header';
-import Home from './components/Home';
+import './components/reusable/TextButton.css';
+import renderWithFallback from './components/reusable/renderWithFallback';
 
 // text service
 import textRouter from './components/text/textRouter';
@@ -23,12 +24,18 @@ import homeChefRouter from './components/homeChef/homeChefRouter';
 // forms
 import formsRouter from './components/forms/formsRouter';
 
+const Home = React.lazy(() => import('./components/Home'));
+const Header = React.lazy(() => import('./components/Header'));
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Header />,
+    element: renderWithFallback(<Header />),
     children: [
-      { index: true, element: <Home /> },
+      {
+        index: true,
+        element: renderWithFallback(<Home />),
+      },
       textRouter,
       adminRouter,
       onboardingRouter,

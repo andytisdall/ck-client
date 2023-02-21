@@ -37,13 +37,17 @@ export const getHours = () => async (dispatch) => {
   }
 };
 
-export const editHours = (id, mealCount) => async (dispatch) => {
+export const editHours = (id, mealCount, cancel) => async (dispatch) => {
   try {
-    const res = await server.patch(`/home-chef/hours/${id}`, { mealCount });
+    const res = await server.patch(`/home-chef/hours/${id}`, {
+      mealCount,
+      cancel,
+    });
     dispatch({ type: EDIT_HOURS, payload: res.data });
-    dispatch(
-      setAlert('Successfully changed the number of meals to ' + mealCount)
-    );
+    const alertMessage = cancel
+      ? 'Canceled this delivery'
+      : 'Successfully changed the number of meals to ' + mealCount;
+    dispatch(setAlert(alertMessage));
   } catch (err) {
     dispatch(setError(err));
   }
