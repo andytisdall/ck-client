@@ -1,16 +1,14 @@
 import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import FileUpload from '../reusable/FileUpload';
-import { uploadFiles } from '../../actions';
+import * as actions from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
 import Loading from '../reusable/Loading';
 
-const Documents = ({ uploadFiles, alert, error }) => {
+const Documents = ({ uploadFiles, error }) => {
   const [expirationDate, setExpirationDate] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const renderUploadForms = () => {
     return requiredDocuments.map((doc) => {
@@ -19,13 +17,10 @@ const Documents = ({ uploadFiles, alert, error }) => {
   };
 
   useEffect(() => {
-    if (alert) {
-      navigate('../file-success');
-    }
     if (error) {
       setLoading(false);
     }
-  }, [alert, navigate, error]);
+  }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,4 +59,4 @@ const mapStateToProps = (state) => {
   return { alert: state.alert.message, error: state.error.error };
 };
 
-export default connect(mapStateToProps, { uploadFiles })(Documents);
+export default connect(mapStateToProps, actions)(Documents);

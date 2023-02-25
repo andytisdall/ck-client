@@ -1,12 +1,17 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { createRecipe, editRecipe } from '../../../../actions';
+import * as actions from '../../../../actions';
 import './CreateRecipe.css';
 import Loading from '../../../reusable/Loading';
 
-const CreateRecipe = ({ createRecipe, alert, error, recipe, editRecipe }) => {
+const CreateRecipe = ({
+  createRecipe,
+  error,
+  recipe,
+  editRecipe,
+  setError,
+}) => {
   const [name, setName] = useState(recipe?.name || '');
   const [ingredients, setIngredients] = useState(
     recipe?.ingredients.join('\n') || ''
@@ -15,9 +20,8 @@ const CreateRecipe = ({ createRecipe, alert, error, recipe, editRecipe }) => {
     recipe?.instructions.join('\n') || ''
   );
   const [description, setDescription] = useState(recipe?.description || '');
+  const [category, setCategory] = useState(recipe?.category || '');
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -25,15 +29,12 @@ const CreateRecipe = ({ createRecipe, alert, error, recipe, editRecipe }) => {
     }
   }, [error]);
 
-  useEffect(() => {
-    if (alert) {
-      navigate('..');
-    }
-  }, [alert, navigate]);
-
   const handleSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
+    if (!category) {
+      return setError({ message: 'Please choose a category' });
+    }
     if (recipe) {
       editRecipe(recipe.id, e.target);
     } else {
@@ -43,6 +44,7 @@ const CreateRecipe = ({ createRecipe, alert, error, recipe, editRecipe }) => {
     setIngredients('');
     setInstructions('');
     setDescription('');
+    setCategory('');
   };
 
   const action = recipe ? 'Edit this' : 'Create a ';
@@ -84,7 +86,78 @@ const CreateRecipe = ({ createRecipe, alert, error, recipe, editRecipe }) => {
           name="description"
           onChange={(e) => setDescription(e.target.value)}
         />
-        <label htmlFor="image">Photo</label>
+        <label>Category:</label>
+        <div>
+          <input
+            type="radio"
+            name="category"
+            id="category-1"
+            checked={category === 'mains'}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setCategory('mains');
+              }
+            }}
+          />
+          <label htmlFor="category-1">Mains</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="category"
+            id="category-2"
+            checked={category === 'sides'}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setCategory('sides');
+              }
+            }}
+          />
+          <label htmlFor="category-2">Sides</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="category"
+            id="category-3"
+            checked={category === 'soups'}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setCategory('soups');
+              }
+            }}
+          />
+          <label htmlFor="category-3">Soups</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="category"
+            id="category-4"
+            checked={category === 'veggies'}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setCategory('veggies');
+              }
+            }}
+          />
+          <label htmlFor="category-4">Salads & Veggies</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="category"
+            id="category-5"
+            checked={category === 'desserts'}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setCategory('desserts');
+              }
+            }}
+          />
+          <label htmlFor="category-5">Desserts</label>
+        </div>
+        <label htmlFor="image">{'Photo (optional)'}</label>
         <input type="file" name="image" />
         {loading ? <Loading /> : <input type="submit" />}
       </form>
@@ -93,9 +166,7 @@ const CreateRecipe = ({ createRecipe, alert, error, recipe, editRecipe }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { alert: state.alert.message, error: state.error.error };
+  return { error: state.error.error };
 };
 
-export default connect(mapStateToProps, { createRecipe, editRecipe })(
-  CreateRecipe
-);
+export default connect(mapStateToProps, actions)(CreateRecipe);

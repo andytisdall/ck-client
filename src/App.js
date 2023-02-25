@@ -27,7 +27,7 @@ import formsRouter from './components/forms/formsRouter';
 const Home = React.lazy(() => import('./components/Home'));
 const Header = React.lazy(() => import('./components/Header'));
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: '/',
     element: renderWithFallback(<Header />),

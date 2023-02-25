@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 
@@ -10,7 +10,6 @@ const EditShift = ({ hours, getHours, editHours }) => {
   const { id } = useParams();
   const [mealCount, setMealCount] = useState(0);
   const [cancel, setCancel] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!hours) {
@@ -22,7 +21,6 @@ const EditShift = ({ hours, getHours, editHours }) => {
 
   const onSubmit = () => {
     editHours(id, mealCount);
-    navigate('..');
   };
 
   if (!hours) {

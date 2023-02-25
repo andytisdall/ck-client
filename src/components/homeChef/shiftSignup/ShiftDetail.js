@@ -1,23 +1,16 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { signUpForShift } from '../../../actions/homeChef';
+import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 
-const ShiftDetail = ({ jobs, shifts, signUpForShift, error, alert }) => {
+const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
   const [mealCount, setMealCount] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { shiftId } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (alert) {
-      navigate('../../chef');
-    }
-  }, [alert, navigate]);
 
   useEffect(() => {
     if (error) {
@@ -79,8 +72,7 @@ const mapStateToProps = (state) => {
     jobs: state.homeChef.jobs,
     shifts: state.homeChef.shifts,
     error: state.error.error,
-    alert: state.alert.message,
   };
 };
 
-export default connect(mapStateToProps, { signUpForShift })(ShiftDetail);
+export default connect(mapStateToProps, actions)(ShiftDetail);

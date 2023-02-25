@@ -8,6 +8,7 @@ import {
   EDIT_RECIPE,
   DELETE_RECIPE,
 } from './types';
+import { router } from '../App';
 
 export const getRecipes = () => async (dispatch) => {
   try {
@@ -42,6 +43,7 @@ export const createRecipe = (form) => async (dispatch) => {
     });
     dispatch({ type: CREATE_RECIPE, payload: res.data });
     dispatch(setAlert('Recipe Created'));
+    router.navigate('/home-chef/resources/recipes');
   } catch (err) {
     dispatch(setError(err));
   }
@@ -63,6 +65,7 @@ export const editRecipe = (id, form) => async (dispatch) => {
     });
     dispatch({ type: EDIT_RECIPE, payload: res.data });
     dispatch(setAlert('Recipe Edited'));
+    router.navigate('/home-chef/resources/recipes');
   } catch (err) {
     dispatch(setError(err));
   }
@@ -73,6 +76,7 @@ export const deleteRecipe = (id) => async (dispatch) => {
     await server.delete(`/home-chef/recipe/${id}`);
     dispatch({ type: DELETE_RECIPE, payload: id });
     dispatch(setAlert('Recipe Deleted'));
+    router.navigate('/home-chef/resources/recipes');
   } catch (err) {
     dispatch(setError(err));
   }

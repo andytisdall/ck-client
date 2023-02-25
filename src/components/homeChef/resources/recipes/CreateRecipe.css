@@ -1,0 +1,15 @@
+.recipe-radio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.recipe-radio input {
+  margin: 0;
+  padding: 0;
+}
+
+.recipe-radio label {
+  margin: 0;
+  padding: 0;
+}

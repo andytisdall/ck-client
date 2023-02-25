@@ -2,6 +2,7 @@ import server from './api';
 import { GET_SHIFTS, SIGN_UP_FOR_SHIFT, GET_HOURS, EDIT_HOURS } from './types';
 import { setError } from './error';
 import { setAlert } from './alert';
+import { router } from '../App';
 
 export const getShifts = () => async (dispatch) => {
   try {
@@ -23,6 +24,7 @@ export const signUpForShift =
       });
       dispatch({ type: SIGN_UP_FOR_SHIFT, payload: data });
       dispatch(setAlert('You Signed Up For A Shift'));
+      router.navigate('/home-chef/chef');
     } catch (err) {
       dispatch(setError(err));
     }
@@ -44,6 +46,7 @@ export const editHours = (id, mealCount, cancel) => async (dispatch) => {
       cancel,
     });
     dispatch({ type: EDIT_HOURS, payload: res.data });
+    router.navigate('/home-chef/chef');
     const alertMessage = cancel
       ? 'Canceled this delivery'
       : 'Successfully changed the number of meals to ' + mealCount;
