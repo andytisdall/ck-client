@@ -2,7 +2,7 @@ import TextButton from '../../reusable/TextButton';
 
 const HomeChefDocuments = () => {
   return (
-    <div>
+    <div id="home-chef-documents">
       <h2>Upload Your Documents</h2>
       <div className="col">
         <TextButton

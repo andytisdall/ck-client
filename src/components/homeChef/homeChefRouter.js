@@ -7,6 +7,8 @@ import './HomeChef.css';
 import Loading from '../reusable/Loading';
 import renderWithFallback from '../reusable/renderWithFallback';
 
+const HomeChefStatus = React.lazy(() => import('./HomeChefStatus'));
+
 const HomeChefHome = React.lazy(() => import('./HomeChefHome'));
 //home chef onboarding
 const HomeChefOnboarding = React.lazy(() =>
@@ -77,6 +79,19 @@ const HomeChef = ({ user, getUserInfo, error }) => {
     }
   };
 
+  const renderHomeChef = () => {
+    if (user.homeChefStatus) {
+      return (
+        <>
+          <HomeChefStatus />
+          <Outlet />
+        </>
+      );
+    } else {
+      renderNoChef();
+    }
+  };
+
   return (
     <div className="main home-chef">
       <Link to="/home-chef">
@@ -84,7 +99,7 @@ const HomeChef = ({ user, getUserInfo, error }) => {
       </Link>
       {loading && <Loading />}
       {!user && renderSignIn()}
-      {user && user.homeChefStatus ? <Outlet /> : renderNoChef()}
+      {!!user && renderHomeChef()}
     </div>
   );
 };

@@ -1,3 +1,9 @@
 .home-chef {
   background-image: linear-gradient(rgb(177, 221, 240), rgb(103, 128, 230));
 }
+
+.home-chef-status {
+  background-color: rgba(255, 234, 0, 0.505);
+  padding: 1rem;
+  
+}
