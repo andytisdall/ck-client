@@ -4,22 +4,18 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../reusable/FileUpload';
-import { uploadFiles } from '../../../actions';
+import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 
-const UploadFoodHandler = ({ alert, error, uploadFiles }) => {
+const UploadFoodHandler = ({ error, uploadFiles }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (alert) {
-      navigate('../file-success');
-      console.log(alert);
-    }
     if (error) {
       setLoading(false);
     }
-  }, [alert, navigate, error]);
+  }, [navigate, error]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +40,7 @@ const UploadFoodHandler = ({ alert, error, uploadFiles }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { alert: state.alert.message, error: state.error.error };
+  return { error: state.error.error };
 };
 
-export default connect(mapStateToProps, { uploadFiles })(UploadFoodHandler);
+export default connect(mapStateToProps, actions)(UploadFoodHandler);

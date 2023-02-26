@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
-import { getUserInfo, getRestaurant } from '../actions';
+import * as actions from '../actions';
 import TextButton from './reusable/TextButton';
 import './Home.css';
 
@@ -118,4 +118,4 @@ const mapStateToProps = (state) => {
   return { user: state.user.user, restaurant: state.restaurant.restaurant };
 };
 
-export default connect(mapStateToProps, { getUserInfo, getRestaurant })(Home);
+export default connect(mapStateToProps, actions)(Home);

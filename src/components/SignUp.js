@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { signIn, signOut } from '../actions';
+import * as actions from '../actions';
 import Loading from './reusable/Loading';
 
 const Header = ({ signIn, error }) => {
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => {
   return { error: state.error.error };
 };
 
-export default connect(mapStateToProps, { signIn, signOut })(Header);
+export default connect(mapStateToProps, actions)(Header);

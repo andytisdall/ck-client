@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 
-import { getUser, signOut } from '../actions';
+import * as actions from '../actions';
 import Loading from './reusable/Loading';
 import SignUp from './SignUp';
 import './Header.css';
@@ -81,4 +81,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getUser, signOut })(Header);
+export default connect(mapStateToProps, actions)(Header);

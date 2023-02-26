@@ -1,5 +1,4 @@
 import server from './api';
-import { setError } from './error';
 import { setAlert } from './alert';
 import {
   GET_RECIPES,
@@ -11,21 +10,13 @@ import {
 import { router } from '../App';
 
 export const getRecipes = () => async (dispatch) => {
-  try {
-    const res = await server.get('/home-chef/recipes');
-    dispatch({ type: GET_RECIPES, payload: res.data });
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.get('/home-chef/recipes');
+  dispatch({ type: GET_RECIPES, payload: res.data });
 };
 
 export const getRecipe = (id) => async (dispatch) => {
-  try {
-    const res = await server.get(`/home-chef/recipe/${id}`);
-    dispatch({ type: GET_RECIPE, payload: res.data });
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.get(`/home-chef/recipe/${id}`);
+  dispatch({ type: GET_RECIPE, payload: res.data });
 };
 
 export const createRecipe = (form) => async (dispatch) => {
@@ -37,16 +28,13 @@ export const createRecipe = (form) => async (dispatch) => {
       postBody.append(input.name, input.value);
     }
   });
-  try {
-    const res = await server.post('/home-chef/recipe', postBody, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-    dispatch({ type: CREATE_RECIPE, payload: res.data });
-    dispatch(setAlert('Recipe Created'));
-    router.navigate('/home-chef/resources/recipes');
-  } catch (err) {
-    dispatch(setError(err));
-  }
+
+  const res = await server.post('/home-chef/recipe', postBody, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  dispatch({ type: CREATE_RECIPE, payload: res.data });
+  dispatch(setAlert('Recipe Created'));
+  router.navigate('/home-chef/resources/recipes');
 };
 
 export const editRecipe = (id, form) => async (dispatch) => {
@@ -59,25 +47,18 @@ export const editRecipe = (id, form) => async (dispatch) => {
       postBody.append(input.name, input.value);
     }
   });
-  try {
-    const res = await server.patch(`/home-chef/recipe/${id}`, postBody, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-    dispatch({ type: EDIT_RECIPE, payload: res.data });
-    dispatch(setAlert('Recipe Edited'));
-    router.navigate('/home-chef/resources/recipes');
-  } catch (err) {
-    dispatch(setError(err));
-  }
+
+  const res = await server.patch(`/home-chef/recipe/${id}`, postBody, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  dispatch({ type: EDIT_RECIPE, payload: res.data });
+  dispatch(setAlert('Recipe Edited'));
+  router.navigate('/home-chef/resources/recipes');
 };
 
 export const deleteRecipe = (id) => async (dispatch) => {
-  try {
-    await server.delete(`/home-chef/recipe/${id}`);
-    dispatch({ type: DELETE_RECIPE, payload: id });
-    dispatch(setAlert('Recipe Deleted'));
-    router.navigate('/home-chef/resources/recipes');
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  await server.delete(`/home-chef/recipe/${id}`);
+  dispatch({ type: DELETE_RECIPE, payload: id });
+  dispatch(setAlert('Recipe Deleted'));
+  router.navigate('/home-chef/resources/recipes');
 };

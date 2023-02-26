@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
-import { getRestaurant, getUserInfo } from '../../actions';
+import * as actions from '../../actions';
 
 const UserHome = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   useEffect(() => {
@@ -49,6 +49,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getRestaurant, getUserInfo })(
-  UserHome
-);
+export default connect(mapStateToProps, actions)(UserHome);

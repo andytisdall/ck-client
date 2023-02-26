@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Loading from '../reusable/Loading';
-import { submitForm } from '../../actions';
+import * as actions from '../../actions';
 
 const successMessage =
   'Thank you for you valuable feedback about the CK meal program.';
 
-const Survey = ({ submitForm, error, alert }) => {
+const Survey = ({ submitForm, error }) => {
   const [mealName, setMealName] = useState('');
   const [location, setLocation] = useState('');
   const [taste, setTaste] = useState('');
@@ -19,7 +19,6 @@ const Survey = ({ submitForm, error, alert }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
   const { phone } = useParams();
 
   useEffect(() => {
@@ -27,12 +26,6 @@ const Survey = ({ submitForm, error, alert }) => {
       setLoading(false);
     }
   }, [error]);
-
-  useEffect(() => {
-    if (alert) {
-      navigate('../form-sent');
-    }
-  }, [alert, navigate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -265,7 +258,7 @@ const Survey = ({ submitForm, error, alert }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { alert: state.alert.message, error: state.error.error };
+  return { error: state.error.error };
 };
 
-export default connect(mapStateToProps, { submitForm })(Survey);
+export default connect(mapStateToProps, actions)(Survey);

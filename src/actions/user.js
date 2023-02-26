@@ -7,47 +7,30 @@ import {
   GET_USER_INFO,
 } from './types';
 import server from './api';
-import { setError } from './error';
 import { setAlert } from './alert';
 
 export const getUser = () => async (dispatch) => {
-  try {
-    const res = await server.get('/user');
-    dispatch({ type: SIGN_IN, payload: res.data });
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.get('/user');
+  dispatch({ type: SIGN_IN, payload: res.data });
 };
 
 export const getUserInfo = () => async (dispatch) => {
-  try {
-    const res = await server.get('/user/userInfo');
-    dispatch({ type: GET_USER_INFO, payload: res.data });
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.get('/user/userInfo');
+  dispatch({ type: GET_USER_INFO, payload: res.data });
 };
 
 export const getAllUsers = () => async (dispatch) => {
-  try {
-    const res = await server.get('/user/all');
-    dispatch({ type: GET_ALL_USERS, payload: res.data });
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.get('/user/all');
+  dispatch({ type: GET_ALL_USERS, payload: res.data });
 };
 
 export const signIn = (username, password) => async (dispatch) => {
-  try {
-    const res = await server.post('/signin', {
-      username,
-      password,
-    });
-    dispatch({ type: SIGN_IN, payload: res.data.user });
-    localStorage.setItem('ck-token', res.data.token);
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.post('/signin', {
+    username,
+    password,
+  });
+  dispatch({ type: SIGN_IN, payload: res.data.user });
+  localStorage.setItem('ck-token', res.data.token);
 };
 
 export const signOut = () => {
@@ -56,28 +39,20 @@ export const signOut = () => {
 };
 
 export const createUser = (username, password) => async (dispatch) => {
-  try {
-    const res = await server.post('/user', {
-      username,
-      password,
-    });
-    dispatch({ type: CREATE_USER, payload: res.data });
-    dispatch(setAlert('User Created'));
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.post('/user', {
+    username,
+    password,
+  });
+  dispatch({ type: CREATE_USER, payload: res.data });
+  dispatch(setAlert('User Created'));
 };
 
 export const editUser = (userId, username, password) => async (dispatch) => {
-  try {
-    const res = await server.patch('/user', {
-      userId,
-      username,
-      password,
-    });
-    dispatch({ type: EDIT_USER, payload: res.data });
-    dispatch(setAlert('User Modified!'));
-  } catch (err) {
-    dispatch(setError(err));
-  }
+  const res = await server.patch('/user', {
+    userId,
+    username,
+    password,
+  });
+  dispatch({ type: EDIT_USER, payload: res.data });
+  dispatch(setAlert('User Modified!'));
 };

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
-import { editUser } from '../../actions';
+import * as actions from '../../actions';
 
 const ChangeUsername = ({ user, editUser }) => {
   const [username, setUsername] = useState(user.username);
@@ -33,4 +33,4 @@ const mapStateToProps = (state) => {
   return { user: state.user.user };
 };
 
-export default connect(mapStateToProps, { editUser })(ChangeUsername);
+export default connect(mapStateToProps, actions)(ChangeUsername);

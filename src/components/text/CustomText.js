@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Loading from '../reusable/Loading';
-import { sendCustomText } from '../../actions';
+import * as actions from '../../actions';
 import TextPreview from './TextPreview';
 
-const CustomText = ({ error, alert, sendCustomText }) => {
+const CustomText = ({ error, sendCustomText }) => {
   const [message, setMessage] = useState('');
   const [to, setTo] = useState('');
   const [number, setNumber] = useState('');
@@ -14,18 +13,14 @@ const CustomText = ({ error, alert, sendCustomText }) => {
   const [preview, setPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
   const numberRef = useRef();
   const numberTextRef = useRef();
 
   useEffect(() => {
-    if (alert) {
-      navigate('../text-success');
-    }
     if (error) {
       setLoading(false);
     }
-  }, [alert, navigate, error]);
+  }, [error]);
 
   const processPhoto = (e) => {
     const { files } = e.target;
@@ -171,7 +166,7 @@ const CustomText = ({ error, alert, sendCustomText }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { error: state.error.error, alert: state.alert.message };
+  return { error: state.error.error };
 };
 
-export default connect(mapStateToProps, { sendCustomText })(CustomText);
+export default connect(mapStateToProps, actions)(CustomText);

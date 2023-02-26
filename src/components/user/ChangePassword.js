@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
-import { editUser, setError } from '../../actions';
+import * as actions from '../../actions';
 
 const ChangePassword = ({ user, editUser, setError }) => {
   const [password1, setPassword1] = useState('');
@@ -47,4 +47,4 @@ const mapStateToProps = (state) => {
   return { user: state.user.user };
 };
 
-export default connect(mapStateToProps, { editUser, setError })(ChangePassword);
+export default connect(mapStateToProps, actions)(ChangePassword);

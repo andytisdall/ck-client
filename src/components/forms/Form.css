@@ -101,3 +101,7 @@
 .form-checkbox label {
   margin-bottom: 0;
 }
+
+.form-sent {
+  height: 100vh;
+}

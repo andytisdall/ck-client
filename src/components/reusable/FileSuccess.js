@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 
 import { clearMessages } from '../../actions';
 
-const FileSuccess = ({ alert, clearMessages, returnLink }) => {
+const FileSuccess = ({ alert, returnLink }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     setMessage(alert);
-    return () => clearMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clearMessages]);
+  }, []);
 
   return (
     <div>

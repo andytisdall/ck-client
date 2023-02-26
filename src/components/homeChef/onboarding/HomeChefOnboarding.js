@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import TextButton from '../../reusable/TextButton';
 
 const orientationDescription =
@@ -23,12 +21,12 @@ const HomeChefOnboarding = () => {
         <TextButton
           to=""
           buttonText="Get Connected to our Slack Channel"
-          descriptionText={orientationDescription}
+          descriptionText={slackDescription}
         />
         <TextButton
           to="documents"
           buttonText="Upload your Documents"
-          descriptionText={orientationDescription}
+          descriptionText={documentsDescription}
         />
       </div>
     </div>

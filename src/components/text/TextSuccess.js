@@ -1,14 +1,7 @@
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { useEffect } from 'react';
 
-import { clearMessages } from '../../actions';
-
-const TextSuccess = ({ message, clearMessages }) => {
-  useEffect(() => {
-    return () => clearMessages();
-  }, [clearMessages]);
-
+const TextSuccess = ({ message }) => {
   return (
     <div>
       <h1>Success!</h1>
@@ -35,4 +28,4 @@ const mapStateToProps = (state) => {
   return { message: state.text.sent };
 };
 
-export default connect(mapStateToProps, { clearMessages })(TextSuccess);
+export default connect(mapStateToProps)(TextSuccess);

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 
 import Loading from '../reusable/Loading';
-import { getFeedback, deleteFeedback } from '../../actions';
+import * as actions from '../../actions';
 import './Feedback.css';
 
 const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
@@ -88,6 +88,4 @@ const mapStateToProps = (state) => {
   return { feedback: state.text.feedback };
 };
 
-export default connect(mapStateToProps, { getFeedback, deleteFeedback })(
-  Feedback
-);
+export default connect(mapStateToProps, actions)(Feedback);

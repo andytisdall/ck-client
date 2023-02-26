@@ -1,15 +1,13 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Loading from '../reusable/Loading';
-import { submitForm } from '../../actions';
-import './Form.css';
+import * as actions from '../../actions';
 
 const successMessage =
   'A Community Kitchens staff member will be in touch with you. Thanks for helping out!';
 
-const InterestForm = ({ submitForm, alert, error }) => {
+const InterestForm = ({ submitForm, error }) => {
   const initialDays = {
     Tuesday: false,
     Wednesday: false,
@@ -18,8 +16,6 @@ const InterestForm = ({ submitForm, alert, error }) => {
     Saturday: false,
     Sunday: false,
   };
-
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -42,12 +38,6 @@ const InterestForm = ({ submitForm, alert, error }) => {
       setLoading(false);
     }
   }, [error]);
-
-  useEffect(() => {
-    if (alert) {
-      navigate('../form-sent');
-    }
-  }, [alert, navigate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -500,7 +490,7 @@ const InterestForm = ({ submitForm, alert, error }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { alert: state.alert.message, error: state.error.error };
+  return { error: state.error.error };
 };
 
-export default connect(mapStateToProps, { submitForm })(InterestForm);
+export default connect(mapStateToProps, actions)(InterestForm);

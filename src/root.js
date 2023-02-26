@@ -1,7 +1,8 @@
 import { compose, createStore, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import ThunkMiddleware from 'redux-thunk-recursion-detect';
 
+import errorHandlerMiddleware from './middlewares/errorHandler';
 import reducers from './reducers';
 
 const Root = ({ children, initialState = {} }) => {
@@ -10,7 +11,7 @@ const Root = ({ children, initialState = {} }) => {
   const store = createStore(
     reducers,
     initialState,
-    composeEnhancers(applyMiddleware(reduxThunk))
+    composeEnhancers(applyMiddleware(errorHandlerMiddleware, ThunkMiddleware))
   );
   return <Provider store={store}>{children}</Provider>;
 };

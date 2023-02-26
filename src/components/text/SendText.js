@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
-import { sendText } from '../../actions';
+import * as actions from '../../actions';
 import renderWithFallback from '../reusable/renderWithFallback';
 import './SendText.css';
 import { townFridges } from './townFridges';
@@ -11,7 +10,7 @@ import Loading from '../reusable/Loading';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 
-const SendText = ({ sendText, alert, error }) => {
+const SendText = ({ sendText, error }) => {
   const [fridge, setFridge] = useState('');
   const [mealCount, setMealCount] = useState(25);
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
@@ -22,7 +21,11 @@ const SendText = ({ sendText, alert, error }) => {
   const [preview, setPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (error) {
+      setLoading(false);
+    }
+  }, [error]);
 
   const getAddress = () => {
     if (townFridges[fridge].address) {
@@ -41,15 +44,6 @@ const SendText = ({ sendText, alert, error }) => {
     ).format(
       'M/D [at] h:mm a'
     )}, made with love by ${source}! The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`;
-
-  useEffect(() => {
-    if (alert) {
-      navigate('../text-success');
-    }
-    if (error) {
-      setLoading(false);
-    }
-  }, [alert, navigate, error]);
 
   const getRegion = () => {
     const { region } = townFridges[fridge];
@@ -223,9 +217,8 @@ const SendText = ({ sendText, alert, error }) => {
 
 const mapStateToProps = (state) => {
   return {
-    alert: state.alert.message,
     error: state.error.error,
   };
 };
 
-export default connect(mapStateToProps, { sendText })(SendText);
+export default connect(mapStateToProps, actions)(SendText);

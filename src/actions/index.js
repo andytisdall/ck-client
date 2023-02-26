@@ -1,4 +1,3 @@
-export * from './error';
 export * from './user';
 export * from './text';
 export * from './restaurant';

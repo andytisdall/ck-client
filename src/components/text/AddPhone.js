@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { addPhone } from '../../actions';
+import * as actions from '../../actions';
 import { REGIONS } from './townFridges';
 import './AddPhone.css';
 
-const AddPhone = ({ addPhone, alert }) => {
+const AddPhone = ({ addPhone }) => {
   const [phone, setPhone] = useState('');
   const [region, setRegion] = useState(REGIONS.EAST_OAKLAND);
 
@@ -13,10 +13,6 @@ const AddPhone = ({ addPhone, alert }) => {
     e.preventDefault();
     addPhone(phone, region);
     setPhone('');
-  };
-
-  const renderSuccess = () => {
-    return <div className="sent-success">{alert}</div>;
   };
 
   return (
@@ -46,13 +42,8 @@ const AddPhone = ({ addPhone, alert }) => {
         </div>
         <input type="submit" />
       </form>
-      {alert && renderSuccess()}
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return { alert: state.alert.message };
-};
-
-export default connect(mapStateToProps, { addPhone })(AddPhone);
+export default connect(null, actions)(AddPhone);
