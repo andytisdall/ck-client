@@ -6,6 +6,7 @@ export const EDIT_USER = 'EDIT_USER';
 export const GET_USER_INFO = 'GET_USER_INFO';
 
 export const ERROR = 'ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const SEND_TEXT = 'SEND_TEXT';
 export const GET_FEEDBACK = 'GET_FEEDBACK';
