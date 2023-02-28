@@ -37,7 +37,7 @@ const RecipeList = ({ recipes, getRecipes }) => {
   }, [recipes]);
 
   const renderRecipes = useCallback(() => {
-    if (!orderedRecipes) {
+    if (!Object.values(orderedRecipes).length) {
       return <Loading />;
     }
 

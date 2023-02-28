@@ -36,7 +36,7 @@ export const createRecipe = (formValues) => async (dispatch) => {
 export const editRecipe = (id, formValues) => async (dispatch) => {
   const postBody = new FormData();
   for (let key in formValues) {
-    postBody.append(formValues[key], formValues[key]);
+    postBody.append(key, formValues[key]);
   }
 
   const res = await server.patch(`/home-chef/recipe/${id}`, postBody, {
