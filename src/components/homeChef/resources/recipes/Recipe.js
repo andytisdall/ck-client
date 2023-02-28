@@ -8,6 +8,8 @@ import * as actions from '../../../../actions';
 import { categories } from './RecipeList';
 import './Recipe.css';
 
+const IMAGE_URL = 'https://portal.ckoakland.org/api/files/images/';
+
 const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
   const { recipeId } = useParams();
   const [loading, setLoading] = useState(!recipes[recipeId]);
@@ -50,12 +52,37 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
     }
   };
 
-  const renderList = (list) => {
-    return list
-      .filter((i) => i)
-      .map((i) => {
-        return <li key={i}>{i}</li>;
-      });
+  const renderItems = (name) => {
+    const listItems = ({ text }) =>
+      text
+        .filter((i) => i)
+        .map((i) => {
+          return <li key={i}>{i}</li>;
+        });
+    const config = {
+      instructions: {
+        items: recipe.instructions,
+        listFunc: (item) => <ol>{listItems(item)}</ol>,
+      },
+      ingredients: {
+        items: recipe.ingredients,
+        listFunc: (item) => <ul>{listItems(item)}</ul>,
+      },
+    };
+    const { items, listFunc } = config[name];
+    return (
+      <div>
+        <h2>{name[0].toUpperCase() + name.slice(1)}</h2>
+        {items.map((item) => {
+          return (
+            <div>
+              {item.header ? <h4>{item.header}</h4> : null}
+              {listFunc(item)}
+            </div>
+          );
+        })}
+      </div>
+    );
   };
 
   const recipe = recipes[recipeId];
@@ -64,7 +91,7 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
       return (
         <div className="recipe-photo">
           <img
-            src={`https://portal.ckoakland.org/api/files/images/${recipe.image}`}
+            src={`${IMAGE_URL}${recipe.image}`}
             alt={recipe.name}
             className="recipe-img"
           />
@@ -94,11 +121,9 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
             Category:{' '}
             {categories.find((cat) => cat.name === recipe.category).label}
           </p>
-          <h3 className="recipe-description">{recipe.description}</h3>
-          <h2>Ingredients:</h2>
-          <ul>{renderList(recipe.ingredients)}</ul>
-          <h2>Instructions:</h2>
-          <ol>{renderList(recipe.instructions)}</ol>
+          <div className="recipe-description">{recipe.description}</div>
+          {renderItems('ingredients')}
+          {renderItems('instructions')}
         </div>
         {renderImage()}
       </div>

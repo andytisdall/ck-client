@@ -8,6 +8,10 @@ const FileInput = ({ file, setFile, label }) => {
     }
   };
 
+  const displayName = () => {
+    return file.name.slice(0, 15) + '...';
+  };
+
   return (
     <>
       <label htmlFor={label} className="file-label">
@@ -19,7 +23,7 @@ const FileInput = ({ file, setFile, label }) => {
         </label>
         {file ? (
           <>
-            <div className="file-name">{file.name}</div>
+            <div className="file-name">{displayName()}</div>
             <div onClick={() => setFile(null)} className="file-delete">
               x
             </div>
