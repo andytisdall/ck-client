@@ -10,7 +10,7 @@
 
 .recipe-text {
   min-width: 200px;
-  max-width: 400px;
+  max-width: 500px;
   flex: 1;
 }
 
@@ -44,7 +44,8 @@
 }
 
 .recipe-title {
-  font-size: 4rem;
+  font-size: 3rem;
   border-bottom: black solid 3px;
-  width: fit-content
+  width: 75%;
+  text-align: center;
 }

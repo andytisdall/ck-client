@@ -34,7 +34,7 @@ const UserHome = ({ user, restaurant, getRestaurant, getUserInfo }) => {
         <Link className="text-button-link" to="change-password">
           Change Password
         </Link>
-        <Link className="text-button-link" to="change-username" buttonText="">
+        <Link className="text-button-link" to="change-username">
           Change Username
         </Link>
       </div>

@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 
 import CreateRecipe from './CreateRecipe';
 import Loading from '../../../reusable/Loading';
-import { getRecipe, deleteRecipe } from '../../../../actions';
+import * as actions from '../../../../actions';
+import { categories } from './RecipeList';
 import './Recipe.css';
 
 const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
@@ -50,9 +51,11 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
   };
 
   const renderList = (list) => {
-    return list.map((i) => {
-      return <li key={i}>{i}</li>;
-    });
+    return list
+      .filter((i) => i)
+      .map((i) => {
+        return <li key={i}>{i}</li>;
+      });
   };
 
   const recipe = recipes[recipeId];
@@ -61,7 +64,7 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
       return (
         <div className="recipe-photo">
           <img
-            src={`https://coherent-vision-368820.uw.r.appspot.com/api/files/images/${recipe.image}`}
+            src={`https://portal.ckoakland.org/api/files/images/${recipe.image}`}
             alt={recipe.name}
             className="recipe-img"
           />
@@ -85,8 +88,12 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
       </Link>
       <h1 className="recipe-title">{recipe.name}</h1>
       <div className="recipe-body">
-        {recipe.author ? <h3>Provided by: {recipe.author}</h3> : null}
         <div className="recipe-text">
+          {recipe.author ? <h3>Provided by: {recipe.author}</h3> : null}
+          <p>
+            Category:{' '}
+            {categories.find((cat) => cat.name === recipe.category).label}
+          </p>
           <h3 className="recipe-description">{recipe.description}</h3>
           <h2>Ingredients:</h2>
           <ul>{renderList(recipe.ingredients)}</ul>
@@ -108,4 +115,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getRecipe, deleteRecipe })(Recipe);
+export default connect(mapStateToProps, actions)(Recipe);

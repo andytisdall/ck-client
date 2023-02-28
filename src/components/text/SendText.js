@@ -7,6 +7,7 @@ import renderWithFallback from '../reusable/renderWithFallback';
 import './SendText.css';
 import { townFridges } from './townFridges';
 import Loading from '../reusable/Loading';
+import FileInput from '../reusable/FileInput';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 
@@ -52,13 +53,6 @@ const SendText = ({ sendText, error }) => {
     }
     if (region === 'WEST_OAKLAND') {
       return 'West Oakland';
-    }
-  };
-
-  const processPhoto = (e) => {
-    const { files } = e.target;
-    if (files[0]) {
-      setPhoto(files[0]);
     }
   };
 
@@ -154,21 +148,11 @@ const SendText = ({ sendText, error }) => {
           </div>
 
           <div className="send-text-variables-item">
-            <label htmlFor="photo">Photo (optional):</label>
-            <div className="file-input-container">
-              <label htmlFor="photo" className="file-input">
-                choose file
-              </label>
-              {photo ? (
-                <>
-                  <div className="file-name">{photo.name}</div>
-                  <div onClick={() => setPhoto(null)} className="file-delete">
-                    x
-                  </div>
-                </>
-              ) : null}
-            </div>
-            <input type="file" id="photo" onChange={processPhoto} />
+            <FileInput
+              file={photo}
+              setFile={setPhoto}
+              label="Photo (optional):"
+            />
           </div>
 
           <button

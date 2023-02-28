@@ -1,4 +1,4 @@
-import { ERROR, CLEAR_ERROR } from '../actions/types';
+import { CLEAR_ERROR } from '../actions/types';
 
 const clearError =
   ({ dispatch, getState }) =>

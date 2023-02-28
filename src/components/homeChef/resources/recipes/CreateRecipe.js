@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import * as actions from '../../../../actions';
 import './CreateRecipe.css';
 import Loading from '../../../reusable/Loading';
+import FileInput from '../../../reusable/FileInput';
 
 const CreateRecipe = ({
   createRecipe,
@@ -21,6 +22,8 @@ const CreateRecipe = ({
   );
   const [description, setDescription] = useState(recipe?.description || '');
   const [category, setCategory] = useState(recipe?.category || '');
+  const [photo, setPhoto] = useState(null);
+  const [author, setAuthor] = useState(recipe?.author || '');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -35,16 +38,19 @@ const CreateRecipe = ({
     if (!category) {
       return setError({ message: 'Please choose a category' });
     }
+    const formValues = {
+      name,
+      ingredients,
+      instructions,
+      description,
+      category,
+      photo,
+    };
     if (recipe) {
-      editRecipe(recipe.id, e.target);
+      editRecipe(recipe.id, formValues);
     } else {
-      createRecipe(e.target);
+      createRecipe(formValues);
     }
-    setName('');
-    setIngredients('');
-    setInstructions('');
-    setDescription('');
-    setCategory('');
   };
 
   const action = recipe ? 'Edit this' : 'Create a ';
@@ -55,7 +61,7 @@ const CreateRecipe = ({
       <form onSubmit={handleSubmit} className="admin-form">
         <label htmlFor="name">Name:</label>
         <input
-          name="name"
+          id="name"
           type="text"
           value={name}
           required
@@ -65,7 +71,7 @@ const CreateRecipe = ({
           Ingredients (separated by line breaks):
         </label>
         <textarea
-          name="ingredients"
+          id="ingredients"
           value={ingredients}
           required
           onChange={(e) => setIngredients(e.target.value)}
@@ -76,14 +82,14 @@ const CreateRecipe = ({
         <textarea
           required
           value={instructions}
-          name="instructions"
+          id="instructions"
           onChange={(e) => setInstructions(e.target.value)}
         />
         <label htmlFor="description">Description:</label>
         <textarea
           required
           value={description}
-          name="description"
+          id="description"
           onChange={(e) => setDescription(e.target.value)}
         />
         <label>Category:</label>
@@ -157,8 +163,14 @@ const CreateRecipe = ({
           />
           <label htmlFor="category-5">Desserts</label>
         </div>
-        <label htmlFor="image">{'Photo (optional)'}</label>
-        <input type="file" name="image" />
+        <label htmlFor="author">Recipe Author (optional):</label>
+        <input
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          id="author"
+        />
+        <FileInput file={photo} setFile={setPhoto} label="Photo (optional):" />
         {loading ? <Loading /> : <input type="submit" />}
       </form>
     </div>

@@ -19,15 +19,11 @@ export const getRecipe = (id) => async (dispatch) => {
   dispatch({ type: GET_RECIPE, payload: res.data });
 };
 
-export const createRecipe = (form) => async (dispatch) => {
+export const createRecipe = (formValues) => async (dispatch) => {
   const postBody = new FormData();
-  Array.from(form.elements).forEach((input) => {
-    if (input.files) {
-      postBody.append(input.name, input.files[0]);
-    } else if (input.name) {
-      postBody.append(input.name, input.value);
-    }
-  });
+  for (let key in formValues) {
+    postBody.append(key, formValues[key]);
+  }
 
   const res = await server.post('/home-chef/recipe', postBody, {
     headers: { 'Content-Type': 'multipart/form-data' },
@@ -37,16 +33,11 @@ export const createRecipe = (form) => async (dispatch) => {
   router.navigate('/home-chef/resources/recipes');
 };
 
-export const editRecipe = (id, form) => async (dispatch) => {
+export const editRecipe = (id, formValues) => async (dispatch) => {
   const postBody = new FormData();
-  Array.from(form.elements).forEach((input) => {
-    if (input.files) {
-      console.log(input.name);
-      postBody.append(input.name, input.files[0]);
-    } else if (input.name) {
-      postBody.append(input.name, input.value);
-    }
-  });
+  for (let key in formValues) {
+    postBody.append(formValues[key], formValues[key]);
+  }
 
   const res = await server.patch(`/home-chef/recipe/${id}`, postBody, {
     headers: { 'Content-Type': 'multipart/form-data' },

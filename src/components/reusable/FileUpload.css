@@ -2,3 +2,16 @@
   background-color: rgb(119, 246, 115);
 }
 
+.file-upload {
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+}
+
+.file-upload .file-label {
+  font-size: 1.5rem;
+  font-weight:600;
+  margin-bottom: 1rem;
+}
