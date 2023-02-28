@@ -23,7 +23,7 @@ const RecipeList = ({ recipes, getRecipes }) => {
     if (recipes) {
       const ordered = {};
       Object.values(recipes)
-        .sort((a, b) => (a.name > b.name ? -1 : 1))
+        .sort((a, b) => (a.name > b.name ? 1 : -1))
         .forEach((rec) => {
           const catList = ordered[rec.category];
           if (catList) {

@@ -24,6 +24,7 @@ const CreateRecipe = ({
   const [category, setCategory] = useState(recipe?.category || '');
   const [photo, setPhoto] = useState(null);
   const [author, setAuthor] = useState(recipe?.author || '');
+  const [bulk, setBulk] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const CreateRecipe = ({
       description,
       category,
       photo,
+      bulk,
     };
     if (recipe) {
       editRecipe(recipe.id, formValues);
@@ -87,7 +89,6 @@ const CreateRecipe = ({
         />
         <label htmlFor="description">Description:</label>
         <textarea
-          required
           value={description}
           id="description"
           onChange={(e) => setDescription(e.target.value)}
@@ -163,6 +164,10 @@ const CreateRecipe = ({
           />
           <label htmlFor="category-5">Desserts</label>
         </div>
+
+        <label htmlFor="bulk">This is a Bulk Recipe</label>
+        <input type="checkbox" value={bulk} onChange={setBulk} id="bulk" />
+
         <label htmlFor="author">Recipe Author (optional):</label>
         <input
           type="text"
