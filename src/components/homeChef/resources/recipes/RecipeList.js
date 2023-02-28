@@ -16,8 +16,10 @@ export const categories = [
 
 const RecipeList = ({ recipes, getRecipes }) => {
   useEffect(() => {
-    getRecipes();
-  }, [getRecipes]);
+    if (!recipes) {
+      getRecipes();
+    }
+  }, [recipes, getRecipes]);
 
   const orderedRecipes = useMemo(() => {
     if (recipes) {
