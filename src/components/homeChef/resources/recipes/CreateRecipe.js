@@ -44,8 +44,8 @@ const CreateRecipe = ({
     }
     const formValues = {
       name,
-      ingredients,
-      instructions,
+      ingredients: JSON.stringify(ingredients),
+      instructions: JSON.stringify(instructions),
       description,
       category,
       photo,
@@ -73,7 +73,7 @@ const CreateRecipe = ({
     const sections = field.map((item, i, list) => {
       const { text } = field[i];
       return (
-        <div className="create-recipe-section">
+        <div className="create-recipe-section" key={fieldName + i}>
           <label htmlFor="section-title">
             {list.length > 1 && 'Section '}Header (optional):
           </label>

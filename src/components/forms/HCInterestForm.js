@@ -41,6 +41,7 @@ const InterestForm = ({ submitForm, error }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const newErrors = {};
 
