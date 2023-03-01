@@ -49,6 +49,7 @@ const CreateRecipe = ({
       description,
       category,
       photo,
+      author,
     };
     if (recipe) {
       editRecipe(recipe.id, formValues);
@@ -155,23 +156,6 @@ const CreateRecipe = ({
         </div>
 
         <div className="create-recipe-field">
-          {renderSections('ingredients')}
-        </div>
-
-        <div className="create-recipe-field">
-          {renderSections('instructions')}
-        </div>
-
-        <div className="create-recipe-field">
-          <label htmlFor="description">Description:</label>
-          <textarea
-            value={description}
-            id="description"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-
-        <div className="create-recipe-field">
           <label>Category:</label>
           <div>
             <input
@@ -253,6 +237,26 @@ const CreateRecipe = ({
             onChange={(e) => setAuthor(e.target.value)}
             id="author"
           />
+        </div>
+
+        <div className="create-recipe-field">
+          <label htmlFor="description">Description (optional):</label>
+          <textarea
+            value={description}
+            id="description"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="create-recipe-field">
+          {renderSections('ingredients')}
+        </div>
+
+        <div className="create-recipe-field">
+          {renderSections('instructions')}
+        </div>
+
+        <div className="create-recipe-field">
           <FileInput
             file={photo}
             setFile={setPhoto}

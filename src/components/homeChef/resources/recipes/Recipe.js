@@ -12,17 +12,23 @@ const IMAGE_URL = 'https://portal.ckoakland.org/api/files/images/';
 
 const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
   const { recipeId } = useParams();
-  const [loading, setLoading] = useState(!recipes[recipeId]);
+  const recipe = recipes[recipeId];
+
+  const [loading, setLoading] = useState(!recipe);
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!recipes[recipeId]) {
+    if (!recipe) {
       getRecipe(recipeId);
     } else {
       setLoading(false);
     }
-  }, [recipes, recipeId, getRecipe]);
+  }, [recipe, recipeId, getRecipe]);
+
+  useEffect(() => {
+    setEdit(false);
+  }, [recipe]);
 
   useEffect(() => {
     if (error) {
@@ -62,20 +68,26 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
     const config = {
       instructions: {
         items: recipe.instructions,
-        listFunc: (item) => <ol>{listItems(item)}</ol>,
+        listFunc: (item) => (
+          <ol className="recipe-section-items">{listItems(item)}</ol>
+        ),
       },
       ingredients: {
         items: recipe.ingredients,
-        listFunc: (item) => <ul>{listItems(item)}</ul>,
+        listFunc: (item) => (
+          <ul className="recipe-section-items">{listItems(item)}</ul>
+        ),
       },
     };
     const { items, listFunc } = config[name];
     return (
-      <div>
-        <h2>{name[0].toUpperCase() + name.slice(1)}</h2>
+      <div className="recipe-field">
+        <h2 className="recipe-field-title">
+          {name[0].toUpperCase() + name.slice(1)}
+        </h2>
         {items.map((item) => {
           return (
-            <div>
+            <div className="recipe-section">
               {item.header ? <h4>{item.header}</h4> : null}
               {listFunc(item)}
             </div>
@@ -85,7 +97,6 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
     );
   };
 
-  const recipe = recipes[recipeId];
   const renderImage = () => {
     if (recipe.image) {
       return (
@@ -98,6 +109,13 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
         </div>
       );
     }
+  };
+
+  const renderDescription = () => {
+    if (Array.isArray(recipe.description)) {
+      return recipe.description.map((d) => <p>{d}</p>);
+    }
+    return recipe.description;
   };
 
   if (loading) {
@@ -116,12 +134,18 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
       <h1 className="recipe-title">{recipe.name}</h1>
       <div className="recipe-body">
         <div className="recipe-text">
-          {recipe.author ? <h3>Provided by: {recipe.author}</h3> : null}
-          <p>
-            Category:{' '}
-            {categories.find((cat) => cat.name === recipe.category).label}
-          </p>
-          <div className="recipe-description">{recipe.description}</div>
+          <div className="recipe-info">
+            {recipe.author ? (
+              <p>
+                <span className="recipe-bold">Author:</span> {recipe.author}
+              </p>
+            ) : null}
+            <p>
+              <span className="recipe-bold">Category:</span>
+              {categories.find((cat) => cat.name === recipe.category).label}
+            </p>
+            <div className="recipe-description">{renderDescription()}</div>
+          </div>
           {renderItems('ingredients')}
           {renderItems('instructions')}
         </div>

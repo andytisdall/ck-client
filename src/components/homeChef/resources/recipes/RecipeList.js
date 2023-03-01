@@ -16,7 +16,7 @@ export const categories = [
 
 const RecipeList = ({ recipes, getRecipes }) => {
   useEffect(() => {
-    if (!recipes) {
+    if (!Object.values(recipes).length) {
       getRecipes();
     }
   }, [recipes, getRecipes]);

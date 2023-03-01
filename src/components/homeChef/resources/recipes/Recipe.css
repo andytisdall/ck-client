@@ -5,24 +5,27 @@
 
 .recipe-body {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap:wrap-reverse
 }
 
 .recipe-text {
-  min-width: 200px;
-  max-width: 500px;
+  min-width: 340px;
   flex: 1;
+}
+
+.recipe-info {
+  padding: 0 1rem;
 }
 
 .recipe-photo {
   flex: 1;
   width: fit-content;
+  min-width: 300px;
+  max-width: 500px;
+  padding-right: 2rem;
 }
 
 .recipe-img {
-  max-height: 600px;
-  min-width: 400px;
-  max-width: 700px;
   width: 100%;
   padding-left: 1rem;
 }
@@ -44,10 +47,43 @@
   cursor: pointer;
 }
 
-
 .recipe-title {
   font-size: 3rem;
   border-bottom: black solid 3px;
   width: 75%;
+  min-width: 340px;
   text-align: center;
 }
+
+.recipe-bold {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-right: 5px
+}
+
+.recipe-field {
+  margin-top: 2rem;
+}
+
+.recipe-section {
+  margin-left: 1rem;
+}
+
+.recipe-field-title {
+  text-decoration: underline;
+}
+
+.recipe-section-items {
+  margin-left: 1rem;
+}
+
+.recipe-section-items li {
+  margin-bottom: 5px;
+}
+
+.recipe-section-items li::marker {
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 3px;
+}
+

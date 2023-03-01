@@ -30,7 +30,7 @@ export const createRecipe = (formValues) => async (dispatch) => {
   });
   dispatch({ type: CREATE_RECIPE, payload: res.data });
   dispatch(setAlert('Recipe Created'));
-  router.navigate('/home-chef/resources/recipes');
+  router.navigate('/home-chef/resources/recipes/' + res.data.id);
 };
 
 export const editRecipe = (id, formValues) => async (dispatch) => {
@@ -44,7 +44,6 @@ export const editRecipe = (id, formValues) => async (dispatch) => {
   });
   dispatch({ type: EDIT_RECIPE, payload: res.data });
   dispatch(setAlert('Recipe Edited'));
-  router.navigate('/home-chef/resources/recipes');
 };
 
 export const deleteRecipe = (id) => async (dispatch) => {
