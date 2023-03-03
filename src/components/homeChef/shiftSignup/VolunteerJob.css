@@ -2,32 +2,13 @@
 
 }
 
-.job-name {
-  display: flex;
-  align-items: center;
-}
+
 
 .job-name-small {
   font-size: .8rem;
   color: purple
 }
 
-.expand-btn {
-  margin-right: 1rem;
-  background-color: white;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: all .3s;
-}
-
-.expanded {
-  transform: rotate(90deg);
-}
 
 .job-listing {
   display: flex;
@@ -35,6 +16,7 @@
   border-bottom: 1px solid black;
   padding: .5rem 0;
 }
+
 
 .jobs-list {
   margin: 1.5rem;

@@ -20,6 +20,14 @@ const HomeChefHome = ({ user }) => {
           Fridge deliveries
         </p>
       );
+    } else {
+      return (
+        <TextButton
+          to="onboarding"
+          buttonText="Onboarding"
+          descriptionText={onboardingDescription}
+        />
+      );
     }
   };
 
@@ -40,11 +48,6 @@ const HomeChefHome = ({ user }) => {
         to="resources"
         buttonText="Home Chef Resources"
         descriptionText={resourcesDescription}
-      />
-      <TextButton
-        to="onboarding"
-        buttonText="Onboarding"
-        descriptionText={onboardingDescription}
       />
     </div>
   );

@@ -20,7 +20,7 @@ const EditShift = ({ hours, getHours, editHours }) => {
   }, [getHours, hours, id]);
 
   const onSubmit = () => {
-    editHours(id, mealCount);
+    editHours(id, mealCount, cancel);
   };
 
   if (!hours) {

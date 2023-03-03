@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import TextButton from '../reusable/TextButton';
 
-const OnboardingHome = ({ restaurant }) => {
+const MealProgramHome = ({ restaurant }) => {
   const renderChecklist = () => {
     const renderAsLi = (doc) => {
       return <li key={doc}>{doc}</li>;
@@ -15,7 +15,7 @@ const OnboardingHome = ({ restaurant }) => {
     return (
       <div>
         <h4>Checklist</h4>
-        <div className="onboarding-checklist">
+        <div className="meal-program-checklist">
           <div>Completed Documents:</div>
           <ul className="completed-doc">
             {restaurant.completedDocs.map(renderAsLi)}
@@ -53,4 +53,4 @@ const mapStateToProps = (state) => {
   return { restaurant: state.restaurant.restaurant };
 };
 
-export default connect(mapStateToProps)(OnboardingHome);
+export default connect(mapStateToProps)(MealProgramHome);

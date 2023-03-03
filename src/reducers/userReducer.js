@@ -39,6 +39,9 @@ const userReducer = (state = INITIAL_STATE, action) => {
         users: { ...state.users, [action.payload.id]: action.payload },
       };
     case GET_USER_INFO:
+      if (!state.user) {
+        return state;
+      }
       return { ...state, user: { ...state.user, ...action.payload } };
     case UPLOAD_FILES:
       const { filesAdded } = action.payload;

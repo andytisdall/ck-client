@@ -1,4 +1,4 @@
-.onboarding {
+.meal-program {
   background-image: linear-gradient(rgb(251, 211, 163), rgb(206, 148, 66));
   display: flex;
   display: flex;
@@ -28,7 +28,7 @@
   border-bottom: 2px rgb(0, 94, 99) solid;
 }
 
-.onboarding-checklist {
+.meal-program-checklist {
   padding-left: 2rem;
 }
 

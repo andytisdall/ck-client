@@ -85,9 +85,9 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
         <h2 className="recipe-field-title">
           {name[0].toUpperCase() + name.slice(1)}
         </h2>
-        {items.map((item) => {
+        {items.map((item, i) => {
           return (
-            <div className="recipe-section">
+            <div className="recipe-section" key={name + i}>
               {item.header ? <h4>{item.header}</h4> : null}
               {listFunc(item)}
             </div>
@@ -113,7 +113,7 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
 
   const renderDescription = () => {
     if (Array.isArray(recipe.description)) {
-      return recipe.description.map((d) => <p>{d}</p>);
+      return recipe.description.map((d) => <p key={d}>{d}</p>);
     }
     return recipe.description;
   };

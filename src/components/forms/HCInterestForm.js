@@ -71,6 +71,7 @@ const InterestForm = ({ submitForm, error }) => {
 
     if (!Object.values(newErrors).every((e) => !e)) {
       setErrors({ ...errors, ...newErrors });
+      setLoading(false);
       return;
     }
 

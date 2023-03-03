@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../reusable/FileUpload';
@@ -9,13 +9,12 @@ import Loading from '../../reusable/Loading';
 
 const UploadFoodHandler = ({ error, uploadFiles }) => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
       setLoading(false);
     }
-  }, [navigate, error]);
+  }, [error]);
 
   const onSubmit = (e) => {
     e.preventDefault();

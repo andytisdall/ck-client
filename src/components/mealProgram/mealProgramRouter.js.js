@@ -4,15 +4,15 @@ import { Outlet, Link } from 'react-router-dom';
 
 import renderWithFallback from '../reusable/renderWithFallback';
 import Loading from '../reusable/Loading';
-import './Onboarding.css';
+import './MealProgram.css';
 import { getRestaurant } from '../../actions';
-const OnboardingHome = React.lazy(() => import('./OnboardingHome'));
+const MealProgramHome = React.lazy(() => import('./MealProgram'));
 const Documents = React.lazy(() => import('./Documents'));
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 
-const Onboarding = ({ getRestaurant, restaurant, user }) => {
+const MealProgram = ({ getRestaurant, restaurant, user }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ const Onboarding = ({ getRestaurant, restaurant, user }) => {
   };
 
   return (
-    <div className="main onboarding">
-      <Link to="/onboarding">
+    <div className="main meal-program">
+      <Link to="/meal-program">
         <h1 className="page-header">Meal Program Onboarding</h1>
       </Link>
       {user && loading && <Loading />}
@@ -59,15 +59,15 @@ const mapStateToProps = (state) => {
   return { user: state.user.user, restaurant: state.restaurant.restaurant };
 };
 
-const ConnectedOnboarding = connect(mapStateToProps, { getRestaurant })(
-  Onboarding
+const ConnectedMealProgram = connect(mapStateToProps, { getRestaurant })(
+  MealProgram
 );
 
-const onboardingRouter = {
-  path: 'onboarding',
-  element: <ConnectedOnboarding />,
+const mealProgramRouter = {
+  path: 'meal-program',
+  element: <ConnectedMealProgram />,
   children: [
-    { index: true, element: renderWithFallback(<OnboardingHome />) },
+    { index: true, element: renderWithFallback(<MealProgramHome />) },
     { path: 'documents', element: renderWithFallback(<Documents />) },
     {
       path: 'docusign',
@@ -83,7 +83,7 @@ const onboardingRouter = {
           element: renderWithFallback(
             <DocusignSuccess
               accountType="restaurant"
-              returnLink="/onboarding"
+              returnLink="/meal-program"
             />
           ),
         },
@@ -91,9 +91,9 @@ const onboardingRouter = {
     },
     {
       path: 'file-success',
-      element: renderWithFallback(<FileSuccess returnLink="/onboarding" />),
+      element: renderWithFallback(<FileSuccess returnLink="/meal-program" />),
     },
   ],
 };
 
-export default onboardingRouter;
+export default mealProgramRouter;

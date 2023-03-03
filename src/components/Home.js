@@ -22,11 +22,11 @@ const adminDescription =
 
 const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   useEffect(() => {
-    if (user && !user.lastName) {
+    if ((user && !user.lastName) || !restaurant) {
       getRestaurant();
       getUserInfo();
     }
-  }, [user, getRestaurant, getUserInfo]);
+  }, [user, getRestaurant, getUserInfo, restaurant]);
 
   const renderNoUser = () => {
     return (
@@ -64,7 +64,7 @@ const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
     if (restaurant && restaurant.user === user.id) {
       return (
         <TextButton
-          to="onboarding"
+          to="meal-program"
           buttonText="Meal Program Onboarding"
           descriptionText={mealProgramDescription}
         />

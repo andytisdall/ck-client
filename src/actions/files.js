@@ -18,11 +18,11 @@ export const uploadFiles =
     let page;
     if (accountType === 'restaurant') {
       accountId = getState().restaurant.restaurant.id;
-      page = 'onboarding';
+      page = 'meal-program';
     }
     if (accountType === 'contact') {
       accountId = getState().user.user.id;
-      page = 'home-chef';
+      page = 'home-chef/onboarding';
     }
     postBody.append('accountId', accountId);
     postBody.append('accountType', accountType);

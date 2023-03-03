@@ -20,15 +20,15 @@ let wrapper = ({ children }) => {
   return <Root initialState={{}}>{children}</Root>;
 };
 
-// test('no links if not signed in', async () => {
-//   render(<App />, { wrapper });
+test('no links if not signed in', async () => {
+  render(<App />, { wrapper });
 
-//   // home page
-//   const unauthorizedMessage = screen.getByText(
-//     /Please sign in to access the features of the Community Kitchens portal./i
-//   );
-//   expect(unauthorizedMessage).toBeInTheDocument();
+  // home page
+  const unauthorizedMessage = await screen.findByText(
+    /Please sign in to access the features of the Community Kitchens portal./i
+  );
+  expect(unauthorizedMessage).toBeInTheDocument();
 
-//   const userName = screen.getByLabelText('Username:');
-//   const passwordUInput = screen.getByLabelText('Password:');
-// });
+  const userName = screen.getByPlaceholderText('Username');
+  const passwordUInput = screen.getByPlaceholderText('Password');
+});

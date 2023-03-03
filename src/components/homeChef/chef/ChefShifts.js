@@ -8,8 +8,8 @@ import { getHours, getShifts } from '../../../actions';
 import Loading from '../../reusable/Loading';
 
 const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
-  const [upcomingExpand, setUpcomingExpand] = useState(false);
-  const [pastExpand, setPastExpand] = useState(false);
+  const [upcomingExpand, setUpcomingExpand] = useState(true);
+  const [pastExpand, setPastExpand] = useState(true);
 
   useEffect(() => {
     getShifts();

@@ -1,6 +1,6 @@
 import './FileInput.css';
 
-const FileInput = ({ file, setFile, label }) => {
+const FileInput = ({ file, setFile, label, data }) => {
   const processFile = (e) => {
     const { files } = e.target;
     if (files[0]) {
@@ -32,6 +32,7 @@ const FileInput = ({ file, setFile, label }) => {
       </div>
       <input
         type="file"
+        name={data}
         id={label}
         className="file-hidden"
         onChange={processFile}

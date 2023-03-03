@@ -10,7 +10,12 @@ const FileUpload = ({ doc }) => {
 
   return (
     <div className={`file-upload ${style}`}>
-      <FileInput file={file} setFile={setFile} label={doc.name} />
+      <FileInput
+        file={file}
+        setFile={setFile}
+        label={doc.name}
+        data={doc.data}
+      />
     </div>
   );
 };

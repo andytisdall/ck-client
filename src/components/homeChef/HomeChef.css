@@ -7,3 +7,27 @@
   padding: 1rem;
   
 }
+
+.job-name {
+  display: flex;
+  align-items: center;
+}
+
+
+
+.expand-btn {
+  margin-right: 1rem;
+  background-color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all .3s;
+}
+
+.expanded {
+  transform: rotate(90deg);
+}

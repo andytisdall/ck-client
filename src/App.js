@@ -10,7 +10,7 @@ import renderWithFallback from './components/reusable/renderWithFallback';
 import textRouter from './components/text/textRouter';
 
 // meal program onboarding
-import onboardingRouter from './components/onboarding/onboardingRouter';
+import mealProgramRouter from './components/mealProgram/mealProgramRouter.js';
 
 // admin
 import adminRouter from './components/admin/adminRouter';
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
       },
       textRouter,
       adminRouter,
-      onboardingRouter,
+      mealProgramRouter,
       userRouter,
       homeChefRouter,
     ],
