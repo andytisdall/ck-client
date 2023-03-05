@@ -6,10 +6,11 @@ import { useState, useEffect } from 'react';
 import { getHours, editHours } from '../../../actions';
 import Loading from '../../reusable/Loading';
 
-const EditShift = ({ hours, getHours, editHours }) => {
+const EditShift = ({ hours, getHours, editHours, error }) => {
   const { id } = useParams();
   const [mealCount, setMealCount] = useState(0);
   const [cancel, setCancel] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!hours) {
@@ -19,7 +20,14 @@ const EditShift = ({ hours, getHours, editHours }) => {
     }
   }, [getHours, hours, id]);
 
+  useEffect(() => {
+    if (error) {
+      setLoading(false);
+    }
+  }, [error]);
+
   const onSubmit = () => {
+    setLoading(true);
     editHours(id, mealCount, cancel);
   };
 
@@ -64,13 +72,13 @@ const EditShift = ({ hours, getHours, editHours }) => {
         onChange={(e) => setMealCount(e.target.value)}
       />
       {renderCancel()}
-      <button onClick={onSubmit}>Submit</button>
+      {loading ? <Loading /> : <button onClick={onSubmit}>Submit</button>}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { hours: state.homeChef.hours };
+  return { hours: state.homeChef.hours, error: state.error.error };
 };
 
 export default connect(mapStateToProps, { getHours, editHours })(EditShift);
