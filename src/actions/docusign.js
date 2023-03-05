@@ -1,12 +1,12 @@
 import server from './api';
 import { setAlert } from './alert';
-import { GET_DOCUSIGN_URL, UPLOAD_FILES } from './types';
+import { UPLOAD_FILES } from './types';
 
 export const getDocusignUrl = (accountType) => async (dispatch) => {
   const res = await server.post('/docusign/sign', {
     accountType,
   });
-  dispatch({ type: GET_DOCUSIGN_URL, payload: res.data });
+  window.location.href = res.data;
 };
 
 export const uploadDocsToSalesforce =

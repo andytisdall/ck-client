@@ -38,6 +38,7 @@ const Recipe = React.lazy(() => import('./resources/recipes/Recipe'));
 const CreateRecipe = React.lazy(() =>
   import('./resources/recipes/CreateRecipe')
 );
+const FridgeMap = React.lazy(() => import('./resources/FridgeMap'));
 // documents
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
@@ -140,6 +141,7 @@ const homeChefRouter = {
       element: renderWithFallback(<Resources />),
       children: [
         { index: true, element: renderWithFallback(<ResourcesList />) },
+        { path: 'map', element: renderWithFallback(<FridgeMap />) },
         {
           path: 'recipes',
           children: [

@@ -5,18 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { setError, getDocusignUrl } from '../../actions';
 import Loading from '../reusable/Loading';
 
-const Docusign = ({ accountType, error, getDocusignUrl, docusignUrl }) => {
+const Docusign = ({ accountType, error, getDocusignUrl }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     getDocusignUrl(accountType);
   }, [getDocusignUrl, accountType]);
-
-  useEffect(() => {
-    if (docusignUrl) {
-      window.location.href = docusignUrl;
-    }
-  }, [docusignUrl]);
 
   useEffect(() => {
     if (error) {
@@ -33,7 +27,7 @@ const Docusign = ({ accountType, error, getDocusignUrl, docusignUrl }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { error: state.error.error, docusignUrl: state.files.docusignUrl };
+  return { error: state.error.error };
 };
 
 export default connect(mapStateToProps, { setError, getDocusignUrl })(Docusign);

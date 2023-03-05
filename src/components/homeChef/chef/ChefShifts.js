@@ -78,8 +78,8 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
     return <Loading />;
   }
 
-  const upcomingArrow = upcomingExpand ? <>&darr;</> : <>&rarr;</>;
-  const pastArrow = pastExpand ? <>&darr;</> : <>&rarr;</>;
+  const upcomingExpanded = upcomingExpand ? 'expanded' : '';
+  const pastExpanded = pastExpand ? 'expanded' : '';
 
   return (
     <div>
@@ -93,25 +93,34 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
       ) : null}
       <div className="job-name">
         <div
-          className="expand-btn"
+          className={`expand-btn ${upcomingExpanded}`}
           onClick={() => setUpcomingExpand(!upcomingExpand)}
         >
-          {upcomingArrow}
+          &rarr;
         </div>
         <h3>Upcoming Deliveries</h3>
       </div>
-      {upcomingExpand && (
-        <div className="chef-hours-list">{renderHours('upcoming')}</div>
-      )}
+      <div
+        className={`chef-hours-list ${
+          !upcomingExpand && 'chef-hours-list-closed'
+        }`}
+      >
+        {upcomingExpand && renderHours('upcoming')}
+      </div>
       <div className="job-name">
-        <div className="expand-btn" onClick={() => setPastExpand(!pastExpand)}>
-          {pastArrow}
+        <div
+          className={`expand-btn ${pastExpanded}`}
+          onClick={() => setPastExpand(!pastExpand)}
+        >
+          &rarr;
         </div>
         <h3>Past Deliveries</h3>
       </div>
-      {pastExpand && (
-        <div className="chef-hours-list">{renderHours('past')}</div>
-      )}
+      <div
+        className={`chef-hours-list ${!pastExpand && 'chef-hours-list-closed'}`}
+      >
+        {pastExpand && renderHours('past')}
+      </div>
     </div>
   );
 };

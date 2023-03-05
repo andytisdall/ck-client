@@ -33,5 +33,4 @@ export const EDIT_HOURS = 'EDIT_HOURS';
 
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 
-export const GET_DOCUSIGN_URL = 'GET_DOCUSIGN_URL';
 export const UPLOAD_FILES = 'UPLOAD_FILES';

@@ -2,10 +2,18 @@
   margin-bottom: 2rem;
 }
 
-.chef-hours-list {
-  /* margin-left: 3rem; */
-  margin-top: 2rem;
+.chef-hours h3 {
   margin-bottom: 2rem;
+}
+
+.chef-hours-list {
+  margin-bottom: 2rem;
+  transition: all .4s;
+}
+
+.chef-hours-list-closed {
+  margin: 0;
+  transform: scaleY(.5);
 }
 
 .chef-hours-date {

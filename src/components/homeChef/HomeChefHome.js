@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import TextButton from '../reusable/TextButton';
+import FridgeMap from './resources/FridgeMap';
 
 const shiftSignupDescription =
   'See availability for town fridges and sign up to make a delivery.';
@@ -49,6 +50,7 @@ const HomeChefHome = ({ user }) => {
         buttonText="Home Chef Resources"
         descriptionText={resourcesDescription}
       />
+      <FridgeMap />
     </div>
   );
 };
