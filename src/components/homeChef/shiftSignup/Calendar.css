@@ -1,27 +1,26 @@
 .calendar {
   display: grid;
-  grid-template-columns: repeat(7, minmax(10rem, 15rem));
-  grid-auto-rows: 13rem;
-  width: 90%;
+  grid-template-columns: repeat(7, 13vw);
+  grid-auto-rows: minmax(12rem, max-content);
+  min-width: fit-content;
 }
 
 .calendar-days {
   display: grid;
-  grid-template-columns: repeat(7, minmax(10rem, 15rem));
-  grid-template-rows: 2rem;
+  grid-template-columns: repeat(7, 13vw);
+  grid-template-rows: max-content;
 }
-
-
 
 .calendar-day {
   height: fit-content;
   text-align: center;
-  font-size: 1.3rem;
+  margin-bottom: .5rem;
+  font-size: 2vw;
 }
 
 .calendar-date {
   border: 1px solid black;
-  padding: .4rem;
+  padding: .6vw;
   background-color: rgba(255, 255, 255, 0.291);
 }
 
@@ -29,14 +28,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 1rem;
-  width: 1rem;
+  height: 2vw;
+  width: 2vw;
   margin-bottom: .5rem;
   padding: .3rem;
   background-color: rgb(195, 195, 195);
   border: 1px rgb(109, 109, 109) solid;
   border-radius: 50px;
-  font-size: .8rem;
+  font-size: 1.5vw;
 }
 
 .calendar-top {
@@ -49,7 +48,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.7rem;
+  font-size: 5vw;
   margin-top: 1rem;
 }
 
@@ -78,10 +77,11 @@
 .calendar-item {
   border: 1px solid black;
   border-radius: 5px;
-  padding: 5px 7px;
-  font-size: .7rem;
+  padding: .4vw .5vw;
+  font-size: 1.5vw;
   margin-bottom: 5px;
   cursor: pointer;
+  word-wrap: break-word;
 }
 
 
