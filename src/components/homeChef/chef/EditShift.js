@@ -3,14 +3,16 @@ import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 
-import { getHours, editHours } from '../../../actions';
+import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
+import useLoading from '../../../hooks/useLoading';
 
-const EditShift = ({ hours, getHours, editHours, error }) => {
+const EditShift = ({ hours, getHours, editHours }) => {
   const { id } = useParams();
   const [mealCount, setMealCount] = useState(0);
   const [cancel, setCancel] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useLoading();
 
   useEffect(() => {
     if (!hours) {
@@ -20,15 +22,9 @@ const EditShift = ({ hours, getHours, editHours, error }) => {
     }
   }, [getHours, hours, id]);
 
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
-
   const onSubmit = () => {
     setLoading(true);
-    editHours(id, mealCount, cancel);
+    editHours(id, mealCount, cancel, hour.status === 'Completed');
   };
 
   if (!hours) {
@@ -78,7 +74,7 @@ const EditShift = ({ hours, getHours, editHours, error }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { hours: state.homeChef.hours, error: state.error.error };
+  return { hours: state.homeChef.hours };
 };
 
-export default connect(mapStateToProps, { getHours, editHours })(EditShift);
+export default connect(mapStateToProps, actions)(EditShift);

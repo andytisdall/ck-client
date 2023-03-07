@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
+import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
 
 const successMessage =
   'A Community Kitchens staff member will be in touch with you. Thanks for helping out!';
 
-const InterestForm = ({ submitForm, error }) => {
+const InterestForm = ({ submitForm }) => {
   const initialDays = {
     Tuesday: false,
     Wednesday: false,
@@ -31,13 +32,8 @@ const InterestForm = ({ submitForm, error }) => {
   const [source, setSource] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
+  const [loading, setLoading] = useLoading();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -491,8 +487,4 @@ const InterestForm = ({ submitForm, error }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(InterestForm);
+export default connect(null, actions)(InterestForm);

@@ -1,26 +1,22 @@
 import { connect } from 'react-redux';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
 import TextPreview from './TextPreview';
+import useLoading from '../../hooks/useLoading';
 
-const CustomText = ({ error, sendCustomText }) => {
+const CustomText = ({ sendCustomText }) => {
   const [message, setMessage] = useState('');
   const [to, setTo] = useState('');
   const [number, setNumber] = useState('');
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useLoading();
 
   const numberRef = useRef();
   const numberTextRef = useRef();
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
 
   const processPhoto = (e) => {
     const { files } = e.target;
@@ -165,8 +161,4 @@ const CustomText = ({ error, sendCustomText }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(CustomText);
+export default connect(null, actions)(CustomText);

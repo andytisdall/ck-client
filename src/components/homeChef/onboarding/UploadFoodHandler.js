@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -6,15 +5,10 @@ import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../reusable/FileUpload';
 import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
+import useLoading from '../../../hooks/useLoading';
 
-const UploadFoodHandler = ({ error, uploadFiles }) => {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
+const UploadFoodHandler = ({ uploadFiles }) => {
+  const [loading, setLoading] = useLoading();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -38,8 +32,4 @@ const UploadFoodHandler = ({ error, uploadFiles }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(UploadFoodHandler);
+export default connect(null, actions)(UploadFoodHandler);

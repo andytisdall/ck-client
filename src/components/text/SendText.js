@@ -8,6 +8,7 @@ import './SendText.css';
 import { townFridges } from './townFridges';
 import Loading from '../reusable/Loading';
 import FileInput from '../reusable/FileInput';
+import useLoading from '../../hooks/useLoading';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 
@@ -20,13 +21,8 @@ const SendText = ({ sendText, error }) => {
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
+  const [loading, setLoading] = useLoading();
 
   const getAddress = () => {
     if (townFridges[fridge].address) {
@@ -199,10 +195,4 @@ const SendText = ({ sendText, error }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    error: state.error.error,
-  };
-};
-
-export default connect(mapStateToProps, actions)(SendText);
+export default connect(null, actions)(SendText);

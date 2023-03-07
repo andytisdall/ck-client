@@ -44,6 +44,8 @@ const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 
+const Invite = React.lazy(() => import('./Invite'));
+
 const HomeChef = ({ user, getUserInfo, error }) => {
   const [loading, setLoading] = useState(false);
 
@@ -116,6 +118,7 @@ const homeChefRouter = {
   element: <ConnectedHomeChef />,
   children: [
     { index: true, element: renderWithFallback(<HomeChefHome />) },
+    { path: 'invite', element: renderWithFallback(Invite) },
     {
       path: 'signup',
       element: renderWithFallback(<ShiftSignup />),

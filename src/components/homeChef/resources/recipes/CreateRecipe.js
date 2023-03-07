@@ -1,18 +1,13 @@
 import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import * as actions from '../../../../actions';
 import './CreateRecipe.css';
 import Loading from '../../../reusable/Loading';
 import FileInput from '../../../reusable/FileInput';
+import useLoading from '../../../../hooks/useLoading';
 
-const CreateRecipe = ({
-  createRecipe,
-  error,
-  recipe,
-  editRecipe,
-  setError,
-}) => {
+const CreateRecipe = ({ createRecipe, recipe, editRecipe, setError }) => {
   const mapSections = (r) => {
     return { header: r.header, text: r.text.join('\n') };
   };
@@ -28,13 +23,8 @@ const CreateRecipe = ({
   const [category, setCategory] = useState(recipe?.category || '');
   const [photo, setPhoto] = useState(null);
   const [author, setAuthor] = useState(recipe?.author || '');
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
+  const [loading, setLoading] = useLoading();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -269,8 +259,4 @@ const CreateRecipe = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return { error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(CreateRecipe);
+export default connect(null, actions)(CreateRecipe);

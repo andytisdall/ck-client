@@ -1,26 +1,22 @@
 import { connect } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import FileUpload from '../reusable/FileUpload';
 import * as actions from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
 import Loading from '../reusable/Loading';
+import useLoading from '../../hooks/useLoading';
 
-const Documents = ({ uploadFiles, error }) => {
+const Documents = ({ uploadFiles }) => {
   const [expirationDate, setExpirationDate] = useState('');
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useLoading();
 
   const renderUploadForms = () => {
     return requiredDocuments.map((doc) => {
       return <FileUpload doc={doc} key={doc.data} />;
     });
   };
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,8 +51,4 @@ const Documents = ({ uploadFiles, error }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { alert: state.alert.message, error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(Documents);
+export default connect(null, actions)(Documents);

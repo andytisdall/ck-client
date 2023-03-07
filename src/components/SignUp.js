@@ -1,28 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
+import useLoading from '../hooks/useLoading';
 import Loading from './reusable/Loading';
 
-const Header = ({ signIn, error }) => {
+const Header = ({ signIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
+  const [loading, setLoading] = useLoading();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     signIn(username, password);
-    // in case there's already an error message, the error won't cancel the spinner like it's supposed to
-    setTimeout(() => {
-      setLoading(false);
-    }, 10000);
   };
 
   if (loading) {
@@ -59,8 +51,4 @@ const Header = ({ signIn, error }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(Header);
+export default connect(null, actions)(Header);

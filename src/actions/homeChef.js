@@ -26,15 +26,23 @@ export const getHours = () => async (dispatch) => {
   dispatch({ type: GET_HOURS, payload: res.data });
 };
 
-export const editHours = (id, mealCount, cancel) => async (dispatch) => {
-  const res = await server.patch(`/home-chef/hours/${id}`, {
-    mealCount,
-    cancel,
-  });
-  dispatch({ type: EDIT_HOURS, payload: res.data });
-  router.navigate('/home-chef/chef');
-  const alertMessage = cancel
-    ? 'Canceled this delivery'
-    : 'Successfully changed the number of meals to ' + mealCount;
-  dispatch(setAlert(alertMessage));
+export const editHours =
+  (id, mealCount, cancel, completed) => async (dispatch) => {
+    const res = await server.patch(`/home-chef/hours/${id}`, {
+      mealCount,
+      cancel,
+      completed,
+    });
+    dispatch({ type: EDIT_HOURS, payload: res.data });
+    router.navigate('/home-chef/chef');
+    const alertMessage = cancel
+      ? 'Canceled this delivery'
+      : 'Successfully changed the number of meals to ' + mealCount;
+    dispatch(setAlert(alertMessage));
+  };
+
+export const sendInvite = (recipients, message) => async (dispatch) => {
+  await server.post('./home-chef/invite', { recipients, message });
+  dispatch(setAlert('Invitation Email Was Sent!'));
+  router.navigate('/home-chef/email/sent');
 };

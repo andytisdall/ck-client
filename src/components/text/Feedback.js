@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import moment from 'moment';
 
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
 import './Feedback.css';
+import useLoading from '../../hooks/useLoading';
 
 const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useLoading();
 
   useEffect(() => {
     getFeedback();
@@ -19,7 +20,7 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
     } else {
       setLoading(false);
     }
-  }, [feedback]);
+  }, [feedback, setLoading]);
 
   const formatNumber = (num) => {
     return (

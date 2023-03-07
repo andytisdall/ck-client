@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
+import useLoading from '../../hooks/useLoading';
 
 const successMessage =
   'Thank you for you giving us some information about yourself.';
 
-const TextSignupSurvey = ({ error, submitForm }) => {
+const TextSignupSurvey = ({ submitForm }) => {
   const [age, setAge] = useState('');
   const [ethnicity, setEthnicity] = useState('');
   const [zip, setZip] = useState('');
@@ -17,7 +18,8 @@ const TextSignupSurvey = ({ error, submitForm }) => {
   const [type, setType] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [days, setDays] = useState('');
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useLoading();
 
   const mixedRefBox = useRef();
   const mixedRefText = useRef();
@@ -25,12 +27,6 @@ const TextSignupSurvey = ({ error, submitForm }) => {
   const otherRefText = useRef();
 
   const { phone } = useParams();
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -295,8 +291,4 @@ const TextSignupSurvey = ({ error, submitForm }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { alert: state.alert.message, error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(TextSignupSurvey);
+export default connect(null, actions)(TextSignupSurvey);

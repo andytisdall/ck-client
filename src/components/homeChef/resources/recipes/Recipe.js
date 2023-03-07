@@ -7,34 +7,31 @@ import Loading from '../../../reusable/Loading';
 import * as actions from '../../../../actions';
 import { categories } from './RecipeList';
 import './Recipe.css';
+import useLoading from '../../../../hooks/useLoading';
 
 const IMAGE_URL = 'https://portal.ckoakland.org/api/files/images/';
 
-const Recipe = ({ recipes, getRecipe, user, deleteRecipe, error }) => {
+const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
   const { recipeId } = useParams();
   const recipe = recipes[recipeId];
 
-  const [loading, setLoading] = useState(!recipe);
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useLoading();
+
   useEffect(() => {
     if (!recipe) {
+      setLoading(true);
       getRecipe(recipeId);
     } else {
       setLoading(false);
     }
-  }, [recipe, recipeId, getRecipe]);
+  }, [recipe, recipeId, getRecipe, setLoading]);
 
   useEffect(() => {
     setEdit(false);
   }, [recipe]);
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
 
   const renderAdmin = () => {
     if (user.admin) {
@@ -160,7 +157,6 @@ const mapStateToProps = (state) => {
   return {
     recipes: state.recipes,
     user: state.user.user,
-    error: state.error.error,
   };
 };
 

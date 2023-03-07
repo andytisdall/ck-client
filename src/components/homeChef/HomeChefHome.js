@@ -11,6 +11,7 @@ const resourcesDescription =
   'Get access to the CK recipe library and connect with other Home Chefs on slack';
 const onboardingDescription =
   'Complete the tasks necessary to start making deliveries';
+const emailDescription = '';
 
 const HomeChefHome = ({ user }) => {
   const renderStatus = () => {
@@ -49,6 +50,16 @@ const HomeChefHome = ({ user }) => {
         to="resources"
         buttonText="Home Chef Resources"
         descriptionText={resourcesDescription}
+      />
+      <TextButton
+        to="resources"
+        buttonText="Home Chef Resources"
+        descriptionText={resourcesDescription}
+      />
+      <TextButton
+        to="invite"
+        buttonText="Invite your friends to join CK Home Chef"
+        descriptionText={emailDescription}
       />
       <FridgeMap />
     </div>
