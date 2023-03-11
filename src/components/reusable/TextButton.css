@@ -6,7 +6,7 @@
   min-width: 30rem;
   height: fit-content;
   color: inherit;
-  margin: .5rem 0;
+  margin: 1rem 0;
 }
 
 @media (max-width: 500px) {

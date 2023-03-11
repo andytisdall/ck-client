@@ -5,14 +5,12 @@
 .home-chef-status {
   background-color: rgba(255, 234, 0, 0.505);
   padding: 1rem;
-  
 }
 
 .job-name {
   display: flex;
   align-items: center;
 }
-
 
 
 .expand-btn {
@@ -30,4 +28,31 @@
 
 .expanded {
   transform: rotate(90deg);
+}
+
+.hc-home {
+  display: flex;
+  align-items: flex-start;
+}
+
+@media(max-width: 500px) {
+  .hc-home {
+    flex-direction: column;
+    flex-flow: column-reverse;
+    align-items: center;
+  }
+}
+
+.hc-home-photo {
+  max-width: 30%;
+  object-fit: contain;
+  margin-left: 4rem;
+  justify-self: center;
+}
+
+.hc-home-active-status {
+  font-size: .8rem;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+  color: rgb(54, 54, 54);
 }

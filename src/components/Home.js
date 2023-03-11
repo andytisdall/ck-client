@@ -39,37 +39,25 @@ const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   const renderWithUser = () => {
     return (
       <>
-        {renderHomeChef()}
-        {renderMealProgram()}
-        {renderTextService()}
-        {renderUserSettings()}
-        {renderAdmin()}
-      </>
-    );
-  };
-
-  const renderHomeChef = () => {
-    if (user.homeChefStatus) {
-      return (
         <TextButton
           to="home-chef"
           buttonText="Home Chef"
           descriptionText={homeChefDescription}
         />
-      );
-    }
-  };
-
-  const renderMealProgram = () => {
-    if (restaurant && restaurant.user === user.id) {
-      return (
         <TextButton
           to="meal-program"
           buttonText="Meal Program Onboarding"
           descriptionText={mealProgramDescription}
         />
-      );
-    }
+        {renderTextService()}
+        <TextButton
+          to="user"
+          buttonText="User Settings"
+          descriptionText={userDescription}
+        />
+        {renderAdmin()}
+      </>
+    );
   };
 
   const renderTextService = () => {
@@ -82,16 +70,6 @@ const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
         />
       );
     }
-  };
-
-  const renderUserSettings = () => {
-    return (
-      <TextButton
-        to="user"
-        buttonText="User Settings"
-        descriptionText={userDescription}
-      />
-    );
   };
 
   const renderAdmin = () => {

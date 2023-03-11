@@ -1,0 +1,31 @@
+.invite-form {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.invite-textarea {
+  height: 300px;
+}
+
+.form-horizontal {
+  display: flex;
+  align-items: center;
+}
+
+.invite-add-section {
+color: rgb(73, 73, 73);
+cursor: pointer;
+margin-bottom: 2rem;
+width: fit-content;
+}
+
+.invite-add-section:hover {
+  text-decoration: underline;
+}
+
+.invite-delete-section {
+  color: rgb(154, 2, 2);
+  cursor: pointer;
+  padding-bottom: 10px;
+}

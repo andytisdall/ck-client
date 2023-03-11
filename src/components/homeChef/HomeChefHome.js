@@ -1,25 +1,29 @@
 import { connect } from 'react-redux';
+import React from 'react';
 
 import TextButton from '../reusable/TextButton';
-import FridgeMap from './resources/FridgeMap';
+import renderWithFallback from '../reusable/renderWithFallback';
+
+const FridgeMap = React.lazy(() => import('./fridgeMap/FridgeMap'));
 
 const shiftSignupDescription =
-  'See availability for town fridges and sign up to make a delivery.';
+  'See availability for town fridges and sign up to make a delivery';
 const chefDescription =
-  "See upcoming deliveries you've signed up for, and past deliveries you've made.";
+  "See upcoming deliveries you've signed up for, and past deliveries you've made";
 const resourcesDescription =
   'Get access to the CK recipe library and connect with other Home Chefs on slack';
 const onboardingDescription =
   'Complete the tasks necessary to start making deliveries';
-const emailDescription = '';
+const emailDescription =
+  'Let your friends know about CK Home Chef and invite them to cook for town fridges';
 
 const HomeChefHome = ({ user }) => {
   const renderStatus = () => {
     if (user.homeChefStatus === 'Active') {
       return (
-        <p>
-          You are done with the onboarding process and may sign up for Town
-          Fridge deliveries
+        <p className="hc-home-active-status">
+          Status: You are done with the onboarding process and may sign up for
+          Town Fridge deliveries
         </p>
       );
     } else {
@@ -34,34 +38,36 @@ const HomeChefHome = ({ user }) => {
   };
 
   return (
-    <div>
-      {renderStatus()}
-      <TextButton
-        to="signup/list"
-        buttonText="Sign Up to Stock a Town Fridge"
-        descriptionText={shiftSignupDescription}
+    <div className="hc-home">
+      <div>
+        {renderStatus()}
+        <TextButton
+          to="signup/list"
+          buttonText="Sign Up to Stock a Town Fridge"
+          descriptionText={shiftSignupDescription}
+        />
+        <TextButton
+          to="chef"
+          buttonText="See Fridges You've Signed Up For"
+          descriptionText={chefDescription}
+        />
+        <TextButton
+          to="resources"
+          buttonText="Home Chef Resources"
+          descriptionText={resourcesDescription}
+        />
+        <TextButton
+          to="invite"
+          buttonText="Invite your friends to join CK Home Chef"
+          descriptionText={emailDescription}
+        />
+        {renderWithFallback(<FridgeMap />)}
+      </div>
+      <img
+        className="hc-home-photo"
+        src="/images/home-chef/town-fridge.jpg"
+        alt="home chef header"
       />
-      <TextButton
-        to="chef"
-        buttonText="See Fridges You've Signed Up For"
-        descriptionText={chefDescription}
-      />
-      <TextButton
-        to="resources"
-        buttonText="Home Chef Resources"
-        descriptionText={resourcesDescription}
-      />
-      <TextButton
-        to="resources"
-        buttonText="Home Chef Resources"
-        descriptionText={resourcesDescription}
-      />
-      <TextButton
-        to="invite"
-        buttonText="Invite your friends to join CK Home Chef"
-        descriptionText={emailDescription}
-      />
-      <FridgeMap />
     </div>
   );
 };

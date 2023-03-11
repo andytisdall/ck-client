@@ -15,7 +15,7 @@ const ResourcesList = () => {
         descriptionText={recipesDescription}
       />
       <TextButton
-        to="https://google.com"
+        to="https://community-kitchens.slack.com/"
         buttonText="Get Connected to our Slack Channel"
         descriptionText={slackDescription}
         outside
@@ -26,8 +26,4 @@ const ResourcesList = () => {
 
 export default ResourcesList;
 
-// recipes
 // ingredient label template
-// slack channel invite link
-// sign up link
-// training videos

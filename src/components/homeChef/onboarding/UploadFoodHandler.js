@@ -6,6 +6,7 @@ import FileUpload from '../../reusable/FileUpload';
 import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 import useLoading from '../../../hooks/useLoading';
+import { FOOD_HANDLER_URL } from './HomeChefDocuments';
 
 const UploadFoodHandler = ({ uploadFiles }) => {
   const [loading, setLoading] = useLoading();
@@ -24,7 +25,7 @@ const UploadFoodHandler = ({ uploadFiles }) => {
       </form>
       <p>
         Don't have your food handler certificate yet?{' '}
-        <Link className="retro-link" to="">
+        <Link className="retro-link" to={FOOD_HANDLER_URL}>
           Click here to apply.
         </Link>
       </p>

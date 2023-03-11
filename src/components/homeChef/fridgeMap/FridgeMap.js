@@ -1,7 +1,7 @@
 import './FridgeMap.css';
 
 const GOOGLE_MAP_URL =
-  'https://www.google.com/maps/d/embed?mid=1Y5Jf-_hOU2OHTTkcua8SZOvUPvj3jv90&ehbc=2E312F';
+  'https://www.google.com/maps/d/embed?mid=1Y5Jf-_hOU2OHTTkcua8SZOvUPvj3jv90';
 
 const FridgeMap = () => {
   return (

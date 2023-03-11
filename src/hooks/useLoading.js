@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { connect } from 'mongoose';
+import { useSelector } from 'react-redux';
 
-const useLoading = ({ error }) => {
+const useLoading = () => {
   const [loading, setLoading] = useState(false);
+
+  const error = useSelector((state) => state.error.error);
 
   useEffect(() => {
     if (error) {
@@ -13,8 +15,4 @@ const useLoading = ({ error }) => {
   return [loading, setLoading];
 };
 
-const mapStateToProps = (state) => {
-  return { error: state.error.error };
-};
-
-export default connect(mapStateToProps)(useLoading);
+export default useLoading;

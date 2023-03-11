@@ -7,7 +7,7 @@ import App from './App';
 const adminSignedInState = {
   user: {
     user: {
-      username: '',
+      username: 'bojee',
       id: 'failjrse48jf48',
       admin: true,
       salesforceId: 'f4s9jf4s9j',
@@ -16,11 +16,14 @@ const adminSignedInState = {
   },
 };
 
-let wrapper = ({ children }) => {
-  return <Root initialState={{}}>{children}</Root>;
+const getWrapper = (state) => {
+  return ({ children }) => {
+    return <Root initialState={state}>{children}</Root>;
+  };
 };
 
 test('no links if not signed in', async () => {
+  const wrapper = getWrapper({});
   render(<App />, { wrapper });
 
   // home page
@@ -28,7 +31,20 @@ test('no links if not signed in', async () => {
     /Please sign in to access the features of the Community Kitchens portal./i
   );
   expect(unauthorizedMessage).toBeInTheDocument();
+});
+
+test('can sign in', async () => {
+  const wrapper = getWrapper({});
+  render(<App />, { wrapper });
 
   const userName = screen.getByPlaceholderText('Username');
-  const passwordUInput = screen.getByPlaceholderText('Password');
+  const passwordInput = screen.getByPlaceholderText('Password');
+
+  userEvent.type(userName, 'Test');
+});
+
+test('username if signed in ', async () => {
+  const wrapper = getWrapper(adminSignedInState);
+  render(<App />, { wrapper });
+  const username = await screen.findByText('bojee');
 });

@@ -38,13 +38,13 @@ const Recipe = React.lazy(() => import('./resources/recipes/Recipe'));
 const CreateRecipe = React.lazy(() =>
   import('./resources/recipes/CreateRecipe')
 );
-const FridgeMap = React.lazy(() => import('./resources/FridgeMap'));
 // documents
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 
-const Invite = React.lazy(() => import('./Invite'));
+const Invite = React.lazy(() => import('./invite/Invite'));
+const InviteSent = React.lazy(() => import('./invite/InviteSent'));
 
 const HomeChef = ({ user, getUserInfo, error }) => {
   const [loading, setLoading] = useState(false);
@@ -95,11 +95,16 @@ const HomeChef = ({ user, getUserInfo, error }) => {
     }
   };
 
+  // const renderHomeChefHeader = () => {
+  //   return <div></div>;
+  // };
+
   return (
     <div className="main home-chef">
       <Link to="/home-chef">
         <h1 className="page-header">Home Chef</h1>
       </Link>
+      {/* {renderHomeChefHeader()} */}
       {loading && <Loading />}
       {!user && renderSignIn()}
       {!!user && renderHomeChef()}
@@ -118,7 +123,14 @@ const homeChefRouter = {
   element: <ConnectedHomeChef />,
   children: [
     { index: true, element: renderWithFallback(<HomeChefHome />) },
-    { path: 'invite', element: renderWithFallback(Invite) },
+    {
+      path: 'invite',
+
+      children: [
+        { index: true, element: renderWithFallback(<Invite />) },
+        { path: 'sent', element: renderWithFallback(<InviteSent />) },
+      ],
+    },
     {
       path: 'signup',
       element: renderWithFallback(<ShiftSignup />),
@@ -144,7 +156,6 @@ const homeChefRouter = {
       element: renderWithFallback(<Resources />),
       children: [
         { index: true, element: renderWithFallback(<ResourcesList />) },
-        { path: 'map', element: renderWithFallback(<FridgeMap />) },
         {
           path: 'recipes',
           children: [
