@@ -17,13 +17,13 @@ const onboardingDescription =
 const emailDescription =
   'Let your friends know about CK Home Chef and invite them to cook for town fridges';
 
-const HomeChefHome = ({ user }) => {
+const HomeChefHome = ({ user, campaign }) => {
   const renderStatus = () => {
     if (user.homeChefStatus === 'Active') {
       return (
         <p className="hc-home-active-status">
-          Status: You are done with the onboarding process and may sign up for
-          Town Fridge deliveries
+          Your Status: You are done with the onboarding process and may sign up
+          for Town Fridge deliveries
         </p>
       );
     } else {
@@ -37,9 +37,21 @@ const HomeChefHome = ({ user }) => {
     }
   };
 
+  const renderMealsDonated = () => {
+    if (campaign.mealsDonated) {
+      return (
+        <div>
+          To date, Home Chefs have delivered {campaign.mealsDonated} meals to
+          Oakland Town Fridges!
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="hc-home">
       <div>
+        {renderMealsDonated()}
         {renderStatus()}
         <TextButton
           to="signup/list"
@@ -73,7 +85,7 @@ const HomeChefHome = ({ user }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.user.user };
+  return { user: state.user.user, campaign: state.homeChef.campaign };
 };
 
 export default connect(mapStateToProps)(HomeChefHome);

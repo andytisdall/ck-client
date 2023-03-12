@@ -5,12 +5,14 @@ import {
   SIGN_UP_FOR_SHIFT,
   GET_HOURS,
   EDIT_HOURS,
+  GET_CAMPAIGN,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   jobs: null,
   shifts: null,
   hours: null,
+  campaign: null,
 };
 
 const homeChefReducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +36,8 @@ const homeChefReducer = (state = INITIAL_STATE, action) => {
       const hours = state.hours[action.payload.id];
       const newHours = { ...hours, ...action.payload };
       return { ...state, hours: { ...state.hours, [newHours.id]: newHours } };
+    case GET_CAMPAIGN:
+      return { ...state, campaign: action.payload };
     default:
       return state;
   }

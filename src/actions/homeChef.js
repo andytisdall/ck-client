@@ -1,5 +1,11 @@
 import server from './api';
-import { GET_SHIFTS, SIGN_UP_FOR_SHIFT, GET_HOURS, EDIT_HOURS } from './types';
+import {
+  GET_SHIFTS,
+  SIGN_UP_FOR_SHIFT,
+  GET_HOURS,
+  EDIT_HOURS,
+  GET_CAMPAIGN,
+} from './types';
 import { setAlert } from './alert';
 import { router } from '../App';
 
@@ -45,4 +51,9 @@ export const sendInvite = (recipients, message) => async (dispatch) => {
   await server.post('./home-chef/invite', { recipients, message });
   dispatch(setAlert('Invitation Email Was Sent!'));
   router.navigate('/home-chef/invite/sent');
+};
+
+export const getCampaign = () => async (dispatch) => {
+  const { data } = await server.get('/home-chef/campaign');
+  dispatch({ type: GET_CAMPAIGN, payload: data });
 };

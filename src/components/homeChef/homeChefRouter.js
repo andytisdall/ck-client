@@ -46,15 +46,16 @@ const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 const Invite = React.lazy(() => import('./invite/Invite'));
 const InviteSent = React.lazy(() => import('./invite/InviteSent'));
 
-const HomeChef = ({ user, getUserInfo, error }) => {
+const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user && !user.homeChefStatus) {
       getUserInfo();
+      getCampaign();
       setLoading(true);
     }
-  }, [getUserInfo, user]);
+  }, [getUserInfo, user, getCampaign]);
 
   useEffect(() => {
     if (user?.firstName || error) {
