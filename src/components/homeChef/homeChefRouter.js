@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
-import { getUserInfo } from '../../actions';
+import * as actions from '../../actions';
 import './HomeChef.css';
 import Loading from '../reusable/Loading';
 import renderWithFallback from '../reusable/renderWithFallback';
@@ -117,7 +117,7 @@ const mapStateToProps = (state) => {
   return { user: state.user.user, error: state.error.error };
 };
 
-const ConnectedHomeChef = connect(mapStateToProps, { getUserInfo })(HomeChef);
+const ConnectedHomeChef = connect(mapStateToProps, actions)(HomeChef);
 
 const homeChefRouter = {
   path: 'home-chef',

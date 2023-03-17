@@ -38,7 +38,7 @@ const HomeChefHome = ({ user, campaign }) => {
   };
 
   const renderMealsDonated = () => {
-    if (campaign.mealsDonated) {
+    if (campaign?.mealsDonated) {
       return (
         <div>
           To date, Home Chefs have delivered {campaign.mealsDonated} meals to
