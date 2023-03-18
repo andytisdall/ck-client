@@ -1,4 +1,4 @@
-import { ERROR, CLEAR_ERROR } from '../actions/types';
+import { ERROR, CLEAR_ERROR, ALERT } from '../actions/types';
 
 const INITIAL_STATE = {
   error: null,
@@ -13,8 +13,11 @@ const errorReducer = (state = INITIAL_STATE, action) => {
     case CLEAR_ERROR:
       clearTimeout(state.timeout);
       return INITIAL_STATE;
-    default:
+    case ALERT:
+      clearTimeout(state.timeout);
       return INITIAL_STATE;
+    default:
+      return state;
   }
 };
 

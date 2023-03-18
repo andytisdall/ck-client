@@ -51,7 +51,7 @@ const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user && !user.homeChefStatus) {
+    if (user && !user.firstName) {
       getUserInfo();
       getCampaign();
       setLoading(true);
@@ -93,20 +93,15 @@ const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
         </>
       );
     } else {
-      renderNoChef();
+      return renderNoChef();
     }
   };
-
-  // const renderHomeChefHeader = () => {
-  //   return <div></div>;
-  // };
 
   return (
     <div className="main home-chef">
       <Link to="/home-chef">
         <h1 className="page-header">Home Chef</h1>
       </Link>
-      {/* {renderHomeChefHeader()} */}
       {loading && <Loading />}
       {!user && renderSignIn()}
       {!!user && renderHomeChef()}

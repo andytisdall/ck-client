@@ -2,7 +2,7 @@ import server from './api';
 import { setAlert } from './alert';
 import { UPLOAD_FILES } from './types';
 
-export const getDocusignUrl = (accountType) => async (dispatch) => {
+export const getDocusignUrl = (accountType) => async () => {
   const res = await server.post('/docusign/sign', {
     accountType,
   });
