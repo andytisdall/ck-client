@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import renderWithFallback from '../reusable/renderWithFallback';
-import { getUser } from '../../actions';
 import './TextHome.css';
 
 const AddPhone = React.lazy(() => import('./AddPhone'));
@@ -15,13 +14,17 @@ const CustomText = React.lazy(() => import('./CustomText'));
 
 const Text = ({ user }) => {
   const renderSignIn = () => {
-    return <h3>You must be an admin to access this page.</h3>;
+    return <h3>You must have the proper permissions to access this page.</h3>;
   };
 
   return (
     <div className="main text-home">
       <h1 className="page-header">Text Service</h1>
-      {user && user.admin ? <Outlet /> : renderSignIn()}
+      {user && (user.admin || user.textPermission) ? (
+        <Outlet />
+      ) : (
+        renderSignIn()
+      )}
     </div>
   );
 };
@@ -30,7 +33,7 @@ const mapStateToProps = (state) => {
   return { user: state.user.user };
 };
 
-const ConnectedText = connect(mapStateToProps, { getUser })(Text);
+const ConnectedText = connect(mapStateToProps)(Text);
 
 const textRouter = {
   path: 'text',
@@ -39,7 +42,7 @@ const textRouter = {
     { index: true, element: renderWithFallback(<TextHome />) },
     {
       path: 'add-phone',
-      element: <AddPhone />,
+      element: renderWithFallback(<AddPhone />),
     },
     { path: 'send-text', element: renderWithFallback(<SendText />) },
     { path: 'send-custom-text', element: renderWithFallback(<CustomText />) },

@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   shifts: null,
   hours: null,
   campaign: null,
+  newHours: null,
 };
 
 const homeChefReducer = (state = INITIAL_STATE, action) => {
@@ -24,11 +25,12 @@ const homeChefReducer = (state = INITIAL_STATE, action) => {
         shifts: _.mapKeys(action.payload.shifts, (i) => i.id),
       };
     case SIGN_UP_FOR_SHIFT:
-      const shift = state.shifts[action.payload];
+      const shift = state.shifts[action.payload.shift];
       shift.open = false;
       return {
         ...state,
         shifts: { ...state.shifts, [action.payload]: shift },
+        newHours: action.payload,
       };
     case GET_HOURS:
       return { ...state, hours: _.mapKeys(action.payload, (i) => i.id) };

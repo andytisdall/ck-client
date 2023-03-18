@@ -24,7 +24,7 @@ export const signUpForShift =
     });
     dispatch({ type: SIGN_UP_FOR_SHIFT, payload: data });
     dispatch(setAlert('You Signed Up For A Shift'));
-    router.navigate('/home-chef/chef');
+    router.navigate('/home-chef/signup/confirm');
   };
 
 export const getHours = () => async (dispatch) => {

@@ -30,6 +30,7 @@ const VJobSingle = React.lazy(() => import('./shiftSignup/VJobSingle'));
 const ShiftDetail = React.lazy(() => import('./shiftSignup/ShiftDetail'));
 const ChefShifts = React.lazy(() => import('./chef/ChefShifts'));
 const EditShift = React.lazy(() => import('./chef/EditShift'));
+const Confirmation = React.lazy(() => import('./shiftSignup/Confirmation'));
 // home chef resources
 const Resources = React.lazy(() => import('./resources/Resources'));
 const ResourcesList = React.lazy(() => import('./resources/ResourcesList'));
@@ -142,6 +143,10 @@ const homeChefRouter = {
         {
           path: 'shift/:shiftId',
           element: renderWithFallback(<ShiftDetail />),
+        },
+        {
+          path: 'confirm',
+          element: renderWithFallback(<Confirmation />),
         },
       ],
     },
