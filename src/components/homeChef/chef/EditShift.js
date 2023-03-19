@@ -18,7 +18,7 @@ const EditShift = ({ hours, getHours, editHours }) => {
     if (!hours) {
       getHours();
     } else {
-      setMealCount(hours[id].mealCount);
+      setMealCount(hours[id]?.mealCount);
     }
   }, [getHours, hours, id]);
 
@@ -55,6 +55,10 @@ const EditShift = ({ hours, getHours, editHours }) => {
   };
 
   const meals = cancel ? 0 : mealCount;
+
+  if (!hour) {
+    return <div>This shift cannot be edited.</div>;
+  }
 
   return (
     <div>

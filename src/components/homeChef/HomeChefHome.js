@@ -40,8 +40,8 @@ const HomeChefHome = ({ user, campaign }) => {
   const renderMealsDonated = () => {
     if (campaign?.mealsDonated) {
       return (
-        <div>
-          To date, Home Chefs have delivered {campaign.mealsDonated} meals to
+        <div className="home-chef-total-meals">
+          To date, CK Home Chefs have delivered {campaign.mealsDonated} meals to
           Oakland Town Fridges!
         </div>
       );
@@ -51,7 +51,6 @@ const HomeChefHome = ({ user, campaign }) => {
   return (
     <div className="hc-home">
       <div>
-        {renderMealsDonated()}
         {renderStatus()}
         <TextButton
           to="signup/list"
@@ -75,11 +74,14 @@ const HomeChefHome = ({ user, campaign }) => {
         />
         {renderWithFallback(<FridgeMap />)}
       </div>
-      <img
-        className="hc-home-photo"
-        src="/images/home-chef/town-fridge.jpg"
-        alt="home chef header"
-      />
+      <div className="home-chef-home-right-col">
+        <img
+          className="hc-home-photo"
+          src="/images/home-chef/town-fridge.jpg"
+          alt="home chef header"
+        />
+        {renderMealsDonated()}
+      </div>
     </div>
   );
 };

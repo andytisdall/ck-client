@@ -45,9 +45,7 @@
 }
 
 .hc-home-photo {
-  max-width: 30%;
-  object-fit: contain;
-  margin-left: 4rem;
+  max-width: 100%;
   justify-self: center;
 }
 
@@ -56,4 +54,22 @@
   margin-bottom: 2rem;
   margin-left: 1rem;
   color: rgb(54, 54, 54);
+}
+
+.home-chef-total-meals {
+  background-color: rgba(167, 241, 230, 0.457);
+  display: inline-block;
+  border: blue 1px solid;
+  border-radius: 25px;
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
+  font-family:'Times New Roman', Times, serif;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.home-chef-home-right-col {
+  
+  max-width: 30%;
+  margin-left: 4rem;
 }

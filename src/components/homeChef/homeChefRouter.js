@@ -139,11 +139,11 @@ const homeChefRouter = {
           path: 'shift/:shiftId',
           element: renderWithFallback(<ShiftDetail />),
         },
-        {
-          path: 'confirm',
-          element: renderWithFallback(<Confirmation />),
-        },
       ],
+    },
+    {
+      path: 'signup-confirm/:hoursId',
+      element: renderWithFallback(<Confirmation />),
     },
     {
       path: 'chef',

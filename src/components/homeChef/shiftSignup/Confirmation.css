@@ -1,0 +1,19 @@
+.hc-confirm-details {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.hc-confirm-details ul {
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
+.hc-confirm-item {
+  margin-top: 1.5rem;
+  margin-left: 2rem;
+  font-weight: 600;
+}
+
+.hc-confirm-title {
+  font-size: 1.5rem;
+}
