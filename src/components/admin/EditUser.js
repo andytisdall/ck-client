@@ -6,6 +6,7 @@ import { editUser, setError, getAllUsers } from '../../actions';
 const EditUser = ({ setError, editUser, users, getAllUsers }) => {
   const [user, setUser] = useState('');
   const [username, setUsername] = useState('');
+  const [salesforceId, setSalesforceId] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
@@ -18,9 +19,10 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
     if (password1 !== password2) {
       return setError({ message: 'Passwords do not match' });
     }
-    editUser(user, username, password1);
+    editUser(user, username, password1, salesforceId);
     setUser('');
     setUsername('');
+    setSalesforceId('');
     setPassword1('');
     setPassword2('');
   };
@@ -40,9 +42,11 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
     if (usr) {
       setUser(usr.id);
       setUsername(usr.username);
+      setSalesforceId(usr.salesforceId);
     } else {
       setUser('');
       setUsername('');
+      setSalesforceId('');
       setPassword1('');
       setPassword2('');
     }
@@ -63,6 +67,13 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
           value={username}
           required
           onChange={(e) => setUsername(e.target.value)}
+        />
+        <label htmlFor="salesforceId">Salesforce ID:</label>
+        <input
+          name="salesforceId"
+          type="text"
+          value={salesforceId}
+          onChange={(e) => setSalesforceId(e.target.value)}
         />
         <label htmlFor="password1">Password:</label>
         <input

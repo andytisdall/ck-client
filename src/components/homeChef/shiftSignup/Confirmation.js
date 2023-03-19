@@ -61,7 +61,7 @@ const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
     <div>
       <h1>Home Chef Sign Up Confirmation</h1>
       {!jobs || !hours ? <Loading /> : renderShiftDetails()}
-      <Link to="..">
+      <Link to="/home-chef/signup">
         <button>Sign Up for More Shifts</button>
       </Link>
       <Link to="/home-chef/chef">

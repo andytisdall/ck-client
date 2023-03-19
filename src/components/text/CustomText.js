@@ -6,10 +6,10 @@ import * as actions from '../../actions';
 import TextPreview from './TextPreview';
 import useLoading from '../../hooks/useLoading';
 
-const CustomText = ({ sendCustomText }) => {
+const CustomText = ({ sendCustomText, replyTo }) => {
   const [message, setMessage] = useState('');
-  const [to, setTo] = useState('');
-  const [number, setNumber] = useState('');
+  const [to, setTo] = useState(replyTo?.number || '');
+  const [number, setNumber] = useState(replyTo?.number || '');
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(false);
 
@@ -145,7 +145,7 @@ const CustomText = ({ sendCustomText }) => {
         region={to}
         photo={photo}
         onSubmit={() => {
-          sendCustomText(message, to, photo);
+          sendCustomText(message, to, photo, replyTo?.id);
           setLoading(true);
         }}
         onCancel={() => setPreview(false)}
@@ -156,6 +156,7 @@ const CustomText = ({ sendCustomText }) => {
   return (
     <div>
       <h2>Send a Text</h2>
+      <div>{replyTo?.message ? replyTo.message : null}</div>
       {renderContent()}
     </div>
   );

@@ -5,6 +5,7 @@ import { createUser, setError } from '../../actions';
 
 const CreateUser = ({ setError, createUser }) => {
   const [username, setUsername] = useState('');
+  const [salesforceId, setSalesforceId] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
@@ -13,8 +14,9 @@ const CreateUser = ({ setError, createUser }) => {
     if (password1 !== password2) {
       return setError({ message: 'Passwords do not match' });
     }
-    createUser(username, password1);
+    createUser(username, password1, salesforceId);
     setUsername('');
+    setSalesforceId('');
     setPassword1('');
     setPassword2('');
   };
@@ -30,6 +32,13 @@ const CreateUser = ({ setError, createUser }) => {
           value={username}
           required
           onChange={(e) => setUsername(e.target.value)}
+        />
+        <label htmlFor="salesforceId">Salesforce ID:</label>
+        <input
+          name="salesforceId"
+          type="text"
+          value={salesforceId}
+          onChange={(e) => setSalesforceId(e.target.value)}
         />
         <label htmlFor="password1">Password:</label>
         <input

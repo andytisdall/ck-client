@@ -8,6 +8,7 @@ import {
 } from './types';
 import server from './api';
 import { setAlert } from './alert';
+import { router } from '../App';
 
 export const getUser = () => async (dispatch) => {
   const res = await server.get('/user');
@@ -29,8 +30,13 @@ export const signIn = (username, password) => async (dispatch) => {
     username,
     password,
   });
-  dispatch({ type: SIGN_IN, payload: res.data.user });
   localStorage.setItem('ck-token', res.data.token);
+  dispatch({ type: SIGN_IN, payload: res.data.user });
+
+  // prompt new user to change password
+  if (!res.data.user.active) {
+    router.navigate('user/change-password');
+  }
 };
 
 export const signOut = () => {
@@ -38,21 +44,25 @@ export const signOut = () => {
   return { type: SIGN_OUT };
 };
 
-export const createUser = (username, password) => async (dispatch) => {
-  const res = await server.post('/user', {
-    username,
-    password,
-  });
-  dispatch({ type: CREATE_USER, payload: res.data });
-  dispatch(setAlert('User Created'));
-};
+export const createUser =
+  (username, password, salesforceId) => async (dispatch) => {
+    const res = await server.post('/user', {
+      username,
+      password,
+      salesforceId,
+    });
+    dispatch({ type: CREATE_USER, payload: res.data });
+    dispatch(setAlert('User Created'));
+  };
 
-export const editUser = (userId, username, password) => async (dispatch) => {
-  const res = await server.patch('/user', {
-    userId,
-    username,
-    password,
-  });
-  dispatch({ type: EDIT_USER, payload: res.data });
-  dispatch(setAlert('User Modified!'));
-};
+export const editUser =
+  (userId, username, password, salesforceId) => async (dispatch) => {
+    const res = await server.patch('/user', {
+      userId,
+      username,
+      password,
+      salesforceId,
+    });
+    dispatch({ type: EDIT_USER, payload: res.data });
+    dispatch(setAlert('User Modified!'));
+  };

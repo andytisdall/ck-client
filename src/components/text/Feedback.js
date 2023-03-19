@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
 import './Feedback.css';
 import useLoading from '../../hooks/useLoading';
+import CustomText from './CustomText';
 
 const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
+  const [replyTo, setReplyTo] = useState(null);
   const [loading, setLoading] = useLoading();
 
   useEffect(() => {
@@ -31,6 +33,24 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
   const regions = {
     EAST_OAKLAND: 'East Oakland',
     WEST_OAKLAND: 'West Oakland',
+  };
+
+  const renderResponse = (fb) => {
+    if (fb.response?.length) {
+      return (
+        <div className="feedback-response">
+          <h4>Response</h4>
+          {fb.response.map((response) => {
+            return (
+              <div key={moment(response.date).format('M/D/YY h:m')}>
+                <div>{response.date}</div>
+                <div>{response.message}</div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
   };
 
   const renderFeedback = () => {
@@ -67,20 +87,46 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
               <span className="feedback-field">Sent by:</span>{' '}
               {formatNumber(fb.sender)}
             </div>
+            {renderResponse()}
+            <button
+              onClick={() =>
+                setReplyTo({
+                  message: fb.message,
+                  number: fb.sender,
+                  id: fb.id,
+                })
+              }
+            >
+              Respond to this Message
+            </button>
           </li>
         );
       });
   };
 
+  const renderCustomText = () => {
+    return (
+      <div>
+        <CustomText replyTo={replyTo} />
+        <button onClick={() => setReplyTo(null)}>Cancel</button>
+      </div>
+    );
+  };
+
   return (
     <div>
       <h3>Feedback</h3>
-
-      <ul className="feedback-list">
-        {loading && <Loading />}
-        {!loading && feedback && renderFeedback()}
-        {feedback && !Object.values(feedback).length && 'No Feedback to Show.'}
-      </ul>
+      {replyTo ? (
+        renderCustomText()
+      ) : (
+        <ul className="feedback-list">
+          {loading && <Loading />}
+          {!loading && feedback && renderFeedback()}
+          {feedback &&
+            !Object.values(feedback).length &&
+            'No Feedback to Show.'}
+        </ul>
+      )}
     </div>
   );
 };

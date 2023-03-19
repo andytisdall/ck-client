@@ -26,18 +26,20 @@ export const sendText = (message, region, photo) => async (dispatch) => {
   router.navigate('/text/text-success');
 };
 
-export const sendCustomText = (message, to, photo) => async (dispatch) => {
-  const postBody = new FormData();
-  postBody.append('message', message);
-  postBody.append('region', to);
-  postBody.append('photo', photo);
-  const res = await server.post('/text/outgoing', postBody, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
-  dispatch({ type: SEND_TEXT, payload: res.data });
-  dispatch(setAlert('Message Sent'));
-  router.navigate('/text/text-success');
-};
+export const sendCustomText =
+  (message, to, photo, feedbackId) => async (dispatch) => {
+    const postBody = new FormData();
+    postBody.append('message', message);
+    postBody.append('region', to);
+    postBody.append('photo', photo);
+    postBody.append('feedbackId', feedbackId);
+    const res = await server.post('/text/outgoing', postBody, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    dispatch({ type: SEND_TEXT, payload: res.data });
+    dispatch(setAlert('Message Sent'));
+    router.navigate('/text/text-success');
+  };
 
 export const getFeedback = () => async (dispatch) => {
   const res = await server.get('/text/feedback');

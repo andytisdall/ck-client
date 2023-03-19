@@ -22,9 +22,6 @@ const Header = ({ getUser, user, signOut, error }) => {
   useEffect(() => {
     if (user) {
       setUserLoading(false);
-      if (!user.active) {
-        navigate('user/change-password');
-      }
     }
     if (error) {
       setUserLoading(false);
