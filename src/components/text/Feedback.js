@@ -8,6 +8,12 @@ import './Feedback.css';
 import useLoading from '../../hooks/useLoading';
 import CustomText from './CustomText';
 
+export const formatNumber = (num) => {
+  return (
+    num.substring(2, 5) + '-' + num.substring(5, 8) + '-' + num.substring(8)
+  );
+};
+
 const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
   const [replyTo, setReplyTo] = useState(null);
   const [loading, setLoading] = useLoading();
@@ -24,12 +30,6 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
     }
   }, [feedback, setLoading]);
 
-  const formatNumber = (num) => {
-    return (
-      num.substring(2, 5) + '-' + num.substring(5, 8) + '-' + num.substring(8)
-    );
-  };
-
   const regions = {
     EAST_OAKLAND: 'East Oakland',
     WEST_OAKLAND: 'West Oakland',
@@ -38,17 +38,19 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
   const renderResponse = (fb) => {
     if (fb.response?.length) {
       return (
-        <div className="feedback-response">
-          <h4>Response</h4>
-          {fb.response.map((response) => {
-            return (
-              <div key={moment(response.date).format('M/D/YY h:m')}>
-                <div>{response.date}</div>
-                <div>{response.message}</div>
-              </div>
-            );
-          })}
-        </div>
+        <>
+          <h4>CK Response:</h4>
+          <div className="feedback-response">
+            {fb.response.map((response) => {
+              return (
+                <ul key={response.date}>
+                  <li>{moment(response.date).format('M/D/YY h:m a')}</li>
+                  <li>{response.message}</li>
+                </ul>
+              );
+            })}
+          </div>
+        </>
       );
     }
   };
@@ -59,15 +61,6 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
       .map((fb) => {
         return (
           <li className="feedback-item" key={fb.id}>
-            <div
-              className="feedback-delete"
-              onClick={() => {
-                setLoading(true);
-                deleteFeedback(fb.id);
-              }}
-            >
-              x
-            </div>
             <div className="feedback-line">
               <span className="feedback-field">
                 {moment(fb.date).format('MM/DD/YY hh:mm a')}
@@ -87,18 +80,21 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
               <span className="feedback-field">Sent by:</span>{' '}
               {formatNumber(fb.sender)}
             </div>
-            {renderResponse()}
-            <button
-              onClick={() =>
-                setReplyTo({
-                  message: fb.message,
-                  number: fb.sender,
-                  id: fb.id,
-                })
-              }
-            >
-              Respond to this Message
-            </button>
+            {renderResponse(fb)}
+            <div className="feedback-control">
+              <button onClick={() => setReplyTo(fb)}>
+                Respond to this Message
+              </button>
+              <button
+                className="feedback-delete"
+                onClick={() => {
+                  setLoading(true);
+                  deleteFeedback(fb.id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
           </li>
         );
       });
@@ -108,7 +104,9 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
     return (
       <div>
         <CustomText replyTo={replyTo} />
-        <button onClick={() => setReplyTo(null)}>Cancel</button>
+        <button className="feedback-cancel" onClick={() => setReplyTo(null)}>
+          Cancel
+        </button>
       </div>
     );
   };

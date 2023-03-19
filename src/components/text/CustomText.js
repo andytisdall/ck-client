@@ -5,11 +5,18 @@ import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
 import TextPreview from './TextPreview';
 import useLoading from '../../hooks/useLoading';
+import './SendText.css';
+import { formatNumber } from './Feedback';
+import FileInput from '../reusable/FileInput';
 
-const CustomText = ({ sendCustomText, replyTo }) => {
+const CustomText = ({ sendText, replyTo }) => {
   const [message, setMessage] = useState('');
-  const [to, setTo] = useState(replyTo?.number || '');
-  const [number, setNumber] = useState(replyTo?.number || '');
+  const [to, setTo] = useState(
+    replyTo?.sender ? formatNumber(replyTo.sender) : ''
+  );
+  const [number, setNumber] = useState(
+    replyTo?.sender ? formatNumber(replyTo.sender) : ''
+  );
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(false);
 
@@ -18,12 +25,12 @@ const CustomText = ({ sendCustomText, replyTo }) => {
   const numberRef = useRef();
   const numberTextRef = useRef();
 
-  const processPhoto = (e) => {
-    const { files } = e.target;
-    if (files[0]) {
-      setPhoto(files[0]);
-    }
-  };
+  // const processPhoto = (e) => {
+  //   const { files } = e.target;
+  //   if (files[0]) {
+  //     setPhoto(files[0]);
+  //   }
+  // };
 
   const composeText = () => {
     const btnActive = message && to;
@@ -69,6 +76,7 @@ const CustomText = ({ sendCustomText, replyTo }) => {
               name="to"
               type="radio"
               ref={numberRef}
+              checked={to !== 'WEST_OAKLAND' && to !== 'EAST_OAKLAND'}
               onChange={(e) => {
                 if (e.target.checked) {
                   setTo(number);
@@ -100,21 +108,11 @@ const CustomText = ({ sendCustomText, replyTo }) => {
           </div>
 
           <div className="send-text-variables-item">
-            <label htmlFor="photo">Photo (optional):</label>
-            <div className="file-input-container">
-              <label htmlFor="photo" className="file-input">
-                choose file
-              </label>
-              {photo ? (
-                <>
-                  <div className="file-name">{photo.name}</div>
-                  <div onClick={() => setPhoto(null)} className="file-delete">
-                    x
-                  </div>
-                </>
-              ) : null}
-            </div>
-            <input type="file" id="photo" onChange={processPhoto} />
+            <FileInput
+              file={photo}
+              setFile={setPhoto}
+              label="Photo (optional):"
+            />
           </div>
 
           <button
@@ -145,7 +143,7 @@ const CustomText = ({ sendCustomText, replyTo }) => {
         region={to}
         photo={photo}
         onSubmit={() => {
-          sendCustomText(message, to, photo, replyTo?.id);
+          sendText(message, replyTo.region, photo, replyTo?.id, to);
           setLoading(true);
         }}
         onCancel={() => setPreview(false)}
@@ -153,10 +151,21 @@ const CustomText = ({ sendCustomText, replyTo }) => {
     );
   };
 
+  const renderOriginalMessage = () => {
+    if (replyTo?.message) {
+      return (
+        <div className="send-text-original-message">
+          <p>Original Message:</p>
+          <p>{replyTo.message}</p>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       <h2>Send a Text</h2>
-      <div>{replyTo?.message ? replyTo.message : null}</div>
+      {renderOriginalMessage()}
       {renderContent()}
     </div>
   );

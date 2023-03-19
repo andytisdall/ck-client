@@ -13,31 +13,35 @@ export const addPhone = (phone, region) => async (dispatch) => {
   dispatch(setAlert('Phone Number Added'));
 };
 
-export const sendText = (message, region, photo) => async (dispatch) => {
-  const postBody = new FormData();
-  postBody.append('message', message);
-  postBody.append('region', region);
-  postBody.append('photo', photo);
-  const res = await server.post('/text/outgoing', postBody, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
-  dispatch({ type: SEND_TEXT, payload: res.data });
-  dispatch(setAlert('Message Sent'));
-  router.navigate('/text/text-success');
-};
+// export const sendText = (message, region, photo) => async (dispatch) => {
+//   const postBody = new FormData();
+//   postBody.append('message', message);
+//   postBody.append('region', region);
+//   postBody.append('photo', photo);
+//   const res = await server.post('/text/outgoing', postBody, {
+//     headers: { 'Content-Type': 'multipart/form-data' },
+//   });
+//   dispatch({ type: SEND_TEXT, payload: res.data });
+//   dispatch(setAlert('Message Sent'));
+//   router.navigate('/text/text-success');
+// };
 
-export const sendCustomText =
-  (message, to, photo, feedbackId) => async (dispatch) => {
+export const sendText =
+  (message, region, photo, feedbackId, number) => async (dispatch) => {
     const postBody = new FormData();
     postBody.append('message', message);
-    postBody.append('region', to);
+    postBody.append('region', region);
     postBody.append('photo', photo);
     postBody.append('feedbackId', feedbackId);
+    postBody.append('number', number);
     const res = await server.post('/text/outgoing', postBody, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     dispatch({ type: SEND_TEXT, payload: res.data });
     dispatch(setAlert('Message Sent'));
+    if (feedbackId) {
+      dispatch({ type: EDIT_FEEDBACK, payload: { feedbackId, message } });
+    }
     router.navigate('/text/text-success');
   };
 

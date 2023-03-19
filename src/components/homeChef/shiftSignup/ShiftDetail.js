@@ -8,6 +8,7 @@ import Loading from '../../reusable/Loading';
 
 const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
   const [mealCount, setMealCount] = useState('');
+  const [soup, setSoup] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { shiftId } = useParams();
@@ -21,7 +22,7 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    signUpForShift(shiftId, mealCount, job.id, shift.startTime);
+    signUpForShift(shiftId, mealCount, job.id, shift.startTime, soup);
   };
 
   if (!shifts || !jobs) {
@@ -59,7 +60,13 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
           value={mealCount}
           onChange={(e) => setMealCount(e.target.value)}
         />
-
+        <input
+          type="checkbox"
+          value={soup}
+          onChange={(e) => setSoup(e.target.checked)}
+          name="soup"
+        />
+        <label htmlFor="soup">This meal is soup</label>
         <h3>Click submit to sign up for this slot.</h3>
         {loading ? <Loading /> : <input type="submit" />}
       </form>
