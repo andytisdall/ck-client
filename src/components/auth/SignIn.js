@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
-import useLoading from '../hooks/useLoading';
-import Loading from './reusable/Loading';
+import './SignIn.css';
+import * as actions from '../../actions';
+import useLoading from '../../hooks/useLoading';
+import Loading from '../reusable/Loading';
 
-const Header = ({ signIn }) => {
+const SignIn = ({ signIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -51,4 +52,4 @@ const Header = ({ signIn }) => {
   );
 };
 
-export default connect(null, actions)(Header);
+export default connect(null, actions)(SignIn);

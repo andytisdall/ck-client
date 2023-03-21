@@ -39,6 +39,14 @@ export const signIn = (username, password) => async (dispatch) => {
   }
 };
 
+export const googleSignIn =
+  ({ credential }) =>
+  async (dispatch) => {
+    const res = await server.post('/google-signin', { credential });
+    localStorage.setItem('ck-token', res.data.token);
+    dispatch({ type: SIGN_IN, payload: res.data.user });
+  };
+
 export const signOut = () => {
   localStorage.removeItem('ck-token');
   return { type: SIGN_OUT };

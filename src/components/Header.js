@@ -1,32 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 
 import * as actions from '../actions';
 import Loading from './reusable/Loading';
-import SignUp from './SignUp';
+import SignIn from './auth/SignIn';
+import GoogleSignIn from './auth/GoogleSignIn';
 import './Header.css';
+import useLoading from '../hooks/useLoading';
 
-const Header = ({ getUser, user, signOut, error }) => {
-  const [userLoading, setUserLoading] = useState(false);
+const Header = ({ getUser, user, signOut }) => {
+  const [loading, setLoading] = useLoading();
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('ck-token');
     if (token) {
-      setUserLoading(true);
+      setLoading(true);
       getUser();
     }
-  }, [getUser]);
+  }, [getUser, setLoading]);
 
   useEffect(() => {
     if (user) {
-      setUserLoading(false);
+      setLoading(false);
     }
-    if (error) {
-      setUserLoading(false);
-    }
-  }, [user, error, navigate]);
+  }, [user, setLoading]);
 
   const showUser = () => {
     return (
@@ -41,8 +40,18 @@ const Header = ({ getUser, user, signOut, error }) => {
     );
   };
 
+  const renderSignIn = () => {
+    return (
+      <div className="header-auth">
+        <SignIn />
+        <p className="header-auth-text">OR</p>
+        <GoogleSignIn />
+      </div>
+    );
+  };
+
   const renderBasedOnUserStatus = () => {
-    return user ? showUser() : <SignUp />;
+    return user ? showUser() : renderSignIn();
   };
 
   return (
@@ -60,8 +69,8 @@ const Header = ({ getUser, user, signOut, error }) => {
           </Link>
         </div>
         <div className="header-right">
-          {userLoading && <Loading />}
-          {!userLoading && renderBasedOnUserStatus()}
+          {loading && <Loading />}
+          {!loading && renderBasedOnUserStatus()}
         </div>
       </div>
       <main>
@@ -74,7 +83,6 @@ const Header = ({ getUser, user, signOut, error }) => {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
-    error: state.error.error,
   };
 };
 

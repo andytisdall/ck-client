@@ -15,12 +15,13 @@ export const getShifts = () => async (dispatch) => {
 };
 
 export const signUpForShift =
-  (shiftId, mealCount, jobId, date) => async (dispatch) => {
+  (shiftId, mealCount, jobId, date, soup) => async (dispatch) => {
     const { data } = await server.post('/home-chef/hours', {
       shiftId,
       mealCount,
       jobId,
       date,
+      soup,
     });
     dispatch({ type: SIGN_UP_FOR_SHIFT, payload: data });
     dispatch(setAlert('You Signed Up For A Shift'));
