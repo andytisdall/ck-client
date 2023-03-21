@@ -6,10 +6,10 @@ import useLoading from '../../../hooks/useLoading';
 import Loading from '../../reusable/Loading';
 import './Invite.css';
 
-const defaultMessage = 'Please consider being a CK Home Chef!';
-const defaultSubject = "You're invited to become a home chef";
+const Invite = ({ sendInvite, user }) => {
+  const defaultMessage = `This is a message from ${user?.firstName}. Please consider being a CK Home Chef!`;
+  const defaultSubject = `${user?.firstName} is inviting you to become a home chef`;
 
-const Invite = ({ sendInvite }) => {
   const [recipients, setRecipients] = useState(['']);
   const [subject, setSubject] = useState(defaultSubject);
   const [message, setMessage] = useState(defaultMessage);
@@ -19,15 +19,17 @@ const Invite = ({ sendInvite }) => {
   const renderInputs = () => {
     return recipients.map((rec, i) => {
       return (
-        <div key={rec + i} className="form-horizontal">
+        <li key={'emailRecipient' + i} className="form-horizontal">
           <input
             type="email"
             value={rec}
             required
             onChange={(e) => {
-              const newArr = [...recipients];
-              newArr.splice(i, 1, e.target.value);
-              setRecipients(newArr);
+              setRecipients([
+                ...recipients.slice(0, i),
+                e.target.value,
+                ...recipients.slice(i + 1),
+              ]);
             }}
           />
           {i > 0 ? (
@@ -38,7 +40,7 @@ const Invite = ({ sendInvite }) => {
               x
             </div>
           ) : null}
-        </div>
+        </li>
       );
     });
   };
@@ -46,7 +48,7 @@ const Invite = ({ sendInvite }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    sendInvite(recipients, message);
+    sendInvite(recipients, message, subject);
   };
 
   const addField = () => {
@@ -61,10 +63,12 @@ const Invite = ({ sendInvite }) => {
 
   return (
     <div>
+      <h2>Send your friends an invitation to be a CK Home Chef</h2>
       <form onSubmit={onSubmit} className="invite-form">
-        {renderInputs()}
+        <h4>Enter the email address of the person(s) you're inviting</h4>
+        <ul>{renderInputs()}</ul>
         <div className="invite-add-section" onClick={addField}>
-          Add another email address
+          + Add another email address
         </div>
         <label htmlFor="subject">Subject:</label>
         <input
@@ -88,4 +92,8 @@ const Invite = ({ sendInvite }) => {
   );
 };
 
-export default connect(null, actions)(Invite);
+const mapStateToProps = (state) => {
+  return { user: state.user.user };
+};
+
+export default connect(mapStateToProps, actions)(Invite);

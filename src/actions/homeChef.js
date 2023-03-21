@@ -48,11 +48,12 @@ export const editHours =
     dispatch(setAlert(alertMessage));
   };
 
-export const sendInvite = (recipients, message) => async (dispatch) => {
-  await server.post('./home-chef/invite', { recipients, message });
-  dispatch(setAlert('Invitation Email Was Sent!'));
-  router.navigate('/home-chef/invite/sent');
-};
+export const sendInvite =
+  (recipients, message, subject) => async (dispatch) => {
+    await server.post('./home-chef/invite', { recipients, message, subject });
+    dispatch(setAlert('Invitation Email Was Sent!'));
+    router.navigate('/home-chef/invite/sent');
+  };
 
 export const getCampaign = () => async (dispatch) => {
   const { data } = await server.get('/home-chef/campaign');
