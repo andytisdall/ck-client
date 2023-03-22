@@ -31,9 +31,15 @@ export const sendText =
     const postBody = new FormData();
     postBody.append('message', message);
     postBody.append('region', region);
-    postBody.append('photo', photo);
-    postBody.append('feedbackId', feedbackId);
-    postBody.append('number', number);
+    if (photo) {
+      postBody.append('photo', photo);
+    }
+    if (feedbackId) {
+      postBody.append('feedbackId', feedbackId);
+    }
+    if (number) {
+      postBody.append('number', number);
+    }
     const res = await server.post('/text/outgoing', postBody, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
