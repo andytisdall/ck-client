@@ -6,6 +6,9 @@ import clearError from './middlewares/clearError';
 import errorHandlerMiddleware from './middlewares/errorHandler';
 import reducers from './reducers';
 
+export const clientId =
+  '385802469502-061cv1crj954fcp56kthk40u918eu1ot.apps.googleusercontent.com';
+
 const Root = ({ children, initialState = {} }) => {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

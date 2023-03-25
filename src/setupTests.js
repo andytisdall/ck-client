@@ -5,6 +5,19 @@
 import '@testing-library/jest-dom';
 
 import { server } from './mocks/server';
+import Root from './root';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { clientId } from './root';
+
+export const getWrapper = (state) => {
+  return ({ children }) => {
+    return (
+      <GoogleOAuthProvider clientId={clientId}>
+        <Root initialState={state}>{children}</Root>
+      </GoogleOAuthProvider>
+    );
+  };
+};
 
 // set up server before all tests and then close after
 beforeAll(() => server.listen());

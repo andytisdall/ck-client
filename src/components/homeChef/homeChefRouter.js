@@ -184,7 +184,9 @@ const homeChefRouter = {
         },
         {
           path: 'file-success',
-          element: renderWithFallback(<FileSuccess returnLink="/home-chef" />),
+          element: renderWithFallback(
+            <FileSuccess returnLink="/home-chef/onboarding" />
+          ),
         },
         {
           path: 'docusign',

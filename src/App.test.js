@@ -1,20 +1,14 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Root from './root';
 import App from './App';
 import { user1 } from './mocks/data';
+import { getWrapper } from './setupTests';
 
 const adminSignedInState = {
   user: {
     user: user1,
   },
-};
-
-const getWrapper = (state) => {
-  return ({ children }) => {
-    return <Root initialState={state}>{children}</Root>;
-  };
 };
 
 test('no links if not signed in', async () => {
