@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../../../App';
@@ -21,4 +21,5 @@ test('navigate to home chef page', async () => {
   const statusText = await screen.findByText(
     'Your Status: You are done with the onboarding process and may sign up for Town Fridge deliveries'
   );
+  expect(statusText).toBeDefined();
 });

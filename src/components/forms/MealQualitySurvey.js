@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
@@ -20,11 +20,12 @@ const Survey = ({ submitForm }) => {
 
   const [loading, setLoading] = useLoading();
 
-  const { phone } = useParams();
+  const [searchParams] = useSearchParams();
 
   const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    const phone = searchParams.get('phone');
     submitForm(
       {
         mealName,
