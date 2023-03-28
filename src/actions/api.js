@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const baseURL =
   process.env.NODE_ENV === 'production'
-    ? 'https://portal.ckoakland.org/api'
+    ? 'https://ck-test-portal.wl.r.appspot.com/api'
     : 'http://localhost:3001/api';
 
 const instance = axios.create({
