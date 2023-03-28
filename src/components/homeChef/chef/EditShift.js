@@ -7,7 +7,7 @@ import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 import useLoading from '../../../hooks/useLoading';
 
-const EditShift = ({ hours, getHours, editHours }) => {
+const EditShift = ({ hours, getHours, editHours, getShifts }) => {
   const { id } = useParams();
   const [mealCount, setMealCount] = useState(0);
   const [cancel, setCancel] = useState(false);
@@ -17,10 +17,11 @@ const EditShift = ({ hours, getHours, editHours }) => {
   useEffect(() => {
     if (!hours) {
       getHours();
+      getShifts();
     } else {
       setMealCount(hours[id]?.mealCount);
     }
-  }, [getHours, hours, id]);
+  }, [getHours, hours, id, getShifts]);
 
   const onSubmit = () => {
     setLoading(true);

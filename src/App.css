@@ -53,6 +53,7 @@ input[type=submit], button {
   font-size: 1rem;
   transition: .3s;
   cursor: pointer;
+  width: fit-content;
 }
 
 input[type=submit] {

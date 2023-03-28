@@ -39,20 +39,20 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
   return (
     <div className="shift-detail">
       <h2>
-        Signing up for:{' '}
-        <span className="signup-form-date">
+        Signing up for:</h2>
+        <h2 className="signup-form-date">
           {moment(shift.startTime).format('dddd, M/D/YY')}
-        </span>
-      </h2>
+        </h2>
+        <h2 className="signup-form-fridge">{job.name}</h2>
+      
 
       <form onSubmit={onSubmit} className="shift-signup-form">
-        <div>
-          Enter the number of meals you are commiting to bring to{' '}
-          <span className="signup-form-fridge">{job.name}</span>.
-        </div>
-        <br></br>
-        <label htmlFor="meal-count">Number of Meals:</label>
-        <input
+        <ul>
+        <div className='shift-detail-meal-number'>
+          <div>
+        <label htmlFor="meal-count">Number of Meals You Plan to Deliver:</label>
+        <div className='shift-detail-meal-number-note'>(You can change this later)</div>
+        </div><input
           type="number"
           placeholder="25"
           required
@@ -60,6 +60,8 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
           value={mealCount}
           onChange={(e) => setMealCount(e.target.value)}
         />
+        </div>
+        <div>
         <input
           type="checkbox"
           value={soup}
@@ -67,8 +69,10 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
           name="soup"
         />
         <label htmlFor="soup">This meal is soup</label>
-        <h3>Click submit to sign up for this slot.</h3>
-        {loading ? <Loading /> : <input type="submit" />}
+        </div>
+        </ul>
+        <h3>Click submit to sign up for this slot</h3>
+        {loading ? <Loading /> : <input type="submit" className='shift-detail-submit'/>}
       </form>
     </div>
   );

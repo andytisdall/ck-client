@@ -34,12 +34,20 @@ export const getHours = () => async (dispatch) => {
 };
 
 export const editHours =
-  (id, mealCount, cancel, completed) => async (dispatch) => {
+  (id, mealCount, cancel, completed) => async (dispatch, getState) => {
+    const state = getState().homeChef;
+    const hours = state.hours[id];
+    const fridge = state.jobs.find((j) => j.id === hours.job).name;
+    console.log(hours.shift);
+    const date = state.shifts[hours.shift].startTime;
+
     const res = await server.patch(`/home-chef/hours/${id}`, {
       mealCount,
       cancel,
       completed,
+      emailData: { fridge, date },
     });
+
     dispatch({ type: EDIT_HOURS, payload: res.data });
     router.navigate('/home-chef/chef');
     const alertMessage = cancel

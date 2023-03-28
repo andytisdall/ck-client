@@ -10,13 +10,16 @@
   margin-top: 3rem;
 margin-left: 2rem;
 border-left: solid 1px rgb(113, 19, 103);
+border-bottom: solid 1px rgb(113, 19, 103);
 padding-left: 2rem;
+padding-bottom: 2rem;
+width: fit-content;
 }
+
 
 .signup-form-date {
   color: rgb(113, 19, 103);
   font-size: 2rem;
-  padding-left: 1rem;
 }
 
 .signup-form-fridge {
@@ -25,11 +28,28 @@ padding-left: 2rem;
 }
 
 .shift-detail h3 {
+  border-top: solid 1px rgb(113, 19, 103);
   margin-top: 1rem;
+  padding-top: 2rem;
 }
 
 .shift-signup-form {
+  display: flex;
+  flex-direction: column;
   padding-top: 1rem;
   margin-left: 2rem;
+}
+
+.shift-detail-submit {
+  width: fit-content
+}
+
+.shift-detail-meal-number {
+  display: flex;
+  padding-bottom: 1rem;
+}
+
+.shift-detail-meal-number-note {
+  font-size: .8rem;
 }
 

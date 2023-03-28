@@ -47,13 +47,15 @@ const Calendar = ({ jobs, shifts }) => {
         dayShifts = orderedShifts[d].map((sh) => {
           const jobIndex = jobs.findIndex((j) => j.id === sh.job);
           const job = jobs[jobIndex];
-          const status = sh.open ? '' : 'calendar-shift-disabled';
+          console.log(job.active);
+          const available = sh.open && job.active;
+          const status = available ? '' : 'calendar-shift-disabled';
           const link = () => navigate('../shift/' + sh.id);
           return (
             <div
               key={sh.id}
               className={`calendar-item calendar-job-${jobIndex} ${status}`}
-              onClick={() => sh.open && link()}
+              onClick={() => available && link()}
             >
               {job.name.replace('Town Fridge', '')}
             </div>

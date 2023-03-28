@@ -36,17 +36,20 @@ const VolunteerJob = ({ job, shifts }) => {
   };
 
   const expanded = expand ? 'expanded' : '';
-
+  const inactive = job.active ? '' : 'job-name-inactive';
   return (
     <div className="job-container">
-      <div className="job-name">
-        <div
-          className={`expand-btn ${expanded}`}
-          onClick={() => setExpand(!expand)}
-        >
-          &rarr;
-        </div>
+      <div className={`job-name ${inactive}`}>
+        {job.active && (
+          <div
+            className={`expand-btn ${expanded}`}
+            onClick={() => setExpand(!expand)}
+          >
+            &rarr;
+          </div>
+        )}
         <h3>{job.name}</h3>
+        {!job.active && <h4 className="job-disabled">Out of Service</h4>}
       </div>
       <div className="job-location">
         {expand && (

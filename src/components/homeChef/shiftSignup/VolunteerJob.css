@@ -57,3 +57,14 @@
 .job-time {
   margin-left: 1rem;
 }
+
+.job-name-inactive {
+  margin-left: 3rem;
+  color: rgb(69, 69, 69);
+  font-style: italic;
+}
+
+.job-disabled {
+  margin-left: 2rem;
+  color: rgb(121, 48, 60)
+}

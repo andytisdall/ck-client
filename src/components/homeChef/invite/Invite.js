@@ -7,7 +7,17 @@ import Loading from '../../reusable/Loading';
 import './Invite.css';
 
 const Invite = ({ sendInvite, user }) => {
-  const defaultMessage = `This is a message from ${user?.firstName}. Please consider being a CK Home Chef!`;
+  const defaultMessage = `Hi, this is ${user?.firstName}. I want to tell you about a great way to directly help the people in our Oakland community.
+ 
+I'm a member of the Community Kitchens Home Chef program.  Home chefs cook delicious, restaurant quality meals in bulk at home. Using packaging materials provided by Community Kitchens, we bring these meals to one of the publicly accessible town fridges in Oakland, to be eaten by whoever needs them.
+
+Community Kitchens lets community members know when and what kind of food drop offs are happening, and gives home chefs a donation receipt for tax deductions. They also organize the distribution of meals and help chefs work together to get what they need to produce nutritious meals.
+
+CK Home Chef lets people provide food directly to the people that need it most. If you want to know more, you can visit https://www.ckoakland.org/volunteer.
+
+Thanks for your time!
+${user.firstName}
+  `;
   const defaultSubject = `${user?.firstName} is inviting you to become a home chef`;
 
   const [recipients, setRecipients] = useState(['']);
@@ -24,6 +34,7 @@ const Invite = ({ sendInvite, user }) => {
             type="email"
             value={rec}
             required
+            className="invite-email"
             onChange={(e) => {
               setRecipients([
                 ...recipients.slice(0, i),
