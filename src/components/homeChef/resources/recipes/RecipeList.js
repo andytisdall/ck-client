@@ -64,12 +64,21 @@ const RecipeList = ({ recipes, getRecipes }) => {
   }, [orderedRecipes]);
 
   return (
-    <div>
-      <h1>Recipes</h1>
-      <Link to="add-recipe">
-        <button>Add a Recipe</button>
-      </Link>
-      <ul>{renderRecipes()}</ul>
+    <div className="recipe-list-container">
+      <div>
+        <h1>Recipes</h1>
+        <Link to="add-recipe">
+          <button>Add a Recipe</button>
+        </Link>
+        <ul>{renderRecipes()}</ul>
+      </div>
+      <div className="recipe-list-images">
+        <img src="/images/home-chef/recipe-list-1.png" alt="food" />
+        <img src="/images/home-chef/recipe-list-2.png" alt="food" />
+        <img src="/images/home-chef/recipe-list-3.png" alt="food" />
+        <img src="/images/home-chef/recipe-list-4.jpeg" alt="food" />
+        <img src="/images/home-chef/recipe-list-5.png" alt="food" />
+      </div>
     </div>
   );
 };

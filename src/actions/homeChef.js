@@ -38,8 +38,7 @@ export const editHours =
     const state = getState().homeChef;
     const hours = state.hours[id];
     const fridge = state.jobs.find((j) => j.id === hours.job).name;
-    console.log(hours.shift);
-    const date = state.shifts[hours.shift].startTime;
+    const date = hours.time;
 
     const res = await server.patch(`/home-chef/hours/${id}`, {
       mealCount,

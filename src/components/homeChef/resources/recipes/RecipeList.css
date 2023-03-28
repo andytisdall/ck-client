@@ -3,3 +3,19 @@
   text-decoration: underline;
 }
 
+.recipe-list-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recipe-list-images {
+  max-width: 40%;
+  margin-left: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-list-images img {
+  width: 100%;
+  margin-bottom: 2rem;
+}

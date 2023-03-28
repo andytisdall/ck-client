@@ -82,44 +82,51 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
   const pastExpanded = pastExpand ? 'expanded' : '';
 
   return (
-    <div>
-      {user.firstName ? (
-        <h2>{user.firstName}'s Town Fridge Deliveries</h2>
-      ) : null}
-      {totalMeals && totalMeals > 0 ? (
-        <div className="chef-total-meals">
-          You have delivered {totalMeals} total meals!
+    <div className="chef-shifts">
+      <div>
+        {user.firstName ? (
+          <h2>{user.firstName}'s Town Fridge Deliveries</h2>
+        ) : null}
+        {totalMeals && totalMeals > 0 ? (
+          <div className="chef-total-meals">
+            You have delivered {totalMeals} total meals!
+          </div>
+        ) : null}
+        <div className="job-name">
+          <div
+            className={`expand-btn ${upcomingExpanded}`}
+            onClick={() => setUpcomingExpand(!upcomingExpand)}
+          >
+            &rarr;
+          </div>
+          <h3>Upcoming Deliveries</h3>
         </div>
-      ) : null}
-      <div className="job-name">
         <div
-          className={`expand-btn ${upcomingExpanded}`}
-          onClick={() => setUpcomingExpand(!upcomingExpand)}
+          className={`chef-hours-list ${
+            !upcomingExpand && 'chef-hours-list-closed'
+          }`}
         >
-          &rarr;
+          {upcomingExpand && renderHours('upcoming')}
         </div>
-        <h3>Upcoming Deliveries</h3>
-      </div>
-      <div
-        className={`chef-hours-list ${
-          !upcomingExpand && 'chef-hours-list-closed'
-        }`}
-      >
-        {upcomingExpand && renderHours('upcoming')}
-      </div>
-      <div className="job-name">
+        <div className="job-name">
+          <div
+            className={`expand-btn ${pastExpanded}`}
+            onClick={() => setPastExpand(!pastExpand)}
+          >
+            &rarr;
+          </div>
+          <h3>Past Deliveries</h3>
+        </div>
         <div
-          className={`expand-btn ${pastExpanded}`}
-          onClick={() => setPastExpand(!pastExpand)}
+          className={`chef-hours-list ${
+            !pastExpand && 'chef-hours-list-closed'
+          }`}
         >
-          &rarr;
+          {pastExpand && renderHours('past')}
         </div>
-        <h3>Past Deliveries</h3>
       </div>
-      <div
-        className={`chef-hours-list ${!pastExpand && 'chef-hours-list-closed'}`}
-      >
-        {pastExpand && renderHours('past')}
+      <div className="chef-images">
+        <img src="/images/home-chef/chef-shifts.jpeg" />
       </div>
     </div>
   );

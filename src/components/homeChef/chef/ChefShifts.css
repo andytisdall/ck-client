@@ -43,3 +43,17 @@
   margin: 1rem 0;
   color: red;
 }
+
+.chef-shifts {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chef-images {
+  max-width: 40%;
+  margin-left: 6rem;
+}
+
+.chef-images img {
+  width: 100%;
+}

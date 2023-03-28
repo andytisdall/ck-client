@@ -76,3 +76,7 @@
   padding: 1rem;
   display: inline-block;
 }
+
+.send-text-time {
+min-width: 120px;
+}

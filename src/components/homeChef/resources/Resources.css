@@ -1,0 +1,8 @@
+.resources {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.resources-image {
+  max-width: 30%;
+}

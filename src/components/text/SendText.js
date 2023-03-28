@@ -12,14 +12,15 @@ import useLoading from '../../hooks/useLoading';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 
-const SendText = ({ sendText, error }) => {
+const SendText = ({ sendText }) => {
   const [fridge, setFridge] = useState('');
   const [mealCount, setMealCount] = useState(25);
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-  const [time, setTime] = useState('12:00');
+  const [time, setTime] = useState(moment().format('HH:mm'));
   const [source, setSource] = useState('CK Home Chef Volunteers');
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState(null);
+  const [dietary, setDietary] = useState('');
   const [preview, setPreview] = useState(false);
 
   const [loading, setLoading] = useLoading();
@@ -32,6 +33,12 @@ const SendText = ({ sendText, error }) => {
     }
   };
 
+  const getDietaryInfo = () => {
+    if (dietary) {
+      return `This meal is ${dietary}. `;
+    }
+  };
+
   const message =
     fridge &&
     `Good afternoon! ${
@@ -40,7 +47,7 @@ const SendText = ({ sendText, error }) => {
       `${date} ${time}`
     ).format(
       'M/D [at] h:mm a'
-    )}, made with love by ${source}! The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`;
+    )}, made with love by ${source}! The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
 
   const getRegion = () => {
     const { region } = townFridges[fridge];
@@ -73,6 +80,7 @@ const SendText = ({ sendText, error }) => {
           <div className="send-text-variables-item">
             <label htmlFor="time">Time:</label>
             <input
+              className="send-text-time"
               required
               name="time"
               type="time"
@@ -107,6 +115,15 @@ const SendText = ({ sendText, error }) => {
               value={source}
               name="source"
               onChange={(e) => setSource(e.target.value)}
+            />
+          </div>
+
+          <div className="send-text-variables-item">
+            <label htmlFor="dietary">Dietary Information (optional):</label>
+            <textarea
+              value={dietary}
+              name="dietary"
+              onChange={(e) => setDietary(e.target.value)}
             />
           </div>
 
