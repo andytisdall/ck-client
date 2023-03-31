@@ -6,7 +6,6 @@ import * as actions from '../../actions';
 import './HomeChef.css';
 import Loading from '../reusable/Loading';
 import renderWithFallback from '../reusable/renderWithFallback';
-import Migrate from './Migrate';
 
 const HomeChefStatus = React.lazy(() => import('./HomeChefStatus'));
 
@@ -101,7 +100,7 @@ const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
   return (
     <div className="main home-chef">
       <Link to="/home-chef">
-        <h1 className="page-header">Home Chef</h1>
+        <h1 className="home-chef-header">Home Chef</h1>
       </Link>
       {loading && <Loading />}
       {!user && renderSignIn()}
@@ -121,10 +120,8 @@ const homeChefRouter = {
   element: <ConnectedHomeChef />,
   children: [
     { index: true, element: renderWithFallback(<HomeChefHome />) },
-    { path: 'migrate', element: <Migrate /> },
     {
       path: 'invite',
-
       children: [
         { index: true, element: renderWithFallback(<Invite />) },
         { path: 'sent', element: renderWithFallback(<InviteSent />) },

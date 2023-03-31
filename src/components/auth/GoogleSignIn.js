@@ -12,9 +12,9 @@ const GoogleSignIn = ({ setError, googleSignIn }) => {
   }
   return (
     <GoogleLogin
-      onSuccess={() => {
+      onSuccess={({ credential }) => {
         setLoading(true);
-        googleSignIn();
+        googleSignIn(credential);
       }}
       onError={setError}
     />
