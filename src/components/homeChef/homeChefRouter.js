@@ -100,7 +100,11 @@ const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
   return (
     <div className="main home-chef">
       <Link to="/home-chef">
-        <h1 className="home-chef-header">Home Chef</h1>
+        <img
+          src="/images/home-chef/home-chef-header.png"
+          className="home-chef-header"
+          alt="home chef header"
+        />
       </Link>
       {loading && <Loading />}
       {!user && renderSignIn()}

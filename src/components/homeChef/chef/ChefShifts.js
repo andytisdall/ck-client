@@ -126,7 +126,13 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
         </div>
       </div>
       <div className="chef-images">
-        <img src="/images/home-chef/chef-shifts.jpeg" />
+        <Link to="../signup/list">
+          <button className="chef-signup-link">Sign Up for A Delivery</button>
+        </Link>
+        <img
+          src="/images/home-chef/chef-shifts.jpeg"
+          alt="Home Chef meals ready to go"
+        />
       </div>
     </div>
   );

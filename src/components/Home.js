@@ -44,11 +44,7 @@ const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
           buttonText="Home Chef"
           descriptionText={homeChefDescription}
         />
-        <TextButton
-          to="meal-program"
-          buttonText="Meal Program Onboarding"
-          descriptionText={mealProgramDescription}
-        />
+        {renderMealProgram()}
         {renderTextService()}
         <TextButton
           to="user"
@@ -58,6 +54,18 @@ const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
         {renderAdmin()}
       </>
     );
+  };
+
+  const renderMealProgram = () => {
+    if (restaurant) {
+      return (
+        <TextButton
+          to="meal-program"
+          buttonText="Meal Program Onboarding"
+          descriptionText={mealProgramDescription}
+        />
+      );
+    }
   };
 
   const renderTextService = () => {

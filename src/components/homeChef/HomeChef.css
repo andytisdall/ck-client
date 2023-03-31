@@ -39,7 +39,7 @@
 @media(max-width: 500px) {
   .hc-home {
     flex-direction: column;
-    flex-flow: column-reverse;
+    /* flex-flow: column-reverse; */
     align-items: center;
   }
 }
@@ -50,7 +50,7 @@
 }
 
 .hc-home-active-status {
-  font-size: .8rem;
+  font-size: 1rem;
   margin-bottom: 2rem;
   margin-left: 1rem;
   color: rgb(54, 54, 54);
@@ -63,17 +63,26 @@
   border-radius: 25px;
   padding: 1rem 1.5rem;
   margin-top: 1rem;
-  font-family:'Times New Roman', Times, serif;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.3rem;
   text-align: center;
 }
 
 .home-chef-home-right-col {
-  
   max-width: 30%;
   margin-left: 4rem;
 }
 
 .home-chef-header {
-  color: rgb(215, 3, 52)
+  width: 95%;
+  max-width: 500px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: .5s all;
+  border-radius: 50px;
+}
+
+.home-chef-header:hover {
+  filter: hue-rotate(120deg);
+  background-color: rgba(240, 248, 255, 0.287);
 }
