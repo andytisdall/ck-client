@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../reusable/FileUpload';
@@ -25,9 +24,9 @@ const UploadFoodHandler = ({ uploadFiles }) => {
       </form>
       <p>
         Don't have your food handler certificate yet?{' '}
-        <Link className="retro-link" to={FOOD_HANDLER_URL}>
+        <a className="retro-link" href={FOOD_HANDLER_URL}>
           Click here to apply.
-        </Link>
+        </a>
       </p>
     </div>
   );

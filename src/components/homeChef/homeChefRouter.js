@@ -20,6 +20,12 @@ const HomeChefDocuments = React.lazy(() =>
 const UploadFoodHandler = React.lazy(() =>
   import('./onboarding/UploadFoodHandler')
 );
+const OrientationVideo = React.lazy(() =>
+  import('./onboarding/OrientationVideo')
+);
+const OrientationSlides = React.lazy(() =>
+  import('./onboarding/OrientationSlides')
+);
 // home chef shift sign up
 const ShiftSignup = React.lazy(() => import('./shiftSignup/ShiftSignup'));
 const VolunteerJobsList = React.lazy(() =>
@@ -160,6 +166,7 @@ const homeChefRouter = {
       element: renderWithFallback(<Resources />),
       children: [
         { index: true, element: renderWithFallback(<ResourcesList />) },
+
         {
           path: 'recipes',
           children: [
@@ -177,6 +184,14 @@ const homeChefRouter = {
       path: 'onboarding',
       children: [
         { index: true, element: renderWithFallback(<HomeChefOnboarding />) },
+        {
+          path: 'orientation-video',
+          element: renderWithFallback(<OrientationVideo />),
+        },
+        {
+          path: 'orientation-slides',
+          element: renderWithFallback(<OrientationSlides />),
+        },
         {
           path: 'documents',
           element: renderWithFallback(<HomeChefDocuments />),
