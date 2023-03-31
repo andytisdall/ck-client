@@ -36,6 +36,8 @@ const SendText = ({ sendText }) => {
   const getDietaryInfo = () => {
     if (dietary) {
       return `This meal is ${dietary}. `;
+    } else {
+      return '';
     }
   };
 

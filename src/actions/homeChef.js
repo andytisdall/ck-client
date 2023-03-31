@@ -66,3 +66,8 @@ export const getCampaign = () => async (dispatch) => {
   const { data } = await server.get('/home-chef/campaign');
   dispatch({ type: GET_CAMPAIGN, payload: data });
 };
+
+export const migrate = () => async (dispatch) => {
+  await server.get('/home-chef/migrate-users');
+  dispatch(setAlert('Migration Successful'));
+};
