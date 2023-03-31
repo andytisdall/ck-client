@@ -38,41 +38,49 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
 
   return (
     <div className="shift-detail">
-      <h2>
-        Signing up for:</h2>
-        <h2 className="signup-form-date">
-          {moment(shift.startTime).format('dddd, M/D/YY')}
-        </h2>
-        <h2 className="signup-form-fridge">{job.name}</h2>
-      
+      <h2>Signing up for:</h2>
+      <h2 className="signup-form-date">
+        {moment(shift.startTime).format('dddd, M/D/YY')}
+      </h2>
+      <h2 className="signup-form-fridge">{job.name}</h2>
+      <p>{job.location}</p>
 
       <form onSubmit={onSubmit} className="shift-signup-form">
         <ul>
-        <div className='shift-detail-meal-number'>
+          <div className="shift-detail-meal-number">
+            <div>
+              <label htmlFor="meal-count">
+                Number of Meals You Plan to Deliver:
+              </label>
+              <div className="shift-detail-meal-number-note">
+                (You can change this later)
+              </div>
+            </div>
+            <input
+              type="number"
+              placeholder="25"
+              required
+              id="meal-count"
+              value={mealCount}
+              onChange={(e) => setMealCount(e.target.value)}
+            />
+          </div>
           <div>
-        <label htmlFor="meal-count">Number of Meals You Plan to Deliver:</label>
-        <div className='shift-detail-meal-number-note'>(You can change this later)</div>
-        </div><input
-          type="number"
-          placeholder="25"
-          required
-          id="meal-count"
-          value={mealCount}
-          onChange={(e) => setMealCount(e.target.value)}
-        />
-        </div>
-        <div>
-        <input
-          type="checkbox"
-          value={soup}
-          onChange={(e) => setSoup(e.target.checked)}
-          name="soup"
-        />
-        <label htmlFor="soup">This meal is soup</label>
-        </div>
+            <input
+              type="checkbox"
+              value={soup}
+              onChange={(e) => setSoup(e.target.checked)}
+              name="soup"
+            />
+            <label htmlFor="soup">This meal is soup</label>
+          </div>
         </ul>
         <h3>Click submit to sign up for this slot</h3>
-        {loading ? <Loading /> : <input type="submit" className='shift-detail-submit'/>}
+        {loading ? (
+          <Loading />
+        ) : (
+          <input type="submit" className="shift-detail-submit" />
+        )}
       </form>
     </div>
   );

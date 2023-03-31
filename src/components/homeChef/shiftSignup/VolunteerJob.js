@@ -48,7 +48,16 @@ const VolunteerJob = ({ job, shifts }) => {
             &rarr;
           </div>
         )}
-        <h3>{job.name}</h3>
+        <h3
+          className="job-name"
+          onClick={() => {
+            if (job.active) {
+              setExpand(!expand);
+            }
+          }}
+        >
+          {job.name}
+        </h3>
         {!job.active && <h4 className="job-disabled">Out of Service</h4>}
       </div>
       <div className="job-location">

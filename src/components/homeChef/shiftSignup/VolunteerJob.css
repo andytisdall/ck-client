@@ -3,6 +3,10 @@
   margin-bottom: 1rem;
 }
 
+.job-name {
+  cursor: pointer;
+  width: fit-content;
+}
 
 
 .job-name-small {
