@@ -37,16 +37,16 @@ const HomeChefHome = ({ user, campaign }) => {
     }
   };
 
-  const renderMealsDonated = () => {
-    if (campaign?.mealsDonated) {
-      return (
-        <div className="home-chef-total-meals">
-          To date, CK Home Chefs have delivered {campaign.mealsDonated} meals to
-          Oakland Town Fridges!
-        </div>
-      );
-    }
-  };
+  // const renderMealsDonated = () => {
+  //   if (campaign?.mealsDonated) {
+  //     return (
+  //       <div className="home-chef-total-meals">
+  //         To date, CK Home Chefs have delivered {campaign.mealsDonated} meals to
+  //         Oakland Town Fridges!
+  //       </div>
+  //     );
+  //   }
+  // };
 
   return (
     <div className="hc-home">
@@ -80,7 +80,7 @@ const HomeChefHome = ({ user, campaign }) => {
           src="/images/home-chef/town-fridge.jpg"
           alt="home chef header"
         />
-        {renderMealsDonated()}
+        {/* {renderMealsDonated()} */}
       </div>
     </div>
   );
