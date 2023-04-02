@@ -52,8 +52,3 @@ export const deleteFeedback = (id) => async (dispatch) => {
   const res = await server.delete(`/text/feedback/${id}`);
   dispatch({ type: DELETE_FEEDBACK, payload: res.data });
 };
-
-export const migrate = () => async (dispatch) => {
-  await server.get('/text/migrate-text');
-  dispatch(setAlert('Migration Successful'));
-};
