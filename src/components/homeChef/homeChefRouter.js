@@ -94,7 +94,8 @@ const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
     if (user.homeChefStatus) {
       return (
         <>
-          <HomeChefStatus />
+          {user.homeChefStatus !== 'Active' &&
+            renderWithFallback(<HomeChefStatus />)}
           <Outlet />
         </>
       );

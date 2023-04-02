@@ -2,9 +2,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const HomeChefStatus = ({ user }) => {
-  if (!user?.homeChefStatus || user.homeChefStatus === 'Active') {
-    return;
-  }
   const foodHandler =
     'Obtain a Food Handler certification and upload the certificate';
   const volunteerAgreement = 'Sign our volunteer agreement';
