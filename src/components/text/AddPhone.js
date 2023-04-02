@@ -5,7 +5,7 @@ import * as actions from '../../actions';
 import { REGIONS } from './townFridges';
 import './AddPhone.css';
 
-const AddPhone = ({ addPhone }) => {
+const AddPhone = ({ addPhone, migrate }) => {
   const [phone, setPhone] = useState('');
   const [region, setRegion] = useState(REGIONS.EAST_OAKLAND);
 
@@ -42,6 +42,7 @@ const AddPhone = ({ addPhone }) => {
         </div>
         <input type="submit" />
       </form>
+      <button onClick={migrate}>Migrate Text Users</button>
     </div>
   );
 };

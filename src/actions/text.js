@@ -13,19 +13,6 @@ export const addPhone = (phone, region) => async (dispatch) => {
   dispatch(setAlert('Phone Number Added'));
 };
 
-// export const sendText = (message, region, photo) => async (dispatch) => {
-//   const postBody = new FormData();
-//   postBody.append('message', message);
-//   postBody.append('region', region);
-//   postBody.append('photo', photo);
-//   const res = await server.post('/text/outgoing', postBody, {
-//     headers: { 'Content-Type': 'multipart/form-data' },
-//   });
-//   dispatch({ type: SEND_TEXT, payload: res.data });
-//   dispatch(setAlert('Message Sent'));
-//   router.navigate('/text/text-success');
-// };
-
 export const sendText =
   (message, region, photo, feedbackId, number) => async (dispatch) => {
     const postBody = new FormData();
@@ -64,4 +51,9 @@ export const editFeedback = (id) => async (dispatch) => {
 export const deleteFeedback = (id) => async (dispatch) => {
   const res = await server.delete(`/text/feedback/${id}`);
   dispatch({ type: DELETE_FEEDBACK, payload: res.data });
+};
+
+export const migrate = () => async (dispatch) => {
+  await server.get('/text/migrate-text');
+  dispatch(setAlert('Migration Successful'));
 };
