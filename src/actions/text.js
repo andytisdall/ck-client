@@ -11,6 +11,7 @@ import { router } from '../App';
 export const addPhone = (phone, region) => async (dispatch) => {
   await server.post('/text/addphone', { phone, region });
   dispatch(setAlert('Phone Number Added'));
+  router.navigate('..');
 };
 
 export const sendText =
