@@ -3,7 +3,7 @@
   justify-content: flex-start;
   align-items: center;
   max-width: 40rem;
-  min-width: 30rem;
+  min-width: 35rem;
   height: fit-content;
   color: inherit;
   margin: 1rem 0;
@@ -39,7 +39,9 @@
 
 @media (max-width: 500px) {
   .text-button-width {
-    width: fit-content
+    width: fit-content;
+    margin-right: 0;
+    margin-bottom: 1rem;
   }
 }
 

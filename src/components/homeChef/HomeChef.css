@@ -71,6 +71,7 @@
 .home-chef-home-right-col {
   max-width: 30%;
   margin-left: 4rem;
+  min-width: 200px;
 }
 
 .home-chef-header {

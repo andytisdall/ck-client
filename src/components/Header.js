@@ -44,8 +44,10 @@ const Header = ({ getUser, user, signOut }) => {
     return (
       <div className="header-auth">
         <SignIn />
-        <p className="header-auth-text">OR</p>
-        <GoogleSignIn />
+        <div className="header-auth-google">
+          <p className="header-auth-text">OR</p>
+          <GoogleSignIn />
+        </div>
       </div>
     );
   };
