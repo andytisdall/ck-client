@@ -6,19 +6,8 @@
   align-items: flex-start;
 }
 
-
-
-.file-form {
-  display: flex;
-  flex-direction: column;
-}
-
 .file-success {
   margin-bottom: 3rem;
-}
-
-.date-picker {
-  width: 200px;
 }
 
 .restaurant {
@@ -32,21 +21,15 @@
   padding-left: 2rem;
 }
 
-.completed-doc {
+.completed-doc li {
+  padding: .5rem;
   color: rgb(0, 76, 0);
   font-weight: 600;
 }
 
-.completed-doc li {
-  padding: .5rem;
-}
-
-.incomplete-doc {
+.incomplete-doc li {
   color: rgb(78, 0, 19);
   font-weight: 600;
-}
-
-.incomplete-doc li {
   padding: .5rem;
   border-radius: 25px;
   width: fit-content;

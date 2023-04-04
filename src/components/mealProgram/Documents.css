@@ -1,0 +1,24 @@
+.file-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-picker {
+  width: 200px;
+}
+
+.meal-file-row {
+  display: flex;
+}
+
+.meal-file-upload {
+  width: 70%;
+}
+
+.meal-file-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem;
+  width: 30%;
+}

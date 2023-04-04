@@ -4,14 +4,19 @@ import { UPLOAD_FILES } from './types';
 import { router } from '../App';
 
 export const uploadFiles =
-  (form, accountType) => async (dispatch, getState) => {
+  (form, accountType, expiration) => async (dispatch, getState) => {
     const postBody = new FormData();
     Array.from(form.elements).forEach((input) => {
       if (input.files) {
         postBody.append(input.name, input.files[0]);
       }
-      if (input.name === 'expiration') {
-        postBody.append('expiration', input.value);
+      if (input.name === 'HD') {
+        if (!expiration) {
+          throw Error(
+            'Health Department Permit and Expiration Date must be updated at the same time'
+          );
+        }
+        postBody.append('expiration', expiration);
       }
     });
     let accountId;

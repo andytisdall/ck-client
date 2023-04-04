@@ -1,11 +1,30 @@
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import TextButton from '../reusable/TextButton';
+
+const documentsToUpload = [
+  'Restaurant Contract',
+  'Business License',
+  'W9',
+  'Direct Deposit Form',
+  'Health Department Permit',
+];
 
 const MealProgramHome = ({ restaurant }) => {
   const renderChecklist = () => {
     const renderAsLi = (doc) => {
-      return <li key={doc}>{doc}</li>;
+      let to;
+      if (documentsToUpload.includes(doc)) {
+        to = 'documents';
+      } else {
+        to = 'docusign/sign';
+      }
+      return (
+        <Link to={to}>
+          <li key={doc}>{doc}</li>
+        </Link>
+      );
     };
 
     if (!restaurant.remainingDocs.length) {
@@ -23,7 +42,7 @@ const MealProgramHome = ({ restaurant }) => {
 
           <div>Documents to Complete:</div>
           <ul className="incomplete-doc">
-            {restaurant.remainingDocs.map(renderAsLi)}
+            {restaurant.remainingDocs.map((d) => d.title).map(renderAsLi)}
           </ul>
         </div>
       </div>

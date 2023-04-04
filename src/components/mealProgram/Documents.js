@@ -6,15 +6,27 @@ import * as actions from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
 import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
+import './Documents.css';
 
-const Documents = ({ uploadFiles }) => {
+const Documents = ({ uploadFiles, restaurant }) => {
   const [expirationDate, setExpirationDate] = useState('');
 
   const [loading, setLoading] = useLoading();
 
   const renderUploadForms = () => {
+    const remainingDocs = restaurant.remainingDocs.map((d) => d.docType);
     return requiredDocuments.map((doc) => {
-      return <FileUpload doc={doc} key={doc.data} />;
+      const text = remainingDocs.includes(doc.data)
+        ? 'This document is outstanding'
+        : 'This document has already been uploaded';
+      return (
+        <div className="meal-file-row">
+          <div className="meal-file-upload">
+            <FileUpload doc={doc} key={doc.data} />
+          </div>
+          <div className="meal-file-info">{text}</div>
+        </div>
+      );
     });
   };
 
@@ -51,4 +63,10 @@ const Documents = ({ uploadFiles }) => {
   );
 };
 
-export default connect(null, actions)(Documents);
+const mapStateToProps = (state) => {
+  return {
+    restaurant: state.restaurant.restaurant,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Documents);
