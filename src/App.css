@@ -80,10 +80,12 @@ textarea {
 }
 
 .page-header {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 3px solid black;
-  width: 50%;
+  border-bottom: 3px solid;
+  border-color: inherit;
+  width: fit-content;
+  color: inherit;
 }
 
 .btn-inactive {

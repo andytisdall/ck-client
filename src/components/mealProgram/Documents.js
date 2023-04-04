@@ -16,15 +16,17 @@ const Documents = ({ uploadFiles, restaurant }) => {
   const renderUploadForms = () => {
     const remainingDocs = restaurant.remainingDocs.map((d) => d.docType);
     return requiredDocuments.map((doc) => {
-      const text = remainingDocs.includes(doc.data)
+      const outstanding = remainingDocs.includes(doc.data);
+      const text = outstanding
         ? 'This document is outstanding'
         : 'This document has already been uploaded';
+      const style = outstanding ? 'outstanding' : 'completed';
       return (
-        <div className="meal-file-row">
+        <div className="meal-file-row" key={doc.data}>
           <div className="meal-file-upload">
             <FileUpload doc={doc} key={doc.data} />
           </div>
-          <div className="meal-file-info">{text}</div>
+          <div className={`meal-file-info ${style}`}>{text}</div>
         </div>
       );
     });

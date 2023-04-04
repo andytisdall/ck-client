@@ -7,16 +7,16 @@ export const uploadFiles =
   (form, accountType, expiration) => async (dispatch, getState) => {
     const postBody = new FormData();
     Array.from(form.elements).forEach((input) => {
-      if (input.files) {
+      if (input.files?.length) {
         postBody.append(input.name, input.files[0]);
-      }
-      if (input.name === 'HD') {
-        if (!expiration) {
-          throw Error(
-            'Health Department Permit and Expiration Date must be updated at the same time'
-          );
+        if (input.name === 'HD') {
+          if (!expiration) {
+            throw Error(
+              'Health Department Permit and Expiration Date must be updated at the same time'
+            );
+          }
+          postBody.append('expiration', expiration);
         }
-        postBody.append('expiration', expiration);
       }
     });
     let accountId;

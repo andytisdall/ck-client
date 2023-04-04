@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
 
@@ -6,6 +6,8 @@ import renderWithFallback from '../reusable/renderWithFallback';
 import Loading from '../reusable/Loading';
 import './MealProgram.css';
 import { getRestaurant } from '../../actions';
+import useLoading from '../../hooks/useLoading';
+
 const MealProgramHome = React.lazy(() => import('./MealProgram'));
 const Documents = React.lazy(() => import('./Documents'));
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
@@ -13,20 +15,20 @@ const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 
 const MealProgram = ({ getRestaurant, restaurant, user }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useLoading();
 
   useEffect(() => {
     if (user) {
       setLoading(true);
       getRestaurant();
     }
-  }, [user, getRestaurant]);
+  }, [user, getRestaurant, setLoading]);
 
   useEffect(() => {
     if (restaurant) {
       setLoading(false);
     }
-  }, [restaurant]);
+  }, [restaurant, setLoading]);
 
   const renderRestaurant = () => {
     return (
@@ -45,7 +47,7 @@ const MealProgram = ({ getRestaurant, restaurant, user }) => {
 
   return (
     <div className="main meal-program">
-      <Link to="/meal-program">
+      <Link to="/meal-program" className="meal-program-header">
         <h1 className="page-header">Meal Program Onboarding</h1>
       </Link>
       {user && loading && <Loading />}

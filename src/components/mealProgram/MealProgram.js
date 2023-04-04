@@ -9,11 +9,16 @@ const documentsToUpload = [
   'W9',
   'Direct Deposit Form',
   'Health Department Permit',
+  'Insurance',
 ];
 
 const MealProgramHome = ({ restaurant }) => {
   const renderChecklist = () => {
-    const renderAsLi = (doc) => {
+    const renderCompleteItem = (doc) => {
+      return <li key={doc}>{doc}</li>;
+    };
+
+    const renderIncompleteItem = (doc) => {
       let to;
       if (documentsToUpload.includes(doc)) {
         to = 'documents';
@@ -21,8 +26,8 @@ const MealProgramHome = ({ restaurant }) => {
         to = 'docusign/sign';
       }
       return (
-        <Link to={to}>
-          <li key={doc}>{doc}</li>
+        <Link to={to} key={doc}>
+          <li>{doc}</li>
         </Link>
       );
     };
@@ -37,12 +42,14 @@ const MealProgramHome = ({ restaurant }) => {
         <div className="meal-program-checklist">
           <div>Completed Documents:</div>
           <ul className="completed-doc">
-            {restaurant.completedDocs.map(renderAsLi)}
+            {restaurant.completedDocs.map(renderCompleteItem)}
           </ul>
 
           <div>Documents to Complete:</div>
           <ul className="incomplete-doc">
-            {restaurant.remainingDocs.map((d) => d.title).map(renderAsLi)}
+            {restaurant.remainingDocs
+              .map((d) => d.title)
+              .map(renderIncompleteItem)}
           </ul>
         </div>
       </div>
