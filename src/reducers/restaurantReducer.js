@@ -15,16 +15,12 @@ const INITIAL_STATE = {
 const restaurantReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_RESTAURANT:
-      const combinedRestaurant = {
-        ...action.payload.restaurant,
-        ...action.payload.extraInfo,
-      };
       return {
         restaurants: {
           ...state.restaurants,
-          [combinedRestaurant.id]: combinedRestaurant,
+          [action.payload.id]: action.payload,
         },
-        restaurant: combinedRestaurant,
+        restaurant: action.payload,
       };
     case FETCH_ALL_RESTAURANTS:
       return { ...state, restaurants: _.mapKeys(action.payload, (i) => i.id) };

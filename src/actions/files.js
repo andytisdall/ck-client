@@ -4,7 +4,7 @@ import { UPLOAD_FILES } from './types';
 import { router } from '../App';
 
 export const uploadFiles =
-  (form, accountType, expiration) => async (dispatch, getState) => {
+  (form, accountType, expiration) => async (dispatch) => {
     const postBody = new FormData();
     Array.from(form.elements).forEach((input) => {
       if (input.files?.length) {
@@ -19,17 +19,6 @@ export const uploadFiles =
         }
       }
     });
-    let accountId;
-    let page;
-    if (accountType === 'restaurant') {
-      accountId = getState().restaurant.restaurant.id;
-      page = 'meal-program';
-    }
-    if (accountType === 'contact') {
-      accountId = getState().user.user.id;
-      page = 'home-chef/onboarding';
-    }
-    postBody.append('accountId', accountId);
     postBody.append('accountType', accountType);
 
     const res = await server.post('/files', postBody, {
@@ -41,6 +30,13 @@ export const uploadFiles =
         `You have successfully uploaded ${res.data.filesAdded.length} files`
       )
     );
+    let page;
+    if (accountType === 'restaurant') {
+      page = 'meal-program';
+    }
+    if (accountType === 'contact') {
+      page = 'home-chef/onboarding';
+    }
 
     router.navigate(`/${page}/file-success`);
   };
