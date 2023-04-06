@@ -120,7 +120,7 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
       </div>
       <div className="chef-images">
         <Link to="../signup/list">
-          <button className="chef-signup-link">Sign Up for A Delivery</button>
+          <button className="chef-signup-link">Sign Up to Deliver Meals</button>
         </Link>
         <img
           src="/images/home-chef/chef-shifts.jpeg"

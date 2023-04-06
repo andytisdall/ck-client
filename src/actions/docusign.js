@@ -10,17 +10,8 @@ export const getDocusignUrl = (accountType) => async () => {
 };
 
 export const uploadDocsToSalesforce =
-  (accountType, envelopeId) => async (dispatch, getState) => {
-    let account;
-    if (accountType === 'restaurant') {
-      account = getState().restaurant.restaurant;
-    }
-    if (accountType === 'contact') {
-      account = getState().user.user;
-    }
-
+  (accountType, envelopeId) => async (dispatch) => {
     const { data } = await server.post('/docusign/getDoc', {
-      accountId: account.id,
       envelopeId,
       accountType,
     });

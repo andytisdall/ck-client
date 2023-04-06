@@ -33,7 +33,12 @@ const MealProgramHome = ({ restaurant }) => {
     };
 
     if (!restaurant.remainingDocs.length) {
-      return <div>You have completed all onboarding actions</div>;
+      return (
+        <div className="meal-program-status-active">
+          <span className="bold">Your status:</span> You have completed all
+          onboarding tasks and are eligible to provide meals.
+        </div>
+      );
     }
 
     return (

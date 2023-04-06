@@ -35,7 +35,7 @@ const Documents = ({ uploadFiles, restaurant }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    uploadFiles(e.target, 'restaurant');
+    uploadFiles(e.target, 'restaurant', expirationDate);
   };
 
   const calendarStyle = expirationDate ? 'field-completed' : '';

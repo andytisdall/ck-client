@@ -26,6 +26,7 @@ a, a:visited {
   width: 50%;
   text-align: center;
   box-sizing: border-box;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.538);
 }
 
 .alert {
@@ -80,7 +81,6 @@ textarea {
 }
 
 .page-header {
-  margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 3px solid;
   border-color: inherit;
