@@ -72,7 +72,6 @@ input[type=submit]:active, button:active {
 
 textarea {
   box-sizing: border-box;
-  width: 30rem;
   height: 3rem;
   padding: .5rem;
   word-wrap: normal;
