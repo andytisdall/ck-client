@@ -6,3 +6,13 @@
 .resources-image {
   max-width: 30%;
 }
+
+@media (max-width: 1000px) {
+  .resources {
+    justify-content: center;
+  }
+
+  .resources-image {
+    max-width: 80%;
+  }
+}

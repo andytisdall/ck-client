@@ -1,5 +1,8 @@
 .chef-hours {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .chef-hours h3 {
@@ -7,7 +10,6 @@
 }
 
 .chef-hours-list {
-  margin-bottom: 2rem;
   transition: all .4s;
 }
 
@@ -16,9 +18,27 @@
   transform: scaleY(.5);
 }
 
+.chef-hours-title {
+  display: flex;
+  min-width: 12rem;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+
 .chef-hours-date {
+  display: inline;
+  width: 4rem;
   font-size: 1rem;
   font-weight: 600;
+  /* padding-bottom: 1rem; */
+}
+
+.chef-hours-info {
+  min-width: 9rem;
+  margin-bottom: .5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .chef-hours-meals {
@@ -46,15 +66,27 @@
 
 .chef-shifts {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .chef-images {
   max-width: 40%;
-  margin-left: 6rem;
+  margin-left: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media (max-width: 550px) {
+  .chef-images {
+    max-width: 80%;
+    margin-left: 0;
+    margin-top: 2rem;
+  }
+
+  .chef-shifts {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 .chef-images img {
@@ -64,6 +96,6 @@
 .chef-signup-link {
   font-size: 1.4rem;
   margin-bottom: 2rem;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   background-color: rgba(255, 225, 0, 0.567);
 }

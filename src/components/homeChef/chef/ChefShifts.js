@@ -20,14 +20,18 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
     const job = jobs.find((j) => j.id === shift.job);
     return (
       <li className="chef-hours" key={shift.id}>
-        <span className="chef-hours-date">
-          {moment(shift.time).format('M/D/YY')}
-        </span>{' '}
-        - <Link to={'../signup/fridge/' + job.id}>{job.name}</Link> -{' '}
-        <span className="chef-hours-meals">{shift.mealCount || 0} Meals</span>
-        <Link to={`edit-shift/${shift.id}`} className="chef-hours-edit">
-          edit
-        </Link>
+        <div className="chef-hours-title">
+          <div className="chef-hours-date">
+            {moment(shift.time).format('M/D/YY')}
+          </div>
+          <Link to={'../signup/fridge/' + job.id}>- {job.name}</Link>
+        </div>
+        <div className="chef-hours-info">
+          <span className="chef-hours-meals">{shift.mealCount || 0} Meals</span>
+          <Link to={`edit-shift/${shift.id}`} className="chef-hours-edit">
+            edit
+          </Link>
+        </div>
       </li>
     );
   };
@@ -101,7 +105,7 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
         </div>
         <div
           className={`chef-hours-list ${
-            !upcomingExpand && 'chef-hours-list-closed'
+            !upcomingExpand ? 'chef-hours-list-closed' : ''
           }`}
         >
           {upcomingExpand && renderHours('upcoming')}
@@ -112,7 +116,7 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
         </div>
         <div
           className={`chef-hours-list ${
-            !pastExpand && 'chef-hours-list-closed'
+            !pastExpand ? 'chef-hours-list-closed' : ''
           }`}
         >
           {pastExpand && renderHours('past')}

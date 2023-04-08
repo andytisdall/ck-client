@@ -23,3 +23,15 @@ test('navigate to home chef page', async () => {
   );
   expect(statusText).toBeDefined();
 });
+
+test('see chef shifts', async () => {
+  const wrapper = getWrapper(adminSignedInState);
+  render(<App />, { wrapper });
+  const chefLink = await screen.findByText("See Fridges You've Signed Up For");
+  userEvent.click(chefLink);
+
+  // chef page
+  const upcomingShifts = await screen.findByRole('list', {
+    name: 'Upcoming Shifts',
+  });
+});

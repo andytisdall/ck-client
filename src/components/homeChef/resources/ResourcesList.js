@@ -10,7 +10,7 @@ const slackDescription =
 const ResourcesList = () => {
   return (
     <div className="resources">
-      <div>
+      <div className="resources-list">
         <TextButton
           to="recipes"
           buttonText="Recipes"
@@ -23,11 +23,13 @@ const ResourcesList = () => {
           outside
         />
       </div>
+      {/* <div className="resources-right-col"> */}
       <img
         className="resources-image"
         src="/images/home-chef/croissants.jpg"
         alt="Croissant and Omelet"
       />
+      {/* </div> */}
     </div>
   );
 };
