@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const user1 = {
   username: 'bojee',
   id: 'failjrse48jf48',
@@ -35,22 +37,27 @@ export const campaign = {
 };
 
 const job1 = {
-  id: j.Id,
-  name: j.Name,
-  shifts: [],
-  active: !j.GW_Volunteers__Inactive__c,
-  location: decode(
-    j.GW_Volunteers__Location_Information__c?.replace(/<p>/g, '')
-      .replace(/<\/p>/g, '')
-      .replace(/<br>/g, '')
-  ),
-}
+  id: '7777',
+  name: 'City Slicker Farms',
+  shifts: ['1111'],
+  active: true,
+  location: 'Location',
+};
 
 const shift1 = {
-  return {
-    id: js.Id,
-    startTime: js.GW_Volunteers__Start_Date_Time__c,
-    open: js.GW_Volunteers__Number_of_Volunteers_Still_Needed__c > 0,
-    job: j.id,
-  };
-}
+  id: job1.shifts[0],
+  startTime: moment().add(1, 'day').format(),
+  open: true,
+  job: job1.id,
+};
+
+export const hours1 = {
+  id: 'd38ih3d',
+  mealCount: '25',
+  time: shift1.startTime,
+  job: job1.id,
+  status: 'Confirmed',
+  shift: shift1.id,
+};
+
+export const jobs = { jobs: [job1], shifts: [shift1] };

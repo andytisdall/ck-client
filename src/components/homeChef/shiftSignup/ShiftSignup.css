@@ -49,6 +49,19 @@ width: fit-content;
   padding-bottom: 1rem;
 }
 
+@media (max-width: 500px) {
+  .shift-signup-form {
+    margin: 0;
+  }
+
+  .shift-detail-meal-number {
+    flex-direction: column;
+  }
+  .shift-detail-meal-number-note {
+    margin: .5rem 0;
+  }
+}
+
 .shift-detail-meal-number-note {
   font-size: .8rem;
 }

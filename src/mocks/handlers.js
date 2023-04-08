@@ -20,8 +20,10 @@ export const handlers = [
   rest.get(BASE + '/api/home-chef/campaign', (req, res, ctx) => {
     return res(ctx.json(data.campaign));
   }),
-
   rest.get(BASE + '/api/home-chef/job-listing', (req, res, ctx) => {
     return res(ctx.json(data.jobs));
+  }),
+  rest.get(BASE + '/api/home-chef/hours', (req, res, ctx) => {
+    return res(ctx.json([data.hours1]));
   }),
 ];

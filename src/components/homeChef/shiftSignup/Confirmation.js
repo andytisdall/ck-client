@@ -62,10 +62,12 @@ const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
       <h1>Home Chef Sign Up Confirmation</h1>
       {!jobs || !hours ? <Loading /> : renderShiftDetails()}
       <Link to="/home-chef/signup/list">
-        <button>Sign Up for More Shifts</button>
+        <button className="hc-confirm-button">Sign Up for More Shifts</button>
       </Link>
-      <Link to="/home-chef/chef">
-        <button>See your future and past shifts</button>
+      <Link to="/home-chef/chef" className="hc-confirm-button">
+        <button className="hc-confirm-button">
+          See your future and past shifts
+        </button>
       </Link>
     </div>
   );

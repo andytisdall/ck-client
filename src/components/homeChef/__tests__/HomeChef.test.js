@@ -31,7 +31,8 @@ test('see chef shifts', async () => {
   userEvent.click(chefLink);
 
   // chef page
-  const upcomingShifts = await screen.findByRole('list', {
-    name: 'Upcoming Shifts',
+  const upcomingShifts = await screen.findByRole('heading', {
+    name: 'Upcoming Deliveries',
   });
+  expect(upcomingShifts).toBeDefined();
 });

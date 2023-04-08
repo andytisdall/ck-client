@@ -17,3 +17,7 @@
 .hc-confirm-title {
   font-size: 1.5rem;
 }
+
+.hc-confirm-button {
+  margin-bottom: 1rem;
+}
