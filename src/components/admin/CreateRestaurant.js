@@ -56,7 +56,7 @@ const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
             );
           })}
         </select>
-        <input type="submit" />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );

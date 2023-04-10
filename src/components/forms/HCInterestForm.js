@@ -476,7 +476,7 @@ const InterestForm = ({ submitForm }) => {
           />
         </div>
 
-        {!loading ? <input type="submit" /> : <Loading />}
+        {!loading ? <input type="submit" value="Submit" /> : <Loading />}
         {!Object.values(errors).every((e) => !e) && (
           <div className="required-error">
             Please fix the errors in the form

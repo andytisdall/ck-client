@@ -253,7 +253,7 @@ const CreateRecipe = ({ createRecipe, recipe, editRecipe, setError }) => {
             label="Photo (optional):"
           />
         </div>
-        {loading ? <Loading /> : <input type="submit" />}
+        {loading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </div>
   );

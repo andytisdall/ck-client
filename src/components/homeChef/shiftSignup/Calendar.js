@@ -16,7 +16,9 @@ const Calendar = ({ jobs, shifts }) => {
     }
     const orderedByDate = {};
     Object.values(shifts).forEach((sh) => {
-      const formattedTime = moment(sh.startTime).format('YYYY-MM-DD');
+      const formattedTime = moment(sh.startTime, 'YYYY-MM-DD').format(
+        'YYYY-MM-DD'
+      );
       if (orderedByDate[formattedTime]) {
         orderedByDate[formattedTime].push(sh);
       } else {
@@ -28,14 +30,16 @@ const Calendar = ({ jobs, shifts }) => {
 
   const getDays = useCallback(() => {
     const days = [];
-    const firstDay = moment(`${moment(month).format('YYYY-M')}-1`).format('d');
+    const firstDay = moment(`${month.format('YYYY-M')}-1`, 'YYYY-M-D').format(
+      'd'
+    );
     for (let i = 0; i < firstDay; i++) {
       days.push(null);
     }
     for (let i = 1; i < 32; i++) {
-      const date = `${moment(month).format('YYYY-M')}-${i}`;
-      if (moment(date).format('M') === month.format('M')) {
-        days.push(moment(date).format('YYYY-MM-DD'));
+      const date = `${month.format('YYYY-M')}-${i}`;
+      if (moment(date, 'YYYY-M-D').format('M') === month.format('M')) {
+        days.push(moment(date, 'YYYY-M-D').format('YYYY-MM-DD'));
       }
     }
     return days.map((d, i) => {
@@ -47,7 +51,6 @@ const Calendar = ({ jobs, shifts }) => {
         dayShifts = orderedShifts[d].map((sh) => {
           const jobIndex = jobs.findIndex((j) => j.id === sh.job);
           const job = jobs[jobIndex];
-          console.log(job.active);
           const available = sh.open && job.active;
           const status = available ? '' : 'calendar-shift-disabled';
           const link = () => navigate('../shift/' + sh.id);
@@ -64,7 +67,9 @@ const Calendar = ({ jobs, shifts }) => {
       }
       return (
         <div className="calendar-date" key={d}>
-          <div className="calendar-date-number">{moment(d).format('D')}</div>
+          <div className="calendar-date-number">
+            {moment(d, 'YYYY-MM-DD').format('D')}
+          </div>
           <div className="calendar-date-body">{dayShifts}</div>
         </div>
       );
@@ -99,20 +104,20 @@ const Calendar = ({ jobs, shifts }) => {
           <div
             className="calendar-header-arrow"
             onClick={() => {
-              const lastMonth = month.subtract(1, 'month').format();
-              setMonth(moment(lastMonth));
+              const lastMonth = month.subtract(1, 'month');
+              setMonth(moment(lastMonth.format('M'), 'M'));
             }}
           >
             &larr;
           </div>
           <div className="calendar-header-month">
-            {moment(month).format('MMMM YYYY')}
+            {month.format('MMMM YYYY')}
           </div>
           <div
             className="calendar-header-arrow"
             onClick={() => {
-              const nextMonth = month.add(1, 'month').format();
-              setMonth(moment(nextMonth));
+              const nextMonth = month.add(1, 'month');
+              setMonth(moment(nextMonth.format('M'), 'M'));
             }}
           >
             &rarr;

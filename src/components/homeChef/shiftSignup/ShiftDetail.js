@@ -79,7 +79,7 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
         {loading ? (
           <Loading />
         ) : (
-          <input type="submit" className="shift-detail-submit" />
+          <input type="submit" className="shift-detail-submit" value="Submit" />
         )}
       </form>
     </div>

@@ -37,7 +37,7 @@ const ChangePassword = ({ user, editUser, setError }) => {
           name="password2"
           onChange={(e) => setPassword2(e.target.value)}
         />
-        <input type="submit" />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );

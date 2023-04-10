@@ -23,7 +23,7 @@ const ChangeUsername = ({ user, editUser }) => {
           required
           onChange={(e) => setUsername(e.target.value)}
         />
-        <input type="submit" />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );

@@ -59,7 +59,7 @@ const Documents = ({ uploadFiles, restaurant }) => {
             />
           </div>
         </div>
-        {loading ? <Loading /> : <input type="submit" />}
+        {loading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </div>
   );

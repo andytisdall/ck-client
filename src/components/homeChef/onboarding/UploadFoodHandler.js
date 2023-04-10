@@ -20,7 +20,7 @@ const UploadFoodHandler = ({ uploadFiles }) => {
     <div>
       <form onSubmit={onSubmit}>
         <FileUpload doc={requiredDocuments.foodHandler} />
-        {loading ? <Loading /> : <input type="submit" />}
+        {loading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
       <p>
         Don't have your food handler certificate yet?{' '}

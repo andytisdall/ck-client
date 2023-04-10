@@ -98,7 +98,7 @@ const EditRestaurant = ({
             );
           })}
         </select>
-        <input type="submit" />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );

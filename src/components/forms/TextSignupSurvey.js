@@ -286,7 +286,7 @@ const TextSignupSurvey = ({ submitForm }) => {
         />
       </div>
 
-      {!loading ? <input type="submit" /> : <Loading />}
+      {!loading ? <input type="submit" value="Submit" /> : <Loading />}
     </form>
   );
 };

@@ -27,7 +27,7 @@ const SignIn = ({ signIn }) => {
       <form onSubmit={handleSubmit}>
         <div className="signin-button">
           <div className="signin-title">Sign In</div>
-          <input type="submit" />
+          <input type="submit" value="Submit" />
         </div>
         <div className="signin-fields">
           <input

@@ -97,7 +97,7 @@ ${user.firstName}
           onChange={(e) => setMessage(e.target.value)}
           required
         />
-        {loading ? <Loading /> : <input type="submit" />}
+        {loading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </div>
   );

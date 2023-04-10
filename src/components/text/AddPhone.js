@@ -43,7 +43,7 @@ const AddPhone = ({ addPhone }) => {
             <option value={REGIONS.WEST_OAKLAND}>West Oakland</option>
           </select>
         </div>
-        {loading ? <Loading /> : <input type="submit" />}
+        {loading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </div>
   );
