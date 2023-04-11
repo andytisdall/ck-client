@@ -71,4 +71,5 @@ export const editUser =
     });
     dispatch({ type: EDIT_USER, payload: res.data });
     dispatch(setAlert('User Modified!'));
+    router.navigate('/');
   };
