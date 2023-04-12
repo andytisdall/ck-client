@@ -3,13 +3,13 @@
   flex-direction: column;
   list-style: none;
   padding-top: 2rem;
+  width: fit-content;
 }
 
 .feedback-item {
   padding: 1rem;
   border: 1px solid grey;
   border-radius: 5px;
-  max-width: 400px;
   margin-bottom: 2rem;
   position: relative;
   box-sizing: border-box;
@@ -17,8 +17,14 @@
   flex-direction: column;
 }
 
+.feedback-section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: .2rem;
+}
+
 .feedback-item img {
-  max-width: 100%;
+  max-width: 50vw;
   padding: 1rem;
 }
 
@@ -27,23 +33,20 @@
 }
 
 .feedback-line {
-  margin-bottom: .5rem;
+  padding: .5rem;
 }
 
-.feedback-line p {
-  margin-left: 1rem;
-  padding: 1rem;
-}
-
-.feedback-control {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
+.feedback-section p {
+  margin: 0;
+  padding: .8rem;
+  width: 100%;
+  background-color: rgba(140, 220, 240, 0.362);
 }
 
 .feedback-delete {
   background-color: rgba(238, 38, 75, 0.637);
+  margin-top: .5rem;
+
 }
 
 .feedback-cancel {
@@ -52,6 +55,7 @@
 }
 
 .feedback-response {
-  background-color: rgba(102, 170, 180, 0.421);
-  padding: .5rem;
+  background-color: rgba(214, 214, 72, 0.421);
+  padding: 1rem;
+  padding-left: 0;;
 }
