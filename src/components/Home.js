@@ -20,13 +20,25 @@ const userDescription =
 const adminDescription =
   'An interface for CK staff to create users or restaurants for this site.';
 
-const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
+const Home = ({
+  user,
+  restaurant,
+  getRestaurant,
+  getUserInfo,
+  getMealProgramInfo,
+}) => {
   useEffect(() => {
     if (user && !user.lastName) {
       getRestaurant();
       getUserInfo();
     }
   }, [user, getRestaurant, getUserInfo]);
+
+  useEffect(() => {
+    if (restaurant && !restaurant.remainingDocs) {
+      getMealProgramInfo();
+    }
+  }, [restaurant, getMealProgramInfo]);
 
   const renderNoUser = () => {
     return (
@@ -39,13 +51,13 @@ const Home = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   const renderWithUser = () => {
     return (
       <>
+        {renderMealProgram()}
+        {renderTextService()}
         <TextButton
           to="home-chef"
           buttonText="Home Chef"
           descriptionText={homeChefDescription}
         />
-        {renderMealProgram()}
-        {renderTextService()}
         <TextButton
           to="user"
           buttonText="User Settings"

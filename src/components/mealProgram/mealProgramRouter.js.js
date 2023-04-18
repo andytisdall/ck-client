@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
 
 import renderWithFallback from '../reusable/renderWithFallback';
 import Loading from '../reusable/Loading';
 import './MealProgram.css';
-import { getRestaurant } from '../../actions';
-import useLoading from '../../hooks/useLoading';
+import * as actions from '../../actions';
 
 const MealProgramHome = React.lazy(() => import('./MealProgram'));
 const Documents = React.lazy(() => import('./Documents'));
@@ -14,21 +13,25 @@ const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 
-const MealProgram = ({ getRestaurant, restaurant, user }) => {
-  const [loading, setLoading] = useLoading();
+const MealProgram = ({
+  getRestaurant,
+  restaurant,
+  user,
+  getMealProgramInfo,
+}) => {
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
-      setLoading(true);
-      getRestaurant();
+      if (!restaurant) {
+        getRestaurant();
+      } else if (!restaurant.remainingDocs) {
+        getMealProgramInfo();
+      } else {
+        setLoading(false);
+      }
     }
-  }, [user, getRestaurant, setLoading]);
-
-  useEffect(() => {
-    if (restaurant) {
-      setLoading(false);
-    }
-  }, [restaurant, setLoading]);
+  }, [restaurant, setLoading, getRestaurant, getMealProgramInfo, user]);
 
   const renderRestaurant = () => {
     return (
@@ -51,7 +54,7 @@ const MealProgram = ({ getRestaurant, restaurant, user }) => {
         <h1 className="page-header">Meal Program Onboarding</h1>
       </Link>
       {user && loading && <Loading />}
-      {user && restaurant && renderRestaurant()}
+      {user && !loading && renderRestaurant()}
       {!user && renderSignIn()}
     </div>
   );
@@ -61,9 +64,7 @@ const mapStateToProps = (state) => {
   return { user: state.user.user, restaurant: state.restaurant.restaurant };
 };
 
-const ConnectedMealProgram = connect(mapStateToProps, { getRestaurant })(
-  MealProgram
-);
+const ConnectedMealProgram = connect(mapStateToProps, actions)(MealProgram);
 
 const mealProgramRouter = {
   path: 'meal-program',

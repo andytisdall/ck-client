@@ -5,6 +5,7 @@ import {
   FETCH_ALL_RESTAURANTS,
   EDIT_RESTAURANT,
   UPLOAD_FILES,
+  FETCH_MEAL_PROGRAM_INFO,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -21,6 +22,17 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
           [action.payload.id]: action.payload,
         },
         restaurant: action.payload,
+      };
+    case FETCH_MEAL_PROGRAM_INFO:
+      return {
+        restaurants: {
+          ...state.restaurants,
+          [action.payload.id]: {
+            ...state.restaurants[action.payload.id],
+            ...action.payload,
+          },
+        },
+        restaurant: { ...state.restaurant, ...action.payload },
       };
     case FETCH_ALL_RESTAURANTS:
       return { ...state, restaurants: _.mapKeys(action.payload, (i) => i.id) };

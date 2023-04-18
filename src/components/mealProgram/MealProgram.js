@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import * as actions from '../../actions';
 import TextButton from '../reusable/TextButton';
 
 const documentsToUpload = [
@@ -84,4 +85,4 @@ const mapStateToProps = (state) => {
   return { restaurant: state.restaurant.restaurant };
 };
 
-export default connect(mapStateToProps)(MealProgramHome);
+export default connect(mapStateToProps, actions)(MealProgramHome);

@@ -2,6 +2,7 @@ import {
   FETCH_RESTAURANT,
   FETCH_ALL_RESTAURANTS,
   EDIT_RESTAURANT,
+  FETCH_MEAL_PROGRAM_INFO,
 } from './types';
 import server from './api';
 import { setAlert } from './alert';
@@ -9,6 +10,11 @@ import { setAlert } from './alert';
 export const getRestaurant = () => async (dispatch) => {
   const res = await server.get('/restaurant');
   dispatch({ type: FETCH_RESTAURANT, payload: res.data });
+};
+
+export const getMealProgramInfo = () => async (dispatch) => {
+  const res = await server.get('/restaurant/meal-program');
+  dispatch({ type: FETCH_MEAL_PROGRAM_INFO, payload: res.data });
 };
 
 export const getAllRestaurants = () => async (dispatch) => {
