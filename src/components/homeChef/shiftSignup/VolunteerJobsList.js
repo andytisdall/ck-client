@@ -8,9 +8,11 @@ const VolunteerJobsList = ({ jobs }) => {
     if (!jobs.length) {
       return 'No jobs could be found.';
     }
-    return jobs.map((job) => {
-      return <VolunteerJob job={job} key={job.id} />;
-    });
+    return jobs
+      .filter((job) => job.ongoing)
+      .map((job) => {
+        return <VolunteerJob job={job} key={job.id} />;
+      });
   };
 
   return <div className="jobs-list">{jobs ? renderJobs() : <Loading />}</div>;

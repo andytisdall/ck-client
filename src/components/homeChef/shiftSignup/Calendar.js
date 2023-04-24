@@ -60,7 +60,7 @@ const Calendar = ({ jobs, shifts }) => {
               className={`calendar-item calendar-job-${jobIndex} ${status}`}
               onClick={() => available && link()}
             >
-              {job.name.replace('Town Fridge', '')}
+              {job.name}
             </div>
           );
         });
