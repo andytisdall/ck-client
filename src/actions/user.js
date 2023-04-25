@@ -11,8 +11,13 @@ import { setAlert } from './alert';
 import { router } from '../App';
 
 export const getUser = () => async (dispatch) => {
-  const res = await server.get('/user');
-  dispatch({ type: SIGN_IN, payload: res.data });
+  try {
+    const res = await server.get('/user');
+    dispatch({ type: SIGN_IN, payload: res.data });
+  } catch (err) {
+    dispatch(signOut);
+    throw Error(err.message);
+  }
 };
 
 export const getUserInfo = () => async (dispatch) => {

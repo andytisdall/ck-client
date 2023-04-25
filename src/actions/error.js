@@ -2,8 +2,12 @@ import { CLEAR_ERROR, ERROR } from './types';
 
 export const setError = (err) => (dispatch) => {
   let message;
-  if (err.response?.data?.error) {
-    message = err.response.data.error;
+  if (err.response?.data) {
+    if (err.response.data.error) {
+      message = err.response.data.error;
+    } else {
+      message = err.response.data;
+    }
   } else {
     message = err.message;
   }
