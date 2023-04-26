@@ -22,9 +22,11 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
       <li className="chef-hours" key={shift.id}>
         <div className="chef-hours-title">
           <div className="chef-hours-date">
-            {moment(shift.time).format('M/D/YY')}
+            {moment(shift.time).format('ddd, M/D/YY')}
           </div>
-          <Link to={'../signup/fridge/' + job.id}>- {job.name}</Link>
+          <Link className="chef-hours-fridge" to={'../signup/fridge/' + job.id}>
+            - {job.name}
+          </Link>
         </div>
         <div className="chef-hours-info">
           <span className="chef-hours-meals">{shift.mealCount || 0} Meals</span>
@@ -87,7 +89,7 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
 
   return (
     <div className="chef-shifts">
-      <div>
+      <div className="chef-shifts-list">
         {user.firstName ? (
           <h2>{user.firstName}'s Town Fridge Deliveries</h2>
         ) : null}
