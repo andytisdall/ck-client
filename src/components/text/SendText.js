@@ -43,7 +43,7 @@ const SendText = ({ sendText }) => {
 
   const message =
     fridge &&
-    `Good afternoon! ${
+    `Hello! ${
       townFridges[fridge].name
     } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${moment(
       `${date} ${time}`
