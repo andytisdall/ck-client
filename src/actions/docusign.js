@@ -16,7 +16,7 @@ export const uploadDocsToSalesforce = (doc, envelopeId) => async (dispatch) => {
   });
   dispatch({
     type: UPLOAD_FILES,
-    payload: { filesAdded: data.filesAdded, doc },
+    payload: { filesAdded: data.filesAdded },
   });
-  dispatch(setAlert(`You have uploaded ${data.filesAdded.length} files`));
+  dispatch(setAlert(`You have uploaded ${data.filesAdded.length} file(s)`));
 };

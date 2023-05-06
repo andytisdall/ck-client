@@ -3,19 +3,18 @@ import { useState } from 'react';
 
 import FileUpload from '../reusable/FileUpload';
 import * as actions from '../../actions';
-import { requiredDocuments } from './requiredDocuments';
+import { uploadDocuments } from './requiredDocuments';
 import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
-import './UploadDocuments.css';
 
-const Documents = ({ uploadFiles, restaurant }) => {
+const UploadDocuments = ({ uploadFiles, restaurant }) => {
   const [expirationDate, setExpirationDate] = useState('');
 
   const [loading, setLoading] = useLoading();
 
   const renderUploadForms = () => {
     const remainingDocs = restaurant.remainingDocs.map((d) => d.docType);
-    return requiredDocuments.map((doc) => {
+    return uploadDocuments.map((doc) => {
       const outstanding = remainingDocs.includes(doc.data);
       const text = outstanding
         ? 'This document is outstanding'
@@ -42,7 +41,7 @@ const Documents = ({ uploadFiles, restaurant }) => {
 
   return (
     <div>
-      <div>Upload documents.</div>
+      <div>Upload documents</div>
       <form onSubmit={handleSubmit}>
         <div className="file-form">
           {renderUploadForms()}
@@ -71,4 +70,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Documents);
+export default connect(mapStateToProps, actions)(UploadDocuments);

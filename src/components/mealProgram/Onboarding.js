@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import * as actions from '../../actions';
 import TextButton from '../reusable/TextButton';
-import './Onboarding.css';
 
 const Onboarding = ({ restaurant }) => {
   const renderChecklist = () => {

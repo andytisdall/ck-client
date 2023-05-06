@@ -50,20 +50,18 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
         },
       };
     case UPLOAD_FILES:
-      // fucked up because of name format change
-      if (action.payload.accountType !== 'restaurant') {
-        return state;
-      }
       const files = action.payload.filesAdded;
       const newRest = { ...state.restaurant };
-      newRest.remainingDocs = newRest.remainingDocs.filter(
-        (f) => !files.includes(f)
-      );
-      files.forEach((f) => {
-        if (!newRest.completedDocs.includes(f)) {
-          newRest.completedDocs.push(f);
+
+      newRest.remainingDocs = newRest.remainingDocs.filter((f) => {
+        if (files.find(({ docType }) => docType === f.docType)) {
+          newRest.completedDocs.push(f.title);
+          return false;
+        } else {
+          return true;
         }
       });
+
       return {
         restaurants: { ...state.restaurants, [newRest.id]: newRest },
         restaurant: newRest,

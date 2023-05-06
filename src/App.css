@@ -69,6 +69,10 @@ input[type=submit]:active, button:active {
   box-shadow: none;
 }
 
+input[type="date"], input[type="time"] {
+  height: auto;
+}
+
 textarea {
   box-sizing: border-box;
   height: 3rem;

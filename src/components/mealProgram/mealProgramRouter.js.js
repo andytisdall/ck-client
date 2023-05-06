@@ -5,6 +5,8 @@ import { Outlet, Link } from 'react-router-dom';
 import renderWithFallback from '../reusable/renderWithFallback';
 import Loading from '../reusable/Loading';
 import './MealProgram.css';
+import './Onboarding.css';
+
 import * as actions from '../../actions';
 
 const MealProgramHome = React.lazy(() => import('./MealProgramHome'));

@@ -46,10 +46,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UPLOAD_FILES:
       const { filesAdded } = action.payload;
       const newUser = { ...state.user };
-      if (filesAdded.includes('FOOD_HANDLER_')) {
+      if (filesAdded.find((f) => f.docType === 'FH')) {
         newUser.foodHandler = true;
       }
-      if (filesAdded.includes('VOL_AGREEMENT_')) {
+      if (filesAdded.find((f) => f.docType === 'HC')) {
         newUser.volunteerAgreement = true;
       }
       if (newUser.volunteerAgreement && newUser.foodHandler) {
