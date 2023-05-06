@@ -3,31 +3,17 @@ import { Link } from 'react-router-dom';
 
 import * as actions from '../../actions';
 import TextButton from '../reusable/TextButton';
+import './Onboarding.css';
 
-const documentsToUpload = [
-  'Restaurant Contract',
-  'Business License',
-  'W9',
-  'Direct Deposit Form',
-  'Health Department Permit',
-  'Insurance',
-];
-
-const MealProgramHome = ({ restaurant }) => {
+const Onboarding = ({ restaurant }) => {
   const renderChecklist = () => {
     const renderCompleteItem = (doc) => {
       return <li key={doc}>{doc}</li>;
     };
 
     const renderIncompleteItem = (doc) => {
-      let to;
-      if (documentsToUpload.includes(doc)) {
-        to = 'documents';
-      } else {
-        to = 'docusign/sign';
-      }
       return (
-        <Link to={to} key={doc}>
+        <Link to="onboarding" key={doc}>
           <li>{doc}</li>
         </Link>
       );
@@ -46,10 +32,14 @@ const MealProgramHome = ({ restaurant }) => {
       <div>
         <h4>Checklist</h4>
         <div className="meal-program-checklist">
-          <div>Completed Documents:</div>
-          <ul className="completed-doc">
-            {restaurant.completedDocs.map(renderCompleteItem)}
-          </ul>
+          {restaurant.completedDocs?.length > 0 && (
+            <>
+              <div>Completed Documents:</div>
+              <ul className="completed-doc">
+                {restaurant.completedDocs.map(renderCompleteItem)}
+              </ul>
+            </>
+          )}
 
           <div>Documents to Complete:</div>
           <ul className="incomplete-doc">
@@ -64,16 +54,17 @@ const MealProgramHome = ({ restaurant }) => {
 
   return (
     <div>
+      <h3>Onboarding Your Restaurant for the Meal Program</h3>
       {renderChecklist()}
 
       <TextButton
-        to="documents"
+        to="../upload-documents"
         buttonText="Upload your documents"
         descriptionText="Provide the documents you need to get started in the meal program."
       />
 
       <TextButton
-        to="docusign/sign"
+        to="../sign-documents"
         buttonText="Sign Documents"
         descriptionText="Sign the required forms using Docusign."
       />
@@ -85,4 +76,4 @@ const mapStateToProps = (state) => {
   return { restaurant: state.restaurant.restaurant };
 };
 
-export default connect(mapStateToProps, actions)(MealProgramHome);
+export default connect(mapStateToProps, actions)(Onboarding);

@@ -7,11 +7,14 @@ import Loading from '../reusable/Loading';
 import './MealProgram.css';
 import * as actions from '../../actions';
 
-const MealProgramHome = React.lazy(() => import('./MealProgram'));
-const Documents = React.lazy(() => import('./Documents'));
+const MealProgramHome = React.lazy(() => import('./MealProgramHome'));
+const Onboarding = React.lazy(() => import('./Onboarding'));
+const UploadDocuments = React.lazy(() => import('./UploadDocuments'));
+const SignDocuments = React.lazy(() => import('./SignDocuments'));
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
+const SignDocumentsHome = React.lazy(() => import('./SignDocumentsHome'));
 
 const MealProgram = ({
   getRestaurant,
@@ -51,7 +54,7 @@ const MealProgram = ({
   return (
     <div className="main meal-program">
       <Link to="/meal-program" className="meal-program-header">
-        <h1 className="page-header">Meal Program Onboarding</h1>
+        <h1 className="page-header">CK Meal Program</h1>
       </Link>
       {user && loading && <Loading />}
       {user && !loading && renderRestaurant()}
@@ -71,23 +74,24 @@ const mealProgramRouter = {
   element: <ConnectedMealProgram />,
   children: [
     { index: true, element: renderWithFallback(<MealProgramHome />) },
-    { path: 'documents', element: renderWithFallback(<Documents />) },
+    { path: 'onboarding', element: renderWithFallback(<Onboarding />) },
     {
-      path: 'docusign',
+      path: 'upload-documents',
+      element: renderWithFallback(<UploadDocuments />),
+    },
+    {
+      path: 'sign-documents',
+      element: renderWithFallback(<SignDocuments />),
       children: [
+        { index: true, element: renderWithFallback(<SignDocumentsHome />) },
         {
-          path: 'sign',
-          element: renderWithFallback(
-            <DocusignSign accountType="restaurant" />
-          ),
+          path: 'sign/:doc',
+          element: renderWithFallback(<DocusignSign />),
         },
         {
           path: 'success',
           element: renderWithFallback(
-            <DocusignSuccess
-              accountType="restaurant"
-              returnLink="/meal-program"
-            />
+            <DocusignSuccess returnLink="/meal-program" />
           ),
         },
       ],

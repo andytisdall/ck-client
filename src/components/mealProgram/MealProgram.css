@@ -19,54 +19,10 @@
   background-color: rgba(255, 255, 255, 0.477);
 }
 
-.file-success {
-  margin-bottom: 3rem;
-}
 
 .restaurant {
   color: rgb(0, 94, 99);
   padding-bottom: .5rem;
   margin-left: 1rem;
   border-bottom: 2px rgb(0, 94, 99) solid;
-}
-
-.meal-program-checklist {
-  padding-left: 2rem;
-  margin-bottom: 2rem;
-}
-
-.meal-program-checklist li {
-  font-weight: 600;
-  margin: .5rem 0;
-  padding: .5rem;
-  border-radius: 25px;
-  width: fit-content;
-  transition: all .6s;
-}
-
-.meal-program-checklist a:hover {
-  background-color: rgba(255, 255, 255, 0.455);
-}
-
-.completed-doc li {
-  padding: .5rem;
-  color: rgb(0, 76, 0);
-}
-
-.incomplete-doc li {
-  color: rgb(78, 0, 19);
-}
-
-.incomplete-doc li:hover {
-  background-color: rgba(240, 248, 255, 0.432);
-}
-
-.meal-program-status-active {
-  padding: 1rem;
-  margin: 1rem 0;
-  background-color: rgba(43, 255, 43, 0.332);
-}
-
-.bold {
-  font-weight: 600;
 }

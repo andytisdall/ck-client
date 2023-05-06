@@ -50,6 +50,7 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
         },
       };
     case UPLOAD_FILES:
+      // fucked up because of name format change
       if (action.payload.accountType !== 'restaurant') {
         return state;
       }

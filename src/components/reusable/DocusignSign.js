@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { setError, getDocusignUrl } from '../../actions';
 import Loading from '../reusable/Loading';
 
-const Docusign = ({ accountType, error, getDocusignUrl }) => {
+const Docusign = ({ error, getDocusignUrl }) => {
+  const { doc } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getDocusignUrl(accountType);
-  }, [getDocusignUrl, accountType]);
+    getDocusignUrl(doc);
+  }, [getDocusignUrl, doc]);
 
   useEffect(() => {
     if (error) {

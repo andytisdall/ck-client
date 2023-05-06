@@ -6,7 +6,6 @@ import { uploadDocsToSalesforce } from '../../actions';
 import Loading from '../reusable/Loading';
 
 const DocusignSuccess = ({
-  accountType,
   uploadDocsToSalesforce,
   alert,
   error,
@@ -20,13 +19,14 @@ const DocusignSuccess = ({
   useEffect(() => {
     const event = searchParams.get('event');
     const envelopeId = searchParams.get('envelopeId');
+    const doc = searchParams.get('doc');
     if (event === 'signing_complete') {
-      uploadDocsToSalesforce(accountType, envelopeId);
+      uploadDocsToSalesforce(doc, envelopeId);
     } else {
       setSuccess(false);
       setLoading(false);
     }
-  }, [accountType, searchParams, uploadDocsToSalesforce]);
+  }, [searchParams, uploadDocsToSalesforce]);
 
   useEffect(() => {
     if (alert) {

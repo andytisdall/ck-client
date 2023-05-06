@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 import { requiredDocuments } from './requiredDocuments';
 import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
-import './Documents.css';
+import './UploadDocuments.css';
 
 const Documents = ({ uploadFiles, restaurant }) => {
   const [expirationDate, setExpirationDate] = useState('');
