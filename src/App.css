@@ -102,3 +102,7 @@ textarea {
   display: flex;
   flex-direction: column;
 }
+
+.cancel {
+  background-color: rgba(238, 38, 75, 0.637)
+}

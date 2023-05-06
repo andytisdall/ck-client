@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import * as actions from '../../actions';
 import TextButton from '../reusable/TextButton';
+import { uploadDocuments, signDocuments } from './requiredDocuments';
 
 const Onboarding = ({ restaurant }) => {
   const renderChecklist = () => {
@@ -11,9 +12,16 @@ const Onboarding = ({ restaurant }) => {
     };
 
     const renderIncompleteItem = (doc) => {
+      let url;
+      if (uploadDocuments.map((d) => d.data).includes(doc.docType)) {
+        url = '../upload-documents';
+      }
+      if (signDocuments.map((d) => d.data).includes(doc.docType)) {
+        url = '../sign-documents';
+      }
       return (
-        <Link to="onboarding" key={doc}>
-          <li>{doc}</li>
+        <Link to={url} key={doc.docType}>
+          <li>{doc.title}</li>
         </Link>
       );
     };
@@ -29,8 +37,8 @@ const Onboarding = ({ restaurant }) => {
 
     return (
       <div>
-        <h4>Checklist</h4>
         <div className="meal-program-checklist">
+          <h3 className="meal-program-checklist-title">Onboarding Checklist</h3>
           {restaurant.completedDocs?.length > 0 && (
             <>
               <div>Completed Documents:</div>
@@ -42,9 +50,7 @@ const Onboarding = ({ restaurant }) => {
 
           <div>Documents to Complete:</div>
           <ul className="incomplete-doc">
-            {restaurant.remainingDocs
-              .map((d) => d.title)
-              .map(renderIncompleteItem)}
+            {restaurant.remainingDocs.map(renderIncompleteItem)}
           </ul>
         </div>
       </div>
@@ -58,14 +64,14 @@ const Onboarding = ({ restaurant }) => {
 
       <TextButton
         to="../upload-documents"
-        buttonText="Upload your documents"
-        descriptionText="Provide the documents you need to get started in the meal program."
+        buttonText="Upload Documents"
+        descriptionText="Provide the documents you need to get started in the meal program"
       />
 
       <TextButton
         to="../sign-documents"
-        buttonText="Sign Documents"
-        descriptionText="Sign the required forms using Docusign."
+        buttonText="Submit Forms"
+        descriptionText="Fill out the forms required of new meal program participants"
       />
     </div>
   );

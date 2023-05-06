@@ -44,18 +44,16 @@
 }
 
 .feedback-delete {
-  background-color: rgba(238, 38, 75, 0.637);
   margin-top: .5rem;
-
 }
 
 .feedback-cancel {
   margin-left: 1rem;
-  background-color: rgba(238, 38, 75, 0.637);
 }
 
 .feedback-response {
   background-color: rgba(214, 214, 72, 0.421);
   padding: 1rem;
-  padding-left: 0;;
+  padding-left: 0;
+  margin-right: 1rem;
 }

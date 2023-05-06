@@ -17,6 +17,7 @@ const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 const SignDocumentsHome = React.lazy(() => import('./SignDocumentsHome'));
+const Resources = React.lazy(() => import('./Resources'));
 
 const MealProgram = ({
   getRestaurant,
@@ -41,10 +42,16 @@ const MealProgram = ({
   const renderRestaurant = () => {
     return (
       <>
-        <h2>
-          Restaurant: <span className="restaurant">{restaurant.name}</span>
-        </h2>
-        <Outlet />
+        <div className="meal-program-restaurant-section">
+          <div>Your Restaurant:</div>
+          <div className="meal-program-restaurant-name">{restaurant.name}</div>
+        </div>
+        <div className="meal-program-restaurant-section">
+          <div>Status:</div>
+          <div className="meal-program-restaurant-name">
+            {restaurant.status}
+          </div>
+        </div>
       </>
     );
   };
@@ -55,11 +62,14 @@ const MealProgram = ({
 
   return (
     <div className="main meal-program">
-      <Link to="/meal-program" className="meal-program-header">
-        <h1 className="page-header">CK Meal Program</h1>
-      </Link>
+      <div className="meal-program-header">
+        <Link to="/meal-program" className="meal-program-title">
+          <h1 className="page-header">CK Meal Program</h1>
+        </Link>
+        {user && !loading && renderRestaurant()}
+      </div>
       {user && loading && <Loading />}
-      {user && !loading && renderRestaurant()}
+      {user && !loading && <Outlet />}
       {!user && renderSignIn()}
     </div>
   );
@@ -76,6 +86,7 @@ const mealProgramRouter = {
   element: <ConnectedMealProgram />,
   children: [
     { index: true, element: renderWithFallback(<MealProgramHome />) },
+    { path: 'resources', element: renderWithFallback(<Resources />) },
     { path: 'onboarding', element: renderWithFallback(<Onboarding />) },
     {
       path: 'upload-documents',

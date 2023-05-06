@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import FileUpload from '../reusable/FileUpload';
 import * as actions from '../../actions';
@@ -41,7 +42,7 @@ const UploadDocuments = ({ uploadFiles, restaurant }) => {
 
   return (
     <div>
-      <div>Upload documents</div>
+      <h3>Upload Your Required Onboarding Documents</h3>
       <form onSubmit={handleSubmit}>
         <div className="file-form">
           {renderUploadForms()}
@@ -59,6 +60,9 @@ const UploadDocuments = ({ uploadFiles, restaurant }) => {
           </div>
         </div>
         {loading ? <Loading /> : <input type="submit" value="Submit" />}
+        <Link to="../onboarding">
+          <button className="cancel">Cancel</button>
+        </Link>
       </form>
     </div>
   );

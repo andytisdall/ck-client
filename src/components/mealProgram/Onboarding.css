@@ -8,6 +8,15 @@
 .meal-program-checklist {
   padding-left: 2rem;
   margin-bottom: 2rem;
+  border: 1px solid white;
+  padding: 1.5rem;
+}
+
+.meal-program-checklist-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  color:rgb(65, 0, 108)
 }
 
 .meal-program-checklist li {
@@ -83,4 +92,9 @@
 
 .date-picker {
   width: 200px;
+}
+
+.sign-documents-cancel {
+  margin-top: 3rem;
+  margin-left: .5rem;
 }

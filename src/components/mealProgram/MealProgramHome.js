@@ -1,3 +1,5 @@
+import { connect } from 'react-redux';
+
 import TextButton from '../reusable/TextButton';
 
 const onboardingDescription =
@@ -6,21 +8,27 @@ const onboardingDescription =
 const resourcesDescription =
   'Access meal guidelines, label templates, and invoices';
 
-const MealProgramHome = () => {
+const MealProgramHome = ({ restaurant }) => {
   return (
     <div>
+      {restaurant.status === 'Active' && (
+        <TextButton
+          to="resources"
+          buttonText="Resources"
+          descriptionText={resourcesDescription}
+        />
+      )}
       <TextButton
         to="onboarding"
         buttonText="Onboarding"
         descriptionText={onboardingDescription}
       />
-      <TextButton
-        to="resources"
-        buttonText="Resources"
-        descriptionText={resourcesDescription}
-      />
     </div>
   );
 };
 
-export default MealProgramHome;
+const mapStateToProps = (state) => {
+  return { restaurant: state.restaurant.restaurant };
+};
+
+export default connect(mapStateToProps)(MealProgramHome);

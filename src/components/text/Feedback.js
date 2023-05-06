@@ -120,7 +120,7 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
                 Respond to this Message
               </button>
               <button
-                className="feedback-delete"
+                className="feedback-delete cancel"
                 onClick={() => {
                   setLoading(true);
                   deleteFeedback(fb.id);
@@ -138,7 +138,10 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
     return (
       <div>
         <CustomText replyTo={replyTo} />
-        <button className="feedback-cancel" onClick={() => setReplyTo(null)}>
+        <button
+          className="feedback-cancel cancel"
+          onClick={() => setReplyTo(null)}
+        >
           Cancel
         </button>
       </div>

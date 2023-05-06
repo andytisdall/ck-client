@@ -25,7 +25,14 @@ const SignDocumentsHome = ({ restaurant }) => {
     });
   };
 
-  return <div className="file-form">{renderSignLinks()}</div>;
+  return (
+    <>
+      <div className="file-form">{renderSignLinks()}</div>
+      <Link to="../onboarding">
+        <button className="sign-documents-cancel cancel">Cancel</button>
+      </Link>
+    </>
+  );
 };
 
 const mapStateToProps = (state) => {
