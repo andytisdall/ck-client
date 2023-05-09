@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import * as actions from '../../actions';
-import TextButton from '../reusable/TextButton';
+import * as actions from '../../../actions';
+import TextButton from '../../reusable/TextButton';
 import { uploadDocuments, signDocuments } from './requiredDocuments';
 
-const Onboarding = ({ restaurant }) => {
+const OnboardingHome = ({ restaurant }) => {
   const renderChecklist = () => {
     const renderCompleteItem = (doc) => {
       return <li key={doc}>{doc}</li>;
@@ -14,10 +14,10 @@ const Onboarding = ({ restaurant }) => {
     const renderIncompleteItem = (doc) => {
       let url;
       if (uploadDocuments.map((d) => d.data).includes(doc.docType)) {
-        url = '../upload-documents';
+        url = 'upload-documents';
       }
       if (signDocuments.map((d) => d.data).includes(doc.docType)) {
-        url = '../sign-documents';
+        url = 'sign-documents';
       }
       return (
         <Link to={url} key={doc.docType}>
@@ -63,13 +63,13 @@ const Onboarding = ({ restaurant }) => {
       {renderChecklist()}
 
       <TextButton
-        to="../upload-documents"
+        to="upload-documents"
         buttonText="Upload Documents"
         descriptionText="Provide the documents you need to get started in the meal program"
       />
 
       <TextButton
-        to="../sign-documents"
+        to="sign-documents"
         buttonText="Submit Forms"
         descriptionText="Fill out the forms required of new meal program participants"
       />
@@ -81,4 +81,4 @@ const mapStateToProps = (state) => {
   return { restaurant: state.restaurant.restaurant };
 };
 
-export default connect(mapStateToProps, actions)(Onboarding);
+export default connect(mapStateToProps, actions)(OnboardingHome);

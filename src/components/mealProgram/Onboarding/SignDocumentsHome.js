@@ -28,7 +28,7 @@ const SignDocumentsHome = ({ restaurant }) => {
   return (
     <>
       <div className="file-form">{renderSignLinks()}</div>
-      <Link to="../onboarding">
+      <Link to="..">
         <button className="sign-documents-cancel cancel">Cancel</button>
       </Link>
     </>

@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import FileUpload from '../reusable/FileUpload';
-import * as actions from '../../actions';
+import FileUpload from '../../reusable/FileUpload';
+import * as actions from '../../../actions';
 import { uploadDocuments } from './requiredDocuments';
-import Loading from '../reusable/Loading';
-import useLoading from '../../hooks/useLoading';
+import Loading from '../../reusable/Loading';
+import useLoading from '../../../hooks/useLoading';
 
 const UploadDocuments = ({ uploadFiles, restaurant }) => {
   const [expirationDate, setExpirationDate] = useState('');
@@ -60,7 +60,7 @@ const UploadDocuments = ({ uploadFiles, restaurant }) => {
           </div>
         </div>
         {loading ? <Loading /> : <input type="submit" value="Submit" />}
-        <Link to="../onboarding">
+        <Link to="..">
           <button className="cancel">Cancel</button>
         </Link>
       </form>

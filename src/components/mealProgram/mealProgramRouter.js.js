@@ -5,19 +5,27 @@ import { Outlet, Link } from 'react-router-dom';
 import renderWithFallback from '../reusable/renderWithFallback';
 import Loading from '../reusable/Loading';
 import './MealProgram.css';
-import './Onboarding.css';
 
 import * as actions from '../../actions';
 
 const MealProgramHome = React.lazy(() => import('./MealProgramHome'));
-const Onboarding = React.lazy(() => import('./Onboarding'));
-const UploadDocuments = React.lazy(() => import('./UploadDocuments'));
-const SignDocuments = React.lazy(() => import('./SignDocuments'));
+const Onboarding = React.lazy(() => import('./Onboarding/Onboarding'));
+const OnboardingHome = React.lazy(() => import('./Onboarding/OnboardingHome'));
+const UploadDocuments = React.lazy(() =>
+  import('./Onboarding/UploadDocuments')
+);
+const SignDocuments = React.lazy(() => import('./Onboarding/SignDocuments'));
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
-const SignDocumentsHome = React.lazy(() => import('./SignDocumentsHome'));
-const Resources = React.lazy(() => import('./Resources'));
+const SignDocumentsHome = React.lazy(() =>
+  import('./Onboarding/SignDocumentsHome')
+);
+const Resources = React.lazy(() => import('./Resources/Resources'));
+const ResourcesHome = React.lazy(() => import('./Resources/ResourcesHome'));
+const Invoicing = React.lazy(() => import('./Resources/Invoicing'));
+const MealGuidelines = React.lazy(() => import('./Resources/MealGuidelines'));
+const Packaging = React.lazy(() => import('./Resources/Packaging'));
 
 const MealProgram = ({
   getRestaurant,
@@ -86,32 +94,52 @@ const mealProgramRouter = {
   element: <ConnectedMealProgram />,
   children: [
     { index: true, element: renderWithFallback(<MealProgramHome />) },
-    { path: 'resources', element: renderWithFallback(<Resources />) },
-    { path: 'onboarding', element: renderWithFallback(<Onboarding />) },
     {
-      path: 'upload-documents',
-      element: renderWithFallback(<UploadDocuments />),
-    },
-    {
-      path: 'sign-documents',
-      element: renderWithFallback(<SignDocuments />),
+      path: 'resources',
+      element: renderWithFallback(<Resources />),
       children: [
-        { index: true, element: renderWithFallback(<SignDocumentsHome />) },
+        { index: true, element: renderWithFallback(<ResourcesHome />) },
         {
-          path: 'sign/:doc',
-          element: renderWithFallback(<DocusignSign />),
+          path: 'meal-guidelines',
+          element: renderWithFallback(<MealGuidelines />),
         },
-        {
-          path: 'success',
-          element: renderWithFallback(
-            <DocusignSuccess returnLink="/meal-program" />
-          ),
-        },
+        { path: 'invoicing', element: renderWithFallback(<Invoicing />) },
+        { path: 'packaging', element: renderWithFallback(<Packaging />) },
       ],
     },
     {
-      path: 'file-success',
-      element: renderWithFallback(<FileSuccess returnLink="/meal-program" />),
+      path: 'onboarding',
+      element: renderWithFallback(<Onboarding />),
+      children: [
+        { index: true, element: renderWithFallback(<OnboardingHome />) },
+        {
+          path: 'upload-documents',
+          element: renderWithFallback(<UploadDocuments />),
+        },
+        {
+          path: 'sign-documents',
+          element: renderWithFallback(<SignDocuments />),
+          children: [
+            { index: true, element: renderWithFallback(<SignDocumentsHome />) },
+            {
+              path: 'sign/:doc',
+              element: renderWithFallback(<DocusignSign />),
+            },
+            {
+              path: 'success',
+              element: renderWithFallback(
+                <DocusignSuccess returnLink="/meal-program" />
+              ),
+            },
+          ],
+        },
+        {
+          path: 'file-success',
+          element: renderWithFallback(
+            <FileSuccess returnLink="/meal-program" />
+          ),
+        },
+      ],
     },
   ],
 };
