@@ -128,7 +128,7 @@ const mealProgramRouter = {
             {
               path: 'success',
               element: renderWithFallback(
-                <DocusignSuccess returnLink="/meal-program" />
+                <DocusignSuccess returnLink="/meal-program/onboarding" />
               ),
             },
           ],

@@ -38,3 +38,22 @@
   color: rgb(99, 25, 0);
   font-weight: 600;
 }
+
+.meal-program-home {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.meal-program-home-image {
+  min-width: 400px;
+  max-width: 40vw;
+  margin-top: 2rem;
+}
+
+.meal-program-home-text {
+  margin-bottom: 2rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

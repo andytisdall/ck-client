@@ -1,5 +1,3 @@
-import { connect } from 'react-redux';
-
 import TextButton from '../reusable/TextButton';
 
 const onboardingDescription =
@@ -8,27 +6,40 @@ const onboardingDescription =
 const resourcesDescription =
   'Access meal guidelines, label templates, and invoices';
 
-const MealProgramHome = ({ restaurant }) => {
+const MealProgramHome = () => {
   return (
-    <div>
-      {restaurant.status === 'Active' && (
+    <div className="meal-program-home">
+      <div className="meal-program-home-text">
+        We partner with over 10 different community groups to distribute meals
+        and help them advance their own programs. The quality of CK meals helps
+        build trust between the clients who receive our meals and the community
+        groups who serve them. This trust helps these community groups gain
+        access to provide other important services, from health care, to housing
+        services, to CalFresh enrollment. This, in turn, helps these community
+        organizations to prosper and advance their own missions. We are proud to
+        have partnered with organizations like The East Oakland Collective,
+        Homies Empowerment, Roots Clinic, People’s Program, The Eat. Learn. Play
+        Bus, Serenity House, Berkeley Free Clinic, Kerry’s Kids and many others.
+      </div>
+      <div>
         <TextButton
           to="resources"
           buttonText="Resources"
           descriptionText={resourcesDescription}
         />
-      )}
-      <TextButton
-        to="onboarding"
-        buttonText="Onboarding"
-        descriptionText={onboardingDescription}
+        <TextButton
+          to="onboarding"
+          buttonText="Onboarding"
+          descriptionText={onboardingDescription}
+        />
+      </div>
+      <img
+        src="/images/meal-program/meal-program-1.jpg"
+        alt="meals for the CK meal program"
+        className="meal-program-home-image"
       />
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return { restaurant: state.restaurant.restaurant };
-};
-
-export default connect(mapStateToProps)(MealProgramHome);
+export default MealProgramHome;
