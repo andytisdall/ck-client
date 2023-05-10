@@ -26,6 +26,10 @@ const ResourcesHome = React.lazy(() => import('./Resources/ResourcesHome'));
 const Invoicing = React.lazy(() => import('./Resources/Invoicing'));
 const MealGuidelines = React.lazy(() => import('./Resources/MealGuidelines'));
 const Packaging = React.lazy(() => import('./Resources/Packaging'));
+const YouthGuidelines = React.lazy(() => import('./Resources/YouthGuidelines'));
+const EncampmentGuidelines = React.lazy(() =>
+  import('./Resources/EncampmentGuidelines')
+);
 
 const MealProgram = ({
   getRestaurant,
@@ -102,6 +106,13 @@ const mealProgramRouter = {
         {
           path: 'meal-guidelines',
           element: renderWithFallback(<MealGuidelines />),
+          children: [
+            {
+              path: 'encampment',
+              element: renderWithFallback(<EncampmentGuidelines />),
+            },
+            { path: 'youth', element: renderWithFallback(<YouthGuidelines />) },
+          ],
         },
         { path: 'invoicing', element: renderWithFallback(<Invoicing />) },
         { path: 'packaging', element: renderWithFallback(<Packaging />) },

@@ -43,7 +43,7 @@ input, select, label {
   height: fit-content;
 }
 
-input[type=submit], button {
+input[type=submit], button, .button {
   background-color: rgb(98, 163, 255);
   border: 2px solid grey;
   border-radius: 50px;
@@ -54,13 +54,14 @@ input[type=submit], button {
   transition: .3s;
   cursor: pointer;
   width: max-content;
+  color: inherit;
 }
 
 input[type=submit] {
   margin-top: 1.5rem;
 }
 
-input[type=submit]:hover, button:hover {
+input[type=submit]:hover, button:hover, .nav-link-active {
   background-color: rgb(128, 193, 285);
 }
 

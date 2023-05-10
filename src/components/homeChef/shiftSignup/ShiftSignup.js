@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getShifts } from '../../../actions';
+import { navLink } from '../../../utils/style';
 import './ShiftSignup.css';
 
 const ShiftSignup = ({ getShifts, user }) => {
@@ -25,11 +26,11 @@ const ShiftSignup = ({ getShifts, user }) => {
     return (
       <>
         <div className="shift-signup-links">
-          <NavLink to="list">
-            <button>List View</button>
+          <NavLink to="list" className={navLink}>
+            List View
           </NavLink>
-          <NavLink to="calendar">
-            <button>Calendar View</button>
+          <NavLink to="calendar" className={navLink}>
+            Calendar View
           </NavLink>
         </div>
         <Outlet />
