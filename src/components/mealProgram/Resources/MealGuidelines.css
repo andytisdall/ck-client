@@ -1,0 +1,78 @@
+.meal-program-guidelines-nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.meal-program-info-box {
+  border: 1px solid rgb(161, 0, 0);
+  padding: 1rem;
+  display: flex;
+  max-width: 800px;
+  min-width: 300px;
+  margin-top: 2rem;
+}
+
+
+.meal-program-info-box h3 {
+  margin: 0;
+  color: rgb(161, 0, 0);
+  padding-bottom: 1rem;
+}
+
+.meal-program-info-box-header {
+  width: 30%;
+}
+.meal-program-info-box-photo{
+  width: 100%;
+}
+
+.meal-program-info-box-text {
+  padding-left: 1.5rem;
+  width: 70%;
+}
+
+.meal-program-info-box-text-large {
+  color: rgb(161, 0, 0);
+  font-size: 1rem;
+  margin-top: 2.5rem;
+}
+
+.meal-program-info-box-text-small li {
+font-size: .8rem;
+}
+
+.meal-program-encampment-title {
+  color: rgb(0, 0, 148)
+}
+
+.meal-program-encampment-photos {
+  display: flex;
+  height: 200px;
+  margin-top: 2rem;
+}
+
+.meal-program-encampment-photo {
+  margin-right: .5rem;
+  margin-left: .5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .meal-program-info-box {
+    flex-direction: column;
+  }
+  
+  .meal-program-info-box-header {
+    width: auto;
+  }
+
+  .meal-program-info-box-text {
+    width: auto
+  } 
+
+  .meal-program-encampment-photos {
+    flex-direction: column;
+    height: auto;
+  }
+}

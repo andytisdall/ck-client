@@ -23,7 +23,12 @@
 .meal-program-header {
   display: flex;
   align-items: center;
-  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.meal-program-restaurant {
+  display: flex;
 }
 
 .meal-program-restaurant-section {
@@ -35,7 +40,17 @@
 }
 
 .meal-program-restaurant-name {
+  font-weight: 600;
+  color: rgb(48, 50, 106)
+}
+
+.meal-program-restaurant-status-inactive {
   color: rgb(99, 25, 0);
+  font-weight: 600;
+}
+
+.meal-program-restaurant-status-active {
+  color: rgb(23, 122, 43);
   font-weight: 600;
 }
 
@@ -56,4 +71,13 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+@media (max-width: 650px) {
+  .meal-program-home-image {
+    min-width: 100%;
+  }
+}
+
+.meal-program-navigate {
+  color: black
 }

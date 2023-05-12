@@ -74,6 +74,10 @@ input[type="date"], input[type="time"] {
   height: auto;
 }
 
+.button {
+  margin-bottom: 1rem;
+}
+
 textarea {
   box-sizing: border-box;
   height: 3rem;

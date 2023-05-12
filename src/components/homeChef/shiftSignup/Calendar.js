@@ -47,10 +47,11 @@ const Calendar = ({ jobs, shifts }) => {
         return <div key={i}></div>;
       }
       let dayShifts = [];
+      const ongoingJobs = jobs.filter((j) => j.ongoing);
       if (orderedShifts[d]) {
         dayShifts = orderedShifts[d].map((sh) => {
-          const jobIndex = jobs.findIndex((j) => j.id === sh.job);
-          const job = jobs[jobIndex];
+          const jobIndex = ongoingJobs.findIndex((j) => j.id === sh.job);
+          const job = ongoingJobs[jobIndex];
           const available = sh.open && job.active;
           const status = available ? '' : 'calendar-shift-disabled';
           const link = () => navigate('../shift/' + sh.id);

@@ -61,7 +61,7 @@ const UploadDocuments = ({ uploadFiles, restaurant }) => {
         </div>
         {loading ? <Loading /> : <input type="submit" value="Submit" />}
         <Link to="..">
-          <button className="cancel">Cancel</button>
+          <button className="sign-documents-cancel cancel">Cancel</button>
         </Link>
       </form>
     </div>

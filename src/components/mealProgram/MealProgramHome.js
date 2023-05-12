@@ -9,7 +9,8 @@ const resourcesDescription =
 const MealProgramHome = () => {
   return (
     <div className="meal-program-home">
-      <div className="meal-program-home-text">
+      <p className="meal-program-home-text">
+        <h3>The Community Kitchens Meal Program Mission</h3>
         We partner with over 10 different community groups to distribute meals
         and help them advance their own programs. The quality of CK meals helps
         build trust between the clients who receive our meals and the community
@@ -20,7 +21,7 @@ const MealProgramHome = () => {
         have partnered with organizations like The East Oakland Collective,
         Homies Empowerment, Roots Clinic, People’s Program, The Eat. Learn. Play
         Bus, Serenity House, Berkeley Free Clinic, Kerry’s Kids and many others.
-      </div>
+      </p>
       <div>
         <TextButton
           to="resources"

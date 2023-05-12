@@ -52,19 +52,20 @@ const MealProgram = ({
   }, [restaurant, setLoading, getRestaurant, getMealProgramInfo, user]);
 
   const renderRestaurant = () => {
+    const status = restaurant.status === 'Active' ? 'active' : 'inactive';
     return (
-      <>
+      <div className="meal-program-restaurant">
         <div className="meal-program-restaurant-section">
           <div>Your Restaurant:</div>
           <div className="meal-program-restaurant-name">{restaurant.name}</div>
         </div>
         <div className="meal-program-restaurant-section">
           <div>Status:</div>
-          <div className="meal-program-restaurant-name">
+          <div className={`meal-program-restaurant-status-${status}`}>
             {restaurant.status}
           </div>
         </div>
-      </>
+      </div>
     );
   };
 

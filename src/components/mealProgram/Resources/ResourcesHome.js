@@ -1,8 +1,11 @@
 import TextButton from '../../reusable/TextButton';
 
-const invoicingDescription = '';
-const packagingDescription = '';
-const mealGuidelinesDescription = '';
+const invoicingDescription =
+  'Instructions for invoicing CK fior the meals you make and an example invoice';
+const packagingDescription =
+  'Meal label templates and recommendations for meal packaging';
+const mealGuidelinesDescription =
+  "Guidelines for making meals for CK's Youth Meal Program and Encampment Meal Program";
 
 const ResourcesHome = () => {
   return (
