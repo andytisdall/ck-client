@@ -31,6 +31,9 @@ const OnboardingHome = ({ restaurant }) => {
         <div className="meal-program-status-active">
           <span className="bold">Your status:</span> You have completed all
           onboarding tasks and are eligible to provide meals.
+          <Link to="/meal-program">
+            <button className="nav-button">Go to Meal Program Home</button>
+          </Link>
         </div>
       );
     }

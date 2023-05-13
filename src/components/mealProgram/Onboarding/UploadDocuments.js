@@ -59,10 +59,16 @@ const UploadDocuments = ({ uploadFiles, restaurant }) => {
             />
           </div>
         </div>
-        {loading ? <Loading /> : <input type="submit" value="Submit" />}
-        <Link to="..">
-          <button className="sign-documents-cancel cancel">Cancel</button>
-        </Link>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <input type="submit" value="Submit" />
+            <Link to="..">
+              <button className="sign-documents-cancel cancel">Cancel</button>
+            </Link>
+          </>
+        )}
       </form>
     </div>
   );

@@ -37,7 +37,7 @@ const Home = ({
     if (!restaurant) {
       getRestaurant();
     }
-  }, [getRestaurant, restaurant]);
+  }, [getRestaurant, restaurant, user]);
 
   useEffect(() => {
     if (restaurant && !restaurant.remainingDocs) {

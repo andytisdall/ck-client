@@ -1,5 +1,7 @@
 import server from './api';
 import { setAlert } from './alert';
+import { getUserInfo } from './user';
+import { getMealProgramInfo } from './restaurant';
 import { UPLOAD_FILES, UPLOAD_IN_PROGRESS } from './types';
 import { router } from '../App';
 
@@ -34,9 +36,11 @@ export const uploadFiles =
     let page;
     if (accountType === 'restaurant') {
       page = 'meal-program/onboarding';
+      dispatch(getMealProgramInfo());
     }
     if (accountType === 'contact') {
       page = 'home-chef/onboarding';
+      dispatch(getUserInfo());
     }
 
     router.navigate(`/${page}/file-success`);

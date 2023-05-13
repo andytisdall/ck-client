@@ -7,7 +7,6 @@ import {
   SIGN_OUT,
   EDIT_USER,
   GET_USER_INFO,
-  UPLOAD_FILES,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -43,19 +42,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
         return state;
       }
       return { ...state, user: { ...state.user, ...action.payload } };
-    case UPLOAD_FILES:
-      const { filesAdded } = action.payload;
-      const newUser = { ...state.user };
-      if (filesAdded.find((f) => f.docType === 'FH')) {
-        newUser.foodHandler = true;
-      }
-      if (filesAdded.find((f) => f.docType === 'HC')) {
-        newUser.volunteerAgreement = true;
-      }
-      if (newUser.volunteerAgreement && newUser.foodHandler) {
-        newUser.homeChefStatus = 'Active';
-      }
-      return { ...state, user: newUser };
     default:
       return state;
   }

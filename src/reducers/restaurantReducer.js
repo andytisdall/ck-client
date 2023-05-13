@@ -4,7 +4,6 @@ import {
   FETCH_RESTAURANT,
   FETCH_ALL_RESTAURANTS,
   EDIT_RESTAURANT,
-  UPLOAD_FILES,
   FETCH_MEAL_PROGRAM_INFO,
 } from '../actions/types';
 
@@ -48,23 +47,6 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
           ...state.restaurants,
           [action.payload.id]: action.payload,
         },
-      };
-    case UPLOAD_FILES:
-      const files = action.payload.filesAdded;
-      const newRest = { ...state.restaurant };
-
-      newRest.remainingDocs = newRest.remainingDocs?.filter((f) => {
-        if (files.find(({ docType }) => docType === f.docType)) {
-          newRest.completedDocs.push(f.title);
-          return false;
-        } else {
-          return true;
-        }
-      });
-
-      return {
-        restaurants: { ...state.restaurants, [newRest.id]: newRest },
-        restaurant: newRest,
       };
     default:
       return state;

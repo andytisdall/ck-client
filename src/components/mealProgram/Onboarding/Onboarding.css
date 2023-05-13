@@ -22,9 +22,9 @@
 
 
 
-
-
 .meal-program-status-active {
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   margin: 1rem 0;
   background-color: rgba(43, 255, 43, 0.332);
