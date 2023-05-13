@@ -75,7 +75,7 @@ const HomeChefHome = ({ user, campaign }) => {
         />
         {user.homeChefStatus === 'Active' && (
           <TextButton
-            to="orientation-slides"
+            to="onboarding/orientation-slides"
             buttonText="Read the Orientation Materials"
             descriptionText={slidesDescription}
           />

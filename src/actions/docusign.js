@@ -1,6 +1,6 @@
 import server from './api';
 import { setAlert } from './alert';
-import { UPLOAD_FILES } from './types';
+import { UPLOAD_FILES, UPLOAD_IN_PROGRESS } from './types';
 
 export const getDocusignUrl = (doc) => async () => {
   const res = await server.post('/docusign/sign', {
@@ -10,6 +10,7 @@ export const getDocusignUrl = (doc) => async () => {
 };
 
 export const uploadDocsToSalesforce = (doc, envelopeId) => async (dispatch) => {
+  dispatch({ type: UPLOAD_IN_PROGRESS });
   const { data } = await server.post('/docusign/getDoc', {
     envelopeId,
     doc,

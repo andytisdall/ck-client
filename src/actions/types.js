@@ -36,3 +36,4 @@ export const GET_CAMPAIGN = 'GET_CAMPAIGN';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 
 export const UPLOAD_FILES = 'UPLOAD_FILES';
+export const UPLOAD_IN_PROGRESS = 'UPLOAD_IN_PROGRESS';

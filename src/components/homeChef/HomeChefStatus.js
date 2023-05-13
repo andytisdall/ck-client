@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const HomeChefStatus = ({ user }) => {
+const HomeChefStatus = ({ user, uploadInProgress }) => {
   const foodHandler =
     'Obtain a Food Handler certification and upload the certificate';
   const volunteerAgreement = 'Sign our volunteer agreement';
@@ -52,16 +52,18 @@ const HomeChefStatus = ({ user }) => {
     }
   };
 
-  return (
-    <div className="home-chef-status onboarding-checklist">
-      {renderIncomplete()}
-      {renderComplete()}
-    </div>
-  );
+  if (!uploadInProgress) {
+    return (
+      <div className="home-chef-status onboarding-checklist">
+        {renderIncomplete()}
+        {renderComplete()}
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.user.user };
+  return { user: state.user.user, uploadInProgress: state.files.inProgress };
 };
 
 export default connect(mapStateToProps)(HomeChefStatus);

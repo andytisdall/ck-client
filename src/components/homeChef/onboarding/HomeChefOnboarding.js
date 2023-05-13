@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import TextButton from '../../reusable/TextButton';
 
 const videoDescription =
@@ -9,7 +13,15 @@ const documentsDescription =
 export const slidesDescription =
   'Peruse the information presented at the Home Chef orientation';
 
-const HomeChefOnboarding = () => {
+const HomeChefOnboarding = ({ user }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user.homeChefStatus === 'Active') {
+      navigate('/home-chef');
+    }
+  }, [user, navigate]);
+
   return (
     <div>
       <h2>Home Chef Onboarding</h2>
@@ -34,8 +46,8 @@ const HomeChefOnboarding = () => {
   );
 };
 
-export default HomeChefOnboarding;
+const mapStateToProps = (state) => {
+  return { user: state.user.user };
+};
 
-// orientation video
-// slack channel link
-// documents
+export default connect(mapStateToProps)(HomeChefOnboarding);

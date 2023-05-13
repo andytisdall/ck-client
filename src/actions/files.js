@@ -1,10 +1,11 @@
 import server from './api';
 import { setAlert } from './alert';
-import { UPLOAD_FILES } from './types';
+import { UPLOAD_FILES, UPLOAD_IN_PROGRESS } from './types';
 import { router } from '../App';
 
 export const uploadFiles =
   (form, accountType, expiration) => async (dispatch) => {
+    dispatch({ type: UPLOAD_IN_PROGRESS });
     const postBody = new FormData();
     Array.from(form.elements).forEach((input) => {
       if (input.files?.length) {
