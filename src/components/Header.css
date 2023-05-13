@@ -52,3 +52,7 @@
   font-size: 1.5rem;
   margin: 1rem
 }
+
+.error-page {
+  background-image: linear-gradient(pink,rgb(198, 102, 198));
+}

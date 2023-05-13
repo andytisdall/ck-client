@@ -21,8 +21,13 @@ export const getUser = () => async (dispatch) => {
 };
 
 export const getUserInfo = () => async (dispatch) => {
-  const res = await server.get('/user/userInfo');
-  dispatch({ type: GET_USER_INFO, payload: res.data });
+  try {
+    const res = await server.get('/user/userInfo');
+    dispatch({ type: GET_USER_INFO, payload: res.data });
+  } catch (err) {
+    router.navigate('/404');
+    throw Error(err);
+  }
 };
 
 export const getAllUsers = () => async (dispatch) => {

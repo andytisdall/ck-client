@@ -26,11 +26,15 @@ import formsRouter from './components/forms/formsRouter';
 
 const Home = React.lazy(() => import('./components/Home'));
 const Header = React.lazy(() => import('./components/Header'));
+const PageNotFound = React.lazy(() =>
+  import('./components/error/PageNotFound')
+);
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: renderWithFallback(<Header />),
+    errorElement: renderWithFallback(<PageNotFound />),
     children: [
       {
         index: true,
