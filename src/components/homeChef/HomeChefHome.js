@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
+import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
 import renderWithFallback from '../reusable/renderWithFallback';
 
@@ -37,16 +38,16 @@ const HomeChefHome = ({ user, campaign }) => {
     }
   };
 
-  // const renderMealsDonated = () => {
-  //   if (campaign?.mealsDonated) {
-  //     return (
-  //       <div className="home-chef-total-meals">
-  //         To date, CK Home Chefs have delivered {campaign.mealsDonated} meals to
-  //         Oakland Town Fridges!
-  //       </div>
-  //     );
-  //   }
-  // };
+  const renderMealsDonated = () => {
+    if (campaign?.mealsDonated) {
+      return (
+        <div className="home-chef-total-meals">
+          To date, CK Home Chefs have delivered {campaign.mealsDonated} meals to
+          Oakland Town Fridges!
+        </div>
+      );
+    }
+  };
 
   return (
     <div className="hc-home">
@@ -72,6 +73,13 @@ const HomeChefHome = ({ user, campaign }) => {
           buttonText="Invite your friends to join CK Home Chef"
           descriptionText={emailDescription}
         />
+        {user.homeChefStatus === 'Active' && (
+          <TextButton
+            to="orientation-slides"
+            buttonText="Read the Orientation Materials"
+            descriptionText={slidesDescription}
+          />
+        )}
         {renderWithFallback(<FridgeMap />)}
       </div>
       <div className="home-chef-home-right-col">
@@ -80,7 +88,7 @@ const HomeChefHome = ({ user, campaign }) => {
           src="/images/home-chef/town-fridge.jpg"
           alt="home chef header"
         />
-        {/* {renderMealsDonated()} */}
+        {renderMealsDonated()}
       </div>
     </div>
   );

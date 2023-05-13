@@ -6,7 +6,7 @@ const videoDescription =
 const documentsDescription =
   'Send us your food handler certification and sign the volunteer agreement.';
 
-const slidesDescription =
+export const slidesDescription =
   'Peruse the information presented at the Home Chef orientation';
 
 const HomeChefOnboarding = () => {

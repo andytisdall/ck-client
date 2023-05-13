@@ -23,7 +23,7 @@ const OrientationSlides = () => {
       <h1>Orientation Info Slides</h1>
       <div className="orientaton-slides-container">{renderSlides()}</div>{' '}
       <Link to="..">
-        <button>Back to Onboarding</button>
+        <button className="nav-button">Back to Onboarding</button>
       </Link>
     </div>
   );

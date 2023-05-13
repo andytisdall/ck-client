@@ -211,17 +211,15 @@ const homeChefRouter = {
           path: 'docusign',
           children: [
             {
-              path: 'sign',
-              element: renderWithFallback(
-                <DocusignSign accountType="contact" />
-              ),
+              path: 'sign/:doc',
+              element: renderWithFallback(<DocusignSign />),
             },
             {
               path: 'success',
               element: renderWithFallback(
                 <DocusignSuccess
                   accountType="contact"
-                  returnLink="/home-chef"
+                  returnLink="/home-chef/onboarding"
                 />
               ),
             },

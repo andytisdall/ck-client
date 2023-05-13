@@ -32,7 +32,7 @@ export const uploadFiles =
     );
     let page;
     if (accountType === 'restaurant') {
-      page = 'meal-program';
+      page = 'meal-program/onboarding';
     }
     if (accountType === 'contact') {
       page = 'home-chef/onboarding';

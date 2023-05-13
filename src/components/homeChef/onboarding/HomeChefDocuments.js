@@ -27,7 +27,7 @@ const HomeChefDocuments = () => {
           descriptionText={uploadDescription}
         />
         <TextButton
-          to="../docusign/sign"
+          to="../docusign/sign/HC"
           buttonText="Sign the Volunteer Agreement"
           descriptionText={agreementDescription}
         />

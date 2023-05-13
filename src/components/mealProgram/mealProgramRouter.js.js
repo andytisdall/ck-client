@@ -148,7 +148,7 @@ const mealProgramRouter = {
         {
           path: 'file-success',
           element: renderWithFallback(
-            <FileSuccess returnLink="/meal-program" />
+            <FileSuccess returnLink="/meal-program/onboarding" />
           ),
         },
       ],

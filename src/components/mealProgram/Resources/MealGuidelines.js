@@ -9,7 +9,7 @@ const MealGuidelines = () => {
       <h1>Meal Guidelines</h1>
       <div className="meal-program-guidelines-nav">
         <NavLink to="youth" className={navLink}>
-          Youth Meal Program Guidelines{' '}
+          Youth Meal Program Guidelines
         </NavLink>
 
         <NavLink to="encampment" className={navLink}>

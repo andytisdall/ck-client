@@ -62,7 +62,7 @@ const DocusignSuccess = ({
         </div>
       )}
       <Link to={returnLink}>
-        <button>Go back to Section Home</button>
+        <button className="nav-button">Go back to Section Home</button>
       </Link>
     </div>
   );

@@ -9,19 +9,22 @@ const resourcesDescription =
 const MealProgramHome = () => {
   return (
     <div className="meal-program-home">
-      <p className="meal-program-home-text">
+      <div className="meal-program-home-text">
         <h3>The Community Kitchens Meal Program Mission</h3>
-        We partner with over 10 different community groups to distribute meals
-        and help them advance their own programs. The quality of CK meals helps
-        build trust between the clients who receive our meals and the community
-        groups who serve them. This trust helps these community groups gain
-        access to provide other important services, from health care, to housing
-        services, to CalFresh enrollment. This, in turn, helps these community
-        organizations to prosper and advance their own missions. We are proud to
-        have partnered with organizations like The East Oakland Collective,
-        Homies Empowerment, Roots Clinic, People’s Program, The Eat. Learn. Play
-        Bus, Serenity House, Berkeley Free Clinic, Kerry’s Kids and many others.
-      </p>
+        <p>
+          We partner with over 10 different community groups to distribute meals
+          and help them advance their own programs. The quality of CK meals
+          helps build trust between the clients who receive our meals and the
+          community groups who serve them. This trust helps these community
+          groups gain access to provide other important services, from health
+          care, to housing services, to CalFresh enrollment. This, in turn,
+          helps these community organizations to prosper and advance their own
+          missions. We are proud to have partnered with organizations like The
+          East Oakland Collective, Homies Empowerment, Roots Clinic, People’s
+          Program, The Eat. Learn. Play Bus, Serenity House, Berkeley Free
+          Clinic, Kerry’s Kids and many others.
+        </p>
+      </div>
       <div>
         <TextButton
           to="resources"

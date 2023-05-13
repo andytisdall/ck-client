@@ -37,7 +37,7 @@ const OnboardingHome = ({ restaurant }) => {
 
     return (
       <div>
-        <div className="meal-program-checklist">
+        <div className="meal-program-checklist onboarding-checklist">
           <h3 className="meal-program-checklist-title">Onboarding Checklist</h3>
           {restaurant.completedDocs?.length > 0 && (
             <>

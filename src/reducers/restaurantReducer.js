@@ -53,7 +53,7 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
       const files = action.payload.filesAdded;
       const newRest = { ...state.restaurant };
 
-      newRest.remainingDocs = newRest.remainingDocs.filter((f) => {
+      newRest.remainingDocs = newRest.remainingDocs?.filter((f) => {
         if (files.find(({ docType }) => docType === f.docType)) {
           newRest.completedDocs.push(f.title);
           return false;

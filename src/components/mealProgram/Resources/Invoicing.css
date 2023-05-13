@@ -1,8 +1,9 @@
 .meal-program-invoice {
-background-color: white;
-padding: 2rem 1rem;
-display: flex;
-flex-direction: column;
+  background-color: white;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 750px;
 }
 
 .meal-program-invoice-stripe {
@@ -17,8 +18,9 @@ flex-direction: column;
 
 .meal-program-invoice p {
   margin: 0;
-  font-size: .8rem;
+  font-size: .7rem;
   margin-bottom: 3px;
+
 }
 
 .meal-program-invoice-address {
@@ -27,14 +29,15 @@ margin-bottom: 2rem;
 }
 
 .meal-program-invoice h1 {
-color: grey
+  font-size: 150%;
+  color: grey
 }
 
 .meal-program-invoice h2 {
-font-size: .8rem;
-color: grey;
-margin: 0;
-margin-bottom: .5rem;
+  font-size: .7rem;
+  color: grey;
+  margin: 0;
+  margin-bottom: .5rem;
 }
 
 .meal-program-invoice table {
@@ -48,17 +51,18 @@ margin-bottom: .5rem;
 .meal-program-invoice th {
   background-color: rgb(150, 0, 53);
   color: white;
-  font-size: .8rem;
+  font-size: .6rem;
   text-align: left;
   padding: .5rem;
   border: 1px solid rgb(150, 0, 53);
+  word-break:break-all
 }
 
 
 .meal-program-invoice td {
   border: black 1px solid;
   height: 1rem;
-  font-size: .8rem;
+  font-size: .6rem;
   padding: 3px;
 }
 

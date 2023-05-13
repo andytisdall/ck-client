@@ -29,10 +29,15 @@ const Home = ({
 }) => {
   useEffect(() => {
     if (user && !user.lastName) {
-      getRestaurant();
       getUserInfo();
     }
   }, [user, getRestaurant, getUserInfo]);
+
+  useEffect(() => {
+    if (!restaurant) {
+      getRestaurant();
+    }
+  }, [getRestaurant, restaurant]);
 
   useEffect(() => {
     if (restaurant && !restaurant.remainingDocs) {

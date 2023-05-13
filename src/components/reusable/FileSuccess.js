@@ -17,7 +17,7 @@ const FileSuccess = ({ alert, returnLink }) => {
       <h1>Success!</h1>
       <div className="file-success">{message}</div>
       <Link to={returnLink}>
-        <button>Back to Onboarding Home</button>
+        <button className="nav-button">Back to Onboarding Home</button>
       </Link>
     </div>
   );

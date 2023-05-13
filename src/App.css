@@ -65,6 +65,11 @@ input[type=submit]:hover, button:hover, .nav-link-active {
   background-color: rgb(128, 193, 285);
 }
 
+.nav-button {
+  margin-top: 1rem;
+  color: black;
+}
+
 input[type=submit]:active, button:active {
   transform: translateY(5px);
   box-shadow: none;
@@ -110,4 +115,27 @@ textarea {
 
 .cancel {
   background-color: rgba(238, 38, 75, 0.637)
+}
+
+
+.completed-doc li {
+  padding: .5rem;
+  color: rgb(0, 76, 0);
+}
+
+.incomplete-doc li {
+  color: rgb(78, 0, 19);
+}
+
+.incomplete-doc li:hover {
+  background-color: rgba(240, 248, 255, 0.432);
+}
+
+.onboarding-checklist li {
+  font-weight: 600;
+  margin: .5rem 0;
+  padding: .5rem;
+  border-radius: 25px;
+  width: fit-content;
+  transition: all .6s;
 }

@@ -44,7 +44,7 @@ const HomeChefStatus = ({ user }) => {
   const renderComplete = () => {
     if (completedActions.length) {
       return (
-        <div className="onbpoarding-checklist">
+        <div>
           <p>You have finished the following tasks:</p>
           <ul className="completed-doc">{completedActions.map(renderAsLi)}</ul>
         </div>
@@ -53,7 +53,7 @@ const HomeChefStatus = ({ user }) => {
   };
 
   return (
-    <div className="home-chef-status">
+    <div className="home-chef-status onboarding-checklist">
       {renderIncomplete()}
       {renderComplete()}
     </div>
