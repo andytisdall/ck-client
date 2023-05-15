@@ -24,6 +24,9 @@ import homeChefRouter from './components/homeChef/homeChefRouter';
 // forms
 import formsRouter from './components/forms/formsRouter';
 
+const SalesforceNotFound = React.lazy(() =>
+  import('./components/error/SalesforceNotFound')
+);
 const Home = React.lazy(() => import('./components/Home'));
 const Header = React.lazy(() => import('./components/Header'));
 const PageNotFound = React.lazy(() =>
@@ -45,6 +48,7 @@ export const router = createBrowserRouter([
       mealProgramRouter,
       userRouter,
       homeChefRouter,
+      { path: '404', element: renderWithFallback(<SalesforceNotFound />) },
     ],
   },
   formsRouter,

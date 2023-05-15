@@ -1,9 +1,15 @@
 import './Invoicing.css';
+import DownloadFile from './DownloadFile';
+
+const FILENAME = 'CK_Invoice_Template.xlsx';
 
 const Invoicing = () => {
   return (
     <div>
       <h1>Invoicing</h1>
+      <DownloadFile filename={FILENAME}>
+        Download the invoice template (Excel)
+      </DownloadFile>
       <p>
         Please send your invoices to{' '}
         <a href="mailto:meals@ckoakland.org">meals@ckoakland.org</a> by 5pm on
@@ -20,6 +26,7 @@ const Invoicing = () => {
         <li>Price per meal</li>
         <li>Total price</li>
       </ul>
+
       <p>Example:</p>
       <section className="meal-program-invoice">
         <div className="meal-program-invoice-stripe"></div>
