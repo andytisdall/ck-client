@@ -3,25 +3,24 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 
-import './Confirmation.css';
 import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 
-const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
+const Confirmation = ({ hours, jobs, getEventHours, getEventShifts }) => {
   const { hoursId } = useParams();
-  const hour = hours && hoursId ? hours.find((h) => h.id === hoursId) : null;
+  const hour = hours && hoursId ? hours[hoursId] : null;
 
   useEffect(() => {
     if (!hour) {
-      getHours();
+      getEventHours();
     }
-  }, [hour, getHours]);
+  }, [hour, getEventHours]);
 
   useEffect(() => {
     if (!jobs) {
-      getShifts();
+      getEventShifts();
     }
-  }, [jobs, getShifts]);
+  }, [jobs, getEventShifts]);
 
   const renderShiftDetails = () => {
     const job = jobs?.find((j) => j.id === hour?.job);
@@ -35,14 +34,15 @@ const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
               {moment(hour.time).format('dddd, M/D/yy')}
             </li>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Fridge:</span> {job.name}
+              <span className="hc-confirm-title">Job:</span> {job.name}
+            </li>
+            <li>
+              {' '}
+              <span className="hc-confirm-title">Description:</span>{' '}
+              {job.description}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Location:</span> {job.location}
-            </li>
-            <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Number of Meals:</span>{' '}
-              {hour.mealCount}
             </li>
           </ul>
           <p>You have been sent an email with this information.</p>
@@ -59,15 +59,10 @@ const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
 
   return (
     <div>
-      <h1>Home Chef Sign Up Confirmation</h1>
+      <h1>Volunteer Sign Up Confirmation</h1>
       {!jobs || !hours ? <Loading /> : renderShiftDetails()}
-      <Link to="/home-chef/signup/list">
-        <button className="hc-confirm-button">Sign Up for More Shifts</button>
-      </Link>
-      <Link to="/home-chef/chef" className="hc-confirm-button">
-        <button className="hc-confirm-button">
-          See your future and past shifts
-        </button>
+      <Link to="/home-chef">
+        <button className="hc-confirm-button">Home Chef Hub</button>
       </Link>
     </div>
   );
@@ -75,8 +70,8 @@ const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
 
 const mapStateToProps = (state) => {
   return {
-    hours: state.homeChef.hours,
-    jobs: state.homeChef.jobs,
+    hours: state.event.hours,
+    jobs: state.event.jobs,
   };
 };
 

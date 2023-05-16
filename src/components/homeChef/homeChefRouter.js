@@ -56,6 +56,9 @@ const InviteSent = React.lazy(() => import('./invite/InviteSent'));
 const FeedTheHood = React.lazy(() => import('./events/FeedTheHood'));
 const EventShiftSignup = React.lazy(() => import('./events/Signup'));
 const JobList = React.lazy(() => import('./events/JobList'));
+const EventShiftConfirmation = React.lazy(() =>
+  import('./events/Confirmation')
+);
 
 const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
   const [loading, setLoading] = useState(false);
@@ -155,6 +158,10 @@ const homeChefRouter = {
               element: renderWithFallback(<EventShiftSignup />),
             },
           ],
+        },
+        {
+          path: 'signup-confirm/:hoursId',
+          element: renderWithFallback(<EventShiftConfirmation />),
         },
       ],
     },

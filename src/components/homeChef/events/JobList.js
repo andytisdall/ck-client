@@ -11,13 +11,25 @@ const JobList = ({ jobs, shifts }) => {
   return (
     <div>
       {jobs.map((j) => {
-        const shift = shifts.find((sh) => sh.job === j.id);
-        const color = shift.open ? '' : 'purple';
-        return (
-          <Link key={shift.id} to={shift.id}>
-            <div className={`event-job ${color}`}>{j.name}</div>
-          </Link>
-        );
+        const shift = shifts[j.shifts[0]];
+
+        if (shift.open) {
+          return (
+            <Link key={shift.id} to={shift.id}>
+              <li className="event-job">
+                {j.name}
+                <p>{j.description}</p>
+              </li>
+            </Link>
+          );
+        } else {
+          return (
+            <li key={shift.id} className="event-job full">
+              {j.name}
+              <p>{j.description}</p>
+            </li>
+          );
+        }
       })}
     </div>
   );

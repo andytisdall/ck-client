@@ -1,14 +1,26 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import * as actions from '../../../actions';
 import './FeedTheHood.css';
 
-const FeedTheHood = ({ getEventShifts }) => {
+const FeedTheHood = ({ getEventShifts, hours, getEventHours }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     getEventShifts();
-  }, [getEventShifts]);
+    getEventHours();
+  }, [getEventShifts, getEventHours]);
+
+  const hoursList = hours ? Object.values(hours) : null;
+  const hour = hoursList?.length ? hoursList[0] : null;
+
+  useEffect(() => {
+    if (hour) {
+      navigate('../signup-confirm/' + hour.id);
+    }
+  }, [navigate, hour]);
 
   return (
     <div>
@@ -26,4 +38,8 @@ const FeedTheHood = ({ getEventShifts }) => {
   );
 };
 
-export default connect(null, actions)(FeedTheHood);
+const mapStateToProps = (state) => {
+  return { hours: state.event.hours };
+};
+
+export default connect(mapStateToProps, actions)(FeedTheHood);

@@ -1,9 +1,25 @@
 .event-job {
   color: purple;
   font-weight: 600;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  width:fit-content
 }
 
-.full { 
+.event-job:hover {
+  background-color: rgba(240, 248, 255, 0.326);
+}
+
+.event-job p {
+  color: black;
+  font-weight: 400;
+  margin-left: 2rem;
+}
+
+.full, .full p { 
   text-decoration: line-through;
+  color: rgb(88, 88, 88);
+}
+
+.full:hover {
+  background-color: transparent;
 }

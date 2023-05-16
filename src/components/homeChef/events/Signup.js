@@ -11,17 +11,17 @@ const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
 
   const { shiftId } = useParams();
 
-  const onSubmit = () => {
-    setLoading(true);
-    signUpForEventShift(shiftId);
-  };
-
   if (!shifts || !jobs) {
     return <Loading />;
   }
 
-  const shift = shifts.find((sh) => sh.id === shiftId);
+  const shift = shifts[shiftId];
   const job = jobs.find((j) => j.id === shift.job);
+
+  const onSubmit = () => {
+    setLoading(true);
+    signUpForEventShift(shiftId, job?.id, shift?.startTime);
+  };
 
   if (!shift.open) {
     return <p>This shift is not available for signup</p>;
