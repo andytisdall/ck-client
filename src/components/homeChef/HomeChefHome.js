@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
@@ -53,6 +54,9 @@ const HomeChefHome = ({ user, campaign }) => {
     <div className="hc-home">
       <div>
         {renderStatus()}
+        <Link to="events/feed-the-hood">
+          <button>Feed the Hood</button>
+        </Link>
         <TextButton
           to="signup/list"
           buttonText="Sign Up to Stock a Town Fridge"

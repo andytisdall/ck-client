@@ -37,3 +37,5 @@ export const SUBMIT_FORM = 'SUBMIT_FORM';
 
 export const UPLOAD_FILES = 'UPLOAD_FILES';
 export const UPLOAD_IN_PROGRESS = 'UPLOAD_IN_PROGRESS';
+
+export const GET_EVENT_SHIFTS = 'GET_EVENT_SHIFTS';

@@ -53,6 +53,10 @@ const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 const Invite = React.lazy(() => import('./invite/Invite'));
 const InviteSent = React.lazy(() => import('./invite/InviteSent'));
 
+const FeedTheHood = React.lazy(() => import('./events/FeedTheHood'));
+const EventShiftSignup = React.lazy(() => import('./events/Signup'));
+const JobList = React.lazy(() => import('./events/JobList'));
+
 const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
   const [loading, setLoading] = useState(false);
 
@@ -136,6 +140,22 @@ const homeChefRouter = {
       children: [
         { index: true, element: renderWithFallback(<Invite />) },
         { path: 'sent', element: renderWithFallback(<InviteSent />) },
+      ],
+    },
+    {
+      path: 'events',
+      children: [
+        {
+          path: 'feed-the-hood',
+          element: renderWithFallback(<FeedTheHood />),
+          children: [
+            { index: true, element: renderWithFallback(<JobList />) },
+            {
+              path: ':shiftId',
+              element: renderWithFallback(<EventShiftSignup />),
+            },
+          ],
+        },
       ],
     },
     {

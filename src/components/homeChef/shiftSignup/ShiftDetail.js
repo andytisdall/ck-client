@@ -1,23 +1,18 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
 import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
+import useLoading from '../../../hooks/useLoading';
 
-const ShiftDetail = ({ jobs, shifts, signUpForShift, error }) => {
+const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {
   const [mealCount, setMealCount] = useState('');
   const [soup, setSoup] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useLoading();
 
   const { shiftId } = useParams();
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -90,7 +85,6 @@ const mapStateToProps = (state) => {
   return {
     jobs: state.homeChef.jobs,
     shifts: state.homeChef.shifts,
-    error: state.error.error,
   };
 };
 
