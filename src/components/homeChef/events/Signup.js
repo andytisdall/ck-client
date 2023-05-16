@@ -28,18 +28,24 @@ const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
   }
 
   return (
-    <div className="shift-detail">
-      <h2>Signing up for:</h2>
-      <h2 className="signup-form-date">
-        {moment(shift.startTime).format('dddd, M/D/YY')}
-      </h2>
-      <h2 className="signup-form-fridge">{job.name}</h2>
-
-      <h3>Click submit to sign up for this slot</h3>
+    <div>
+      <h3>Signing up for:</h3>
+      <div className="event-shift-detail">
+        <p>
+          <b>Job:</b> {job.name}
+        </p>
+        <p>
+          <b>Description:</b> {job.description}
+        </p>
+        <p>
+          <b>Date: </b>
+          {moment(shift.startTime).format('dddd, M/D/YY')}
+        </p>
+      </div>
       {loading ? (
         <Loading />
       ) : (
-        <button onClick={onSubmit} className="shift-detail-submit">
+        <button onClick={onSubmit} className="event-shift-detail-submit">
           Confirm Signup
         </button>
       )}

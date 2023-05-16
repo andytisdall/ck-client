@@ -23,3 +23,12 @@
 .full:hover {
   background-color: transparent;
 }
+
+.event-shift-detail {
+  border: white 1px solid;
+  padding: 1rem
+}
+
+.event-shift-detail-submit {
+  margin-top: 2rem;
+}

@@ -95,3 +95,12 @@
   filter: hue-rotate(120deg);
   background-color: rgba(240, 248, 255, 0.287);
 }
+
+.hc-events {
+  border: white 1px solid;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(129, 209, 222, 0.38);
+}
