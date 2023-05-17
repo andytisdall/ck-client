@@ -9,7 +9,7 @@ import Loading from '../../reusable/Loading';
 
 const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
   const { hoursId } = useParams();
-  const hour = hours && hoursId ? hours.find((h) => h.id === hoursId) : null;
+  const hour = hours && hoursId ? hours[hoursId] : null;
 
   useEffect(() => {
     if (!hour) {

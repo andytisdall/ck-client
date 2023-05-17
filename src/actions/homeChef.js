@@ -91,3 +91,8 @@ export const getCampaign = () => async (dispatch) => {
   const { data } = await server.get('/home-chef/campaign');
   dispatch({ type: GET_CAMPAIGN, payload: data });
 };
+
+export const deleteMondays = () => async (dispatch) => {
+  const { data } = await server.get('/home-chef/delete-mondays');
+  dispatch(setAlert(`Deleted ${data.deleted} shifts`));
+};
