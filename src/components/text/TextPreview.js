@@ -3,7 +3,14 @@ import { useState, useEffect } from 'react';
 
 import Loading from '../reusable/Loading';
 
-const TextPreview = ({ onSubmit, message, region, photo, onCancel }) => {
+const TextPreview = ({
+  onSubmit,
+  message,
+  region,
+  photo,
+  onCancel,
+  number,
+}) => {
   const [image, setImage] = useState(photo);
 
   useEffect(() => {
@@ -35,7 +42,7 @@ const TextPreview = ({ onSubmit, message, region, photo, onCancel }) => {
       )}
 
       <div>
-        <p>To: {region}</p>
+        <p>To: {region || number}</p>
       </div>
 
       <button

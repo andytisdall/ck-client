@@ -11,9 +11,7 @@ import FileInput from '../reusable/FileInput';
 
 const CustomText = ({ sendText, replyTo }) => {
   const [message, setMessage] = useState('');
-  const [to, setTo] = useState(
-    replyTo?.sender ? formatNumber(replyTo.sender) : ''
-  );
+  const [region, setRegion] = useState(null);
   const [number, setNumber] = useState(
     replyTo?.sender ? formatNumber(replyTo.sender) : ''
   );
@@ -33,7 +31,7 @@ const CustomText = ({ sendText, replyTo }) => {
   // };
 
   const composeText = () => {
-    const btnActive = message && to;
+    const btnActive = message && (region || number);
     return (
       <div className="send-text">
         <div className="send-text-variables">
@@ -47,7 +45,7 @@ const CustomText = ({ sendText, replyTo }) => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTo('EAST_OAKLAND');
+                  setRegion('EAST_OAKLAND');
                 }
               }}
             />
@@ -62,7 +60,7 @@ const CustomText = ({ sendText, replyTo }) => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTo('WEST_OAKLAND');
+                  setRegion('WEST_OAKLAND');
                 }
               }}
             />
@@ -76,10 +74,10 @@ const CustomText = ({ sendText, replyTo }) => {
               name="to"
               type="radio"
               ref={numberRef}
-              checked={to !== 'WEST_OAKLAND' && to !== 'EAST_OAKLAND'}
+              checked={!region}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTo(number);
+                  setRegion(null);
                   numberTextRef.current.focus();
                 }
               }}
@@ -92,7 +90,6 @@ const CustomText = ({ sendText, replyTo }) => {
               onFocus={() => (numberRef.current.checked = true)}
               onChange={(e) => {
                 setNumber(e.target.value);
-                setTo(e.target.value);
               }}
             />
           </div>
@@ -140,10 +137,11 @@ const CustomText = ({ sendText, replyTo }) => {
     return (
       <TextPreview
         message={message}
-        region={to}
+        region={region}
         photo={photo}
+        number={number}
         onSubmit={() => {
-          sendText(message, replyTo.region, photo, replyTo?.id, to);
+          sendText(message, region, photo, replyTo?.id, number);
           setLoading(true);
         }}
         onCancel={() => setPreview(false)}

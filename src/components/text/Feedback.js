@@ -57,7 +57,7 @@ const Feedback = ({ getFeedback, feedback, deleteFeedback }) => {
     if (fb.response?.length) {
       return (
         <div className="feedback">
-          <h4 c>CK Response:</h4>
+          <h4>CK Response:</h4>
           <div className="feedback-response">
             {fb.response.map((response, i) => {
               return (
