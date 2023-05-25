@@ -1,7 +1,10 @@
 
-.meal-program-download {
+.download {
   display: flex;
   font-size: .7rem;
   color: rgb(7, 7, 136);
 }
 
+.download-icon {
+  margin-right: 10px;
+}

@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import * as actions from '../../actions';
 import renderWithFallback from '../reusable/renderWithFallback';
 import './TextHome.css';
 
@@ -12,7 +13,10 @@ const TextSuccess = React.lazy(() => import('./TextSuccess'));
 const Feedback = React.lazy(() => import('./Feedback'));
 const CustomText = React.lazy(() => import('./CustomText'));
 
-const Text = ({ user }) => {
+const Text = ({ user, getFridges }) => {
+  useEffect(() => {
+    getFridges();
+  }, [getFridges]);
   const renderSignIn = () => {
     return <h3>You must have the proper permissions to access this page.</h3>;
   };
@@ -33,7 +37,7 @@ const mapStateToProps = (state) => {
   return { user: state.user.user };
 };
 
-const ConnectedText = connect(mapStateToProps)(Text);
+const ConnectedText = connect(mapStateToProps, actions)(Text);
 
 const textRouter = {
   path: 'text',

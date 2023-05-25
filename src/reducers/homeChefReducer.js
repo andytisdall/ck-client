@@ -6,6 +6,7 @@ import {
   GET_HOURS,
   EDIT_HOURS,
   GET_CAMPAIGN,
+  GET_FRIDGES,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -39,6 +40,11 @@ const homeChefReducer = (state = INITIAL_STATE, action) => {
       return { ...state, hours: { ...state.hours, [newHours.id]: newHours } };
     case GET_CAMPAIGN:
       return { ...state, campaign: action.payload };
+    case GET_FRIDGES:
+      return {
+        ...state,
+        townFridges: action.payload,
+      };
     default:
       return state;
   }

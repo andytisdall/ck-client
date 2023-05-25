@@ -6,7 +6,13 @@ import moment from 'moment';
 import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 
-const Confirmation = ({ hours, jobs, getEventHours, getEventShifts }) => {
+const Confirmation = ({
+  hours,
+  jobs,
+  getEventHours,
+  getEventShifts,
+  shifts,
+}) => {
   const { hoursId } = useParams();
   const hour = hours && hoursId ? hours[hoursId] : null;
 
@@ -24,7 +30,8 @@ const Confirmation = ({ hours, jobs, getEventHours, getEventShifts }) => {
 
   const renderShiftDetails = () => {
     const job = jobs?.find((j) => j.id === hour?.job);
-    if (hour && job) {
+    const shift = shifts[hour.shift];
+    if (hour && shift && job) {
       return (
         <div className="hc-confirm-details">
           <p>You have successfully signed up for this shift:</p>
@@ -34,15 +41,19 @@ const Confirmation = ({ hours, jobs, getEventHours, getEventShifts }) => {
               {moment(hour.time).format('dddd, M/D/yy')}
             </li>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Job:</span> {job.name}
-            </li>
-            <li>
-              {' '}
-              <span className="hc-confirm-title">Description:</span>{' '}
-              {job.description}
+              <span className="hc-confirm-title">Time:</span>{' '}
+              {moment(shift.startTime, 'YYYY-MM-DDTHH:mm:ssZ').format('h:mm a')}
             </li>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Location:</span> {job.location}
+              <span className="hc-confirm-title">Duration:</span>{' '}
+              {shift.duration} Hours
+            </li>
+            <li className="hc-confirm-item">
+              <span className="hc-confirm-title">Job:</span> {job.name}
+            </li>
+            <li className="hc-confirm-item">
+              <span className="hc-confirm-title">Description:</span>
+              {job.description}
             </li>
           </ul>
           <p>You have been sent an email with this information.</p>
@@ -72,6 +83,7 @@ const mapStateToProps = (state) => {
   return {
     hours: state.event.hours,
     jobs: state.event.jobs,
+    shifts: state.event.shifts,
   };
 };
 

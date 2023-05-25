@@ -7,6 +7,8 @@ const recipesDescription =
 const slackDescription =
   'Our Slack channel is a message board where Home Chefs can ask questions, share info, and communicate with Community Kitchens staff.';
 
+const labelDescription = 'Print out labels to put on your meal packaging.';
+
 const ResourcesList = () => {
   return (
     <div className="resources">
@@ -15,6 +17,11 @@ const ResourcesList = () => {
           to="recipes"
           buttonText="Recipes"
           descriptionText={recipesDescription}
+        />
+        <TextButton
+          to="labels"
+          buttonText="Label Templates"
+          descriptionText={labelDescription}
         />
         <TextButton
           to="https://community-kitchens.slack.com/"

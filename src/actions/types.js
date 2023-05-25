@@ -32,6 +32,7 @@ export const SIGN_UP_FOR_SHIFT = 'SIGN_UP_FOR_SHIFT';
 export const GET_HOURS = 'GET_HOURS';
 export const EDIT_HOURS = 'EDIT_HOURS';
 export const GET_CAMPAIGN = 'GET_CAMPAIGN';
+export const GET_FRIDGES = 'GET_FRIDGES';
 
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 

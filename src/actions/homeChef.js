@@ -8,6 +8,7 @@ import {
   GET_CAMPAIGN,
   GET_EVENT_SHIFTS,
   GET_EVENT_HOURS,
+  GET_FRIDGES,
 } from './types';
 import { setAlert } from './alert';
 import { router } from '../App';
@@ -17,8 +18,13 @@ export const getShifts = () => async (dispatch) => {
   dispatch({ type: GET_SHIFTS, payload: data });
 };
 
+export const getEventCampaign = () => async (dispatch) => {
+  const { data } = await server.get('/home-chef/job-listing/event');
+  dispatch({ type: GET_EVENT_SHIFTS, payload: data });
+};
+
 export const getEventShifts = () => async (dispatch) => {
-  const { data } = await server.get('/home-chef/job-listing/feed-the-hood');
+  const { data } = await server.get('/home-chef/job-listing/event');
   dispatch({ type: GET_EVENT_SHIFTS, payload: data });
 };
 
@@ -92,7 +98,7 @@ export const getCampaign = () => async (dispatch) => {
   dispatch({ type: GET_CAMPAIGN, payload: data });
 };
 
-export const deleteMondays = () => async (dispatch) => {
-  const { data } = await server.get('/home-chef/delete-mondays');
-  dispatch(setAlert(`Deleted ${data.deleted} shifts`));
+export const getFridges = () => async (dispatch) => {
+  const { data } = await server.get('/home-chef/campaign/fridges');
+  dispatch({ type: GET_FRIDGES, payload: data });
 };

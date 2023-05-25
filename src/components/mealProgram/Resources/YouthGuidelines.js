@@ -1,6 +1,6 @@
-import DownloadFile from './DownloadFile';
+import DownloadFile from '../../reusable/DownloadFile';
 
-const FILENAME = 'CK Youth Meal Guidelines.pdf';
+const FILENAME = 'meal-program/CK Youth Meal Guidelines.pdf';
 
 const YouthGuidelines = () => {
   return (

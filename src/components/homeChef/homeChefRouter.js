@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import * as actions from '../../actions';
 import './HomeChef.css';
+import './Confirmation.css';
 import Loading from '../reusable/Loading';
 import renderWithFallback from '../reusable/renderWithFallback';
 
@@ -45,6 +46,7 @@ const Recipe = React.lazy(() => import('./resources/recipes/Recipe'));
 const CreateRecipe = React.lazy(() =>
   import('./resources/recipes/CreateRecipe')
 );
+const Labels = React.lazy(() => import('./resources/Labels'));
 // documents
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
@@ -53,7 +55,7 @@ const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 const Invite = React.lazy(() => import('./invite/Invite'));
 const InviteSent = React.lazy(() => import('./invite/InviteSent'));
 
-const FeedTheHood = React.lazy(() => import('./events/FeedTheHood'));
+const VolunteerEvent = React.lazy(() => import('./events/VolunteerEvent'));
 const EventShiftSignup = React.lazy(() => import('./events/Signup'));
 const JobList = React.lazy(() => import('./events/JobList'));
 const EventShiftConfirmation = React.lazy(() =>
@@ -150,7 +152,7 @@ const homeChefRouter = {
       children: [
         {
           path: 'feed-the-hood',
-          element: renderWithFallback(<FeedTheHood />),
+          element: renderWithFallback(<VolunteerEvent />),
           children: [
             { index: true, element: renderWithFallback(<JobList />) },
             {
@@ -205,6 +207,10 @@ const homeChefRouter = {
               element: renderWithFallback(<CreateRecipe />),
             },
           ],
+        },
+        {
+          path: 'labels',
+          element: renderWithFallback(<Labels />),
         },
       ],
     },

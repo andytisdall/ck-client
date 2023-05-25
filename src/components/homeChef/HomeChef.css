@@ -104,3 +104,13 @@
   align-items: center;
   background-color: rgba(235, 171, 34, 0.854);
 }
+
+.hc-events h4 {
+  margin:.4rem;
+}
+
+.hc-events .button {
+  margin-top: 1rem;
+  color: black;
+  font-size: 1.4rem;
+}

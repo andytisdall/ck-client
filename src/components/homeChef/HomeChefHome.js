@@ -55,9 +55,11 @@ const HomeChefHome = ({ user, campaign }) => {
       <div>
         {renderStatus()}
         <div className="hc-events">
-          <h3>Sign Up to Prep Meals for Feed the Hood 25!</h3>
-          <Link to="events/feed-the-hood">
-            <button>Sign Up</button>
+          <h3>Oakland's Community Health Fair</h3>
+          <h4>Volunteer to Staff the Home Chef Booth</h4>
+          <h4>June 3rd</h4>
+          <Link to="events/feed-the-hood" className="button">
+            Sign Up
           </Link>
         </div>
         <TextButton

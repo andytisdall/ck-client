@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -8,7 +8,7 @@ import useLoading from '../../../hooks/useLoading';
 
 const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
   const [loading, setLoading] = useLoading();
-
+  const navigate = useNavigate();
   const { shiftId } = useParams();
 
   if (!shifts || !jobs) {
@@ -41,13 +41,26 @@ const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
           <b>Date: </b>
           {moment(shift.startTime).format('dddd, M/D/YY')}
         </p>
+        <p>
+          <b>Time: </b>
+          {moment(shift.startTime).format('h:mm a')}
+        </p>
+        <p>
+          <b>Duration: </b>
+          {shift.duration} Hours
+        </p>
       </div>
       {loading ? (
         <Loading />
       ) : (
-        <button onClick={onSubmit} className="event-shift-detail-submit">
-          Confirm Signup
-        </button>
+        <>
+          <button onClick={onSubmit} className="event-shift-detail-submit">
+            Confirm Signup
+          </button>
+          <button onClick={() => navigate('..')} className="cancel">
+            Cancel
+          </button>
+        </>
       )}
     </div>
   );

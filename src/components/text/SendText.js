@@ -5,14 +5,13 @@ import moment from 'moment';
 import * as actions from '../../actions';
 import renderWithFallback from '../reusable/renderWithFallback';
 import './SendText.css';
-import { townFridges } from './townFridges';
 import Loading from '../reusable/Loading';
 import FileInput from '../reusable/FileInput';
 import useLoading from '../../hooks/useLoading';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 
-const SendText = ({ sendText }) => {
+const SendText = ({ sendText, townFridges }) => {
   const [fridge, setFridge] = useState('');
   const [mealCount, setMealCount] = useState(25);
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
@@ -186,7 +185,7 @@ const SendText = ({ sendText }) => {
   };
 
   const renderContent = () => {
-    if (loading) {
+    if (loading || !townFridges) {
       return <Loading />;
     }
     if (!preview) {
@@ -214,4 +213,8 @@ const SendText = ({ sendText }) => {
   );
 };
 
-export default connect(null, actions)(SendText);
+const mapStateToProps = (state) => {
+  return { townFridges: state.homeChef.townFridges };
+};
+
+export default connect(mapStateToProps, actions)(SendText);

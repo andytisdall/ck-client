@@ -2,15 +2,11 @@ import './DownloadFile.css';
 
 const DownloadFile = ({ children, filename }) => {
   return (
-    <a
-      href={`/images/meal-program/${filename}`}
-      download
-      className="meal-program-download"
-    >
+    <a href={`/images/${filename}`} download className="download">
       <img
         src="/images/icons/download.svg"
         alt="download pdf"
-        className="meal-program-download-icon"
+        className="download-icon"
       />
       <p>{children}</p>
     </a>

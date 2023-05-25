@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import * as actions from '../../../actions';
-import './FeedTheHood.css';
+import './VolunteerEvent.css';
 
-const FeedTheHood = ({ getEventShifts, hours, getEventHours }) => {
+const VolunteerEvent = ({ getEventShifts, hours, getEventHours }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,13 +24,15 @@ const FeedTheHood = ({ getEventShifts, hours, getEventHours }) => {
 
   return (
     <div>
-      <h1>Feed the Hood</h1>
+      <h1>OAK Community Health Fair</h1>
       <p>
-        Sign up to prepare taco toppings for East Oakland Collective's Feed the
-        Hood 25! EOC will be distributing taco meals to our unhoused neighbors
-        across Oakland on Sunday, May 28th. Volunteers will pick up produce on
-        Tuesday 5/23, 4-5pm at Xingones, prep produce at home and deliver to
-        East Oakland Collective, 10-4pm on Friday, May 26.
+        Join us at the City of Oakland's Community Health Fair on Saturday, June
+        3rd, for an engaging and informative event that aims to raise awareness
+        about the dangers of consuming Sugar-Sweetened Beverages (SSBs) and
+        celebrate the impact of SSB Community Grants. As a SSB grant recipient,
+        Community Kitchens will have an information booth to share about the CK
+        Home Chef program and town fridge meals. Share your volunteer experience
+        and tell others about our program!
       </p>
       <h4>Sign Up for a Job</h4>
       <Outlet />
@@ -42,4 +44,4 @@ const mapStateToProps = (state) => {
   return { hours: state.event.hours };
 };
 
-export default connect(mapStateToProps, actions)(FeedTheHood);
+export default connect(mapStateToProps, actions)(VolunteerEvent);

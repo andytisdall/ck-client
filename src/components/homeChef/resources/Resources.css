@@ -16,3 +16,8 @@
     max-width: 80%;
   }
 }
+
+.label-photo {
+  width: 500px;
+  margin-bottom: 2rem;
+}

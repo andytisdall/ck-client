@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 
-import './Confirmation.css';
 import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 

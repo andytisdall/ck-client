@@ -1,5 +1,7 @@
-import DownloadFile from './DownloadFile';
+import DownloadFile from '../../reusable/DownloadFile';
 import './Packaging.css';
+
+const LABEL_FILE = 'meal-program/meal-label-template.docx';
 
 const Packaging = () => {
   return (
@@ -33,7 +35,7 @@ with-lid-case/129MCS24B.html?utm_source=webstaurant&utm_medium=email&utm_campaig
         included template for Avery 8162 Easy Peel Address Labels, or your own
         system.
       </p>
-      <DownloadFile filename="meal-label-template.docx">
+      <DownloadFile filename={LABEL_FILE}>
         Download the Label Template
       </DownloadFile>
       <p>Please include the following information on your labels:</p>
@@ -46,7 +48,7 @@ with-lid-case/129MCS24B.html?utm_source=webstaurant&utm_medium=email&utm_campaig
         <li>Prepared on Date</li>
       </ul>
       <p>Example:</p>
-      <img src="/images/meal-program/food-label.jpg" alt="example food label" />
+      <img src="/images/food-label.png" alt="example food label" />
     </div>
   );
 };

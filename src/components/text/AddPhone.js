@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
-import { REGIONS } from './townFridges';
 import './AddPhone.css';
 import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
 
 const AddPhone = ({ addPhone }) => {
   const [phone, setPhone] = useState('');
-  const [region, setRegion] = useState(REGIONS.EAST_OAKLAND);
+  const [region, setRegion] = useState('EAST_OAKLAND');
   const [loading, setLoading] = useLoading();
 
   const submitPhone = async (e) => {
@@ -39,8 +38,8 @@ const AddPhone = ({ addPhone }) => {
             value={region}
             onChange={(e) => setRegion(e.target.value)}
           >
-            <option value={REGIONS.EAST_OAKLAND}>East Oakland</option>
-            <option value={REGIONS.WEST_OAKLAND}>West Oakland</option>
+            <option value={'EAST_OAKLAND'}>East Oakland</option>
+            <option value={'WEST_OAKLAND'}>West Oakland</option>
           </select>
         </div>
         {loading ? <Loading /> : <input type="submit" value="Submit" />}
