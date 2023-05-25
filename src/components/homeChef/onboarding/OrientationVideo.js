@@ -2,13 +2,15 @@ import { Link } from 'react-router-dom';
 
 import './Orientation.css';
 
+const VIDEO_NAME = 'Orientation_05242023.mp4';
+
 const OrientationVideo = () => {
   return (
     <div>
       <h1>Watch the Recorded Home Chef Orientation</h1>
       <video controls className="orientation-video">
         <source
-          src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/CK_HomeChef_Orientation_02012023.mp4"
+          src={`https://storage.googleapis.com/coherent-vision-368820.appspot.com/${VIDEO_NAME}`}
           type="video/mp4"
         />
       </video>

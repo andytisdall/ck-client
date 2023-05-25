@@ -151,7 +151,7 @@ const homeChefRouter = {
       path: 'events',
       children: [
         {
-          path: 'feed-the-hood',
+          path: 'signup',
           element: renderWithFallback(<VolunteerEvent />),
           children: [
             { index: true, element: renderWithFallback(<JobList />) },

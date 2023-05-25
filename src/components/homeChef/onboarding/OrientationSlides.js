@@ -5,7 +5,7 @@ import './Orientation.css';
 const OrientationSlides = () => {
   const renderSlides = () => {
     const images = [];
-    for (let i = 1; i < 24; i++) {
+    for (let i = 1; i < 23; i++) {
       images.push(
         <img
           className="orientation-slides"

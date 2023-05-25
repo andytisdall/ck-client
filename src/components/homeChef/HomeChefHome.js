@@ -58,7 +58,7 @@ const HomeChefHome = ({ user, campaign }) => {
           <h3>Oakland's Community Health Fair</h3>
           <h4>Volunteer to Staff the Home Chef Booth</h4>
           <h4>June 3rd</h4>
-          <Link to="events/feed-the-hood" className="button">
+          <Link to="events/signup" className="button">
             Sign Up
           </Link>
         </div>
