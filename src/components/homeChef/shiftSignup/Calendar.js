@@ -15,18 +15,24 @@ const Calendar = ({ jobs, shifts }) => {
       return;
     }
     const orderedByDate = {};
-    Object.values(shifts).forEach((sh) => {
-      const formattedTime = moment(sh.startTime, 'YYYY-MM-DD').format(
-        'YYYY-MM-DD'
-      );
-      if (orderedByDate[formattedTime]) {
-        orderedByDate[formattedTime].push(sh);
-      } else {
-        orderedByDate[formattedTime] = [sh];
-      }
-    });
+    Object.values(shifts)
+      .filter((sh) => {
+        const jobIndex = jobs.findIndex((j) => j.id === sh.job);
+        const job = jobs[jobIndex];
+        return job?.ongoing && job.active;
+      })
+      .forEach((sh) => {
+        const formattedTime = moment(sh.startTime, 'YYYY-MM-DD').format(
+          'YYYY-MM-DD'
+        );
+        if (orderedByDate[formattedTime]) {
+          orderedByDate[formattedTime].push(sh);
+        } else {
+          orderedByDate[formattedTime] = [sh];
+        }
+      });
     return orderedByDate;
-  }, [shifts]);
+  }, [shifts, jobs]);
 
   const getDays = useCallback(() => {
     const days = [];
@@ -47,12 +53,12 @@ const Calendar = ({ jobs, shifts }) => {
         return <div key={i}></div>;
       }
       let dayShifts = [];
-      const ongoingJobs = jobs.filter((j) => j.ongoing);
+
       if (orderedShifts[d]) {
         dayShifts = orderedShifts[d].map((sh) => {
-          const jobIndex = ongoingJobs.findIndex((j) => j.id === sh.job);
-          const job = ongoingJobs[jobIndex];
-          const available = sh.open && job.active;
+          const jobIndex = jobs.findIndex((j) => j.id === sh.job);
+          const job = jobs[jobIndex];
+          const available = sh.open;
           const status = available ? '' : 'calendar-shift-disabled';
           const link = () => navigate('../shift/' + sh.id);
           return (
