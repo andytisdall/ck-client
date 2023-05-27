@@ -48,13 +48,15 @@ const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
           onChange={(e) => setUserId(e.target.value)}
         >
           <option value="">Select a User</option>
-          {users.map((u) => {
-            return (
-              <option value={u.id} key={u.id}>
-                {u.username}
-              </option>
-            );
-          })}
+          {users
+            .sort((a, b) => (a.username > b.username ? 1 : -1))
+            .map((u) => {
+              return (
+                <option value={u.id} key={u.id}>
+                  {u.username}
+                </option>
+              );
+            })}
         </select>
         <input type="submit" value="Submit" />
       </form>

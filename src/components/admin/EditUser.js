@@ -28,13 +28,15 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
   };
 
   const renderUsers = () => {
-    return Object.values(users).map((u) => {
-      return (
-        <option key={u.id} value={u.id}>
-          {u.username}
-        </option>
-      );
-    });
+    return Object.values(users)
+      .sort((a, b) => (a.username > b.username ? 1 : -1))
+      .map((u) => {
+        return (
+          <option key={u.id} value={u.id}>
+            {u.username}
+          </option>
+        );
+      });
   };
 
   const onUserSelect = (e) => {
