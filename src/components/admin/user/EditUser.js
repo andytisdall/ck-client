@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { editUser, setError, getAllUsers } from '../../actions';
+import { editUser, setError, getAllUsers } from '../../../actions';
 
 const EditUser = ({ setError, editUser, users, getAllUsers }) => {
   const [user, setUser] = useState('');

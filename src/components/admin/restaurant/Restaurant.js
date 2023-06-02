@@ -1,13 +1,13 @@
-import CreateUser from './CreateUser';
 import CreateRestaurant from './CreateRestaurant';
+import EditRestaurant from './EditRestauant';
 
-const Create = () => {
+const Restaurant = () => {
   return (
     <div className="create-main">
-      <CreateUser />
       <CreateRestaurant />
+      <EditRestaurant />
     </div>
   );
 };
 
-export default Create;
+export default Restaurant;

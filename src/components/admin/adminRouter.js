@@ -7,8 +7,8 @@ import './Admin.css';
 import renderWithFallback from '../reusable/renderWithFallback';
 
 const AdminHome = React.lazy(() => import('./AdminHome'));
-const Create = React.lazy(() => import('./Create'));
-const Edit = React.lazy(() => import('./Edit'));
+const Restaurant = React.lazy(() => import('./restaurant/Restaurant'));
+const User = React.lazy(() => import('./user/User'));
 
 const Admin = ({ user }) => {
   const renderForbidden = () => {
@@ -39,8 +39,8 @@ const adminRouter = {
       index: true,
       element: renderWithFallback(<AdminHome />),
     },
-    { path: 'create', element: renderWithFallback(<Create />) },
-    { path: 'edit', element: renderWithFallback(<Edit />) },
+    { path: 'user', element: renderWithFallback(<User />) },
+    { path: 'restaurant', element: renderWithFallback(<Restaurant />) },
   ],
 };
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { getAllUsers, createRestaurant } from '../../actions';
+import { getAllUsers, createRestaurant } from '../../../actions';
 
 const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
   const [name, setName] = useState('');

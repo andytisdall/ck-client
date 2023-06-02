@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { getAllUsers, editRestaurant, getAllRestaurants } from '../../actions';
+import {
+  getAllUsers,
+  editRestaurant,
+  getAllRestaurants,
+} from '../../../actions';
 
 const EditRestaurant = ({
   users,

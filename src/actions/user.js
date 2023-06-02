@@ -4,6 +4,7 @@ import {
   GET_ALL_USERS,
   CREATE_USER,
   EDIT_USER,
+  DELETE_USER,
   GET_USER_INFO,
 } from './types';
 import server from './api';
@@ -81,5 +82,10 @@ export const editUser =
     });
     dispatch({ type: EDIT_USER, payload: res.data });
     dispatch(setAlert('User Modified!'));
-    router.navigate('/');
+    router.navigate('/admin');
   };
+
+export const deleteUser = (userId) => async (dispatch) => {
+  await server.delete('/user/' + userId);
+  dispatch({ type: DELETE_USER, payload: userId });
+};

@@ -6,6 +6,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   EDIT_USER,
+  DELETE_USER,
   GET_USER_INFO,
 } from '../actions/types';
 
@@ -37,6 +38,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
         user,
         users: { ...state.users, [action.payload.id]: action.payload },
       };
+    case DELETE_USER:
+      const users = { ...state.users };
+      delete users[action.payload];
+      return { ...state, users };
     case GET_USER_INFO:
       if (!state.user) {
         return state;
