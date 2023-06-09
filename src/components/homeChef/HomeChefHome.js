@@ -8,6 +8,8 @@ import renderWithFallback from '../reusable/renderWithFallback';
 
 const FridgeMap = React.lazy(() => import('./fridgeMap/FridgeMap'));
 
+const SHOW_EVENT = false;
+
 const shiftSignupDescription =
   'See availability for town fridges and sign up to make a delivery';
 const chefDescription =
@@ -50,10 +52,9 @@ const HomeChefHome = ({ user, campaign }) => {
     }
   };
 
-  return (
-    <div className="hc-home">
-      <div>
-        {renderStatus()}
+  const renderEvent = () => {
+    if (SHOW_EVENT) {
+      return (
         <div className="hc-events">
           <h3>Oakland's Community Health Fair</h3>
           <h4>Volunteer to Staff the Home Chef Booth</h4>
@@ -62,6 +63,15 @@ const HomeChefHome = ({ user, campaign }) => {
             Sign Up
           </Link>
         </div>
+      );
+    }
+  };
+
+  return (
+    <div className="hc-home">
+      <div>
+        {renderStatus()}
+        {renderEvent()}
         <TextButton
           to="signup/list"
           buttonText="Sign Up to Stock a Town Fridge"

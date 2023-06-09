@@ -70,6 +70,7 @@ export const createUser =
     });
     dispatch({ type: CREATE_USER, payload: res.data });
     dispatch(setAlert('User Created'));
+    router.navigate('/admin');
   };
 
 export const editUser =
@@ -88,4 +89,6 @@ export const editUser =
 export const deleteUser = (userId) => async (dispatch) => {
   await server.delete('/user/' + userId);
   dispatch({ type: DELETE_USER, payload: userId });
+  dispatch(setAlert('User Deleted!'));
+  router.navigate('/admin');
 };

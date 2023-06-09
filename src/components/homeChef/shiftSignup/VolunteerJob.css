@@ -63,9 +63,10 @@
 }
 
 .job-name-inactive {
-  margin-left: 3rem;
+  margin-left: 3.5rem;
   color: rgb(69, 69, 69);
   font-style: italic;
+  cursor: auto;
 }
 
 .job-disabled {

@@ -48,7 +48,7 @@ const SendText = ({ sendText, townFridges }) => {
       `${date} ${time}`
     ).format(
       'M/D [at] h:mm a'
-    )}, made with love by ${source}! The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
+    )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
 
   const getRegion = () => {
     const { region } = townFridges[fridge];
