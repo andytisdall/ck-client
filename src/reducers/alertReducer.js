@@ -1,4 +1,4 @@
-import { ALERT, CLEAR_MESSAGES } from '../actions/types';
+import { ALERT, CLEAR_MESSAGES, ERROR } from '../actions/types';
 
 const INITIAL_STATE = {
   message: null,
@@ -9,6 +9,8 @@ const alertReducer = (state = INITIAL_STATE, action) => {
     case ALERT:
       return { message: action.payload };
     case CLEAR_MESSAGES:
+      return INITIAL_STATE;
+    case ERROR:
       return INITIAL_STATE;
     default:
       return state;

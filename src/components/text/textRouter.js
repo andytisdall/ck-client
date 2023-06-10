@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 import renderWithFallback from '../reusable/renderWithFallback';
 import './TextHome.css';
 
-const AddPhone = React.lazy(() => import('./AddPhone'));
+const Phone = React.lazy(() => import('./Phone'));
 const TextHome = React.lazy(() => import('./TextHome'));
 const SendText = React.lazy(() => import('./SendText'));
 const TextSuccess = React.lazy(() => import('./TextSuccess'));
@@ -45,8 +45,8 @@ const textRouter = {
   children: [
     { index: true, element: renderWithFallback(<TextHome />) },
     {
-      path: 'add-phone',
-      element: renderWithFallback(<AddPhone />),
+      path: 'phone',
+      element: renderWithFallback(<Phone />),
     },
     { path: 'send-text', element: renderWithFallback(<SendText />) },
     { path: 'send-custom-text', element: renderWithFallback(<CustomText />) },

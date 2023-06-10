@@ -5,11 +5,14 @@ import {
   EDIT_FEEDBACK,
   DELETE_FEEDBACK,
   SEND_TEXT,
+  GET_PHONE_NUMBER,
+  CLEAR_NUMBER,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   feedback: null,
   sent: null,
+  number: null,
 };
 
 const textReducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +37,10 @@ const textReducer = (state = INITIAL_STATE, action) => {
       const { feedback } = state;
       delete feedback[action.payload];
       return { ...state, feedback: { ...feedback } };
+    case GET_PHONE_NUMBER:
+      return { ...state, number: action.payload };
+    case CLEAR_NUMBER:
+      return { ...state, number: null };
     default:
       return state;
   }

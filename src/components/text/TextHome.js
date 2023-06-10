@@ -4,7 +4,8 @@ const textAlertDescription =
   "Send out a text message to one of the subscriber lists, using a pre-written template, to let people know there's been a food dropoff at a town fridge.";
 const customAlertDescription =
   'Send a text message to one of the lists or an individual phone number, not using a template.';
-const addNumberDescription = 'Add a number to one of the subscriber lists';
+const addNumberDescription =
+  'Add a number to one of the subscriber lists, or delete the number from the lists.';
 const feedbackDescription =
   'See the messages that people text back to our alert numbers.';
 
@@ -22,9 +23,9 @@ const TextHome = () => {
         to="send-custom-text"
       />
       <TextButton
-        buttonText="Add a Phone Number"
+        buttonText="Add or Remove a Phone Number"
         descriptionText={addNumberDescription}
-        to="add-phone"
+        to="phone"
       />
       <TextButton
         buttonText="Review Feedback"

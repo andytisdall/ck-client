@@ -1,0 +1,29 @@
+.phone {
+  width: fit-content;
+
+}
+
+.phone-form {
+  margin-left: 2rem;
+}
+
+.phone-item {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px  solid;
+}
+
+.phone-item button, .phone-item input[type=submit] {
+  color: black;
+}
+
+.add-phone {
+  color: rgb(0, 247, 255);
+}
+
+.delete-phone {
+  color: rgb(255, 123, 123);
+}
+
+
+

@@ -1,17 +1,33 @@
 import { setAlert } from './alert';
 import {
   SEND_TEXT,
+  GET_PHONE_NUMBER,
   GET_FEEDBACK,
   EDIT_FEEDBACK,
   DELETE_FEEDBACK,
+  CLEAR_NUMBER,
 } from './types';
 import server from './api';
 import { router } from '../App';
 
 export const addPhone = (phone, region) => async (dispatch) => {
-  await server.post('/text/addphone', { phone, region });
+  await server.post('/text/phone', { phone, region });
   dispatch(setAlert('Phone Number Added'));
-  router.navigate('..');
+};
+
+export const getPhoneNumber = (number) => async (dispatch) => {
+  const { data } = await server.get('/text/phone/' + number);
+  dispatch({ type: GET_PHONE_NUMBER, payload: data });
+};
+
+export const deletePhone = (number) => async (dispatch) => {
+  await server.delete('/text/phone/' + number);
+  dispatch(clearNumber());
+  dispatch(setAlert('Phone Number Deleted'));
+};
+
+export const clearNumber = () => {
+  return { type: CLEAR_NUMBER };
 };
 
 export const sendText =
