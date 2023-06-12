@@ -14,7 +14,7 @@ const TextPreview = ({
   const [image, setImage] = useState(photo);
 
   useEffect(() => {
-    if (photo?.name.toLowerCase().includes('.heic')) {
+    if (photo?.name?.toLowerCase().includes('.heic')) {
       setImage(null);
       const convert = async () => {
         const pic = await heic2any({
@@ -28,18 +28,19 @@ const TextPreview = ({
     }
   }, [photo]);
 
+  const getSrc = () => {
+    if (photo?.name) {
+      return URL.createObjectURL(image);
+    }
+    return photo;
+  };
+
   return (
     <div>
       <h3>Confirm Your Message:</h3>
       <div className="text-preview">{message}</div>
       {photo && !image && <Loading />}
-      {image && (
-        <img
-          className="photo-preview"
-          src={URL.createObjectURL(image)}
-          alt="preview"
-        />
-      )}
+      {image && <img className="photo-preview" src={getSrc()} alt="preview" />}
 
       <div>
         <p>To: {region || number}</p>

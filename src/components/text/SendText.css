@@ -33,9 +33,16 @@
 
 
 .send-text-variables-item {
+  margin-left: 1rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid white;
+} 
+
+.send-text-variables-item label {
+  margin-left: -1rem;
 }
 
 .send-text-variables-radio {
@@ -57,10 +64,13 @@
 }
 
 .fridge-info {
-  margin-left: 1.5rem;
-  margin-right: .5rem;
+  margin-right: 4rem;
+}
+
+.fridge-info-label {
   color: yellow;
   font-weight: 600;
+  margin-bottom: .5rem;
 }
 
 
@@ -78,5 +88,41 @@
 }
 
 .send-text-time {
-min-width: 120px;
+  min-width: 120px;
 }
+
+.send-text-photo-field {
+  width: 17rem;
+}
+
+.send-text-photo-field-container {
+display: flex;
+align-items: center;
+margin-top: 1rem;
+margin-left: 2rem;
+}
+
+.send-text-photo-field-clear {
+  color: red;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.send-text-photo-field-or {
+  margin-top: .5rem;
+margin-left: 4rem;}
+
+.send-text-photo-field-error {
+  border: 3px rgba(241, 78, 78, 0.721) solid;
+}
+
+.send-text-photo-error {
+  background-color: rgba(241, 78, 78, 0.721);
+  padding: 1rem;
+}
+
+.send-text-small-photo img {
+  max-width: 17rem;
+  display: block;
+  width: '100%'
+  }

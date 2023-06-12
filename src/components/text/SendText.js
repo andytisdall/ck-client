@@ -6,8 +6,8 @@ import * as actions from '../../actions';
 import renderWithFallback from '../reusable/renderWithFallback';
 import './SendText.css';
 import Loading from '../reusable/Loading';
-import FileInput from '../reusable/FileInput';
 import useLoading from '../../hooks/useLoading';
+import FileInput from '../reusable/FileInput';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 
@@ -17,8 +17,9 @@ const SendText = ({ sendText, townFridges }) => {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const [time, setTime] = useState(moment().format('HH:mm'));
   const [source, setSource] = useState('CK Home Chef Volunteers');
+  const [imageError, setImageError] = useState(false);
   const [name, setName] = useState('');
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState('');
   const [dietary, setDietary] = useState('');
   const [preview, setPreview] = useState(false);
 
@@ -60,9 +61,39 @@ const SendText = ({ sendText, townFridges }) => {
     }
   };
 
+  const renderPhoto = () => {
+    if (imageError) {
+      return (
+        <div className="send-text-small-photo">
+          <div className="send-text-photo-error">
+            Photo URL is not a valid image
+          </div>
+        </div>
+      );
+    }
+    if (photo) {
+      let src = photo;
+      if (photo.name) {
+        src = URL.createObjectURL(photo);
+      }
+      return (
+        <div className="send-text-small-photo">
+          <img onError={() => setImageError(true)} src={src} alt="meal" />
+        </div>
+      );
+    }
+  };
+
   const composeText = () => {
     const btnActive =
-      fridge && date && message && time && source && name && mealCount > 0;
+      fridge &&
+      date &&
+      message &&
+      time &&
+      source &&
+      name &&
+      mealCount > 0 &&
+      !(photo && imageError);
 
     return (
       <div className="send-text">
@@ -88,6 +119,38 @@ const SendText = ({ sendText, townFridges }) => {
               onChange={(e) => setTime(e.target.value)}
               value={time}
             />
+          </div>
+
+          <div className="send-text-variables-item">
+            <label htmlFor="fridge">Town Fridge Location:</label>
+            <select
+              required
+              name="fridge"
+              value={fridge}
+              onChange={(e) => setFridge(e.target.value)}
+            >
+              <option value="">Select a Town Fridge</option>
+              {townFridges.map((f, i) => (
+                <option value={i} key={f.name}>
+                  {f.name}
+                </option>
+              ))}
+            </select>
+            <div className="fridge">
+              {fridge && (
+                <div className="fridge-info">
+                  <div className="fridge-info-label">Address: </div>
+                  {townFridges[fridge].address}
+                </div>
+              )}
+
+              {fridge && (
+                <div className="fridge-info">
+                  <div className="fridge-info-label">Region: </div>
+                  {getRegion()}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="send-text-variables-item">
@@ -129,46 +192,41 @@ const SendText = ({ sendText, townFridges }) => {
           </div>
 
           <div className="send-text-variables-item">
-            <label htmlFor="fridge">Town Fridge Location:</label>
-            <div className="fridge">
-              <select
-                required
-                name="fridge"
-                value={fridge}
-                onChange={(e) => setFridge(e.target.value)}
-              >
-                <option value="">Select a Town Fridge</option>
-                {townFridges.map((f, i) => (
-                  <option value={i} key={f.name}>
-                    {f.name}
-                  </option>
-                ))}
-              </select>
-
-              {fridge && (
-                <div>
-                  <span className="fridge-info">Address: </span>
-                  {townFridges[fridge].address}
-                </div>
-              )}
-
-              {fridge && (
-                <div>
-                  <span className="fridge-info">Region: </span>
-                  {getRegion()}
+            <label>Photo (Optional):</label>
+            <div className="send-text-photo-field-container">
+              <FileInput
+                file={photo?.name ? photo : null}
+                setFile={setPhoto}
+                label="Upload Photo:"
+              />
+            </div>
+            <div className="send-text-photo-field-or">Or</div>
+            <div className="send-text-photo-field-container">
+              <label>Paste Photo URL:</label>
+              <input
+                className={`send-text-photo-field ${
+                  imageError && 'send-text-photo-field-error'
+                }`}
+                value={!photo ? '' : photo.name ? '' : photo}
+                onChange={(e) => {
+                  setImageError(false);
+                  setPhoto(e.target.value);
+                }}
+              />
+              {!!photo && !photo.name && (
+                <div
+                  className="send-text-photo-field-clear"
+                  onClick={() => {
+                    setPhoto('');
+                    setImageError(false);
+                  }}
+                >
+                  X
                 </div>
               )}
             </div>
           </div>
-
-          <div className="send-text-variables-item">
-            <FileInput
-              file={photo}
-              setFile={setPhoto}
-              label="Photo (optional):"
-            />
-          </div>
-
+          {renderPhoto()}
           <button
             className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
             onClick={() => {
