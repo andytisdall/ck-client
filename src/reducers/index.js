@@ -10,6 +10,7 @@ import formsReducer from './formReducer';
 import textReducer from './textReducer';
 import fileReducer from './fileReducer';
 import eventReducer from './eventReducer';
+import mealProgramReducer from './mealProgramReducer';
 
 const appReducer = combineReducers({
   user: userReducer,
@@ -22,6 +23,7 @@ const appReducer = combineReducers({
   text: textReducer,
   files: fileReducer,
   event: eventReducer,
+  mealProgram: mealProgramReducer,
 });
 
 export default appReducer;

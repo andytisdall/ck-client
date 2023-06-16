@@ -3,7 +3,6 @@
   grid-template-columns: repeat(7, 13vw);
   grid-auto-rows: minmax(12rem, max-content);
   min-width: fit-content;
-  border-collapse: collapse;
 }
 
 .calendar-days {
