@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import server from './api';
 import { setAlert } from './alert';
 import { getUserInfo } from './user';
@@ -9,21 +11,29 @@ export const uploadFiles =
   (form, accountType, expiration) => async (dispatch) => {
     dispatch({ type: UPLOAD_IN_PROGRESS });
     const postBody = new FormData();
+    console.log(expiration);
     Array.from(form.elements).forEach((input) => {
-      if (input.files?.length) {
-        postBody.append(input.name, input.files[0]);
-        if (input.name === 'HD') {
-          if (!expiration) {
-            throw Error(
-              'Health Department Permit and Expiration Date must be updated at the same time'
-            );
-          }
-          postBody.append('expiration', expiration);
+      if (input.name === 'HD') {
+        if (
+          (input.files?.length && !expiration) ||
+          (expiration && !input.files?.length)
+        ) {
+          throw Error(
+            'Health Department Permit and Expiration Date must be updated at the same time'
+          );
+        }
+        if (moment(expiration).format() < moment().format()) {
+          throw Error(
+            'Health Department Permit Expiration Date Must Be in the Future'
+          );
         }
       }
+      if (input.files?.length) {
+        postBody.append(input.name, input.files[0]);
+      }
     });
+    postBody.append('expiration', expiration);
     postBody.append('accountType', accountType);
-
     const res = await server.post('/files', postBody, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

@@ -40,23 +40,38 @@ const UploadDocuments = ({ uploadFiles, restaurant }) => {
 
   const calendarStyle = expirationDate ? 'field-completed' : '';
 
+  const expirationStyle = restaurant.healthPermitExpired
+    ? 'outstanding'
+    : 'completed';
+
+  const expirationMessage = restaurant.healthPermitExpired
+    ? 'Your health department permit is expired'
+    : 'Your health department permit is valid';
+
   return (
     <div>
       <h3>Upload Your Required Onboarding Documents</h3>
       <form onSubmit={handleSubmit}>
         <div className="file-form">
           {renderUploadForms()}
-          <div className={`file-upload ${calendarStyle}`}>
-            <label htmlFor="expiration">
-              Health Department Permit Expiration Date
-            </label>
-            <input
-              type="date"
-              name="expiration"
-              className="date-picker"
-              value={expirationDate}
-              onChange={(e) => setExpirationDate(e.target.value)}
-            />
+          <div className="meal-file-row">
+            <div className="meal-file-upload">
+              <div className={`file-upload ${calendarStyle}`}>
+                <label htmlFor="expiration">
+                  Health Department Permit Expiration Date
+                </label>
+                <input
+                  type="date"
+                  name="expiration"
+                  className="date-picker"
+                  value={expirationDate}
+                  onChange={(e) => setExpirationDate(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className={`meal-file-info ${expirationStyle}`}>
+              {expirationMessage}
+            </div>
           </div>
         </div>
         {loading ? (

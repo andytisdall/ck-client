@@ -10,7 +10,7 @@ const VolunteerJobsList = ({ jobs }) => {
     }
     return jobs
       .filter((job) => job.ongoing)
-      .sort((a) => (a.active ? 1 : -1))
+      .sort((a) => (a.active ? -1 : 1))
       .map((job) => {
         return <VolunteerJob job={job} key={job.id} />;
       });
