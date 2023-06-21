@@ -32,7 +32,7 @@ const ShiftSignup = React.lazy(() => import('./shiftSignup/ShiftSignup'));
 const VolunteerJobsList = React.lazy(() =>
   import('./shiftSignup/VolunteerJobsList')
 );
-const Calendar = React.lazy(() => import('./shiftSignup/Calendar'));
+const Calendar = React.lazy(() => import('./shiftSignup/HomeChefCalendar'));
 const VJobSingle = React.lazy(() => import('./shiftSignup/VJobSingle'));
 const ShiftDetail = React.lazy(() => import('./shiftSignup/ShiftDetail'));
 const ChefShifts = React.lazy(() => import('./chef/ChefShifts'));

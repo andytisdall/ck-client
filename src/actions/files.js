@@ -32,7 +32,9 @@ export const uploadFiles =
         postBody.append(input.name, input.files[0]);
       }
     });
-    postBody.append('expiration', expiration);
+    if (expiration) {
+      postBody.append('expiration', expiration);
+    }
     postBody.append('accountType', accountType);
     const res = await server.post('/files', postBody, {
       headers: { 'Content-Type': 'multipart/form-data' },

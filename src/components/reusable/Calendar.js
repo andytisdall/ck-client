@@ -1,38 +1,10 @@
-import { connect } from 'react-redux';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
 
 import './Calendar.css';
-import Loading from '../../reusable/Loading';
 
-const Calendar = ({ jobs, shifts }) => {
+const Calendar = ({ renderItems }) => {
   const [month, setMonth] = useState(moment());
-  const navigate = useNavigate();
-
-  const orderedShifts = useMemo(() => {
-    if (!shifts) {
-      return;
-    }
-    const orderedByDate = {};
-    Object.values(shifts)
-      .filter((sh) => {
-        const jobIndex = jobs.findIndex((j) => j.id === sh.job);
-        const job = jobs[jobIndex];
-        return job?.ongoing && job.active;
-      })
-      .forEach((sh) => {
-        const formattedTime = moment(sh.startTime, 'YYYY-MM-DD').format(
-          'YYYY-MM-DD'
-        );
-        if (orderedByDate[formattedTime]) {
-          orderedByDate[formattedTime].push(sh);
-        } else {
-          orderedByDate[formattedTime] = [sh];
-        }
-      });
-    return orderedByDate;
-  }, [shifts, jobs]);
 
   const getDays = useCallback(() => {
     const days = [];
@@ -52,36 +24,18 @@ const Calendar = ({ jobs, shifts }) => {
       if (!d) {
         return <div key={i}></div>;
       }
-      let dayShifts = [];
+      const items = renderItems(d);
 
-      if (orderedShifts[d]) {
-        dayShifts = orderedShifts[d].map((sh) => {
-          const jobIndex = jobs.findIndex((j) => j.id === sh.job);
-          const job = jobs[jobIndex];
-          const available = sh.open;
-          const status = available ? '' : 'calendar-shift-disabled';
-          const link = () => navigate('../shift/' + sh.id);
-          return (
-            <div
-              key={sh.id}
-              className={`calendar-item calendar-job-${jobIndex} ${status}`}
-              onClick={() => available && link()}
-            >
-              {job.name}
-            </div>
-          );
-        });
-      }
       return (
         <div className="calendar-date" key={d}>
           <div className="calendar-date-number">
             {moment(d, 'YYYY-MM-DD').format('D')}
           </div>
-          <div className="calendar-date-body">{dayShifts}</div>
+          <div className="calendar-date-body">{items}</div>
         </div>
       );
     });
-  }, [month, jobs, orderedShifts, navigate]);
+  }, [month, renderItems]);
 
   const calendar = () => {
     return (
@@ -99,10 +53,6 @@ const Calendar = ({ jobs, shifts }) => {
       </>
     );
   };
-
-  if (!jobs || !shifts) {
-    return <Loading />;
-  }
 
   return (
     <div>
@@ -144,11 +94,4 @@ const Calendar = ({ jobs, shifts }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    jobs: state.homeChef.jobs,
-    shifts: state.homeChef.shifts,
-  };
-};
-
-export default connect(mapStateToProps)(Calendar);
+export default Calendar;

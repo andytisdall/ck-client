@@ -24,13 +24,7 @@ const restaurantReducer = (state = INITIAL_STATE, action) => {
       };
     case FETCH_MEAL_PROGRAM_INFO:
       return {
-        restaurants: {
-          ...state.restaurants,
-          [action.payload.id]: {
-            ...state.restaurants[action.payload.id],
-            ...action.payload,
-          },
-        },
+        ...state,
         restaurant: { ...state.restaurant, ...action.payload },
       };
     case FETCH_ALL_RESTAURANTS:

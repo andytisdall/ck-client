@@ -85,82 +85,79 @@
 }
 
 
-
-.calendar-job-0 {
+.calendar-color-0 {
   background-color: rgb(193, 255, 193);
 }
 
-.calendar-job-0:hover {
+.calendar-color-0:hover {
   background-color: rgb(157, 225, 157);
 }
 
-.calendar-job-1 {
+.calendar-color-1 {
   background-color: rgb(255, 197, 255);
 }
 
-.calendar-job-1:hover {
+.calendar-color-1:hover {
   background-color: rgb(255, 230, 255);
 }
 
-.calendar-job-2 {
+.calendar-color-2 {
   background-color: rgb(193, 199, 255);
 }
 
-.calendar-job-2:hover {
+.calendar-color-2:hover {
   background-color: rgb(159, 157, 225);
 }
 
-.calendar-job-3 {
+.calendar-color-3 {
   background-color: rgb(255, 212, 197);
 }
 
-.calendar-job-3:hover {
+.calendar-color-3:hover {
   background-color: rgb(255, 238, 230);
 }
 
-.calendar-job-4 {
+.calendar-color-4 {
   background-color: rgb(248, 255, 193);
 }
 
-.calendar-job-4:hover {
+.calendar-color-4:hover {
   background-color: rgb(225, 219, 157);
 }
 
-.calendar-job-5 {
+.calendar-color-5 {
   background-color: rgb(245, 137, 255);
 }
 
-.calendar-job-5:hover {
+.calendar-color-5:hover {
   background-color: rgb(255, 230, 234);
 }
 
-.calendar-job-6 {
+.calendar-color-6 {
   background-color: rgb(34, 255, 222);
 }
 
-.calendar-job-6:hover {
+.calendar-color-6:hover {
   background-color: rgb(175, 252, 240);
 }
 
-.calendar-job-7 {
+.calendar-color-7 {
   background-color: rgb(255, 197, 255);
 }
 
-.calendar-job-7:hover {
+.calendar-color-7:hover {
   background-color: rgb(255, 230, 255);
 }
 
-.calendar-job-8 {
+.calendar-color-8 {
   background-color: rgb(193, 199, 255);
 }
 
-.calendar-job-8:hover {
+.calendar-color-8:hover {
   background-color: rgb(159, 157, 225);
 }
 
-.calendar-job-3 {
-  background-color: rgb(255, 212, 197);
-}
+
 
 .calendar-set-current {
   font-size: 12px;
@@ -173,4 +170,8 @@
 
 .calendar-shift-disabled:hover {
   background-color: rgb(202, 202, 202);
+}
+
+.calendar-meal-program-text {
+  font-size: 1.3vw;
 }
