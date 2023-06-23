@@ -25,7 +25,7 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
 
   const onSubmit = () => {
     setLoading(true);
-    editHours(id, mealCount, cancel, hour.status === 'Completed');
+    editHours(id, mealCount, cancel);
   };
 
   if (!hours) {

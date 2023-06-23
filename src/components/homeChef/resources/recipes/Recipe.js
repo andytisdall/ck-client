@@ -98,11 +98,7 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
     if (recipe.image) {
       return (
         <div className="recipe-photo">
-          <img
-            src={`${IMAGE_URL}${recipe.image}`}
-            alt={recipe.name}
-            className="recipe-img"
-          />
+          <img src={recipe.image} alt={recipe.name} className="recipe-img" />
         </div>
       );
     }

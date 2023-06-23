@@ -36,17 +36,25 @@ export const campaign = {
   mealsDonated: 100,
 };
 
-const job1 = {
+export const job1 = {
   id: '7777',
   name: 'City Slicker Farms',
-  shifts: ['1111'],
+  shifts: ['1111', '2222'],
   active: true,
   location: 'Location',
+  ongoing: true,
 };
 
-const shift1 = {
+export const shift1 = {
   id: job1.shifts[0],
   startTime: moment().add(1, 'day').format(),
+  open: true,
+  job: job1.id,
+};
+
+export const shift2 = {
+  id: job1.shifts[1],
+  startTime: moment().add(2, 'day').format(),
   open: true,
   job: job1.id,
 };
@@ -60,4 +68,13 @@ export const hours1 = {
   shift: shift1.id,
 };
 
-export const jobs = { jobs: [job1], shifts: [shift1] };
+export const hours2 = {
+  id: '7tt7999',
+  mealCount: '30',
+  time: shift2.startTime,
+  job: job1.id,
+  status: 'Confirmed',
+  shift: shift2.id,
+};
+
+export const jobs = { jobs: [job1], shifts: [shift1, shift2] };

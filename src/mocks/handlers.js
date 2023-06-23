@@ -26,4 +26,7 @@ export const handlers = [
   rest.get(BASE + '/api/home-chef/hours', (req, res, ctx) => {
     return res(ctx.json([data.hours1]));
   }),
+  rest.post(BASE + '/api/home-chef/hours', (req, res, ctx) => {
+    return res(ctx.json(data.hours2));
+  }),
 ];

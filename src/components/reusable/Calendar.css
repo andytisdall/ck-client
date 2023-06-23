@@ -157,6 +157,22 @@
   background-color: rgb(159, 157, 225);
 }
 
+.calendar-color-9 {
+  background-color: rgb(237, 121, 67);
+}
+
+.calendar-color-9:hover {
+  background-color: rgb(250, 195, 170);
+}
+
+.calendar-color-10 {
+  background-color: rgb(244, 80, 208);
+}
+
+.calendar-color-10:hover {
+  background-color: rgb(249, 174, 233);
+}
+
 
 
 .calendar-set-current {

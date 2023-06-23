@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import moment from 'moment';
 
 import App from '../../../App';
-import { user1 } from '../../../mocks/data';
+import { user1, job1, shift1, hours1, hours2 } from '../../../mocks/data';
 import { getWrapper } from '../../../setupTests';
 
 const adminSignedInState = {
@@ -35,4 +36,51 @@ test('see chef shifts', async () => {
     name: 'Upcoming Deliveries',
   });
   expect(upcomingShifts).toBeDefined();
+
+  const hours = screen.getByText(moment(hours1.time).format('ddd, M/D/YY'));
+  expect(hours).toBeDefined();
+});
+
+test('sign up with list view', async () => {
+  const wrapper = getWrapper(adminSignedInState);
+  render(<App />, { wrapper });
+  const homeChefHome = screen.getByAltText('home chef header');
+  userEvent.click(homeChefHome);
+  const signupLink = await screen.findByText('Sign Up to Stock a Town Fridge');
+  userEvent.click(signupLink);
+
+  // list view
+
+  const jobTitle = await screen.findByText(job1.name);
+  userEvent.click(jobTitle);
+  const shiftDate = await screen.findByText(
+    moment(shift1.startTime).format('M/D/YY')
+  );
+  expect(shiftDate).toBeDefined();
+
+  const signupBtn = screen.getAllByRole('button', { name: 'Sign Up' });
+  userEvent.click(signupBtn[1]);
+
+  // sign up screen
+
+  const mealInput = await screen.findByLabelText(
+    'Number of Meals You Plan to Deliver:'
+  );
+
+  userEvent.type(mealInput, '30');
+
+  const submitBtn = await screen.findByText('Submit');
+  userEvent.click(submitBtn);
+
+  // confirmation screen
+
+  const date = await screen.findByText(
+    moment(hours2.time).format('dddd, M/D/yy')
+  );
+  expect(date).toBeDefined();
+
+  const chefLink = screen.getByRole('button', {
+    name: 'See your future and past shifts',
+  });
+  userEvent.click(chefLink);
 });

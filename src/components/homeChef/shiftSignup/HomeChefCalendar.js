@@ -64,7 +64,7 @@ const HomeChefCalendar = ({ jobs, shifts }) => {
     return <Loading />;
   }
 
-  return <Calendar getCalendarItems={getShifts} />;
+  return <Calendar renderItems={getShifts} />;
 };
 
 const mapStateToProps = (state) => {
