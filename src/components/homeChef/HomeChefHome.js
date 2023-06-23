@@ -8,8 +8,6 @@ import renderWithFallback from '../reusable/renderWithFallback';
 
 const FridgeMap = React.lazy(() => import('./fridgeMap/FridgeMap'));
 
-const SHOW_EVENT = false;
-
 const shiftSignupDescription =
   'See availability for town fridges and sign up to make a delivery';
 const chefDescription =
@@ -21,7 +19,7 @@ const onboardingDescription =
 const emailDescription =
   'Let your friends know about CK Home Chef and invite them to cook for town fridges';
 
-const HomeChefHome = ({ user, campaign }) => {
+const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
   const renderStatus = () => {
     if (user.homeChefStatus === 'Active') {
       return (
@@ -53,17 +51,18 @@ const HomeChefHome = ({ user, campaign }) => {
   };
 
   const renderEvent = () => {
-    if (SHOW_EVENT) {
-      return (
-        <div className="hc-events">
-          <h3>Oakland's Community Health Fair</h3>
-          <h4>Volunteer to Staff the Home Chef Booth</h4>
-          <h4>June 3rd</h4>
-          <Link to="events/signup" className="button">
-            Sign Up
-          </Link>
-        </div>
-      );
+    if (eventCampaigns?.length) {
+      return eventCampaigns.map((cam) => {
+        return (
+          <div className="hc-events" key={cam.id}>
+            <h3>{cam.name}</h3>
+            <h4>{cam.date}</h4>
+            <Link to={'events/signup/' + cam.id} className="button">
+              Sign Up
+            </Link>
+          </div>
+        );
+      });
     }
   };
 
@@ -114,7 +113,11 @@ const HomeChefHome = ({ user, campaign }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.user.user, campaign: state.homeChef.campaign };
+  return {
+    user: state.user.user,
+    campaign: state.homeChef.campaign,
+    eventCampaigns: state.event.campaigns,
+  };
 };
 
 export default connect(mapStateToProps)(HomeChefHome);

@@ -1,19 +1,22 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import * as actions from '../../../actions';
 import './VolunteerEvent.css';
+import Loading from '../../reusable/Loading';
 
-const VolunteerEvent = ({ getEventShifts, hours, getEventHours }) => {
+const VolunteerEvent = ({ hours, getEventHours, campaigns }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getEventShifts();
-    getEventHours();
-  }, [getEventShifts, getEventHours]);
+    getEventHours(id);
+  }, [getEventHours, id]);
 
-  const hoursList = hours ? Object.values(hours) : null;
+  const hoursList = hours
+    ? Object.values(hours).filter((hour) => hour.campaign === id)
+    : null;
   const hour = hoursList?.length ? hoursList[0] : null;
 
   useEffect(() => {
@@ -22,18 +25,16 @@ const VolunteerEvent = ({ getEventShifts, hours, getEventHours }) => {
     }
   }, [navigate, hour]);
 
+  const campaign = campaigns?.find((c) => c.id === id);
+
+  if (!campaign) {
+    return <Loading />;
+  }
+
   return (
     <div>
-      <h1>OAK Community Health Fair</h1>
-      <p>
-        Join us at the City of Oakland's Community Health Fair on Saturday, June
-        3rd, for an engaging and informative event that aims to raise awareness
-        about the dangers of consuming Sugar-Sweetened Beverages (SSBs) and
-        celebrate the impact of SSB Community Grants. As a SSB grant recipient,
-        Community Kitchens will have an information booth to share about the CK
-        Home Chef program and town fridge meals. Share your volunteer experience
-        and tell others about our program!
-      </p>
+      <h1>{campaign.name}</h1>
+      <p>{campaign.description}</p>
       <h4>Sign Up for a Job</h4>
       <Outlet />
     </div>
@@ -41,7 +42,7 @@ const VolunteerEvent = ({ getEventShifts, hours, getEventHours }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { hours: state.event.hours };
+  return { hours: state.event.hours, campaigns: state.event.campaigns };
 };
 
 export default connect(mapStateToProps, actions)(VolunteerEvent);

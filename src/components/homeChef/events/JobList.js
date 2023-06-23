@@ -1,17 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { useMemo } from 'react';
 
 import Loading from '../../reusable/Loading';
 
 const JobList = ({ jobs, shifts }) => {
+  const { id } = useParams();
+
+  const jobList = useMemo(
+    () => jobs?.filter((j) => j.campaign === id),
+    [id, jobs]
+  );
+
   if (!jobs || !shifts) {
     return <Loading />;
   }
 
   return (
     <div>
-      {jobs.map((j) => {
+      {jobList.map((j) => {
         return j.shifts.map((id) => {
           const shift = shifts[id];
           if (shift.open) {

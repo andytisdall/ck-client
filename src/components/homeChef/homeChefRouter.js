@@ -62,16 +62,23 @@ const EventShiftConfirmation = React.lazy(() =>
   import('./events/Confirmation')
 );
 
-const HomeChef = ({ user, getUserInfo, error, getCampaign }) => {
+const HomeChef = ({
+  user,
+  getUserInfo,
+  error,
+  getCampaign,
+  getEventCampaigns,
+}) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user && !user.firstName) {
       getUserInfo();
       getCampaign();
+      getEventCampaigns();
       setLoading(true);
     }
-  }, [getUserInfo, user, getCampaign]);
+  }, [getUserInfo, user, getCampaign, getEventCampaigns]);
 
   useEffect(() => {
     if (user?.firstName || error) {
@@ -151,7 +158,7 @@ const homeChefRouter = {
       path: 'events',
       children: [
         {
-          path: 'signup',
+          path: 'signup/:id',
           element: renderWithFallback(<VolunteerEvent />),
           children: [
             { index: true, element: renderWithFallback(<JobList />) },
