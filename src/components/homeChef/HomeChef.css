@@ -103,6 +103,7 @@
   flex-direction: column;
   align-items: center;
   background-color: rgba(235, 171, 34, 0.854);
+  margin-bottom: 1.2rem;
 }
 
 .hc-events h4 {

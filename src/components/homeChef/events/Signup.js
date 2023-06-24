@@ -38,6 +38,9 @@ const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
           <b>Description:</b> {job.description}
         </p>
         <p>
+          <b>Location:</b> {job.location}
+        </p>
+        <p>
           <b>Date: </b>
           {moment(shift.startTime).format('dddd, M/D/YY')}
         </p>

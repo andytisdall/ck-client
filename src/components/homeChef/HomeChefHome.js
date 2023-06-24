@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
@@ -56,7 +57,7 @@ const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
         return (
           <div className="hc-events" key={cam.id}>
             <h3>{cam.name}</h3>
-            <h4>{cam.date}</h4>
+            <h4>{moment(cam.date).format('dddd, M/D/YYYY')}</h4>
             <Link to={'events/signup/' + cam.id} className="button">
               Sign Up
             </Link>

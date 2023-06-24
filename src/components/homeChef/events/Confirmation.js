@@ -12,15 +12,18 @@ const Confirmation = ({
   getEventHours,
   getEventShifts,
   shifts,
+  campaigns,
 }) => {
   const { hoursId } = useParams();
   const hour = hours && hoursId ? hours[hoursId] : null;
 
   useEffect(() => {
     if (!hour) {
-      getEventHours();
+      campaigns?.forEach((cam) => {
+        getEventHours(cam.id);
+      });
     }
-  }, [hour, getEventHours]);
+  }, [hour, getEventHours, campaigns]);
 
   useEffect(() => {
     if (!jobs) {
@@ -30,23 +33,26 @@ const Confirmation = ({
 
   const renderShiftDetails = () => {
     const job = jobs?.find((j) => j.id === hour?.job);
-    const shift = shifts[hour.shift];
+    const shift = shifts[hour?.shift];
     if (hour && shift && job) {
       return (
         <div className="hc-confirm-details">
           <p>You have successfully signed up for this shift:</p>
           <ul>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Date:</span>{' '}
+              <span className="hc-confirm-title">Date:</span>
               {moment(hour.time).format('dddd, M/D/yy')}
             </li>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Time:</span>{' '}
+              <span className="hc-confirm-title">Time:</span>
               {moment(shift.startTime, 'YYYY-MM-DDTHH:mm:ssZ').format('h:mm a')}
             </li>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Duration:</span>{' '}
+              <span className="hc-confirm-title">Duration:</span>
               {shift.duration} Hours
+            </li>
+            <li className="hc-confirm-item">
+              <span className="hc-confirm-title">Location:</span> {job.location}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Job:</span> {job.name}
@@ -84,6 +90,7 @@ const mapStateToProps = (state) => {
     hours: state.event.hours,
     jobs: state.event.jobs,
     shifts: state.event.shifts,
+    campaigns: state.event.campaigns,
   };
 };
 
