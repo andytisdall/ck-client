@@ -74,10 +74,10 @@ const HomeChef = ({
   useEffect(() => {
     if (user && !user.firstName) {
       getUserInfo();
-      getCampaign();
-      getEventCampaigns();
       setLoading(true);
     }
+    getCampaign();
+    getEventCampaigns();
   }, [getUserInfo, user, getCampaign, getEventCampaigns]);
 
   useEffect(() => {
