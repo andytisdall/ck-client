@@ -31,6 +31,8 @@ const EncampmentGuidelines = React.lazy(() =>
   import('./Resources/EncampmentGuidelines')
 );
 const Schedule = React.lazy(() => import('./Schedule/Schedule'));
+const Calendar = React.lazy(() => import('./Schedule/Calendar'));
+const List = React.lazy(() => import('./Schedule/List'));
 
 const MealProgram = ({
   getRestaurant,
@@ -100,7 +102,14 @@ const mealProgramRouter = {
   element: <ConnectedMealProgram />,
   children: [
     { index: true, element: renderWithFallback(<MealProgramHome />) },
-    { path: 'schedule', element: renderWithFallback(<Schedule />) },
+    {
+      path: 'schedule',
+      element: renderWithFallback(<Schedule />),
+      children: [
+        { path: 'calendar', element: renderWithFallback(<Calendar />) },
+        { path: 'list', element: renderWithFallback(<List />) },
+      ],
+    },
     {
       path: 'resources',
       element: renderWithFallback(<Resources />),

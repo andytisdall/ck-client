@@ -13,7 +13,7 @@ const mealProgramReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         schedule: action.payload.deliveries,
-        accounts: _.mapKeys(action.payload.accounts, 'Id'),
+        accounts: _.mapKeys(action.payload.accounts, 'id'),
       };
     default:
       return state;
