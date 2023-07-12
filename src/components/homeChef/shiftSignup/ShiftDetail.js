@@ -54,6 +54,7 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {
             <input
               type="number"
               placeholder="25"
+              min={1}
               required
               id="meal-count"
               value={mealCount}

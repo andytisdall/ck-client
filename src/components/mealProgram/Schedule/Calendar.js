@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { useMemo, useCallback } from 'react';
 import moment from 'moment';
+import { format } from 'date-fns';
 
 import Calendar from '../../reusable/Calendar';
 import Loading from '../../reusable/Loading';
@@ -15,6 +16,7 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
       const formattedTime = moment(delivery.date, 'YYYY-MM-DD').format(
         'YYYY-MM-DD'
       );
+
       if (orderedByDate[formattedTime]) {
         orderedByDate[formattedTime].push(delivery);
       } else {
@@ -30,8 +32,15 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
 
       if (orderedDeliveries[day] && accounts) {
         deliveries = orderedDeliveries[day]
-          .sort((a, b) => (Date(a.time) > Date(b.time) ? 1 : -1))
+          .sort((a, b) =>
+            format(new Date(`${day} ${a.time}`), 'hh:mm') >
+            format(new Date(`${day} ${b.time}`), 'hh:mm')
+              ? 1
+              : -1
+          )
+
           .map((delivery, i) => {
+            console.log(Date(delivery.time));
             return (
               <div
                 key={delivery.id}
@@ -41,10 +50,10 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
                   {delivery.time}
                 </div>
                 <div className="calendar-meal-program-text">
-                  {accounts[delivery.restaurant].name}
+                  {accounts[delivery.restaurant]?.name}
                 </div>
                 <div className="calendar-meal-program-text">
-                  {accounts[delivery.cbo].name}
+                  {accounts[delivery.cbo]?.name}
                 </div>
               </div>
             );
