@@ -75,7 +75,7 @@ const Calendar = ({ renderItems }) => {
           <div
             className="calendar-header-arrow"
             onClick={() => {
-              const lastMonth = subMonths(month, 1());
+              const lastMonth = subMonths(month, 1);
               setMonth(lastMonth);
             }}
           >
