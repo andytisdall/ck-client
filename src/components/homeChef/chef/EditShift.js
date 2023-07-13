@@ -7,7 +7,7 @@ import * as actions from '../../../actions';
 import Loading from '../../reusable/Loading';
 import useLoading from '../../../hooks/useLoading';
 
-const EditShift = ({ hours, getHours, editHours, getShifts }) => {
+const EditShift = ({ hours, getHours, editHours, getShifts, setError }) => {
   const { id } = useParams();
   const [mealCount, setMealCount] = useState(0);
   const [cancel, setCancel] = useState(false);
@@ -25,6 +25,9 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if ((!mealCount || parseInt(mealCount, 10) < 1) && !cancel) {
+      return setError('Invalid number of meals');
+    }
     setLoading(true);
     editHours(id, mealCount, cancel);
   };
@@ -72,7 +75,6 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
         type="number"
         value={meals}
         onChange={(e) => setMealCount(e.target.value)}
-        min={1}
         required
       />
       {renderCancel()}
