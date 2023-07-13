@@ -23,7 +23,8 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
     }
   }, [getHours, hours, id, getShifts]);
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     setLoading(true);
     editHours(id, mealCount, cancel);
   };
@@ -62,7 +63,7 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
   }
 
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <h2>Edit Home Chef Delivery Details</h2>
       <div>Date: {moment(hour.time).format('M/D/YY')}</div>
 
@@ -71,10 +72,12 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
         type="number"
         value={meals}
         onChange={(e) => setMealCount(e.target.value)}
+        min={1}
+        required
       />
       {renderCancel()}
-      {loading ? <Loading /> : <button onClick={onSubmit}>Submit</button>}
-    </div>
+      {loading ? <Loading /> : <input type="Submit" />}
+    </form>
   );
 };
 

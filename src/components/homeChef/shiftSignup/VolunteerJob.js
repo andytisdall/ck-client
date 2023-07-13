@@ -1,6 +1,6 @@
-import moment from 'moment';
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { utcToZonedTime, format } from 'date-fns-tz';
 
 import { Link } from 'react-router-dom';
 import './VolunteerJob.css';
@@ -24,10 +24,16 @@ const VolunteerJob = ({ job, shifts }) => {
               <div className="job-full">full</div>
             )}
             <div className={`job-date ${shift.open ? '' : 'job-date-full'}`}>
-              {moment(shift.startTime).format('M/D/YY')}
+              {format(
+                utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                'M/d/yy'
+              )}
             </div>
             <div className={`job-time ${shift.open ? '' : 'job-date-full'}`}>
-              {moment(shift.startTime).format('dddd')}
+              {format(
+                utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                'eeee'
+              )}
               <span className="job-name-small"> - {job.name}</span>
             </div>
           </div>

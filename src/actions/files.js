@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 import server from './api';
 import { setAlert } from './alert';
 import { getUserInfo } from './user';
@@ -22,7 +20,7 @@ export const uploadFiles =
             'Health Department Permit and Expiration Date must be updated at the same time'
           );
         }
-        if (moment(expiration).format() < moment().format()) {
+        if (new Date(expiration) < new Date()) {
           throw Error(
             'Health Department Permit Expiration Date Must Be in the Future'
           );

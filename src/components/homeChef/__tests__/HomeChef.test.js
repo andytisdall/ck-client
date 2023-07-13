@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import moment from 'moment';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import App from '../../../App';
 import { user1, job1, shift1, hours1, hours2 } from '../../../mocks/data';
@@ -37,7 +37,9 @@ test('see chef shifts', async () => {
   });
   expect(upcomingShifts).toBeDefined();
 
-  const hours = screen.getByText(moment(hours1.time).format('ddd, M/D/YY'));
+  const hours = screen.getByText(
+    format(utcToZonedTime(hours1.time, 'America/Los_Angeles'), 'eee, M/d/yy')
+  );
   expect(hours).toBeDefined();
 });
 
@@ -54,7 +56,7 @@ test('sign up with list view', async () => {
   const jobTitle = await screen.findByText(job1.name);
   userEvent.click(jobTitle);
   const shiftDate = await screen.findByText(
-    moment(shift1.startTime).format('M/D/YY')
+    format(utcToZonedTime(shift1.startTime, 'America/Los_Angeles'), 'M/d/yy')
   );
   expect(shiftDate).toBeDefined();
 
@@ -73,9 +75,11 @@ test('sign up with list view', async () => {
   userEvent.click(submitBtn);
 
   // confirmation screen
+  const confirmation = await screen.findByText(/confirmation/i);
+  expect(confirmation).toBeDefined();
 
   const date = await screen.findByText(
-    moment(hours2.time).format('dddd, M/D/yy')
+    format(utcToZonedTime(hours2.time, 'America/Los_Angeles'), 'eeee, M/d/yyyy')
   );
   expect(date).toBeDefined();
 

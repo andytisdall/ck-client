@@ -1,24 +1,38 @@
 import { useState, useCallback } from 'react';
-import moment from 'moment';
+import { format, utcToZonedTime } from 'date-fns-tz';
+import {
+  startOfMonth,
+  getDay,
+  getDaysInMonth,
+  addDays,
+  subMonths,
+  addMonths,
+} from 'date-fns';
 
 import './Calendar.css';
 
 const Calendar = ({ renderItems }) => {
-  const [month, setMonth] = useState(moment());
+  const [month, setMonth] = useState(new Date());
 
   const getDays = useCallback(() => {
     const days = [];
-    const firstDay = moment(`${month.format('YYYY-M')}-1`, 'YYYY-M-D').format(
-      'd'
-    );
-    for (let i = 0; i < firstDay; i++) {
+    const firstDay = startOfMonth(month);
+    const dayOfWeek = getDay(firstDay);
+
+    for (let i = 0; i < dayOfWeek; i++) {
       days.push(null);
     }
-    for (let i = 1; i < 32; i++) {
-      const date = `${month.format('YYYY-M')}-${i}`;
-      if (moment(date, 'YYYY-M-D').format('M') === month.format('M')) {
-        days.push(moment(date, 'YYYY-M-D').format('YYYY-MM-DD'));
-      }
+    const numberOfDays = getDaysInMonth(month);
+
+    for (let i = 0; i < numberOfDays; i++) {
+      const date = addDays(firstDay, i);
+
+      days.push(
+        format(
+          utcToZonedTime(new Date(date), 'America/Los_Angeles'),
+          'yyyy-MM-dd'
+        )
+      );
     }
     return days.map((d, i) => {
       if (!d) {
@@ -29,7 +43,7 @@ const Calendar = ({ renderItems }) => {
       return (
         <div className="calendar-date" key={d}>
           <div className="calendar-date-number">
-            {moment(d, 'YYYY-MM-DD').format('D')}
+            {format(utcToZonedTime(d, 'America/Los_Angeles'), 'd')}
           </div>
           <div className="calendar-date-body">{items}</div>
         </div>
@@ -61,20 +75,20 @@ const Calendar = ({ renderItems }) => {
           <div
             className="calendar-header-arrow"
             onClick={() => {
-              const lastMonth = month.subtract(1, 'month');
-              setMonth(moment(lastMonth.format('M'), 'M'));
+              const lastMonth = subMonths(month, 1());
+              setMonth(lastMonth);
             }}
           >
             &larr;
           </div>
           <div className="calendar-header-month">
-            {month.format('MMMM YYYY')}
+            {format(month, 'MMMM yyyy')}
           </div>
           <div
             className="calendar-header-arrow"
             onClick={() => {
-              const nextMonth = month.add(1, 'month');
-              setMonth(moment(nextMonth.format('M'), 'M'));
+              const nextMonth = addMonths(month, 1);
+              setMonth(nextMonth);
             }}
           >
             &rarr;
@@ -82,7 +96,7 @@ const Calendar = ({ renderItems }) => {
         </div>
         <div className="calendar-header">
           <button
-            onClick={() => setMonth(moment())}
+            onClick={() => setMonth(new Date())}
             className="calendar-set-current"
           >
             Set to Current Month

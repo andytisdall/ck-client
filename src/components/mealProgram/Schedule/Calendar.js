@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { useMemo, useCallback } from 'react';
-import moment from 'moment';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import Calendar from '../../reusable/Calendar';
 import Loading from '../../reusable/Loading';
@@ -13,8 +12,9 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
     }
     const orderedByDate = {};
     schedule.forEach((delivery) => {
-      const formattedTime = moment(delivery.date, 'YYYY-MM-DD').format(
-        'YYYY-MM-DD'
+      const formattedTime = format(
+        utcToZonedTime(delivery.date, 'America/Los_Angeles'),
+        'yyyy-MM-dd'
       );
 
       if (orderedByDate[formattedTime]) {
@@ -33,14 +33,11 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
       if (orderedDeliveries[day] && accounts) {
         deliveries = orderedDeliveries[day]
           .sort((a, b) =>
-            format(new Date(`${day} ${a.time}`), 'hh:mm') >
-            format(new Date(`${day} ${b.time}`), 'hh:mm')
-              ? 1
-              : -1
+            new Date(`${day} ${a.time}`) > new Date(`${day} ${b.time}`) ? 1 : -1
           )
 
           .map((delivery, i) => {
-            console.log(Date(delivery.time));
+            console.log(delivery.date);
             return (
               <div
                 key={delivery.id}

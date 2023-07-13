@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useMemo, useCallback } from 'react';
-import moment from 'moment';
+import { format, utcToZonedTime } from 'date-fns-tz';
 import { useNavigate } from 'react-router-dom';
 
 import Loading from '../../reusable/Loading';
@@ -21,8 +21,9 @@ const HomeChefCalendar = ({ jobs, shifts }) => {
         return job?.ongoing && job.active;
       })
       .forEach((sh) => {
-        const formattedTime = moment(sh.startTime, 'YYYY-MM-DD').format(
-          'YYYY-MM-DD'
+        const formattedTime = format(
+          utcToZonedTime(sh.startTime, 'America/Los_Angeles'),
+          'yyyy-MM-dd'
         );
         if (orderedByDate[formattedTime]) {
           orderedByDate[formattedTime].push(sh);
