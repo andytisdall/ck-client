@@ -1,5 +1,4 @@
-import heic2any from 'heic2any';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 import Loading from '../reusable/Loading';
 
@@ -11,26 +10,26 @@ const TextPreview = ({
   onCancel,
   number,
 }) => {
-  const [image, setImage] = useState(photo);
+  // const [image, setImage] = useState(photo);
 
-  useEffect(() => {
-    if (photo?.name?.toLowerCase().includes('.heic')) {
-      setImage(null);
-      const convert = async () => {
-        const pic = await heic2any({
-          blob: photo,
-          toType: 'image/jpeg',
-          quality: 0.3,
-        });
-        setImage(pic);
-      };
-      convert();
-    }
-  }, [photo]);
+  // useEffect(() => {
+  //   if (photo?.name?.toLowerCase().includes('.heic')) {
+  //     setImage(null);
+  //     const convert = async () => {
+  //       const pic = await heic2any({
+  //         blob: photo,
+  //         toType: 'image/jpeg',
+  //         quality: 0.3,
+  //       });
+  //       setImage(pic);
+  //     };
+  //     convert();
+  //   }
+  // }, [photo]);
 
   const getSrc = () => {
     if (photo?.name) {
-      return URL.createObjectURL(image);
+      return URL.createObjectURL(photo);
     }
     return photo;
   };
@@ -39,8 +38,8 @@ const TextPreview = ({
     <div>
       <h3>Confirm Your Message:</h3>
       <div className="text-preview">{message}</div>
-      {photo && !image && <Loading />}
-      {image && <img className="photo-preview" src={getSrc()} alt="preview" />}
+      {photo && <Loading />}
+      {photo && <img className="photo-preview" src={getSrc()} alt="preview" />}
 
       <div>
         <p>To: {region || number}</p>
