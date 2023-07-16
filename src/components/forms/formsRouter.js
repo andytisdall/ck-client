@@ -8,6 +8,7 @@ const HCInterestForm = React.lazy(() => import('./HCInterestForm'));
 const FormSent = React.lazy(() => import('./FormSent'));
 const MealQualitySurvey = React.lazy(() => import('./MealQualitySurvey'));
 const TextSignupSurvey = React.lazy(() => import('./TextSignupSurvey'));
+const MealProgramIntake = React.lazy(() => import('./MealProgramIntake'));
 
 const Forms = () => {
   const headerImage = () => {
@@ -39,6 +40,10 @@ const formsRouter = {
     {
       path: 'text-signup-survey',
       element: renderWithFallback(<TextSignupSurvey />),
+    },
+    {
+      path: 'meal-program-intake',
+      element: renderWithFallback(<MealProgramIntake />),
     },
     { path: 'form-sent', element: renderWithFallback(<FormSent />) },
   ],

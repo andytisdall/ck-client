@@ -8,6 +8,7 @@ export const submitForm = (formValues, form) => async (dispatch) => {
     MEAL_SURVEY: '/text/meal-survey',
     HOME_CHEF_INTEREST: '/home-chef/signup',
     TEXT_SIGNUP_SURVEY: '/text/signup-survey',
+    MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   };
   const url = urls[form.name];
 
