@@ -1,20 +1,20 @@
 import { connect } from 'react-redux';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
+import { zonedTimeToUtc } from 'date-fns-tz';
+import { formatISO } from 'date-fns';
 
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
 import TextPreview from './TextPreview';
 import useLoading from '../../hooks/useLoading';
 import './SendText.css';
-import { formatNumber } from './Feedback';
 import FileInput from '../reusable/FileInput';
 
-const CustomText = ({ sendText, replyTo }) => {
+const ScheduledText = ({ sendScheduledText }) => {
   const [message, setMessage] = useState('');
   const [region, setRegion] = useState(null);
-  const [number, setNumber] = useState(
-    replyTo?.sender ? formatNumber(replyTo.sender) : ''
-  );
+  const [sendAt, setSendAt] = useState(null);
+
   const [photo, setPhoto] = useState(null);
   const [imageError, setImageError] = useState(false);
 
@@ -22,11 +22,8 @@ const CustomText = ({ sendText, replyTo }) => {
 
   const [loading, setLoading] = useLoading();
 
-  const numberRef = useRef();
-  const numberTextRef = useRef();
-
   const composeText = () => {
-    const btnActive = message && (region || number);
+    const btnActive = message && region && sendAt;
     return (
       <div className="send-text">
         <div className="send-text-variables">
@@ -43,6 +40,7 @@ const CustomText = ({ sendText, replyTo }) => {
                   setRegion('EAST_OAKLAND');
                 }
               }}
+              checked={region === 'EAST_OAKLAND'}
             />
             <label htmlFor="to-1">East Oakland</label>
           </div>
@@ -58,34 +56,17 @@ const CustomText = ({ sendText, replyTo }) => {
                   setRegion('WEST_OAKLAND');
                 }
               }}
+              checked={region === 'WEST_OAKLAND'}
             />
             <label htmlFor="to-2">West Oakland</label>
           </div>
 
-          <div className="send-text-variables-radio">
+          <div className="send-text-variables-item">
+            <label htmlFor="date">Send at:</label>
             <input
-              required
-              id="to-3"
-              name="to"
-              type="radio"
-              ref={numberRef}
-              checked={!region}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setRegion(null);
-                  numberTextRef.current.focus();
-                }
-              }}
-            />
-            <label htmlFor="to-3">Phone Number:</label>
-            <input
-              type="text"
-              value={number}
-              ref={numberTextRef}
-              onFocus={() => (numberRef.current.checked = true)}
-              onChange={(e) => {
-                setNumber(e.target.value);
-              }}
+              type="datetime-local"
+              value={sendAt}
+              onChange={(e) => setSendAt(e.target.value)}
             />
           </div>
 
@@ -162,34 +143,27 @@ const CustomText = ({ sendText, replyTo }) => {
         message={message}
         region={region}
         photo={photo}
-        number={number}
         onSubmit={() => {
-          sendText(message, region, photo, replyTo?.id, number);
+          sendScheduledText(
+            message,
+            region,
+            photo,
+            formatISO(zonedTimeToUtc(sendAt, 'America/Los_Angeles'))
+          );
           setLoading(true);
         }}
         onCancel={() => setPreview(false)}
+        sendAt={sendAt}
       />
     );
   };
 
-  const renderOriginalMessage = () => {
-    if (replyTo?.message) {
-      return (
-        <div className="send-text-original-message">
-          <p>Original Message:</p>
-          <p>{replyTo.message}</p>
-        </div>
-      );
-    }
-  };
-
   return (
     <div>
-      <h2>Send a Text</h2>
-      {renderOriginalMessage()}
+      <h2>Send a Scheduled Text</h2>
       {renderContent()}
     </div>
   );
 };
 
-export default connect(null, actions)(CustomText);
+export default connect(null, actions)(ScheduledText);

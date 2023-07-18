@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 import useLoading from '../../hooks/useLoading';
 
 const successMessage =
-  'Thank you for you giving us some information about your restaurant. Community Kitchens will be in touch with future opportunies to feed the community!';
+  'Thank you for giving us some information about your restaurant. Community Kitchens will be in touch with future opportunies to feed the community!';
 
 const MealProgramIntake = ({ submitForm }) => {
   const [name, setName] = useState('');

@@ -9,6 +9,7 @@ export const submitForm = (formValues, form) => async (dispatch) => {
     HOME_CHEF_INTEREST: '/home-chef/signup',
     TEXT_SIGNUP_SURVEY: '/text/signup-survey',
     MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
+    CBO_REPORT: '/meal-program/cbo-report',
   };
   const url = urls[form.name];
 

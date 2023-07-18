@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { format } from 'date-fns-tz';
+
 const TextSuccess = ({ message }) => {
   return (
     <div>
@@ -9,6 +11,12 @@ const TextSuccess = ({ message }) => {
         <p>You have successfully sent this text:</p>
         <p>Region: {message.region}</p>
         <p>{message.message}</p>
+        {message.sendAt && (
+          <p>
+            This message will be sent at{' '}
+            {format(new Date(message.sendAt), 'MM/dd/yy hh:mm a')}
+          </p>
+        )}
         {message.photoUrl && (
           <img
             src={message.photoUrl}

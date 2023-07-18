@@ -1,4 +1,5 @@
 // import { useState, useEffect } from 'react';
+import { format } from 'date-fns-tz';
 
 import Loading from '../reusable/Loading';
 
@@ -9,6 +10,7 @@ const TextPreview = ({
   photo,
   onCancel,
   number,
+  sendAt,
 }) => {
   // const [image, setImage] = useState(photo);
 
@@ -44,6 +46,12 @@ const TextPreview = ({
       <div>
         <p>To: {region || number}</p>
       </div>
+
+      {sendAt && (
+        <p>
+          Scheduled to send at {format(new Date(sendAt), 'MM/dd/yy hh:mm a')}
+        </p>
+      )}
 
       <button
         className="send-btn"

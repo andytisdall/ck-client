@@ -12,6 +12,7 @@ const SendText = React.lazy(() => import('./SendText'));
 const TextSuccess = React.lazy(() => import('./TextSuccess'));
 const Feedback = React.lazy(() => import('./Feedback'));
 const CustomText = React.lazy(() => import('./CustomText'));
+const ScheduledText = React.lazy(() => import('./ScheduledText'));
 
 const Text = ({ user, getFridges }) => {
   useEffect(() => {
@@ -50,6 +51,10 @@ const textRouter = {
     },
     { path: 'send-text', element: renderWithFallback(<SendText />) },
     { path: 'send-custom-text', element: renderWithFallback(<CustomText />) },
+    {
+      path: 'send-scheduled-text',
+      element: renderWithFallback(<ScheduledText />),
+    },
     { path: 'text-success', element: renderWithFallback(<TextSuccess />) },
     { path: 'feedback', element: renderWithFallback(<Feedback />) },
   ],

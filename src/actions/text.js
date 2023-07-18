@@ -30,6 +30,23 @@ export const clearNumber = () => {
   return { type: CLEAR_NUMBER };
 };
 
+export const sendScheduledText =
+  (message, region, photo, sendAt) => async (dispatch) => {
+    const postBody = new FormData();
+    postBody.append('message', message);
+    postBody.append('region', region);
+    postBody.append('sendAt', sendAt);
+    if (photo) {
+      postBody.append('photo', photo);
+    }
+    const res = await server.post('/text/outgoing/scheduled', postBody, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    dispatch({ type: SEND_TEXT, payload: res.data });
+    dispatch(setAlert('Message Sent'));
+    router.navigate('/text/text-success');
+  };
+
 export const sendText =
   (message, region, photo, feedbackId, number) => async (dispatch) => {
     const postBody = new FormData();
