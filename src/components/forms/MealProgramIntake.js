@@ -193,15 +193,33 @@ const MealProgramIntake = ({ submitForm }) => {
       </div>
 
       <div className="form-item">
-        <label htmlFor="female">
-          Is your restaurant fully or partially female-owned?
-        </label>
-        <input
-          id="female"
-          value={female}
-          type="checkbox"
-          onChange={(e) => setFemale(e.target.value)}
-        />
+        <label>Is your restaurant fully or partially female-owned?</label>
+        <div className="form-checkbox">
+          <input
+            id="female"
+            name="female"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setFemale(true);
+              }
+            }}
+          />
+          <label htmlFor="female">Yes</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            id="not-female"
+            name="female"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setFemale(false);
+              }
+            }}
+          />
+          <label htmlFor="not-female">No</label>
+        </div>
       </div>
 
       <div className="form-item">

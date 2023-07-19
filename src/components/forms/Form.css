@@ -22,6 +22,7 @@
   padding: 2rem;
   align-items: flex-start;
   background-color: white;
+
 }
 
 .form-item input[type='text'], .form-item input[type='email'], .form-item input[type='tel'] {
@@ -104,4 +105,38 @@
 
 .form-sent {
   height: 100vh;
+}
+
+.demo-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid rgb(204, 204, 204);
+  padding-bottom: 5px;
+  margin: .3rem;
+}
+
+.demo-sub-item {
+  display: flex;
+  width: 50%;
+}
+
+
+.demo-item label {
+  width:50%;
+  margin: 0;
+}
+
+.demo-item input {
+  margin: 0;
+  width: 20%
+}
+
+.demo-title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.form-zip-btns {
+  display: flex;
 }

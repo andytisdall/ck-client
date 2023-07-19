@@ -228,174 +228,184 @@ const CBOReport = ({ submitForm }) => {
         />
       </div>
       <div className="form-item">
-        <label htmlFor="age17">0-17</label>
-        <input
-          id="age17"
-          type="number"
-          min={0}
-          value={age17}
-          onChange={(e) => setAge17(e.target.value)}
-        />
+        <div className="demo-title">Age</div>
+        <div className="demo-item">
+          <label htmlFor="age17">0-17</label>
+          <input
+            id="age17"
+            type="number"
+            min={0}
+            value={age17}
+            onChange={(e) => setAge17(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="age26">18-26</label>
+          <input
+            id="age26"
+            type="number"
+            min={0}
+            value={age26}
+            onChange={(e) => setAge26(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="age49">27-49</label>
+          <input
+            id="age50"
+            type="number"
+            min={0}
+            value={age50}
+            onChange={(e) => setAge50(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="age60">50-60</label>
+          <input
+            id="age60"
+            type="number"
+            min={0}
+            value={age60}
+            onChange={(e) => setAge60(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="ageOver60">Over 60</label>
+          <input
+            id="ageOver60"
+            type="number"
+            min={0}
+            value={ageOver60}
+            onChange={(e) => setAgeOver60(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="ageUnknown">Unknown</label>
+          <input
+            id="ageUnknown"
+            type="number"
+            min={0}
+            value={ageUnknown}
+            onChange={(e) => setAgeUnknown(e.target.value)}
+          />
+        </div>
       </div>
       <div className="form-item">
-        <label htmlFor="age26">18-26</label>
-        <input
-          id="age26"
-          type="number"
-          min={0}
-          value={age26}
-          onChange={(e) => setAge26(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="age49">27-49</label>
-        <input
-          id="age50"
-          type="number"
-          min={0}
-          value={age50}
-          onChange={(e) => setAge50(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="age60">50-60</label>
-        <input
-          id="age60"
-          type="number"
-          min={0}
-          value={age60}
-          onChange={(e) => setAge60(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="ageOver60">Over 60</label>
-        <input
-          id="ageOver60"
-          type="number"
-          min={0}
-          value={ageOver60}
-          onChange={(e) => setAgeOver60(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="ageUnknown">Unknown</label>
-        <input
-          id="ageUnknown"
-          type="number"
-          min={0}
-          value={ageUnknown}
-          onChange={(e) => setAgeUnknown(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceAfrican">African-American / Black</label>
-        <input
-          id="raceAfrican"
-          type="number"
-          min={0}
-          value={raceAfrican}
-          onChange={(e) => setRaceAfrican(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceLatin">Latina / Latino</label>
-        <input
-          id="raceLatin"
-          type="number"
-          min={0}
-          value={raceLatin}
-          onChange={(e) => setRaceLatin(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceAsian">Asian / Pacific Islander</label>
-        <input
-          id="raceAsian"
-          type="number"
-          min={0}
-          value={raceAsian}
-          onChange={(e) => setRaceAsian(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceNativeAmerican">
-          Native American / American Indian
-        </label>
-        <input
-          id="raceNativeAmerican"
-          type="number"
-          min={0}
-          value={raceNativeAmerican}
-          onChange={(e) => setRaceNativeAmerican(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceWhite">White / Caucasian</label>
-        <input
-          id="raceWhite"
-          type="number"
-          min={0}
-          value={raceWhite}
-          onChange={(e) => setRaceWhite(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceMixed">Mixed Race</label>
-        <input
-          id="raceMixed"
-          type="number"
-          min={0}
-          value={raceMixed}
-          onChange={(e) => setRaceMixed(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceMixedText">Specify Mixed Race</label>
-        <input
-          id="raceMixedText"
-          type="text"
-          value={raceMixedText}
-          onChange={(e) => setRaceMixedText(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceOther">Other</label>
-        <input
-          id="raceOther"
-          type="number"
-          min={0}
-          value={raceOther}
-          onChange={(e) => setRaceOther(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceOtherText">Specify Other Race</label>
-        <input
-          id="raceOtherText"
-          type="text"
-          value={raceOtherText}
-          onChange={(e) => setRaceOtherText(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceDecline">Decline to State</label>
-        <input
-          id="raceDecline"
-          type="number"
-          min={0}
-          value={raceDecline}
-          onChange={(e) => setRaceDecline(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="raceUnknown">Unknown</label>
-        <input
-          id="raceUnknown"
-          type="number"
-          min={0}
-          value={raceUnknown}
-          onChange={(e) => setRaceUnknown(e.target.value)}
-        />
+        <div className="demo-title">Race</div>
+        <div className="demo-item">
+          <label htmlFor="raceAfrican">African-American / Black</label>
+          <input
+            id="raceAfrican"
+            type="number"
+            min={0}
+            value={raceAfrican}
+            onChange={(e) => setRaceAfrican(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceLatin">Latina / Latino</label>
+          <input
+            id="raceLatin"
+            type="number"
+            min={0}
+            value={raceLatin}
+            onChange={(e) => setRaceLatin(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceAsian">Asian / Pacific Islander</label>
+          <input
+            id="raceAsian"
+            type="number"
+            min={0}
+            value={raceAsian}
+            onChange={(e) => setRaceAsian(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceNativeAmerican">
+            Native American / American Indian
+          </label>
+          <input
+            id="raceNativeAmerican"
+            type="number"
+            min={0}
+            value={raceNativeAmerican}
+            onChange={(e) => setRaceNativeAmerican(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceWhite">White / Caucasian</label>
+          <input
+            id="raceWhite"
+            type="number"
+            min={0}
+            value={raceWhite}
+            onChange={(e) => setRaceWhite(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceMixed">Mixed Race</label>
+          <input
+            id="raceMixed"
+            type="number"
+            min={0}
+            value={raceMixed}
+            onChange={(e) => setRaceMixed(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <div className="demo-sub-item">
+            <label htmlFor="raceMixedText">Specify Mixed Race</label>
+            <input
+              id="raceMixedText"
+              type="text"
+              value={raceMixedText}
+              onChange={(e) => setRaceMixedText(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceOther">Other</label>
+          <input
+            id="raceOther"
+            type="number"
+            min={0}
+            value={raceOther}
+            onChange={(e) => setRaceOther(e.target.value)}
+          />
+        </div>
+        <div className="demo-item ">
+          <div className="demo-sub-item">
+            <label htmlFor="raceOtherText">Specify Other Race</label>
+            <input
+              id="raceOtherText"
+              type="text"
+              value={raceOtherText}
+              onChange={(e) => setRaceOtherText(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceDecline">Decline to State</label>
+          <input
+            id="raceDecline"
+            type="number"
+            min={0}
+            value={raceDecline}
+            onChange={(e) => setRaceDecline(e.target.value)}
+          />
+        </div>
+        <div className="demo-item">
+          <label htmlFor="raceUnknown">Unknown</label>
+          <input
+            id="raceUnknown"
+            type="number"
+            min={0}
+            value={raceUnknown}
+            onChange={(e) => setRaceUnknown(e.target.value)}
+          />
+        </div>
       </div>
       <div className="form-item">
         <label htmlFor="households">
@@ -409,8 +419,23 @@ const CBOReport = ({ submitForm }) => {
           onChange={(e) => setHouseholds(e.target.value)}
         />
       </div>
-      <div onClick={() => setNumberOfZips((z) => z + 1)}>Add a Zip Code</div>
-      <div>{renderZipInputs()}</div>
+      <div className="form-item">
+        <div className="demo-title">Zip Code</div>
+        <div className="form-zip-btns">
+          <div className="button" onClick={() => setNumberOfZips((z) => z + 1)}>
+            Add a Zip Code
+          </div>
+          {numberOfZips > 0 && (
+            <div
+              className="button cancel"
+              onClick={() => setNumberOfZips((z) => z + -1)}
+            >
+              Subtract a Zip Code
+            </div>
+          )}
+        </div>
+        <div>{renderZipInputs()}</div>
+      </div>
       {!loading ? <input type="submit" value="Submit" /> : <Loading />}
     </form>
   );
