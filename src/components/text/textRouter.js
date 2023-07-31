@@ -13,6 +13,7 @@ const TextSuccess = React.lazy(() => import('./TextSuccess'));
 const Feedback = React.lazy(() => import('./Feedback'));
 const CustomText = React.lazy(() => import('./CustomText'));
 const ScheduledText = React.lazy(() => import('./ScheduledText'));
+const TextRecords = React.lazy(() => import('./TextRecords'));
 
 const Text = ({ user, getFridges }) => {
   useEffect(() => {
@@ -57,6 +58,7 @@ const textRouter = {
     },
     { path: 'text-success', element: renderWithFallback(<TextSuccess />) },
     { path: 'feedback', element: renderWithFallback(<Feedback />) },
+    { path: 'text-records', element: renderWithFallback(<TextRecords />) },
   ],
 };
 

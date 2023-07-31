@@ -1,8 +1,6 @@
 // import { useState, useEffect } from 'react';
 import { format } from 'date-fns-tz';
 
-import Loading from '../reusable/Loading';
-
 const TextPreview = ({
   onSubmit,
   message,
@@ -40,7 +38,6 @@ const TextPreview = ({
     <div>
       <h3>Confirm Your Message:</h3>
       <div className="text-preview">{message}</div>
-      {photo && <Loading />}
       {photo && <img className="photo-preview" src={getSrc()} alt="preview" />}
 
       <div>

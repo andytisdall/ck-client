@@ -15,6 +15,7 @@ export const EDIT_FEEDBACK = 'EDIT_FEEDBACK';
 export const DELETE_FEEDBACK = 'DELETE_FEEDBACK';
 export const GET_PHONE_NUMBER = 'GET_PHONE_NUMBER';
 export const CLEAR_NUMBER = 'CLEAR_NUMBER';
+export const GET_TEXT_RECORDS = 'GET_TEXT_RECORDS';
 
 export const ALERT = 'ALERT';
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';

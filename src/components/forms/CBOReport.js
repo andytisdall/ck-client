@@ -91,6 +91,7 @@ const CBOReport = ({ submitForm }) => {
   };
 
   const monthOptions = [
+    '',
     'January',
     'February',
     'March',
@@ -229,6 +230,9 @@ const CBOReport = ({ submitForm }) => {
       </div>
       <div className="form-item">
         <div className="demo-title">Age</div>
+        <div className="form-instructions">
+          Enter the number of individuals from each age group.
+        </div>
         <div className="demo-item">
           <label htmlFor="age17">0-17</label>
           <input
@@ -421,6 +425,10 @@ const CBOReport = ({ submitForm }) => {
       </div>
       <div className="form-item">
         <div className="demo-title">Zip Code</div>
+        <div className="form-instructions">
+          Select one or more zip codes and enter the number of people from that
+          zip code.
+        </div>
         <div className="form-zip-btns">
           <div className="button" onClick={() => setNumberOfZips((z) => z + 1)}>
             Add a Zip Code

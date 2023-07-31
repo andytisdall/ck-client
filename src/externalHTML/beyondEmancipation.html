@@ -1,291 +1,300 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <style>
-    .paypal-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px;
-    }
+<style>
+  .paypal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+  }
 
-    .paypal-amt-title {
-      text-align: center;
-      color: white;
-      font-weight: 600;
-      font-size: 1.5rem
-    }
+  .paypal-amt-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.4rem
+  }
 
-    .paypal-btn-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
+  .paypal-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
 
-    .paypal-amt-btn {
-      border: 1px rgb(0, 50, 200) solid;
-      color: rgb(60, 70, 230);
-      padding: 20px 0;
-      width: 100px;
-      text-align: center;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all .2s;
-      margin: 10px 5px !important;
-      background-color: white;
-      font-weight: 500;
-    }
+  .paypal-amt-btn {
+    border: 1px rgb(0, 50, 200) solid;
+    color: rgb(60, 70, 230);
+    padding: 20px 0;
+    width: 100px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .2s;
+    margin: 10px 5px !important;
+    background-color: white;
+    font-weight: 500;
+  }
 
-    .paypal-amt-btn:active {
-      transform: translateY(5px);
-    }
+  .paypal-amt-btn:active {
+    transform: translateY(5px);
+  }
 
-    .btn-selected, .paypal-amt-btn:hover {
-      background-color: rgb(60, 70, 230);
-      color: white;
-    }
+  .btn-selected, .paypal-amt-btn:hover {
+    background-color: rgb(60, 70, 230);
+    color: white;
+  }
 
 
-    .paypal-form-item {
-      display: flex;
-      flex-direction: column;
-      margin-right: 20px;
-      justify-content: space-between;
-    }
+  .paypal-form-item {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    justify-content: space-between;
+  }
 
 
-    .paypal-field {
-      display: flex;
-      margin-top: 10px;
-      margin-bottom: 20px;
-    }
+  .paypal-field {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
 
-    .paypal-form {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+  .paypal-form {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-    .paypal-form-label {
-      color: white;
-      font-weight: 600
-    }
+  .paypal-form-label {
+    color: white;
+    font-weight: 600
+  }
 
-    .paypal-dollar-sign {
-      text-align: center;
-      border: solid 1px rgb(120, 120, 120);
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      padding: 5px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgb(180, 180, 180);
-    }
+  .paypal-dollar-sign {
+    text-align: center;
+    border: solid 1px rgb(120, 120, 120);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(180, 180, 180);
+  }
 
-    .paypal-submit {
-      background-color: rgb(60, 70, 230);
-      border: none;
-      border-radius: 10px;
-      box-shadow: 1px 2px 2px rgb(0, 50, 200);
-      margin-top: 40px;
-      margin-bottom: 0 !important;
-      color: white;
-      font-family: inherit;
-      height: 55px;
-      padding: 0 30px;
-      font-size: 20px;
-      cursor: pointer;
-      transition: all .2s;
-    }
+  .paypal-submit {
+    background-color: rgb(60, 70, 230);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 2px 2px rgb(0, 50, 200);
+    margin-top: 40px;
+    margin-bottom: 0 !important;
+    color: white;
+    font-family: inherit;
+    height: 55px;
+    padding: 0 30px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .2s;
+  }
 
-    .paypal-submit:active {
-      box-shadow: none;
-      transform: translateY(5px);
-      color:black;
-    }
+  .paypal-submit:active {
+    box-shadow: none;
+    transform: translateY(5px);
+    color:black;
+  }
 
-        /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+      /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-    /* Firefox */
-    input[type=number] {
-      -moz-appearance: textfield;
-      border: 1px solid rgb(120, 120, 120);
-      border-top-right-radius: 5px; 
-      border-bottom-right-radius: 5px;
-      color:rgb(90, 90, 90);
-      font-size: 20px;
-      padding: 10px;
-    }
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+    border: 1px solid rgb(120, 120, 120);
+    border-top-right-radius: 5px; 
+    border-bottom-right-radius: 5px;
+    color:rgb(90, 90, 90);
+    font-size: 20px;
+    padding: 10px;
+  }
 
-    input[type=text] {
-      -moz-appearance: textfield;
-      border: 1px solid rgb(120, 120, 120);
-      border-radius: 5px;
-      color:rgb(90, 90, 90);
-      font-size: 20px;
-      padding: 10px;
-    }
+  input[type=text] {
+    -moz-appearance: textfield;
+    border: 1px solid rgb(120, 120, 120);
+    border-radius: 5px;
+    color:rgb(90, 90, 90);
+    font-size: 20px;
+    padding: 10px;
+  }
 
-    input::placeholder {
-      font-size: 20px;
-      color: rgb(180, 180, 180)
-    }
+  input::placeholder {
+    font-size: 20px;
+    color: rgb(180, 180, 180)
+  }
 
-    input:focus {
-      outline: none;
-    }
+  input:focus {
+    outline: none;
+  }
 
-    .paypal-fee-container {
-      margin-top: 40px;
-      width: 100%;
-      height: 1.5rem;
-    }
+  .paypal-fee-container {
+    margin-top: 40px;
+    width: 100%;
+    height: 1.5rem;
+  }
 
-    .paypal-fee {
-      display: none;
-      text-align: center;
-      color: white;
-    }
+  .paypal-fee {
+    display: none;
+    text-align: center;
+  }
 
-    .paypal-fee-visible {
-      display: block;
-    }
+  .paypal-fee-visible {
+    display: block;
+  }
 
-    .fee-text {
-      margin-left:.5rem;
-    }
+  .fee-text {
+    margin-left:.5rem;
+  }
 
-    #paypal-fee-amt {
-      font-size: 20px;
-    }
+  #paypal-fee-amt {
+    font-size: 20px;
+  }
 
-    #total {
-      opacity: 0;
-      width: 0;
-      margin: 0;
-    }
-  </style>
+  #total {
+    opacity: 0;
+    width: 0;
+    margin: 0;
+  }
 
-  <div class="paypal-container">
-      <div class="paypal-amt-title">
-        Choose a Donation Level
-      </div>
-      <div class="paypal-btn-container">
+  .donate-header {
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-style: italic;
+    text-align: center;
+  }
 
-      </div>
-      
-        <form  action="https://www.paypal.com/donate" class="paypal-form" method="post">
+  .donate-body {
+    font-size: .95rem;
+  }
 
-          <div class="paypal-form-item">
-            <label for="amount-display" class="paypal-form-label">Or enter your own amount:</label>
-            <div class="paypal-field">
-              <span class="paypal-dollar-sign">$</span>
-              <input type="number" id="amount-display" name="amount-display" placeholder="1000" required="true" min="1"/>
-            </div>
-          </div>
+  .donate-bold {
+    font-weight: 600;
+    font-style: italic;
+    text-decoration: underline;
+  }
+</style>
+<div>
+  <p class="donate-header">Donate today and your gift will be DOUBLED!</p>
+  <p class="donate-body">Community Kitchens and Beyond Emancipation’s collaboration will use community meals as a catalyst to connect youth in the foster care system with the support they need to transition to life as independent adults.  Thanks to a generous anonymous donor, the first $5,000 we raise will be matched 1 to 1!  <span class="donate-bold">Every gift is matched and will double the number of meals we can provide.</span> 
+100% of your donation goes directly to our partnership with Beyond Emancipation.
+  </p>
+</div>
+<div class="paypal-container">
+    <div class="paypal-amt-title">
+      Choose a Donation Level
+    </div>
+    <div class="paypal-btn-container">
 
+    </div>
+    
+      <form  action="https://www.paypal.com/donate" class="paypal-form" method="post">
 
-          <input id="total" name="amount" value="0">
-          <input type="hidden" name="business" value="maria@lukasoakland.com">
-          <input type="hidden" name="no_recurring" value="0">
-          <input type="hidden" name="no-shipping" value="1">
-          <input type="hidden" name="item_name" value="Meals for Beyond Emancipation">
-          <input type="hidden" name="custom" value="be2023board">
-          <input type="hidden" name="currency_code" value="USD">
-          <input type="hidden" name="return" value="https://ckoakland.org/donate/beyond-emancipation-thanks">
-          <input type="hidden" name="cancel-return" value="https://ckoakland.org/donate/beyond-emancipation">
-
-          <button name="submit" class="paypal-submit">Continue</button>
-          <div class="paypal-fee-container">
-          <div class="paypal-fee">
-            <input type="checkbox" name="cover-fees" id="cover-fees" />
-            <label for="cover-fees" class="fee-text">Add <span id="paypal-fee-amt"></span> to help cover fees.</label>
+        <div class="paypal-form-item">
+          <label for="amount-display" class="paypal-form-label">Or enter your own amount:</label>
+          <div class="paypal-field">
+            <span class="paypal-dollar-sign">$</span>
+            <input type="number" id="amount-display" name="amount-display" placeholder="100" required="true" min="1"/>
           </div>
         </div>
-        </form>
-  </div>
 
 
-  <script>
+        <input id="total" name="amount" value="0">
+        <input type="hidden" name="business" value="maria@lukasoakland.com">
+        <input type="hidden" name="no_recurring" value="0">
+        <input type="hidden" name="no-shipping" value="1">
+        <input type="hidden" name="item_name" value="Meals for Beyond Emancipation">
+        <input type="hidden" name="custom" value="be2023site">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="return" value="https://ckoakland.org/donate/beyond-emancipation-thanks">
+        <input type="hidden" name="cancel-return" value="https://ckoakland.org/donate/beyond-emancipation">
 
-    const donationValues = [1000, 2500, 5000];
-    const buttonContainer = document.querySelector('.paypal-btn-container');
-    const amountInput = document.querySelector('#amount-display');
-    let selectedBtn;
-    const PAYPAL_FEE_PERCENTAGE = 0.03;
-    const PAYPAL_FEE_FIXED = 0.5;
-    const feeDisplay = document.querySelector('.paypal-fee');
-    const feeAmount = document.querySelector('#paypal-fee-amt');
-    const feeCheckbox = document.querySelector('#cover-fees');
-    const total = document.querySelector('#total')
+        <button name="submit" class="paypal-submit">Continue</button>
+        <div class="paypal-fee-container">
+        <div class="paypal-fee">
+          <input type="checkbox" name="cover-fees" id="cover-fees" />
+          <label for="cover-fees" class="fee-text">Add <span id="paypal-fee-amt"></span> to help cover fees.</label>
+        </div>
+      </div>
+      </form>
+</div>
 
-    const removeSelected = () => {
-      if (selectedBtn) {
-        selectedBtn.classList.remove('btn-selected');
-      }
+
+<script>
+
+  const donationValues = [25,50,100,250,500];
+  const buttonContainer = document.querySelector('.paypal-btn-container');
+  const amountInput = document.querySelector('#amount-display');
+  let selectedBtn;
+  const PAYPAL_FEE_PERCENTAGE = 0.03;
+  const PAYPAL_FEE_FIXED = 0.5;
+  const feeDisplay = document.querySelector('.paypal-fee');
+  const feeAmount = document.querySelector('#paypal-fee-amt');
+  const feeCheckbox = document.querySelector('#cover-fees');
+  const total = document.querySelector('#total')
+
+  const removeSelected = () => {
+    if (selectedBtn) {
+      selectedBtn.classList.remove('btn-selected');
     }
+  }
 
-    const toggleFeeDisplay = () => {
-      const amt = amountInput.value;
-      if (amt && parseInt(amt,10) >= 1) {
-        feeDisplay.classList.add('paypal-fee-visible');
-        const feeAmt = amt * PAYPAL_FEE_PERCENTAGE + PAYPAL_FEE_FIXED;
-        feeAmount.textContent = `$${feeAmt.toFixed(2)}`;
-      } else {
-        feeDisplay.classList.remove('paypal-fee-visible');
-      }
+  const toggleFeeDisplay = () => {
+    const amt = amountInput.value;
+    if (amt && parseInt(amt,10) >= 1) {
+      feeDisplay.classList.add('paypal-fee-visible');
+      const feeAmt = amt * PAYPAL_FEE_PERCENTAGE + PAYPAL_FEE_FIXED;
+      feeAmount.textContent = `$${feeAmt.toFixed(2)}`;
+    } else {
+      feeDisplay.classList.remove('paypal-fee-visible');
     }
+  }
 
-    const onAmtInputChange = () => {
-      removeSelected();
-      toggleFeeDisplay();
-      calculateTotal();
+  const onAmtInputChange = () => {
+    removeSelected();
+    toggleFeeDisplay();
+    calculateTotal();
+  }
+
+  const calculateTotal = () => {
+    const addFee = feeCheckbox.checked;
+    const extra = addFee ? feeAmount.textContent.replace('$', '') : 0;
+    total.value = parseFloat(amountInput.value) + parseFloat(extra);
+  }
+
+  amountInput.addEventListener('input', onAmtInputChange);
+  feeCheckbox.addEventListener('change', calculateTotal);
+
+  const updateAmount = event => {
+    const amt = event.target.innerText.replace('$', '');
+    amountInput.value = amt;
+    if (selectedBtn) {
+      selectedBtn.classList.remove('btn-selected');
     }
-
-    const calculateTotal = () => {
-      const addFee = feeCheckbox.checked;
-      const extra = addFee ? feeAmount.textContent.replace('$', '') : 0;
-      total.value = parseFloat(amountInput.value) + parseFloat(extra);
-    }
-
-    amountInput.addEventListener('input', onAmtInputChange);
-    feeCheckbox.addEventListener('change', calculateTotal);
-
-    const updateAmount = event => {
-      const amt = event.target.innerText.replace('$', '');
-      amountInput.value = amt;
-      if (selectedBtn) {
-        selectedBtn.classList.remove('btn-selected');
-      }
-      selectedBtn = event.target;
-      selectedBtn.classList.add('btn-selected');
-      toggleFeeDisplay();
-      calculateTotal();
-    }
+    selectedBtn = event.target;
+    selectedBtn.classList.add('btn-selected');
+    toggleFeeDisplay();
+    calculateTotal();
+  }
 
 
-    donationValues.forEach(val => {
-      const btn = document.createElement('div');
-      btn.setAttribute('id', `amt-btn-${val}`);
-      btn.classList.add('paypal-amt-btn');
-      btn.innerText=`$${val}`;
-      buttonContainer.appendChild(btn);
-      btn.addEventListener('click', updateAmount)
-    });
-  </script>
-</body>
-</html>
+  donationValues.forEach(val => {
+    const btn = document.createElement('div');
+    btn.setAttribute('id', `amt-btn-${val}`);
+    btn.classList.add('paypal-amt-btn');
+    btn.innerText=`$${val}`;
+    buttonContainer.appendChild(btn);
+    btn.addEventListener('click', updateAmount)
+  });
+</script>

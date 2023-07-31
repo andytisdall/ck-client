@@ -106,7 +106,11 @@ const mealProgramRouter = {
       path: 'schedule',
       element: renderWithFallback(<Schedule />),
       children: [
-        { path: 'calendar', element: renderWithFallback(<Calendar />) },
+        {
+          path: 'calendar',
+          element: renderWithFallback(<Calendar />),
+        },
+        { path: ':detailId', element: renderWithFallback(<List />) },
         { path: 'list', element: renderWithFallback(<List />) },
       ],
     },

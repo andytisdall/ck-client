@@ -2,11 +2,16 @@ import { connect } from 'react-redux';
 import Loading from '../../reusable/Loading';
 import React, { useMemo } from 'react';
 import { format } from 'date-fns';
+import { useParams } from 'react-router-dom';
 
 const List = ({ schedule, accounts }) => {
+  const { detailId } = useParams();
   const sortedSchedule = useMemo(() => {
     if (!schedule) {
       return;
+    }
+    if (detailId) {
+      return [schedule.find((d) => d.id === detailId)];
     }
     return [...schedule].sort((a, b) =>
       a.date > b.date
@@ -17,7 +22,7 @@ const List = ({ schedule, accounts }) => {
         ? 1
         : -1
     );
-  }, [schedule]);
+  }, [schedule, detailId]);
 
   const renderList = () => {
     if (sortedSchedule && accounts) {

@@ -6,6 +6,7 @@ import {
   EDIT_FEEDBACK,
   DELETE_FEEDBACK,
   CLEAR_NUMBER,
+  GET_TEXT_RECORDS,
 } from './types';
 import server from './api';
 import { router } from '../App';
@@ -85,4 +86,9 @@ export const editFeedback = (id) => async (dispatch) => {
 export const deleteFeedback = (id) => async (dispatch) => {
   const res = await server.delete(`/text/feedback/${id}`);
   dispatch({ type: DELETE_FEEDBACK, payload: res.data });
+};
+
+export const getTextRecords = (startDate) => async (dispatch) => {
+  const res = await server.get('/text/text-records/' + startDate);
+  dispatch({ type: GET_TEXT_RECORDS, payload: res.data });
 };

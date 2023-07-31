@@ -1,0 +1,10 @@
+.text-record {
+  border-bottom: 1px solid grey;
+  padding: .5rem;
+}
+
+.text-record-header {
+  display: flex;
+  padding-bottom: .5rem;
+  justify-content: space-between;
+}

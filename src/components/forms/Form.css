@@ -138,5 +138,11 @@
 }
 
 .form-zip-btns {
+  margin-bottom: 1rem;
+  margin-left: -1rem;
   display: flex;
+}
+
+.form-instructions {
+  margin-bottom: 2rem;
 }

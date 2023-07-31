@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const ZipCodeSelector = (zips, setZips) => {
+const ZipCodeSelector = ({ zips, setZips }) => {
   const [zipCode, setZipCode] = useState('');
   const [amount, setAmount] = useState(0);
   const zipCodeOptions = [

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { useMemo, useCallback } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { Link } from 'react-router-dom';
 
 import Calendar from '../../reusable/Calendar';
 import Loading from '../../reusable/Loading';
@@ -37,22 +38,20 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
           )
 
           .map((delivery, i) => {
-            console.log(delivery.date);
             return (
-              <div
-                key={delivery.id}
-                className={`calendar-item calendar-color-${i}`}
-              >
-                <div className="calendar-meal-program-text">
-                  {delivery.time}
+              <Link key={delivery.id} to={'../' + delivery.id}>
+                <div className={`calendar-item calendar-color-${i}`}>
+                  <div className="calendar-meal-program-text">
+                    {delivery.time}
+                  </div>
+                  <div className="calendar-meal-program-text">
+                    {accounts[delivery.restaurant]?.name}
+                  </div>
+                  <div className="calendar-meal-program-text">
+                    {accounts[delivery.cbo]?.name}
+                  </div>
                 </div>
-                <div className="calendar-meal-program-text">
-                  {accounts[delivery.restaurant]?.name}
-                </div>
-                <div className="calendar-meal-program-text">
-                  {accounts[delivery.cbo]?.name}
-                </div>
-              </div>
+              </Link>
             );
           });
         return deliveries;

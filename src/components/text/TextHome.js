@@ -8,6 +8,7 @@ const addNumberDescription =
   'Add a number to one of the subscriber lists, or delete the number from the lists.';
 const feedbackDescription =
   'See the messages that people text back to our alert numbers.';
+const textRecordsDescription = 'View past text alerts';
 
 const TextHome = () => {
   return (
@@ -31,6 +32,11 @@ const TextHome = () => {
         buttonText="Review Feedback"
         descriptionText={feedbackDescription}
         to="feedback"
+      />
+      <TextButton
+        buttonText="Text Alert Records"
+        descriptionText={textRecordsDescription}
+        to="text-records"
       />
     </div>
   );

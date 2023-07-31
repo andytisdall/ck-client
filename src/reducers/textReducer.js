@@ -7,6 +7,7 @@ import {
   SEND_TEXT,
   GET_PHONE_NUMBER,
   CLEAR_NUMBER,
+  GET_TEXT_RECORDS,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -41,6 +42,8 @@ const textReducer = (state = INITIAL_STATE, action) => {
       return { ...state, number: action.payload };
     case CLEAR_NUMBER:
       return { ...state, number: null };
+    case GET_TEXT_RECORDS:
+      return { ...state, textRecords: action.payload };
     default:
       return state;
   }
