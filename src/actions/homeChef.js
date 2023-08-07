@@ -71,3 +71,9 @@ export const getFridges = () => async (dispatch) => {
   const { data } = await server.get('/home-chef/campaign/fridges');
   dispatch({ type: GET_FRIDGES, payload: data });
 };
+
+export const sendHomeChefNotification = () => async (dispatch) => {
+  await server.post('/home-chef/notifications');
+  dispatch(setAlert('Notification Sent!'));
+  router.navigate('..');
+};

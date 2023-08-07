@@ -1,16 +1,11 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import {
-  getAllUsers,
-  editRestaurant,
-  getAllRestaurants,
-} from '../../../actions';
+import * as actions from '../../../actions';
 
 const EditRestaurant = ({
   users,
   restaurants,
-  getAllUsers,
   editRestaurant,
   getAllRestaurants,
 }) => {
@@ -20,9 +15,8 @@ const EditRestaurant = ({
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    getAllUsers();
     getAllRestaurants();
-  }, [getAllUsers, getAllRestaurants]);
+  }, [getAllRestaurants]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -117,8 +111,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getAllUsers,
-  editRestaurant,
-  getAllRestaurants,
-})(EditRestaurant);
+export default connect(mapStateToProps, actions)(EditRestaurant);

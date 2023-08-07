@@ -88,6 +88,7 @@
 .form-horizontal {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .form-horizontal label {
@@ -95,9 +96,16 @@
   margin-right: 1.2rem;
 }
 
+.form-horizontal input {
+  flex: 1;
+}
+
 .form-horizontal input[type="radio"] {
   margin-right: 10px;
 }
+
+.form-horizontal input[type="date"] {
+flex: .4;}
 
 .form-checkbox label {
   margin-bottom: 0;
@@ -145,4 +153,13 @@
 
 .form-instructions {
   margin-bottom: 2rem;
+}
+
+.form-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-decoration: underline;
+  margin-left: auto;
+  margin-right: auto;
 }

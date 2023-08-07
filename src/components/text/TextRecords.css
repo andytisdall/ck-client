@@ -1,10 +1,14 @@
 .text-record {
   border-bottom: 1px solid grey;
   padding: .5rem;
+  width: 90%;
+  display: flex;
 }
 
 .text-record-header {
   display: flex;
+  flex-direction: column;
   padding-bottom: .5rem;
-  justify-content: space-between;
+  min-width: fit-content;
+  margin-right: 1rem;
 }

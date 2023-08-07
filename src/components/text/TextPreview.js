@@ -41,7 +41,8 @@ const TextPreview = ({
       {photo && <img className="photo-preview" src={getSrc()} alt="preview" />}
 
       <div>
-        <p>To: {region || number}</p>
+        <p>Region: {region}</p>
+        <p>To: {!!number ? number : 'All Subscribers in this Region'}</p>
       </div>
 
       {sendAt && (

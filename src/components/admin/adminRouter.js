@@ -9,6 +9,9 @@ import renderWithFallback from '../reusable/renderWithFallback';
 const AdminHome = React.lazy(() => import('./AdminHome'));
 const Restaurant = React.lazy(() => import('./restaurant/Restaurant'));
 const User = React.lazy(() => import('./user/User'));
+const HomeChefNotification = React.lazy(() =>
+  import('./notifications/HomeChefNotification')
+);
 
 const Admin = ({ user }) => {
   const renderForbidden = () => {
@@ -41,6 +44,10 @@ const adminRouter = {
     },
     { path: 'user', element: renderWithFallback(<User />) },
     { path: 'restaurant', element: renderWithFallback(<Restaurant />) },
+    {
+      path: 'notifications',
+      element: renderWithFallback(<HomeChefNotification />),
+    },
   ],
 };
 

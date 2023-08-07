@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 import Loading from '../reusable/Loading';
 import * as actions from '../../actions';
@@ -10,20 +10,45 @@ const successMessage =
 
 const MealProgramIntake = ({ submitForm }) => {
   const [name, setName] = useState('');
-  const [date, setDate] = useState();
-  const [ethnicity, setEthnicity] = useState('');
-  const [mixedRace, setMixedRace] = useState('');
-  const [otherEth, setOtherEth] = useState('');
   const [address, setAddress] = useState('');
-  const [type, setType] = useState('');
+
+  const [contactName, setContactName] = useState('');
+  const [contactPosition, setContactPosition] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactNumber, setContactNumber] = useState('');
+
+  const [date, setDate] = useState();
+
+  const [bipoc, setBipoc] = useState();
+
   const [female, setFemale] = useState(false);
+
+  const [neighborhood, setNeighborhood] = useState();
+
+  const [hardship, setHardship] = useState();
+
+  const [ebt, setEbt] = useState();
+
+  const [deliver, setDeliver] = useState();
+
+  const [source, setSource] = useState();
+
+  const [food, setFood] = useState('');
 
   const [loading, setLoading] = useLoading();
 
-  const mixedRefBox = useRef();
-  const mixedRefText = useRef();
-  const otherRefBox = useRef();
-  const otherRefText = useRef();
+  const neighborhoodList = [
+    'Rockridge',
+    'Uptown',
+    'Grand Lake',
+    'Laurel',
+    'Fruitvale',
+    'Jack London Square',
+    'Old Oakland',
+    'Temescal',
+    'East Oakland',
+    'Dimond',
+  ];
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -31,11 +56,20 @@ const MealProgramIntake = ({ submitForm }) => {
     submitForm(
       {
         name,
-        ethnicity,
+        contactName,
+        contactEmail,
+        contactNumber,
+        contactPosition,
+        bipoc,
         female,
         address,
         date,
-        type,
+        neighborhood,
+        hardship,
+        ebt,
+        deliver,
+        source,
+        food,
       },
       { name: 'MEAL_PROGRAM_INTAKE', successMessage }
     );
@@ -45,150 +79,124 @@ const MealProgramIntake = ({ submitForm }) => {
     <form onSubmit={onSubmit}>
       <div className="form-item">
         <h1>Community Kitchens Survey</h1>
+        <p>
+          Thank you for your interest in becoming a CK restaurant partner! Help
+          us get to know you by filling out the questionnaire below.
+        </p>
       </div>
 
       <div className="form-item">
-        <label for="name">Restaurant Name:</label>
-        <input
-          required
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <div className="form-title">Restaurant Information:</div>
+        <div className="form-horizontal">
+          <label for="name">Restaurant Name:</label>
+          <input
+            required
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="form-horizontal">
+          <label for="name">Restaurant Address:</label>
+          <input
+            required
+            id="name"
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <div className="form-horizontal">
+          <label for="date">Date Opened:</label>
+          <input
+            required
+            id="date"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="form-item">
-        <label for="date">Date Opened:</label>
-        <input
-          required
-          id="date"
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
+        <div className="form-title">Contact Information:</div>
+        <div className="form-horizontal">
+          <label for="name">Name:</label>
+          <input
+            required
+            id="name"
+            type="text"
+            value={contactName}
+            onChange={(e) => setContactName(e.target.value)}
+          />
+        </div>
+        <div className="form-horizontal">
+          <label for="position">Position:</label>
+          <input
+            required
+            id="position"
+            type="text"
+            value={contactPosition}
+            onChange={(e) => setContactPosition(e.target.value)}
+          />
+        </div>{' '}
+        <div className="form-horizontal">
+          <label for="email">Email Address:</label>
+          <input
+            required
+            id="email"
+            type="text"
+            value={contactEmail}
+            onChange={(e) => setContactEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-horizontal">
+          <label for="number">Phone Number:</label>
+          <input
+            required
+            id="number"
+            type="text"
+            min={10}
+            max={10}
+            value={contactNumber}
+            onChange={(e) => setContactNumber(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="form-item">
         <label>
-          Is your restaurant fully or partially owned by people of color (POC)?
+          Does the restaurant owner(s) identify as Black, Indigenous, or People
+          of Color (BIPOC)?
         </label>
         <div className="form-checkbox">
           <input
-            id="ethnicity-1"
-            name="ethnicity"
+            required
+            name="bipoc"
+            id="bipoc-yes"
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setEthnicity('African American/Black');
+                setBipoc(true);
               }
             }}
           />
-          <label htmlFor="ethnicity-1">African American / Black</label>
-        </div>
+          <label htmlFor="bipoc-yes">Yes</label>
+        </div>{' '}
         <div className="form-checkbox">
           <input
-            id="ethnicity-2"
-            name="ethnicity"
+            required
+            name="bipoc"
+            id="bipoc-no"
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setEthnicity('Asian/Pacific Islander');
+                setBipoc(false);
               }
             }}
           />
-          <label htmlFor="ethnicity-2">Asian / Pacific Islander</label>
-        </div>
-        <div className="form-checkbox">
-          <input
-            id="ethnicity-3"
-            name="ethnicity"
-            type="radio"
-            onChange={(e) => {
-              if (e.target.checked) {
-                setEthnicity('Latina/Latino');
-              }
-            }}
-          />
-          <label htmlFor="ethnicity-3">Latina / Latino</label>
-        </div>
-        <div className="form-checkbox">
-          <input
-            id="ethnicity-4"
-            name="ethnicity"
-            type="radio"
-            onChange={(e) => {
-              if (e.target.checked) {
-                setEthnicity('Native American/American Indian');
-              }
-            }}
-          />
-          <label htmlFor="ethnicity-4">Native American / American Indian</label>
-        </div>
-
-        <div className="form-checkbox">
-          <input
-            id="ethnicity-6"
-            name="ethnicity"
-            type="radio"
-            ref={mixedRefBox}
-            onChange={(e) => {
-              if (e.target.checked) {
-                mixedRefText.current.focus();
-                setEthnicity(mixedRace);
-              }
-            }}
-          />
-          <label htmlFor="ethnicity-6">Mixed Race:</label>
-          <input
-            type="text"
-            ref={mixedRefText}
-            value={mixedRace}
-            onFocus={() => (mixedRefBox.current.checked = true)}
-            onChange={(e) => {
-              setMixedRace(e.target.value);
-              setEthnicity(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="form-checkbox">
-          <input
-            id="ethnicity-7"
-            name="ethnicity"
-            type="radio"
-            ref={otherRefBox}
-            onChange={(e) => {
-              if (e.target.checked) {
-                otherRefText.current.focus();
-                setEthnicity(otherEth);
-              }
-            }}
-          />
-          <label htmlFor="ethnicity-7">Other:</label>
-          <input
-            type="text"
-            ref={otherRefText}
-            value={otherEth}
-            onFocus={() => (otherRefBox.current.checked = true)}
-            onChange={(e) => {
-              setOtherEth(e.target.value);
-              setEthnicity(e.target.value);
-            }}
-          />
-        </div>
-        <div className="form-checkbox">
-          <input
-            id="ethnicity-5"
-            name="ethnicity"
-            type="radio"
-            onChange={(e) => {
-              if (e.target.checked) {
-                setEthnicity('None');
-              }
-            }}
-          />
-          <label htmlFor="ethnicity-5">Not POC Owned</label>
+          <label htmlFor="bipoc-no">No</label>
         </div>
       </div>
 
@@ -196,8 +204,9 @@ const MealProgramIntake = ({ submitForm }) => {
         <label>Is your restaurant fully or partially female-owned?</label>
         <div className="form-checkbox">
           <input
-            id="female"
+            required
             name="female"
+            id="female-yes"
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
@@ -205,12 +214,13 @@ const MealProgramIntake = ({ submitForm }) => {
               }
             }}
           />
-          <label htmlFor="female">Yes</label>
+          <label htmlFor="female-yes">Yes</label>
         </div>
         <div className="form-checkbox">
           <input
-            id="not-female"
+            required
             name="female"
+            id="female-no"
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
@@ -218,27 +228,150 @@ const MealProgramIntake = ({ submitForm }) => {
               }
             }}
           />
-          <label htmlFor="not-female">No</label>
+          <label htmlFor="female-no">No</label>
+        </div>
+      </div>
+      <div className="form-item">
+        <div className="form-horizontal">
+          <label>What neighborhood is your restaurant located in?</label>
+          <select
+            value={neighborhood}
+            onChange={(e) => setNeighborhood(e.target.value)}
+            required
+          >
+            <option value={undefined}>Select a Neighborhood</option>
+            {neighborhoodList.map((n) => {
+              return (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              );
+            })}
+          </select>
         </div>
       </div>
 
       <div className="form-item">
-        <label htmlFor="address">Street Address:</label>
+        <label>Is your restaurant experiencing financial hardship?</label>
+        <div className="form-checkbox">
+          <input
+            required
+            name="hardship"
+            id="hardship-yes"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setHardship(true);
+              }
+            }}
+          />
+          <label htmlFor="hardship-yes">Yes</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            required
+            name="hardship"
+            id="hardship-no"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setHardship(false);
+              }
+            }}
+          />
+          <label htmlFor="hardship-no">No</label>
+        </div>
+      </div>
+
+      <div className="form-item">
+        <label>
+          Are you interested in accepting EBT/CalFresh at your restaurant?
+        </label>
+        <div className="form-checkbox">
+          <input
+            required
+            name="ebt"
+            id="ebt-yes"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setEbt(true);
+              }
+            }}
+          />
+          <label htmlFor="ebt-yes">Yes</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            required
+            name="ebt"
+            id="ebt-no"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setEbt(false);
+              }
+            }}
+          />
+          <label htmlFor="ebt-no">No</label>
+        </div>
+      </div>
+
+      <div className="form-item">
+        <label>Are you able to deliver?</label>
+        <div className="form-checkbox">
+          <input
+            required
+            name="deliver"
+            id="deliver-yes"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setDeliver(true);
+              }
+            }}
+          />
+          <label htmlFor="deliver-yes">Yes</label>
+        </div>
+        <div className="form-checkbox">
+          <input
+            required
+            name="deliver"
+            id="deliver-no"
+            type="radio"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setDeliver(false);
+              }
+            }}
+          />
+          <label htmlFor="deliver-no">No</label>
+        </div>
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="source">
+          How did you hear about Community Kitchens restaurant meal programs?
+        </label>
         <input
-          id="address"
-          value={address}
+          id="source"
           type="text"
-          onChange={(e) => setAddress(e.target.value)}
+          value={source}
+          onChange={(e) => setSource(e.target.value)}
+          required
         />
       </div>
 
       <div className="form-item">
-        <label htmlFor="type">What types of food do you serve?</label>
+        <label htmlFor="food">
+          In a few words please describe the type of cuisine you serve:
+        </label>
         <input
-          id="type"
-          value={type}
+          id="food"
           type="text"
-          onChange={(e) => setType(e.target.value)}
+          value={food}
+          onChange={(e) => setFood(e.target.value)}
+          required
         />
       </div>
 

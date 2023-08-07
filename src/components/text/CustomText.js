@@ -11,7 +11,7 @@ import FileInput from '../reusable/FileInput';
 
 const CustomText = ({ sendText, replyTo }) => {
   const [message, setMessage] = useState('');
-  const [region, setRegion] = useState(null);
+  const [region, setRegion] = useState(replyTo?.region ? replyTo.region : null);
   const [number, setNumber] = useState(
     replyTo?.sender ? formatNumber(replyTo.sender) : ''
   );
@@ -40,6 +40,7 @@ const CustomText = ({ sendText, replyTo }) => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
+                  setNumber('');
                   setRegion('EAST_OAKLAND');
                 }
               }}
@@ -56,6 +57,7 @@ const CustomText = ({ sendText, replyTo }) => {
               onChange={(e) => {
                 if (e.target.checked) {
                   setRegion('WEST_OAKLAND');
+                  setNumber('');
                 }
               }}
             />
@@ -69,10 +71,8 @@ const CustomText = ({ sendText, replyTo }) => {
               name="to"
               type="radio"
               ref={numberRef}
-              checked={!region}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setRegion(null);
                   numberTextRef.current.focus();
                 }
               }}

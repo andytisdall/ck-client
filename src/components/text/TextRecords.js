@@ -6,6 +6,8 @@ import './TextRecords.css';
 import * as actions from '../../actions';
 import Loading from '../reusable/Loading';
 
+const regions = { WEST_OAKLAND: 'West Oakland', EAST_OAKLAND: 'East Oakland' };
+
 const TextRecords = ({ textRecords, getTextRecords, getAllUsers, users }) => {
   const [startDate, setStartDate] = useState(format(new Date(), 'yyyy-MM-dd'));
 
@@ -30,16 +32,21 @@ const TextRecords = ({ textRecords, getTextRecords, getAllUsers, users }) => {
       return (
         <div key={rec.id} className="text-record">
           <div className="text-record-header">
-            <div>{format(new Date(rec.date), 'MM-dd-yy, hh:mm a')}</div>
+            <div>{format(new Date(rec.date), 'eee M-d-yy h:mm a')}</div>
             <div>
+              Sent by:{' '}
               {rec.sender === 'salesforce'
                 ? 'Salesforce'
                 : users[rec.sender]?.username}
             </div>
-            <div>{rec.region}</div>
+            <div>To: {regions[rec.region] || rec.region}</div>
           </div>
           <div>{rec.message}</div>
-          {!!rec.image && <div>{rec.image}</div>}
+          {!!rec.image && (
+            <a href={rec.image} alt="attached" target="blank">
+              <button>View Image</button>
+            </a>
+          )}
         </div>
       );
     });
@@ -47,7 +54,13 @@ const TextRecords = ({ textRecords, getTextRecords, getAllUsers, users }) => {
 
   return (
     <div>
-      <input type="date" value={startDate} onChange={setStartDate} />
+      <input
+        type="date"
+        value={startDate}
+        onChange={(e) =>
+          setStartDate(format(new Date(e.target.value), 'yyyy-MM-dd'))
+        }
+      />
       {renderTextRecords()}
     </div>
   );

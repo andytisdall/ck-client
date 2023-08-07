@@ -18,7 +18,7 @@ export const getMealProgramInfo = () => async (dispatch) => {
 };
 
 export const getAllRestaurants = () => async (dispatch) => {
-  const res = await server.get('/restaurant/all');
+  const res = await server.get('/meal-program/restaurant/all');
   dispatch({ type: FETCH_ALL_RESTAURANTS, payload: res.data });
 };
 
