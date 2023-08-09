@@ -42,12 +42,7 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
               <Link key={delivery.id} to={'../' + delivery.id}>
                 <div className={`calendar-item calendar-color-${i}`}>
                   <div className="calendar-meal-program-text">
-                    {delivery.time}
-                  </div>
-                  <div className="calendar-meal-program-text">
-                    {accounts[delivery.restaurant]?.name}
-                  </div>
-                  <div className="calendar-meal-program-text">
+                    {delivery.time} - {accounts[delivery.restaurant]?.name} to{' '}
                     {accounts[delivery.cbo]?.name}
                   </div>
                 </div>

@@ -1,11 +1,24 @@
 import { connect } from 'react-redux';
 import Loading from '../../reusable/Loading';
-import React, { useMemo } from 'react';
-import { format } from 'date-fns';
+import React, { useMemo, useState } from 'react';
+import { format, addDays } from 'date-fns';
 import { useParams } from 'react-router-dom';
 
 const List = ({ schedule, accounts }) => {
+  const [dateRange, setDateRange] = useState('This Week');
   const { detailId } = useParams();
+
+  const getMonday = useMemo(() => {
+    const monday = new Date();
+    if (dateRange === 'This Week') {
+      monday.setDate(monday.getDate() - (monday.getDay() || 7) + 1);
+    }
+    if (dateRange === 'Next Week') {
+      monday.setDate(monday.getDate() + (monday.getDay() || 1) + 1);
+    }
+    return monday;
+  }, [dateRange]);
+
   const sortedSchedule = useMemo(() => {
     if (!schedule) {
       return;
@@ -13,16 +26,22 @@ const List = ({ schedule, accounts }) => {
     if (detailId) {
       return [schedule.find((d) => d.id === detailId)];
     }
-    return [...schedule].sort((a, b) =>
-      a.date > b.date
-        ? 1
-        : b.date > a.date
-        ? -1
-        : new Date(a.time) > new Date(b.time)
-        ? 1
-        : -1
-    );
-  }, [schedule, detailId]);
+    return [...schedule]
+      .filter(
+        (del) =>
+          new Date(del.date) > getMonday &&
+          new Date(del.date) < addDays(getMonday, 6)
+      )
+      .sort((a, b) =>
+        a.date > b.date
+          ? 1
+          : b.date > a.date
+          ? -1
+          : new Date(a.time) > new Date(b.time)
+          ? 1
+          : -1
+      );
+  }, [schedule, detailId, getMonday]);
 
   const renderList = () => {
     if (sortedSchedule && accounts) {
@@ -116,7 +135,28 @@ const List = ({ schedule, accounts }) => {
     );
   };
 
-  return <div className="meal-program-list">{renderList()}</div>;
+  return (
+    <div>
+      {!detailId && (
+        <>
+          <label htmlFor="date">Date Range:</label>
+          <select
+            id="date"
+            value={dateRange}
+            onChange={(e) => setDateRange(e.target.value)}
+          >
+            <option value="This Week">This Week</option>
+            <option value="Next Week">Next Week</option>
+          </select>
+          <div>
+            {format(getMonday, 'M/d/yy')} -{' '}
+            {format(addDays(getMonday, 6), 'M/d/yy')}
+          </div>
+        </>
+      )}
+      <div className="meal-program-list">{renderList()}</div>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {

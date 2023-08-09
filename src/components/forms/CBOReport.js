@@ -44,6 +44,8 @@ const CBOReport = ({ submitForm }) => {
   const [zips, setZips] = useState({});
   const [numberOfZips, setNumberOfZips] = useState(0);
 
+  const [feedback, setFeedback] = useState('');
+
   const [loading, setLoading] = useLoading();
 
   const onSubmit = (e) => {
@@ -85,6 +87,7 @@ const CBOReport = ({ submitForm }) => {
         race,
         households,
         zips,
+        feedback,
       },
       { name: 'CBO_REPORT', successMessage }
     );
@@ -443,6 +446,16 @@ const CBOReport = ({ submitForm }) => {
           )}
         </div>
         <div>{renderZipInputs()}</div>
+      </div>
+      <div className="form-item">
+        <label>
+          Do you have any feedback about the meals you’ve been receiving?
+        </label>
+        <input
+          type="text"
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
+        />
       </div>
       {!loading ? <input type="submit" value="Submit" /> : <Loading />}
     </form>
