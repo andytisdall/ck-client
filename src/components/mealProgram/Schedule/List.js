@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Loading from '../../reusable/Loading';
 import React, { useMemo, useState } from 'react';
 import { format, addDays } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 import { useParams } from 'react-router-dom';
 
 const List = ({ schedule, accounts }) => {
@@ -9,13 +10,14 @@ const List = ({ schedule, accounts }) => {
   const { detailId } = useParams();
 
   const getMonday = useMemo(() => {
-    const monday = new Date();
+    const monday = utcToZonedTime(new Date());
     if (dateRange === 'This Week') {
       monday.setDate(monday.getDate() - (monday.getDay() || 7) + 1);
     }
     if (dateRange === 'Next Week') {
       monday.setDate(monday.getDate() + (monday.getDay() || 1) + 1);
     }
+    monday.setHours(0, 0, 0);
     return monday;
   }, [dateRange]);
 
@@ -27,11 +29,12 @@ const List = ({ schedule, accounts }) => {
       return [schedule.find((d) => d.id === detailId)];
     }
     return [...schedule]
-      .filter(
-        (del) =>
-          new Date(del.date) > getMonday &&
-          new Date(del.date) < addDays(getMonday, 6)
-      )
+      .filter((del) => {
+        return (
+          utcToZonedTime(del.date) >= getMonday &&
+          utcToZonedTime(del.date) <= addDays(getMonday, 7)
+        );
+      })
       .sort((a, b) =>
         a.date > b.date
           ? 1
@@ -103,7 +106,10 @@ const List = ({ schedule, accounts }) => {
     return (
       <React.Fragment key={delivery.id}>
         <div className="meal-program-list-item">
-          {format(new Date(delivery.date), 'M/d/yy')}
+          {format(
+            utcToZonedTime(delivery.date, 'America/Los_Angeles'),
+            'M/d/yy'
+          )}
         </div>
         <div className="meal-program-list-item">{delivery.time}</div>
         <div className="meal-program-list-item">
@@ -120,7 +126,7 @@ const List = ({ schedule, accounts }) => {
           {accounts[delivery.cbo].name}
         </div>
         <div className="meal-program-list-item">
-          {format(new Date(delivery.date), 'eeee')}
+          {format(utcToZonedTime(delivery.date, 'America/Los_Angeles'), 'eeee')}
         </div>
         <div className="meal-program-list-item">
           {delivery.numberOfMealsMeat}

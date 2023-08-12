@@ -89,6 +89,6 @@ export const deleteFeedback = (id) => async (dispatch) => {
 };
 
 export const getTextRecords = (startDate) => async (dispatch) => {
-  const res = await server.get('/text/text-records/' + startDate);
+  const res = await server.get('/text/text-records/list/' + startDate);
   dispatch({ type: GET_TEXT_RECORDS, payload: res.data });
 };
