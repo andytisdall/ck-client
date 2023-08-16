@@ -22,7 +22,7 @@ const CBOReport = ({ submitForm }) => {
 
   const [age17, setAge17] = useState('');
   const [age26, setAge26] = useState('');
-  const [age50, setAge50] = useState('');
+  const [age49, setAge49] = useState('');
   const [age60, setAge60] = useState('');
   const [ageOver60, setAgeOver60] = useState('');
   const [ageUnknown, setAgeUnknown] = useState('');
@@ -52,7 +52,7 @@ const CBOReport = ({ submitForm }) => {
     e.preventDefault();
     setLoading(true);
 
-    const age = { age17, age26, age50, age60, ageOver60, ageUnknown };
+    const age = { age17, age26, age49, age60, ageOver60, ageUnknown };
 
     const race = {
       raceAfrican,
@@ -259,11 +259,11 @@ const CBOReport = ({ submitForm }) => {
         <div className="demo-item">
           <label htmlFor="age49">27-49</label>
           <input
-            id="age50"
+            id="age49"
             type="number"
             min={0}
-            value={age50}
-            onChange={(e) => setAge50(e.target.value)}
+            value={age49}
+            onChange={(e) => setAge49(e.target.value)}
           />
         </div>
         <div className="demo-item">

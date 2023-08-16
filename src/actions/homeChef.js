@@ -72,8 +72,9 @@ export const getFridges = () => async (dispatch) => {
   dispatch({ type: GET_FRIDGES, payload: data });
 };
 
-export const sendHomeChefNotification = () => async (dispatch) => {
-  await server.post('/home-chef/notifications');
-  dispatch(setAlert('Notification Sent!'));
-  router.navigate('..');
-};
+export const sendHomeChefNotification =
+  (title, message) => async (dispatch) => {
+    await server.post('/home-chef/notifications', { title, message });
+    dispatch(setAlert('Notification Sent!'));
+    router.navigate('..');
+  };
