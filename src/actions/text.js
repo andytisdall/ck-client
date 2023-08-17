@@ -7,6 +7,8 @@ import {
   DELETE_FEEDBACK,
   CLEAR_NUMBER,
   GET_TEXT_RECORDS,
+  GET_RECURRING_TEXTS,
+  DELETE_TEXT,
 } from './types';
 import server from './api';
 import { router } from '../App';
@@ -91,4 +93,15 @@ export const deleteFeedback = (id) => async (dispatch) => {
 export const getTextRecords = (startDate) => async (dispatch) => {
   const res = await server.get('/text/text-records/list/' + startDate);
   dispatch({ type: GET_TEXT_RECORDS, payload: res.data });
+};
+
+export const getScheduledTexts = () => async (dispatch) => {
+  const { data } = await server.get('/text/scheduled');
+  console.log(data);
+  dispatch({ type: GET_RECURRING_TEXTS, payload: data });
+};
+
+export const deleteScheduledText = (id) => async (dispatch) => {
+  await server.delete('/text/scheduled/' + id);
+  dispatch({ type: DELETE_TEXT, payload: id });
 };

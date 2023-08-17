@@ -8,12 +8,15 @@ import {
   GET_PHONE_NUMBER,
   CLEAR_NUMBER,
   GET_TEXT_RECORDS,
+  GET_RECURRING_TEXTS,
+  DELETE_TEXT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   feedback: null,
   sent: null,
   number: null,
+  scheduledTexts: null,
 };
 
 const textReducer = (state = INITIAL_STATE, action) => {
@@ -44,6 +47,15 @@ const textReducer = (state = INITIAL_STATE, action) => {
       return { ...state, number: null };
     case GET_TEXT_RECORDS:
       return { ...state, textRecords: action.payload };
+    case GET_RECURRING_TEXTS:
+      return { ...state, scheduledTexts: action.payload };
+    case DELETE_TEXT:
+      return {
+        ...state,
+        scheduledTexts: state.scheduledTexts.filter(
+          (txt) => txt.sid !== action.payload
+        ),
+      };
     default:
       return state;
   }

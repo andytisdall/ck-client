@@ -74,7 +74,7 @@ const ZipCodeSelector = ({ zips, setZips }) => {
   ];
 
   const setValues = () => {
-    setZips({ ...zips, zipCode: amount });
+    setZips({ ...zips, [zipCode]: amount });
   };
 
   return (
