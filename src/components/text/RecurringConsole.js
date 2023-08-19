@@ -19,6 +19,7 @@ const RecurringConsole = ({
         return (
           <li className="scheduled-text" key={txt.sid}>
             {txt.body}
+
             <button
               className="cancel"
               onClick={() => deleteScheduledText(txt.sid)}

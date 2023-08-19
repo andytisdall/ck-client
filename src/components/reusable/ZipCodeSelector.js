@@ -74,7 +74,9 @@ const ZipCodeSelector = ({ zips, setZips }) => {
   ];
 
   const setValues = () => {
-    setZips({ ...zips, [zipCode]: amount });
+    if (zipCode) {
+      setZips({ ...zips, [zipCode]: amount });
+    }
   };
 
   return (
@@ -88,7 +90,11 @@ const ZipCodeSelector = ({ zips, setZips }) => {
       >
         {zipCodeOptions.map((z) => {
           return (
-            <option value={z.replace(' ', '')} key={z}>
+            <option
+              disabled={Object.keys(zips).includes(z.replaceAll(' ', ''))}
+              value={z.replaceAll(' ', '')}
+              key={z}
+            >
               {z}
             </option>
           );
