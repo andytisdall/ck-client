@@ -26,7 +26,7 @@ const DeletePhone = ({ number, deletePhone, clearNumber }) => {
               <button
                 onClick={() => {
                   setLoading(true);
-                  deletePhone(number.id);
+                  deletePhone(number.id).then(() => setLoading(false));
                 }}
                 className="cancel"
               >
