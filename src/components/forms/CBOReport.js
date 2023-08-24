@@ -12,6 +12,8 @@ const CBOReport = ({ submitForm }) => {
   const [month, setMonth] = useState('');
   const [name, setName] = useState('');
   const [CBOName, setCBOName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const [percentWOAccess, setPercentWOAccess] = useState('');
   const [mealsProvided, setMealsProvided] = useState('');
@@ -88,6 +90,8 @@ const CBOReport = ({ submitForm }) => {
         households,
         zips,
         feedback,
+        phone,
+        email,
       },
       { name: 'CBO_REPORT', successMessage }
     );
@@ -135,16 +139,6 @@ const CBOReport = ({ submitForm }) => {
         />
       </div>
       <div className="form-item">
-        <label htmlFor="name">Report Completed By</label>
-        <input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-item">
         <label htmlFor="month">Month</label>
         <select
           id="month"
@@ -161,6 +155,37 @@ const CBOReport = ({ submitForm }) => {
           })}
         </select>
       </div>
+      <div className="form-item">
+        <label htmlFor="name">Report Completed By</label>
+        <input
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="phone">Phone Number</label>
+        <input
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          type="tel"
+          id="phone"
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+
       <div className="form-item">
         <label htmlFor="access">
           % unduplicated individuals served without access to a kitchen to

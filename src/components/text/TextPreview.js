@@ -61,7 +61,7 @@ const TextPreview = ({
       </button>
 
       <button
-        className="send-btn"
+        className="send-btn cancel"
         onClick={() => {
           onCancel();
         }}

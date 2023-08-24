@@ -62,6 +62,7 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
           <option value="">Select a User</option>
           {renderUsers()}
         </select>
+        {!!user && <div className="admin-id-text">ID: {user}</div>}
         <label htmlFor="name">Username:</label>
         <input
           name="name"
