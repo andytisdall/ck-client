@@ -1,8 +1,7 @@
 import './Invoicing.css';
 import DownloadFile from '../../reusable/DownloadFile';
 
-const FILENAME =
-  '"meal-program/meal-label-template.docx"CK_Invoice_Template.xlsx';
+const FILENAME = 'meal-program/CK_Invoice_Template.xlsx';
 
 const Invoicing = () => {
   return (
