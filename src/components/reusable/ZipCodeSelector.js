@@ -4,7 +4,6 @@ const ZipCodeSelector = ({ zips, setZips }) => {
   const [zipCode, setZipCode] = useState('');
   const [amount, setAmount] = useState(0);
   const zipCodeOptions = [
-    undefined,
     '94501',
     '94502',
     '94536',
@@ -89,6 +88,7 @@ const ZipCodeSelector = ({ zips, setZips }) => {
           setValues();
         }}
       >
+        <option value={undefined}></option>
         {zipCodeOptions.map((z) => {
           return (
             <option
