@@ -14,6 +14,7 @@ const CBOReport = ({ submitForm }) => {
   const [CBOName, setCBOName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [year, setYear] = useState(2023);
 
   const [percentWOAccess, setPercentWOAccess] = useState('');
   const [mealsProvided, setMealsProvided] = useState('');
@@ -92,25 +93,26 @@ const CBOReport = ({ submitForm }) => {
         feedback,
         phone,
         email,
+        year,
       },
       { name: 'CBO_REPORT', successMessage }
     );
   };
 
   const monthOptions = [
-    '',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    { name: '', value: '' },
+    { name: 'January', value: 0 },
+    { name: 'February', value: 1 },
+    { name: 'March', value: 2 },
+    { name: 'April', value: 3 },
+    { name: 'May', value: 4 },
+    { name: 'June', value: 5 },
+    { name: 'July', value: 6 },
+    { name: 'August', value: 7 },
+    { name: 'September', value: 8 },
+    { name: 'October', value: 9 },
+    { name: 'November', value: 10 },
+    { name: 'December', value: 11 },
   ];
 
   const renderZipInputs = () => {
@@ -149,11 +151,22 @@ const CBOReport = ({ submitForm }) => {
         >
           {monthOptions.map((mo) => {
             return (
-              <option value={mo} key={mo}>
-                {mo}
+              <option value={mo.value} key={mo.value}>
+                {mo.name}
               </option>
             );
           })}
+        </select>
+      </div>
+      <div className="form-item">
+        <label htmlFor="year">Year</label>
+        <select
+          id="year"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          required
+        >
+          <option value="2023">2023</option>
         </select>
       </div>
       <div className="form-item">
@@ -189,14 +202,13 @@ const CBOReport = ({ submitForm }) => {
 
       <div className="form-item">
         <label htmlFor="access">
-          % unduplicated individuals served without access to a kitchen to
+          # unduplicated individuals served without access to a kitchen to
           prepare meals
         </label>
         <input
           id="access"
           type="number"
           min={0}
-          max={100}
           value={percentWOAccess}
           onChange={(e) => setPercentWOAccess(e.target.value)}
         />
