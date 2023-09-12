@@ -15,6 +15,7 @@ const CBOReport = ({ submitForm }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [year, setYear] = useState(2023);
+  const [program, setProgram] = useState('');
 
   const [percentWOAccess, setPercentWOAccess] = useState('');
   const [mealsProvided, setMealsProvided] = useState('');
@@ -94,6 +95,7 @@ const CBOReport = ({ submitForm }) => {
         phone,
         email,
         year,
+        program,
       },
       { name: 'CBO_REPORT', successMessage }
     );
@@ -139,6 +141,15 @@ const CBOReport = ({ submitForm }) => {
           value={CBOName}
           onChange={(e) => setCBOName(e.target.value)}
           required
+        />
+      </div>
+      <div className="form-item">
+        <label htmlFor="program">Program Name (if applicable)</label>
+        <input
+          id="program"
+          type="text"
+          value={program}
+          onChange={(e) => setProgram(e.target.value)}
         />
       </div>
       <div className="form-item">

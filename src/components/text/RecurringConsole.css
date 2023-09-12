@@ -1,5 +1,5 @@
 .scheduled-text {
-  width: max-content;
+  max-width: 80%;
   padding-bottom: .5rem;
   padding-top: .5rem;
   border-bottom: 1px white solid;

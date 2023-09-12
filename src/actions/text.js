@@ -101,7 +101,7 @@ export const getScheduledTexts = () => async (dispatch) => {
   dispatch({ type: GET_RECURRING_TEXTS, payload: data });
 };
 
-export const deleteScheduledText = (id) => async (dispatch) => {
-  await server.delete('/text/scheduled/' + id);
-  dispatch({ type: DELETE_TEXT, payload: id });
+export const deleteScheduledText = (idList) => async (dispatch) => {
+  await server.post('/text/scheduled/delete', { ids: idList });
+  dispatch({ type: DELETE_TEXT, payload: idList });
 };

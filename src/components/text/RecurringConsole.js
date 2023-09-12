@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
+import Loading from '../reusable/Loading';
+import useLoading from '../../hooks/useLoading';
 import * as actions from '../../actions';
 import './RecurringConsole.css';
 
@@ -9,26 +12,61 @@ const RecurringConsole = ({
   getScheduledTexts,
   deleteScheduledText,
 }) => {
+  const [loading, setLoading] = useLoading();
+
   useEffect(() => {
-    getScheduledTexts();
-  }, [getScheduledTexts]);
+    if (!scheduledTexts) {
+      setLoading(true);
+      getScheduledTexts();
+    } else {
+      setLoading(false);
+    }
+  }, [getScheduledTexts, setLoading, scheduledTexts]);
+
+  const messageList = useMemo(() => {
+    const list = {};
+    if (scheduledTexts) {
+      scheduledTexts.forEach((text) => {
+        if (!list[text.dateCreated]) {
+          list[text.dateCreated] = [text];
+        } else {
+          list[text.dateCreated].push(text);
+        }
+      });
+    }
+    return list;
+  }, [scheduledTexts]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (scheduledTexts && !scheduledTexts.length) {
+    return <p>No scheduled texts found</p>;
+  }
 
   return (
     <ul>
-      {scheduledTexts?.map((txt) => {
-        return (
-          <li className="scheduled-text" key={txt.sid}>
-            {txt.body}
-
-            <button
-              className="cancel"
-              onClick={() => deleteScheduledText(txt.sid)}
-            >
-              cancel
-            </button>
-          </li>
-        );
-      })}
+      {!!messageList &&
+        Object.keys(messageList).map((key) => {
+          return (
+            <li className="scheduled-text" key={key}>
+              Date Created:{' '}
+              {format(utcToZonedTime(key, 'America/Los_Angeles'), 'MM/dd/yy')}
+              <p>{messageList[key][0].body}</p>
+              <button
+                className="cancel"
+                onClick={() =>
+                  deleteScheduledText(
+                    Object.values(messageList[key]).map((text) => text.sid)
+                  )
+                }
+              >
+                cancel
+              </button>
+            </li>
+          );
+        })}
     </ul>
   );
 };

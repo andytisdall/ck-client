@@ -53,7 +53,7 @@ const textReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         scheduledTexts: state.scheduledTexts.filter(
-          (txt) => txt.sid !== action.payload
+          (txt) => !action.payload.includes(txt.sid)
         ),
       };
     default:
