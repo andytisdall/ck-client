@@ -27,10 +27,14 @@ const RecurringConsole = ({
     const list = {};
     if (scheduledTexts) {
       scheduledTexts.forEach((text) => {
+        const formattedTime = format(
+          utcToZonedTime(text.dateCreated, 'America/Los_Angeles'),
+          'MM/dd/yy hh:mm a'
+        );
         if (!list[text.dateCreated]) {
-          list[text.dateCreated] = [text];
+          list[formattedTime] = [text];
         } else {
-          list[text.dateCreated].push(text);
+          list[formattedTime].push(text);
         }
       });
     }
@@ -51,7 +55,7 @@ const RecurringConsole = ({
         Object.keys(messageList).map((key) => {
           return (
             <li className="scheduled-text" key={key}>
-              Date Created:{' '}
+              Scheduled On:{' '}
               {format(utcToZonedTime(key, 'America/Los_Angeles'), 'MM/dd/yy')}
               <p>{messageList[key][0].body}</p>
               <button
