@@ -111,7 +111,12 @@ const List = ({ schedule, accounts }) => {
             'M/d/yy'
           )}
         </div>
-        <div className="meal-program-list-item">{delivery.time}</div>
+        <div className="meal-program-list-item">
+          {format(
+            utcToZonedTime(delivery.time, 'America/Los_Angeles'),
+            'h:mm a'
+          )}
+        </div>
         <div className="meal-program-list-item">
           {accounts[delivery.restaurant].name}
         </div>
