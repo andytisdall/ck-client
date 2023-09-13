@@ -47,7 +47,7 @@ const Home = ({
 
   const renderNoUser = () => {
     return (
-      <p>
+      <p className="unauthorized-text">
         Please sign in to access the features of the Community Kitchens portal.
       </p>
     );

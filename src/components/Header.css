@@ -8,11 +8,13 @@
 }
 
 .header-left {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
 }
 
 .header-right {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
 }
@@ -55,4 +57,8 @@
 
 .error-page {
   background-image: linear-gradient(pink,rgb(198, 102, 198));
+}
+
+.unauthorized-text {
+  width: 80%;
 }

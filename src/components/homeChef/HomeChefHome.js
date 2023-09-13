@@ -102,7 +102,7 @@ const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
         {user.homeChefStatus === 'Active' && (
           <>
             <TextButton
-              to="app"
+              to="../home-chef-app"
               buttonText="Get the CK Home Chef App"
               descriptionText={appDescription}
             />

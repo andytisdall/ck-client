@@ -24,6 +24,10 @@ import homeChefRouter from './components/homeChef/homeChefRouter';
 // forms
 import formsRouter from './components/forms/formsRouter';
 
+// public home chef app page (no sign in required)
+const HomeChefApp = React.lazy(() =>
+  import('./components/homeChef/HomeChefApp')
+);
 const SalesforceNotFound = React.lazy(() =>
   import('./components/error/SalesforceNotFound')
 );
@@ -43,6 +47,7 @@ export const router = createBrowserRouter([
         index: true,
         element: renderWithFallback(<Home />),
       },
+      { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
       textRouter,
       adminRouter,
       mealProgramRouter,

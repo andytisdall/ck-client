@@ -1,8 +1,8 @@
 .home-chef-app-links {
   display: flex;
-  justify-content: space-around;
-  margin-top: 2rem;
-
+  margin-top: 4rem;
+flex-direction: column;
+align-items: center;
 }
 
 .home-chef-app-logos {
@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 5rem;
 }
 
 .home-chef-app-logos img {

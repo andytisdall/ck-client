@@ -1,11 +1,13 @@
 import './HomeChefApp.css';
+import './HomeChef.css';
 
 const HomeChefApp = () => {
   return (
-    <div>
+    <div className="main home-chef">
       <h2>Download the Home Chef App</h2>
       <h4>
         Sign up for deliveries and send alerts about your Town Fridge deliveries
+        from your mobile device. Works on all Apple and Android devices.
       </h4>
       <div className="home-chef-app-links">
         <a
