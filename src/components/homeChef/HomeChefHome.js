@@ -19,6 +19,8 @@ const onboardingDescription =
   'Complete the tasks necessary to start making deliveries';
 const emailDescription =
   'Let your friends know about CK Home Chef and invite them to cook for town fridges';
+const appDescription =
+  'Download and install the Home Chef App, where you can sign up for shifts and send alerts about your Town Fridge deliveries';
 
 const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
   const renderStatus = () => {
@@ -98,11 +100,18 @@ const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
           descriptionText={emailDescription}
         />
         {user.homeChefStatus === 'Active' && (
-          <TextButton
-            to="onboarding/orientation-slides"
-            buttonText="Read the Orientation Materials"
-            descriptionText={slidesDescription}
-          />
+          <>
+            <TextButton
+              to="app"
+              buttonText="Get the CK Home Chef App"
+              descriptionText={appDescription}
+            />
+            <TextButton
+              to="onboarding/orientation-slides"
+              buttonText="Read the Orientation Materials"
+              descriptionText={slidesDescription}
+            />
+          </>
         )}
         {renderWithFallback(<FridgeMap />)}
       </div>

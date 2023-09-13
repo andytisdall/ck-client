@@ -29,7 +29,7 @@ const RecurringConsole = ({
       scheduledTexts.forEach((text) => {
         const formattedTime = format(
           utcToZonedTime(text.dateCreated, 'America/Los_Angeles'),
-          'MM/dd/yy hh:mm a'
+          'M/d/yy h:mm aaa'
         );
         if (!list[text.dateCreated]) {
           list[formattedTime] = [text];

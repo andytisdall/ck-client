@@ -61,6 +61,7 @@ const JobList = React.lazy(() => import('./events/JobList'));
 const EventShiftConfirmation = React.lazy(() =>
   import('./events/Confirmation')
 );
+const HomeChefApp = React.lazy(() => import('./HomeChefApp'));
 
 const HomeChef = ({
   user,
@@ -147,6 +148,7 @@ const homeChefRouter = {
   element: <ConnectedHomeChef />,
   children: [
     { index: true, element: renderWithFallback(<HomeChefHome />) },
+    { path: 'app', element: renderWithFallback(<HomeChefApp />) },
     {
       path: 'invite',
       children: [

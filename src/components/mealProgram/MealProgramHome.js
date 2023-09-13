@@ -33,7 +33,7 @@ const MealProgramHome = () => {
         />
         <TextButton
           to="onboarding"
-          buttonText="Onboarding"
+          buttonText="Upload Documents"
           descriptionText={onboardingDescription}
         />
       </div>

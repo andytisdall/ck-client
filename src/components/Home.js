@@ -78,7 +78,7 @@ const Home = ({
       return (
         <TextButton
           to="meal-program"
-          buttonText="Meal Program Onboarding"
+          buttonText="Restaurant Meal Program"
           descriptionText={mealProgramDescription}
         />
       );
