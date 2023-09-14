@@ -15,9 +15,8 @@ const CBOReport = ({ submitForm }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [year, setYear] = useState(2023);
-  const [program, setProgram] = useState('');
 
-  const [percentWOAccess, setPercentWOAccess] = useState('');
+  const [individualsWOAccess, setIndividualsWOAccess] = useState('');
   const [mealsProvided, setMealsProvided] = useState('');
   const [unusable, setUnusable] = useState('');
   const [postcards, setPostcards] = useState('');
@@ -73,7 +72,7 @@ const CBOReport = ({ submitForm }) => {
     };
 
     const performanceMeasures = {
-      percentWOAccess,
+      individualsWOAccess,
       mealsProvided,
       unusable,
       postcards,
@@ -95,7 +94,6 @@ const CBOReport = ({ submitForm }) => {
         phone,
         email,
         year,
-        program,
       },
       { name: 'CBO_REPORT', successMessage }
     );
@@ -141,15 +139,6 @@ const CBOReport = ({ submitForm }) => {
           value={CBOName}
           onChange={(e) => setCBOName(e.target.value)}
           required
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="program">Program Name (if applicable)</label>
-        <input
-          id="program"
-          type="text"
-          value={program}
-          onChange={(e) => setProgram(e.target.value)}
         />
       </div>
       <div className="form-item">
@@ -220,8 +209,8 @@ const CBOReport = ({ submitForm }) => {
           id="access"
           type="number"
           min={0}
-          value={percentWOAccess}
-          onChange={(e) => setPercentWOAccess(e.target.value)}
+          value={individualsWOAccess}
+          onChange={(e) => setIndividualsWOAccess(e.target.value)}
         />
       </div>
       <div className="form-item">
