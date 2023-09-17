@@ -42,11 +42,8 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
               <Link key={delivery.id} to={'../' + delivery.id}>
                 <div className={`calendar-item calendar-color-${i}`}>
                   <div className="calendar-meal-program-text">
-                    {format(
-                      utcToZonedTime(delivery.time, 'America/Los_Angeles'),
-                      'h:mm a'
-                    )}
-                    - {accounts[delivery.restaurant]?.name} to{' '}
+                    {format(new Date(delivery.time), 'h:mm a')}-{' '}
+                    {accounts[delivery.restaurant]?.name} to{' '}
                     {accounts[delivery.cbo]?.name}
                   </div>
                 </div>
