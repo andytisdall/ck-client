@@ -10,3 +10,4 @@ export * from './docusign';
 export * from './error';
 export * from './mealProgram';
 export * from './events';
+export * from './auth';

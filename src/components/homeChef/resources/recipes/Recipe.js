@@ -9,8 +9,6 @@ import { categories } from './RecipeList';
 import './Recipe.css';
 import useLoading from '../../../../hooks/useLoading';
 
-const IMAGE_URL = 'https://portal.ckoakland.org/api/files/images/';
-
 const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
   const { recipeId } = useParams();
   const recipe = recipes[recipeId];

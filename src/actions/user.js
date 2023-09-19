@@ -1,6 +1,5 @@
 import {
   SIGN_IN,
-  SIGN_OUT,
   GET_ALL_USERS,
   CREATE_USER,
   EDIT_USER,
@@ -10,15 +9,13 @@ import {
 import server from './api';
 import { setAlert } from './alert';
 import { router } from '../App';
+import { signOut } from './auth';
 
 export const getUser = () => async (dispatch) => {
-  try {
-    const res = await server.get('/user');
+  const res = await server.get('/user');
+  if (res.data) {
     dispatch({ type: SIGN_IN, payload: res.data });
-  } catch (err) {
-    dispatch(signOut);
-    throw Error(err.message);
-  }
+  } else dispatch(signOut);
 };
 
 export const getUserInfo = () => async (dispatch) => {
@@ -34,31 +31,6 @@ export const getUserInfo = () => async (dispatch) => {
 export const getAllUsers = () => async (dispatch) => {
   const res = await server.get('/user/all');
   dispatch({ type: GET_ALL_USERS, payload: res.data });
-};
-
-export const signIn = (username, password) => async (dispatch) => {
-  const res = await server.post('/signin', {
-    username,
-    password,
-  });
-  localStorage.setItem('ck-token', res.data.token);
-  dispatch({ type: SIGN_IN, payload: res.data.user });
-
-  // prompt new user to change password
-  if (!res.data.user.active) {
-    router.navigate('user/change-password');
-  }
-};
-
-export const googleSignIn = (credential) => async (dispatch) => {
-  const res = await server.post('/google-signin', { credential });
-  localStorage.setItem('ck-token', res.data.token);
-  dispatch({ type: SIGN_IN, payload: res.data.user });
-};
-
-export const signOut = () => {
-  localStorage.removeItem('ck-token');
-  return { type: SIGN_OUT };
 };
 
 export const createUser =

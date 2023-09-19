@@ -38,11 +38,16 @@ const MealProgramCalendar = ({ schedule, accounts }) => {
           )
 
           .map((delivery, i) => {
+            const time = new Date();
+            const [hours, minutes] = delivery.time.split(':');
+            time.setHours(parseInt(hours));
+            time.setMinutes(parseInt(minutes));
+
             return (
               <Link key={delivery.id} to={'../' + delivery.id}>
                 <div className={`calendar-item calendar-color-${i}`}>
                   <div className="calendar-meal-program-text">
-                    {format(new Date(delivery.time), 'h:mm a')}-{' '}
+                    {format(time, 'h:mm a')}-{' '}
                     {accounts[delivery.restaurant]?.name} to{' '}
                     {accounts[delivery.cbo]?.name}
                   </div>
