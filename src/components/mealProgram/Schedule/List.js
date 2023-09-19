@@ -35,15 +35,21 @@ const List = ({ schedule, accounts }) => {
           utcToZonedTime(del.date) <= addDays(getMonday, 7)
         );
       })
-      .sort((a, b) =>
-        a.date > b.date
+      .sort((a, b) => {
+        const [hoursA, minutesA] = a.time.split(':');
+        const [hoursB, minutesB] = b.time.split(':');
+        return a.date > b.date
           ? 1
           : b.date > a.date
           ? -1
-          : new Date(a.time) > new Date(b.time)
+          : parseInt(hoursA) > parseInt(hoursB)
           ? 1
-          : -1
-      );
+          : parseInt(hoursB) > parseInt(hoursA)
+          ? -1
+          : parseInt(minutesA) > parseInt(minutesB)
+          ? 1
+          : -1;
+      });
   }, [schedule, detailId, getMonday]);
 
   const renderList = () => {
@@ -103,6 +109,11 @@ const List = ({ schedule, accounts }) => {
   };
 
   const renderScheduleItem = (delivery) => {
+    const time = new Date();
+    const [hours, minutes] = delivery.time.split(':');
+    time.setHours(parseInt(hours));
+    time.setMinutes(parseInt(minutes));
+
     return (
       <React.Fragment key={delivery.id}>
         <div className="meal-program-list-item">
@@ -111,9 +122,7 @@ const List = ({ schedule, accounts }) => {
             'M/d/yy'
           )}
         </div>
-        <div className="meal-program-list-item">
-          {format(new Date(delivery.time), 'h:mm a')}
-        </div>
+        <div className="meal-program-list-item">{format(time, 'h:mm a')}</div>
         <div className="meal-program-list-item">
           {accounts[delivery.restaurant].name}
         </div>
