@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
-import { createUser, setError } from '../../../actions';
+import * as actions from '../../../actions';
 
-const CreateUser = ({ setError, createUser }) => {
+const CreateUser = ({ setError, createUser, getSFUserInfo }) => {
   const [username, setUsername] = useState('');
   const [salesforceId, setSalesforceId] = useState('');
   const [password1, setPassword1] = useState('');
@@ -58,8 +58,9 @@ const CreateUser = ({ setError, createUser }) => {
         />
         <input type="submit" value="Submit" />
       </form>
+      {/* <button onClick={getSFUserInfo}>Get User Info</button> */}
     </div>
   );
 };
 
-export default connect(null, { setError, createUser })(CreateUser);
+export default connect(null, actions)(CreateUser);

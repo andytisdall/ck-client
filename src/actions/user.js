@@ -11,6 +11,11 @@ import { setAlert } from './alert';
 import { router } from '../App';
 import { signOut } from './auth';
 
+export const getSFUserInfo = () => async (dispatch) => {
+  const res = await server.get('/user/sf-user-info');
+  console.log(res.data);
+};
+
 export const getUser = () => async (dispatch) => {
   const res = await server.get('/user');
   if (res.data) {
