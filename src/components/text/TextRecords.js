@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { format } from 'date-fns-tz';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import './TextRecords.css';
 import * as actions from '../../actions';
@@ -32,7 +32,10 @@ const TextRecords = ({ textRecords, getTextRecords, getAllUsers, users }) => {
       return (
         <div key={rec.id} className="text-record">
           <div className="text-record-header">
-            <div>{format(new Date(rec.date), 'eee M-d-yy h:mm a')}</div>
+            <div>
+              {format(new Date(rec.date), 'eee M-d-yy h:mm a')}
+              {/* {rec.date} */}
+            </div>
             <div>
               Sent by:{' '}
               {rec.sender === 'salesforce'
