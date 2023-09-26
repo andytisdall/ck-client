@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
-import * as actions from '../../actions';
-import useLoading from '../../hooks/useLoading';
-import Loading from '../reusable/Loading';
+import * as actions from '../../../actions';
+import useLoading from '../../../hooks/useLoading';
+import Loading from '../../reusable/Loading';
 
 const SearchPhone = ({ getPhoneNumber }) => {
   const [number, setNumber] = useState('');

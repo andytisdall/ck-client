@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { format, utcToZonedTime } from 'date-fns-tz';
+import { format } from 'date-fns-tz';
 
 import './TextRecords.css';
 import * as actions from '../../actions';

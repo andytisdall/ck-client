@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
-import * as actions from '../../actions';
+import * as actions from '../../..ß/actions';
 import SearchPhone from './SearchPhone';
-import useLoading from '../../hooks/useLoading';
-import Loading from '../reusable/Loading';
+import useLoading from '../../..ß/hooks/useLoading';
+import Loading from '../..ß/reusable/Loading';
 
 const DeletePhone = ({ number, deletePhone, clearNumber }) => {
   const [loading, setLoading] = useLoading();

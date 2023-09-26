@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { useState, useRef } from 'react';
 
-import Loading from '../reusable/Loading';
-import * as actions from '../../actions';
-import TextPreview from './TextPreview';
-import useLoading from '../../hooks/useLoading';
-import './SendText.css';
-import { formatNumber } from './Feedback';
-import FileInput from '../reusable/FileInput';
+import Loading from '../../reusable/Loading';
+import * as actions from '../../../actions';
+import TextPreview from '../sendText/TextPreview';
+import useLoading from '../../../hooks/useLoading';
+import '../sendText/SendText.css';
+import { formatNumber } from '../feedback/Feedback';
+import FileInput from '../../reusable/FileInput';
 
 const CustomText = ({ sendText, replyTo }) => {
   const [message, setMessage] = useState('');

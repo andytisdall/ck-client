@@ -1,20 +1,20 @@
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
-import React, { useEffect } from 'react';
+import { lazy, useEffect } from 'react';
 
 import * as actions from '../../actions';
 import renderWithFallback from '../reusable/renderWithFallback';
 import './TextHome.css';
 
-const Phone = React.lazy(() => import('./Phone'));
-const TextHome = React.lazy(() => import('./TextHome'));
-const SendText = React.lazy(() => import('./SendText'));
-const TextSuccess = React.lazy(() => import('./TextSuccess'));
-const Feedback = React.lazy(() => import('./Feedback'));
-const CustomText = React.lazy(() => import('./CustomText'));
-const ScheduledText = React.lazy(() => import('./ScheduledText'));
-const TextRecords = React.lazy(() => import('./TextRecords'));
-const RecurringConsole = React.lazy(() => import('./RecurringConsole'));
+const Phone = lazy(() => import('./phone/Phone'));
+const TextHome = lazy(() => import('./TextHome'));
+const SendText = lazy(() => import('./sendText/SendText'));
+const TextSuccess = lazy(() => import('./sendText/TextSuccess'));
+const Feedback = lazy(() => import('./feedback/Feedback'));
+const CustomText = lazy(() => import('./customText/CustomText'));
+const ScheduledText = lazy(() => import('./recurring/ScheduledText'));
+const TextRecords = lazy(() => import('./textRecords/TextRecords'));
+const RecurringConsole = lazy(() => import('./recurring/RecurringConsole'));
 
 const Text = ({ user, getFridges }) => {
   useEffect(() => {

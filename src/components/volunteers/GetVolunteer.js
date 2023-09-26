@@ -5,7 +5,7 @@ import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
 import EnterEmail from './EnterEmail';
 import EnterName from './EnterName';
-import * as actions from 'actions';
+import * as actions from '../../actions';
 
 const GetVolunteer = ({ getVolunteer, volunteer, createVolunteer }) => {
   const [email, setEmail] = useState('');
@@ -25,6 +25,7 @@ const GetVolunteer = ({ getVolunteer, volunteer, createVolunteer }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!emailSubmitted) {
       getVolunteer(email);
       setEmailSubmitted(true);

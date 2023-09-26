@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { useEffect, useMemo } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
-import Loading from '../reusable/Loading';
-import useLoading from '../../hooks/useLoading';
-import * as actions from '../../actions';
+import Loading from '../../reusable/Loading';
+import useLoading from '../../../hooks/useLoading';
+import * as actions from '../../../actions';
 import './RecurringConsole.css';
 
 const RecurringConsole = ({

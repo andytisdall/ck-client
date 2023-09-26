@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import * as actions from '../../actions';
-import renderWithFallback from '../reusable/renderWithFallback';
+import * as actions from '../../../actions';
+import renderWithFallback from '../../reusable/renderWithFallback';
 import './SendText.css';
-import Loading from '../reusable/Loading';
-import useLoading from '../../hooks/useLoading';
-import FileInput from '../reusable/FileInput';
+import Loading from '../../reusable/Loading';
+import useLoading from '../../../hooks/useLoading';
+import FileInput from '../../reusable/FileInput';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 

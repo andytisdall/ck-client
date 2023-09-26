@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React from 'react';
+import { lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { utcToZonedTime, format } from 'date-fns-tz';
 
@@ -7,7 +7,7 @@ import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
 import renderWithFallback from '../reusable/renderWithFallback';
 
-const FridgeMap = React.lazy(() => import('./fridgeMap/FridgeMap'));
+const FridgeMap = lazy(() => import('./fridgeMap/FridgeMap'));
 
 const shiftSignupDescription =
   'See availability for town fridges and sign up to make a delivery';

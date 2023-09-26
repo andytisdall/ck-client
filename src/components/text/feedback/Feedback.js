@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 
-import Loading from '../reusable/Loading';
-import * as actions from '../../actions';
+import Loading from '../../reusable/Loading';
+import * as actions from '../../../actions';
 import './Feedback.css';
-import useLoading from '../../hooks/useLoading';
-import CustomText from './CustomText';
+import useLoading from '../../../hooks/useLoading';
+import CustomText from '../customText/CustomText';
 
 export const formatNumber = (num) => {
   return (

@@ -147,25 +147,27 @@ const InterestForm = ({ submitForm }) => {
           a grassroots effort and are entirely community run and highly utilized
           in food insecure neighborhoods. Community Kitchens strives to ensure
           that refrigerators are regularly stocked with wholesome, delicious
-          meals for anyone that needs it. Over 4,000 meals have been donated to
-          Town Fridges since July!
+          meals for anyone that needs it. Thousands of meals have been donated
+          to Town Fridges since July 2022!
         </p>
 
         <div className="bold">CK Home Chef participants:</div>
         <ul>
           <li>Attend orientation and food safety certification training</li>
-          <li>Sign up for a couple shifts a month to provide 25 meals</li>
+          <li>Sign up to prepare 15-25 meals, 1-2 times per month</li>
           <li>Purchase ingredients and prepare meals at home</li>
-          <li>Deliver meals to selected Town Fridge</li>
+          <li>Deliver meals to selected Town Fridges</li>
         </ul>
 
         <div className="bold">Community Kitchens:</div>
         <ul>
           <li>Conduct zoom orientation and training</li>
-          <li>Reimbursement for CA Food Handlers Card</li>
-          <li>Provide meal containers and printable labels</li>
+          <li>Reimburse chefs for CA Food Handlers Card</li>
+          <li>
+            Provide meal containers, printable labels and supplemental produce
+          </li>
           <li>Share recipes from Oakland’s treasured restaurants and chefs</li>
-          <li>Provide Tax deductible in-kind donation receipt</li>
+          <li>Provide an annial tax deductible in-kind donation receipt</li>
         </ul>
         <p>
           Please take a moment to tell us about yourself and your availability.
