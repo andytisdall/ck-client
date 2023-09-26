@@ -48,7 +48,11 @@ with-lid-case/129MCS24B.html?utm_source=webstaurant&utm_medium=email&utm_campaig
         <li>Prepared on Date</li>
       </ul>
       <p>Example:</p>
-      <img src="/images/food-label.png" alt="example food label" />
+      <img
+        src="/images/food-label.png"
+        alt="example food label"
+        className="meal-program-food-label"
+      />
     </div>
   );
 };

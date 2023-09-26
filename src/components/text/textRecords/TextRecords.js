@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { format } from 'date-fns-tz';
 
 import './TextRecords.css';
-import * as actions from '../../actions';
-import Loading from '../reusable/Loading';
+import * as actions from '../../../actions';
+import Loading from '../../reusable/Loading';
 
 const regions = { WEST_OAKLAND: 'West Oakland', EAST_OAKLAND: 'East Oakland' };
 

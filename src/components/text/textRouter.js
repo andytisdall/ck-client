@@ -1,8 +1,5 @@
-import { Outlet } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { lazy, useEffect } from 'react';
+import { lazy } from 'react';
 
-import * as actions from '../../actions';
 import renderWithFallback from '../reusable/renderWithFallback';
 import './TextHome.css';
 
@@ -15,36 +12,11 @@ const CustomText = lazy(() => import('./customText/CustomText'));
 const ScheduledText = lazy(() => import('./recurring/ScheduledText'));
 const TextRecords = lazy(() => import('./textRecords/TextRecords'));
 const RecurringConsole = lazy(() => import('./recurring/RecurringConsole'));
-
-const Text = ({ user, getFridges }) => {
-  useEffect(() => {
-    getFridges();
-  }, [getFridges]);
-  const renderSignIn = () => {
-    return <h3>You must have the proper permissions to access this page.</h3>;
-  };
-
-  return (
-    <div className="main text-home">
-      <h1 className="page-header">Text Service</h1>
-      {user && (user.admin || user.textPermission) ? (
-        <Outlet />
-      ) : (
-        renderSignIn()
-      )}
-    </div>
-  );
-};
-
-const mapStateToProps = (state) => {
-  return { user: state.user.user };
-};
-
-const ConnectedText = connect(mapStateToProps, actions)(Text);
+const TextBase = lazy(() => import('./TextBase'));
 
 const textRouter = {
   path: 'text',
-  element: <ConnectedText />,
+  element: renderWithFallback(<TextBase />),
   children: [
     { index: true, element: renderWithFallback(<TextHome />) },
     {

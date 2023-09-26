@@ -8,6 +8,14 @@ export const user1 = {
   active: true,
 };
 
+export const user2 = {
+  username: 'chompy',
+  id: '48yrf848fy48',
+  admin: true,
+  salesforceId: 'd093900',
+  active: true,
+};
+
 export const userInfo1 = {
   firstName: 'Testy',
   lastName: 'Testorici',

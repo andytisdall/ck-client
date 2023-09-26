@@ -29,4 +29,11 @@ export const handlers = [
   rest.post(BASE + '/api/home-chef/hours', (req, res, ctx) => {
     return res(ctx.json(data.hours2));
   }),
+  rest.get(BASE + '/api/meal-program/restaurant', (req, res, ctx) => {
+    return res(ctx.json(data.restaurant1));
+  }),
+
+  rest.get(BASE + '/api/volunteers/events', (req, res, ctx) => {
+    return res(ctx.json([]));
+  }),
 ];

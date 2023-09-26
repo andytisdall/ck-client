@@ -15,7 +15,7 @@ const HomeChefHome = lazy(() => import('./HomeChefHome'));
 
 const homeChefRouter = {
   path: 'home-chef',
-  element: <HomeChefBase />,
+  element: renderWithFallback(<HomeChefBase />),
   children: [
     { index: true, element: renderWithFallback(<HomeChefHome />) },
     onboardingRouter,
