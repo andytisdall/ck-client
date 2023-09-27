@@ -5,8 +5,8 @@ import * as actions from '../actions';
 import TextButton from './reusable/TextButton';
 import './Home.css';
 
-const homeChefDescription =
-  'A hub for CK Home Chefs to get started in the program, sign up for Town Fridge Deliveries, and access resources like recipes.';
+const volunteersDescription =
+  'Sign up to volunteer as a Home Chef, help out in the CK Kitchen, or donate your time at special events.';
 
 const mealProgramDescription =
   'A portal for restaurants participating in our meal program to complete the tasks necessary to start providing meals.';
@@ -59,9 +59,9 @@ const Home = ({
         {renderMealProgram()}
         {renderTextService()}
         <TextButton
-          to="home-chef"
-          buttonText="Home Chef"
-          descriptionText={homeChefDescription}
+          to="volunteers"
+          buttonText="CK Volunteers"
+          descriptionText={volunteersDescription}
         />
         <TextButton
           to="user"

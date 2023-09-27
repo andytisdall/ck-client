@@ -167,7 +167,7 @@ const InterestForm = ({ submitForm }) => {
             Provide meal containers, printable labels and supplemental produce
           </li>
           <li>Share recipes from Oakland’s treasured restaurants and chefs</li>
-          <li>Provide an annial tax deductible in-kind donation receipt</li>
+          <li>Provide an annual tax deductible in-kind donation receipt</li>
         </ul>
         <p>
           Please take a moment to tell us about yourself and your availability.

@@ -1,11 +1,12 @@
-import React from 'react';
+import { lazy } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import './Volunteers.css';
 import renderWithFallback from '../reusable/renderWithFallback';
 
-const VolunteersHome = React.lazy(() => import('./VolunteersHome'));
-const VolunteerSignIn = React.lazy(() => import('./VolunteerSignIn'));
+const VolunteersHome = lazy(() => import('./VolunteersHome'));
+// const VolunteerSignIn = lazy(() => import('./VolunteerSignIn'));
+const KitchenHome = lazy(() => import('./KitchenHome'));
 
 const Volunteers = () => {
   return (
@@ -21,7 +22,7 @@ const volunteersRouter = {
   element: <Volunteers />,
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
-    { path: 'ck-kitchen', element: renderWithFallback(<VolunteerSignIn />) },
+    { path: 'ck-kitchen', element: renderWithFallback(<KitchenHome />) },
   ],
 };
 
