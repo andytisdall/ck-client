@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
 import useLoading from '../../hooks/useLoading';
@@ -9,10 +10,6 @@ import '../homeChef/events/VolunteerEvent.css';
 
 const KitchenHome = ({ shifts, jobs, getKitchenShifts }) => {
   const [loading, setLoading] = useLoading();
-
-  useEffect(() => {
-    getKitchenShifts();
-  }, [getKitchenShifts]);
 
   useEffect(() => {
     if (!jobs) {
@@ -37,9 +34,11 @@ const KitchenHome = ({ shifts, jobs, getKitchenShifts }) => {
               );
               if (shift.open) {
                 return (
-                  <li className="event-job" key={shift.id}>
-                    {timeDisplay}
-                  </li>
+                  <Link key={shift.id} to={shift.id}>
+                    <li className="event-job" key={shift.id}>
+                      {timeDisplay}
+                    </li>
+                  </Link>
                 );
               } else {
                 return (
@@ -56,7 +55,6 @@ const KitchenHome = ({ shifts, jobs, getKitchenShifts }) => {
 
   return (
     <div>
-      <h2>CK Kitchen</h2>
       {loading && <Loading />}
       {!!jobs && renderJobs()}
     </div>
