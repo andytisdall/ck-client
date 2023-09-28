@@ -16,7 +16,7 @@ const CBOReport = ({ submitForm }) => {
   const [phone, setPhone] = useState('');
   const [year, setYear] = useState(2023);
 
-  const [individualsWOAccess, setIndividualsWOAccess] = useState('');
+  const [percentWOAccess, setPercentWOAccess] = useState('');
   const [mealsProvided, setMealsProvided] = useState('');
   const [unusable, setUnusable] = useState('');
   const [postcards, setPostcards] = useState('');
@@ -72,7 +72,7 @@ const CBOReport = ({ submitForm }) => {
     };
 
     const performanceMeasures = {
-      individualsWOAccess,
+      percentWOAccess,
       mealsProvided,
       unusable,
       postcards,
@@ -202,15 +202,16 @@ const CBOReport = ({ submitForm }) => {
 
       <div className="form-item">
         <label htmlFor="access">
-          # unduplicated individuals served without access to a kitchen to
+          Percent of people served who do not have access to a kitchen to
           prepare meals
         </label>
         <input
           id="access"
           type="number"
           min={0}
-          value={individualsWOAccess}
-          onChange={(e) => setIndividualsWOAccess(e.target.value)}
+          max={100}
+          value={percentWOAccess}
+          onChange={(e) => setPercentWOAccess(e.target.value)}
         />
       </div>
       <div className="form-item">
