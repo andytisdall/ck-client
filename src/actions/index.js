@@ -11,3 +11,4 @@ export * from './error';
 export * from './mealProgram';
 export * from './events';
 export * from './auth';
+export * from './d4j';

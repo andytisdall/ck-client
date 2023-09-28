@@ -9,30 +9,30 @@ import './MealProgram.css';
 import * as actions from '../../actions';
 
 const MealProgramHome = React.lazy(() => import('./MealProgramHome'));
-const Onboarding = React.lazy(() => import('./Onboarding/Onboarding'));
-const OnboardingHome = React.lazy(() => import('./Onboarding/OnboardingHome'));
+const Onboarding = React.lazy(() => import('./onboarding/Onboarding'));
+const OnboardingHome = React.lazy(() => import('./onboarding/OnboardingHome'));
 const UploadDocuments = React.lazy(() =>
-  import('./Onboarding/UploadDocuments')
+  import('./onboarding/UploadDocuments')
 );
-const SignDocuments = React.lazy(() => import('./Onboarding/SignDocuments'));
+const SignDocuments = React.lazy(() => import('./onboarding/SignDocuments'));
 const FileSuccess = React.lazy(() => import('../reusable/FileSuccess'));
 const DocusignSign = React.lazy(() => import('../reusable/DocusignSign'));
 const DocusignSuccess = React.lazy(() => import('../reusable/DocusignSuccess'));
 const SignDocumentsHome = React.lazy(() =>
-  import('./Onboarding/SignDocumentsHome')
+  import('./onboarding/SignDocumentsHome')
 );
-const Resources = React.lazy(() => import('./Resources/Resources'));
-const ResourcesHome = React.lazy(() => import('./Resources/ResourcesHome'));
-const Invoicing = React.lazy(() => import('./Resources/Invoicing'));
-const MealGuidelines = React.lazy(() => import('./Resources/MealGuidelines'));
-const Packaging = React.lazy(() => import('./Resources/Packaging'));
-const YouthGuidelines = React.lazy(() => import('./Resources/YouthGuidelines'));
+const Resources = React.lazy(() => import('./resources/Resources'));
+const ResourcesHome = React.lazy(() => import('./resources/ResourcesHome'));
+const Invoicing = React.lazy(() => import('./resources/Invoicing'));
+const MealGuidelines = React.lazy(() => import('./resources/MealGuidelines'));
+const Packaging = React.lazy(() => import('./resources/Packaging'));
+const YouthGuidelines = React.lazy(() => import('./resources/YouthGuidelines'));
 const EncampmentGuidelines = React.lazy(() =>
-  import('./Resources/EncampmentGuidelines')
+  import('./resources/EncampmentGuidelines')
 );
-const Schedule = React.lazy(() => import('./Schedule/Schedule'));
-const Calendar = React.lazy(() => import('./Schedule/Calendar'));
-const List = React.lazy(() => import('./Schedule/List'));
+const Schedule = React.lazy(() => import('./schedule/Schedule'));
+const Calendar = React.lazy(() => import('./schedule/Calendar'));
+const List = React.lazy(() => import('./schedule/List'));
 
 const MealProgram = ({
   getRestaurant,
