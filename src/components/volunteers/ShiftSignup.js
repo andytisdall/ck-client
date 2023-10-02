@@ -4,10 +4,8 @@ import moment from 'moment';
 
 import * as actions from '../../actions';
 import Loading from '../reusable/Loading';
-import useLoading from '../../hooks/useLoading';
 
-const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
-  const [loading, setLoading] = useLoading();
+const ShiftSignup = ({ jobs, shifts }) => {
   const navigate = useNavigate();
   const { shiftId } = useParams();
 
@@ -18,19 +16,14 @@ const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
   const shift = shifts[shiftId];
   const job = jobs[shift.job];
 
-  const onSubmit = () => {
-    setLoading(true);
-    signUpForEventShift(shiftId, job?.id, shift?.startTime);
-  };
-
   if (!shift.open) {
     return <p>This shift is not available for signup</p>;
   }
 
   return (
-    <div>
-      <h3>Signing up for:</h3>
-      <div className="event-shift-detail">
+    <div className="volunteer-signup">
+      <h3 className="volunteers-signup-btns">Signing up for:</h3>
+      <div className="volunteers-shift-detail">
         <p>
           <b>Job:</b> {job.name}
         </p>
@@ -53,19 +46,14 @@ const EventShiftSignup = ({ jobs, shifts, signUpForEventShift }) => {
           {shift.duration} Hours
         </p>
       </div>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          {' '}
-          <button onClick={() => navigate('..')} className="cancel">
-            Cancel
-          </button>
-          <button onClick={onSubmit} className="event-shift-detail-submit">
-            Confirm Signup
-          </button>
-        </>
-      )}
+      <div className="volunteers-signup-btns">
+        <button onClick={() => navigate('../list')} className="cancel">
+          Cancel
+        </button>
+        <button onClick={() => navigate('../get-volunteer/' + shiftId)}>
+          Confirm Signup
+        </button>
+      </div>
     </div>
   );
 };
@@ -77,4 +65,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(EventShiftSignup);
+export default connect(mapStateToProps, actions)(ShiftSignup);

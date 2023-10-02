@@ -45,31 +45,13 @@ const Home = ({
     }
   }, [restaurant, getMealProgramInfo]);
 
-  const renderNoUser = () => {
+  const renderVolunteers = () => {
     return (
-      <p className="unauthorized-text">
-        Please sign in to access the features of the Community Kitchens portal.
-      </p>
-    );
-  };
-
-  const renderWithUser = () => {
-    return (
-      <>
-        {renderMealProgram()}
-        {renderTextService()}
-        <TextButton
-          to="volunteers"
-          buttonText="CK Volunteers"
-          descriptionText={volunteersDescription}
-        />
-        <TextButton
-          to="user"
-          buttonText="User Settings"
-          descriptionText={userDescription}
-        />
-        {renderAdmin()}
-      </>
+      <TextButton
+        to="volunteers"
+        buttonText="CK Volunteers"
+        descriptionText={volunteersDescription}
+      />
     );
   };
 
@@ -107,6 +89,26 @@ const Home = ({
         />
       );
     }
+  };
+
+  const renderNoUser = () => {
+    return <>{renderVolunteers()}</>;
+  };
+
+  const renderWithUser = () => {
+    return (
+      <>
+        {renderMealProgram()}
+        {renderTextService()}
+        {renderVolunteers()}
+        <TextButton
+          to="user"
+          buttonText="User Settings"
+          descriptionText={userDescription}
+        />
+        {renderAdmin()}
+      </>
+    );
   };
 
   return (

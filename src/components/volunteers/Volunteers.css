@@ -1,3 +1,66 @@
 .volunteers {
   background-image: linear-gradient(rgb(173, 220, 215), rgb(75, 190, 161))
 }
+
+.volunteers-main-header {
+  font-size: 3.1rem;
+  margin: 0;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(8, 29, 188);
+  letter-spacing: 13px;
+}
+
+.volunteers-header {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.volunteers-job {
+  border: 1px solid black;
+  padding: 2rem;
+}
+
+.volunteers-job-header {
+  font-size: 1.5rem;
+}
+
+.volunteers-shift-signup-links {
+  display: flex;
+  justify-content: center;
+}
+
+.volunteers-shift {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  padding: .5rem;
+  color: black;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  max-width: 400px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.volunteers-shift:hover {
+  background-color: rgba(240, 248, 255, 0.346);
+}
+
+.volunteers-shift-date {
+  width: 130px;
+}
+
+.volunteers-signup-btns {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.volunteer-signup {
+  padding: 0 1rem
+}
+
+.volunteers-shift-detail {
+  border: 1px solid black;
+  padding: 2rem;
+}

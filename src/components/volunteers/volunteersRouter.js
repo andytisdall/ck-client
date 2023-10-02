@@ -5,15 +5,18 @@ import './Volunteers.css';
 import renderWithFallback from '../reusable/renderWithFallback';
 
 const VolunteersHome = lazy(() => import('./VolunteersHome'));
-// const VolunteerSignIn = lazy(() => import('./VolunteerSignIn'));
-const KitchenHome = lazy(() => import('./KitchenHome'));
-const Signup = lazy(() => import('./Signup'));
 const KitchenBase = lazy(() => import('./KitchenBase'));
+const SignupBase = lazy(() => import('./SignupBase'));
+const KitchenList = lazy(() => import('./KitchenList'));
+const ShiftSignup = lazy(() => import('./ShiftSignup'));
+const KitchenHome = lazy(() => import('./KitchenHome'));
+const GetVolunteer = lazy(() => import('./GetVolunteer'));
+const KitchenCalendar = lazy(() => import('./KitchenCalendar'));
 
-const Volunteers = () => {
+const VolunteersBase = () => {
   return (
     <div className="main volunteers">
-      <h1>CK Volunteers</h1>
+      <h1 className="volunteers-main-header">CK Volunteers</h1>
       <Outlet />
     </div>
   );
@@ -21,7 +24,7 @@ const Volunteers = () => {
 
 const volunteersRouter = {
   path: 'volunteers',
-  element: <Volunteers />,
+  element: <VolunteersBase />,
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
     {
@@ -29,9 +32,25 @@ const volunteersRouter = {
       element: renderWithFallback(<KitchenBase />),
       children: [
         { index: true, element: renderWithFallback(<KitchenHome />) },
+        { path: 'signup-confirmation' },
         {
-          path: ':shiftId',
-          element: renderWithFallback(<Signup />),
+          path: 'get-volunteer/:shiftId',
+          element: renderWithFallback(<GetVolunteer />),
+        },
+        {
+          path: 'signup',
+          element: renderWithFallback(<SignupBase />),
+          children: [
+            { path: 'list', element: renderWithFallback(<KitchenList />) },
+            {
+              path: 'calendar',
+              element: renderWithFallback(<KitchenCalendar />),
+            },
+            {
+              path: ':shiftId',
+              element: renderWithFallback(<ShiftSignup />),
+            },
+          ],
         },
       ],
     },

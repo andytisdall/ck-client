@@ -53,7 +53,7 @@ const GetVolunteer = ({ getVolunteer, volunteer, createVolunteer }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { volunteer: state.volunteers.volunteer };
+  return { volunteer: state.volunteers.volunteer, user: state.user.user };
 };
 
 export default connect(mapStateToProps, actions)(GetVolunteer);

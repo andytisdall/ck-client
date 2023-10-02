@@ -15,7 +15,10 @@ const adminSignedInState = {
 test('navigate to home chef page', async () => {
   const wrapper = getWrapper(adminSignedInState);
   render(<App />, { wrapper });
-  const homeChefLink = await screen.findByText('Home Chef');
+  const volunteersLink = await screen.findByText('CK Volunteers');
+  userEvent.click(volunteersLink);
+  // volunteers home
+  const homeChefLink = await screen.findByText('Home Chef Volunteers');
   userEvent.click(homeChefLink);
 
   // home chef home

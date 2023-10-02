@@ -15,7 +15,7 @@ const List = ({ schedule, accounts }) => {
       monday.setDate(monday.getDate() - (monday.getDay() || 7) + 1);
     }
     if (dateRange === 'Next Week') {
-      monday.setDate(monday.getDate() + (monday.getDay() || 1) + 1);
+      monday.setDate(monday.getDate() + monday.getDay() + 1);
     }
     monday.setHours(0, 0, 0);
     return monday;
@@ -30,10 +30,13 @@ const List = ({ schedule, accounts }) => {
     }
     return [...schedule]
       .filter((del) => {
-        return (
-          utcToZonedTime(del.date) >= getMonday &&
-          utcToZonedTime(del.date) <= addDays(getMonday, 7)
-        );
+        if (dateRange === 'This Week') {
+          return del.isThisWeek;
+        }
+        if (dateRange === 'Next Week') {
+          return del.isNextWeek;
+        }
+        return false;
       })
       .sort((a, b) => {
         const [hoursA, minutesA] = a.time.split(':');
@@ -50,7 +53,7 @@ const List = ({ schedule, accounts }) => {
           ? 1
           : -1;
       });
-  }, [schedule, detailId, getMonday]);
+  }, [schedule, detailId, dateRange]);
 
   const renderList = () => {
     if (sortedSchedule && accounts) {

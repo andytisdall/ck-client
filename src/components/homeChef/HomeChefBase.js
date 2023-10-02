@@ -22,8 +22,10 @@ const HomeChef = ({
       getUserInfo();
       setLoading(true);
     }
-    getCampaign();
-    getEventCampaigns();
+    if (user) {
+      getCampaign();
+      getEventCampaigns();
+    }
   }, [getUserInfo, user, getCampaign, getEventCampaigns]);
 
   useEffect(() => {
@@ -32,28 +34,32 @@ const HomeChef = ({
     }
   }, [user, error]);
 
-  const renderSignIn = () => {
-    return <h3>Sign in to access this page.</h3>;
-  };
-
   const renderNoChef = () => {
     if (!loading) {
       return (
         <div>
           <h3>You must be a CK Home Chef to access this page.</h3>
+          <h3>If you are a Home Chef, sign in at the top of the page.</h3>
           <h3>
-            To get started,{' '}
+            If you want to become a Home Chef,{' '}
             <Link to="/forms/home-chef" className="retro-link">
               please complete the signup form.
             </Link>
           </h3>
+          <h4>
+            Once you submit the form, you will be invited to orientation and
+            given a username.
+          </h4>
+          <Link to="../volunteers" className="retro-link">
+            Other volunteer opportunities
+          </Link>
         </div>
       );
     }
   };
 
   const renderHomeChef = () => {
-    if (user.homeChefStatus) {
+    if (user?.homeChefStatus) {
       return (
         <>
           {user.homeChefStatus !== 'Active' &&
@@ -76,8 +82,7 @@ const HomeChef = ({
         />
       </Link>
       {loading && <Loading />}
-      {!user && renderSignIn()}
-      {!!user && renderHomeChef()}
+      {renderHomeChef()}
     </div>
   );
 };
