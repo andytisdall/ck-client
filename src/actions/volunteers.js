@@ -29,13 +29,14 @@ export const getKitchenShifts = () => async (dispatch) => {
 };
 
 export const signUpForVolunteerShift =
-  (shiftId, jobId, date) => async (dispatch) => {
+  (shiftId, jobId, date, contactSalesforceId) => async (dispatch) => {
     const { data } = await server.post('/volunteers/hours', {
       shiftId,
       jobId,
       date,
+      contactSalesforceId,
     });
     dispatch({ type: SIGN_UP_FOR_VOLUNTEER_SHIFT, payload: data });
     dispatch(setAlert('You Signed Up For A Shift'));
-    router.navigate('/volunteeers/signup-confirm/' + data.id);
+    router.navigate('/volunteers/ck-kitchen/signup-confirm/' + data.id);
   };

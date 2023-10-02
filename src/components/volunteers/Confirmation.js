@@ -2,15 +2,15 @@ import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 
-import * as actions from '../../../actions';
-import Loading from '../../reusable/Loading';
+import * as actions from '../../actions';
+import Loading from '../reusable/Loading';
 
 const Confirmation = ({ hours, jobs }) => {
   const { hoursId } = useParams();
   const hour = hours && hoursId ? hours[hoursId] : null;
 
   const renderShiftDetails = () => {
-    const job = jobs?.find((j) => j.id === hour?.job);
+    const job = jobs[hour.job];
     if (hour && job) {
       return (
         <div className="hc-confirm-details">
@@ -25,10 +25,6 @@ const Confirmation = ({ hours, jobs }) => {
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Location:</span> {job.location}
-            </li>
-            <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Number of Meals:</span>{' '}
-              {hour.mealCount}
             </li>
           </ul>
           <p>You have been sent an email with this information.</p>
@@ -47,13 +43,8 @@ const Confirmation = ({ hours, jobs }) => {
     <div>
       <h1>Home Chef Sign Up Confirmation</h1>
       {!jobs || !hours ? <Loading /> : renderShiftDetails()}
-      <Link to="/home-chef/signup/list">
-        <button className="hc-confirm-button">Sign Up for More Shifts</button>
-      </Link>
-      <Link to="/home-chef/chef" className="hc-confirm-button">
-        <button className="hc-confirm-button">
-          See your future and past shifts
-        </button>
+      <Link to="/volunteers">
+        <button className="hc-confirm-button">Volunteers Home</button>
       </Link>
     </div>
   );

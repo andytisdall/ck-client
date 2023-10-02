@@ -50,7 +50,7 @@ const ShiftSignup = ({ jobs, shifts }) => {
         <button onClick={() => navigate('../list')} className="cancel">
           Cancel
         </button>
-        <button onClick={() => navigate('../get-volunteer/' + shiftId)}>
+        <button onClick={() => navigate('../../signin/' + shiftId)}>
           Confirm Signup
         </button>
       </div>

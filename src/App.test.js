@@ -11,14 +11,12 @@ const adminSignedInState = {
   },
 };
 
-test('no links if not signed in', async () => {
+test('volunteers link if not signed in', async () => {
   const wrapper = getWrapper({});
   render(<App />, { wrapper });
 
   // home page
-  const unauthorizedMessage = await screen.findByText(
-    /Please sign in to access the features of the Community Kitchens portal./i
-  );
+  const unauthorizedMessage = await screen.findByText(/CK Volunteers/i);
   expect(unauthorizedMessage).toBeInTheDocument();
 });
 

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { Link } from 'react-router-dom';
 
 import * as actions from '../../actions';
 import Calendar from '../reusable/Calendar';
@@ -35,10 +36,10 @@ const KitchenCalendar = ({ shifts, jobs }) => {
       return shiftsByDate[date].map((sh) => {
         const job = jobs[sh.job];
         return (
-          <div key={sh.id}>
+          <Link key={sh.id} to={`../${sh.id}`}>
             <div>{job.name}</div>
             <div>{sh.slots} Spots Remaining</div>
-          </div>
+          </Link>
         );
       });
     } else {

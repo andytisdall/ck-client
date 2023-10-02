@@ -10,8 +10,9 @@ const SignupBase = lazy(() => import('./SignupBase'));
 const KitchenList = lazy(() => import('./KitchenList'));
 const ShiftSignup = lazy(() => import('./ShiftSignup'));
 const KitchenHome = lazy(() => import('./KitchenHome'));
-const GetVolunteer = lazy(() => import('./GetVolunteer'));
+const SignIn = lazy(() => import('./SignIn'));
 const KitchenCalendar = lazy(() => import('./KitchenCalendar'));
+const Confirmation = lazy(() => import('./Confirmation'));
 
 const VolunteersBase = () => {
   return (
@@ -32,10 +33,13 @@ const volunteersRouter = {
       element: renderWithFallback(<KitchenBase />),
       children: [
         { index: true, element: renderWithFallback(<KitchenHome />) },
-        { path: 'signup-confirmation' },
         {
-          path: 'get-volunteer/:shiftId',
-          element: renderWithFallback(<GetVolunteer />),
+          path: 'signup-confirm/:hoursId',
+          element: renderWithFallback(<Confirmation />),
+        },
+        {
+          path: 'signin/:shiftId',
+          element: renderWithFallback(<SignIn />),
         },
         {
           path: 'signup',
