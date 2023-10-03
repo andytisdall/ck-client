@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import VolunteerJob from './VolunteerJob';
 
 const VJobSingle = ({ jobs }) => {

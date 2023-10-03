@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { uploadDocsToSalesforce } from '../../actions';
-import Loading from '../reusable/Loading';
+import { uploadDocsToSalesforce } from '../../../actions';
+import Loading from '../loading/Loading';
 
 const DocusignSuccess = ({
   uploadDocsToSalesforce,

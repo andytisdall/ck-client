@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import renderWithFallback from '../../reusable/renderWithFallback';
+import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
 const ShiftSignup = lazy(() => import('./ShiftSignup'));
 const VolunteerJobsList = lazy(() => import('./VolunteerJobsList'));

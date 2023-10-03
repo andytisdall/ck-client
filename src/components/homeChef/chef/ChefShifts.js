@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import './ChefShifts.css';
 import { getHours, getShifts } from '../../../actions';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 
 const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
   const [upcomingExpand, setUpcomingExpand] = useState(true);

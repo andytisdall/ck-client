@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import React from 'react';
 
 import './Form.css';
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 
 const HCInterestForm = React.lazy(() => import('./HCInterestForm'));
 const FormSent = React.lazy(() => import('./FormSent'));

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import * as actions from '../../../actions';
 import useLoading from '../../../hooks/useLoading';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import './Invite.css';
 
 const Invite = ({ sendInvite, user }) => {

@@ -1,33 +1,32 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import moment from 'moment';
 
-import * as actions from '../../../actions';
-import renderWithFallback from '../../reusable/renderWithFallback';
+import renderWithFallback from '../../reusable/loading/renderWithFallback';
 import './SendText.css';
-import Loading from '../../reusable/Loading';
-import useLoading from '../../../hooks/useLoading';
-import FileInput from '../../reusable/FileInput';
+import Loading from '../../reusable/loading/Loading';
+import FileInput from '../../reusable/file/FileInput';
+import { useGetFridgesQuery } from '../../../state/apis/homeChefApi';
 
 const TextPreview = React.lazy(() => import('./TextPreview'));
 
-const SendText = ({ sendText, townFridges }) => {
-  const [fridge, setFridge] = useState('');
+const SendText = () => {
+  const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState(25);
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const [time, setTime] = useState(moment().format('HH:mm'));
   const [source, setSource] = useState('CK Home Chef Volunteers');
   const [imageError, setImageError] = useState(false);
   const [name, setName] = useState('');
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState<File | string | undefined>(undefined);
   const [dietary, setDietary] = useState('');
   const [preview, setPreview] = useState(false);
 
-  const [loading, setLoading] = useLoading();
+  const fridgeQuery = useGetFridgesQuery();
+  const fridges = fridgeQuery.data;
 
   const getAddress = () => {
-    if (townFridges[fridge].address) {
-      return `, at ${townFridges[fridge].address},`;
+    if (fridges && fridge && fridges[fridge].address) {
+      return `, at ${fridges[fridge].address},`;
     } else {
       return '';
     }
@@ -72,8 +71,10 @@ const SendText = ({ sendText, townFridges }) => {
       );
     }
     if (photo) {
-      let src = photo;
-      if (photo.name) {
+      let src = '';
+      if (typeof photo === 'string') {
+        src = photo;
+      } else {
         src = URL.createObjectURL(photo);
       }
       return (
@@ -127,10 +128,10 @@ const SendText = ({ sendText, townFridges }) => {
               required
               name="fridge"
               value={fridge}
-              onChange={(e) => setFridge(e.target.value)}
+              onChange={(e) => setFridge(parseInt(e.target.value))}
             >
               <option value="">Select a Town Fridge</option>
-              {townFridges.map((f, i) => (
+              {fridges?.map((f, i) => (
                 <option value={i} key={f.name}>
                   {f.name}
                 </option>
@@ -140,7 +141,7 @@ const SendText = ({ sendText, townFridges }) => {
               {fridge && (
                 <div className="fridge-info">
                   <div className="fridge-info-label">Address: </div>
-                  {townFridges[fridge].address}
+                  {fridge[fridge].address}
                 </div>
               )}
 
@@ -168,7 +169,7 @@ const SendText = ({ sendText, townFridges }) => {
               type="number"
               value={mealCount}
               name="mealCount"
-              onChange={(e) => setMealCount(e.target.value)}
+              onChange={(e) => setMealCount(parseInt(e.target.value))}
               min={1}
             />
           </div>
@@ -195,7 +196,7 @@ const SendText = ({ sendText, townFridges }) => {
             <label>Photo (Optional):</label>
             <div className="send-text-photo-field-container">
               <FileInput
-                file={photo?.name ? photo : null}
+                file={typeof photo === 'string' ? null : photo}
                 setFile={setPhoto}
                 label="Upload Photo:"
               />
@@ -207,13 +208,13 @@ const SendText = ({ sendText, townFridges }) => {
                 className={`send-text-photo-field ${
                   imageError && 'send-text-photo-field-error'
                 }`}
-                value={!photo ? '' : photo.name ? '' : photo}
+                value={!photo ? '' : photo instanceof File ? '' : photo}
                 onChange={(e) => {
                   setImageError(false);
                   setPhoto(e.target.value);
                 }}
               />
-              {!!photo && !photo.name && (
+              {!!photo && photo instanceof String && (
                 <div
                   className="send-text-photo-field-clear"
                   onClick={() => {
@@ -243,7 +244,7 @@ const SendText = ({ sendText, townFridges }) => {
   };
 
   const renderContent = () => {
-    if (loading || !townFridges) {
+    if (!fridges) {
       return <Loading />;
     }
     if (!preview) {
@@ -255,7 +256,7 @@ const SendText = ({ sendText, townFridges }) => {
         region={getRegion()}
         photo={photo}
         onSubmit={() => {
-          sendText(message, townFridges[fridge].region, photo);
+          sendText(message, fridges[fridge].region, photo);
           setLoading(true);
         }}
         onCancel={() => setPreview(false)}
@@ -271,8 +272,4 @@ const SendText = ({ sendText, townFridges }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { townFridges: state.homeChef.townFridges };
-};
-
-export default connect(mapStateToProps, actions)(SendText);
+export default SendText;

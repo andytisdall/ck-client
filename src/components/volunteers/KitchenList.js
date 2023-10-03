@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
 import useLoading from '../../hooks/useLoading';
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 import * as actions from '../../actions';
 
 const KitchenHome = ({ shifts, jobs }) => {

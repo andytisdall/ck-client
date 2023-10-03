@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import GetVolunteer from './GetVolunteer';
 import { useParams } from 'react-router-dom';
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 import useLoading from '../../hooks/useLoading';
 
 const SignIn = ({ volunteer, user, signUpForVolunteerShift, shifts, jobs }) => {

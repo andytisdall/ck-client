@@ -3,9 +3,9 @@ import { format, utcToZonedTime } from 'date-fns-tz';
 import { Link } from 'react-router-dom';
 
 import * as actions from '../../actions';
-import Calendar from '../reusable/Calendar';
+import Calendar from '../reusable/calendar/Calendar';
 import { useMemo } from 'react';
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 
 const KitchenCalendar = ({ shifts, jobs }) => {
   const shiftsByDate = useMemo(() => {

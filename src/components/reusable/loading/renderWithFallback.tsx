@@ -1,7 +1,7 @@
-import { Suspense } from 'react';
+import { Suspense, ReactElement } from 'react';
 import Loading from './Loading';
 
-const renderWithFallback = (el) => {
+const renderWithFallback = (el: ReactElement) => {
   return <Suspense fallback={<Loading />}>{el}</Suspense>;
 };
 

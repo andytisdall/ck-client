@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
 import { requiredDocuments } from './requiredDocuments';
-import FileUpload from '../../reusable/FileUpload';
+import FileUpload from '../../reusable/file/FileUpload';
 import * as actions from '../../../actions';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import useLoading from '../../../hooks/useLoading';
 import { FOOD_HANDLER_URL } from './HomeChefDocuments';
 

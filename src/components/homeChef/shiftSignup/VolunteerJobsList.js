@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import VolunteerJob from './VolunteerJob';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 
 const VolunteerJobsList = ({ jobs }) => {
   const renderJobs = () => {

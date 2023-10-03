@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { setError, getDocusignUrl } from '../../actions';
-import Loading from '../reusable/Loading';
+import { setError, getDocusignUrl } from '../../../actions';
+import Loading from '../loading/Loading';
 
 const Docusign = ({ error, getDocusignUrl }) => {
   const { doc } = useParams();

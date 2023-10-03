@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import * as actions from '../../../../actions';
 import './CreateRecipe.css';
-import Loading from '../../../reusable/Loading';
-import FileInput from '../../../reusable/FileInput';
+import Loading from '../../../reusable/loading/Loading';
+import FileInput from '../../../reusable/file/FileInput';
 import useLoading from '../../../../hooks/useLoading';
 
 const CreateRecipe = ({ createRecipe, recipe, editRecipe, setError }) => {

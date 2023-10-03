@@ -3,8 +3,8 @@ import { useMemo, useCallback } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { Link } from 'react-router-dom';
 
-import Calendar from '../../reusable/Calendar';
-import Loading from '../../reusable/Loading';
+import Calendar from '../../reusable/calendar/Calendar';
+import Loading from '../../reusable/loading/Loading';
 
 const MealProgramCalendar = ({ schedule, accounts }) => {
   const orderedDeliveries = useMemo(() => {

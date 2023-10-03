@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 import * as actions from '../../actions';
 import useLoading from '../../hooks/useLoading';
-import ZipCodeSelector from '../reusable/ZipCodeSelector';
+import ZipCodeSelector from '../reusable/form/ZipCodeSelector';
 
 const successMessage = 'Thank you for providing this information.';
 

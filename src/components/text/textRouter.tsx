@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 import './TextHome.css';
 
 const Phone = lazy(() => import('./phone/Phone'));

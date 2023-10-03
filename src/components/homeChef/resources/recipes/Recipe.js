@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import CreateRecipe from './CreateRecipe';
-import Loading from '../../../reusable/Loading';
+import Loading from '../../../reusable/loading/Loading';
 import * as actions from '../../../../actions';
 import { categories } from './RecipeList';
 import './Recipe.css';

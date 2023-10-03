@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { useMemo } from 'react';
 
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 
 const JobList = ({ jobs, shifts }) => {
   const { id } = useParams();

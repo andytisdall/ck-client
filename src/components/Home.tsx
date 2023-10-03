@@ -1,7 +1,5 @@
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
-
-import * as actions from '../actions';
+import { useGetUserQuery } from '../state/apis/authApi';
+import { useGetRestaurantQuery } from '../state/apis/restaurantApi';
 import TextButton from './reusable/TextButton';
 import './Home.css';
 
@@ -20,30 +18,30 @@ const userDescription =
 const adminDescription =
   'An interface for CK staff to create users or restaurants for this site.';
 
-const Home = ({
-  user,
-  restaurant,
-  getRestaurant,
-  getUserInfo,
-  getMealProgramInfo,
-}) => {
-  useEffect(() => {
-    if (user && !user.lastName) {
-      getUserInfo();
-    }
-  }, [user, getRestaurant, getUserInfo]);
+const Home = () => {
+  // useEffect(() => {
+  //   if (user && !user.lastName) {
+  //     getUserInfo();
+  //   }
+  // }, [user, getRestaurant, getUserInfo]);
 
-  useEffect(() => {
-    if (!restaurant) {
-      getRestaurant();
-    }
-  }, [getRestaurant, restaurant, user]);
+  // useEffect(() => {
+  //   if (!restaurant) {
+  //     getRestaurant();
+  //   }
+  // }, [getRestaurant, restaurant, user]);
 
-  useEffect(() => {
-    if (restaurant && !restaurant.remainingDocs) {
-      getMealProgramInfo();
-    }
-  }, [restaurant, getMealProgramInfo]);
+  // useEffect(() => {
+  //   if (restaurant && !restaurant.remainingDocs) {
+  //     getMealProgramInfo();
+  //   }
+  // }, [restaurant, getMealProgramInfo]);
+
+  const restaurantQuery = useGetRestaurantQuery();
+  const restaurant = restaurantQuery.data;
+
+  const userQuery = useGetUserQuery();
+  const user = userQuery.data;
 
   const renderVolunteers = () => {
     return (
@@ -68,7 +66,7 @@ const Home = ({
   };
 
   const renderTextService = () => {
-    if (user.admin) {
+    if (user?.admin) {
       return (
         <TextButton
           to="text"
@@ -80,7 +78,7 @@ const Home = ({
   };
 
   const renderAdmin = () => {
-    if (user.admin) {
+    if (user?.admin) {
       return (
         <TextButton
           to="admin"
@@ -119,8 +117,8 @@ const Home = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user.user, restaurant: state.restaurant.restaurant };
-};
+// const mapStateToProps = (state) => {
+//   return { user: state.user.user, restaurant: state.restaurant.restaurant };
+// };
 
-export default connect(mapStateToProps, actions)(Home);
+export default Home;

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import Loading from '../../../reusable/Loading';
+import Loading from '../../../reusable/loading/Loading';
 import * as actions from '../../../../actions';
 import './RecipeList.css';
 

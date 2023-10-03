@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import React, { useMemo, useState } from 'react';
 import { format, addDays } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';

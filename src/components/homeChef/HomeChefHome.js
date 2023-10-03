@@ -5,7 +5,7 @@ import { utcToZonedTime, format } from 'date-fns-tz';
 
 import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 
 const FridgeMap = lazy(() => import('./fridgeMap/FridgeMap'));
 

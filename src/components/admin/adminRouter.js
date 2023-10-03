@@ -4,7 +4,7 @@ import React from 'react';
 
 import './Admin.css';
 
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 
 const AdminHome = React.lazy(() => import('./AdminHome'));
 const Restaurant = React.lazy(() => import('./restaurant/Restaurant'));

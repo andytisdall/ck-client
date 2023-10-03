@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useState } from 'react';
 
 import useLoading from '../../hooks/useLoading';
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 import * as actions from '../../actions';
 
 const successMessage =

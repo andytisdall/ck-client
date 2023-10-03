@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import EnterEmail from './EnterEmail';
 import EnterName from './EnterName';

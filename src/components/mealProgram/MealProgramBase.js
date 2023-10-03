@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
 
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 import * as actions from '../../actions';
 
 const MealProgram = ({

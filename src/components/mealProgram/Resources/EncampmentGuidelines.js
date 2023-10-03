@@ -1,4 +1,4 @@
-import DownloadFile from '../../reusable/DownloadFile';
+import DownloadFile from '../../reusable/file/DownloadFile';
 
 const FILENAME = 'meal-program/CK Encampment Meal Guidelines.pdf';
 

@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useState, useEffect } from 'react';
 
 import * as actions from '../../../actions';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import useLoading from '../../../hooks/useLoading';
 
 const EditShift = ({ hours, getHours, editHours, getShifts }) => {

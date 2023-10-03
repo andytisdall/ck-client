@@ -1,4 +1,4 @@
-import DownloadFile from '../../reusable/DownloadFile';
+import DownloadFile from '../../reusable/file/DownloadFile';
 
 const PDF_FILE = 'home-chef/food-label-template.pdf';
 const DOC_FILE = 'home-chef/food-label-template.docx';

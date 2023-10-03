@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import renderWithFallback from '../../reusable/renderWithFallback';
+import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
 const ChefShifts = lazy(() => import('./ChefShifts'));
 const EditShift = lazy(() => import('./EditShift'));

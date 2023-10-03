@@ -1,15 +1,22 @@
 import './FileInput.css';
 
-const FileInput = ({ file, setFile, label, data }) => {
-  const processFile = (e) => {
+interface FileInputProps {
+  file: File | undefined;
+  setFile: React.Dispatch<React.SetStateAction<string | File | undefined>>;
+  label?: string;
+  data?: string;
+}
+
+const FileInput = ({ file, setFile, label, data }: FileInputProps) => {
+  const processFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.target;
-    if (files[0]) {
+    if (files && files[0]) {
       setFile(files[0]);
     }
   };
 
   const displayName = () => {
-    return file.name.slice(0, 15) + '...';
+    return file?.name.slice(0, 15) + '...';
   };
 
   return (
@@ -24,7 +31,7 @@ const FileInput = ({ file, setFile, label, data }) => {
         {file ? (
           <>
             <div className="file-name">{displayName()}</div>
-            <div onClick={() => setFile(null)} className="file-delete">
+            <div onClick={() => setFile(undefined)} className="file-delete">
               x
             </div>
           </>

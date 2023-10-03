@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import renderWithFallback from '../../reusable/renderWithFallback';
+import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
 const Resources = lazy(() => import('./Resources'));
 const ResourcesList = lazy(() => import('./ResourcesList'));

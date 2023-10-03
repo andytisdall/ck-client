@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import HomeChefBase from './HomeChefBase';
 import './HomeChef.css';
 import './Confirmation.css';
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 import onboardingRouter from './onboarding/onboardingRouter';
 import signupRouter from './shiftSignup/signupRouter';
 import resourcesRouter from './resources/resourcesRouter';

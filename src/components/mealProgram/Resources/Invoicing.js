@@ -1,5 +1,5 @@
 import './Invoicing.css';
-import DownloadFile from '../../reusable/DownloadFile';
+import DownloadFile from '../../reusable/file/DownloadFile';
 
 const FILENAME = 'meal-program/CK_Invoice_Template.xlsx';
 

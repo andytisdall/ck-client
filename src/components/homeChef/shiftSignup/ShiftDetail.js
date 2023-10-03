@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 import * as actions from '../../../actions';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import useLoading from '../../../hooks/useLoading';
 
 const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {

@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { formatISO } from 'date-fns';
 
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import * as actions from '../../../actions';
 import TextPreview from '../sendText/TextPreview';
 import useLoading from '../../../hooks/useLoading';
 import '../sendText/SendText.css';
-import FileInput from '../../reusable/FileInput';
+import FileInput from '../../reusable/file/FileInput';
 
 const ScheduledText = ({ sendScheduledText }) => {
   const [message, setMessage] = useState('');

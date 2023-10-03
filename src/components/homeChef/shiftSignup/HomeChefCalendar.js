@@ -3,8 +3,8 @@ import { useMemo, useCallback } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { useNavigate } from 'react-router-dom';
 
-import Loading from '../../reusable/Loading';
-import Calendar from '../../reusable/Calendar';
+import Loading from '../../reusable/loading/Loading';
+import Calendar from '../../reusable/calendar/Calendar';
 
 const HomeChefCalendar = ({ jobs, shifts }) => {
   const navigate = useNavigate();

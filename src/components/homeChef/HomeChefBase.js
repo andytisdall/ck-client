@@ -3,8 +3,8 @@ import { Outlet, Link } from 'react-router-dom';
 import { useEffect, useState, lazy } from 'react';
 
 import * as actions from '../../actions';
-import Loading from '../reusable/Loading';
-import renderWithFallback from '../reusable/renderWithFallback';
+import Loading from '../reusable/loading/Loading';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 
 const HomeChefStatus = lazy(() => import('./HomeChefStatus'));
 

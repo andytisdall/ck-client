@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import renderWithFallback from '../../reusable/renderWithFallback';
+import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
 //home chef onboarding
 const HomeChefOnboarding = lazy(() => import('./HomeChefOnboarding'));
@@ -10,9 +10,11 @@ const OrientationVideo = lazy(() => import('./OrientationVideo'));
 const OrientationSlides = lazy(() => import('./OrientationSlides'));
 
 // documents
-const FileSuccess = lazy(() => import('../../reusable/FileSuccess'));
-const DocusignSign = lazy(() => import('../../reusable/DocusignSign'));
-const DocusignSuccess = lazy(() => import('../../reusable/DocusignSuccess'));
+const FileSuccess = lazy(() => import('../../reusable/file/FileSuccess'));
+const DocusignSign = lazy(() => import('../../reusable/docusign/DocusignSign'));
+const DocusignSuccess = lazy(() =>
+  import('../../reusable/docusign/DocusignSuccess')
+);
 
 const onboardingRouter = {
   path: 'onboarding',

@@ -4,7 +4,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import * as actions from '../../../actions';
 import './VolunteerEvent.css';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 
 const VolunteerEvent = ({ hours, getEventHours, campaigns }) => {
   const { id } = useParams();

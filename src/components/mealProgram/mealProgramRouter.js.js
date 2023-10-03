@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 import './MealProgram.css';
 
 import onboardingRouter from '../homeChef/onboarding/onboardingRouter';

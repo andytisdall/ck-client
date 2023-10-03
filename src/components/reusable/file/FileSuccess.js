@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import { clearMessages } from '../../actions';
+import { clearMessages } from '../../../actions';
 
 const FileSuccess = ({ alert, returnLink }) => {
   const [message, setMessage] = useState('');

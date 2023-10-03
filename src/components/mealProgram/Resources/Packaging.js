@@ -1,4 +1,4 @@
-import DownloadFile from '../../reusable/DownloadFile';
+import DownloadFile from '../../reusable/file/DownloadFile';
 import './Packaging.css';
 
 const LABEL_FILE = 'meal-program/meal-label-template.docx';

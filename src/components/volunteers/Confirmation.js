@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 
 import * as actions from '../../actions';
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
 
 const Confirmation = ({ hours, jobs }) => {
   const { hoursId } = useParams();

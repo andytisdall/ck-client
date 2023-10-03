@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useEffect, useMemo } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 import useLoading from '../../../hooks/useLoading';
 import * as actions from '../../../actions';
 import './RecurringConsole.css';

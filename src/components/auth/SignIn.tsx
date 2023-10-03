@@ -1,24 +1,21 @@
-import { useState } from 'react';
-import { connect } from 'react-redux';
+import { FormEventHandler, useState } from 'react';
 
 import './SignIn.css';
-import * as actions from '../../actions';
-import useLoading from '../../hooks/useLoading';
-import Loading from '../reusable/Loading';
+import Loading from '../reusable/loading/Loading';
+import { useSignInMutation } from '../../state/apis/authApi';
 
-const SignIn = ({ signIn }) => {
+const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [loading, setLoading] = useLoading();
+  const [signIn, signInResult] = useSignInMutation();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setLoading(true);
-    signIn(username, password);
+    signIn({ username, password });
   };
 
-  if (loading) {
+  if (signInResult.isLoading) {
     return <Loading />;
   }
 
@@ -52,4 +49,4 @@ const SignIn = ({ signIn }) => {
   );
 };
 
-export default connect(null, actions)(SignIn);
+export default SignIn;

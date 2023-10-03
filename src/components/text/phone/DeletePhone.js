@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import * as actions from '../../../actions';
 import SearchPhone from './SearchPhone';
 import useLoading from '../../../hooks/useLoading';
-import Loading from '../../reusable/Loading';
+import Loading from '../../reusable/loading/Loading';
 
 const DeletePhone = ({ number, deletePhone, clearNumber }) => {
   const [loading, setLoading] = useLoading();

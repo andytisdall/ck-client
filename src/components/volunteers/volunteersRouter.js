@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import './Volunteers.css';
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 
 const VolunteersHome = lazy(() => import('./VolunteersHome'));
 const KitchenBase = lazy(() => import('./KitchenBase'));

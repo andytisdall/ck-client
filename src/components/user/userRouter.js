@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import React from 'react';
 
-import renderWithFallback from '../reusable/renderWithFallback';
+import renderWithFallback from '../reusable/loading/renderWithFallback';
 import './User.css';
 
 const ChangePassword = React.lazy(() => import('./ChangePassword'));
