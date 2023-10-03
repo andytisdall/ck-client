@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { lazy, useState } from 'react';
 import moment from 'moment';
 
 import renderWithFallback from '../../reusable/loading/renderWithFallback';
@@ -6,8 +6,9 @@ import './SendText.css';
 import Loading from '../../reusable/loading/Loading';
 import FileInput from '../../reusable/file/FileInput';
 import { useGetFridgesQuery } from '../../../state/apis/homeChefApi';
+import { useSendTextMutation } from '../../../state/apis/textApi';
 
-const TextPreview = React.lazy(() => import('./TextPreview'));
+const TextPreview = lazy(() => import('./TextPreview'));
 
 const SendText = () => {
   const [fridge, setFridge] = useState<number | undefined>();
@@ -23,6 +24,8 @@ const SendText = () => {
 
   const fridgeQuery = useGetFridgesQuery();
   const fridges = fridgeQuery.data;
+
+  const [sendText, sendTextResult] = useSendTextMutation();
 
   const getAddress = () => {
     if (fridges && fridge && fridges[fridge].address) {
@@ -43,7 +46,7 @@ const SendText = () => {
   const message =
     fridge &&
     `Hello! ${
-      townFridges[fridge].name
+      !!fridges && fridges[fridge].name
     } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${moment(
       `${date} ${time}`
     ).format(
@@ -51,12 +54,14 @@ const SendText = () => {
     )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
 
   const getRegion = () => {
-    const { region } = townFridges[fridge];
-    if (region === 'EAST_OAKLAND') {
-      return 'East Oakland';
-    }
-    if (region === 'WEST_OAKLAND') {
-      return 'West Oakland';
+    if (fridges && fridge) {
+      const { region } = fridges[fridge];
+      if (region === 'EAST_OAKLAND') {
+        return 'East Oakland';
+      }
+      if (region === 'WEST_OAKLAND') {
+        return 'West Oakland';
+      }
     }
   };
 
@@ -196,7 +201,7 @@ const SendText = () => {
             <label>Photo (Optional):</label>
             <div className="send-text-photo-field-container">
               <FileInput
-                file={typeof photo === 'string' ? null : photo}
+                file={typeof photo === 'string' ? undefined : photo}
                 setFile={setPhoto}
                 label="Upload Photo:"
               />
@@ -244,7 +249,7 @@ const SendText = () => {
   };
 
   const renderContent = () => {
-    if (!fridges) {
+    if (!fridges || sendTextResult.isLoading) {
       return <Loading />;
     }
     if (!preview) {
@@ -256,8 +261,9 @@ const SendText = () => {
         region={getRegion()}
         photo={photo}
         onSubmit={() => {
-          sendText(message, fridges[fridge].region, photo);
-          setLoading(true);
+          if (fridges && fridge && message) {
+            sendText({ message, region: fridges[fridge].region, photo });
+          }
         }}
         onCancel={() => setPreview(false)}
       />

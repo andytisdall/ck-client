@@ -4,7 +4,9 @@ import { lazy } from 'react';
 import './App.css';
 import './components/reusable/TextButton.css';
 import renderWithFallback from './components/reusable/loading/renderWithFallback';
-
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from './state/store';
+import { setError } from './state/apis/slices/errorSlice';
 // text service
 // import textRouter from './components/text/textRouter';
 
@@ -59,10 +61,13 @@ export const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  // const error = useSelector((state) => state.error);
-  // const renderError = () => {
-  //   return <div className="error">{error}</div>;
-  // };
+  const error = useSelector((state: RootState) => state.error);
+  const dispatch = useDispatch();
+
+  const renderError = () => {
+    setTimeout(() => dispatch(setError('')), 5000);
+    return <div className="error">{error.message}</div>;
+  };
 
   // const renderAlert = () => {
   //   return <div className="error alert">{alert}</div>;
@@ -71,7 +76,7 @@ const App = () => {
   return (
     <div className="app">
       <RouterProvider router={router} />
-      {/* {error && renderError()} */}
+      {error.message && renderError()}
     </div>
   );
 };
