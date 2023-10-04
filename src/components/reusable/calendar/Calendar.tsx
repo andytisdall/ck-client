@@ -11,7 +11,9 @@ import {
 
 import './Calendar.css';
 
-const Calendar = ({ renderItems }) => {
+type RenderItems = (date: string) => JSX.Element[];
+
+const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
   const [month, setMonth] = useState(new Date());
 
   const getDays = useCallback(() => {

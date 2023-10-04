@@ -1,6 +1,18 @@
 // import { useState, useEffect } from 'react';
 import { format } from 'date-fns-tz';
 
+import { Region } from '../../../state/apis/textApi';
+
+interface TextPreviewProps {
+  onSubmit: () => void;
+  message: string;
+  region: Region;
+  photo?: File | string;
+  onCancel: () => void;
+  number?: string;
+  sendAt?: string;
+}
+
 const TextPreview = ({
   onSubmit,
   message,
@@ -9,12 +21,14 @@ const TextPreview = ({
   onCancel,
   number,
   sendAt,
-}) => {
+}: TextPreviewProps) => {
   const getSrc = () => {
-    if (photo?.name) {
-      return URL.createObjectURL(photo);
+    if (photo) {
+      if (typeof photo !== 'string') {
+        return URL.createObjectURL(photo);
+      }
+      return photo;
     }
-    return photo;
   };
 
   return (

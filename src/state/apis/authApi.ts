@@ -58,6 +58,7 @@ export const authApi = api.injectEndpoints({
 
     getUserInfo: builder.query<ContactInfo, void>({
       query: () => 'user/userInfo',
+      providesTags: ['UserInfo']
     }),
   }),
 });

@@ -1,17 +1,16 @@
-import { connect } from 'react-redux';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Loading from '../../reusable/loading/Loading';
-import * as actions from '../../../actions';
 import TextPreview from '../sendText/TextPreview';
 import '../sendText/SendText.css';
+//@ts-ignore
 import { formatNumber } from '../feedback/Feedback';
 import FileInput from '../../reusable/file/FileInput';
 import { useSendTextMutation } from '../../../state/apis/textApi';
 import { Region } from '../../../state/apis/textApi';
 
-type ReplyToProps = {
+export type ReplyToProps = {
   region: Region;
   sender: string;
   id: string;
@@ -175,28 +174,30 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
     if (!preview) {
       return composeText();
     }
-    return (
-      <TextPreview
-        message={message}
-        region={region}
-        photo={photo}
-        number={number}
-        onSubmit={() => {
-          if (region) {
-            sendText({
-              message,
-              region,
-              photo,
-              feedbackId: replyTo?.id,
-              number,
-            })
-              .unwrap()
-              .then(() => navigate('../text-success'));
-          }
-        }}
-        onCancel={() => setPreview(false)}
-      />
-    );
+    if (region) {
+      return (
+        <TextPreview
+          message={message}
+          region={region}
+          photo={photo}
+          number={number}
+          onSubmit={() => {
+            if (region) {
+              sendText({
+                message,
+                region,
+                photo,
+                feedbackId: replyTo?.id,
+                number,
+              })
+                .unwrap()
+                .then(() => navigate('../text-success'));
+            }
+          }}
+          onCancel={() => setPreview(false)}
+        />
+      );
+    }
   };
 
   const renderOriginalMessage = () => {
@@ -219,4 +220,4 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
   );
 };
 
-export default connect(null, actions)(CustomText);
+export default CustomText;

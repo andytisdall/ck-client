@@ -2,7 +2,19 @@ import { Link } from 'react-router-dom';
 
 import './TextButton.css';
 
-const TextButton = ({ to, buttonText, descriptionText, outside = false }) => {
+interface TextButtonProps {
+  to: string;
+  buttonText: string;
+  descriptionText: string;
+  outside?: boolean;
+}
+
+const TextButton = ({
+  to,
+  buttonText,
+  descriptionText,
+  outside = false,
+}: TextButtonProps) => {
   const contents = () => {
     return (
       <>
