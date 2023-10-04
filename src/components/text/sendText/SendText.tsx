@@ -1,5 +1,6 @@
 import { lazy, useState } from 'react';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 import renderWithFallback from '../../reusable/loading/renderWithFallback';
 import './SendText.css';
@@ -25,10 +26,13 @@ const SendText = () => {
   const fridgeQuery = useGetFridgesQuery();
   const fridges = fridgeQuery.data;
 
-  const [sendText, sendTextResult] = useSendTextMutation();
+  const [sendText, sendTextResult] = useSendTextMutation({
+    fixedCacheKey: 'sent-text',
+  });
+  const navigate = useNavigate();
 
   const getAddress = () => {
-    if (fridges && fridge && fridges[fridge].address) {
+    if (fridges && fridge !== undefined && fridges[fridge].address) {
       return `, at ${fridges[fridge].address},`;
     } else {
       return '';
@@ -44,7 +48,7 @@ const SendText = () => {
   };
 
   const message =
-    fridge &&
+    fridge !== undefined &&
     `Hello! ${
       !!fridges && fridges[fridge].name
     } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${moment(
@@ -54,7 +58,7 @@ const SendText = () => {
     )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
 
   const getRegion = () => {
-    if (fridges && fridge) {
+    if (fridges && fridge !== undefined) {
       const { region } = fridges[fridge];
       if (region === 'EAST_OAKLAND') {
         return 'East Oakland';
@@ -92,7 +96,7 @@ const SendText = () => {
 
   const composeText = () => {
     const btnActive =
-      fridge &&
+      fridge !== undefined &&
       date &&
       message &&
       time &&
@@ -143,14 +147,14 @@ const SendText = () => {
               ))}
             </select>
             <div className="fridge">
-              {fridge && (
+              {fridge !== undefined && fridges && (
                 <div className="fridge-info">
                   <div className="fridge-info-label">Address: </div>
-                  {fridge[fridge].address}
+                  {fridges[fridge].address}
                 </div>
               )}
 
-              {fridge && (
+              {fridge !== undefined && (
                 <div className="fridge-info">
                   <div className="fridge-info-label">Region: </div>
                   {getRegion()}
@@ -219,7 +223,7 @@ const SendText = () => {
                   setPhoto(e.target.value);
                 }}
               />
-              {!!photo && photo instanceof String && (
+              {!!photo && typeof photo === 'string' && (
                 <div
                   className="send-text-photo-field-clear"
                   onClick={() => {
@@ -261,8 +265,10 @@ const SendText = () => {
         region={getRegion()}
         photo={photo}
         onSubmit={() => {
-          if (fridges && fridge && message) {
-            sendText({ message, region: fridges[fridge].region, photo });
+          if (fridges && fridge !== undefined && message) {
+            sendText({ message, region: fridges[fridge].region, photo })
+              .unwrap()
+              .then(() => navigate('../text-success'));
           }
         }}
         onCancel={() => setPreview(false)}

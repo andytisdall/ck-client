@@ -16,7 +16,8 @@ const baseQueryWithToken: BaseQueryFn<
   const baseQuery = fetchBaseQuery({
     baseUrl: url,
     prepareHeaders: (headers) => {
-      headers.set('Content-type', 'application/json');
+      // headers.set('Content-type', 'application/json');
+      // headers.append('Content-type', 'application/json');
       if (token) {
         headers.set('authorization', token);
       }

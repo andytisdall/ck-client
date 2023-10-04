@@ -1,29 +1,42 @@
 import { connect } from 'react-redux';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Loading from '../../reusable/loading/Loading';
 import * as actions from '../../../actions';
 import TextPreview from '../sendText/TextPreview';
-import useLoading from '../../../hooks/useLoading';
 import '../sendText/SendText.css';
 import { formatNumber } from '../feedback/Feedback';
 import FileInput from '../../reusable/file/FileInput';
+import { useSendTextMutation } from '../../../state/apis/textApi';
+import { Region } from '../../../state/apis/textApi';
 
-const CustomText = ({ sendText, replyTo }) => {
+type ReplyToProps = {
+  region: Region;
+  sender: string;
+  id: string;
+  message: string;
+};
+
+const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
+  const [sendText, sendTextResult] = useSendTextMutation({
+    fixedCacheKey: 'sent-text',
+  });
+
   const [message, setMessage] = useState('');
   const [region, setRegion] = useState(replyTo?.region ? replyTo.region : null);
   const [number, setNumber] = useState(
     replyTo?.sender ? formatNumber(replyTo.sender) : ''
   );
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState<File | string | undefined>();
   const [imageError, setImageError] = useState(false);
 
   const [preview, setPreview] = useState(false);
 
-  const [loading, setLoading] = useLoading();
+  const navigate = useNavigate();
 
-  const numberRef = useRef();
-  const numberTextRef = useRef();
+  const numberRef = useRef<HTMLInputElement | null>(null);
+  const numberTextRef = useRef<HTMLInputElement | null>(null);
 
   const composeText = () => {
     const btnActive = message && (region || number);
@@ -72,8 +85,9 @@ const CustomText = ({ sendText, replyTo }) => {
               type="radio"
               ref={numberRef}
               onChange={(e) => {
-                if (e.target.checked) {
-                  numberTextRef.current.focus();
+                if (e.target.checked && numberTextRef.current) {
+                  const ref = numberTextRef.current as HTMLInputElement;
+                  ref.focus();
                 }
               }}
             />
@@ -82,7 +96,11 @@ const CustomText = ({ sendText, replyTo }) => {
               type="text"
               value={number}
               ref={numberTextRef}
-              onFocus={() => (numberRef.current.checked = true)}
+              onFocus={() => {
+                if (numberRef.current) {
+                  numberRef.current.checked = true;
+                }
+              }}
               onChange={(e) => {
                 setNumber(e.target.value);
               }}
@@ -103,7 +121,7 @@ const CustomText = ({ sendText, replyTo }) => {
             <label>Photo (Optional):</label>
             <div className="send-text-photo-field-container">
               <FileInput
-                file={photo?.name ? photo : null}
+                file={typeof photo !== 'string' ? photo : undefined}
                 setFile={setPhoto}
                 label="Upload Photo:"
               />
@@ -115,13 +133,13 @@ const CustomText = ({ sendText, replyTo }) => {
                 className={`send-text-photo-field ${
                   imageError && 'send-text-photo-field-error'
                 }`}
-                value={!photo ? '' : photo.name ? '' : photo}
+                value={!photo ? '' : typeof photo !== 'string' ? '' : photo}
                 onChange={(e) => {
                   setImageError(false);
                   setPhoto(e.target.value);
                 }}
               />
-              {!!photo && !photo.name && (
+              {!!photo && typeof photo === 'string' && (
                 <div
                   className="send-text-photo-field-clear"
                   onClick={() => {
@@ -151,7 +169,7 @@ const CustomText = ({ sendText, replyTo }) => {
   };
 
   const renderContent = () => {
-    if (loading) {
+    if (sendTextResult.isLoading) {
       return <Loading />;
     }
     if (!preview) {
@@ -164,8 +182,17 @@ const CustomText = ({ sendText, replyTo }) => {
         photo={photo}
         number={number}
         onSubmit={() => {
-          sendText(message, region, photo, replyTo?.id, number);
-          setLoading(true);
+          if (region) {
+            sendText({
+              message,
+              region,
+              photo,
+              feedbackId: replyTo?.id,
+              number,
+            })
+              .unwrap()
+              .then(() => navigate('../text-success'));
+          }
         }}
         onCancel={() => setPreview(false)}
       />

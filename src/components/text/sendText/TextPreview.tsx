@@ -10,23 +10,6 @@ const TextPreview = ({
   number,
   sendAt,
 }) => {
-  // const [image, setImage] = useState(photo);
-
-  // useEffect(() => {
-  //   if (photo?.name?.toLowerCase().includes('.heic')) {
-  //     setImage(null);
-  //     const convert = async () => {
-  //       const pic = await heic2any({
-  //         blob: photo,
-  //         toType: 'image/jpeg',
-  //         quality: 0.3,
-  //       });
-  //       setImage(pic);
-  //     };
-  //     convert();
-  //   }
-  // }, [photo]);
-
   const getSrc = () => {
     if (photo?.name) {
       return URL.createObjectURL(photo);

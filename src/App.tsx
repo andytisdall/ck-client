@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from './state/store';
 import { setError } from './state/apis/slices/errorSlice';
 // text service
-// import textRouter from './components/text/textRouter';
+import textRouter from './components/text/textRouter';
 
 // // meal program onboarding
 // import mealProgramRouter from './components/mealProgram/mealProgramRouter.js.js';
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<Home />),
       },
       { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
-      // textRouter,
+      textRouter,
       // adminRouter,
       // mealProgramRouter,
       // userRouter,
