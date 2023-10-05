@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import { api } from "../api";
 import { Region } from "./textApi";
 
@@ -12,11 +14,14 @@ export interface FeedbackResponse {
     id: string
 }
 
+export type FeedbackState = Record<string, FeedbackResponse>
+
 const feedbackApi = api.injectEndpoints({
   endpoints: builder => ({
-    getFeedback: builder.query<FeedbackResponse[], void>({
+    getFeedback: builder.query<FeedbackState, void>({
       query: () => ({url: '/text/feedback'}),
-      providesTags: ['Feedback']
+      providesTags: ['Feedback'],
+      transformResponse: (response: FeedbackResponse[]) => _.mapKeys(response, 'id')
     }),
     deleteFeedback: builder.mutation<null, string>({
       query: id => ({url: '/text/feedback/' + id, method: 'DELETE'}),

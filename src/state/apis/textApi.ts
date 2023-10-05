@@ -1,3 +1,4 @@
+
 import { api } from '../api';
 
 export type Region = 'WEST_OAKLAND' | 'EAST_OAKLAND';
@@ -10,6 +11,7 @@ type SendTextBody = {
 };
 export type SendTextResponse = {
   message: string;
+  
   region: Region;
   photoUrl?: string;
   number: string;
@@ -24,6 +26,19 @@ interface AddPhoneArgs {
 export interface GetPhoneNumberResponse {
   number: string;
   id: string;
+}
+
+export interface MessageInstance {
+  sid: string;
+  accountSid: string;
+  attributes: string;
+  author: string;
+  body: string;
+  chatServiceSid: string;
+  conversationSid: string;
+  dateCreated: string;
+  dateUpdated: string;
+  delivery: any;
 }
 
 export const textApi = api.injectEndpoints({
@@ -68,8 +83,21 @@ url: 'text/phone', method: 'POST', body
         url: '/text/phone/' + number,
         method: 'DELETE'
       })
+    }),
+
+    getScheduledTexts: builder.query<MessageInstance[], void>({
+      query: () => ({
+        url: '/text/scheduled'
+      })
+    }),
+
+    deleteScheduledText: builder.mutation<null, string[]>({
+      query: (body) => ({
+        url: '/text/scheduled/delete', body
+      })
     })
+
   }),
 });
 
-export const { useSendTextMutation, useAddPhoneMutation, useLazyGetPhoneNumberQuery, useDeletePhoneMutation } = textApi;
+export const { useSendTextMutation, useAddPhoneMutation, useLazyGetPhoneNumberQuery, useDeletePhoneMutation, useGetScheduledTextsQuery, useDeleteScheduledTextMutation } = textApi;

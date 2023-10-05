@@ -1,30 +1,24 @@
-import { connect } from 'react-redux';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
 import Loading from '../../reusable/loading/Loading';
-import useLoading from '../../../hooks/useLoading';
-import * as actions from '../../../actions';
+import {
+  useGetScheduledTextsQuery,
+  useDeleteScheduledTextMutation,
+} from '../../../state/apis/textApi';
+import { MessageInstance } from '../../../state/apis/textApi';
+
 import './RecurringConsole.css';
 
-const RecurringConsole = ({
-  scheduledTexts,
-  getScheduledTexts,
-  deleteScheduledText,
-}) => {
-  const [loading, setLoading] = useLoading();
+const RecurringConsole = () => {
+  const scheduledTextsQuery = useGetScheduledTextsQuery();
+  const scheduledTexts = scheduledTextsQuery.data;
 
-  useEffect(() => {
-    if (!scheduledTexts) {
-      setLoading(true);
-      getScheduledTexts();
-    } else {
-      setLoading(false);
-    }
-  }, [getScheduledTexts, setLoading, scheduledTexts]);
+  const [deleteScheduledText, deleteScheduledTextResult] =
+    useDeleteScheduledTextMutation();
 
   const messageList = useMemo(() => {
-    const list = {};
+    const list: Record<string, MessageInstance[]> = {};
     if (scheduledTexts) {
       scheduledTexts.forEach((text) => {
         const formattedTime = format(
@@ -41,7 +35,7 @@ const RecurringConsole = ({
     return list;
   }, [scheduledTexts]);
 
-  if (loading) {
+  if (scheduledTextsQuery.isLoading || deleteScheduledTextResult.isLoading) {
     return <Loading />;
   }
 
@@ -75,8 +69,4 @@ const RecurringConsole = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return { scheduledTexts: state.text.scheduledTexts };
-};
-
-export default connect(mapStateToProps, actions)(RecurringConsole);
+export default RecurringConsole;

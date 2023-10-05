@@ -1,4 +1,4 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import { useGetUserQuery, useSignOutMutation } from '../state/apis/authApi';
 
 import Loading from './reusable/loading/Loading';
@@ -7,8 +7,6 @@ import SignIn from './auth/SignIn';
 import './Header.css';
 
 const Header = () => {
-  const navigate = useNavigate();
-
   const { data, isFetching } = useGetUserQuery();
   const [signOut] = useSignOutMutation();
 
@@ -45,8 +43,6 @@ const Header = () => {
     <>
       <div className="header">
         <div className="header-left">
-          <button onClick={() => navigate(-1)}>Back</button>
-
           <Link to="/">
             <img
               src="/images/logos/ck-logo.png"
@@ -55,10 +51,12 @@ const Header = () => {
             />
           </Link>
         </div>
+
         <div className="header-right">
           {isFetching ? <Loading /> : renderBasedOnUserStatus()}
         </div>
       </div>
+
       <main>
         <Outlet />
       </main>

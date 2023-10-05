@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
 
-import * as actions from '../../actions';
+import { useGetRestaurantQuery } from '../../state/apis/restaurantApi';
+import { useGetUserInfoQuery, useGetUserQuery } from '../../state/apis/authApi';
 
-const UserHome = ({ user, restaurant, getRestaurant, getUserInfo }) => {
-  useEffect(() => {
-    getRestaurant();
-    getUserInfo();
-  }, [getRestaurant, getUserInfo]);
+const UserHome = () => {
+  const restaurant = useGetRestaurantQuery().data;
+  const userInfo = useGetUserInfoQuery().data;
+  const user = useGetUserQuery().data;
 
   const renderRestarant = () => {
     if (restaurant) {
@@ -17,8 +15,8 @@ const UserHome = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   };
 
   const renderHomeChef = () => {
-    const status = user.homeChefStatus ? 'Active' : 'Not Yet Active';
-    if (user.homeChefStatus) {
+    const status = userInfo?.homeChefStatus ? 'Active' : 'Not Yet Active';
+    if (userInfo?.homeChefStatus) {
       return <p>Your Home Chef Status: {status}</p>;
     }
   };
@@ -26,7 +24,7 @@ const UserHome = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   return (
     <div>
       <div>
-        <p>You are logged in as {user.username}</p>
+        <p>You are logged in as {user?.username}</p>
         {renderRestarant()}
         {renderHomeChef()}
       </div>
@@ -42,11 +40,4 @@ const UserHome = ({ user, restaurant, getRestaurant, getUserInfo }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user,
-    restaurant: state.restaurant.restaurant,
-  };
-};
-
-export default connect(mapStateToProps, actions)(UserHome);
+export default UserHome;

@@ -1,20 +1,33 @@
-import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, FormEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 
-import * as actions from '../../actions';
+import { setError } from '../../state/apis/slices/errorSlice';
+import { useGetUserQuery, useEditUserMutation } from '../../state/apis/authApi';
 
-const ChangePassword = ({ user, editUser, setError }) => {
+const ChangePassword = () => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const handleSubmit = (e) => {
+  const user = useGetUserQuery().data;
+  const [editUser] = useEditUserMutation();
+
+  const dispatch = useDispatch();
+
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    if (password1 !== password2) {
-      return setError({ message: 'Passwords do not match' });
+    if (user) {
+      if (password1 !== password2) {
+        return dispatch(setError({ message: 'Passwords do not match' }));
+      }
+      editUser({
+        userId: user.id,
+        username: user.username,
+        password: password1,
+        salesforceId: user.salesforceId,
+      });
+      setPassword1('');
+      setPassword2('');
     }
-    editUser(user.id, user.username, password1);
-    setPassword1('');
-    setPassword2('');
   };
 
   return (
@@ -43,8 +56,4 @@ const ChangePassword = ({ user, editUser, setError }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user.user };
-};
-
-export default connect(mapStateToProps, actions)(ChangePassword);
+export default ChangePassword;

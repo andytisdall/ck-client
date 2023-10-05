@@ -5,6 +5,7 @@ interface User {
   admin: boolean;
   active: boolean;
   salesforceId: string;
+  id: string;
 }
 interface SignInArgs {
   username: string;
@@ -20,6 +21,9 @@ interface ContactInfo {
   volunteerAgreement: boolean;
   foodHandler: boolean;
   homeChefStatus: string;
+}
+interface EditUserArgs {
+  userId: string, username:string, password?:string, salesforceId?:string
 }
 
 export const authApi = api.injectEndpoints({
@@ -60,6 +64,12 @@ export const authApi = api.injectEndpoints({
       query: () => 'user/userInfo',
       providesTags: ['UserInfo']
     }),
+
+    editUser: builder.mutation<null, EditUserArgs>({
+      query:body => ({
+        url: '/user', body, method: 'PATCH'
+      })
+    })
   }),
 });
 
@@ -68,4 +78,5 @@ export const {
   useSignInMutation,
   useSignOutMutation,
   useGetUserInfoQuery,
+  useEditUserMutation
 } = authApi;
