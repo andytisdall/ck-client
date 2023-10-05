@@ -78,7 +78,7 @@ const HomeChef = ({
       setLoading(true);
     }
     getCampaign();
-    getEventCampaigns();
+    // getEventCampaigns();
   }, [getUserInfo, user, getCampaign, getEventCampaigns]);
 
   useEffect(() => {
