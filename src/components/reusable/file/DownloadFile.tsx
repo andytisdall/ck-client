@@ -1,6 +1,11 @@
+import { PropsWithChildren } from 'react';
+
 import './DownloadFile.css';
 
-const DownloadFile = ({ children, filename }) => {
+const DownloadFile = ({
+  children,
+  filename,
+}: PropsWithChildren & { filename: string }) => {
   return (
     <a href={`/images/${filename}`} download className="download">
       <img

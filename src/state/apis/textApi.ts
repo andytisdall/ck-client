@@ -16,6 +16,16 @@ export type SendTextResponse = {
   sendAt?: string;
 };
 
+interface AddPhoneArgs {
+  phone: string;
+  region: Region
+}
+
+export interface GetPhoneNumberResponse {
+  number: string;
+  id: string;
+}
+
 export const textApi = api.injectEndpoints({
   endpoints: (builder) => ({
     sendText: builder.mutation<SendTextResponse, SendTextBody>({
@@ -40,7 +50,26 @@ export const textApi = api.injectEndpoints({
         };
       },
     }),
+
+    addPhone: builder.mutation<null, AddPhoneArgs>({
+      query: (body) => ({
+url: 'text/phone', method: 'POST', body
+      })
+    }),
+    
+    getPhoneNumber: builder.query<GetPhoneNumberResponse, string>({
+      query: number => ({
+        url: '/text/phone/' + number
+      })
+    }),
+
+    deletePhone: builder.mutation<null, string>({
+      query: number => ({
+        url: '/text/phone/' + number,
+        method: 'DELETE'
+      })
+    })
   }),
 });
 
-export const { useSendTextMutation } = textApi;
+export const { useSendTextMutation, useAddPhoneMutation, useLazyGetPhoneNumberQuery, useDeletePhoneMutation } = textApi;

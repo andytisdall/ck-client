@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
 
-import * as actions from '../../../actions';
-import useLoading from '../../../hooks/useLoading';
+import { Region } from '../../../state/apis/textApi';
 import Loading from '../../reusable/loading/Loading';
+import { useAddPhoneMutation } from '../../../state/apis/textApi';
 
-const AddPhone = ({ addPhone }) => {
+const AddPhone = () => {
   const [phone, setPhone] = useState('');
-  const [region, setRegion] = useState('EAST_OAKLAND');
-  const [loading, setLoading] = useLoading();
+  const [region, setRegion] = useState<Region>('EAST_OAKLAND');
 
-  const submitPhone = async (e) => {
+  const [addPhone, addPhoneResult] = useAddPhoneMutation();
+
+  const submitPhone: React.FormEventHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    addPhone(phone, region);
+    addPhone({ phone, region });
   };
 
   return (
@@ -33,15 +32,19 @@ const AddPhone = ({ addPhone }) => {
         <select
           name="region"
           value={region}
-          onChange={(e) => setRegion(e.target.value)}
+          onChange={(e) => setRegion(e.target.value as Region)}
         >
           <option value={'EAST_OAKLAND'}>East Oakland</option>
           <option value={'WEST_OAKLAND'}>West Oakland</option>
         </select>
-        {loading ? <Loading /> : <input type="submit" value="Submit" />}
+        {addPhoneResult.isLoading ? (
+          <Loading />
+        ) : (
+          <input type="submit" value="Submit" />
+        )}
       </form>
     </div>
   );
 };
 
-export default connect(null, actions)(AddPhone);
+export default AddPhone;

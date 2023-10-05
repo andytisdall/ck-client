@@ -1,4 +1,6 @@
-export const navLink = ({ isActive, isPending }) => {
+
+
+export const navLink = ({ isActive, isPending }: {isActive: boolean, isPending: boolean}) => {
   const status = isPending
     ? 'nav-link-pending'
     : isActive

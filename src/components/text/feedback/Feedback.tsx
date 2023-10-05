@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import moment from 'moment';
+import { format, subDays } from 'date-fns';
 
 import {
   useGetFeedbackQuery,
@@ -56,7 +56,7 @@ const Feedback = () => {
               return (
                 <ul key={response.date}>
                   <li>
-                    <div>{moment(response.date).format('M/D/YY h:m a')}</div>
+                    <div>{format(new Date(response.date), 'M/D/YY h:m a')}</div>
                     <div>{response.message}</div>
                   </li>
                 </ul>
@@ -75,7 +75,7 @@ const Feedback = () => {
           if (dateRange === 'all') {
             return fb;
           } else {
-            return moment(fb.date) > moment().subtract(dateRange, 'days');
+            return new Date(fb.date) > subDays(new Date(), parseInt(dateRange));
           }
         })
         .sort((a, b) => (a.date > b.date ? -1 : 1))
@@ -85,7 +85,7 @@ const Feedback = () => {
               <div className="feedback-section">
                 <div className="feedback-line">
                   <span className="feedback-field">
-                    {moment(fb.date).format('MM/DD/YY hh:mm a')}
+                    {format(new Date(fb.date), 'MM/dd/yy hh:mm a')}
                   </span>
                 </div>
 
