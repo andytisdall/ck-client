@@ -1,25 +1,29 @@
-import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, FormEventHandler, ChangeEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { editUser, setError, getAllUsers } from '../../../actions';
+import {
+  useEditUserMutation,
+  useGetAllUsersQuery,
+} from '../../../state/apis/authApi';
+import { setError } from '../../../state/apis/slices/errorSlice';
 
-const EditUser = ({ setError, editUser, users, getAllUsers }) => {
+const EditUser = () => {
   const [user, setUser] = useState('');
   const [username, setUsername] = useState('');
   const [salesforceId, setSalesforceId] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
-  useEffect(() => {
-    getAllUsers();
-  }, [getAllUsers]);
+  const dispatch = useDispatch();
+  const [editUser] = useEditUserMutation();
+  const users = useGetAllUsersQuery().data;
 
-  const handleSubmit = (e) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (password1 !== password2) {
-      return setError({ message: 'Passwords do not match' });
+      return dispatch(setError('Passwords do not match'));
     }
-    editUser(user, username, password1, salesforceId);
+    editUser({ userId: user, username, password: password1, salesforceId });
     setUser('');
     setUsername('');
     setSalesforceId('');
@@ -28,29 +32,33 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
   };
 
   const renderUsers = () => {
-    return Object.values(users)
-      .sort((a, b) => (a.username > b.username ? 1 : -1))
-      .map((u) => {
-        return (
-          <option key={u.id} value={u.id}>
-            {u.username}
-          </option>
-        );
-      });
+    if (users) {
+      return Object.values(users)
+        .sort((a, b) => (a.username > b.username ? 1 : -1))
+        .map((u) => {
+          return (
+            <option key={u.id} value={u.id}>
+              {u.username}
+            </option>
+          );
+        });
+    }
   };
 
-  const onUserSelect = (e) => {
-    const usr = users[e.target.value];
-    if (usr) {
-      setUser(usr.id);
-      setUsername(usr.username);
-      setSalesforceId(usr.salesforceId);
-    } else {
-      setUser('');
-      setUsername('');
-      setSalesforceId('');
-      setPassword1('');
-      setPassword2('');
+  const onUserSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    if (users) {
+      const usr = users[e.target.value];
+      if (usr) {
+        setUser(usr.id);
+        setUsername(usr.username);
+        setSalesforceId(usr.salesforceId);
+      } else {
+        setUser('');
+        setUsername('');
+        setSalesforceId('');
+        setPassword1('');
+        setPassword2('');
+      }
     }
   };
 
@@ -98,12 +106,4 @@ const EditUser = ({ setError, editUser, users, getAllUsers }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.user.users,
-  };
-};
-
-export default connect(mapStateToProps, { setError, editUser, getAllUsers })(
-  EditUser
-);
+export default EditUser;

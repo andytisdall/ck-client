@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
 import renderWithFallback from '../reusable/loading/renderWithFallback';
 import './User.css';
@@ -8,7 +9,7 @@ const ChangeUsername = lazy(() => import('./ChangeUsername'));
 const UserHome = lazy(() => import('./UserHome'));
 const UserBase = lazy(() => import('./UserBase'));
 
-const userRouter = {
+const userRouter: RouteObject = {
   path: 'user',
   element: renderWithFallback(<UserBase />),
   children: [

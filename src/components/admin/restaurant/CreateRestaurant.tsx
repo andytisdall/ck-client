@@ -1,20 +1,19 @@
-import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, FormEventHandler } from 'react';
 
-import { getAllUsers, createRestaurant } from '../../../actions';
+import { useGetAllUsersQuery, User } from '../../../state/apis/authApi';
+import { useCreateRestaurantMutation } from '../../../state/apis/restaurantApi';
 
-const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
+const CreateRestaurant = () => {
   const [name, setName] = useState('');
   const [salesforceId, setSalesforceId] = useState('');
   const [userId, setUserId] = useState('');
 
-  useEffect(() => {
-    getAllUsers();
-  }, [getAllUsers]);
+  const users = useGetAllUsersQuery().data;
+  const [createRestaurant] = useCreateRestaurantMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    createRestaurant(name, salesforceId, userId);
+    createRestaurant({ name, salesforceId, userId });
     setName('');
     setSalesforceId('');
     setUserId('');
@@ -48,15 +47,16 @@ const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
           onChange={(e) => setUserId(e.target.value)}
         >
           <option value="">Select a User</option>
-          {users
-            .sort((a, b) => (a.username > b.username ? 1 : -1))
-            .map((u) => {
-              return (
-                <option value={u.id} key={u.id}>
-                  {u.username}
-                </option>
-              );
-            })}
+          {!!users &&
+            Object.values(users)
+              .sort((a: User, b: User) => (a.username > b.username ? 1 : -1))
+              .map((u: User) => {
+                return (
+                  <option value={u.id} key={u.id}>
+                    {u.username}
+                  </option>
+                );
+              })}
         </select>
         <input type="submit" value="Submit" />
       </form>
@@ -64,12 +64,4 @@ const CreateRestaurant = ({ users, getAllUsers, createRestaurant }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    users: Object.values(state.user.users),
-  };
-};
-
-export default connect(mapStateToProps, { getAllUsers, createRestaurant })(
-  CreateRestaurant
-);
+export default CreateRestaurant;

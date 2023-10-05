@@ -26,15 +26,15 @@ export const rtkQueryErrorLogger: Middleware =
       if (error) {
         if ('status' in error) {
           const data = error.data as { error?: string };
-          if (data.error) {
+          if (data?.error) {
             message = data.error;
-          } else {
+          } else if (data) {
             message = JSON.stringify(data);
           }
         } else if (error.message) {
           message = error.message;
         }
-
+        console.log(message)
         api.dispatch(setError(message));
       }
     }

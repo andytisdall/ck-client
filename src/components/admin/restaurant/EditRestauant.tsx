@@ -1,26 +1,24 @@
-import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, FormEventHandler, ChangeEventHandler } from 'react';
 
-import * as actions from '../../../actions';
+import {
+  useEditRestaurantMutation,
+  useGetAllRestaurantsQuery,
+} from '../../../state/apis/restaurantApi';
+import { useGetAllUsersQuery } from '../../../state/apis/authApi';
 
-const EditRestaurant = ({
-  users,
-  restaurants,
-  editRestaurant,
-  getAllRestaurants,
-}) => {
+const EditRestaurant = () => {
   const [restaurant, setRestaurant] = useState('');
   const [name, setName] = useState('');
   const [salesforceId, setSalesforceId] = useState('');
   const [userId, setUserId] = useState('');
 
-  useEffect(() => {
-    getAllRestaurants();
-  }, [getAllRestaurants]);
+  const [editRestaurant] = useEditRestaurantMutation();
+  const restaurants = useGetAllRestaurantsQuery().data;
+  const users = useGetAllUsersQuery().data;
 
-  const handleSubmit = (e) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    editRestaurant(restaurant, name, salesforceId, userId);
+    editRestaurant({ restaurantId: restaurant, name, salesforceId, userId });
     setRestaurant('');
     setName('');
     setSalesforceId('');
@@ -28,27 +26,31 @@ const EditRestaurant = ({
   };
 
   const renderRestaurants = () => {
-    return Object.values(restaurants).map((u) => {
-      return (
-        <option key={u.id} value={u.id}>
-          {u.name}
-        </option>
-      );
-    });
+    if (restaurants) {
+      return Object.values(restaurants).map((u) => {
+        return (
+          <option key={u.id} value={u.id}>
+            {u.name}
+          </option>
+        );
+      });
+    }
   };
 
-  const onRestaurantSelect = (e) => {
+  const onRestaurantSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setRestaurant(e.target.value);
-    const rest = restaurants[e.target.value];
-    if (rest) {
-      setName(rest.name);
-      setSalesforceId(rest.salesforceId);
-      setUserId(rest.user);
-    } else {
-      setRestaurant('');
-      setName('');
-      setSalesforceId('');
-      setUserId('');
+    if (restaurants) {
+      const rest = restaurants[e.target.value];
+      if (rest) {
+        setName(rest.name);
+        setSalesforceId(rest.salesforceId);
+        setUserId(rest.user);
+      } else {
+        setRestaurant('');
+        setName('');
+        setSalesforceId('');
+        setUserId('');
+      }
     }
   };
 
@@ -88,15 +90,16 @@ const EditRestaurant = ({
           onChange={(e) => setUserId(e.target.value)}
         >
           <option value="">Select a User</option>
-          {Object.values(users)
-            .sort((a, b) => (a.username > b.username ? 1 : -1))
-            .map((u) => {
-              return (
-                <option value={u.id} key={u.id}>
-                  {u.username}
-                </option>
-              );
-            })}
+          {!!users &&
+            Object.values(users)
+              .sort((a, b) => (a.username > b.username ? 1 : -1))
+              .map((u) => {
+                return (
+                  <option value={u.id} key={u.id}>
+                    {u.username}
+                  </option>
+                );
+              })}
         </select>
         <input type="submit" value="Submit" />
       </form>
@@ -104,11 +107,4 @@ const EditRestaurant = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.user.users,
-    restaurants: state.restaurant.restaurants,
-  };
-};
-
-export default connect(mapStateToProps, actions)(EditRestaurant);
+export default EditRestaurant;

@@ -5,8 +5,8 @@ import Loading from '../../reusable/loading/Loading';
 import {
   useGetScheduledTextsQuery,
   useDeleteScheduledTextMutation,
+  MessageInstance,
 } from '../../../state/apis/textApi';
-import { MessageInstance } from '../../../state/apis/textApi';
 
 import './RecurringConsole.css';
 

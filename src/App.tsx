@@ -14,10 +14,10 @@ import textRouter from './components/text/textRouter';
 // import mealProgramRouter from './components/mealProgram/mealProgramRouter.js.js';
 
 // // admin
-// import adminRouter from './components/admin/adminRouter';
+import adminRouter from './components/admin/adminRouter';
 
-// // user settings
-// import userRouter from './components/user/userRouter';
+// user settings
+import userRouter from './components/user/userRouter';
 
 // // home chef
 // import homeChefRouter from './components/homeChef/homeChefRouter';
@@ -49,9 +49,9 @@ export const router = createBrowserRouter([
       },
       { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
       textRouter,
-      // adminRouter,
+      adminRouter,
       // mealProgramRouter,
-      // userRouter,
+      userRouter,
       // homeChefRouter,
       // volunteersRouter,
       { path: '404', element: renderWithFallback(<SalesforceNotFound />) },

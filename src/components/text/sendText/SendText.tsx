@@ -48,14 +48,15 @@ const SendText = () => {
   };
 
   const message =
-    fridge !== undefined &&
-    `Hello! ${
-      !!fridges && fridges[fridge].name
-    } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${moment(
-      `${date} ${time}`
-    ).format(
-      'M/D [at] h:mm a'
-    )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
+    fridge !== undefined
+      ? `Hello! ${
+          !!fridges && fridges[fridge].name
+        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${moment(
+          `${date} ${time}`
+        ).format(
+          'M/D [at] h:mm a'
+        )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`
+      : undefined;
 
   const getRegion = () => {
     if (fridges && fridge !== undefined) {
@@ -67,6 +68,7 @@ const SendText = () => {
         return 'West Oakland';
       }
     }
+    return '';
   };
 
   const renderPhoto = () => {
@@ -259,21 +261,23 @@ const SendText = () => {
     if (!preview) {
       return composeText();
     }
-    return renderWithFallback(
-      <TextPreview
-        message={message}
-        region={getRegion()}
-        photo={photo}
-        onSubmit={() => {
-          if (fridges && fridge !== undefined && message) {
-            sendText({ message, region: fridges[fridge].region, photo })
-              .unwrap()
-              .then(() => navigate('../text-success'));
-          }
-        }}
-        onCancel={() => setPreview(false)}
-      />
-    );
+    if (message && getRegion()) {
+      return renderWithFallback(
+        <TextPreview
+          message={message}
+          region={getRegion()}
+          photo={photo}
+          onSubmit={() => {
+            if (fridges && fridge !== undefined && message) {
+              sendText({ message, region: fridges[fridge].region, photo })
+                .unwrap()
+                .then(() => navigate('../text-success'));
+            }
+          }}
+          onCancel={() => setPreview(false)}
+        />
+      );
+    }
   };
 
   return (

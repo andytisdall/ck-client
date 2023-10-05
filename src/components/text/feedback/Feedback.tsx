@@ -5,7 +5,7 @@ import {
   useGetFeedbackQuery,
   useDeleteFeedbackMutation,
   FeedbackResponse,
-} from '../../../state/apis/feedbackApi';
+} from '../../../state/apis/textApi';
 import Loading from '../../reusable/loading/Loading';
 import './Feedback.css';
 import CustomText, { ReplyToProps } from '../customText/CustomText';
@@ -56,7 +56,7 @@ const Feedback = () => {
               return (
                 <ul key={response.date}>
                   <li>
-                    <div>{format(new Date(response.date), 'M/D/YY h:m a')}</div>
+                    <div>{format(new Date(response.date), 'M/d/yy h:m a')}</div>
                     <div>{response.message}</div>
                   </li>
                 </ul>
@@ -69,7 +69,7 @@ const Feedback = () => {
   };
 
   const renderFeedback = () => {
-    if (Array.isArray(feedback)) {
+    if (feedback) {
       return Object.values(feedback)
         .filter((fb) => {
           if (dateRange === 'all') {
@@ -79,7 +79,7 @@ const Feedback = () => {
           }
         })
         .sort((a, b) => (a.date > b.date ? -1 : 1))
-        .map((fb) => {
+        .map((fb: FeedbackResponse) => {
           return (
             <li className="feedback-item" key={fb.id}>
               <div className="feedback-section">

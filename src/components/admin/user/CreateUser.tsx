@@ -1,20 +1,23 @@
-import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, FormEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
+import { useCreateUserMutation } from '../../../state/apis/authApi/userApi';
+import { setError } from '../../../state/apis/slices/errorSlice';
 
-import * as actions from '../../../actions';
-
-const CreateUser = ({ setError, createUser, getSFUserInfo }) => {
+const CreateUser = () => {
   const [username, setUsername] = useState('');
   const [salesforceId, setSalesforceId] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const [createUser] = useCreateUserMutation();
+
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (password1 !== password2) {
-      return setError({ message: 'Passwords do not match' });
+      return dispatch(setError('Passwords do not match'));
     }
-    createUser(username, password1, salesforceId);
+    createUser({ username, password: password1, salesforceId });
     setUsername('');
     setSalesforceId('');
     setPassword1('');
@@ -58,9 +61,8 @@ const CreateUser = ({ setError, createUser, getSFUserInfo }) => {
         />
         <input type="submit" value="Submit" />
       </form>
-      {/* <button onClick={getSFUserInfo}>Get User Info</button> */}
     </div>
   );
 };
 
-export default connect(null, actions)(CreateUser);
+export default CreateUser;

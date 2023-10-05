@@ -1,12 +1,9 @@
-// import { useState, useEffect } from 'react';
 import { format } from 'date-fns-tz';
-
-import { Region } from '../../../state/apis/textApi';
 
 interface TextPreviewProps {
   onSubmit: () => void;
   message: string;
-  region: Region;
+  region: string;
   photo?: File | string;
   onCancel: () => void;
   number?: string;

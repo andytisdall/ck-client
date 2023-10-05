@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-import { Region } from '../../../state/apis/textApi';
+import { Region, useAddPhoneMutation } from '../../../state/apis/textApi';
 import Loading from '../../reusable/loading/Loading';
-import { useAddPhoneMutation } from '../../../state/apis/textApi';
 
 const AddPhone = () => {
   const [phone, setPhone] = useState('');

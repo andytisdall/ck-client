@@ -36,6 +36,8 @@ const TextSuccess = () => {
         </Link>
       </div>
     );
+  } else {
+    return <h4>Message Not Found</h4>;
   }
 };
 

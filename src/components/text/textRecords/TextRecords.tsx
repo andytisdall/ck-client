@@ -1,31 +1,26 @@
-import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns-tz';
 
 import './TextRecords.css';
-import * as actions from '../../../actions';
 import Loading from '../../reusable/loading/Loading';
+import { useGetAllUsersQuery } from '../../../state/apis/authApi';
+import { useGetTextRecordsQuery } from '../../../state/apis/textApi';
 
 const regions = { WEST_OAKLAND: 'West Oakland', EAST_OAKLAND: 'East Oakland' };
 
-const TextRecords = ({ textRecords, getTextRecords, getAllUsers, users }) => {
+const TextRecords = () => {
   const [startDate, setStartDate] = useState(format(new Date(), 'yyyy-MM-dd'));
 
-  useEffect(() => {
-    getAllUsers();
-  }, [getAllUsers]);
-
-  useEffect(() => {
-    if (startDate) {
-      getTextRecords(startDate);
-    }
-  }, [getTextRecords, startDate]);
+  const users = useGetAllUsersQuery().data;
+  const textRecords = useGetTextRecordsQuery({
+    startDate: startDate.toString(),
+  }).data;
 
   const renderTextRecords = () => {
-    if (!textRecords) {
+    if (!textRecords || !users) {
       return <Loading />;
     }
-    if (!textRecords.length) {
+    if (!textRecords?.length) {
       return <div>No outgoing texts found for the specified start date.</div>;
     }
     return textRecords.map((rec) => {
@@ -46,7 +41,7 @@ const TextRecords = ({ textRecords, getTextRecords, getAllUsers, users }) => {
           </div>
           <div>{rec.message}</div>
           {!!rec.image && (
-            <a href={rec.image} alt="attached" target="blank">
+            <a href={rec.image} target="blank">
               <button>View Image</button>
             </a>
           )}
@@ -69,8 +64,4 @@ const TextRecords = ({ textRecords, getTextRecords, getAllUsers, users }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { textRecords: state.text.textRecords, users: state.user.users };
-};
-
-export default connect(mapStateToProps, actions)(TextRecords);
+export default TextRecords;

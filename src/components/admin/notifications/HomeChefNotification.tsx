@@ -1,26 +1,24 @@
-import { connect } from 'react-redux';
 import { useState } from 'react';
 
+import { useSendHomeChefNotificationMutation } from '../../../state/apis/homeChefApi';
 import Loading from '../../reusable/loading/Loading';
-import useLoading from '../../../hooks/useLoading';
-import * as actions from '../../../actions';
 
-const HomeChefNotification = ({ sendHomeChefNotification }) => {
+const HomeChefNotification = () => {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
 
-  const [loading, setLoading] = useLoading();
+  const [sendHomeChefNotification, { isLoading }] =
+    useSendHomeChefNotificationMutation();
 
   const handleSend = () => {
-    setLoading(true);
-    sendHomeChefNotification(title, message);
+    sendHomeChefNotification({ title, message });
   };
 
   return (
     <div>
       <input value={title} onChange={(e) => setTitle(e.target.value)} />
       <input value={message} onChange={(e) => setMessage(e.target.value)} />
-      {loading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <div className="button" onClick={handleSend}>
@@ -31,4 +29,4 @@ const HomeChefNotification = ({ sendHomeChefNotification }) => {
   );
 };
 
-export default connect(null, actions)(HomeChefNotification);
+export default HomeChefNotification;
