@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
 
+import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 import TextButton from '../../reusable/TextButton';
 
 const videoDescription =
@@ -13,14 +12,14 @@ const documentsDescription =
 export const slidesDescription =
   'Peruse the information presented at the Home Chef orientation';
 
-const HomeChefOnboarding = ({ user }) => {
+const HomeChefOnboarding = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user.homeChefStatus === 'Active') {
-      navigate('/home-chef');
-    }
-  }, [user, navigate]);
+  const userInfo = useGetUserInfoQuery().data;
+
+  if (userInfo?.homeChefStatus === 'Active') {
+    navigate('/home-chef');
+  }
 
   return (
     <div>
@@ -46,8 +45,4 @@ const HomeChefOnboarding = ({ user }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user.user };
-};
-
-export default connect(mapStateToProps)(HomeChefOnboarding);
+export default HomeChefOnboarding;

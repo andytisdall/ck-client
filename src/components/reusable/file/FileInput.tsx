@@ -1,7 +1,7 @@
 import './FileInput.css';
 
 interface FileInputProps {
-  file: File | undefined;
+  file: File | string | undefined;
   setFile: React.Dispatch<React.SetStateAction<string | File | undefined>>;
   label?: string;
   data?: string;
@@ -16,7 +16,9 @@ const FileInput = ({ file, setFile, label, data }: FileInputProps) => {
   };
 
   const displayName = () => {
-    return file?.name.slice(0, 15) + '...';
+    if (typeof file !== 'string') {
+      return file?.name.slice(0, 15) + '...';
+    }
   };
 
   return (

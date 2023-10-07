@@ -1,0 +1,55 @@
+import { FormEventHandler } from 'react';
+
+import { requiredDocuments } from './requiredDocuments';
+import FileUpload from '../../reusable/file/FileUpload';
+import Loading from '../../reusable/loading/Loading';
+import { FOOD_HANDLER_URL } from './HomeChefDocuments';
+import { useUploadFilesMutation } from '../../../state/apis/fileApi';
+
+const UploadFoodHandler = () => {
+  const [uploadFiles, { isLoading }] = useUploadFilesMutation();
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    Array.from(e.currentTarget.elements).forEach((input) => {
+      // if (input.name === 'HD') {
+      //   if (
+      //     (input.files?.length && !expiration) ||
+      //     (expiration && !input.files?.length)
+      //   ) {
+      //     throw Error(
+      //       'Health Department Permit and Expiration Date must be updated at the same time'
+      //     );
+      //   }
+      //   if (new Date(expiration) < new Date()) {
+      //     throw Error(
+      //       'Health Department Permit Expiration Date Must Be in the Future'
+      //     );
+      //   }
+      // }
+      if (input instanceof HTMLInputElement && input.files?.length) {
+        formData.append(input.name, input.files[0]);
+      }
+    });
+    uploadFiles({ formData, accountType: 'contact' });
+  };
+
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <FileUpload doc={requiredDocuments.foodHandler} />
+        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
+      </form>
+      <p>
+        Don't have your food handler certificate yet?{' '}
+        <a className="retro-link" href={FOOD_HANDLER_URL}>
+          Click here to apply.
+        </a>
+      </p>
+    </div>
+  );
+};
+
+export default UploadFoodHandler;

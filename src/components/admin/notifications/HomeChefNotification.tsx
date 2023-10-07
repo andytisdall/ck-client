@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useSendHomeChefNotificationMutation } from '../../../state/apis/homeChefApi';
+import { useSendHomeChefNotificationMutation } from '../../../state/apis/volunteerApi/homeChefApi';
 import Loading from '../../reusable/loading/Loading';
 
 const HomeChefNotification = () => {

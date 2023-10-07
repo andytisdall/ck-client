@@ -1,33 +1,46 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { connect } from 'react-redux';
-import moment from 'moment';
+import { useState, FormEventHandler } from 'react';
+import { format } from 'date-fns';
 
-import * as actions from '../../../actions';
+import {
+  useGetShiftsQuery,
+  useSignUpForShiftMutation,
+} from '../../../state/apis/volunteerApi/homeChefApi';
 import Loading from '../../reusable/loading/Loading';
-import useLoading from '../../../hooks/useLoading';
 
-const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {
+const ShiftDetail = () => {
   const [mealCount, setMealCount] = useState('');
   const [soup, setSoup] = useState(false);
-  const [loading, setLoading] = useLoading();
+
+  const { data, isLoading } = useGetShiftsQuery();
+  const [signUpForShift] = useSignUpForShiftMutation();
+
+  const shifts = data?.shifts;
+  const jobs = data?.jobs;
 
   const { shiftId } = useParams();
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    signUpForShift(shiftId, mealCount, job.id, shift.startTime, soup);
+  const onSubmit: FormEventHandler = (e) => {
+    if (job && shift && shiftId) {
+      e.preventDefault();
+      signUpForShift({
+        shiftId,
+        mealCount,
+        jobId: job.id,
+        date: shift.startTime,
+        soup,
+      });
+    }
   };
 
-  if (!shifts || !jobs) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  const shift = shifts[shiftId];
-  const job = jobs.find((j) => j.id === shift.job);
+  const shift = shifts && shiftId ? shifts[shiftId] : null;
+  const job = jobs?.find((j) => j.id === shift?.job);
 
-  if (!shift.open) {
+  if (!shift?.open) {
     return <p>This shift is not available for signup</p>;
   }
 
@@ -35,10 +48,10 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {
     <div className="shift-detail">
       <h2>Signing up for:</h2>
       <h2 className="signup-form-date">
-        {moment(shift.startTime).format('dddd, M/D/YY')}
+        {format(new Date(shift.startTime), 'dddd, M/D/YY')}
       </h2>
-      <h2 className="signup-form-fridge">{job.name}</h2>
-      <p>{job.location}</p>
+      <h2 className="signup-form-fridge">{job?.name}</h2>
+      <p>{job?.location}</p>
 
       <form onSubmit={onSubmit} className="shift-signup-form">
         <ul>
@@ -64,7 +77,7 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {
           <div>
             <input
               type="checkbox"
-              value={soup}
+              checked={soup}
               onChange={(e) => setSoup(e.target.checked)}
               name="soup"
             />
@@ -72,7 +85,7 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {
           </div>
         </ul>
         <h3>Click submit to sign up for this slot</h3>
-        {loading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <input type="submit" className="shift-detail-submit" value="Submit" />
@@ -82,11 +95,4 @@ const ShiftDetail = ({ jobs, shifts, signUpForShift }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    jobs: state.homeChef.jobs,
-    shifts: state.homeChef.shifts,
-  };
-};
-
-export default connect(mapStateToProps, actions)(ShiftDetail);
+export default ShiftDetail;

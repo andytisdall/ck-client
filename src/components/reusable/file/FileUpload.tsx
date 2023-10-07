@@ -3,8 +3,8 @@ import { useState } from 'react';
 import FileInput from './FileInput';
 import './FileUpload.css';
 
-const FileUpload = ({ doc }) => {
-  const [file, setFile] = useState(null);
+const FileUpload = ({ doc }: { doc: { name: string; data: string } }) => {
+  const [file, setFile] = useState<File | string>();
 
   const style = file ? 'file-present' : '';
 

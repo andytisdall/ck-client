@@ -1,8 +1,10 @@
-import { connect } from 'react-redux';
 import { lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { utcToZonedTime, format } from 'date-fns-tz';
 
+import { useGetCampaignQuery } from '../../state/apis/volunteerApi/homeChefApi';
+import { useGetUserInfoQuery } from '../../state/apis/authApi';
+import { useGetEventsQuery } from '../../state/apis/volunteerApi/volunteerApi';
 import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
@@ -22,9 +24,13 @@ const emailDescription =
 const appDescription =
   'Download and install the Home Chef App, where you can sign up for shifts and send alerts about your Town Fridge deliveries';
 
-const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
+const HomeChefHome = () => {
+  const userInfo = useGetUserInfoQuery().data;
+  const campaign = useGetCampaignQuery().data;
+  const eventCampaigns = useGetEventsQuery().data;
+
   const renderStatus = () => {
-    if (user.homeChefStatus === 'Active') {
+    if (userInfo?.homeChefStatus === 'Active') {
       return (
         <p className="hc-home-active-status">
           Your Status: You are done with the onboarding process and may sign up
@@ -99,7 +105,7 @@ const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
           buttonText="Invite your friends to join CK Home Chef"
           descriptionText={emailDescription}
         />
-        {user.homeChefStatus === 'Active' && (
+        {userInfo?.homeChefStatus === 'Active' && (
           <>
             <TextButton
               to="../home-chef-app"
@@ -127,12 +133,4 @@ const HomeChefHome = ({ user, campaign, eventCampaigns }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user,
-    campaign: state.homeChef.campaign,
-    eventCampaigns: state.event.campaigns,
-  };
-};
-
-export default connect(mapStateToProps)(HomeChefHome);
+export default HomeChefHome;

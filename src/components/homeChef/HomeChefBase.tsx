@@ -1,41 +1,18 @@
-import { connect } from 'react-redux';
 import { Outlet, Link } from 'react-router-dom';
-import { useEffect, useState, lazy } from 'react';
+import { lazy } from 'react';
 
-import * as actions from '../../actions';
 import Loading from '../reusable/loading/Loading';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
+import { useGetUserInfoQuery } from '../../state/apis/authApi';
 
 const HomeChefStatus = lazy(() => import('./HomeChefStatus'));
 
-const HomeChef = ({
-  user,
-  getUserInfo,
-  error,
-  getCampaign,
-  getEventCampaigns,
-}) => {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (user && !user.firstName) {
-      getUserInfo();
-      setLoading(true);
-    }
-    if (user) {
-      getCampaign();
-      getEventCampaigns();
-    }
-  }, [getUserInfo, user, getCampaign, getEventCampaigns]);
-
-  useEffect(() => {
-    if (user?.firstName || error) {
-      setLoading(false);
-    }
-  }, [user, error]);
+const HomeChef = () => {
+  const { data, isLoading } = useGetUserInfoQuery();
+  const userInfo = data;
 
   const renderNoChef = () => {
-    if (!loading) {
+    if (!isLoading) {
       return (
         <div>
           <h3>You must be a CK Home Chef to access this page.</h3>
@@ -59,10 +36,10 @@ const HomeChef = ({
   };
 
   const renderHomeChef = () => {
-    if (user?.homeChefStatus) {
+    if (userInfo?.homeChefStatus) {
       return (
         <>
-          {user.homeChefStatus !== 'Active' &&
+          {userInfo.homeChefStatus !== 'Active' &&
             renderWithFallback(<HomeChefStatus />)}
           <Outlet />
         </>
@@ -81,14 +58,10 @@ const HomeChef = ({
           alt="home chef header"
         />
       </Link>
-      {loading && <Loading />}
+      {isLoading && <Loading />}
       {renderHomeChef()}
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user.user, error: state.error.error };
-};
-
-export default connect(mapStateToProps, actions)(HomeChef);
+export default HomeChef;

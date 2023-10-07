@@ -6,7 +6,7 @@ import renderWithFallback from '../../reusable/loading/renderWithFallback';
 import './SendText.css';
 import Loading from '../../reusable/loading/Loading';
 import FileInput from '../../reusable/file/FileInput';
-import { useGetFridgesQuery } from '../../../state/apis/homeChefApi';
+import { useGetFridgesQuery } from '../../../state/apis/volunteerApi/homeChefApi';
 import { useSendTextMutation } from '../../../state/apis/textApi';
 
 const TextPreview = lazy(() => import('./TextPreview'));

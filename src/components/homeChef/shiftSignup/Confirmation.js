@@ -1,26 +1,10 @@
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import moment from 'moment';
 
-import * as actions from '../../../actions';
 import Loading from '../../reusable/loading/Loading';
 
-const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
+const Confirmation = () => {
   const { hoursId } = useParams();
   const hour = hours && hoursId ? hours[hoursId] : null;
-
-  useEffect(() => {
-    if (!hour) {
-      getHours();
-    }
-  }, [hour, getHours]);
-
-  useEffect(() => {
-    if (!jobs) {
-      getShifts();
-    }
-  }, [jobs, getShifts]);
 
   const renderShiftDetails = () => {
     const job = jobs?.find((j) => j.id === hour?.job);
@@ -72,11 +56,4 @@ const Confirmation = ({ hours, jobs, getHours, getShifts }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    hours: state.homeChef.hours,
-    jobs: state.homeChef.jobs,
-  };
-};
-
-export default connect(mapStateToProps, actions)(Confirmation);
+export default Confirmation;

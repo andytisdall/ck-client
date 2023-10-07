@@ -1,25 +1,28 @@
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const HomeChefStatus = ({ user, uploadInProgress }) => {
+import { useGetUserInfoQuery } from '../../state/apis/authApi';
+
+const HomeChefStatus = () => {
+  const userInfo = useGetUserInfoQuery().data;
+
   const foodHandler =
     'Obtain a Food Handler certification and upload the certificate';
   const volunteerAgreement = 'Sign our volunteer agreement';
 
-  let incompleteActions = [];
-  let completedActions = [];
-  if (!user.foodHandler) {
+  let incompleteActions: string[] = [];
+  let completedActions: string[] = [];
+  if (!userInfo?.foodHandler) {
     incompleteActions.push(foodHandler);
   } else {
     completedActions.push(foodHandler);
   }
-  if (!user.volunteerAgreement) {
+  if (!userInfo?.volunteerAgreement) {
     incompleteActions.push(volunteerAgreement);
   } else {
     completedActions.push(volunteerAgreement);
   }
 
-  const renderAsLi = (text) => {
+  const renderAsLi = (text: string) => {
     return <li key={text}>{text}</li>;
   };
 
@@ -52,18 +55,12 @@ const HomeChefStatus = ({ user, uploadInProgress }) => {
     }
   };
 
-  if (!uploadInProgress) {
-    return (
-      <div className="home-chef-status onboarding-checklist">
-        {renderIncomplete()}
-        {renderComplete()}
-      </div>
-    );
-  }
+  return (
+    <div className="home-chef-status onboarding-checklist">
+      {renderIncomplete()}
+      {renderComplete()}
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user.user, uploadInProgress: state.files.inProgress };
-};
-
-export default connect(mapStateToProps)(HomeChefStatus);
+export default HomeChefStatus;

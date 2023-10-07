@@ -1,15 +1,11 @@
 import { Outlet, NavLink, Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
 
-import { getShifts } from '../../../actions';
 import { navLink } from '../../../utils/style';
 import './ShiftSignup.css';
+import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 
-const ShiftSignup = ({ getShifts, user }) => {
-  useEffect(() => {
-    getShifts();
-  }, [getShifts]);
+const ShiftSignup = () => {
+  const userInfo = useGetUserInfoQuery().data;
 
   const renderInactive = () => {
     return (
@@ -39,7 +35,7 @@ const ShiftSignup = ({ getShifts, user }) => {
   };
 
   const renderContent = () => {
-    if (user.homeChefStatus !== 'Active') {
+    if (!userInfo || userInfo.homeChefStatus !== 'Active') {
       return renderInactive();
     }
     return renderSignup();
@@ -53,8 +49,4 @@ const ShiftSignup = ({ getShifts, user }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user.user };
-};
-
-export default connect(mapStateToProps, { getShifts })(ShiftSignup);
+export default ShiftSignup;

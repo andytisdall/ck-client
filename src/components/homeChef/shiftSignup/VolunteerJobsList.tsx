@@ -1,11 +1,13 @@
-import { connect } from 'react-redux';
-
+import { useGetShiftsQuery } from '../../../state/apis/volunteerApi/homeChefApi';
 import VolunteerJob from './VolunteerJob';
 import Loading from '../../reusable/loading/Loading';
 
-const VolunteerJobsList = ({ jobs }) => {
+const VolunteerJobsList = () => {
+  const { data } = useGetShiftsQuery();
+  const jobs = data?.jobs;
+
   const renderJobs = () => {
-    if (!jobs.length) {
+    if (!jobs?.length) {
       return 'No jobs could be found.';
     }
     return jobs
@@ -19,10 +21,4 @@ const VolunteerJobsList = ({ jobs }) => {
   return <div className="jobs-list">{jobs ? renderJobs() : <Loading />}</div>;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    jobs: state.homeChef.jobs,
-  };
-};
-
-export default connect(mapStateToProps)(VolunteerJobsList);
+export default VolunteerJobsList;

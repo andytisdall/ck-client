@@ -17,14 +17,19 @@ const docusignApi = api.injectEndpoints({
         url: '/docusign/sign',
         method: 'POST',
         params: {
-          doc
-        }
+          doc,
+        },
       }),
     }),
-    uploadDocsToSalesforce: builder.mutation<UploadDocsResponse, UploadDocsArgs>({
-      query: (body) => ({ url: '/docusign/getDoc', body, method: 'POST' }), invalidatesTags: ['UserInfo']
+    uploadDocsToSalesforce: builder.mutation<
+      UploadDocsResponse[],
+      UploadDocsArgs
+    >({
+      query: (body) => ({ url: '/docusign/getDoc', body, method: 'POST' }),
+      invalidatesTags: ['UserInfo'],
     }),
   }),
 });
 
-export const { useGetDocusignUrlQuery } = docusignApi;
+export const { useGetDocusignUrlQuery, useUploadDocsToSalesforceMutation } =
+  docusignApi;
