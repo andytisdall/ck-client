@@ -1,11 +1,17 @@
+import _ from 'lodash';
+
 import { api } from '../../api';
 import {
   Fridge,
   HomeChefNotificationArgs,
   Campaign,
   JobShiftsState,
-  SignUpForShiftArgs,
+  SignUpForHomeChefShiftArgs,
   VolunteerHours,
+  VolunteerHoursState,
+  GetShiftsResponse,
+  SendInviteArgs,
+  EditHoursArgs,
 } from './types';
 
 export const homeChefApi = api.injectEndpoints({
@@ -25,13 +31,41 @@ export const homeChefApi = api.injectEndpoints({
     }),
     getShifts: builder.query<JobShiftsState, void>({
       query: () => '/home-chef/job-listing',
+      transformResponse: (response: GetShiftsResponse) => ({
+        shifts: _.mapKeys(response.shifts, 'id'),
+        jobs: response.jobs,
+      }),
     }),
-    signUpForShift: builder.mutation<VolunteerHours, SignUpForShiftArgs>({
+    signUpForHomeChefShift: builder.mutation<
+      VolunteerHours,
+      SignUpForHomeChefShiftArgs
+    >({
       query: (body) => ({
         url: '/home-chef/hours',
         body,
         method: 'POST',
       }),
+    }),
+    getHomeChefHours: builder.query<VolunteerHoursState, void>({
+      query: () => '/home-chef/hours',
+      transformResponse: (response: VolunteerHours[]) =>
+        _.mapKeys(response, 'id'),
+      providesTags: ['HomeChefHours'],
+    }),
+    sendInvite: builder.mutation<null, SendInviteArgs>({
+      query: (body) => ({
+        url: 'home-chef/invite',
+        body,
+        method: 'POST',
+      }),
+    }),
+    editHours: builder.mutation<null, EditHoursArgs>({
+      query: ({ id, mealCount, cancel, date, fridge }) => ({
+        url: '/home-chef/hours/' + id,
+        method: 'PATCH',
+        body: { mealCount, cancel },
+      }),
+      invalidatesTags: ['HomeChefHours'],
     }),
   }),
 });
@@ -41,5 +75,8 @@ export const {
   useSendHomeChefNotificationMutation,
   useGetCampaignQuery,
   useGetShiftsQuery,
-  useSignUpForShiftMutation,
+  useSignUpForHomeChefShiftMutation,
+  useGetHomeChefHoursQuery,
+  useSendInviteMutation,
+  useEditHoursMutation,
 } = homeChefApi;

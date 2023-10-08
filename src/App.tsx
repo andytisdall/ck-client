@@ -20,7 +20,7 @@ import adminRouter from './components/admin/adminRouter';
 import userRouter from './components/user/userRouter';
 
 // // home chef
-// import homeChefRouter from './components/homeChef/homeChefRouter';
+import homeChefRouter from './components/homeChef/homeChefRouter';
 
 // // forms
 // import formsRouter from './components/forms/formsRouter';
@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
       adminRouter,
       // mealProgramRouter,
       userRouter,
-      // homeChefRouter,
+      homeChefRouter,
       // volunteersRouter,
       { path: '404', element: renderWithFallback(<SalesforceNotFound />) },
     ],

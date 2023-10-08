@@ -1,13 +1,15 @@
-import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, FormEventHandler } from 'react';
 
-import * as actions from '../../../actions';
-import useLoading from '../../../hooks/useLoading';
 import Loading from '../../reusable/loading/Loading';
 import './Invite.css';
+import { useSendInviteMutation } from '../../../state/apis/volunteerApi';
+import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 
-const Invite = ({ sendInvite, user }) => {
-  const defaultMessage = `Hi, this is ${user?.firstName}. I want to tell you about a great way to directly help the people in our Oakland community.
+const Invite = () => {
+  const [sendInvite, { isLoading }] = useSendInviteMutation();
+  const userInfo = useGetUserInfoQuery().data;
+
+  const defaultMessage = `Hi, this is ${userInfo?.firstName}. I want to tell you about a great way to directly help the people in our Oakland community.
  
 I'm a member of the Community Kitchens Home Chef program.  Home chefs cook delicious, restaurant quality meals in bulk at home. Using packaging materials provided by Community Kitchens, we bring these meals to one of the publicly accessible town fridges in Oakland, to be eaten by whoever needs them.
 
@@ -16,15 +18,13 @@ Community Kitchens lets community members know when and what kind of food drop o
 CK Home Chef lets people provide food directly to the people that need it most. If you want to know more, you can visit https://www.ckoakland.org/volunteer.
 
 Thanks for your time!
-${user.firstName}
+${userInfo?.firstName}
   `;
-  const defaultSubject = `${user?.firstName} is inviting you to become a home chef`;
+  const defaultSubject = `${userInfo?.firstName} is inviting you to become a home chef`;
 
   const [recipients, setRecipients] = useState(['']);
   const [subject, setSubject] = useState(defaultSubject);
   const [message, setMessage] = useState(defaultMessage);
-
-  const [loading, setLoading] = useLoading();
 
   const renderInputs = () => {
     return recipients.map((rec, i) => {
@@ -56,10 +56,9 @@ ${user.firstName}
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    setLoading(true);
-    sendInvite(recipients, message, subject);
+    sendInvite({ recipients, message, subject });
   };
 
   const addField = () => {
@@ -67,7 +66,7 @@ ${user.firstName}
     setRecipients(newArr);
   };
 
-  const deleteField = (i) => {
+  const deleteField = (i: number) => {
     recipients.splice(i, 1);
     setRecipients([...recipients]);
   };
@@ -97,14 +96,10 @@ ${user.firstName}
           onChange={(e) => setMessage(e.target.value)}
           required
         />
-        {loading ? <Loading /> : <input type="submit" value="Submit" />}
+        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user.user };
-};
-
-export default connect(mapStateToProps, actions)(Invite);
+export default Invite;

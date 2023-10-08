@@ -39,6 +39,11 @@ export interface JobShiftsState {
   jobs: Job[];
 }
 
+export interface GetShiftsResponse {
+  jobs: Job[];
+  shifts: Shift[];
+}
+
 export interface EventCampaign {
   jobs: Job[];
   shifts: Shift[];
@@ -58,10 +63,33 @@ export interface VolunteerHours {
   campaign?: string;
 }
 
-export interface SignUpForShiftArgs {
+export type VolunteerHoursState = Record<string, VolunteerHours>;
+
+export interface SignUpForHomeChefShiftArgs {
   shiftId: string;
   mealCount: string;
   jobId: string;
   date: string;
   soup: boolean;
+}
+
+export interface SendInviteArgs {
+  recipients: string[];
+  message: string;
+  subject: string;
+}
+
+export interface EditHoursArgs {
+  id: string;
+  mealCount: string;
+  cancel: boolean;
+  date: string;
+  fridge: string;
+}
+
+export interface SignUpForVolunteerShiftArgs {
+  shiftId: string;
+  jobId: string;
+  date: string;
+  contactSalesforceId?: string;
 }

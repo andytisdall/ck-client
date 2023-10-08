@@ -1,5 +1,9 @@
 import { api } from '../../api';
-import { EventCampaign, VolunteerHours } from './types';
+import {
+  EventCampaign,
+  VolunteerHours,
+  SignUpForVolunteerShiftArgs,
+} from './types';
 
 const volunteerApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +13,21 @@ const volunteerApi = api.injectEndpoints({
     getEventHours: builder.query<VolunteerHours[], string>({
       query: (campaignId) => 'volunteers/hours/' + campaignId,
     }),
+    signUpForVolunteerShift: builder.mutation<
+      VolunteerHours,
+      SignUpForVolunteerShiftArgs
+    >({
+      query: (body) => ({
+        url: '/volunteers/hours',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetEventsQuery, useGetEventHoursQuery } = volunteerApi;
+export const {
+  useGetEventsQuery,
+  useGetEventHoursQuery,
+  useSignUpForVolunteerShiftMutation,
+} = volunteerApi;

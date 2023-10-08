@@ -1,41 +1,52 @@
-import { connect } from 'react-redux';
-import { useEffect, useMemo, useState } from 'react';
-import moment from 'moment';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import './ChefShifts.css';
-import { getHours, getShifts } from '../../../actions';
 import Loading from '../../reusable/loading/Loading';
+import {
+  useGetShiftsQuery,
+  VolunteerHours,
+  useGetHomeChefHoursQuery,
+} from '../../../state/apis/volunteerApi';
+import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 
-const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
+const ChefShifts = () => {
   const [upcomingExpand, setUpcomingExpand] = useState(true);
   const [pastExpand, setPastExpand] = useState(true);
 
-  useEffect(() => {
-    getShifts();
-    getHours();
-  }, [getHours, getShifts]);
+  const { data } = useGetShiftsQuery();
+  const jobs = data?.jobs;
+  const hours = useGetHomeChefHoursQuery().data;
+  const userInfo = useGetUserInfoQuery().data;
 
-  const renderShift = (shift) => {
-    const job = jobs.find((j) => j.id === shift.job);
-    return (
-      <li className="chef-hours" key={shift.id}>
-        <div className="chef-hours-title">
-          <div className="chef-hours-date">
-            {moment(shift.time).format('ddd, M/D/YY')}
+  const renderHour = (hour: VolunteerHours) => {
+    const job = jobs?.find((j) => j.id === hour.job);
+    if (job) {
+      return (
+        <li className="chef-hours" key={hour.id}>
+          <div className="chef-hours-title">
+            <div className="chef-hours-date">
+              {format(new Date(hour.time), 'ddd, M/D/YY')}
+            </div>
+            <Link
+              className="chef-hours-fridge"
+              to={'../signup/fridge/' + job.id}
+            >
+              - {job.name}
+            </Link>
           </div>
-          <Link className="chef-hours-fridge" to={'../signup/fridge/' + job.id}>
-            - {job.name}
-          </Link>
-        </div>
-        <div className="chef-hours-info">
-          <span className="chef-hours-meals">{shift.mealCount || 0} Meals</span>
-          <Link to={`edit-shift/${shift.id}`} className="chef-hours-edit">
-            edit
-          </Link>
-        </div>
-      </li>
-    );
+          <div className="chef-hours-info">
+            <span className="chef-hours-meals">
+              {hour.mealCount || 0} Meals
+            </span>
+            <Link to={`edit-shift/${hour.id}`} className="chef-hours-edit">
+              edit
+            </Link>
+          </div>
+        </li>
+      );
+    }
   };
 
   const sortedHours = useMemo(() => {
@@ -54,23 +65,21 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
     }
   }, [hours]);
 
-  const renderHours = (period) => {
-    if (hours && jobs) {
-      let status;
-      let hoursArray;
+  const renderHours = (period: 'past' | 'upcoming') => {
+    if (hours && jobs && sortedHours) {
+      let status = '';
+      let hoursArray: VolunteerHours[] = [];
       if (period === 'past') {
         hoursArray = [...sortedHours].reverse();
         status = 'Completed';
-        // filterFunc = (h) => h.time < moment().format();
       } else {
         hoursArray = sortedHours;
         status = 'Confirmed';
-        // filterFunc = (h) => h.time > moment().format();
       }
       const renderedList = hoursArray
         .filter((h) => h.status === status)
         .map((hour) => {
-          return renderShift(hour);
+          return renderHour(hour);
         });
       if (renderedList.length) {
         return <ul>{renderedList}</ul>;
@@ -90,8 +99,8 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
   return (
     <div className="chef-shifts">
       <div className="chef-shifts-list">
-        {user.firstName ? (
-          <h2>{user.firstName}'s Town Fridge Deliveries</h2>
+        {userInfo?.firstName ? (
+          <h2>{userInfo.firstName}'s Town Fridge Deliveries</h2>
         ) : null}
         {totalMeals && totalMeals > 0 ? (
           <div className="chef-total-meals">
@@ -137,12 +146,4 @@ const ChefShifts = ({ jobs, getHours, hours, getShifts, user }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    jobs: state.homeChef.jobs,
-    hours: state.homeChef.hours,
-    user: state.user.user,
-  };
-};
-
-export default connect(mapStateToProps, { getHours, getShifts })(ChefShifts);
+export default ChefShifts;

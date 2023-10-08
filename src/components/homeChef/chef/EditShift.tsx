@@ -1,49 +1,49 @@
-import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import moment from 'moment';
-import { useState, useEffect } from 'react';
+import { useState, FormEventHandler } from 'react';
+import { format } from 'date-fns';
 
-import * as actions from '../../../actions';
 import Loading from '../../reusable/loading/Loading';
-import useLoading from '../../../hooks/useLoading';
+import {
+  useEditHoursMutation,
+  useGetHomeChefHoursQuery,
+  useGetShiftsQuery,
+} from '../../../state/apis/volunteerApi';
 
-const EditShift = ({ hours, getHours, editHours, getShifts }) => {
+const EditShift = () => {
   const { id } = useParams();
-  const [mealCount, setMealCount] = useState(0);
+  const [mealCount, setMealCount] = useState('0');
   const [cancel, setCancel] = useState(false);
 
-  const [loading, setLoading] = useLoading();
+  const hours = useGetHomeChefHoursQuery().data;
+  const { data } = useGetShiftsQuery();
+  const jobs = data?.jobs;
 
-  useEffect(() => {
-    if (!hours) {
-      getHours();
-      getShifts();
-    } else {
-      setMealCount(hours[id]?.mealCount);
-    }
-  }, [getHours, hours, id, getShifts]);
+  const [editHours, { isLoading }] = useEditHoursMutation();
 
-  const onSubmit = (e) => {
+  const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if ((!mealCount || parseInt(mealCount, 10) < 1) && !cancel) {
       throw Error('Invalid number of meals');
     }
-    setLoading(true);
-    editHours(id, mealCount, cancel);
+    if (jobs) {
+      const fridge = jobs.find((j) => j.id === hour?.job)?.name;
+      if (id && fridge && hour)
+        editHours({ id, mealCount, cancel, fridge, date: hour.time });
+    }
   };
 
   if (!hours) {
     return <Loading />;
   }
 
-  const hour = hours[id];
+  const hour = id ? hours[id] : undefined;
 
   const renderCancel = () => {
     let text;
-    if (hour.status === 'Confirmed') {
+    if (hour?.status === 'Confirmed') {
       text = 'Check here to cancel this delivery';
     }
-    if (hour.status === 'Completed') {
+    if (hour?.status === 'Completed') {
       text = 'Check here if you did not make this delivery';
     }
     return (
@@ -52,7 +52,7 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
         <input
           type="checkbox"
           id="cancel"
-          value={cancel}
+          checked={cancel}
           onChange={(e) => setCancel(e.target.checked)}
         />
       </div>
@@ -68,7 +68,7 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
   return (
     <form onSubmit={onSubmit}>
       <h2>Edit Home Chef Delivery Details</h2>
-      <div>Date: {moment(hour.time).format('M/D/YY')}</div>
+      <div>Date: {format(new Date(hour.time), 'M/D/YY')}</div>
 
       <label>Number of Meals:</label>
       <input
@@ -78,13 +78,9 @@ const EditShift = ({ hours, getHours, editHours, getShifts }) => {
         required
       />
       {renderCancel()}
-      {loading ? <Loading /> : <input type="Submit" />}
+      {isLoading ? <Loading /> : <input type="Submit" />}
     </form>
   );
 };
 
-const mapStateToProps = (state) => {
-  return { hours: state.homeChef.hours };
-};
-
-export default connect(mapStateToProps, actions)(EditShift);
+export default EditShift;

@@ -1,19 +1,24 @@
-import { connect } from 'react-redux';
 import { useMemo, useCallback } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { useNavigate } from 'react-router-dom';
 
 import Loading from '../../reusable/loading/Loading';
 import Calendar from '../../reusable/calendar/Calendar';
+import { useGetShiftsQuery, Shift } from '../../../state/apis/volunteerApi';
 
-const HomeChefCalendar = ({ jobs, shifts }) => {
+const HomeChefCalendar = () => {
   const navigate = useNavigate();
 
+  const { data, isLoading } = useGetShiftsQuery();
+  const shifts = data?.shifts;
+  const jobs = data?.jobs;
+
   const orderedShifts = useMemo(() => {
-    if (!shifts) {
-      return;
+    const orderedByDate: Record<string, Shift[]> = {};
+
+    if (!shifts || !jobs) {
+      return orderedByDate;
     }
-    const orderedByDate = {};
     Object.values(shifts)
       .filter((sh) => {
         const jobIndex = jobs.findIndex((j) => j.id === sh.job);
@@ -35,10 +40,10 @@ const HomeChefCalendar = ({ jobs, shifts }) => {
   }, [shifts, jobs]);
 
   const getShifts = useCallback(
-    (d) => {
-      let dayShifts = [];
+    (d: string) => {
+      let dayShifts: JSX.Element[] = [];
 
-      if (orderedShifts[d]) {
+      if (orderedShifts[d] && jobs) {
         dayShifts = orderedShifts[d].map((sh) => {
           const jobIndex = jobs.findIndex((j) => j.id === sh.job);
           const job = jobs[jobIndex];
@@ -55,24 +60,17 @@ const HomeChefCalendar = ({ jobs, shifts }) => {
             </div>
           );
         });
-        return dayShifts;
       }
+      return dayShifts;
     },
     [jobs, navigate, orderedShifts]
   );
 
-  if (!jobs || !shifts) {
+  if (isLoading) {
     return <Loading />;
   }
 
   return <Calendar renderItems={getShifts} />;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    jobs: state.homeChef.jobs,
-    shifts: state.homeChef.shifts,
-  };
-};
-
-export default connect(mapStateToProps)(HomeChefCalendar);
+export default HomeChefCalendar;

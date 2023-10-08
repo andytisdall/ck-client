@@ -57,7 +57,7 @@ export const editHours =
 
 export const sendInvite =
   (recipients, message, subject) => async (dispatch) => {
-    await server.post('./home-chef/invite', { recipients, message, subject });
+    await server.post('/home-chef/invite', { recipients, message, subject });
     dispatch(setAlert('Invitation Email Was Sent!'));
     router.navigate('/home-chef/invite/sent');
   };

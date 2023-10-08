@@ -1,35 +1,17 @@
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import moment from 'moment';
 
-import * as actions from '../../../actions';
+import {
+  useGetEventsQuery,
+  useGetEventHoursQuery,
+} from '../../../state/apis/volunteerApi';
 import Loading from '../../reusable/loading/Loading';
 
-const Confirmation = ({
-  hours,
-  jobs,
-  getEventHours,
-  getEventShifts,
-  shifts,
-  campaigns,
-}) => {
+const Confirmation = () => {
   const { hoursId } = useParams();
+
+  const events = useGetEventsHoursQuery().data;
+
   const hour = hours && hoursId ? hours[hoursId] : null;
-
-  useEffect(() => {
-    if (!hour) {
-      campaigns?.forEach((cam) => {
-        getEventHours(cam.id);
-      });
-    }
-  }, [hour, getEventHours, campaigns]);
-
-  useEffect(() => {
-    if (!jobs) {
-      getEventShifts();
-    }
-  }, [jobs, getEventShifts]);
 
   const renderShiftDetails = () => {
     const job = jobs?.find((j) => j.id === hour?.job);
@@ -85,13 +67,4 @@ const Confirmation = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    hours: state.event.hours,
-    jobs: state.event.jobs,
-    shifts: state.event.shifts,
-    campaigns: state.event.campaigns,
-  };
-};
-
-export default connect(mapStateToProps, actions)(Confirmation);
+export default Confirmation;

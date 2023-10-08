@@ -30,13 +30,11 @@ const ResourcesList = () => {
           outside
         />
       </div>
-      {/* <div className="resources-right-col"> */}
       <img
         className="resources-image"
         src="/images/home-chef/croissants.jpg"
         alt="Croissant and Omelet"
       />
-      {/* </div> */}
     </div>
   );
 };

@@ -1,9 +1,19 @@
 import { Link, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import Loading from '../../reusable/loading/Loading';
+import {
+  useGetHomeChefHoursQuery,
+  useGetShiftsQuery,
+} from '../../../state/apis/volunteerApi/homeChefApi';
 
 const Confirmation = () => {
   const { hoursId } = useParams();
+
+  const hours = useGetHomeChefHoursQuery().data;
+  const { data } = useGetShiftsQuery();
+  const jobs = data?.jobs;
+
   const hour = hours && hoursId ? hours[hoursId] : null;
 
   const renderShiftDetails = () => {
@@ -15,7 +25,7 @@ const Confirmation = () => {
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>{' '}
-              {moment(hour.time).format('dddd, M/D/yy')}
+              {format(new Date(hour.time), 'dddd, M/D/yy')}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Fridge:</span> {job.name}
