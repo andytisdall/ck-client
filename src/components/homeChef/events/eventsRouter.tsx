@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
 import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
@@ -7,7 +8,7 @@ const JobList = lazy(() => import('./JobList'));
 const EventShiftSignup = lazy(() => import('./Signup'));
 const EventShiftConfirmation = lazy(() => import('./Confirmation'));
 
-const eventsRouter = {
+const eventsRouter: RouteObject = {
   path: 'events',
   children: [
     {

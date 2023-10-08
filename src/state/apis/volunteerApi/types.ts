@@ -93,3 +93,33 @@ export interface SignUpForVolunteerShiftArgs {
   date: string;
   contactSalesforceId?: string;
 }
+
+export interface RecipeItem {
+  header: string;
+  text: string[];
+}
+
+export interface Recipe {
+  id: string;
+  name: string;
+  ingredients: RecipeItem[];
+  instructions: RecipeItem[];
+  category: string;
+  description: string[] | string;
+  image: string;
+  author: string;
+}
+
+export type RecipeState = Record<string, Recipe>;
+
+export interface CreateRecipeArgs {
+  name: string;
+  ingredients: string;
+  instructions: string;
+  description: string;
+  category: string;
+  photo?: File;
+  author?: string;
+}
+
+export type EditRecipeArgs = CreateRecipeArgs & { id: string };

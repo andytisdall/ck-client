@@ -1,8 +1,11 @@
+import _ from 'lodash';
+
 import { api } from '../../api';
 import {
   EventCampaign,
   VolunteerHours,
   SignUpForVolunteerShiftArgs,
+  VolunteerHoursState,
 } from './types';
 
 const volunteerApi = api.injectEndpoints({
@@ -10,7 +13,9 @@ const volunteerApi = api.injectEndpoints({
     getEvents: builder.query<EventCampaign[], void>({
       query: () => '/volunteers/events',
     }),
-    getEventHours: builder.query<VolunteerHours[], string>({
+    getEventHours: builder.query<VolunteerHoursState, string>({
+      transformResponse: (response: VolunteerHours[]) =>
+        _.mapKeys(response, 'id'),
       query: (campaignId) => 'volunteers/hours/' + campaignId,
     }),
     signUpForVolunteerShift: builder.mutation<

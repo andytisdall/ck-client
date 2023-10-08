@@ -4,8 +4,8 @@ import { format } from 'date-fns';
 
 import {
   useGetShiftsQuery,
-  useSignUpForShiftMutation,
-} from '../../../state/apis/volunteerApi/homeChefApi';
+  useSignUpForHomeChefShiftMutation,
+} from '../../../state/apis/volunteerApi';
 import Loading from '../../reusable/loading/Loading';
 
 const ShiftDetail = () => {
@@ -13,7 +13,7 @@ const ShiftDetail = () => {
   const [soup, setSoup] = useState(false);
 
   const { data, isLoading } = useGetShiftsQuery();
-  const [signUpForShift] = useSignUpForShiftMutation();
+  const [signUpForShift] = useSignUpForHomeChefShiftMutation();
 
   const shifts = data?.shifts;
   const jobs = data?.jobs;

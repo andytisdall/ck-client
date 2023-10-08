@@ -1,11 +1,8 @@
-
 import { api } from '../../api';
-import {User, SignInResponse, SignInArgs} from './types'
-
+import { User, SignInResponse, SignInArgs } from './types';
 
 export const loginApi = api.injectEndpoints({
   endpoints: (builder) => ({
-
     signIn: builder.mutation<User, SignInArgs>({
       query: (body) => ({
         url: 'signin',
@@ -33,12 +30,31 @@ export const loginApi = api.injectEndpoints({
       },
     }),
 
-    
+    forgotPassword: builder.mutation<null, string>({
+      query: (email) => ({
+        url: '/forgot-password',
+        method: 'POST',
+        body: { email },
+      }),
+    }),
+
+    googleSignIn: builder.mutation<User, string>({
+      query: (credential) => ({
+        url: '/google-signin',
+        method: 'POST',
+        body: { credential },
+      }),
+      transformResponse: async (response: SignInResponse) => {
+        localStorage.setItem('ck-token', response.token);
+        return response.user;
+      },
+    }),
   }),
 });
 
 export const {
   useSignInMutation,
   useSignOutMutation,
-
+  useForgotPasswordMutation,
+  useGoogleSignInMutation,
 } = loginApi;

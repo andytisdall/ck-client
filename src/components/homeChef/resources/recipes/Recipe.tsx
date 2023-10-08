@@ -1,44 +1,40 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
+import {
+  useGetRecipesQuery,
+  RecipeItem,
+  useDeleteRecipeMutation,
+} from '../../../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../../../state/apis/authApi';
 import CreateRecipe from './CreateRecipe';
 import Loading from '../../../reusable/loading/Loading';
-import * as actions from '../../../../actions';
 import { categories } from './RecipeList';
 import './Recipe.css';
-import useLoading from '../../../../hooks/useLoading';
 
-const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
+const Recipe = () => {
   const { recipeId } = useParams();
-  const recipe = recipes[recipeId];
+
+  const recipes = useGetRecipesQuery().data;
+  const recipe = recipes && recipeId ? recipes[recipeId] : undefined;
+
+  const user = useGetUserQuery().data;
+
+  const [deleteRecipe, { isLoading }] = useDeleteRecipeMutation();
 
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useLoading();
-
-  useEffect(() => {
-    if (!recipe) {
-      setLoading(true);
-      getRecipe(recipeId);
-    } else {
-      setLoading(false);
-    }
-  }, [recipe, recipeId, getRecipe, setLoading]);
-
-  useEffect(() => {
-    setEdit(false);
-  }, [recipe]);
-
   const renderAdmin = () => {
-    if (user.admin) {
+    if (user?.admin && recipeId) {
       return (
         <div className="recipe-admin">
           <div className="recipe-edit" onClick={() => setEdit(!edit)}>
             edit this recipe
           </div>
-          {edit && <CreateRecipe recipe={recipes[recipeId]} />}
+          {edit && recipes && recipeId && (
+            <CreateRecipe recipe={recipes[recipeId]} />
+          )}
           <div
             className="recipe-delete"
             onClick={() => {
@@ -53,23 +49,23 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
     }
   };
 
-  const renderItems = (name) => {
-    const listItems = ({ text }) =>
+  const renderItems = (name: 'instructions' | 'ingredients') => {
+    const listItems = ({ text }: RecipeItem) =>
       text
-        .filter((i) => i)
-        .map((i) => {
+        .filter((i?: string) => i)
+        .map((i: string) => {
           return <li key={i}>{i}</li>;
         });
     const config = {
       instructions: {
-        items: recipe.instructions,
-        listFunc: (item) => (
+        items: recipe?.instructions,
+        listFunc: (item: RecipeItem) => (
           <ol className="recipe-section-items">{listItems(item)}</ol>
         ),
       },
       ingredients: {
-        items: recipe.ingredients,
-        listFunc: (item) => (
+        items: recipe?.ingredients,
+        listFunc: (item: RecipeItem) => (
           <ul className="recipe-section-items">{listItems(item)}</ul>
         ),
       },
@@ -80,7 +76,7 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
         <h2 className="recipe-field-title">
           {name[0].toUpperCase() + name.slice(1)}
         </h2>
-        {items.map((item, i) => {
+        {items?.map((item, i) => {
           return (
             <div className="recipe-section" key={name + i}>
               {item.header ? <h4>{item.header}</h4> : null}
@@ -93,7 +89,7 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
   };
 
   const renderImage = () => {
-    if (recipe.image) {
+    if (recipe?.image) {
       return (
         <div className="recipe-photo">
           <img src={recipe.image} alt={recipe.name} className="recipe-img" />
@@ -103,13 +99,13 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
   };
 
   const renderDescription = () => {
-    if (Array.isArray(recipe.description)) {
-      return recipe.description.map((d) => <p key={d}>{d}</p>);
+    if (Array.isArray(recipe?.description)) {
+      return recipe?.description.map((d) => <p key={d}>{d}</p>);
     }
-    return recipe.description;
+    return recipe?.description;
   };
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -133,7 +129,7 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
             ) : null}
             <p>
               <span className="recipe-bold">Category:</span>
-              {categories.find((cat) => cat.name === recipe.category).label}
+              {categories.find((cat) => cat.name === recipe.category)?.label}
             </p>
             <div className="recipe-description">{renderDescription()}</div>
           </div>
@@ -147,11 +143,4 @@ const Recipe = ({ recipes, getRecipe, user, deleteRecipe }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes,
-    user: state.user.user,
-  };
-};
-
-export default connect(mapStateToProps, actions)(Recipe);
+export default Recipe;

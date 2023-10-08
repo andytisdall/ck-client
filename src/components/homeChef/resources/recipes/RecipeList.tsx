@@ -1,9 +1,11 @@
-import { connect } from 'react-redux';
-import { useEffect, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  useGetRecipesQuery,
+  Recipe,
+} from '../../../../state/apis/volunteerApi';
 
 import Loading from '../../../reusable/loading/Loading';
-import * as actions from '../../../../actions';
 import './RecipeList.css';
 
 export const categories = [
@@ -14,14 +16,13 @@ export const categories = [
   { label: 'Desserts', name: 'desserts' },
 ];
 
-const RecipeList = ({ recipes, getRecipes }) => {
-  useEffect(() => {
-    getRecipes();
-  }, [recipes, getRecipes]);
+const RecipeList = () => {
+  const { data, isLoading } = useGetRecipesQuery();
+  const recipes = data;
 
   const orderedRecipes = useMemo(() => {
     if (recipes) {
-      const ordered = {};
+      const ordered: Record<string, Recipe[]> = {};
       Object.values(recipes)
         .sort((a, b) => (a.name > b.name ? 1 : -1))
         .forEach((rec) => {
@@ -37,7 +38,7 @@ const RecipeList = ({ recipes, getRecipes }) => {
   }, [recipes]);
 
   const renderRecipes = useCallback(() => {
-    if (!Object.values(orderedRecipes).length) {
+    if (isLoading || !orderedRecipes) {
       return <Loading />;
     }
 
@@ -59,7 +60,7 @@ const RecipeList = ({ recipes, getRecipes }) => {
           </div>
         );
       });
-  }, [orderedRecipes]);
+  }, [orderedRecipes, isLoading]);
 
   return (
     <div className="recipe-list-container">
@@ -81,8 +82,4 @@ const RecipeList = ({ recipes, getRecipes }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { recipes: state.recipes };
-};
-
-export default connect(mapStateToProps, actions)(RecipeList);
+export default RecipeList;

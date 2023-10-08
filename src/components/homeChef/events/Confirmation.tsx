@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import {
   useGetEventsQuery,
@@ -7,15 +8,19 @@ import {
 import Loading from '../../reusable/loading/Loading';
 
 const Confirmation = () => {
-  const { hoursId } = useParams();
+  const { hoursId, id } = useParams();
 
-  const events = useGetEventsHoursQuery().data;
+  const { data } = useGetEventsQuery();
+  const campaign = data?.find((cam) => cam.id === id);
+  const jobs = campaign?.jobs;
+  const shifts = campaign?.shifts;
+  const hours = useGetEventHoursQuery(id!).data;
 
   const hour = hours && hoursId ? hours[hoursId] : null;
 
   const renderShiftDetails = () => {
     const job = jobs?.find((j) => j.id === hour?.job);
-    const shift = shifts[hour?.shift];
+    const shift = shifts?.find((sh) => sh.id === hour?.shift);
     if (hour && shift && job) {
       return (
         <div className="hc-confirm-details">
@@ -23,11 +28,11 @@ const Confirmation = () => {
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>
-              {moment(hour.time).format('dddd, M/D/yy')}
+              {format(new Date(hour.time), 'dddd, M/D/yy')}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Time:</span>
-              {moment(shift.startTime, 'YYYY-MM-DDTHH:mm:ssZ').format('h:mm a')}
+              {format(new Date(shift.startTime), 'h:mm a')}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Duration:</span>

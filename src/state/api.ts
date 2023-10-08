@@ -36,5 +36,6 @@ export const api = createApi({
     'ScheduledText',
     'AllUsers',
     'HomeChefHours',
+    'Recipe',
   ],
 });

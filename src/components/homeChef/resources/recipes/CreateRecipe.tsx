@@ -1,14 +1,21 @@
-import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, FormEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 
-import * as actions from '../../../../actions';
+import { setError } from '../../../../state/apis/slices/errorSlice';
+import {
+  Recipe,
+  RecipeItem,
+  useEditRecipeMutation,
+  useCreateRecipeMutation,
+} from '../../../../state/apis/volunteerApi';
 import './CreateRecipe.css';
 import Loading from '../../../reusable/loading/Loading';
 import FileInput from '../../../reusable/file/FileInput';
-import useLoading from '../../../../hooks/useLoading';
 
-const CreateRecipe = ({ createRecipe, recipe, editRecipe, setError }) => {
-  const mapSections = (r) => {
+const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
+  const dispatch = useDispatch();
+
+  const mapSections = (r: RecipeItem) => {
     return { header: r.header, text: r.text.join('\n') };
   };
 
@@ -21,34 +28,37 @@ const CreateRecipe = ({ createRecipe, recipe, editRecipe, setError }) => {
   );
   const [description, setDescription] = useState(recipe?.description || '');
   const [category, setCategory] = useState(recipe?.category || '');
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState<File | string>();
   const [author, setAuthor] = useState(recipe?.author || '');
 
-  const [loading, setLoading] = useLoading();
+  const [editRecipe, editRecipeResult] = useEditRecipeMutation();
+  const [createRecipe, createRecipeResult] = useCreateRecipeMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    setLoading(true);
+    if (typeof photo === 'string') {
+      return;
+    }
     if (!category) {
-      return setError({ message: 'Please choose a category' });
+      return dispatch(setError('Please choose a category'));
     }
     const formValues = {
       name,
       ingredients: JSON.stringify(ingredients),
       instructions: JSON.stringify(instructions),
-      description,
+      description: JSON.stringify(description),
       category,
       photo,
       author,
     };
     if (recipe) {
-      editRecipe(recipe.id, formValues);
+      editRecipe({ id: recipe.id, ...formValues });
     } else {
       createRecipe(formValues);
     }
   };
 
-  const renderSections = (fieldName) => {
+  const renderSections = (fieldName: 'instructions' | 'ingredients') => {
     const config = {
       instructions: {
         field: instructions,
@@ -79,7 +89,7 @@ const CreateRecipe = ({ createRecipe, recipe, editRecipe, setError }) => {
               ]);
             }}
           />
-          <label htmlFor={instructions}>
+          <label htmlFor="instructions">
             {list.length > 1 && 'Section '}
             {label} (each on a new line, do not number):
           </label>
@@ -253,10 +263,14 @@ const CreateRecipe = ({ createRecipe, recipe, editRecipe, setError }) => {
             label="Photo (optional):"
           />
         </div>
-        {loading ? <Loading /> : <input type="submit" value="Submit" />}
+        {createRecipeResult.isLoading || editRecipeResult.isLoading ? (
+          <Loading />
+        ) : (
+          <input type="submit" value="Submit" />
+        )}
       </form>
     </div>
   );
 };
 
-export default connect(null, actions)(CreateRecipe);
+export default CreateRecipe;

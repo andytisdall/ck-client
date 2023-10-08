@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
 import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
@@ -12,11 +13,11 @@ const OrientationSlides = lazy(() => import('./OrientationSlides'));
 // documents
 const FileSuccess = lazy(() => import('../../reusable/file/FileSuccess'));
 const DocusignSign = lazy(() => import('../../reusable/docusign/DocusignSign'));
-const DocusignSuccess = lazy(() =>
-  import('../../reusable/docusign/DocusignSuccess')
+const DocusignSuccess = lazy(
+  () => import('../../reusable/docusign/DocusignSuccess')
 );
 
-const onboardingRouter = {
+const onboardingRouter: RouteObject = {
   path: 'onboarding',
   children: [
     { index: true, element: renderWithFallback(<HomeChefOnboarding />) },
@@ -52,10 +53,7 @@ const onboardingRouter = {
         {
           path: 'success',
           element: renderWithFallback(
-            <DocusignSuccess
-              accountType="contact"
-              returnLink="/home-chef/onboarding"
-            />
+            <DocusignSuccess returnLink="/home-chef/onboarding" />
           ),
         },
       ],
