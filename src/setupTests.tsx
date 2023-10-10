@@ -4,18 +4,14 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
+import { RootState } from './state/store';
 import { server } from './mocks/server';
-import Root from './root';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { clientId } from './root';
+import Root from './Root';
+import { PropsWithChildren } from 'react';
 
-export const getWrapper = (state) => {
-  return ({ children }) => {
-    return (
-      <GoogleOAuthProvider clientId={clientId}>
-        <Root initialState={state}>{children}</Root>
-      </GoogleOAuthProvider>
-    );
+export const getWrapper = (state: RootState) => {
+  return ({ children }: PropsWithChildren) => {
+    return <Root initialState={state}>{children}</Root>;
   };
 };
 
