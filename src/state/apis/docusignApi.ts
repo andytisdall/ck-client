@@ -12,24 +12,22 @@ interface UploadDocsArgs {
 
 const docusignApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getDocusignUrl: builder.query<null, string | undefined>({
+    getDocusignUrl: builder.query<{ url: string }, string | undefined>({
       query: (doc) => ({
-        url: '/docusign/sign',
-        method: 'POST',
-        params: {
-          doc,
-        },
+        url: '/docusign/sign/' + doc,
       }),
     }),
-    uploadDocsToSalesforce: builder.mutation<
+    uploadSignedDocsToSalesforce: builder.mutation<
       UploadDocsResponse[],
       UploadDocsArgs
     >({
       query: (body) => ({ url: '/docusign/getDoc', body, method: 'POST' }),
-      invalidatesTags: ['UserInfo'],
+      invalidatesTags: ['UserInfo', 'RestaurantInfo'],
     }),
   }),
 });
 
-export const { useGetDocusignUrlQuery, useUploadDocsToSalesforceMutation } =
-  docusignApi;
+export const {
+  useGetDocusignUrlQuery,
+  useUploadSignedDocsToSalesforceMutation,
+} = docusignApi;

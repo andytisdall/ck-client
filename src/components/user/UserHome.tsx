@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useGetRestaurantQuery } from '../../state/apis/restaurantApi';
+import { useGetRestaurantQuery } from '../../state/apis/mealProgramApi/restaurantApi';
 import { useGetUserInfoQuery, useGetUserQuery } from '../../state/apis/authApi';
 
 const UserHome = () => {

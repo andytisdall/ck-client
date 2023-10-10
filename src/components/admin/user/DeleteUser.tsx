@@ -1,10 +1,12 @@
 import { useState, ChangeEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   User,
   useDeleteUserMutation,
   useGetAllUsersQuery,
 } from '../../../state/apis/authApi';
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 
 const DeleteUser = () => {
   const [user, setUser] = useState<User>();
@@ -12,9 +14,11 @@ const DeleteUser = () => {
   const users = useGetAllUsersQuery().data;
   const [deleteUser] = useDeleteUserMutation();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
     if (user && window.confirm(`Seriously delete ${user.username}`)) {
-      deleteUser(user.id);
+      deleteUser(user.id).then(() => dispatch(setAlert('User Deleted')));
       setUser(undefined);
     }
   };

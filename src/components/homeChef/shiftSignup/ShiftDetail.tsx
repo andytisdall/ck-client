@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, FormEventHandler } from 'react';
 import { format } from 'date-fns';
 
@@ -13,12 +13,15 @@ const ShiftDetail = () => {
   const [soup, setSoup] = useState(false);
 
   const { data, isLoading } = useGetShiftsQuery();
-  const [signUpForShift] = useSignUpForHomeChefShiftMutation();
+  const [signUpForShift, signUpForShiftResult] =
+    useSignUpForHomeChefShiftMutation();
 
   const shifts = data?.shifts;
   const jobs = data?.jobs;
 
   const { shiftId } = useParams();
+
+  const navigate = useNavigate();
 
   const onSubmit: FormEventHandler = (e) => {
     if (job && shift && shiftId) {
@@ -29,7 +32,9 @@ const ShiftDetail = () => {
         jobId: job.id,
         date: shift.startTime,
         soup,
-      });
+      })
+        .unwrap()
+        .then((hours) => navigate('/home-chef/signup/confirm/' + hours.id));
     }
   };
 
@@ -48,7 +53,7 @@ const ShiftDetail = () => {
     <div className="shift-detail">
       <h2>Signing up for:</h2>
       <h2 className="signup-form-date">
-        {format(new Date(shift.startTime), 'dddd, M/D/YY')}
+        {format(new Date(shift.startTime), 'eeee, M/d/yy')}
       </h2>
       <h2 className="signup-form-fridge">{job?.name}</h2>
       <p>{job?.location}</p>
@@ -85,7 +90,7 @@ const ShiftDetail = () => {
           </div>
         </ul>
         <h3>Click submit to sign up for this slot</h3>
-        {isLoading ? (
+        {signUpForShiftResult.isLoading ? (
           <Loading />
         ) : (
           <input type="submit" className="shift-detail-submit" value="Submit" />

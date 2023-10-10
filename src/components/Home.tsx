@@ -1,5 +1,5 @@
 import { useGetUserQuery } from '../state/apis/authApi';
-import { useGetRestaurantQuery } from '../state/apis/restaurantApi';
+import { useGetRestaurantQuery } from '../state/apis/mealProgramApi/restaurantApi';
 import TextButton from './reusable/TextButton';
 import './Home.css';
 

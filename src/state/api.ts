@@ -37,5 +37,7 @@ export const api = createApi({
     'AllUsers',
     'HomeChefHours',
     'Recipe',
+    'RestaurantInfo',
+    'Restaurant',
   ],
 });

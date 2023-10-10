@@ -9,12 +9,16 @@ const Docusign = () => {
 
   const { data, error } = useGetDocusignUrlQuery(doc);
 
-  if (data) {
-    window.location.href = data;
+  if (data?.url) {
+    window.location.href = data.url;
   }
 
   if (error) {
     navigate('../..');
+  }
+
+  if (!doc) {
+    return <p>No document selected.</p>;
   }
 
   return (

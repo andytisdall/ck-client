@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, FormEventHandler } from 'react';
 import { format } from 'date-fns';
 
@@ -20,6 +20,8 @@ const EditShift = () => {
 
   const [editHours, { isLoading }] = useEditHoursMutation();
 
+  const navigate = useNavigate();
+
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if ((!mealCount || parseInt(mealCount, 10) < 1) && !cancel) {
@@ -28,7 +30,9 @@ const EditShift = () => {
     if (jobs) {
       const fridge = jobs.find((j) => j.id === hour?.job)?.name;
       if (id && fridge && hour)
-        editHours({ id, mealCount, cancel, fridge, date: hour.time });
+        editHours({ id, mealCount, cancel, fridge, date: hour.time })
+          .unwrap()
+          .then(() => navigate('..'));
     }
   };
 
@@ -68,7 +72,7 @@ const EditShift = () => {
   return (
     <form onSubmit={onSubmit}>
       <h2>Edit Home Chef Delivery Details</h2>
-      <div>Date: {format(new Date(hour.time), 'M/D/YY')}</div>
+      <div>Date: {format(new Date(hour.time), 'M/d/yy')}</div>
 
       <label>Number of Meals:</label>
       <input

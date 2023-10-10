@@ -1,7 +1,9 @@
 import { useState, FormEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { useCreateUserMutation } from '../../../state/apis/authApi/userApi';
 import { setError } from '../../../state/apis/slices/errorSlice';
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 
 const CreateUser = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +19,11 @@ const CreateUser = () => {
     if (password1 !== password2) {
       return dispatch(setError('Passwords do not match'));
     }
-    createUser({ username, password: password1, salesforceId });
+    createUser({ username, password: password1, salesforceId })
+      .unwrap()
+      .then(() => {
+        dispatch(setAlert('User Created'));
+      });
     setUsername('');
     setSalesforceId('');
     setPassword1('');

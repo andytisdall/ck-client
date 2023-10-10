@@ -16,7 +16,7 @@ const volunteerApi = api.injectEndpoints({
     getEventHours: builder.query<VolunteerHoursState, string>({
       transformResponse: (response: VolunteerHours[]) =>
         _.mapKeys(response, 'id'),
-      query: (campaignId) => 'volunteers/hours/' + campaignId,
+      query: (campaignId) => '/volunteers/hours/' + campaignId,
     }),
     signUpForVolunteerShift: builder.mutation<
       VolunteerHours,

@@ -1,10 +1,12 @@
 import { useState, FormEventHandler, ChangeEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   useEditRestaurantMutation,
   useGetAllRestaurantsQuery,
-} from '../../../state/apis/restaurantApi';
+} from '../../../state/apis/mealProgramApi/restaurantApi';
 import { useGetAllUsersQuery } from '../../../state/apis/authApi';
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 
 const EditRestaurant = () => {
   const [restaurant, setRestaurant] = useState('');
@@ -16,9 +18,16 @@ const EditRestaurant = () => {
   const restaurants = useGetAllRestaurantsQuery().data;
   const users = useGetAllUsersQuery().data;
 
+  const dispatch = useDispatch();
+
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    editRestaurant({ restaurantId: restaurant, name, salesforceId, userId });
+    editRestaurant({
+      restaurantId: restaurant,
+      name,
+      salesforceId,
+      userId,
+    }).then(() => dispatch(setAlert('Restaurant Edited')));
     setRestaurant('');
     setName('');
     setSalesforceId('');

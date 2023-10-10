@@ -45,6 +45,7 @@ export const homeChefApi = api.injectEndpoints({
         body,
         method: 'POST',
       }),
+      invalidatesTags: ['HomeChefHours'],
     }),
     getHomeChefHours: builder.query<VolunteerHoursState, void>({
       query: () => '/home-chef/hours',
@@ -63,7 +64,7 @@ export const homeChefApi = api.injectEndpoints({
       query: ({ id, mealCount, cancel, date, fridge }) => ({
         url: '/home-chef/hours/' + id,
         method: 'PATCH',
-        body: { mealCount, cancel },
+        body: { mealCount, cancel, emailData: { fridge, date } },
       }),
       invalidatesTags: ['HomeChefHours'],
     }),

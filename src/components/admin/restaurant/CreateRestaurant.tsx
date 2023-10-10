@@ -1,7 +1,9 @@
 import { useState, FormEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useGetAllUsersQuery, User } from '../../../state/apis/authApi';
-import { useCreateRestaurantMutation } from '../../../state/apis/restaurantApi';
+import { useCreateRestaurantMutation } from '../../../state/apis/mealProgramApi/restaurantApi';
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 
 const CreateRestaurant = () => {
   const [name, setName] = useState('');
@@ -11,9 +13,13 @@ const CreateRestaurant = () => {
   const users = useGetAllUsersQuery().data;
   const [createRestaurant] = useCreateRestaurantMutation();
 
+  const dispatch = useDispatch();
+
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    createRestaurant({ name, salesforceId, userId });
+    createRestaurant({ name, salesforceId, userId }).then(() =>
+      dispatch(setAlert('Restaurant Created'))
+    );
     setName('');
     setSalesforceId('');
     setUserId('');

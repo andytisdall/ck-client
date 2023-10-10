@@ -3,7 +3,7 @@ import { useGetUserQuery, useSignOutMutation } from '../state/apis/authApi';
 
 import Loading from './reusable/loading/Loading';
 import SignIn from './auth/SignIn';
-// import GoogleSignIn from './auth/GoogleSignIn';
+import GoogleSignIn from './auth/GoogleSignIn';
 import './Header.css';
 
 const Header = () => {
@@ -28,8 +28,8 @@ const Header = () => {
       <div className="header-auth">
         <SignIn />
         <div className="header-auth-google">
-          {/* <p className="header-auth-text">OR</p>
-          <GoogleSignIn /> */}
+          <p className="header-auth-text">OR</p>
+          <GoogleSignIn />
         </div>
       </div>
     );

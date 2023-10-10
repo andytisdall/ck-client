@@ -1,4 +1,5 @@
 import { FormEventHandler, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './SignIn.css';
 import Loading from '../reusable/loading/Loading';
@@ -10,9 +11,17 @@ const SignIn = () => {
 
   const [signIn, signInResult] = useSignInMutation();
 
+  const navigate = useNavigate();
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    signIn({ username, password });
+    signIn({ username, password })
+      .unwrap()
+      .then((user) => {
+        if (!user.active) {
+          navigate('/user/change-password');
+        }
+      });
   };
 
   if (signInResult.isLoading) {

@@ -27,7 +27,7 @@ const ChefShifts = () => {
         <li className="chef-hours" key={hour.id}>
           <div className="chef-hours-title">
             <div className="chef-hours-date">
-              {format(new Date(hour.time), 'ddd, M/D/YY')}
+              {format(new Date(hour.time), 'eee, M/d/yy')}
             </div>
             <Link
               className="chef-hours-fridge"

@@ -2,10 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { api } from './api';
 import errorReducer from './apis/slices/errorSlice';
+import alertReducer from './apis/slices/alertSlice';
 import { rtkQueryErrorLogger } from './middleware/errorHandler';
 
 export const store = configureStore({
-  reducer: { [api.reducerPath]: api.reducer, error: errorReducer },
+  reducer: {
+    [api.reducerPath]: api.reducer,
+    error: errorReducer,
+    alert: alertReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(rtkQueryErrorLogger).concat(api.middleware),
 });

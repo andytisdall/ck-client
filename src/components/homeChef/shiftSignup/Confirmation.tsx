@@ -25,7 +25,7 @@ const Confirmation = () => {
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>{' '}
-              {format(new Date(hour.time), 'dddd, M/D/yy')}
+              {format(new Date(hour.time), 'eeee, M/d/yy')}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Fridge:</span> {job.name}

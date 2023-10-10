@@ -7,11 +7,12 @@ import renderWithFallback from './components/reusable/loading/renderWithFallback
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from './state/store';
 import { setError } from './state/apis/slices/errorSlice';
+import { setAlert } from './state/apis/slices/alertSlice';
 // text service
 import textRouter from './components/text/textRouter';
 
 // // meal program onboarding
-// import mealProgramRouter from './components/mealProgram/mealProgramRouter.js.js';
+import mealProgramRouter from './components/mealProgram/mealProgramRouter';
 
 // // admin
 import adminRouter from './components/admin/adminRouter';
@@ -23,10 +24,10 @@ import userRouter from './components/user/userRouter';
 import homeChefRouter from './components/homeChef/homeChefRouter';
 
 // // forms
-// import formsRouter from './components/forms/formsRouter';
+import formsRouter from './components/forms/formsRouter';
 
 // // volunteers
-// import volunteersRouter from './components/volunteers/volunteersRouter';
+import volunteersRouter from './components/volunteers/volunteersRouter';
 
 // public home chef app page (no sign in required)
 const HomeChefApp = lazy(() => import('./components/homeChef/HomeChefApp'));
@@ -50,18 +51,21 @@ export const router = createBrowserRouter([
       { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
       textRouter,
       adminRouter,
-      // mealProgramRouter,
+      mealProgramRouter,
       userRouter,
       homeChefRouter,
-      // volunteersRouter,
+      volunteersRouter,
       { path: '404', element: renderWithFallback(<SalesforceNotFound />) },
     ],
   },
-  // formsRouter,
+  formsRouter,
 ]);
 
 const App = () => {
-  const error = useSelector((state: RootState) => state.error);
+  const [error, alert] = useSelector((state: RootState) => [
+    state.error,
+    state.alert,
+  ]);
   const dispatch = useDispatch();
 
   const renderError = () => {
@@ -69,14 +73,16 @@ const App = () => {
     return <div className="error">{error.message}</div>;
   };
 
-  // const renderAlert = () => {
-  //   return <div className="error alert">{alert}</div>;
-  // };
+  const renderAlert = () => {
+    setTimeout(() => dispatch(setAlert('')), 5000);
+    return <div className="error alert">{alert.message}</div>;
+  };
 
   return (
     <div className="app">
       <RouterProvider router={router} />
       {error.message && renderError()}
+      {alert.message && renderAlert()}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { api } from '../api';
 
-interface UploadFilesResponse {
+export interface UploadFilesResponse {
   title: string;
   description: string;
   folder: string;
@@ -9,20 +9,26 @@ interface UploadFilesResponse {
 
 interface UploadFilesArgs {
   formData: FormData;
-  accountType: 'contact' | 'account';
-  expiration?: Date;
+  accountType: 'contact' | 'restaurant';
+  expiration?: string;
 }
 
 const fileApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    uploadFiles: builder.mutation<UploadFilesResponse, UploadFilesArgs>({
+    uploadFiles: builder.mutation<UploadFilesResponse[], UploadFilesArgs>({
       query: ({ formData, accountType, expiration }) => {
         if (expiration) {
-          formData.append('expiration', expiration.toString());
+          formData.append('expiration', expiration);
         }
         formData.append('accountType', accountType);
-        return { url: '/files', body: formData, formData: true };
+        return {
+          url: '/files',
+          body: formData,
+          formData: true,
+          method: 'POST',
+        };
       },
+      invalidatesTags: ['RestaurantInfo', 'UserInfo'],
     }),
   }),
 });

@@ -1,4 +1,5 @@
 import { FormEventHandler } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../reusable/file/FileUpload';
@@ -8,6 +9,8 @@ import { useUploadFilesMutation } from '../../../state/apis/fileApi';
 
 const UploadFoodHandler = () => {
   const [uploadFiles, { isLoading }] = useUploadFilesMutation();
+
+  const navigate = useNavigate();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -33,7 +36,9 @@ const UploadFoodHandler = () => {
         formData.append(input.name, input.files[0]);
       }
     });
-    uploadFiles({ formData, accountType: 'contact' });
+    uploadFiles({ formData, accountType: 'contact' })
+      .unwrap()
+      .then((response) => navigate('/file-success/' + response.length));
   };
 
   return (

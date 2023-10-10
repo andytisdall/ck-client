@@ -6,6 +6,7 @@ import {
   useGetAllUsersQuery,
 } from '../../../state/apis/authApi';
 import { setError } from '../../../state/apis/slices/errorSlice';
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 
 const EditUser = () => {
   const [user, setUser] = useState('');
@@ -23,7 +24,12 @@ const EditUser = () => {
     if (password1 !== password2) {
       return dispatch(setError('Passwords do not match'));
     }
-    editUser({ userId: user, username, password: password1, salesforceId });
+    editUser({
+      userId: user,
+      username,
+      password: password1,
+      salesforceId,
+    }).then(() => dispatch(setAlert('User Edited')));
     setUser('');
     setUsername('');
     setSalesforceId('');

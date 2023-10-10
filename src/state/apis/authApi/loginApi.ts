@@ -48,6 +48,7 @@ export const loginApi = api.injectEndpoints({
         localStorage.setItem('ck-token', response.token);
         return response.user;
       },
+      invalidatesTags: ['User'],
     }),
   }),
 });

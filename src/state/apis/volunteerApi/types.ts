@@ -123,3 +123,18 @@ export interface CreateRecipeArgs {
 }
 
 export type EditRecipeArgs = CreateRecipeArgs & { id: string };
+
+export interface Volunteer {
+  householdId: string;
+  name?: string;
+  id: string;
+  portalUsername?: string;
+  firstName?: string;
+  ckKitchenAgreement?: boolean;
+}
+
+export interface CreateVolunteerArgs {
+  email: string;
+  firstName: string;
+  lastName: string;
+}
