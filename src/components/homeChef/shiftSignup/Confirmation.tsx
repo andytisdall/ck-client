@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import Loading from '../../reusable/loading/Loading';
 import {
@@ -25,7 +25,10 @@ const Confirmation = () => {
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>{' '}
-              {format(new Date(hour.time), 'eeee, M/d/yy')}
+              {format(
+                utcToZonedTime(hour.time, 'America/Los_Angeles'),
+                'eeee, M/d/yy'
+              )}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Fridge:</span> {job.name}

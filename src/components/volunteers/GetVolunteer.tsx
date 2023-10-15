@@ -1,4 +1,4 @@
-import { useState, FormEventHandler } from 'react';
+import { useState, FormEventHandler, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import Loading from '../reusable/loading/Loading';
@@ -14,6 +14,8 @@ import {
 } from '../../state/apis/volunteerApi';
 
 const GetVolunteer = () => {
+  const { shiftId } = useParams();
+
   const [email, setEmail] = useState('');
   const [showNameFields, setShowNameFields] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -26,6 +28,10 @@ const GetVolunteer = () => {
   const shifts = getShiftsQuery.data?.shifts;
   const jobs = getShiftsQuery.data?.jobs;
 
+  const shift = shifts && shiftId ? shifts[shiftId] : undefined;
+  const job = jobs?.find((j) => j.id === shift?.job);
+  const date = shift?.startTime;
+
   const getUserQuery = useGetUserQuery();
   const user = getUserQuery.data;
 
@@ -33,6 +39,23 @@ const GetVolunteer = () => {
     useSignUpForVolunteerShiftMutation();
 
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (user && job && shift && date) {
+  //     signUpForVolunteerShift({
+  //       shiftId: shift.id,
+  //       jobId: job.id,
+  //       date,
+  //       contactSalesforceId: user.salesforceId,
+  //     })
+  //       .unwrap()
+  //       .then((hours) =>
+  //         navigate(
+  //           `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${user.salesforceId}`
+  //         )
+  //       );
+  //   }
+  // }, [date, job, user, shift, signUpForVolunteerShift, navigate]);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -42,40 +65,48 @@ const GetVolunteer = () => {
         .then((volunteer) => {
           if (!volunteer) {
             setShowNameFields(true);
-          } else if (job) {
-            signUpForVolunteerShift({
-              shiftId: shift.id,
-              jobId: job.id,
-              date,
-              contactSalesforceId: volunteer.id,
-            })
-              .unwrap()
-              .then((hours) =>
-                navigate('/volunteers/ck-kitchen/signup-confirm/' + hours.id)
-              );
+            // } else if (job && shift && date) {
+            //   signUpForVolunteerShift({
+            //     shiftId: shift.id,
+            //     jobId: job.id,
+            //     date,
+            //     contactSalesforceId: volunteer.id,
+            //   })
+            //     .unwrap()
+            //     .then((hours) =>
+            //       navigate(
+            //         `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${volunteer.id}`
+            //       )
+            //     );
+            // }
+          } else {
+            navigate('../signup');
           }
         });
     } else {
       createVolunteer({ email, firstName, lastName })
         .unwrap()
         .then((volunteer) => {
-          if (job) {
-            signUpForVolunteerShift({
-              shiftId: shift.id,
-              jobId: job.id,
-              date,
-              contactSalesforceId: volunteer.id,
-            })
-              .unwrap()
-              .then((hours) =>
-                navigate('/volunteers/ck-kitchen/signup-confirm/' + hours.id)
-              );
-          }
+          //   if (job && shift && date) {
+          //     signUpForVolunteerShift({
+          //       shiftId: shift.id,
+          //       jobId: job.id,
+          //       date,
+          //       contactSalesforceId: volunteer.id,
+          //     })
+          //       .unwrap()
+          //       .then((hours) =>
+          //         navigate(
+          //           `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${volunteer.id}`
+          //         )
+          //       );
+          //   }
+          // });
+          navigate('../signup');
         });
     }
   };
 
-  const { shiftId } = useParams();
   if (
     getUserQuery.isLoading ||
     getShiftsQuery.isLoading ||
@@ -84,24 +115,8 @@ const GetVolunteer = () => {
     return <Loading />;
   }
 
-  if (!shifts || !shiftId || !shifts[shiftId]) {
+  if (!shift) {
     return <div>Volunteer shift not found. Please start over.</div>;
-  }
-
-  const shift = shifts[shiftId];
-  const job = jobs?.find((j) => j.id === shift.job);
-  const date = shift.startTime;
-  if (user && job) {
-    signUpForVolunteerShift({
-      shiftId: shift.id,
-      jobId: job.id,
-      date,
-      contactSalesforceId: user.salesforceId,
-    })
-      .unwrap()
-      .then((hours) =>
-        navigate('/volunteers/ck-kitchen/signup-confirm/' + hours.id)
-      );
   }
 
   return (

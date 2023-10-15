@@ -1,4 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import { useUploadSignedDocsToSalesforceMutation } from '../../../state/apis/docusignApi';
 import Loading from '../loading/Loading';
 
@@ -7,13 +9,14 @@ const DocusignSuccess = ({ returnLink }: { returnLink: string }) => {
 
   const [uploadDocsToSalesforce, { isLoading, isSuccess }] =
     useUploadSignedDocsToSalesforceMutation();
-
-  const event = searchParams.get('event');
-  const envelopeId = searchParams.get('envelopeId');
-  const doc = searchParams.get('doc');
-  if (doc && envelopeId && event === 'signing_complete') {
-    uploadDocsToSalesforce({ doc, envelopeId });
-  }
+  useEffect(() => {
+    const event = searchParams.get('event');
+    const envelopeId = searchParams.get('envelopeId');
+    const doc = searchParams.get('doc');
+    if (doc && envelopeId && event === 'signing_complete') {
+      uploadDocsToSalesforce({ doc, envelopeId });
+    }
+  }, [uploadDocsToSalesforce, searchParams]);
 
   const renderSuccess = () => {
     return (

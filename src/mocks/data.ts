@@ -1,14 +1,23 @@
-import moment from 'moment';
+import { addDays, formatISO } from 'date-fns';
+import { Restaurant, RestaurantInfo } from '../state/apis/mealProgramApi';
+import { User, ContactInfo } from '../state/apis/authApi';
+import {
+  Shift,
+  Job,
+  VolunteerHours,
+  Campaign,
+  GetShiftsResponse,
+} from '../state/apis/volunteerApi';
 
-export const user1 = {
+export const user1: User = {
   username: 'bojee',
   id: 'failjrse48jf48',
-  admin: false,
+  admin: true,
   salesforceId: 'f4s9jf4s9j',
   active: true,
 };
 
-export const user2 = {
+export const user2: User = {
   username: 'chompy',
   id: '48yrf848fy48',
   admin: true,
@@ -16,7 +25,7 @@ export const user2 = {
   active: true,
 };
 
-export const userInfo1 = {
+export const userInfo1: ContactInfo = {
   firstName: 'Testy',
   lastName: 'Testorici',
   volunteerAgreement: true,
@@ -24,7 +33,7 @@ export const userInfo1 = {
   homeChefStatus: 'Active',
 };
 
-export const userInfo2 = {
+export const userInfo2: ContactInfo = {
   firstName: 'Testy',
   lastName: 'Testorici',
   volunteerAgreement: false,
@@ -32,42 +41,56 @@ export const userInfo2 = {
   homeChefStatus: 'Attended Orientation',
 };
 
-export const restaurant1 = {
+export const restaurant1: Restaurant = {
   name: "Guigino's",
   id: 'hi7h7gh7gh',
   salesforceId: 'khi8h',
+  user: user1.id,
+};
+
+export const restaurantInfo1: RestaurantInfo = {
+  status: 'Active',
+  healthPermitExpired: false,
   remainingDocs: [],
   completedDocs: [],
 };
 
-export const campaign = {
+export const campaign: Campaign = {
   mealsDonated: 100,
 };
 
-export const job1 = {
+export const job1: Job = {
   id: '7777',
   name: 'City Slicker Farms',
   shifts: ['1111', '2222'],
   active: true,
   location: 'Location',
   ongoing: true,
+  description: 'kh',
+  campaign: 'wslejfn',
 };
 
-export const shift1 = {
+export const shift1: Shift = {
   id: job1.shifts[0],
-  startTime: moment().add(1, 'day').format(),
+  startTime: formatISO(addDays(new Date(), 1)),
   open: true,
   job: job1.id,
+  restaurantMeals: false,
+  duration: 3,
+  slots: 3,
 };
 
-export const shift2 = {
+export const shift2: Shift = {
   id: job1.shifts[1],
-  startTime: moment().add(2, 'day').format(),
+  startTime: formatISO(addDays(new Date(), 2)),
   open: true,
   job: job1.id,
+  restaurantMeals: false,
+  duration: 3,
+  slots: 3,
 };
 
-export const hours1 = {
+export const hours1: VolunteerHours = {
   id: 'd38ih3d',
   mealCount: '25',
   time: shift1.startTime,
@@ -76,7 +99,7 @@ export const hours1 = {
   shift: shift1.id,
 };
 
-export const hours2 = {
+export const hours2: VolunteerHours = {
   id: '7tt7999',
   mealCount: '30',
   time: shift2.startTime,
@@ -85,4 +108,11 @@ export const hours2 = {
   shift: shift2.id,
 };
 
-export const jobs = { jobs: [job1], shifts: [shift1, shift2] };
+export const jobs: GetShiftsResponse = {
+  jobs: [job1],
+  shifts: [shift1, shift2],
+};
+
+export const homeChefHoursResponse = [hours1];
+
+export const userResponse = [user1];

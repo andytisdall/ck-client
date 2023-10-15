@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import { useGetEventsQuery, Job } from '../../../state/apis/volunteerApi';
 import Loading from '../../reusable/loading/Loading';
@@ -28,14 +28,22 @@ const JobList = () => {
               return (
                 <Link key={shift.id} to={shift.id}>
                   <li className="event-job">
-                    {j.name} - {format(new Date(shift.startTime), 'h:mm a')}
+                    {j.name} -{' '}
+                    {format(
+                      utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                      'h:mm a'
+                    )}
                   </li>
                 </Link>
               );
             } else if (shift) {
               return (
                 <li key={shift.id} className="event-job full">
-                  {j.name} - {format(new Date(shift.startTime), 'h:mm a')}
+                  {j.name} -{' '}
+                  {format(
+                    utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                    'h:mm a'
+                  )}
                 </li>
               );
             } else {

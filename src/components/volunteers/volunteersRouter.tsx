@@ -32,11 +32,11 @@ const volunteersRouter: RouteObject = {
       children: [
         { index: true, element: renderWithFallback(<KitchenHome />) },
         {
-          path: 'signup-confirm/:hoursId',
+          path: 'signup-confirm/:hoursId/:contactId',
           element: renderWithFallback(<Confirmation />),
         },
         {
-          path: 'signin/:shiftId',
+          path: 'signin',
           element: renderWithFallback(<GetVolunteer />),
         },
         {

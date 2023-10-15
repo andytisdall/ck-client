@@ -1,5 +1,7 @@
 import { useState, FormEventHandler } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { setAlert } from '../../state/apis/slices/alertSlice';
 import { useGetUserQuery, useEditUserMutation } from '../../state/apis/authApi';
 
 const ChangeUsername = () => {
@@ -8,10 +10,16 @@ const ChangeUsername = () => {
 
   const [username, setUsername] = useState(user?.username || '');
 
+  const dispatch = useDispatch();
+
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (user && username) {
-      editUser({ userId: user.id, username: username });
+      editUser({ userId: user.id, username: username })
+        .unwrap()
+        .then(() =>
+          dispatch(setAlert('You have changed your username to ' + username))
+        );
     }
   };
 

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import Loading from '../../reusable/loading/Loading';
 import {
@@ -53,11 +53,17 @@ const EventShiftSignup = () => {
         </p>
         <p>
           <b>Date: </b>
-          {format(new Date(shift.startTime), 'dddd, M/D/YY')}
+          {format(
+            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+            'dddd, M/D/YY'
+          )}
         </p>
         <p>
           <b>Time: </b>
-          {format(new Date(shift.startTime), 'h:mm a')}
+          {format(
+            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+            'h:mm a'
+          )}
         </p>
         <p>
           <b>Duration: </b>

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, FormEventHandler } from 'react';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import Loading from '../../reusable/loading/Loading';
 import {
@@ -72,7 +72,10 @@ const EditShift = () => {
   return (
     <form onSubmit={onSubmit}>
       <h2>Edit Home Chef Delivery Details</h2>
-      <div>Date: {format(new Date(hour.time), 'M/d/yy')}</div>
+      <div>
+        Date:{' '}
+        {format(utcToZonedTime(hour.time, 'America/Los_Angeles'), 'M/d/yy')}
+      </div>
 
       <label>Number of Meals:</label>
       <input

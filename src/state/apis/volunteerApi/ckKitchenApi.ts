@@ -31,10 +31,11 @@ const ckKitchenApi = api.injectEndpoints({
         };
       },
     }),
-    getKitchenHours: builder.query<VolunteerHoursState, void>({
+    getKitchenHours: builder.query<VolunteerHoursState, string>({
       transformResponse: (response: VolunteerHours[]) =>
         _.mapKeys(response, 'id'),
-      query: () => '/volunteers/kitchen',
+      query: (contactId) => '/volunteers/kitchen/hours/' + contactId,
+      providesTags: ['CkKitchenHours'],
     }),
   }),
 });

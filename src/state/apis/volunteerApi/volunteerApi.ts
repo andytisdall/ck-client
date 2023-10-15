@@ -17,7 +17,9 @@ const volunteerApi = api.injectEndpoints({
       transformResponse: (response: VolunteerHours[]) =>
         _.mapKeys(response, 'id'),
       query: (campaignId) => '/volunteers/hours/' + campaignId,
+      providesTags: ['EventHours'],
     }),
+
     signUpForVolunteerShift: builder.mutation<
       VolunteerHours,
       SignUpForVolunteerShiftArgs
@@ -27,6 +29,7 @@ const volunteerApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['EventHours', 'CkKitchenHours'],
     }),
   }),
 });

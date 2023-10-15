@@ -39,5 +39,7 @@ export const api = createApi({
     'Recipe',
     'RestaurantInfo',
     'Restaurant',
+    'CkKitchenHours',
+    'EventHours',
   ],
 });

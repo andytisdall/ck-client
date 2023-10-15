@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import './ChefShifts.css';
 import Loading from '../../reusable/loading/Loading';
@@ -27,7 +27,10 @@ const ChefShifts = () => {
         <li className="chef-hours" key={hour.id}>
           <div className="chef-hours-title">
             <div className="chef-hours-date">
-              {format(new Date(hour.time), 'eee, M/d/yy')}
+              {format(
+                utcToZonedTime(hour.time, 'America/Los_Angeles'),
+                'eee, M/d/yy'
+              )}
             </div>
             <Link
               className="chef-hours-fridge"

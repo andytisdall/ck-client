@@ -38,7 +38,7 @@ const onboardingRouter = {
       ],
     },
     {
-      path: 'file-success',
+      path: 'file-success/:filesUploaded',
       element: renderWithFallback(
         <FileSuccess returnLink="/meal-program/onboarding" />
       ),

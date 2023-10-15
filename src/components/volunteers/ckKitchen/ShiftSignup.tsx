@@ -1,23 +1,39 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
-import { useGetKitchenShiftsQuery } from '../../../state/apis/volunteerApi';
+import {
+  useGetKitchenShiftsQuery,
+  useLazyGetVolunteerQuery,
+  useSignUpForVolunteerShiftMutation,
+} from '../../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
 
 const ShiftSignup = () => {
   const navigate = useNavigate();
   const { shiftId } = useParams();
 
-  const { data, isLoading } = useGetKitchenShiftsQuery();
-  const shifts = data?.shifts;
-  const jobs = data?.jobs;
+  const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
+  const volunteer = getVolunteerResult.data;
+
+  const [signUpForVolunteerShift, signUpForVolunteerShiftResult] =
+    useSignUpForVolunteerShiftMutation();
+  const kitchenShiftsQuery = useGetKitchenShiftsQuery();
+  const shifts = kitchenShiftsQuery.data?.shifts;
+  const jobs = kitchenShiftsQuery.data?.jobs;
+  const shift = shifts && shiftId ? shifts[shiftId] : undefined;
+  const job = jobs?.find((j) => j.id === shift?.job);
+  const date = shift?.startTime;
+
+  const getUserQuery = useGetUserQuery();
+  const user = getUserQuery.data;
+
+  const isLoading =
+    signUpForVolunteerShiftResult.isLoading || kitchenShiftsQuery.isLoading;
 
   if (isLoading) {
     return <Loading />;
   }
-
-  const shift = shifts && shiftId ? shifts[shiftId] : undefined;
-  const job = jobs?.find((j) => j.id === shift?.job);
 
   if (!shift?.open) {
     return <p>This shift is not available for signup</p>;
@@ -38,11 +54,17 @@ const ShiftSignup = () => {
         </p>
         <p>
           <b>Date: </b>
-          {format(new Date(shift.startTime), 'eeee, M/d/yy')}
+          {format(
+            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+            'eeee, M/d/yy'
+          )}
         </p>
         <p>
           <b>Time: </b>
-          {format(new Date(shift.startTime), 'h:mm a')}
+          {format(
+            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+            'h:mm a'
+          )}
         </p>
         <p>
           <b>Duration: </b>
@@ -53,7 +75,39 @@ const ShiftSignup = () => {
         <button onClick={() => navigate('../list')} className="cancel">
           Cancel
         </button>
-        <button onClick={() => navigate('../../signin/' + shiftId)}>
+        <button
+          onClick={() => {
+            if (job && shift && date) {
+              if (user) {
+                signUpForVolunteerShift({
+                  shiftId: shift.id,
+                  jobId: job.id,
+                  date,
+                  contactSalesforceId: user.salesforceId,
+                })
+                  .unwrap()
+                  .then((hours) =>
+                    navigate(
+                      `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${user.salesforceId}`
+                    )
+                  );
+              } else if (volunteer) {
+                signUpForVolunteerShift({
+                  shiftId: shift.id,
+                  jobId: job.id,
+                  date,
+                  contactSalesforceId: volunteer.id,
+                })
+                  .unwrap()
+                  .then((hours) =>
+                    navigate(
+                      `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${volunteer.id}`
+                    )
+                  );
+              }
+            }
+          }}
+        >
           Confirm Signup
         </button>
       </div>

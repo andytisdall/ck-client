@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import {
   useGetEventsQuery,
@@ -28,11 +28,17 @@ const Confirmation = () => {
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>
-              {format(new Date(hour.time), 'dddd, M/D/yy')}
+              {format(
+                utcToZonedTime(hour.time, 'America/Los_Angeles'),
+                'dddd, M/D/yy'
+              )}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Time:</span>
-              {format(new Date(shift.startTime), 'h:mm a')}
+              {format(
+                utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                'h:mm a'
+              )}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Duration:</span>

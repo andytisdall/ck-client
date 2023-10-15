@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const FileSuccess = ({ returnLink }: { returnLink: string }) => {
-  const message = 'You uploaded files';
+  const { filesUploaded } = useParams();
+
+  const message = !filesUploaded
+    ? 'Upload Successful.'
+    : filesUploaded === '1'
+    ? 'Successfully uploaded 1 file.'
+    : `Successfully uploaded ${filesUploaded} files.`;
 
   return (
     <div>

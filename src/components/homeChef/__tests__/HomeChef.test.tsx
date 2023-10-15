@@ -3,18 +3,11 @@ import userEvent from '@testing-library/user-event';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
 import App from '../../../App';
-import { user1, job1, shift1, hours1, hours2 } from '../../../mocks/data';
-import { getWrapper } from '../../../setupTests';
-
-const adminSignedInState = {
-  user: {
-    user: user1,
-  },
-};
+import { job1, shift1, hours1, hours2 } from '../../../mocks/data';
+import Root from '../../../Root';
 
 test('navigate to home chef page', async () => {
-  const wrapper = getWrapper(adminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
   const volunteersLink = await screen.findByText('CK Volunteers');
   userEvent.click(volunteersLink);
   // volunteers home
@@ -29,8 +22,7 @@ test('navigate to home chef page', async () => {
 });
 
 test('see chef shifts', async () => {
-  const wrapper = getWrapper(adminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
   const chefLink = await screen.findByText("See Fridges You've Signed Up For");
   userEvent.click(chefLink);
 
@@ -47,8 +39,7 @@ test('see chef shifts', async () => {
 });
 
 test('sign up with list view', async () => {
-  const wrapper = getWrapper(adminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
   const homeChefHome = screen.getByAltText('home chef header');
   userEvent.click(homeChefHome);
   const signupLink = await screen.findByText('Sign Up to Stock a Town Fridge');
@@ -74,15 +65,15 @@ test('sign up with list view', async () => {
 
   userEvent.type(mealInput, '30');
 
-  const submitBtn = await screen.findByText('Submit');
-  userEvent.click(submitBtn);
+  const submitBtn = await screen.findAllByText('Submit');
+  userEvent.click(submitBtn[1]);
 
   // confirmation screen
   const confirmation = await screen.findByText(/confirmation/i);
   expect(confirmation).toBeDefined();
 
   const date = await screen.findByText(
-    format(utcToZonedTime(hours2.time, 'America/Los_Angeles'), 'eeee, M/d/yyyy')
+    format(utcToZonedTime(hours2.time, 'America/Los_Angeles'), 'eeee, M/d/yy')
   );
   expect(date).toBeDefined();
 

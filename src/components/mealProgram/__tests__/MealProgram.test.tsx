@@ -1,19 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { user1 } from '../../../mocks/data';
 import App from '../../../App';
-import { getWrapper } from '../../../setupTests';
-
-const nonAdminSignedInState = {
-  user: {
-    user: user1,
-  },
-};
+import { Root } from '../../../setupTests';
 
 test('navigate to text page', async () => {
-  const wrapper = getWrapper(nonAdminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
   const textLink = await screen.findByText('Restaurant Meal Program');
   userEvent.click(textLink);
 
@@ -26,8 +18,7 @@ test('navigate to text page', async () => {
 });
 
 test('go to resources', async () => {
-  const wrapper = getWrapper(nonAdminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
   const resourcesLink = await screen.findByText('Resources');
   userEvent.click(resourcesLink);
 
@@ -40,8 +31,7 @@ test('go to resources', async () => {
 });
 
 test('guidelines page', async () => {
-  const wrapper = getWrapper(nonAdminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
 
   const guidlinesLink = await screen.findByText('Meal Guidelines');
   userEvent.click(guidlinesLink);

@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import Loading from '../../reusable/loading/Loading';
 import {
@@ -8,13 +8,15 @@ import {
 } from '../../../state/apis/volunteerApi';
 
 const Confirmation = () => {
-  const { hoursId } = useParams();
+  const { hoursId, contactId } = useParams();
 
-  const getHoursQuery = useGetKitchenHoursQuery();
+  const getHoursQuery = useGetKitchenHoursQuery(contactId || '');
   const hours = getHoursQuery.data;
+  console.log(hours);
 
   const getShiftsQuery = useGetKitchenShiftsQuery();
   const jobs = getShiftsQuery.data?.jobs;
+  console.log(jobs);
 
   const hour = hours && hoursId ? hours[hoursId] : null;
 
@@ -28,7 +30,10 @@ const Confirmation = () => {
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>{' '}
-              {format(new Date(hour.time), 'dddd, M/D/yy')}
+              {format(
+                utcToZonedTime(hour.time, 'America/Los_Angeles'),
+                'eeee, M/d/yy'
+              )}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Fridge:</span> {job?.name}

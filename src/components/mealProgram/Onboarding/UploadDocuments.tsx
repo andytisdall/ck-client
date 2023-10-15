@@ -49,7 +49,7 @@ const UploadDocuments = () => {
       expiration: expirationDate,
     })
       .unwrap()
-      .then(() => navigate('../file-success'));
+      .then((response) => navigate('../file-success/' + response.length));
   };
 
   const calendarStyle = expirationDate ? 'field-completed' : '';

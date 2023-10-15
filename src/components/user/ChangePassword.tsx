@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { setError } from '../../state/apis/slices/errorSlice';
 import { useGetUserQuery, useEditUserMutation } from '../../state/apis/authApi';
+import { setAlert } from '../../state/apis/slices/alertSlice';
 
 const ChangePassword = () => {
   const [password1, setPassword1] = useState('');
@@ -24,7 +25,9 @@ const ChangePassword = () => {
         username: user.username,
         password: password1,
         salesforceId: user.salesforceId,
-      });
+      })
+        .unwrap()
+        .then(() => dispatch(setAlert('You have changed your password')));
       setPassword1('');
       setPassword2('');
     }

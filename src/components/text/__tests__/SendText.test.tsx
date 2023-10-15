@@ -1,19 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { user2 } from '../../../mocks/data';
 import App from '../../../App';
-import { getWrapper } from '../../../setupTests';
-
-const adminSignedInState = {
-  user: {
-    user: user2,
-  },
-};
+import { Root } from '../../../setupTests';
 
 test('navigate to text page', async () => {
-  const wrapper = getWrapper(adminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
   const textLink = await screen.findByText('Text Service');
   userEvent.click(textLink);
 

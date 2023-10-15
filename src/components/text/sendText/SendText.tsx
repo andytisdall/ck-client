@@ -1,6 +1,6 @@
 import { lazy, useState } from 'react';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import renderWithFallback from '../../reusable/loading/renderWithFallback';
 import './SendText.css';
@@ -14,8 +14,8 @@ const TextPreview = lazy(() => import('./TextPreview'));
 const SendText = () => {
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState(25);
-  const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-  const [time, setTime] = useState(moment().format('HH:mm'));
+  const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+  const [time, setTime] = useState(format(new Date(), 'HH:mm'));
   const [source, setSource] = useState('CK Home Chef Volunteers');
   const [imageError, setImageError] = useState(false);
   const [name, setName] = useState('');
@@ -51,10 +51,9 @@ const SendText = () => {
     fridge !== undefined
       ? `Hello! ${
           !!fridges && fridges[fridge].name
-        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${moment(
-          `${date} ${time}`
-        ).format(
-          'M/D [at] h:mm a'
+        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${format(
+          new Date(`${date} ${time}`),
+          "M/d 'at' h:mm a"
         )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`
       : undefined;
 

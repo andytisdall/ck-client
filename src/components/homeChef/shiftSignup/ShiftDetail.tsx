@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, FormEventHandler } from 'react';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 import {
   useGetShiftsQuery,
@@ -53,7 +53,10 @@ const ShiftDetail = () => {
     <div className="shift-detail">
       <h2>Signing up for:</h2>
       <h2 className="signup-form-date">
-        {format(new Date(shift.startTime), 'eeee, M/d/yy')}
+        {format(
+          utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+          'eeee, M/d/yy'
+        )}
       </h2>
       <h2 className="signup-form-fridge">{job?.name}</h2>
       <p>{job?.location}</p>

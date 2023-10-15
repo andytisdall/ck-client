@@ -3,28 +3,22 @@ import userEvent from '@testing-library/user-event';
 
 import App from './App';
 import { user1 } from './mocks/data';
-import { getWrapper } from './setupTests';
+import { Root } from './setupTests';
 
-const adminSignedInState = {
-  user: {
-    user: user1,
-  },
-};
-
-test('volunteers link if not signed in', async () => {
-  const wrapper = getWrapper({});
-  render(<App />, { wrapper });
-
+test('sign in button if not signed in', async () => {
+  // const wrapper = getWrapper({});
+  render(<App />, { wrapper: Root });
+  window.localStorage.removeItem('ck-token');
   // home page
-  const unauthorizedMessage = await screen.findByText(/CK Volunteers/i);
+  const unauthorizedMessage = await screen.findByText(/Sign In/);
   expect(unauthorizedMessage).toBeInTheDocument();
 });
 
 test('can sign in', async () => {
-  const wrapper = getWrapper({});
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
+  window.localStorage.removeItem('ck-token');
 
-  const userName = screen.getByPlaceholderText('Username');
+  const userName = await screen.findByPlaceholderText('Username');
   const passwordInput = screen.getByPlaceholderText('Password');
 
   await userEvent.type(userName, 'Test');
@@ -40,8 +34,7 @@ test('can sign in', async () => {
 });
 
 test('username if signed in', async () => {
-  const wrapper = getWrapper(adminSignedInState);
-  render(<App />, { wrapper });
+  render(<App />, { wrapper: Root });
   const username = await screen.findByText(user1.username);
   expect(username).toBeInTheDocument();
 });

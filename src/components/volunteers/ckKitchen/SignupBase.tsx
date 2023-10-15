@@ -1,8 +1,24 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
+import { useLazyGetVolunteerQuery } from '../../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../../state/apis/authApi';
 import { navLink } from '../../../utils/style';
 
 const ShiftSignup = () => {
+  const [getVolunteer, getVolunteerResults] = useLazyGetVolunteerQuery();
+  const { data, isLoading } = useGetUserQuery();
+  const user = data;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(getVolunteerResults.data);
+    if (!user && !getVolunteerResults.data) {
+      navigate('../signin');
+    }
+  }, [user, getVolunteerResults.data, navigate]);
+
   const renderSignup = () => {
     return (
       <>
