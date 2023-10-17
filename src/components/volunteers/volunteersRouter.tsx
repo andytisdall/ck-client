@@ -12,6 +12,10 @@ const KitchenHome = lazy(() => import('./ckKitchen/KitchenHome'));
 const KitchenCalendar = lazy(() => import('./ckKitchen/KitchenCalendar'));
 const Confirmation = lazy(() => import('./ckKitchen/Confirmation'));
 const GetVolunteer = lazy(() => import('./GetVolunteer'));
+const DocusignSign = lazy(() => import('../reusable/docusign/DocusignSign'));
+const DocusignSuccess = lazy(
+  () => import('../reusable/docusign/DocusignSuccess')
+);
 
 const VolunteersBase = () => {
   return (
@@ -40,7 +44,22 @@ const volunteersRouter: RouteObject = {
           element: renderWithFallback(<GetVolunteer />),
         },
         {
-          path: 'signup',
+          path: 'docusign',
+          children: [
+            {
+              path: 'sign/:doc/:email',
+              element: renderWithFallback(<DocusignSign />),
+            },
+            {
+              path: 'success',
+              element: renderWithFallback(
+                <DocusignSuccess returnLink="/signup" includeEmail={true} />
+              ),
+            },
+          ],
+        },
+        {
+          path: 'signup/:email',
           element: renderWithFallback(<SignupBase />),
           children: [
             { path: 'list', element: renderWithFallback(<KitchenList />) },

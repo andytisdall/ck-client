@@ -9,7 +9,7 @@ const EnterEmail = ({
     <div>
       <label htmlFor="email">Enter your email:</label>
       <input
-        type="text"
+        type="email"
         id="email"
         required
         value={email}

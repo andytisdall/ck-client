@@ -1,7 +1,13 @@
-import _ from 'lodash'
+import _ from 'lodash';
 
-import {api} from '../../api'
-import {User, UsersState, EditUserArgs, ContactInfo, CreateUserArgs} from './types'
+import { api } from '../../api';
+import {
+  User,
+  UsersState,
+  EditUserArgs,
+  ContactInfo,
+  CreateUserArgs,
+} from './types';
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,38 +18,77 @@ export const userApi = api.injectEndpoints({
 
     getUserInfo: builder.query<ContactInfo, void>({
       query: () => 'user/userInfo',
-      providesTags: ['UserInfo']
+      providesTags: ['UserInfo'],
     }),
 
     editUser: builder.mutation<null, EditUserArgs>({
-      query:body => ({
-        url: '/user', body, method: 'PATCH'
+      query: (body) => ({
+        url: '/user',
+        body,
+        method: 'PATCH',
       }),
-      invalidatesTags: ['User']
+      invalidatesTags: ['User'],
     }),
 
     getAllUsers: builder.query<UsersState, void>({
       query: () => ({
-        url: '/user/all'
+        url: '/user/all',
       }),
       transformResponse: (response: User[]) => _.mapKeys(response, 'id'),
-      providesTags: ['AllUsers']
+      providesTags: ['AllUsers'],
     }),
 
     createUser: builder.mutation<User, CreateUserArgs>({
-      query: body => ({
-        url: '/user', body, method: 'POST'
+      query: (body) => ({
+        url: '/user',
+        body,
+        method: 'POST',
       }),
-      invalidatesTags: ['AllUsers', 'User']
+      invalidatesTags: ['AllUsers', 'User'],
     }),
 
     deleteUser: builder.mutation<null, string>({
-      query: userId => ({
-        url: '/user/' + userId, method: 'DELETE'
+      query: (userId) => ({
+        url: '/user/' + userId,
+        method: 'DELETE',
       }),
-      invalidatesTags: ['AllUsers']
-    })
+      invalidatesTags: ['AllUsers'],
+    }),
 
-  })})
+    connectGoogle: builder.mutation<null, string>({
+      query: (credential) => ({
+        url: '/user/connect-google',
+        body: { credential },
+        method: 'POST',
+      }),
+    }),
 
-  export const { useGetUserQuery, useEditUserMutation, useGetAllUsersQuery, useGetUserInfoQuery, useCreateUserMutation, useDeleteUserMutation} = userApi
+    forgotPassword: builder.mutation<null, string>({
+      query: (email) => ({
+        url: '/user/forgot-password',
+        method: 'POST',
+        body: { email },
+      }),
+    }),
+
+    resetPassword: builder.mutation<null, { token: string; password: string }>({
+      query: (body) => ({
+        url: '/user/reset-password',
+        method: 'POST',
+        body,
+      }),
+    }),
+  }),
+});
+
+export const {
+  useGetUserQuery,
+  useEditUserMutation,
+  useGetAllUsersQuery,
+  useGetUserInfoQuery,
+  useCreateUserMutation,
+  useDeleteUserMutation,
+  useConnectGoogleMutation,
+  useResetPasswordMutation,
+  useForgotPasswordMutation,
+} = userApi;

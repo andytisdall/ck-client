@@ -8,6 +8,7 @@ const ChangePassword = lazy(() => import('./ChangePassword'));
 const ChangeUsername = lazy(() => import('./ChangeUsername'));
 const UserHome = lazy(() => import('./UserHome'));
 const UserBase = lazy(() => import('./UserBase'));
+const ConnectGoogle = lazy(() => import('./ConnectGoogle'));
 
 const userRouter: RouteObject = {
   path: 'user',
@@ -22,6 +23,7 @@ const userRouter: RouteObject = {
       path: 'change-username',
       element: renderWithFallback(<ChangeUsername />),
     },
+    { path: 'connect-google', element: renderWithFallback(<ConnectGoogle />) },
   ],
 };
 

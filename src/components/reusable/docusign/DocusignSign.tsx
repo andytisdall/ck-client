@@ -4,10 +4,10 @@ import { useGetDocusignUrlQuery } from '../../../state/apis/docusignApi';
 import Loading from '../loading/Loading';
 
 const Docusign = () => {
-  const { doc } = useParams();
+  const { doc, email } = useParams();
   const navigate = useNavigate();
 
-  const { data, error } = useGetDocusignUrlQuery(doc);
+  const { data, error } = useGetDocusignUrlQuery({ doc, email });
 
   if (data?.url) {
     window.location.href = data.url;

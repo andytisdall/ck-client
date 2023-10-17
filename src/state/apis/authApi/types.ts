@@ -6,7 +6,7 @@ export interface User {
   id: string;
 }
 
-export type UsersState = Record<string, User>
+export type UsersState = Record<string, User>;
 
 export interface SignInArgs {
   username: string;
@@ -21,10 +21,13 @@ export interface ContactInfo {
   lastName: string;
   volunteerAgreement: boolean;
   foodHandler: boolean;
-  homeChefStatus: string;
+  homeChefStatus?: string;
+  ckKitchenStatus?: string;
 }
 export interface CreateUserArgs {
-  username:string, password?:string, salesforceId?:string
+  username: string;
+  password?: string;
+  salesforceId?: string;
 }
 
-export type EditUserArgs = CreateUserArgs & {userId: string, }
+export type EditUserArgs = CreateUserArgs & { userId: string };

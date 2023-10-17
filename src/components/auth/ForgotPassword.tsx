@@ -1,26 +1,42 @@
 import { useState, FormEventHandler } from 'react';
 
+import { useDispatch } from 'react-redux';
+
 import './SignIn.css';
 import Loading from '../reusable//loading/Loading';
 import { useForgotPasswordMutation } from '../../state/apis/authApi';
+import { setAlert } from '../../state/apis/slices/alertSlice';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
+
+  const dispatch = useDispatch();
 
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
-    forgotPassword(email);
+    forgotPassword(email)
+      .unwrap()
+      .then(() => {
+        dispatch(
+          setAlert('You will be emailed a link to reset your password.')
+        );
+        setEmail('');
+      });
   };
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className="main user">
+        <Loading />
+      </div>
+    );
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="main user">
+      <form onSubmit={handleSubmit} className="signin">
         <div className="signin-fields">
           <label htmlFor="email">Enter your email address:</label>
           <input
@@ -28,7 +44,7 @@ const ForgotPassword = () => {
             required
             name="email"
             className="input"
-            type="text"
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

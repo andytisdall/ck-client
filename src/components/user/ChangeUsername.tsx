@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux';
 
 import { setAlert } from '../../state/apis/slices/alertSlice';
 import { useGetUserQuery, useEditUserMutation } from '../../state/apis/authApi';
+import Loading from '../reusable/loading/Loading';
 
 const ChangeUsername = () => {
   const user = useGetUserQuery().data;
-  const [editUser] = useEditUserMutation();
+  const [editUser, { isLoading }] = useEditUserMutation();
 
   const [username, setUsername] = useState(user?.username || '');
 
@@ -35,7 +36,7 @@ const ChangeUsername = () => {
           required
           onChange={(e) => setUsername(e.target.value)}
         />
-        <input type="submit" value="Submit" />
+        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </div>
   );

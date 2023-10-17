@@ -37,6 +37,8 @@ const SalesforceNotFound = lazy(
 const Home = lazy(() => import('./components/Home'));
 const Header = lazy(() => import('./components/Header'));
 const PageNotFound = lazy(() => import('./components/error/PageNotFound'));
+const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
+const ResetPassword = lazy(() => import('./components/user/ResetPassword'));
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: renderWithFallback(<Home />),
+      },
+      {
+        path: 'forgot-password',
+        element: renderWithFallback(<ForgotPassword />),
+      },
+      {
+        path: 'reset-password/:token',
+        element: renderWithFallback(<ResetPassword />),
       },
       { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
       textRouter,

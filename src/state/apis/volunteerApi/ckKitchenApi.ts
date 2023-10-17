@@ -14,6 +14,7 @@ const ckKitchenApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getVolunteer: builder.query<Volunteer | null, string>({
       query: (email) => '/volunteers/' + email,
+      providesTags: ['Volunteer'],
     }),
     createVolunteer: builder.mutation<Volunteer, CreateVolunteerArgs>({
       query: (body) => ({
@@ -21,6 +22,7 @@ const ckKitchenApi = api.injectEndpoints({
         body,
         method: 'POST',
       }),
+      invalidatesTags: ['Volunteer'],
     }),
     getKitchenShifts: builder.query<JobShiftsState, void>({
       query: () => '/volunteers/kitchen',
@@ -45,4 +47,5 @@ export const {
   useCreateVolunteerMutation,
   useGetKitchenShiftsQuery,
   useGetKitchenHoursQuery,
+  useGetVolunteerQuery,
 } = ckKitchenApi;

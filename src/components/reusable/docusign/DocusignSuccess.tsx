@@ -4,8 +4,16 @@ import { useEffect } from 'react';
 import { useUploadSignedDocsToSalesforceMutation } from '../../../state/apis/docusignApi';
 import Loading from '../loading/Loading';
 
-const DocusignSuccess = ({ returnLink }: { returnLink: string }) => {
+const DocusignSuccess = ({
+  returnLink,
+  includeEmail,
+}: {
+  returnLink: string;
+  includeEmail?: boolean;
+}) => {
   const searchParams = useSearchParams()[0];
+
+  const email = searchParams.get('email');
 
   const [uploadDocsToSalesforce, { isLoading, isSuccess }] =
     useUploadSignedDocsToSalesforceMutation();
@@ -14,9 +22,9 @@ const DocusignSuccess = ({ returnLink }: { returnLink: string }) => {
     const envelopeId = searchParams.get('envelopeId');
     const doc = searchParams.get('doc');
     if (doc && envelopeId && event === 'signing_complete') {
-      uploadDocsToSalesforce({ doc, envelopeId });
+      uploadDocsToSalesforce({ doc, envelopeId, email: email || undefined });
     }
-  }, [uploadDocsToSalesforce, searchParams]);
+  }, [uploadDocsToSalesforce, searchParams, email]);
 
   const renderSuccess = () => {
     return (
@@ -30,6 +38,8 @@ const DocusignSuccess = ({ returnLink }: { returnLink: string }) => {
     return <h2>Signing Failed</h2>;
   };
 
+  const link = includeEmail ? returnLink + '/' + email : returnLink;
+
   return (
     <div>
       {!isLoading && isSuccess && renderSuccess()}
@@ -40,7 +50,7 @@ const DocusignSuccess = ({ returnLink }: { returnLink: string }) => {
           <Loading />
         </div>
       )}
-      <Link to={returnLink}>
+      <Link to={link}>
         <button className="nav-button">Go back to Section Home</button>
       </Link>
     </div>

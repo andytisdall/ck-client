@@ -62,3 +62,8 @@
 .unauthorized-text {
   width: 80%;
 }
+
+.small {
+  font-size: .7rem;
+  text-align: right;
+}

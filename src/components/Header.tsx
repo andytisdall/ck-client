@@ -29,7 +29,12 @@ const Header = () => {
         <SignIn />
         <div className="header-auth-google">
           <p className="header-auth-text">OR</p>
-          <GoogleSignIn />
+          <div>
+            <GoogleSignIn />
+            <Link to="/forgot-password" className="user-link small">
+              Forgot Password?
+            </Link>
+          </div>
         </div>
       </div>
     );

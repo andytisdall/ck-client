@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux';
 import { setError } from '../../state/apis/slices/errorSlice';
 import { useGetUserQuery, useEditUserMutation } from '../../state/apis/authApi';
 import { setAlert } from '../../state/apis/slices/alertSlice';
+import Loading from '../reusable/loading/Loading';
 
 const ChangePassword = () => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
   const user = useGetUserQuery().data;
-  const [editUser] = useEditUserMutation();
+  const [editUser, { isLoading }] = useEditUserMutation();
 
   const dispatch = useDispatch();
 
@@ -53,7 +54,7 @@ const ChangePassword = () => {
           name="password2"
           onChange={(e) => setPassword2(e.target.value)}
         />
-        <input type="submit" value="Submit" />
+        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </div>
   );

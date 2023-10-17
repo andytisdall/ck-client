@@ -1,23 +1,46 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import { useLazyGetVolunteerQuery } from '../../../state/apis/volunteerApi';
-import { useGetUserQuery } from '../../../state/apis/authApi';
+import Loading from '../../reusable/loading/Loading';
+import { useGetVolunteerQuery } from '../../../state/apis/volunteerApi';
+import {
+  useGetUserInfoQuery,
+  useGetUserQuery,
+} from '../../../state/apis/authApi';
 import { navLink } from '../../../utils/style';
 
 const ShiftSignup = () => {
-  const [getVolunteer, getVolunteerResults] = useLazyGetVolunteerQuery();
-  const { data, isLoading } = useGetUserQuery();
-  const user = data;
+  const { email } = useParams();
+  const getVolunteerQuery = useGetVolunteerQuery(email || '');
+  const volunteer = getVolunteerQuery.data;
+
+  const getUserQuery = useGetUserQuery();
+  const user = getUserQuery.data;
+
+  const getUserInfoQuery = useGetUserInfoQuery();
+  const userInfo = getUserInfoQuery.data;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(getVolunteerResults.data);
-    if (!user && !getVolunteerResults.data) {
-      navigate('../signin');
+    if (!getVolunteerQuery.isFetching) {
+      if (!volunteer && !user) {
+        navigate('../signin');
+      } else if (!volunteer?.ckKitchenAgreement && email) {
+        navigate('../docusign/sign/CKK/' + email);
+      } else if (userInfo?.ckKitchenStatus !== 'Active') {
+        console.log('eufhce');
+        navigate('../docusign/sign/CKK');
+      }
     }
-  }, [user, getVolunteerResults.data, navigate]);
+  }, [
+    user,
+    getVolunteerQuery.isFetching,
+    volunteer,
+    navigate,
+    userInfo?.ckKitchenStatus,
+    email,
+  ]);
 
   const renderSignup = () => {
     return (
@@ -34,6 +57,12 @@ const ShiftSignup = () => {
       </>
     );
   };
+
+  const isLoading = getUserQuery.isLoading || getVolunteerQuery.isLoading;
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>

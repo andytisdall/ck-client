@@ -5,7 +5,7 @@ export const loginApi = api.injectEndpoints({
   endpoints: (builder) => ({
     signIn: builder.mutation<User, SignInArgs>({
       query: (body) => ({
-        url: 'signin',
+        url: '/signin',
         method: 'POST',
         body,
       }),
@@ -30,14 +30,6 @@ export const loginApi = api.injectEndpoints({
       },
     }),
 
-    forgotPassword: builder.mutation<null, string>({
-      query: (email) => ({
-        url: '/forgot-password',
-        method: 'POST',
-        body: { email },
-      }),
-    }),
-
     googleSignIn: builder.mutation<User, string>({
       query: (credential) => ({
         url: '/google-signin',
@@ -56,6 +48,5 @@ export const loginApi = api.injectEndpoints({
 export const {
   useSignInMutation,
   useSignOutMutation,
-  useForgotPasswordMutation,
   useGoogleSignInMutation,
 } = loginApi;

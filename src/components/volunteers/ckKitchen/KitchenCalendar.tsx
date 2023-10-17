@@ -1,5 +1,5 @@
 import { format, utcToZonedTime } from 'date-fns-tz';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
 
 import Calendar from '../../reusable/calendar/Calendar';
@@ -10,16 +10,19 @@ import {
 } from '../../../state/apis/volunteerApi';
 
 const KitchenCalendar = () => {
+  const navigate = useNavigate();
+
   const { data, isLoading } = useGetKitchenShiftsQuery();
   const shifts = data?.shifts;
   const jobs = data?.jobs;
+
   const shiftsByDate = useMemo(() => {
     const sortedShifts: Record<string, Shift[]> = {};
     if (shifts) {
       Object.values(shifts)
         .filter((shift) => {
           const job = jobs?.find((j) => j.id === shift.job);
-          return job?.ongoing && job.active;
+          return job?.ongoing && job.active && shift.open;
         })
         .forEach((shift) => {
           const formattedTime = format(
@@ -41,10 +44,14 @@ const KitchenCalendar = () => {
       return shiftsByDate[date].map((sh) => {
         const job = jobs ? jobs.find((j) => j.id === sh.job) : undefined;
         return (
-          <Link key={sh.id} to={`../${sh.id}`}>
+          <div
+            key={sh.id}
+            className="calendar-item calendar-color-0"
+            onClick={() => navigate(`../${sh.id}`)}
+          >
             <div>{job?.name}</div>
             <div>{sh.slots} Spots Remaining</div>
-          </Link>
+          </div>
         );
       });
     } else {

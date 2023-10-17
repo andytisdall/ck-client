@@ -59,15 +59,18 @@ interface HCInterestFormArgs {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  instagramHandle: string;
+  instagramHandle?: string;
   commit?: boolean;
   foodHandler?: boolean;
-  daysAvailable: Record<string, boolean>;
-  experience: string;
-  attend?: boolean;
+  daysAvailable?: Record<string, boolean>;
+  experience?: string;
   pickup?: boolean;
   source: string;
-  extraInfo: string;
+  extraInfo?: string;
+  otherExperience?: string;
+  foodHandlerOther?: string;
+  pickupMaybe: boolean;
+  programs: { ckKitchen: boolean; ckHomeChefs: boolean; other: string };
 }
 
 interface SubmitFormArgs {
@@ -82,7 +85,7 @@ interface SubmitFormArgs {
 
 const urls: Record<string, string> = {
   MEAL_SURVEY: '/text/meal-survey',
-  HOME_CHEF_INTEREST: '/home-chef/signup',
+  VOLUNTEER_INTEREST: '/volunteer/interest-form',
   TEXT_SIGNUP_SURVEY: '/text/signup-survey',
   MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   CBO_REPORT: '/meal-program/cbo-report',
