@@ -3,22 +3,24 @@ import { format, utcToZonedTime } from 'date-fns-tz';
 
 import {
   useGetKitchenShiftsQuery,
-  useLazyGetVolunteerQuery,
   useSignUpForVolunteerShiftMutation,
+  useGetVolunteerQuery,
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
 
 const ShiftSignup = () => {
   const navigate = useNavigate();
-  const { shiftId } = useParams();
-
-  const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
-  const volunteer = getVolunteerResult.data;
+  const { shiftId, email } = useParams();
 
   const [signUpForVolunteerShift, signUpForVolunteerShiftResult] =
     useSignUpForVolunteerShiftMutation();
+
   const kitchenShiftsQuery = useGetKitchenShiftsQuery();
+
+  const getVolunteerQuery = useGetVolunteerQuery(email || '');
+  const volunteer = getVolunteerQuery.data;
+
   const shifts = kitchenShiftsQuery.data?.shifts;
   const jobs = kitchenShiftsQuery.data?.jobs;
   const shift = shifts && shiftId ? shifts[shiftId] : undefined;
@@ -29,7 +31,9 @@ const ShiftSignup = () => {
   const user = getUserQuery.data;
 
   const isLoading =
-    signUpForVolunteerShiftResult.isLoading || kitchenShiftsQuery.isLoading;
+    signUpForVolunteerShiftResult.isLoading ||
+    kitchenShiftsQuery.isLoading ||
+    getVolunteerQuery.isLoading;
 
   if (isLoading) {
     return <Loading />;

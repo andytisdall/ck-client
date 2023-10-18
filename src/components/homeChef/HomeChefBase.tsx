@@ -19,7 +19,7 @@ const HomeChef = () => {
           <h3>If you are a Home Chef, sign in at the top of the page.</h3>
           <h3>
             If you want to become a Home Chef,{' '}
-            <Link to="/forms/home-chef" className="retro-link">
+            <Link to="/forms/volunteer" className="retro-link">
               please complete the signup form.
             </Link>
           </h3>

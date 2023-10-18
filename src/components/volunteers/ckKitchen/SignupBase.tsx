@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import Loading from '../../reusable/loading/Loading';
 import { useGetVolunteerQuery } from '../../../state/apis/volunteerApi';
@@ -10,6 +10,8 @@ import {
 import { navLink } from '../../../utils/style';
 
 const ShiftSignup = () => {
+  const [redirectToDocusign, setRedirectToDocusign] = useState(false);
+
   const { email } = useParams();
   const getVolunteerQuery = useGetVolunteerQuery(email || '');
   const volunteer = getVolunteerQuery.data;
@@ -22,25 +24,20 @@ const ShiftSignup = () => {
 
   const navigate = useNavigate();
 
+  const docusignLink = useRef('');
+
   useEffect(() => {
     if (!getVolunteerQuery.isFetching) {
       if (!volunteer && !user) {
         navigate('../signin');
       } else if (!volunteer?.ckKitchenAgreement && email) {
-        navigate('../docusign/sign/CKK/' + email);
+        setRedirectToDocusign(true);
+        docusignLink.current = '../docusign/sign/CKK/' + email;
       } else if (userInfo?.ckKitchenStatus !== 'Active') {
-        console.log('eufhce');
-        navigate('../docusign/sign/CKK');
+        docusignLink.current = '../docusign/sign/CKK';
       }
     }
-  }, [
-    user,
-    getVolunteerQuery.isFetching,
-    volunteer,
-    navigate,
-    userInfo?.ckKitchenStatus,
-    email,
-  ]);
+  }, [user, getVolunteerQuery, volunteer, navigate, userInfo, email]);
 
   const renderSignup = () => {
     return (
@@ -58,10 +55,22 @@ const ShiftSignup = () => {
     );
   };
 
-  const isLoading = getUserQuery.isLoading || getVolunteerQuery.isLoading;
+  const isLoading = getUserQuery.isLoading || getVolunteerQuery.isFetching;
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (redirectToDocusign) {
+    return (
+      <div>
+        <p>
+          Before you can sign up to volunteer in the CK Kitchen, you'll need to
+          sign an agreement.
+        </p>
+        <button onClick={() => navigate(docusignLink.current)}>Continue</button>
+      </div>
+    );
   }
 
   return (

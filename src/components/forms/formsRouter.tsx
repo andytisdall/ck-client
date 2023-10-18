@@ -4,7 +4,7 @@ import { lazy } from 'react';
 import './Form.css';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
 
-const HCInterestForm = lazy(() => import('./HCInterestForm'));
+const VolunteerInterestForm = lazy(() => import('./VolunteerInterestForm'));
 const FormSent = lazy(() => import('./FormSent'));
 const MealQualitySurvey = lazy(() => import('./MealQualitySurvey'));
 const TextSignupSurvey = lazy(() => import('./TextSignupSurvey'));
@@ -36,7 +36,10 @@ const formsRouter: RouteObject = {
   path: 'forms',
   element: <Forms />,
   children: [
-    { path: 'home-chef', element: renderWithFallback(<HCInterestForm />) },
+    {
+      path: 'volunteer',
+      element: renderWithFallback(<VolunteerInterestForm />),
+    },
     { path: 'meal-survey', element: renderWithFallback(<MealQualitySurvey />) },
     {
       path: 'text-signup-survey',

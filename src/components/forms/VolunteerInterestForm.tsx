@@ -1,4 +1,4 @@
-import { useState, FormEventHandler } from 'react';
+import { useState, FormEventHandler, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,6 +52,9 @@ const InterestForm = () => {
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const otherProgramRef = useRef<HTMLInputElement | null>(null);
+  const otherExperienceRef = useRef<HTMLInputElement | null>(null);
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -185,6 +188,8 @@ const InterestForm = () => {
           <br />
           Community Kitchens
         </p>
+        <br />
+        <p className="required">* Indicates required question</p>
       </div>
     );
   };
@@ -285,6 +290,7 @@ const InterestForm = () => {
               type="checkbox"
               name="programs"
               id="other"
+              ref={otherProgramRef}
               onChange={(e) => {
                 const { checked } = e.target;
                 if (checked) {
@@ -299,7 +305,12 @@ const InterestForm = () => {
             <input
               type="text"
               value={otherProgram}
-              onChange={(e) => setOtherProgram(e.target.value)}
+              onChange={(e) => {
+                setOtherProgram(e.target.value);
+                if (otherProgramRef.current?.checked) {
+                  setPrograms({ ...programs, other: e.target.value });
+                }
+              }}
             />
           </div>
 
@@ -368,6 +379,7 @@ const InterestForm = () => {
             <input
               type="radio"
               id="experience-other"
+              ref={otherExperienceRef}
               name="experience"
               onChange={(e) => {
                 if (e.target.checked) {
@@ -379,7 +391,12 @@ const InterestForm = () => {
             <input
               type="text"
               value={otherExperience}
-              onChange={(e) => setOtherExperience(e.target.value)}
+              onChange={(e) => {
+                setOtherExperience(e.target.value);
+                if (otherExperienceRef.current?.checked) {
+                  setExperience(e.target.value);
+                }
+              }}
             />
           </div>
         </div>
