@@ -36,7 +36,7 @@ const formsRouter = {
   path: 'forms',
   element: <Forms />,
   children: [
-    { path: 'home-chef', element: renderWithFallback(<HCInterestForm />) },
+    { path: 'volunteer', element: renderWithFallback(<HCInterestForm />) },
     { path: 'meal-survey', element: renderWithFallback(<MealQualitySurvey />) },
     {
       path: 'text-signup-survey',

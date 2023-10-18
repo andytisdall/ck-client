@@ -98,7 +98,7 @@ const HomeChef = ({
           <h3>You must be a CK Home Chef to access this page.</h3>
           <h3>
             To get started,{' '}
-            <Link to="/forms/home-chef" className="retro-link">
+            <Link to="/forms/volunteer" className="retro-link">
               please complete the signup form.
             </Link>
           </h3>

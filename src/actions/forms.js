@@ -6,7 +6,7 @@ import { router } from '../App';
 export const submitForm = (formValues, form) => async (dispatch) => {
   const urls = {
     MEAL_SURVEY: '/text/meal-survey',
-    HOME_CHEF_INTEREST: '/home-chef/signup',
+    VOLUNTEER_INTEREST: '/home-chef/signup',
     TEXT_SIGNUP_SURVEY: '/text/signup-survey',
     MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
     CBO_REPORT: '/meal-program/cbo-report',
