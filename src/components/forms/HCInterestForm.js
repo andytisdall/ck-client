@@ -107,7 +107,7 @@ const InterestForm = ({ submitForm }) => {
 
     return (
       <div className="form-item">
-        <label>What day of the week are you available to deliver meals?</label>
+        <label>What is your availability?</label>
         {days.map((d) => {
           return (
             <div className="form-checkbox" key={d}>
@@ -451,8 +451,8 @@ const InterestForm = ({ submitForm }) => {
           <label>
             If you do not have a CA Food Handlers Card, are you able to complete
             the online Food Safety training and exam in order to participate in
-            the Volunteer Program? (It is 90 minutes long, and CK can reimburse
-            for the cost).
+            the Home Chef Volunteer Program? (It is 90 minutes long, and CK can
+            reimburse for the cost).
           </label>
 
           <div className="form-checkbox">
