@@ -38,7 +38,7 @@ const UploadFoodHandler = () => {
     });
     uploadFiles({ formData, accountType: 'contact' })
       .unwrap()
-      .then((response) => navigate('/file-success/' + response.length));
+      .then((response) => navigate('../file-success/' + response.length));
   };
 
   return (

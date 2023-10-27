@@ -7,8 +7,10 @@ const EnterEmail = ({
 }) => {
   return (
     <div>
-      <label htmlFor="email">Enter your email:</label>
+      <h3>Please enter your email to sign up to volunteer.</h3>
+      <label htmlFor="email">Email:</label>
       <input
+        className="volunteers-email-field"
         type="email"
         id="email"
         required

@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { api } from './api';
 import errorReducer from './apis/slices/errorSlice';
 import alertReducer from './apis/slices/alertSlice';
+import volunteerReducer from './apis/slices/volunteerSlice';
 import { rtkQueryErrorLogger } from './middleware/errorHandler';
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     [api.reducerPath]: api.reducer,
     error: errorReducer,
     alert: alertReducer,
+    volunteer: volunteerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(rtkQueryErrorLogger).concat(api.middleware),

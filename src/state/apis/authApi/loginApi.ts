@@ -13,21 +13,16 @@ export const loginApi = api.injectEndpoints({
         localStorage.setItem('ck-token', response.token);
         return response.user;
       },
-      invalidatesTags: (result) => {
-        if (result) {
-          return ['User'];
-        } else {
-          return [];
-        }
-      },
+      invalidatesTags: ['User', 'UserInfo'],
     }),
 
     signOut: builder.mutation<null, void>({
-      invalidatesTags: () => ['User'],
       queryFn: () => {
         localStorage.removeItem('ck-token');
+        api.util.resetApiState();
         return { data: null };
       },
+      invalidatesTags: ['User', 'UserInfo'],
     }),
 
     googleSignIn: builder.mutation<User, string>({
@@ -40,7 +35,7 @@ export const loginApi = api.injectEndpoints({
         localStorage.setItem('ck-token', response.token);
         return response.user;
       },
-      invalidatesTags: ['User'],
+      invalidatesTags: ['User', 'UserInfo'],
     }),
   }),
 });

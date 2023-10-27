@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, FormEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -31,7 +31,12 @@ const ResetPassword = () => {
 
   if (resetPasswordResult.isSuccess) {
     return (
-      <div className="main user">You successfully reset your password.</div>
+      <div className="main user">
+        <p>You successfully reset your password.</p>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+      </div>
     );
   }
 

@@ -38,7 +38,7 @@ const onboardingRouter: RouteObject = {
       element: renderWithFallback(<UploadFoodHandler />),
     },
     {
-      path: 'file-success',
+      path: 'file-success/:filesUploaded',
       element: renderWithFallback(
         <FileSuccess returnLink="/home-chef/onboarding" />
       ),

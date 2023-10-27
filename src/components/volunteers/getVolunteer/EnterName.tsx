@@ -17,6 +17,7 @@ const EnterName = ({
       </h4>
       <label htmlFor="firstName">First Name:</label>
       <input
+        autoFocus
         type="text"
         id="firstName"
         required

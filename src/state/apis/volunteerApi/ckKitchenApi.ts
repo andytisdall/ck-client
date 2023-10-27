@@ -8,21 +8,24 @@ import {
   GetShiftsResponse,
   VolunteerHoursState,
   VolunteerHours,
+  CreateVolunteerResponse,
 } from './types';
 
-const ckKitchenApi = api.injectEndpoints({
+export const ckKitchenApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getVolunteer: builder.query<Volunteer | null, string>({
+    getVolunteer: builder.query<Volunteer | null, string | undefined>({
       query: (email) => '/volunteers/' + email,
       providesTags: ['Volunteer'],
     }),
-    createVolunteer: builder.mutation<Volunteer, CreateVolunteerArgs>({
+    createVolunteer: builder.mutation<
+      CreateVolunteerResponse,
+      CreateVolunteerArgs
+    >({
       query: (body) => ({
         url: '/volunteers',
         body,
         method: 'POST',
       }),
-      invalidatesTags: ['Volunteer'],
     }),
     getKitchenShifts: builder.query<JobShiftsState, void>({
       query: () => '/volunteers/kitchen',
@@ -33,10 +36,16 @@ const ckKitchenApi = api.injectEndpoints({
         };
       },
     }),
-    getKitchenHours: builder.query<VolunteerHoursState, string>({
+    getKitchenHours: builder.query<VolunteerHoursState, string | undefined>({
       transformResponse: (response: VolunteerHours[]) =>
         _.mapKeys(response, 'id'),
-      query: (contactId) => '/volunteers/kitchen/hours/' + contactId,
+      query: (contactId) => {
+        if (contactId) {
+          return '/volunteers/kitchen/hours/' + contactId;
+        } else {
+          return '/volunteers/kitchen/hours';
+        }
+      },
       providesTags: ['CkKitchenHours'],
     }),
   }),
@@ -47,5 +56,4 @@ export const {
   useCreateVolunteerMutation,
   useGetKitchenShiftsQuery,
   useGetKitchenHoursQuery,
-  useGetVolunteerQuery,
 } = ckKitchenApi;

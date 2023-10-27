@@ -1,7 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, FormEventHandler } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { useDispatch } from 'react-redux';
 
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 import Loading from '../../reusable/loading/Loading';
 import {
   useEditHoursMutation,
@@ -11,12 +13,17 @@ import {
 
 const EditShift = () => {
   const { id } = useParams();
-  const [mealCount, setMealCount] = useState('0');
+
+  const { data: hours, isLoading: hoursLoading } = useGetHomeChefHoursQuery();
+  const hour = hours && id ? hours[id] : undefined;
+
+  const [mealCount, setMealCount] = useState(hour?.mealCount || '');
   const [cancel, setCancel] = useState(false);
 
-  const hours = useGetHomeChefHoursQuery().data;
   const { data } = useGetShiftsQuery();
   const jobs = data?.jobs;
+
+  const dispatch = useDispatch();
 
   const [editHours, { isLoading }] = useEditHoursMutation();
 
@@ -32,15 +39,17 @@ const EditShift = () => {
       if (id && fridge && hour)
         editHours({ id, mealCount, cancel, fridge, date: hour.time })
           .unwrap()
-          .then(() => navigate('..'));
+          .then(() => {
+            const action = cancel ? 'Canceled' : 'Edited';
+            dispatch(setAlert('Delivery ' + action));
+            navigate('..');
+          });
     }
   };
 
-  if (!hours) {
+  if (hoursLoading) {
     return <Loading />;
   }
-
-  const hour = id ? hours[id] : undefined;
 
   const renderCancel = () => {
     let text;

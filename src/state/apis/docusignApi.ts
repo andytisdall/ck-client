@@ -13,7 +13,7 @@ interface UploadDocsArgs {
 
 interface SignDocsArgs {
   doc?: string;
-  email?: string;
+  id?: string;
 }
 
 const docusignApi = api.injectEndpoints({
@@ -21,8 +21,8 @@ const docusignApi = api.injectEndpoints({
     getDocusignUrl: builder.query<{ url: string }, SignDocsArgs>({
       query: (body) => {
         let url = '/docusign/sign/' + body.doc;
-        if (body.email) {
-          url += `/${body.email}`;
+        if (body.id) {
+          url += `/${body.id}`;
         }
         return { url };
       },
@@ -32,7 +32,7 @@ const docusignApi = api.injectEndpoints({
       UploadDocsArgs
     >({
       query: (body) => ({ url: '/docusign/getDoc', body, method: 'POST' }),
-      invalidatesTags: ['UserInfo', 'RestaurantInfo'],
+      invalidatesTags: ['UserInfo', 'RestaurantInfo', 'Volunteer'],
     }),
   }),
 });

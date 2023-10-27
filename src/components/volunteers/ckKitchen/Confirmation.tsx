@@ -6,17 +6,20 @@ import {
   useGetKitchenHoursQuery,
   useGetKitchenShiftsQuery,
 } from '../../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../../state/apis/authApi';
 
 const Confirmation = () => {
   const { hoursId, contactId } = useParams();
 
-  const getHoursQuery = useGetKitchenHoursQuery(contactId || '');
+  const { data: user } = useGetUserQuery();
+
+  const getHoursQuery = useGetKitchenHoursQuery(
+    contactId || user?.salesforceId
+  );
   const hours = getHoursQuery.data;
-  console.log(hours);
 
   const getShiftsQuery = useGetKitchenShiftsQuery();
   const jobs = getShiftsQuery.data?.jobs;
-  console.log(jobs);
 
   const hour = hours && hoursId ? hours[hoursId] : null;
 
@@ -42,6 +45,10 @@ const Confirmation = () => {
               <span className="hc-confirm-title">Location:</span>{' '}
               {job?.location}
             </li>
+            <li className="hc-confirm-item">
+              <span className="hc-confirm-title">Description:</span>{' '}
+              {job?.description}
+            </li>
           </ul>
           <p>You have been sent an email with this information.</p>
         </div>
@@ -57,7 +64,7 @@ const Confirmation = () => {
 
   return (
     <div>
-      <h1>Home Chef Sign Up Confirmation</h1>
+      <h1>Volunteer Sign Up Confirmation</h1>
       {getShiftsQuery.isLoading || getHoursQuery.isLoading ? (
         <Loading />
       ) : (

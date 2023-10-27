@@ -4,10 +4,10 @@ import { useGetDocusignUrlQuery } from '../../../state/apis/docusignApi';
 import Loading from '../loading/Loading';
 
 const Docusign = () => {
-  const { doc, email } = useParams();
+  const { doc, id } = useParams();
   const navigate = useNavigate();
 
-  const { data, error } = useGetDocusignUrlQuery({ doc, email });
+  const { data, error } = useGetDocusignUrlQuery({ doc, id });
 
   if (data?.url) {
     window.location.href = data.url;
@@ -24,7 +24,7 @@ const Docusign = () => {
   return (
     <div>
       <Loading />
-      <p>Generating contracts...</p>
+      <p>Generating document...</p>
     </div>
   );
 };

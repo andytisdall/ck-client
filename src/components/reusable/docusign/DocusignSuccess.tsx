@@ -2,18 +2,15 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { useUploadSignedDocsToSalesforceMutation } from '../../../state/apis/docusignApi';
+import { useLazyGetVolunteerQuery } from '../../../state/apis/volunteerApi';
 import Loading from '../loading/Loading';
 
-const DocusignSuccess = ({
-  returnLink,
-  includeEmail,
-}: {
-  returnLink: string;
-  includeEmail?: boolean;
-}) => {
+const DocusignSuccess = ({ returnLink }: { returnLink: string }) => {
   const searchParams = useSearchParams()[0];
 
-  const email = searchParams.get('email');
+  const email = searchParams.get('email') || undefined;
+
+  const [getVolunteer] = useLazyGetVolunteerQuery();
 
   const [uploadDocsToSalesforce, { isLoading, isSuccess }] =
     useUploadSignedDocsToSalesforceMutation();
@@ -22,9 +19,15 @@ const DocusignSuccess = ({
     const envelopeId = searchParams.get('envelopeId');
     const doc = searchParams.get('doc');
     if (doc && envelopeId && event === 'signing_complete') {
-      uploadDocsToSalesforce({ doc, envelopeId, email: email || undefined });
+      uploadDocsToSalesforce({ doc, envelopeId, email })
+        .unwrap()
+        .then(() => {
+          if (email) {
+            getVolunteer(email);
+          }
+        });
     }
-  }, [uploadDocsToSalesforce, searchParams, email]);
+  }, [uploadDocsToSalesforce, searchParams, email, getVolunteer]);
 
   const renderSuccess = () => {
     return (
@@ -38,8 +41,6 @@ const DocusignSuccess = ({
     return <h2>Signing Failed</h2>;
   };
 
-  const link = includeEmail ? returnLink + '/' + email : returnLink;
-
   return (
     <div>
       {!isLoading && isSuccess && renderSuccess()}
@@ -50,7 +51,7 @@ const DocusignSuccess = ({
           <Loading />
         </div>
       )}
-      <Link to={link}>
+      <Link to={returnLink}>
         <button className="nav-button">Go back to Section Home</button>
       </Link>
     </div>

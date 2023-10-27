@@ -1,5 +1,10 @@
 .volunteers {
-  background-image: linear-gradient(rgb(173, 220, 215), rgb(75, 190, 161))
+  background-image: linear-gradient(rgb(173, 220, 215), rgb(75, 190, 161));
+}
+
+.volunteers-body {
+  margin-top: 3rem;
+  padding-left: 2rem;
 }
 
 .volunteers-main-header {
@@ -7,7 +12,10 @@
   margin: 0;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(8, 29, 188);
-  letter-spacing: 13px;
+  letter-spacing: 11px;
+  border-bottom: 2px solid rgb(85, 85, 85);
+  width: fit-content;
+  text-shadow: rgb(0, 128, 175) -3px 2px 2px;
 }
 
 .volunteers-header {
@@ -37,9 +45,9 @@
   font-size: 1rem;
   font-weight: 500;
   display: flex;
-  max-width: 400px;
+  align-items: center;
   flex-wrap: wrap;
-  justify-content: space-around;
+  transition: all .3s;
 }
 
 .volunteers-shift:hover {
@@ -63,4 +71,47 @@
 .volunteers-shift-detail {
   border: 1px solid black;
   padding: 2rem;
+}
+
+.volunteers-shift-space {
+  margin: 0 1rem;
+}
+
+.volunteers-shift-checkmark {
+  margin-left: 1rem;
+  font-size: .7rem;
+  color: rgb(179, 255, 179);
+  background-color: rgba(94, 94, 94, 0.634);
+  padding: 5px;
+}
+
+.volunteers-calendar-checkmark {
+  font-size: .8rem;
+  color: rgb(179, 255, 179);
+  background-color: rgba(94, 94, 94, 0.634);
+  padding: 5px;
+  margin: 3px;
+  width: fit-content;
+}
+
+.volunteers-calendar-spots {
+  font-size: .8rem;
+  margin-top: 3px;
+}
+
+.volunteers-email-field {
+  width: 15rem;
+}
+
+.volunteers-email-display {
+  display: flex;
+  align-items: center;
+}
+
+.volunteers-email-display p {
+  margin-left: 1rem;
+}
+
+.text-small {
+  font-size: .8rem;
 }

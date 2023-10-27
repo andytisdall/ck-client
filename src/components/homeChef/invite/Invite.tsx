@@ -1,4 +1,5 @@
 import { useState, FormEventHandler } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Loading from '../../reusable/loading/Loading';
 import './Invite.css';
@@ -20,11 +21,13 @@ CK Home Chef lets people provide food directly to the people that need it most. 
 Thanks for your time!
 ${userInfo?.firstName}
   `;
-  const defaultSubject = `${userInfo?.firstName} is inviting you to become a home chef`;
+  const defaultSubject = `${userInfo?.firstName} ${userInfo?.lastName} invites you to become a home chef!`;
 
   const [recipients, setRecipients] = useState(['']);
   const [subject, setSubject] = useState(defaultSubject);
   const [message, setMessage] = useState(defaultMessage);
+
+  const navigate = useNavigate();
 
   const renderInputs = () => {
     return recipients.map((rec, i) => {
@@ -58,7 +61,9 @@ ${userInfo?.firstName}
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    sendInvite({ recipients, message, subject });
+    sendInvite({ recipients, message, subject })
+      .unwrap()
+      .then(() => navigate('..'));
   };
 
   const addField = () => {

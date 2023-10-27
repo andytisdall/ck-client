@@ -1,23 +1,17 @@
-import { Outlet, NavLink, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
-import Loading from '../../reusable/loading/Loading';
-import { useGetVolunteerQuery } from '../../../state/apis/volunteerApi';
-import {
-  useGetUserInfoQuery,
-  useGetUserQuery,
-} from '../../../state/apis/authApi';
 import { navLink } from '../../../utils/style';
+import { RootState } from '../../../state/store';
+import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 
 const ShiftSignup = () => {
   const [redirectToDocusign, setRedirectToDocusign] = useState(false);
 
-  const { email } = useParams();
-  const getVolunteerQuery = useGetVolunteerQuery(email || '');
-  const volunteer = getVolunteerQuery.data;
-
-  const getUserQuery = useGetUserQuery();
-  const user = getUserQuery.data;
+  const { volunteer } = useSelector((state: RootState) => ({
+    volunteer: state.volunteer.volunteer,
+  }));
 
   const getUserInfoQuery = useGetUserInfoQuery();
   const userInfo = getUserInfoQuery.data;
@@ -27,27 +21,27 @@ const ShiftSignup = () => {
   const docusignLink = useRef('');
 
   useEffect(() => {
-    if (!getVolunteerQuery.isFetching) {
-      if (!volunteer && !user) {
+    if (!getUserInfoQuery.isFetching) {
+      if (!volunteer && !userInfo) {
         navigate('../signin');
-      } else if (!volunteer?.ckKitchenAgreement && email) {
+      } else if (volunteer && volunteer.ckKitchenStatus !== 'Active') {
         setRedirectToDocusign(true);
-        docusignLink.current = '../docusign/sign/CKK/' + email;
+        docusignLink.current = '../docusign/sign/CKK/' + volunteer.id;
       } else if (userInfo?.ckKitchenStatus !== 'Active') {
         docusignLink.current = '../docusign/sign/CKK';
       }
     }
-  }, [user, getVolunteerQuery, volunteer, navigate, userInfo, email]);
+  }, [volunteer, navigate, getUserInfoQuery.isFetching, userInfo]);
 
   const renderSignup = () => {
     return (
       <>
         <div className="volunteers-shift-signup-links">
-          <NavLink to="list" className={navLink}>
-            List View
+          <NavLink className={navLink} to="list">
+            List
           </NavLink>
-          <NavLink to="calendar" className={navLink}>
-            Calendar View
+          <NavLink className={navLink} to="calendar">
+            Calendar
           </NavLink>
         </div>
         <Outlet />
@@ -55,15 +49,10 @@ const ShiftSignup = () => {
     );
   };
 
-  const isLoading = getUserQuery.isLoading || getVolunteerQuery.isFetching;
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
   if (redirectToDocusign) {
     return (
       <div>
+        <h3>CK Kitchen Waiver</h3>
         <p>
           Before you can sign up to volunteer in the CK Kitchen, you'll need to
           sign an agreement.

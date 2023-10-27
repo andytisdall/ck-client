@@ -1,12 +1,15 @@
 import { Outlet, Link } from 'react-router-dom';
 import { useGetUserQuery, useSignOutMutation } from '../state/apis/authApi';
+import { useState } from 'react';
 
+import ConnectGoogle from './user/ConnectGoogle';
 import Loading from './reusable/loading/Loading';
 import SignIn from './auth/SignIn';
 import GoogleSignIn from './auth/GoogleSignIn';
 import './Header.css';
 
 const Header = () => {
+  const [showGoogleSignin, setShowGoogleSignin] = useState(false);
   const { data, isFetching } = useGetUserQuery();
   const [signOut] = useSignOutMutation();
 
@@ -18,6 +21,17 @@ const Header = () => {
           <Link to="/user" className="user-link">
             {data?.username}
           </Link>
+          {!data?.googleId &&
+            (showGoogleSignin ? (
+              <ConnectGoogle />
+            ) : (
+              <div
+                onClick={() => setShowGoogleSignin(true)}
+                className="retro-link forgot-password"
+              >
+                Connect your Google account
+              </div>
+            ))}
         </div>
       </>
     );
@@ -31,8 +45,8 @@ const Header = () => {
           <p className="header-auth-text">OR</p>
           <div>
             <GoogleSignIn />
-            <Link to="/forgot-password" className="user-link small">
-              Forgot Password?
+            <Link to="/forgot-password">
+              <div className="forgot-password">Forgot Password?</div>
             </Link>
           </div>
         </div>

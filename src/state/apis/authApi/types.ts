@@ -4,6 +4,7 @@ export interface User {
   active: boolean;
   salesforceId: string;
   id: string;
+  googleId?: string;
 }
 
 export type UsersState = Record<string, User>;

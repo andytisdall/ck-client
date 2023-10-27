@@ -130,11 +130,18 @@ export interface Volunteer {
   id: string;
   portalUsername?: string;
   firstName?: string;
-  ckKitchenAgreement?: boolean;
+  ckKitchenStatus?: string;
 }
 
 export interface CreateVolunteerArgs {
   email: string;
   firstName: string;
   lastName: string;
+}
+
+export interface CreateVolunteerResponse {
+  name: string;
+  id: string;
+  email: string;
+  householdId: string;
 }

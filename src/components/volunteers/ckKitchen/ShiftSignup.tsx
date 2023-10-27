@@ -1,25 +1,27 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '../../../state/store';
 import {
   useGetKitchenShiftsQuery,
   useSignUpForVolunteerShiftMutation,
-  useGetVolunteerQuery,
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
 
 const ShiftSignup = () => {
   const navigate = useNavigate();
-  const { shiftId, email } = useParams();
+  const { shiftId } = useParams();
 
   const [signUpForVolunteerShift, signUpForVolunteerShiftResult] =
     useSignUpForVolunteerShiftMutation();
 
   const kitchenShiftsQuery = useGetKitchenShiftsQuery();
 
-  const getVolunteerQuery = useGetVolunteerQuery(email || '');
-  const volunteer = getVolunteerQuery.data;
+  const { volunteer } = useSelector((state: RootState) => ({
+    volunteer: state.volunteer.volunteer,
+  }));
 
   const shifts = kitchenShiftsQuery.data?.shifts;
   const jobs = kitchenShiftsQuery.data?.jobs;
@@ -31,10 +33,7 @@ const ShiftSignup = () => {
   const user = getUserQuery.data;
 
   const isLoading =
-    signUpForVolunteerShiftResult.isLoading ||
-    kitchenShiftsQuery.isLoading ||
-    getVolunteerQuery.isLoading;
-
+    signUpForVolunteerShiftResult.isLoading || kitchenShiftsQuery.isLoading;
   if (isLoading) {
     return <Loading />;
   }

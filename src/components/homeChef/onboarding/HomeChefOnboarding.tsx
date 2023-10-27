@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 import TextButton from '../../reusable/TextButton';
@@ -13,17 +13,28 @@ export const slidesDescription =
   'Peruse the information presented at the Home Chef orientation';
 
 const HomeChefOnboarding = () => {
-  const navigate = useNavigate();
-
   const userInfo = useGetUserInfoQuery().data;
 
-  if (userInfo?.homeChefStatus === 'Active') {
-    navigate('/home-chef');
-  }
+  const renderActive = () => {
+    if (userInfo?.homeChefStatus === 'Active') {
+      return (
+        <div className="home-chef-status">
+          <p>
+            You are done with the onboarding process and may sign up for Town
+            Fridge deliveries.
+          </p>
+          <Link to="..">
+            <button>Home Chef Home</button>
+          </Link>
+        </div>
+      );
+    }
+  };
 
   return (
     <div>
       <h2>Home Chef Onboarding</h2>
+      {renderActive()}
       <div>
         <TextButton
           to="documents"

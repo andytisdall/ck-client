@@ -69,6 +69,7 @@ const Survey = () => {
         <input
           id="location"
           type="text"
+          maxLength={100}
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />

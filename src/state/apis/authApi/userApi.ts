@@ -11,7 +11,7 @@ import {
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<User, void>({
+    getUser: builder.query<User | null, void>({
       query: () => 'user',
       providesTags: ['User'],
     }),
@@ -27,7 +27,7 @@ export const userApi = api.injectEndpoints({
         body,
         method: 'PATCH',
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['User', 'UserInfo'],
     }),
 
     getAllUsers: builder.query<UsersState, void>({
@@ -61,6 +61,7 @@ export const userApi = api.injectEndpoints({
         body: { credential },
         method: 'POST',
       }),
+      invalidatesTags: ['User'],
     }),
 
     forgotPassword: builder.mutation<null, string>({

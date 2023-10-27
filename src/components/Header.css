@@ -63,7 +63,9 @@
   width: 80%;
 }
 
-.small {
+.forgot-password {
   font-size: .7rem;
+  color: white;
+  margin-top: 3vh;
   text-align: right;
 }
