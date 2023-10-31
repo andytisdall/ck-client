@@ -42,5 +42,7 @@ export const api = createApi({
     'CkKitchenHours',
     'EventHours',
     'Volunteer',
+    'HomeChefShifts',
+    'CkKitchenShifts',
   ],
 });

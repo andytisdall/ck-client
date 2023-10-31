@@ -29,7 +29,7 @@ const KitchenList = () => {
 
   const bookedJobs = hours
     ? Object.values(hours)
-        .filter((h) => h.status !== 'Canceled')
+        .filter((h) => h.status === 'Confirmed')
         .map((h) => h.shift)
     : [];
 
@@ -43,7 +43,7 @@ const KitchenList = () => {
             <h5>Available Times:</h5>
             <div>
               {Object.values(shifts)
-                .filter((sh) => sh.open && sh.job === job.id)
+                .filter((sh) => sh.job === job.id)
                 .map((shift) => {
                   const dateDisplay = format(
                     utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
@@ -74,13 +74,17 @@ const KitchenList = () => {
                         linkUrl = `../../signup-confirm/${bookedHours.id}`;
                       }
                     }
-                  } else {
+                  } else if (shift.open) {
                     linkUrl = `../shift/${shift.id}`;
                   }
 
+                  const unavailable = !shift.open
+                    ? 'volunteers-unavailable'
+                    : '';
+
                   return (
                     <Link key={shift.id} to={linkUrl}>
-                      <div className="volunteers-shift">
+                      <div className={`volunteers-shift ${unavailable}`}>
                         &bull;
                         <div className="volunteers-shift-date">
                           {dateDisplay}

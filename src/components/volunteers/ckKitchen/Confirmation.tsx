@@ -1,17 +1,22 @@
 import { Link, useParams } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { useDispatch } from 'react-redux';
 
 import Loading from '../../reusable/loading/Loading';
 import {
   useGetKitchenHoursQuery,
   useGetKitchenShiftsQuery,
+  useCancelKitchenShiftMutation,
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 
 const Confirmation = () => {
   const { hoursId, contactId } = useParams();
 
   const { data: user } = useGetUserQuery();
+
+  const [cancelShift, { isLoading }] = useCancelKitchenShiftMutation();
 
   const getHoursQuery = useGetKitchenHoursQuery(
     contactId || user?.salesforceId
@@ -23,13 +28,31 @@ const Confirmation = () => {
 
   const hour = hours && hoursId ? hours[hoursId] : null;
 
+  const canceled = hour?.status === 'Canceled';
+
+  const dispatch = useDispatch();
+
+  const onCancel = () => {
+    if (hoursId) {
+      cancelShift(hoursId)
+        .unwrap()
+        .then(() =>
+          dispatch(setAlert('You have canceled your volunteer shift'))
+        );
+    }
+  };
+
+  const message = !canceled
+    ? 'You have successfully signed up for this shift:'
+    : 'This shift is canceled';
+
   const renderShiftDetails = () => {
     if (jobs && hour) {
       const job = jobs.find((j) => j.id === hour.job);
 
       return (
         <div className="hc-confirm-details">
-          <p>You have successfully signed up for this shift:</p>
+          <p className={canceled ? 'required' : ''}>{message}</p>
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>{' '}
@@ -50,7 +73,9 @@ const Confirmation = () => {
               {job?.description}
             </li>
           </ul>
-          <p>You have been sent an email with this information.</p>
+          {!canceled && (
+            <p>You have been sent an email with this information.</p>
+          )}
         </div>
       );
     } else {
@@ -58,6 +83,19 @@ const Confirmation = () => {
         <div className="hc-confirm-details">
           Could not find the details of this shift.
         </div>
+      );
+    }
+  };
+
+  const renderCancelButton = () => {
+    if (isLoading) {
+      return <Loading />;
+    }
+    if (!canceled) {
+      return (
+        <button onClick={onCancel} className="cancel">
+          Cancel Your Booked Volunteer Time
+        </button>
       );
     }
   };
@@ -73,6 +111,7 @@ const Confirmation = () => {
       <Link to="/volunteers">
         <button className="hc-confirm-button">Volunteers Home</button>
       </Link>
+      {renderCancelButton()}
     </div>
   );
 };

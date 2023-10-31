@@ -1,11 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
 
 import { RootState } from '../../../state/store';
 import {
   useGetKitchenShiftsQuery,
   useSignUpForVolunteerShiftMutation,
+  useGetKitchenHoursQuery,
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
@@ -31,6 +33,30 @@ const ShiftSignup = () => {
 
   const getUserQuery = useGetUserQuery();
   const user = getUserQuery.data;
+
+  const getKitchenHoursQuery = useGetKitchenHoursQuery(
+    volunteer?.id || user?.salesforceId
+  );
+  const hours = getKitchenHoursQuery.data;
+
+  const bookedJobs = useMemo(() => {
+    return hours
+      ? Object.values(hours)
+          .filter((h) => h.status === 'Confirmed')
+          .map((h) => h.shift)
+      : [];
+  }, [hours]);
+
+  useEffect(() => {
+    if (hours && shiftId && bookedJobs.includes(shiftId)) {
+      const hour = Object.values(hours).find(
+        (h) => h.shift === shiftId && h.status === 'Confirmed'
+      );
+      if (hour) {
+        navigate('../../signup-confirm/' + hour.id);
+      }
+    }
+  }, [hours, shiftId, navigate, bookedJobs]);
 
   const isLoading =
     signUpForVolunteerShiftResult.isLoading || kitchenShiftsQuery.isLoading;

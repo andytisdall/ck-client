@@ -115,3 +115,7 @@
 .text-small {
   font-size: .8rem;
 }
+
+.volunteers-unavailable {
+  color: grey;
+}

@@ -29,7 +29,7 @@ const volunteerApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['EventHours', 'CkKitchenHours'],
+      invalidatesTags: ['EventHours', 'CkKitchenHours', 'CkKitchenShifts'],
     }),
   }),
 });

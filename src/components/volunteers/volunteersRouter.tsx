@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { Outlet, RouteObject } from 'react-router-dom';
+import { Outlet, RouteObject, Link } from 'react-router-dom';
 
 import './Volunteers.css';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
@@ -22,7 +22,9 @@ const KitchenList = lazy(() => import('./ckKitchen/KitchenList'));
 const VolunteersBase = () => {
   return (
     <div className="main volunteers">
-      <h1 className="volunteers-main-header">CK Volunteers</h1>
+      <Link to="/volunteers">
+        <h1 className="volunteers-main-header">CK Volunteers</h1>
+      </Link>
       <div className="volunteers-body">
         {' '}
         <Outlet />

@@ -35,7 +35,9 @@ export const ckKitchenApi = api.injectEndpoints({
           shifts: _.mapKeys(response.shifts, 'id'),
         };
       },
+      providesTags: ['CkKitchenShifts'],
     }),
+
     getKitchenHours: builder.query<VolunteerHoursState, string | undefined>({
       transformResponse: (response: VolunteerHours[]) =>
         _.mapKeys(response, 'id'),
@@ -48,6 +50,14 @@ export const ckKitchenApi = api.injectEndpoints({
       },
       providesTags: ['CkKitchenHours'],
     }),
+
+    cancelKitchenShift: builder.mutation<null, string>({
+      query: (id) => ({
+        url: '/volunteers/hours/' + id,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['CkKitchenHours'],
+    }),
   }),
 });
 
@@ -56,4 +66,5 @@ export const {
   useCreateVolunteerMutation,
   useGetKitchenShiftsQuery,
   useGetKitchenHoursQuery,
+  useCancelKitchenShiftMutation,
 } = ckKitchenApi;

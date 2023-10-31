@@ -35,6 +35,7 @@ export const homeChefApi = api.injectEndpoints({
         shifts: _.mapKeys(response.shifts, 'id'),
         jobs: response.jobs,
       }),
+      providesTags: ['HomeChefShifts'],
     }),
     signUpForHomeChefShift: builder.mutation<
       VolunteerHours,
@@ -45,7 +46,7 @@ export const homeChefApi = api.injectEndpoints({
         body,
         method: 'POST',
       }),
-      invalidatesTags: ['HomeChefHours'],
+      invalidatesTags: ['HomeChefHours', 'HomeChefShifts'],
     }),
     getHomeChefHours: builder.query<VolunteerHoursState, void>({
       query: () => '/home-chef/hours',

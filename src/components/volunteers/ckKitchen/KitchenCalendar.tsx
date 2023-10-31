@@ -34,7 +34,7 @@ const KitchenCalendar = () => {
 
   const bookedJobs = hours
     ? Object.values(hours)
-        .filter((h) => h.status !== 'Canceled')
+        .filter((h) => h.status === 'Confirmed')
         .map((h) => h.shift)
     : [];
 
