@@ -9,3 +9,7 @@ export const getMealProgramSchedule = () => async (dispatch, getState) => {
   const { data } = await server.get('/meal-program/schedule' + endpoint);
   dispatch({ type: GET_MEAL_PROGRAM_SCHEDULE, payload: data });
 };
+
+export const deleteMay = () => async () => {
+  await server.delete('/meal-program/schedule-may');
+};
