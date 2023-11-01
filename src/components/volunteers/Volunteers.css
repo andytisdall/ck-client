@@ -118,4 +118,9 @@
 
 .volunteers-unavailable {
   color: grey;
+  cursor:auto
+}
+
+.volunteers-unavailable:hover {
+  background-color: transparent;
 }

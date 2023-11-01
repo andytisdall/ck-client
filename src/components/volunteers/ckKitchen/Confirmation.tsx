@@ -34,7 +34,7 @@ const Confirmation = () => {
 
   const onCancel = () => {
     if (hoursId) {
-      cancelShift(hoursId)
+      cancelShift({ hoursId, contactId: contactId || user?.salesforceId })
         .unwrap()
         .then(() =>
           dispatch(setAlert('You have canceled your volunteer shift'))

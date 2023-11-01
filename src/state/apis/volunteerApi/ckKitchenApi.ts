@@ -9,6 +9,7 @@ import {
   VolunteerHoursState,
   VolunteerHours,
   CreateVolunteerResponse,
+  CancelKitchenHoursArgs,
 } from './types';
 
 export const ckKitchenApi = api.injectEndpoints({
@@ -51,11 +52,14 @@ export const ckKitchenApi = api.injectEndpoints({
       providesTags: ['CkKitchenHours'],
     }),
 
-    cancelKitchenShift: builder.mutation<null, string>({
-      query: (id) => ({
-        url: '/volunteers/hours/' + id,
-        method: 'DELETE',
-      }),
+    cancelKitchenShift: builder.mutation<null, CancelKitchenHoursArgs>({
+      query: (body) => {
+        let url = '/volunteers/hours/' + body.hoursId;
+        if (body.contactId) {
+          url = url + '/' + body.contactId;
+        }
+        return { url, method: 'DELETE' };
+      },
       invalidatesTags: ['CkKitchenHours'],
     }),
   }),

@@ -145,3 +145,8 @@ export interface CreateVolunteerResponse {
   email: string;
   householdId: string;
 }
+
+export interface CancelKitchenHoursArgs {
+  hoursId: string;
+  contactId?: string;
+}
