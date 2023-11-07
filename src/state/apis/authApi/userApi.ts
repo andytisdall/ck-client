@@ -27,7 +27,7 @@ export const userApi = api.injectEndpoints({
         body,
         method: 'PATCH',
       }),
-      invalidatesTags: ['User', 'UserInfo'],
+      invalidatesTags: ['User', 'UserInfo', 'AllUsers'],
     }),
 
     getAllUsers: builder.query<UsersState, void>({

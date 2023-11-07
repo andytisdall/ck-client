@@ -31,7 +31,7 @@ const ShiftSignup = () => {
         docusignLink.current = '../docusign/sign/CKK';
       }
     }
-  }, [volunteer, navigate, getUserInfoQuery.isFetching, userInfo]);
+  }, [volunteer, navigate, getUserInfoQuery, userInfo]);
 
   const renderSignup = () => {
     return (

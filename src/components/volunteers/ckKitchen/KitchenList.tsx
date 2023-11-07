@@ -27,11 +27,7 @@ const KitchenList = () => {
   );
   const hours = getKitchenHoursQuery.data;
 
-  const bookedJobs = hours
-    ? Object.values(hours)
-        .filter((h) => h.status === 'Confirmed')
-        .map((h) => h.shift)
-    : [];
+  const bookedJobs = hours ? Object.values(hours).map((h) => h.shift) : [];
 
   const renderJobs = () => {
     if (jobs && shifts) {

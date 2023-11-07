@@ -1,11 +1,17 @@
 import TextButton from '../../reusable/TextButton';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state/store';
 
 const KitchenHome = () => {
   const { data, isLoading } = useGetUserQuery();
 
-  const link = data ? 'signup' : 'signin';
+  const { volunteer } = useSelector((state: RootState) => ({
+    volunteer: state.volunteer.volunteer,
+  }));
+
+  const link = data || volunteer ? 'signup/list' : 'signin';
 
   if (isLoading) {
     return <Loading />;

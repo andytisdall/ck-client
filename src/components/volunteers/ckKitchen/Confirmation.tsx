@@ -52,7 +52,7 @@ const Confirmation = () => {
 
       return (
         <div className="hc-confirm-details">
-          <p className={canceled ? 'required' : ''}>{message}</p>
+          <p className={canceled ? 'cancel-text' : ''}>{message}</p>
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>{' '}
@@ -108,7 +108,7 @@ const Confirmation = () => {
       ) : (
         renderShiftDetails()
       )}
-      <Link to="/volunteers">
+      <Link to="/volunteers/ck-kitchen">
         <button className="hc-confirm-button">Volunteers Home</button>
       </Link>
       {renderCancelButton()}
