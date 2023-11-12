@@ -7,7 +7,7 @@ const ckKitchenDescription = 'Sign up to help out in the CK Kitchen.';
 
 const VolunteersHome = () => {
   return (
-    <div>
+    <div className="volunteers-home">
       <TextButton
         to="../home-chef"
         descriptionText={homeChefDescription}
@@ -17,6 +17,12 @@ const VolunteersHome = () => {
         to="ck-kitchen"
         descriptionText={ckKitchenDescription}
         buttonText="CK Kitchen Volunteers"
+      />
+
+      <img
+        src="/images/volunteers/volunteer-group.jpg"
+        alt="A group of CK Kitchen volunteers"
+        className="volunteers-home-img"
       />
     </div>
   );

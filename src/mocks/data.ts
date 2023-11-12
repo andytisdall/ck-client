@@ -116,3 +116,23 @@ export const jobs: GetShiftsResponse = {
 export const homeChefHoursResponse = [hours1];
 
 export const userResponse = [user1];
+
+export const volunteer1 = {
+  id: '0037400000FU7XrAAL',
+  householdId: '0017400000IG2QzAAL',
+  portalUsername: null,
+  firstName: 'Andrew',
+  name: 'Andrew Tisdall',
+  lastName: 'Tisdall',
+  ckKitchenStatus: 'Active',
+};
+
+export const volunteer2 = {
+  id: '0037400000FU7XrAAL',
+  householdId: '0017400000IG2QzAAL',
+  portalUsername: null,
+  firstName: 'Andrew',
+  name: 'Andrew Tisdall',
+  lastName: 'Tisdall',
+  ckKitchenStatus: undefined,
+};

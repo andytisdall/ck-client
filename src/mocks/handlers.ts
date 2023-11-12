@@ -41,4 +41,20 @@ export const handlers = [
   rest.get(BASE + '/api/volunteers/events', (req, res, ctx) => {
     return res(ctx.json([]));
   }),
+
+  rest.get(BASE + '/api/volunteers/:email', (req, res, ctx) => {
+    const email = req.params.email;
+    console.log(req);
+    if (email === 'andrew.tisdall@gmail.com') {
+      return res(ctx.json(data.volunteer1));
+    }
+    if (email === 'something@something.com') {
+      return res(ctx.json(data.volunteer2));
+    }
+    return res(ctx.json(null));
+  }),
+
+  rest.post(BASE + '/api/volunteers', (req, res, ctx) => {
+    return res(ctx.json({ email: 'andrew.tisdall@gmail.com' }));
+  }),
 ];

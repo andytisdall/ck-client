@@ -2,6 +2,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
+import '../Volunteers.css';
 import { navLink } from '../../../utils/style';
 import { RootState } from '../../../state/store';
 import { useGetUserInfoQuery } from '../../../state/apis/authApi';
@@ -43,6 +44,23 @@ const ShiftSignup = () => {
           <NavLink className={navLink} to="calendar">
             Calendar
           </NavLink>
+        </div>
+        <div className="volunteers-kitchen-signup-photos">
+          <img
+            src="/images/volunteers/cookies-1.jpg"
+            alt="Sandwiches going out"
+            className="volunteers-kitchen-signup-photo"
+          />
+          <img
+            src="/images/volunteers/wraps.jpeg"
+            alt=""
+            className="volunteers-kitchen-signup-photo"
+          />
+          <img
+            src="/images/volunteers/sandwiches.jpeg"
+            alt=""
+            className="volunteers-kitchen-signup-photo"
+          />
         </div>
         <Outlet />
       </>

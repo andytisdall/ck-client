@@ -47,7 +47,7 @@ const GetVolunteer = () => {
         .then((vol) =>
           getVolunteer(vol.email)
             .unwrap()
-            .then((v) => {
+            .then(() => {
               navigate('../signup/list');
             })
         );
@@ -88,7 +88,7 @@ const GetVolunteer = () => {
         {getVolunteerResult.isLoading || createVolunteerResult.isLoading ? (
           <Loading />
         ) : (
-          <input type="submit" />
+          <input type="submit" value="Submit" />
         )}
       </form>
     </div>

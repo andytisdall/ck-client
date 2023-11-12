@@ -17,7 +17,13 @@ const KitchenHome = () => {
     return <Loading />;
   }
   return (
-    <div>
+    <div className="volunteers-kitchen-home">
+      <h1 className="volunteers-kitchen-home-header">CK Kitchen</h1>
+      <img
+        src="/images/volunteers/sandwich-prep.jpeg"
+        alt="CK Kitchen volunteers preparing sandwiches"
+        className="volunteers-kitchen-home-photo"
+      />
       <TextButton
         descriptionText="Check out when you can volunteer in the CK Kitchen, and sign up online."
         buttonText="Sign Up to Volunteer"
