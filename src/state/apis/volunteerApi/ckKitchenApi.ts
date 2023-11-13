@@ -60,7 +60,7 @@ export const ckKitchenApi = api.injectEndpoints({
         }
         return { url, method: 'DELETE' };
       },
-      invalidatesTags: ['CkKitchenHours'],
+      invalidatesTags: ['CkKitchenHours', 'CkKitchenShifts'],
     }),
   }),
 });

@@ -68,7 +68,9 @@ const KitchenCalendar = () => {
         const jobBooked = bookedJobs.includes(sh.id);
         let bookedHours: VolunteerHours | undefined;
         if (jobBooked && hours) {
-          bookedHours = Object.values(hours).find((h) => h.shift === sh.id);
+          bookedHours = Object.values(hours).find(
+            (h) => h.shift === sh.id && h.status === 'Confirmed'
+          );
         }
         const shiftStatus = !sh.open ? 'calendar-shift-disabled' : '';
 

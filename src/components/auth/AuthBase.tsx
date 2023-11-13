@@ -15,7 +15,7 @@ const AuthBase = () => {
 
   const showUser = () => {
     return (
-      <>
+      <div className="header-auth">
         <button onClick={() => signOut()}>Sign Out</button>
         <div>
           <Link to="/user" className="user-link">
@@ -33,7 +33,7 @@ const AuthBase = () => {
               </div>
             ))}
         </div>
-      </>
+      </div>
     );
   };
 

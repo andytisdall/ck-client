@@ -1,11 +1,13 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 
 const KitchenBase = () => {
   return (
     <div>
-      <h1 className="volunteers-main-header volunteers-kitchen-header">
-        CK Kitchen
-      </h1>
+      <Link to="/volunteers/ck-kitchen">
+        <h1 className="volunteers-main-header volunteers-kitchen-header">
+          CK Kitchen
+        </h1>
+      </Link>
       <Outlet />
     </div>
   );
