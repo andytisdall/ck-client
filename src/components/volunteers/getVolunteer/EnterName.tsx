@@ -10,7 +10,7 @@ const EnterName = ({
   setLastName: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   return (
-    <div>
+    <div className="volunteers-signin-field">
       <h4>
         Please enter your name for our records (in the future you'll only need
         to enter your email):

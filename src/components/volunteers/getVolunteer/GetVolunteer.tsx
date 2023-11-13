@@ -56,7 +56,7 @@ const GetVolunteer = () => {
 
   const displayEmail = () => {
     return (
-      <div className="volunteers-email-display">
+      <div className="volunteers-email-display volunteers-signin-field">
         <h4>Email:</h4>
         <p>{email}</p>
         <p
@@ -70,7 +70,11 @@ const GetVolunteer = () => {
   };
 
   return (
-    <div>
+    <div className="volunteers-signin">
+      <h2>
+        Thanks for signing up to volunteer! Please enter your information so we
+        can sign you up.
+      </h2>
       <form onSubmit={handleSubmit}>
         {showNameFields ? (
           <>

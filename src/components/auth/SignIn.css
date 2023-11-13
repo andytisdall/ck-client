@@ -1,6 +1,6 @@
 .signin {
   display: flex;
-  align-items: flex-end;
+  /* flex-wrap: wrap; */
 }
 
 .signin-title {

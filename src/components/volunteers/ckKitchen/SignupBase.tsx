@@ -36,7 +36,7 @@ const ShiftSignup = () => {
 
   const renderSignup = () => {
     return (
-      <>
+      <div className="volunteers-body">
         <div className="volunteers-shift-signup-links">
           <NavLink className={navLink} to="list">
             List
@@ -63,7 +63,7 @@ const ShiftSignup = () => {
           />
         </div>
         <Outlet />
-      </>
+      </div>
     );
   };
 

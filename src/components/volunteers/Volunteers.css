@@ -8,14 +8,14 @@
 }
 
 .volunteers-main-header {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   margin: 0;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
-  color: rgb(8, 29, 188);
-  letter-spacing: 9px;
+  color: rgb(5, 17, 60);
+  letter-spacing: 7px;
   border-bottom: 2px solid rgb(85, 85, 85);
   width: fit-content;
-  text-shadow: rgb(0, 128, 175) -3px 2px 2px;
+  text-shadow: rgb(0, 128, 175) -2px 1px 2px;
 }
 
 .volunteers-header {
@@ -73,6 +73,7 @@
 .volunteers-shift-detail {
   border: 1px solid black;
   padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .volunteers-shift-space {
@@ -133,10 +134,11 @@
 }
 
 .volunteers-kitchen-home-photo {
-  padding-bottom: 1rem;
-  align-self: center;
-  width: 100%;
+  width: 85%;
   max-width: 600px;
+  padding: 1.5rem;
+  background-color: rgba(240, 240, 240, 0.4);
+  margin-bottom: 1rem;
 }
 
 .volunteers-kitchen-signup-photos {
@@ -164,10 +166,18 @@
   flex-direction: column;
 }
 
-.volunteers-kitchen-home-header {
-  text-align: center;
-  font-size: 4rem;
-  margin: 1rem;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+.volunteers-kitchen-header {
   color: purple;
+  font-size: 2rem;
+}
+
+.volunteers-signin {
+  padding: 1rem;
+}
+
+.volunteers-signin-field {
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 1rem;
+  padding: 1rem;
+  width: fit-content;
 }

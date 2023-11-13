@@ -6,8 +6,8 @@ const EnterEmail = ({
   setEmail: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   return (
-    <div>
-      <h3>Please enter your email to sign up to volunteer.</h3>
+    <div className="volunteers-signin-field">
+      <h3>Enter your email</h3>
       <label htmlFor="email">Email:</label>
       <input
         className="volunteers-email-field"

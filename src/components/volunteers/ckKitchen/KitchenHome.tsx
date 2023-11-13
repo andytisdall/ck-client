@@ -17,8 +17,7 @@ const KitchenHome = () => {
     return <Loading />;
   }
   return (
-    <div className="volunteers-kitchen-home">
-      <h1 className="volunteers-kitchen-home-header">CK Kitchen</h1>
+    <div className="volunteers-kitchen-home volunteers-body">
       <img
         src="/images/volunteers/sandwich-prep.jpeg"
         alt="CK Kitchen volunteers preparing sandwiches"

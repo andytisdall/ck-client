@@ -18,6 +18,7 @@ const DocusignSuccess = lazy(
 );
 const KitchenCalendar = lazy(() => import('./ckKitchen/KitchenCalendar'));
 const KitchenList = lazy(() => import('./ckKitchen/KitchenList'));
+const KitchenBase = lazy(() => import('./ckKitchen/KitchenBase'));
 
 const VolunteersBase = () => {
   return (
@@ -25,10 +26,7 @@ const VolunteersBase = () => {
       <Link to="/volunteers">
         <h1 className="volunteers-main-header">CK Volunteers</h1>
       </Link>
-      <div className="volunteers-body">
-        {' '}
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 };
@@ -40,6 +38,7 @@ const volunteersRouter: RouteObject = {
     { index: true, element: renderWithFallback(<VolunteersHome />) },
     {
       path: 'ck-kitchen',
+      element: renderWithFallback(<KitchenBase />),
       children: [
         { index: true, element: renderWithFallback(<KitchenHome />) },
         {

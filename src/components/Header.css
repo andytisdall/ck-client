@@ -1,22 +1,14 @@
 .header {
+  background-color: rgb(106, 106, 106);
+  padding: .5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(106, 106, 106);
-  padding: .5rem 2rem;
   flex-wrap: wrap;
 }
 
-.header-left {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-}
-
 .header-right {
-  box-sizing: border-box;
   display: flex;
-  align-items: center;
 }
 
 .header-logo {
@@ -26,8 +18,27 @@
 
 .header-auth {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
+  padding: 1rem;
+  margin-right: 4rem;
+}
+
+.burger-menu-img {
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: .3s all;
+  padding: 1rem;
+  border-radius: 100px;
+}
+
+.burger-menu-img:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .header-auth-text {
@@ -69,3 +80,4 @@
   margin-top: 3vh;
   text-align: right;
 }
+

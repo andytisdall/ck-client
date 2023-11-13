@@ -29,32 +29,30 @@ const SignIn = () => {
   }
 
   return (
-    <div className="signin">
-      <form onSubmit={handleSubmit}>
-        <div className="signin-button">
-          <div className="signin-title">Sign In</div>
-          <input type="submit" value="Submit" />
-        </div>
-        <div className="signin-fields">
-          <input
-            name="username"
-            className="input"
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            name="password"
-            className="input"
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-      </form>
-    </div>
+    <form className="signin" onSubmit={handleSubmit}>
+      <div className="signin-button">
+        <div className="signin-title">Sign In</div>
+        <input type="submit" value="Submit" />
+      </div>
+      <div className="signin-fields">
+        <input
+          name="username"
+          className="input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          name="password"
+          className="input"
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+    </form>
   );
 };
 
