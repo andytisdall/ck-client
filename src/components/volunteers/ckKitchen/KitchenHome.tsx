@@ -21,7 +21,7 @@ const KitchenHome = () => {
       <img
         src="/images/volunteers/sandwich-prep.jpeg"
         alt="CK Kitchen volunteers preparing sandwiches"
-        className="volunteers-kitchen-home-photo"
+        className="volunteers-kitchen-home-photo volunteers-photo-frame"
       />
       <TextButton
         descriptionText="Check out when you can volunteer in the CK Kitchen, and sign up online."

@@ -96,7 +96,7 @@ const KitchenCalendar = () => {
           >
             <div>{job?.name}</div>
             <div className="volunteers-calendar-spots">
-              {sh.slots} Spots Remaining
+              {sh.slots} Spots Left
             </div>
             {jobBooked && (
               <div className="volunteers-calendar-checkmark">

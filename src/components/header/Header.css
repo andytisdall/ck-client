@@ -7,8 +7,13 @@
   flex-wrap: wrap;
 }
 
-.header-right {
-  display: flex;
+.header-extended {
+  /* width: 100%; */
+  border: 1px blue solid;
+}
+
+.hidden {
+  display: none;
 }
 
 .header-logo {
@@ -38,7 +43,7 @@
 }
 
 .burger-menu-img:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.242);
 }
 
 .header-auth-text {

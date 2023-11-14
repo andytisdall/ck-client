@@ -49,17 +49,17 @@ const ShiftSignup = () => {
           <img
             src="/images/volunteers/cookies-1.jpg"
             alt="Sandwiches going out"
-            className="volunteers-kitchen-signup-photo"
+            className="volunteers-kitchen-signup-photo volunteers-photo-frame"
           />
           <img
             src="/images/volunteers/wraps.jpeg"
             alt=""
-            className="volunteers-kitchen-signup-photo"
+            className="volunteers-kitchen-signup-photo volunteers-photo-frame"
           />
           <img
             src="/images/volunteers/sandwiches.jpeg"
             alt=""
-            className="volunteers-kitchen-signup-photo"
+            className="volunteers-kitchen-signup-photo volunteers-photo-frame"
           />
         </div>
         <Outlet />

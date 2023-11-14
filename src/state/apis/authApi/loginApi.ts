@@ -13,7 +13,7 @@ export const loginApi = api.injectEndpoints({
         localStorage.setItem('ck-token', response.token);
         return response.user;
       },
-      invalidatesTags: ['User', 'UserInfo', 'Volunteer'],
+      invalidatesTags: ['User', 'UserInfo', 'Volunteer', 'Restaurant'],
     }),
 
     signOut: builder.mutation<null, void>({

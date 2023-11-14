@@ -2,8 +2,8 @@ import { FormEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './SignIn.css';
-import Loading from '../reusable/loading/Loading';
-import { useSignInMutation } from '../../state/apis/authApi';
+import Loading from '../../reusable/loading/Loading';
+import { useSignInMutation } from '../../../state/apis/authApi';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');

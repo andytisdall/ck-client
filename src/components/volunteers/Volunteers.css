@@ -4,7 +4,6 @@
 
 .volunteers-body {
   margin-top: 1rem;
-  padding: 0 1rem;
 }
 
 .volunteers-main-header {
@@ -22,6 +21,7 @@
   text-align: center;
   font-size: 2rem;
 }
+
 
 .volunteers-job {
   border: 1px solid black;
@@ -41,8 +41,9 @@
 
 .volunteers-shift {
   font-size: 1rem;
-  margin-bottom: 1rem;
-  padding: .5rem;
+  padding: 1rem;
+
+
   color: black;
   font-size: 1rem;
   font-weight: 500;
@@ -50,9 +51,10 @@
   align-items: center;
   flex-wrap: wrap;
   transition: all .3s;
+  border-top: grey 1px solid;
 }
 
-.volunteers-shift:hover {
+.volunteers-shift:hover .volunteers-shift:active {
   background-color: rgba(240, 248, 255, 0.346);
 }
 
@@ -89,16 +91,16 @@
 }
 
 .volunteers-calendar-checkmark {
-  font-size: .8rem;
+  font-size: 1.8vw;
   color: rgb(179, 255, 179);
   background-color: rgba(94, 94, 94, 0.634);
   padding: 5px;
-  margin: 3px;
   width: fit-content;
+  margin-top: 1vw;
 }
 
 .volunteers-calendar-spots {
-  font-size: .8rem;
+  font-size: 2.5vw;
   margin-top: 3px;
 }
 
@@ -133,11 +135,14 @@
   flex-direction: column;
 }
 
+.volunteers-photo-frame {
+  padding: 1.5rem;
+  background-color: rgba(240, 240, 240, 0.4);
+}
+
 .volunteers-kitchen-home-photo {
   width: 85%;
   max-width: 600px;
-  padding: 1.5rem;
-  background-color: rgba(240, 240, 240, 0.4);
   margin-bottom: 1rem;
 }
 
@@ -145,13 +150,13 @@
   display: flex;
   margin-bottom: 2rem;
   justify-content: center;
+  width: 100%;
 }
 
 .volunteers-kitchen-signup-photo {
-  padding: 0 .5rem;
   height: 100%;
   object-fit: contain;
-  max-height: 300px;
+  max-height: 28vw;
 }
 
 .volunteers-home-img {
@@ -180,4 +185,20 @@
   margin: 1rem;
   padding: 1rem;
   width: fit-content;
+}
+
+@media(max-width: 600px) {
+  .volunteers-kitchen-signup-photos {
+    display: none;
+  }
+
+  .volunteers-shift{
+    flex-direction: column;
+    align-items: center;
+    border-left: grey solid 1px;
+  }
+
+  .volunteers-shift-checkmark {
+    margin: 10px;
+  }
 }

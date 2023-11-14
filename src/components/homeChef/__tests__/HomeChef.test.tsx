@@ -65,8 +65,8 @@ test('sign up with list view', async () => {
 
   userEvent.type(mealInput, '30');
 
-  const submitBtn = await screen.findAllByText('Submit');
-  userEvent.click(submitBtn[1]);
+  const submitBtn = await screen.findByText('Submit');
+  userEvent.click(submitBtn);
 
   // confirmation screen
   const confirmation = await screen.findByText(/confirmation/i);

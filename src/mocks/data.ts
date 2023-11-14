@@ -48,6 +48,20 @@ export const restaurant1: Restaurant = {
   user: user1.id,
 };
 
+export const uploadFileRes = {
+  title: 'file',
+  description: 'this is a file',
+  folder: 'folder',
+  docType: 'HC',
+};
+
+export const restaurantInfo2 = {
+  remainingDocs: [uploadFileRes],
+  completedDocs: ['W9'],
+  status: 'Active',
+  healthPermitExpired: false,
+};
+
 export const restaurantInfo1: RestaurantInfo = {
   status: 'Active',
   healthPermitExpired: false,

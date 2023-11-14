@@ -35,7 +35,7 @@ const SalesforceNotFound = lazy(
   () => import('./components/error/SalesforceNotFound')
 );
 const Home = lazy(() => import('./components/Home'));
-const Header = lazy(() => import('./components/Header'));
+const Header = lazy(() => import('./components/header/Header'));
 const PageNotFound = lazy(() => import('./components/error/PageNotFound'));
 const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('./components/user/ResetPassword'));

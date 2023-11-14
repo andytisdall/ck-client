@@ -19,24 +19,6 @@ const adminDescription =
   'An interface for CK staff to create users or restaurants for this site.';
 
 const Home = () => {
-  // useEffect(() => {
-  //   if (user && !user.lastName) {
-  //     getUserInfo();
-  //   }
-  // }, [user, getRestaurant, getUserInfo]);
-
-  // useEffect(() => {
-  //   if (!restaurant) {
-  //     getRestaurant();
-  //   }
-  // }, [getRestaurant, restaurant, user]);
-
-  // useEffect(() => {
-  //   if (restaurant && !restaurant.remainingDocs) {
-  //     getMealProgramInfo();
-  //   }
-  // }, [restaurant, getMealProgramInfo]);
-
   const restaurantQuery = useGetRestaurantQuery();
   const restaurant = restaurantQuery.data;
 
@@ -116,9 +98,5 @@ const Home = () => {
     </div>
   );
 };
-
-// const mapStateToProps = (state) => {
-//   return { user: state.user.user, restaurant: state.restaurant.restaurant };
-// };
 
 export default Home;

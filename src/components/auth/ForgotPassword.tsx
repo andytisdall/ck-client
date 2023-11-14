@@ -1,6 +1,6 @@
 import { useState, FormEventHandler } from 'react';
 
-import './SignIn.css';
+import './SignedOut/SignIn.css';
 import Loading from '../reusable//loading/Loading';
 import { useForgotPasswordMutation } from '../../state/apis/authApi';
 

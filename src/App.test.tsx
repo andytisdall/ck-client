@@ -10,6 +10,8 @@ test('sign in button if not signed in', async () => {
   render(<App />, { wrapper: Root });
   window.localStorage.removeItem('ck-token');
   // home page
+  const userMenuBtn = await screen.findByAltText('User Menu');
+  userEvent.click(userMenuBtn);
   const unauthorizedMessage = await screen.findByText(/Sign In/);
   expect(unauthorizedMessage).toBeInTheDocument();
 });
@@ -17,6 +19,8 @@ test('sign in button if not signed in', async () => {
 test('can sign in', async () => {
   render(<App />, { wrapper: Root });
   window.localStorage.removeItem('ck-token');
+  const userMenuBtn = await screen.findByAltText('User Menu');
+  userEvent.click(userMenuBtn);
 
   const userName = await screen.findByPlaceholderText('Username');
   const passwordInput = screen.getByPlaceholderText('Password');
@@ -35,6 +39,8 @@ test('can sign in', async () => {
 
 test('username if signed in', async () => {
   render(<App />, { wrapper: Root });
+  const userMenuBtn = await screen.findByAltText('User Menu');
+  userEvent.click(userMenuBtn);
   const username = await screen.findByText(user1.username);
   expect(username).toBeInTheDocument();
 });

@@ -57,4 +57,11 @@ export const handlers = [
   rest.post(BASE + '/api/volunteers', (req, res, ctx) => {
     return res(ctx.json({ email: 'andrew.tisdall@gmail.com' }));
   }),
+
+  rest.get(
+    BASE + '/api/meal-program/restaurant/meal-program-info',
+    (req, res, ctx) => {
+      return res(ctx.json(data.restaurantInfo2));
+    }
+  ),
 ];

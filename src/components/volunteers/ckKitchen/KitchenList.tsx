@@ -85,9 +85,8 @@ const KitchenList = () => {
                   return (
                     <Link key={shift.id} to={linkUrl}>
                       <div className={`volunteers-shift ${unavailable}`}>
-                        &bull;
                         <div className="volunteers-shift-date">
-                          {dateDisplay}
+                          &bull; {dateDisplay}
                         </div>
                         <div>{timeDisplay}</div>
                         <div className="volunteers-shift-space">-</div>
@@ -109,10 +108,10 @@ const KitchenList = () => {
   };
 
   return (
-    <div>
+    <>
       {isLoading && <Loading />}
       {renderJobs()}
-    </div>
+    </>
   );
 };
 

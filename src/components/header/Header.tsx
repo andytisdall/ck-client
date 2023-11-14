@@ -2,13 +2,11 @@ import { Outlet, Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import './Header.css';
-import AuthBase from './auth/AuthBase';
+import HeaderMenu from './HeaderMenu';
+import Navigation from './Navigation';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const image = menuOpen ? 'close.svg' : 'burger-menu.svg';
-
   return (
     <>
       <div className="header">
@@ -20,14 +18,9 @@ const Header = () => {
           />
         </Link>
 
-        <img
-          src={'/images/icons/' + image}
-          alt="menu"
-          className="burger-menu-img"
-          onClick={() => setMenuOpen(!menuOpen)}
-        />
-        <div className="header-right">{menuOpen && <AuthBase />}</div>
+        <HeaderMenu setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
       </div>
+      {menuOpen && <Navigation />}
 
       <main>
         <Outlet />
