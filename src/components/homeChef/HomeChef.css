@@ -57,7 +57,7 @@
 }
 
 .home-chef-total-meals {
-  background-color: rgba(167, 241, 230, 0.457);
+  background-color: rgba(255, 228, 94, 0.809);
   display: inline-block;
   border: blue 1px solid;
   border-radius: 25px;
@@ -66,6 +66,7 @@
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.3rem;
   text-align: center;
+  box-shadow: -2px 3px 5px;
 }
 
 .home-chef-home-right-col {

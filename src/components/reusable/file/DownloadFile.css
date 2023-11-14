@@ -1,0 +1,12 @@
+
+.download {
+  display: flex;
+  font-size: .8rem;
+  color: rgb(1, 1, 66);
+  width: fit-content;
+  font-weight: 600;
+}
+
+.download-icon {
+  margin-right: 10px;
+}

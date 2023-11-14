@@ -1,0 +1,204 @@
+.volunteers {
+  background-image: linear-gradient(rgb(173, 220, 215), rgb(75, 190, 161));
+}
+
+.volunteers-body {
+  margin-top: 1rem;
+}
+
+.volunteers-main-header {
+  font-size: 2.6rem;
+  margin: 0;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(5, 17, 60);
+  letter-spacing: 7px;
+  border-bottom: 2px solid rgb(85, 85, 85);
+  width: fit-content;
+  text-shadow: rgb(0, 128, 175) -2px 1px 2px;
+}
+
+.volunteers-header {
+  text-align: center;
+  font-size: 2rem;
+}
+
+
+.volunteers-job {
+  border: 1px solid black;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  background-color: rgba(255, 255, 255, 0.231);
+}
+
+.volunteers-job-header {
+  font-size: 1.5rem;
+}
+
+.volunteers-shift-signup-links {
+  display: flex;
+  justify-content: center;
+}
+
+.volunteers-shift {
+  font-size: 1rem;
+  padding: 1rem;
+
+
+  color: black;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: all .3s;
+  border-top: grey 1px solid;
+}
+
+.volunteers-shift:hover .volunteers-shift:active {
+  background-color: rgba(240, 248, 255, 0.346);
+}
+
+.volunteers-shift-date {
+  width: 130px;
+}
+
+.volunteers-signup-btns {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.volunteer-signup {
+  padding: 0 1rem
+}
+
+.volunteers-shift-detail {
+  border: 1px solid black;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.volunteers-shift-space {
+  margin: 0 1rem;
+}
+
+.volunteers-shift-checkmark {
+  margin-left: 1rem;
+  font-size: .7rem;
+  color: rgb(179, 255, 179);
+  background-color: rgba(94, 94, 94, 0.634);
+  padding: 5px;
+}
+
+.volunteers-calendar-checkmark {
+  font-size: 1.8vw;
+  color: rgb(179, 255, 179);
+  background-color: rgba(94, 94, 94, 0.634);
+  padding: 5px;
+  width: fit-content;
+  margin-top: 1vw;
+}
+
+.volunteers-calendar-spots {
+  font-size: 2.5vw;
+  margin-top: 3px;
+}
+
+.volunteers-email-field {
+  width: 15rem;
+}
+
+.volunteers-email-display {
+  display: flex;
+  align-items: center;
+}
+
+.volunteers-email-display p {
+  margin-left: 1rem;
+}
+
+.text-small {
+  font-size: .8rem;
+}
+
+.volunteers-unavailable {
+  color: grey;
+  cursor:auto
+}
+
+.volunteers-unavailable:hover {
+  background-color: transparent;
+}
+
+.volunteers-kitchen-home {
+  display: flex;
+  flex-direction: column;
+}
+
+.volunteers-photo-frame {
+  padding: 1.5rem;
+  background-color: rgba(240, 240, 240, 0.4);
+}
+
+.volunteers-kitchen-home-photo {
+  width: 85%;
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+
+.volunteers-kitchen-signup-photos {
+  display: flex;
+  margin-bottom: 2rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.volunteers-kitchen-signup-photo {
+  height: 100%;
+  object-fit: contain;
+  max-height: 28vw;
+}
+
+.volunteers-home-img {
+  width: 100%;
+  max-width: 700px;
+  align-self: center;
+  padding-top: 2rem;
+}
+
+.volunteers-home {
+  display: flex;
+  flex-direction: column;
+}
+
+.volunteers-kitchen-header {
+  color: purple;
+  font-size: 2rem;
+}
+
+.volunteers-signin {
+  padding: 1rem;
+}
+
+.volunteers-signin-field {
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 1rem;
+  padding: 1rem;
+  width: fit-content;
+}
+
+@media(max-width: 600px) {
+  .volunteers-kitchen-signup-photos {
+    display: none;
+  }
+
+  .volunteers-shift{
+    flex-direction: column;
+    align-items: center;
+    border-left: grey solid 1px;
+  }
+
+  .volunteers-shift-checkmark {
+    margin: 10px;
+  }
+}

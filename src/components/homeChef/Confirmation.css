@@ -6,6 +6,7 @@
 .hc-confirm-details ul {
   margin-bottom: 2rem;
   display: inline-block;
+  padding: 0;
 }
 
 .hc-confirm-item {

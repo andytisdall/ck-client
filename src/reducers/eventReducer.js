@@ -9,6 +9,9 @@ import {
 const eventReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_EVENTS:
+      if (!action.payload) {
+        return state;
+      }
       return {
         ...state,
         shifts: _.mapKeys(

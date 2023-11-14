@@ -4,14 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .row {
+      white-space: nowrap;
+      border: 1px solid black;
+      width: fit-content;
+    }
+
+    .col {
+      display: inline-block;
+      margin: -2px;
+    }
+
+    .header {
+      background-color: rgba(200,200,200);
+    }
+
+    .cell {
+      padding: 7px;
+      border: 1px solid black;
+    }
+  </style>
 </head>
 <body>
-  <!-- <table style="border-collapse: collapse; margin-bottom: 50px;"><tbody><tr> -->
-    <!-- <td style="padding: 0px;"> -->
 
-  <table style="border-collapse: collapse; margin-bottom: 25px;"><tbody>
+  <!-- <table style="border-collapse: collapse; margin-bottom: 25px; width: 100%"><tbody> -->
       
-      <tr style="margin: 0px; vertical-align: center; white-space: nowrap;">
+      <!-- <tr style="margin: 0px; vertical-align: center; white-space: nowrap;"> -->
+        <div class="row">
+
+          <div class="col">
+            <div class="cell header">Date</div>
+            <div class="cell">{!Meal_Deliveries_by_CBO.Date__c}</div>
+          </div>
+
+        <div class="col">
+          <div class="cell header">Time</div>
+          <div class="cell">{!Meal_Deliveries_by_CBO.Display_Time__c}</div>
+        </div>
+
+        <div class="col">
+          <div class="cell header">Day of Week</div>
+          <div class="cell">{!GetDayOfWeek}</div>
+        </div>
+
+        <div class="col">
+          <div class="cell header">Restaurant Name</div>
+          <div class="cell">{!Meal_Deliveries_by_CBO.Restaurant__r.Name}</div>
+        </div>
+
+        <div class="col">
+          <div class="cell header">Restaurant Address</div>
+          <div class="cell">{!getRestaurantAddress}</div>
+        </div>
+
+        <div class="col">
+          <div class="cell header">Delivery Method</div>
+          <div class="cell">{!Meal_Deliveries_by_CBO.Delivery_Method__c}</div>
+        </div>
+
+        <div class="col">
+          <div class="cell header">Delivery Address or Pickup Instructions</div>
+          <div class="cell">{!Meal_Deliveries_by_CBO.Delivery_Pickup_Instructions__c}</div>
+        </div>
         
         <td style="font-size: 16px; color: rgb(86, 88, 91); font-weight: 700; font-family: Arial, sans-serif; padding: 7px; background-color: rgb(233, 232, 229); border: 1px solid black;">Date</td>
 
@@ -33,11 +88,16 @@
 
         <td style="font-size: 16px; color: rgb(86, 88, 91); font-weight: 700; font-family: Arial, sans-serif; padding: 7px; background-color: rgb(233, 232, 229); border: 1px solid black;">Notes</td>
 
+        <div class="col">
+          <div class="cell header">Notes</div>
+          <div class="cell">{!getNotes}</div>
+        </div>
         
 
-      </tr>
+      </div>
 
-      <tr style="margin: 0px; vertical-align: center; white-space: nowrap;">
+      <!-- <tr style="margin: 0px; vertical-align: center; white-space: nowrap;"> -->
+<!-- 
 
         <td style="font-size: 16px; font-family: Arial, sans-serif; padding: 7px; border: 1px solid black;">{!Meal_Deliveries_by_CBO.Date__c}</td>
 
@@ -59,15 +119,14 @@
 
         <td style="font-size: 16px; font-family: Arial, sans-serif; padding: 7px; border: 1px solid black;">{!getNotes}</td>
 
-      </tr>
+      </div> -->
 
     
 
-    </tbody></table>
+    <!-- </tbody></table> -->
 
     
-
-  <table style="border-collapse: collapse; margin-bottom: 25px;"><tbody><tr>
+  <!-- <table style="border-collapse: collapse; margin-bottom: 25px;"><tbody><tr>
 
       <tr style="margin: 0px; vertical-align: center; white-space: nowrap;">
         
@@ -124,9 +183,9 @@
 
  
       
-    </tbody></table>
+    </tbody></table> -->
     
-  
+  </div>
 
 </body>
 </html>

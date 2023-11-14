@@ -21,3 +21,7 @@
 .meal-program-packaging-title {
   text-decoration: underline;
 }
+
+.meal-program-food-label {
+  width: 50%
+}
