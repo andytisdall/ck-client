@@ -5,7 +5,10 @@ import type {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 
-let url = 'http://localhost:3001/api/';
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://portal.ckoakland.org/api'
+    : 'http://localhost:3001/api';
 
 const baseQueryWithToken: BaseQueryFn<
   string | FetchArgs,
@@ -14,7 +17,7 @@ const baseQueryWithToken: BaseQueryFn<
 > = async (args, baseQueryApi, extraOptions) => {
   const token = localStorage.getItem('ck-token');
   const baseQuery = fetchBaseQuery({
-    baseUrl: url,
+    baseUrl,
     prepareHeaders: (headers) => {
       if (token) {
         headers.set('authorization', token);

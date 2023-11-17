@@ -12,7 +12,7 @@ import {
 export const restaurantApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getRestaurant: builder.query<Restaurant, void>({
-      query: () => 'meal-program/restaurant',
+      query: () => '/meal-program/restaurant',
       providesTags: ['Restaurant'],
     }),
     createRestaurant: builder.mutation<Restaurant, CreateRestaurantArgs>({

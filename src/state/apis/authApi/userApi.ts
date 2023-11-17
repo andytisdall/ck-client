@@ -12,12 +12,12 @@ import {
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<User | null, void>({
-      query: () => 'user',
+      query: () => '/user',
       providesTags: ['User'],
     }),
 
     getUserInfo: builder.query<ContactInfo, void>({
-      query: () => 'user/userInfo',
+      query: () => '/user/userInfo',
       providesTags: ['UserInfo'],
     }),
 

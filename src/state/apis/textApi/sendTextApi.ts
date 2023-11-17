@@ -1,4 +1,4 @@
-import {api} from '../../api'
+import { api } from '../../api';
 import { SendTextResponse, SendTextBody } from './types';
 
 export const sendTextApi = api.injectEndpoints({
@@ -18,13 +18,14 @@ export const sendTextApi = api.injectEndpoints({
           postBody.append('number', body.number);
         }
         return {
-          url: 'text/outgoing',
+          url: '/text/outgoing',
           method: 'POST',
           body: postBody,
           formData: true,
         };
       },
     }),
-  })})
+  }),
+});
 
-  export const { useSendTextMutation} = sendTextApi
+export const { useSendTextMutation } = sendTextApi;
