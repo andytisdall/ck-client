@@ -23,28 +23,34 @@ const RecurringConsole = () => {
   }
 
   return (
-    <ul>
-      {!!scheduledTexts &&
-        Object.keys(scheduledTexts).map((key) => {
-          return (
-            <li className="scheduled-text" key={key}>
-              Created On:{' '}
-              {format(new Date(scheduledTexts[key][0].dateCreated), 'MM/dd/yy')}
-              <p>{scheduledTexts[key][0].body}</p>
-              <button
-                className="cancel"
-                onClick={() =>
-                  deleteScheduledText(
-                    Object.values(scheduledTexts[key]).map((text) => text.sid)
-                  )
-                }
-              >
-                cancel
-              </button>
-            </li>
-          );
-        })}
-    </ul>
+    <>
+      <h2>Upcoming Texts</h2>
+      <ul>
+        {!!scheduledTexts &&
+          Object.keys(scheduledTexts).map((key) => {
+            return (
+              <li className="scheduled-text" key={key}>
+                Created On:{' '}
+                {format(
+                  new Date(scheduledTexts[key][0].dateCreated),
+                  'MM/dd/yy'
+                )}
+                <p>{scheduledTexts[key][0].body}</p>
+                <button
+                  className="cancel"
+                  onClick={() =>
+                    deleteScheduledText(
+                      Object.values(scheduledTexts[key]).map((text) => text.sid)
+                    )
+                  }
+                >
+                  cancel
+                </button>
+              </li>
+            );
+          })}
+      </ul>
+    </>
   );
 };
 

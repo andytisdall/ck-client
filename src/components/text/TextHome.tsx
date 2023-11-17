@@ -38,6 +38,11 @@ const TextHome = () => {
         descriptionText={textRecordsDescription}
         to="text-records"
       />
+      <TextButton
+        buttonText="Upcoming Text"
+        descriptionText="Review texts that are scheduled to be sent"
+        to="recurring"
+      />
     </div>
   );
 };
