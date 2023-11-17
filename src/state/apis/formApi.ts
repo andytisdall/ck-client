@@ -85,7 +85,7 @@ interface SubmitFormArgs {
 
 const urls: Record<string, string> = {
   MEAL_SURVEY: '/text/meal-survey',
-  VOLUNTEER_INTEREST: '/volunteer/interest-form',
+  VOLUNTEER_INTEREST: '/volunteers/signup',
   TEXT_SIGNUP_SURVEY: '/text/signup-survey',
   MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   CBO_REPORT: '/meal-program/cbo-report',
