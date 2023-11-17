@@ -107,30 +107,24 @@ const ShiftSignup = () => {
         <button
           onClick={() => {
             if (job && shift && date) {
+              let contactSalesforceId = '';
               if (user) {
+                contactSalesforceId = user.salesforceId;
+              }
+              if (volunteer) {
+                contactSalesforceId = volunteer.id;
+              }
+              if (contactSalesforceId) {
                 signUpForVolunteerShift({
                   shiftId: shift.id,
                   jobId: job.id,
                   date,
-                  contactSalesforceId: user.salesforceId,
+                  contactSalesforceId,
                 })
                   .unwrap()
                   .then((hours) =>
                     navigate(
-                      `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${user.salesforceId}`
-                    )
-                  );
-              } else if (volunteer) {
-                signUpForVolunteerShift({
-                  shiftId: shift.id,
-                  jobId: job.id,
-                  date,
-                  contactSalesforceId: volunteer.id,
-                })
-                  .unwrap()
-                  .then((hours) =>
-                    navigate(
-                      `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${volunteer.id}`
+                      `/volunteers/ck-kitchen/signup-confirm/${hours.id}/${contactSalesforceId}`
                     )
                   );
               }

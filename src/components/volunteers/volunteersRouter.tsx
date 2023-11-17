@@ -3,22 +3,14 @@ import { Outlet, RouteObject, Link } from 'react-router-dom';
 
 import './Volunteers.css';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
+import eventsRouter from './events/eventsRouter';
+import ckKitchenRouter from './ckKitchen/ckKitchenRouter';
 
-const VolunteersHome = lazy(() => import('./VolunteersHome'));
-const SignupBase = lazy(() => import('./ckKitchen/SignupBase'));
-
-const ShiftSignup = lazy(() => import('./ckKitchen/ShiftSignup'));
-const KitchenHome = lazy(() => import('./ckKitchen/KitchenHome'));
-
-const Confirmation = lazy(() => import('./ckKitchen/Confirmation'));
-const GetVolunteer = lazy(() => import('./getVolunteer/GetVolunteer'));
 const DocusignSign = lazy(() => import('../reusable/docusign/DocusignSign'));
 const DocusignSuccess = lazy(
   () => import('../reusable/docusign/DocusignSuccess')
 );
-const KitchenCalendar = lazy(() => import('./ckKitchen/KitchenCalendar'));
-const KitchenList = lazy(() => import('./ckKitchen/KitchenList'));
-const KitchenBase = lazy(() => import('./ckKitchen/KitchenBase'));
+const VolunteersHome = lazy(() => import('./VolunteersHome'));
 
 const VolunteersBase = () => {
   return (
@@ -36,56 +28,22 @@ const volunteersRouter: RouteObject = {
   element: <VolunteersBase />,
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
+    eventsRouter,
+    ckKitchenRouter,
     {
-      path: 'ck-kitchen',
-      element: renderWithFallback(<KitchenBase />),
+      path: 'docusign',
       children: [
-        { index: true, element: renderWithFallback(<KitchenHome />) },
         {
-          path: 'signup-confirm/:hoursId/',
-          element: renderWithFallback(<Confirmation />),
+          path: 'sign/:doc',
+          element: renderWithFallback(<DocusignSign />),
         },
         {
-          path: 'signup-confirm/:hoursId/:contactId',
-          element: renderWithFallback(<Confirmation />),
+          path: 'sign/:doc/:id',
+          element: renderWithFallback(<DocusignSign />),
         },
         {
-          path: 'signin',
-          element: renderWithFallback(<GetVolunteer />),
-        },
-        {
-          path: 'docusign',
-          children: [
-            {
-              path: 'sign/:doc',
-              element: renderWithFallback(<DocusignSign />),
-            },
-            {
-              path: 'sign/:doc/:id',
-              element: renderWithFallback(<DocusignSign />),
-            },
-            {
-              path: 'success',
-              element: renderWithFallback(
-                <DocusignSuccess returnLink="../../signup/list" />
-              ),
-            },
-          ],
-        },
-        {
-          path: 'signup',
-          element: renderWithFallback(<SignupBase />),
-          children: [
-            { path: 'list', element: renderWithFallback(<KitchenList />) },
-            {
-              path: 'calendar',
-              element: renderWithFallback(<KitchenCalendar />),
-            },
-            {
-              path: 'shift/:shiftId',
-              element: renderWithFallback(<ShiftSignup />),
-            },
-          ],
+          path: 'success',
+          element: renderWithFallback(<DocusignSuccess returnLink="../.." />),
         },
       ],
     },

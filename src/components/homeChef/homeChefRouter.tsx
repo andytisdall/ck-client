@@ -8,7 +8,6 @@ import onboardingRouter from './onboarding/onboardingRouter';
 import signupRouter from './shiftSignup/signupRouter';
 import resourcesRouter from './resources/resourcesRouter';
 import inviteRouter from './invite/inviteRouter';
-import eventsRouter from './events/eventsRouter';
 import chefRouter from './chef/chefRouter';
 
 const HomeChefHome = lazy(() => import('./HomeChefHome'));
@@ -21,7 +20,6 @@ const homeChefRouter = {
     onboardingRouter,
     inviteRouter,
     signupRouter,
-    eventsRouter,
     chefRouter,
     resourcesRouter,
   ],

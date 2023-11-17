@@ -6,12 +6,11 @@ export interface SendTextBody {
   photo?: string | File;
   feedbackId?: string;
   number?: string;
-};
-
+}
 
 export interface AddPhoneArgs {
   phone: string;
-  region: Region
+  region: Region;
 }
 
 export interface GetPhoneNumberResponse {
@@ -32,17 +31,19 @@ export interface MessageInstance {
   delivery: any;
 }
 
+export type ScheduledTextState = Record<string, MessageInstance[]>;
+
 export type GetTextRecordsArgs = {
-  startDate: string
-}
+  startDate: string;
+};
 
 export interface TextRecord {
-  id: string,
-    message: string,
-    date: string,
-    sender: string,
-    region: Region,
-    image: string,
+  id: string;
+  message: string;
+  date: string;
+  sender: string;
+  region: Region;
+  image: string;
 }
 
 export interface SendTextResponse {
@@ -51,5 +52,4 @@ export interface SendTextResponse {
   photoUrl?: string;
   number: string;
   sendAt?: string;
-};
-
+}

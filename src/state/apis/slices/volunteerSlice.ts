@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { ckKitchenApi, Volunteer } from '../volunteerApi';
+import { volunteerApi, Volunteer } from '../volunteerApi';
 import { userApi } from '../authApi';
 
 const initialState: { volunteer: Volunteer | null } = { volunteer: null };
@@ -11,13 +11,13 @@ const volunteerSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addMatcher(
-      ckKitchenApi.endpoints.getVolunteer.matchFulfilled,
+      volunteerApi.endpoints.getVolunteer.matchFulfilled,
       (state, { payload }) => {
         state.volunteer = payload;
       }
     );
     builder.addMatcher(
-      ckKitchenApi.endpoints.createVolunteer.matchFulfilled,
+      volunteerApi.endpoints.createVolunteer.matchFulfilled,
       (state, { payload }) => {
         state.volunteer = payload;
       }
@@ -26,7 +26,7 @@ const volunteerSlice = createSlice({
       userApi.endpoints.getUser.matchFulfilled,
       (state, { payload }) => {
         if (payload) {
-          state = initialState;
+          state.volunteer = null;
         }
       }
     );

@@ -37,13 +37,7 @@
   width: 30%;
 }
 
-@media (max-width: 500px) {
-  .text-button-width {
-    width: fit-content;
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-}
+
 
 .text-button-link:active {
   transform: translateY(3px);
@@ -72,4 +66,16 @@
 
 .text-button:hover > .text-button-description {
   background-color: rgba(240, 248, 255, 0.323);
+}
+
+@media (max-width: 500px) {
+  .text-button-width {
+    width: fit-content;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .text-button-description {
+    width: auto;
+  }
 }

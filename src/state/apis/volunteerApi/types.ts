@@ -44,13 +44,15 @@ export interface GetShiftsResponse {
   shifts: Shift[];
 }
 
-export interface EventCampaign {
+export interface VolunteerCampaign {
   jobs: Job[];
   shifts: Shift[];
   name: string;
-  date: string;
-  description: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
   id: string;
+  buttonText?: string;
 }
 
 export interface VolunteerHours {
@@ -146,7 +148,12 @@ export interface CreateVolunteerResponse {
   householdId: string;
 }
 
-export interface CancelKitchenHoursArgs {
+export interface CancelVolunteerHoursArgs {
   hoursId: string;
   contactId?: string;
+}
+
+export interface GetVolunteerHoursArgs {
+  campaignId: string;
+  contactId: string;
 }

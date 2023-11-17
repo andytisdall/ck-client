@@ -7,10 +7,15 @@ const VolunteerEvent = lazy(() => import('./VolunteerEvent'));
 const JobList = lazy(() => import('./JobList'));
 const EventShiftSignup = lazy(() => import('./Signup'));
 const EventShiftConfirmation = lazy(() => import('./Confirmation'));
+const GetVolunteer = lazy(() => import('../getVolunteer/GetVolunteer'));
 
 const eventsRouter: RouteObject = {
   path: 'events',
   children: [
+    {
+      path: 'signin/:id',
+      element: renderWithFallback(<GetVolunteer returnLink="" />),
+    },
     {
       path: 'signup/:id',
       element: renderWithFallback(<VolunteerEvent />),
@@ -23,7 +28,7 @@ const eventsRouter: RouteObject = {
       ],
     },
     {
-      path: 'signup-confirm/:hoursId',
+      path: 'signup-confirm/:campaignId/:hoursId',
       element: renderWithFallback(<EventShiftConfirmation />),
     },
   ],

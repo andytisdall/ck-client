@@ -1,5 +1,5 @@
 import { useState, FormEventHandler, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Loading from '../../reusable/loading/Loading';
 import '../Volunteers.css';
@@ -11,7 +11,9 @@ import {
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 
-const GetVolunteer = () => {
+const GetVolunteer = ({ returnLink }: { returnLink: string }) => {
+  const { id } = useParams();
+
   const [email, setEmail] = useState('');
   const [showNameFields, setShowNameFields] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -23,11 +25,13 @@ const GetVolunteer = () => {
 
   const navigate = useNavigate();
 
+  const url = returnLink || `../signup/${id}` || '';
+
   useEffect(() => {
     if (user) {
-      navigate('../signup/list');
+      navigate(url);
     }
-  }, [user, navigate]);
+  }, [user, navigate, url]);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -38,7 +42,7 @@ const GetVolunteer = () => {
           if (!volunteer) {
             setShowNameFields(true);
           } else {
-            navigate('../signup/list');
+            navigate(url);
           }
         });
     } else {
@@ -48,7 +52,7 @@ const GetVolunteer = () => {
           getVolunteer(vol.email)
             .unwrap()
             .then(() => {
-              navigate('../signup/list');
+              navigate(url);
             })
         );
     }

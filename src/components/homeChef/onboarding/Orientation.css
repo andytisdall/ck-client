@@ -4,7 +4,13 @@
   margin-top: 2rem;
 }
 
+.orientation-slides-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .orientation-slides {
-  max-width: 80%;
+  max-width: 100%;
   margin-bottom: 2rem;
+  align-self: center;
 }

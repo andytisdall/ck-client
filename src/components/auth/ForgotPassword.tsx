@@ -26,7 +26,7 @@ const ForgotPassword = () => {
   if (isSuccess) {
     return (
       <div className="main user">
-        <p>You will be emailed a link to reset your password.</p>;
+        <p>You will be emailed a link to reset your password.</p>
       </div>
     );
   }

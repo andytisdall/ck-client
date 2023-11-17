@@ -27,9 +27,9 @@ const ShiftSignup = () => {
         navigate('../signin');
       } else if (volunteer && volunteer.ckKitchenStatus !== 'Active') {
         setRedirectToDocusign(true);
-        docusignLink.current = '../docusign/sign/CKK/' + volunteer.id;
+        docusignLink.current = '../../docusign/sign/CKK/' + volunteer.id;
       } else if (userInfo?.ckKitchenStatus !== 'Active') {
-        docusignLink.current = '../docusign/sign/CKK';
+        docusignLink.current = '../../docusign/sign/CKK';
       }
     }
   }, [volunteer, navigate, getUserInfoQuery, userInfo]);

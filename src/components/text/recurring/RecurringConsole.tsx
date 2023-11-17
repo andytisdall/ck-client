@@ -1,62 +1,41 @@
-import { useMemo } from 'react';
-import { format, utcToZonedTime } from 'date-fns-tz';
+import { format } from 'date-fns-tz';
 
 import Loading from '../../reusable/loading/Loading';
 import {
   useGetScheduledTextsQuery,
   useDeleteScheduledTextMutation,
-  MessageInstance,
 } from '../../../state/apis/textApi';
 
 import './RecurringConsole.css';
 
 const RecurringConsole = () => {
-  const scheduledTextsQuery = useGetScheduledTextsQuery();
-  const scheduledTexts = scheduledTextsQuery.data;
+  const { data: scheduledTexts, isLoading } = useGetScheduledTextsQuery();
 
   const [deleteScheduledText, deleteScheduledTextResult] =
     useDeleteScheduledTextMutation();
 
-  const messageList = useMemo(() => {
-    const list: Record<string, MessageInstance[]> = {};
-    if (scheduledTexts) {
-      scheduledTexts.forEach((text) => {
-        const formattedTime = format(
-          utcToZonedTime(text.dateCreated, 'America/Los_Angeles'),
-          'M/d/yy h:mm aaa'
-        );
-        if (!list[text.dateCreated]) {
-          list[formattedTime] = [text];
-        } else {
-          list[formattedTime].push(text);
-        }
-      });
-    }
-    return list;
-  }, [scheduledTexts]);
-
-  if (scheduledTextsQuery.isLoading || deleteScheduledTextResult.isLoading) {
+  if (isLoading || deleteScheduledTextResult.isLoading) {
     return <Loading />;
   }
 
-  if (scheduledTexts && !scheduledTexts.length) {
+  if (!isLoading && scheduledTexts && !Object.keys(scheduledTexts).length) {
     return <p>No scheduled texts found</p>;
   }
 
   return (
     <ul>
-      {!!messageList &&
-        Object.keys(messageList).map((key) => {
+      {!!scheduledTexts &&
+        Object.keys(scheduledTexts).map((key) => {
           return (
             <li className="scheduled-text" key={key}>
-              Scheduled On:{' '}
-              {format(utcToZonedTime(key, 'America/Los_Angeles'), 'MM/dd/yy')}
-              <p>{messageList[key][0].body}</p>
+              Created On:{' '}
+              {format(new Date(scheduledTexts[key][0].dateCreated), 'MM/dd/yy')}
+              <p>{scheduledTexts[key][0].body}</p>
               <button
                 className="cancel"
                 onClick={() =>
                   deleteScheduledText(
-                    Object.values(messageList[key]).map((text) => text.sid)
+                    Object.values(scheduledTexts[key]).map((text) => text.sid)
                   )
                 }
               >

@@ -10,11 +10,11 @@
   font-size: 2.6rem;
   margin: 0;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
-  color: rgb(5, 17, 60);
+  color: rgb(140, 67, 235);
   letter-spacing: 7px;
-  border-bottom: 2px solid rgb(85, 85, 85);
+  /* border-bottom: 2px solid rgb(85, 85, 85); */
   width: fit-content;
-  text-shadow: rgb(0, 128, 175) -2px 1px 2px;
+  text-shadow: rgb(73, 0, 175) -2px 1px 2px;
 }
 
 .volunteers-header {
@@ -42,8 +42,6 @@
 .volunteers-shift {
   font-size: 1rem;
   padding: 1rem;
-
-
   color: black;
   font-size: 1rem;
   font-weight: 500;
@@ -54,8 +52,8 @@
   border-top: grey 1px solid;
 }
 
-.volunteers-shift:hover .volunteers-shift:active {
-  background-color: rgba(240, 248, 255, 0.346);
+.volunteers-shift:hover, .volunteers-shift:active {
+  background-color: rgba(240, 248, 255, 0.5);
 }
 
 .volunteers-shift-date {
@@ -187,6 +185,25 @@
   width: fit-content;
 }
 
+
+
+
+.volunteers-home-section {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.volunteers-home-section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: underline;
+  padding-bottom: 1rem;
+}
+
+.volunteers-home-section-body {
+  padding-left: 2rem;
+}
+
 @media(max-width: 600px) {
   .volunteers-kitchen-signup-photos {
     display: none;
@@ -201,4 +218,14 @@
   .volunteers-shift-checkmark {
     margin: 10px;
   }
+
+  .volunteers-home-section-title {
+    text-align: center;
+  }
+
+  .volunteers-home-section-body {
+    padding-left: 0;
+  }
+
+
 }

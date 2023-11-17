@@ -7,12 +7,16 @@ const OrientationSlides = () => {
     const images = [];
     for (let i = 1; i <= 20; i++) {
       images.push(
-        <img
-          className="orientation-slides"
+        <a
+          href={`https://portal.ckoakland.org/images/home-chef/orientation-slides/slide-${i}.jpg`}
           key={`slide-${i}`}
-          src={`/images/home-chef/orientation-slides/slide-${i}.jpg`}
-          alt={`Slide ${i} from the last home chef orientation`}
-        />
+        >
+          <img
+            className="orientation-slides"
+            src={`/images/home-chef/orientation-slides/slide-${i}.jpg`}
+            alt={`Slide ${i} from the last home chef orientation`}
+          />
+        </a>
       );
     }
     return <>{images}</>;
@@ -21,7 +25,7 @@ const OrientationSlides = () => {
   return (
     <div>
       <h1>Orientation Info Slides</h1>
-      <div className="orientaton-slides-container">{renderSlides()}</div>{' '}
+      <div className="orientation-slides-container">{renderSlides()}</div>{' '}
       <Link to="..">
         <button className="nav-button">Back to Onboarding</button>
       </Link>

@@ -1,10 +1,7 @@
 import { lazy } from 'react';
-import { Link } from 'react-router-dom';
-import { utcToZonedTime, format } from 'date-fns-tz';
 
 import { useGetCampaignQuery } from '../../state/apis/volunteerApi/homeChefApi';
 import { useGetUserInfoQuery } from '../../state/apis/authApi';
-import { useGetEventsQuery } from '../../state/apis/volunteerApi/volunteerApi';
 import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
@@ -27,7 +24,6 @@ const appDescription =
 const HomeChefHome = () => {
   const userInfo = useGetUserInfoQuery().data;
   const campaign = useGetCampaignQuery().data;
-  const eventCampaigns = useGetEventsQuery().data;
 
   const renderStatus = () => {
     if (userInfo?.homeChefStatus === 'Active') {
@@ -59,32 +55,10 @@ const HomeChefHome = () => {
     }
   };
 
-  const renderEvent = () => {
-    if (eventCampaigns?.length) {
-      return eventCampaigns.map((cam) => {
-        return (
-          <div className="hc-events" key={cam.id}>
-            <h3>{cam.name}</h3>
-            <h4>
-              {format(
-                utcToZonedTime(cam.date, 'America/Los_Angeles'),
-                'eeee, M/d/yyyy'
-              )}
-            </h4>
-            <Link to={'events/signup/' + cam.id} className="button">
-              Sign Up
-            </Link>
-          </div>
-        );
-      });
-    }
-  };
-
   return (
     <div className="hc-home">
       <div>
         {renderStatus()}
-        {renderEvent()}
         <TextButton
           to="signup/list"
           buttonText="Sign Up to Stock a Town Fridge"

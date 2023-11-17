@@ -6,7 +6,7 @@ import Loading from '../../reusable/loading/Loading';
 import {
   useGetKitchenHoursQuery,
   useGetKitchenShiftsQuery,
-  useCancelKitchenShiftMutation,
+  useCancelVolunteerShiftMutation,
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 import { setAlert } from '../../../state/apis/slices/alertSlice';
@@ -16,7 +16,7 @@ const Confirmation = () => {
 
   const { data: user } = useGetUserQuery();
 
-  const [cancelShift, { isLoading }] = useCancelKitchenShiftMutation();
+  const [cancelShift, { isLoading }] = useCancelVolunteerShiftMutation();
 
   const getHoursQuery = useGetKitchenHoursQuery(
     contactId || user?.salesforceId
@@ -62,7 +62,7 @@ const Confirmation = () => {
               )}
             </li>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Fridge:</span> {job?.name}
+              <span className="hc-confirm-title">Job:</span> {job?.name}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Location:</span>{' '}

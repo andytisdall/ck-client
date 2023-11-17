@@ -1,23 +1,28 @@
-import _ from 'lodash';
-
 import { api } from '../../api';
 import {
-  EventCampaign,
   VolunteerHours,
   SignUpForVolunteerShiftArgs,
-  VolunteerHoursState,
+  CancelVolunteerHoursArgs,
+  Volunteer,
+  CreateVolunteerArgs,
+  CreateVolunteerResponse,
 } from './types';
 
-const volunteerApi = api.injectEndpoints({
+export const volunteerApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getEvents: builder.query<EventCampaign[], void>({
-      query: () => '/volunteers/events',
+    getVolunteer: builder.query<Volunteer | null, string | undefined>({
+      query: (email) => '/volunteers/' + email,
+      providesTags: ['Volunteer'],
     }),
-    getEventHours: builder.query<VolunteerHoursState, string>({
-      transformResponse: (response: VolunteerHours[]) =>
-        _.mapKeys(response, 'id'),
-      query: (campaignId) => '/volunteers/hours/' + campaignId,
-      providesTags: ['EventHours'],
+    createVolunteer: builder.mutation<
+      CreateVolunteerResponse,
+      CreateVolunteerArgs
+    >({
+      query: (body) => ({
+        url: '/volunteers',
+        body,
+        method: 'POST',
+      }),
     }),
 
     signUpForVolunteerShift: builder.mutation<
@@ -29,13 +34,36 @@ const volunteerApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['EventHours', 'CkKitchenHours', 'CkKitchenShifts'],
+      invalidatesTags: [
+        'EventHours',
+        'EventShifts',
+        'CkKitchenHours',
+        'CkKitchenShifts',
+      ],
+    }),
+
+    cancelVolunteerShift: builder.mutation<null, CancelVolunteerHoursArgs>({
+      query: (body) => {
+        let url = '/volunteers/hours/' + body.hoursId;
+        if (body.contactId) {
+          url = url + '/' + body.contactId;
+        }
+        return { url, method: 'DELETE' };
+      },
+      invalidatesTags: [
+        'CkKitchenHours',
+        'CkKitchenShifts',
+        'EventHours',
+        'EventShifts',
+      ],
     }),
   }),
 });
 
 export const {
-  useGetEventsQuery,
-  useGetEventHoursQuery,
+  useLazyGetVolunteerQuery,
+  useCreateVolunteerMutation,
+
   useSignUpForVolunteerShiftMutation,
+  useCancelVolunteerShiftMutation,
 } = volunteerApi;

@@ -14,10 +14,6 @@ const HeaderMenu = ({
 }) => {
   const { data, isFetching } = useGetUserQuery();
 
-  // useEffect(() => {
-  //   setMenuOpen(false);
-  // }, [data, setMenuOpen]);
-
   if (isFetching) {
     return <Loading />;
   }
@@ -30,9 +26,13 @@ const HeaderMenu = ({
         className="burger-menu-img"
         onClick={() => setMenuOpen(!menuOpen)}
       />
-      <div className={`header-right ${menuOpen ? '' : 'hidden'}`}>
-        <div className="header-auth">{data ? <SignedIn /> : <SignedOut />}</div>
-      </div>
+      {menuOpen && (
+        <div className="header-right">
+          <div className="header-auth">
+            {data ? <SignedIn /> : <SignedOut />}
+          </div>
+        </div>
+      )}
     </>
   );
 };

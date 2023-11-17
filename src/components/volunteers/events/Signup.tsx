@@ -1,11 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { useMemo, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '../../../state/store';
 import Loading from '../../reusable/loading/Loading';
 import {
   useGetEventsQuery,
   useSignUpForVolunteerShiftMutation,
+  useGetEventHoursQuery,
 } from '../../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../../state/apis/authApi';
 
 const EventShiftSignup = () => {
   const navigate = useNavigate();
@@ -14,8 +19,25 @@ const EventShiftSignup = () => {
   const [signUpForVolunteerShift, { isLoading }] =
     useSignUpForVolunteerShiftMutation();
 
+  const { volunteer } = useSelector((state: RootState) => ({
+    volunteer: state.volunteer.volunteer,
+  }));
+
   const { data } = useGetEventsQuery();
   const campaign = data?.find((cam) => cam.id === id);
+
+  const { data: user } = useGetUserQuery();
+
+  const { data: hours } = useGetEventHoursQuery({
+    campaignId: id || '',
+    contactId: user?.salesforceId || '',
+  });
+
+  const bookedJobs = useMemo(() => {
+    return hours
+      ? hours.filter((h) => h.status === 'Confirmed').map((h) => h.shift)
+      : [];
+  }, [hours]);
 
   const shift = shiftId
     ? campaign?.shifts.find((sh) => sh.id === shiftId)
@@ -24,13 +46,36 @@ const EventShiftSignup = () => {
     ? campaign?.jobs.find((j) => j.id === shift.job)
     : undefined;
 
+  useEffect(() => {
+    if (hours && shiftId && bookedJobs.includes(shiftId)) {
+      const hour = hours.find(
+        (h) => h.shift === shiftId && h.status === 'Confirmed'
+      );
+      if (hour) {
+        navigate(`../../signup-confirm/${id}/${hour.id}`);
+      }
+    }
+  }, [hours, shiftId, navigate, bookedJobs, id]);
+
   const onSubmit = () => {
     if (shift && shiftId && job) {
+      let contactSalesforceId = '';
+      if (user) {
+        contactSalesforceId = user.salesforceId;
+      }
+      if (volunteer) {
+        contactSalesforceId = volunteer.id;
+      }
       signUpForVolunteerShift({
         shiftId,
         jobId: job.id,
         date: shift.startTime,
-      });
+        contactSalesforceId,
+      })
+        .unwrap()
+        .then((hour) => {
+          navigate(`../../signup-confirm/${id}/${hour.id}`);
+        });
     }
   };
 
@@ -40,8 +85,8 @@ const EventShiftSignup = () => {
 
   return (
     <div>
-      <h3>Signing up for:</h3>
-      <div className="event-shift-detail">
+      <h3 className="volunteers-signup-btns">Confirm your signup:</h3>
+      <div className="volunteers-shift-detail">
         <p>
           <b>Job:</b> {job?.name}
         </p>
@@ -55,7 +100,7 @@ const EventShiftSignup = () => {
           <b>Date: </b>
           {format(
             utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-            'dddd, M/D/YY'
+            'eeee, M/d/yy'
           )}
         </p>
         <p>
@@ -73,14 +118,12 @@ const EventShiftSignup = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <>
-          <button onClick={onSubmit} className="event-shift-detail-submit">
-            Confirm Signup
-          </button>
-          <button onClick={() => navigate('..')} className="cancel">
+        <div className="volunteers-signup-btns">
+          <button onClick={onSubmit}>Confirm Signup</button>
+          <button onClick={() => navigate('/volunteers')} className="cancel">
             Cancel
           </button>
-        </>
+        </div>
       )}
     </div>
   );
