@@ -24,7 +24,7 @@ const ResourcesList = () => {
           descriptionText={labelDescription}
         />
         <TextButton
-          to="https://community-kitchens.slack.com/"
+          to="https://join.slack.com/t/community-kitchens/shared_invite/zt-27qcrhzdc-Fn0AZbI1auiiymFId9sYjw"
           buttonText="Get Connected to our Slack Channel"
           descriptionText={slackDescription}
           outside

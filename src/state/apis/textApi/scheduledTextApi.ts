@@ -38,6 +38,7 @@ export const scheduledTextApi = api.injectEndpoints({
       query: (body) => ({
         url: '/text/scheduled/delete',
         body,
+        method: 'POST',
       }),
       invalidatesTags: ['ScheduledText'],
     }),

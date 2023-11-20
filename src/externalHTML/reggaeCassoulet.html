@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      body {
+      .body {
         font-family: sans-serif;
       }
       a {
@@ -116,32 +116,48 @@
       }
       .img-2 {
         height: 75px;
-        margin: 0 1rem 1.5rem 1rem; 
-      }
-      .img-3 {
-        height: 125px;
-        margin: 0 1rem 1.5rem 1rem;
+        margin: .5rem 1rem 1rem 1rem;
       }
       .img-4 {
         height: 175px;
-        margin: 0 1rem 1.5rem 1rem;
+        margin: .5rem 1rem 1rem 1rem;
+      }
+      .img-5 {
+        width: 150px;
+        margin: .5rem 1rem 1rem 1rem;
       }
       .img-container p {
         margin: 0;
         padding: 0;
         font-size: 0.7rem;
       }
-      .reggae-sponsors {
+      .reggae-sponsor-title {
+        font-weight: 600;
+        text-decoration: underline;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+      }
+      .reggae-sponsor-logos {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
       }
-      .sponsor-link {
+      .reggae-sponsor-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .reggae-sponsor-link {
+        text-align: center;
+        width: 100%;
         font-size: 1.7rem;
         color: blue;
         padding-top: 1rem;
       }
     </style>
-  <body>
+  <div class="body">
     <div class="reggae-header reggae-title-lines">
       <p class="reggae-font-sm">
         Please Join <span class="reggae-font-xl"> Community Kitchens</span> for
@@ -185,17 +201,21 @@
 
     <div class="reggae-text">
       <div class="reggae-header">
-        <p class="reggae-font-md">Our Event Sponsors</p>
-        <div>
+        <div class="reggae-sponsor-title">Our Event Sponsors</div>
+        <div class="reggae-sponsor-logos">
+        <div class="reggae-sponsor-row">
           <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/uptown_logo.png" class="img-2"/>
+          <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/Nia%20Logo.png" class="img-4"/>
+        </div>
+        <div class="reggae-sponsor-row">
           <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/Visitoakland.png" class="img-2"/>
           <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/block_logo-lock-up-ver_logo-static_wordmark-static_pilat-black_1000x1000.png" class="img-4"/>
-          <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/squarelogo.png" class="img-3"/>
-          <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/espresso-logo.jpg" class="img-3"/>
-          <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/koslogo.png" class="img-2"/>
-
+        </div></div>
+        <div class="reggae-sponsor-row">
+          <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/espresso-logo.jpg" class="img-5"/>
+          <img src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/koslogo.png" class="img-5"/>
         </div>
-        <a class='sponsor-link' href="https://storage.googleapis.com/coherent-vision-368820.appspot.com/Reggae_Cassoulet_Sponsorship_Sheet.pdf">Become a sponsor</a>
+        <a class='reggae-sponsor-link' href="https://storage.googleapis.com/coherent-vision-368820.appspot.com/Reggae_Cassoulet_Sponsorship_Sheet.pdf">Become a sponsor</a>
       </div>
     </div>
 
@@ -258,5 +278,5 @@
       </div>
       <a class="reggae-button" href="https://www.eventbrite.com/e/reggae-cassoulet-w-french-master-chef-david-campigotto-registration-737549178447?aff=oddtdtcreator"><button>Get Tickets</button></a>
     </div>
-  </body>
+  </div>
 </html>
