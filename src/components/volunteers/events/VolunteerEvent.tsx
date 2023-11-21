@@ -13,7 +13,7 @@ const VolunteerEvent = () => {
   const [redirectToDocusign, setRedirectToDocusign] = useState(false);
 
   const { id } = useParams();
-  const events = useGetEventsQuery().data;
+  const { data: events, isLoading } = useGetEventsQuery();
 
   const campaign = events?.find((c) => c.id === id);
 
@@ -57,7 +57,7 @@ const VolunteerEvent = () => {
 
   const date = startDate + endDate;
 
-  if (!campaign) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -70,6 +70,15 @@ const VolunteerEvent = () => {
         </p>
         <button onClick={() => navigate(docusignLink.current)}>Continue</button>
       </div>
+    );
+  }
+
+  if (!campaign) {
+    return (
+      <h2>
+        This event is no longer open to sign ups. Check the volunteers page for
+        events in the future!
+      </h2>
     );
   }
 
