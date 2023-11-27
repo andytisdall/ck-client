@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import SearchPhone from './SearchPhone';
 import Loading from '../../reusable/loading/Loading';
@@ -6,10 +7,13 @@ import {
   useDeletePhoneMutation,
   GetPhoneNumberResponse,
 } from '../../../state/apis/textApi';
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 
 const DeletePhone = () => {
   const [number, setNumber] = useState<GetPhoneNumberResponse>();
   const [deletePhone, deletePhoneResult] = useDeletePhoneMutation();
+
+  const dispatch = useDispatch();
 
   const renderDelete = () => {
     if (number) {
@@ -20,7 +24,12 @@ const DeletePhone = () => {
             <>
               <button
                 onClick={() => {
-                  deletePhone(number.id);
+                  deletePhone(number.id)
+                    .unwrap()
+                    .then(() => {
+                      setNumber(undefined);
+                      dispatch(setAlert('Number has been removed'));
+                    });
                 }}
                 className="cancel"
               >
