@@ -76,8 +76,8 @@ const GetVolunteer = ({ returnLink }: { returnLink: string }) => {
   return (
     <div className="volunteers-signin">
       <h2>
-        Thanks for signing up to volunteer! Please enter your information so we
-        can sign you up.
+        Thanks for signing up to volunteer! Please enter your information so you
+        can sign up.
       </h2>
       <form onSubmit={handleSubmit}>
         {showNameFields ? (

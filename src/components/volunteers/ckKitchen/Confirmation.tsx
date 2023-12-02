@@ -103,7 +103,7 @@ const Confirmation = () => {
   return (
     <div>
       <h1>Volunteer Sign Up Confirmation</h1>
-      {getShiftsQuery.isLoading || getHoursQuery.isLoading ? (
+      {getShiftsQuery.isFetching || getHoursQuery.isFetching ? (
         <Loading />
       ) : (
         renderShiftDetails()

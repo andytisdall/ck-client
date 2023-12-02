@@ -1,15 +1,10 @@
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
+import randomColor from 'randomcolor';
 
 import { useGetCBOReportsQuery, ZipCode } from '../../state/apis/cboApi';
 import Loading from '../reusable/loading/Loading';
-import {
-  sumField,
-  renderValues,
-  defaultOptions,
-  sortKeys,
-  sortValues,
-} from './CBO';
+import { sumField, renderValues, sortKeys, sortValues } from './CBO';
 
 const ZipCodes = () => {
   const { data: reports, isLoading } = useGetCBOReportsQuery();
@@ -31,6 +26,17 @@ const ZipCodes = () => {
     }
   }, [reports]);
 
+  const createColors = useMemo(() => {
+    const list: string[] = [];
+
+    if (data) {
+      Object.keys(data).forEach((k) => {
+        list.push(randomColor());
+      });
+    }
+    return list;
+  }, [data]);
+
   const chartData = useMemo(() => {
     if (data) {
       return {
@@ -38,16 +44,16 @@ const ZipCodes = () => {
         datasets: [
           {
             data: sortValues(data),
-            backgroundColor: 'purple',
+            backgroundColor: createColors,
           },
         ],
       };
     }
-  }, [data]);
+  }, [data, createColors]);
 
   const renderChart = () => {
     if (chartData) {
-      return <Bar data={chartData} options={defaultOptions} />;
+      return <Pie data={chartData} />;
     }
   };
 

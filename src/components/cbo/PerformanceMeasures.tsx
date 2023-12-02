@@ -71,7 +71,7 @@ const PerformanceMeasuresComponent = () => {
 
   return (
     <div className="cbo-dataset">
-      <h2 className="cbo-title">Race</h2>
+      <h2 className="cbo-title">Performance Measures</h2>
       {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
       {renderChart()}
     </div>
