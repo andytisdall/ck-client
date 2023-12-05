@@ -9,11 +9,19 @@ import {
   LinearScale,
   ChartOptions,
 } from 'chart.js';
+import { useState } from 'react';
 
 import Ages from './Ages';
 import Races from './Race';
 import PerformanceMeasures from './PerformanceMeasures';
 import ZipCodes from './ZipCodes';
+import { CBOReport } from '../../state/apis/cboApi';
+
+export type CBOReportProps = {
+  startDate: string;
+  endDate: string;
+  filterOn: boolean;
+};
 
 ChartJS.register(
   ArcElement,
@@ -32,6 +40,17 @@ export const defaultOptions: ChartOptions = {
       display: false,
     },
   },
+};
+
+export const filterByDate = (
+  startDate: string,
+  endDate: string,
+  data: CBOReport[]
+) => {
+  return data.filter((report) => {
+    const reportDate = new Date(`${report.month} ${report.year}`);
+    return reportDate >= new Date(startDate) && reportDate <= new Date(endDate);
+  });
 };
 
 export function sumField<T>(reportList: T[], field: keyof T) {
@@ -63,12 +82,77 @@ export const renderValues = (obj: Record<string, number>, sorted = false) => {
 };
 
 const CBO = () => {
+  const [filterByDate, setFilterByDate] = useState(false);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  const renderDateSelect = () => {
+    if (filterByDate) {
+      return (
+        <div>
+          <input
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            type="date"
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+      );
+    }
+  };
+
+  const dateFilter = () => {
+    return (
+      <div className="cbo-date-filter">
+        <div className="cbo-date-filter-item">
+          <input
+            type="radio"
+            name="date"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setFilterByDate(false);
+              }
+            }}
+            checked={!filterByDate}
+          />
+          <label>All Time</label>
+        </div>
+        <div className="cbo-date-filter-item">
+          <input
+            type="radio"
+            name="date"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setFilterByDate(true);
+              }
+            }}
+          />
+          <label>Filter by Date</label>
+        </div>
+        {renderDateSelect()}
+      </div>
+    );
+  };
+
   return (
     <div className="cbo">
-      <Ages />
-      <Races />
-      <PerformanceMeasures />
-      <ZipCodes />
+      {dateFilter()}
+      <Ages startDate={startDate} endDate={endDate} filterOn={filterByDate} />
+      <Races startDate={startDate} endDate={endDate} filterOn={filterByDate} />
+      <PerformanceMeasures
+        startDate={startDate}
+        endDate={endDate}
+        filterOn={filterByDate}
+      />
+      <ZipCodes
+        startDate={startDate}
+        endDate={endDate}
+        filterOn={filterByDate}
+      />
     </div>
   );
 };

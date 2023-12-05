@@ -1,12 +1,20 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import randomColor from 'randomcolor';
 
 import { useGetCBOReportsQuery, ZipCode } from '../../state/apis/cboApi';
 import Loading from '../reusable/loading/Loading';
-import { sumField, renderValues, sortKeys, sortValues } from './CBO';
+import {
+  sumField,
+  renderValues,
+  sortKeys,
+  sortValues,
+  CBOReportProps,
+  filterByDate,
+} from './CBO';
 
-const ZipCodes = () => {
+const ZipCodes = ({ startDate, endDate }: CBOReportProps) => {
+  const [show, setShow] = useState(false);
   const { data: reports, isLoading } = useGetCBOReportsQuery();
 
   const data = useMemo(() => {
@@ -57,15 +65,23 @@ const ZipCodes = () => {
     }
   };
 
+  const openStyle = show ? 'cbo-report-open' : '';
+
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <div className="cbo-dataset">
-      <h2 className="cbo-title">Zip Codes</h2>
-      {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
-      {renderChart()}
+    <div className={`cbo-report ${openStyle}`}>
+      <h2 onClick={() => setShow(!show)} className="cbo-report-title">
+        Zip Codes
+      </h2>
+      {show && (
+        <div>
+          {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
+          {renderChart()}
+        </div>
+      )}
     </div>
   );
 };

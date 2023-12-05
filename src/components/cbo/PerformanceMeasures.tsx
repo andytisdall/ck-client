@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import {
@@ -12,14 +12,28 @@ import {
   defaultOptions,
   sortKeys,
   sortValues,
+  CBOReportProps,
+  filterByDate,
 } from './CBO';
 
-const PerformanceMeasuresComponent = () => {
+const PerformanceMeasuresComponent = ({
+  startDate,
+  endDate,
+  filterOn,
+}: CBOReportProps) => {
+  const [show, setShow] = useState(false);
   const { data: reports, isLoading } = useGetCBOReportsQuery();
+
+  const noOfReports = useRef<number>();
 
   const data = useMemo(() => {
     if (reports) {
-      const performanceMeasures: PerformanceMeasures[] = reports.map(
+      let filteredReports = reports;
+      if (filterOn) {
+        filteredReports = filterByDate(startDate, endDate, reports);
+      }
+      noOfReports.current = filteredReports.length;
+      const performanceMeasures: PerformanceMeasures[] = filteredReports.map(
         (r) => r.performanceMeasures
       );
       return {
@@ -43,7 +57,7 @@ const PerformanceMeasuresComponent = () => {
         ),
       };
     }
-  }, [reports]);
+  }, [reports, filterOn, endDate, startDate]);
 
   const chartData = useMemo(() => {
     if (data) {
@@ -65,15 +79,24 @@ const PerformanceMeasuresComponent = () => {
     }
   };
 
+  const openStyle = show ? 'cbo-report-open' : '';
+
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <div className="cbo-dataset">
-      <h2 className="cbo-title">Performance Measures</h2>
-      {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
-      {renderChart()}
+    <div className={`cbo-report ${openStyle}`}>
+      <h2 onClick={() => setShow(!show)} className="cbo-report-title">
+        Performance Measures
+      </h2>
+      {show && (
+        <div className="cbo-dataset">
+          Number of Reports used: {noOfReports.current}
+          {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
+          {renderChart()}
+        </div>
+      )}
     </div>
   );
 };

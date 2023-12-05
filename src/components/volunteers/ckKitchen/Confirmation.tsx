@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { RootState } from '../../../state/store';
 import Loading from '../../reusable/loading/Loading';
 import {
   useGetKitchenHoursQuery,
@@ -15,6 +16,9 @@ const Confirmation = () => {
   const { hoursId, contactId } = useParams();
 
   const { data: user } = useGetUserQuery();
+  const { volunteer } = useSelector((state: RootState) => ({
+    volunteer: state.volunteer.volunteer,
+  }));
 
   const [cancelShift, { isLoading }] = useCancelVolunteerShiftMutation();
 
@@ -87,6 +91,21 @@ const Confirmation = () => {
     }
   };
 
+  const renderVolunteer = () => {
+    if (volunteer) {
+      return (
+        <div className="vol-info">
+          <b>Your Info:</b>
+          <ul>
+            <li>
+              <b>Name:</b> {volunteer.name}
+            </li>
+          </ul>
+        </div>
+      );
+    }
+  };
+
   const renderCancelButton = () => {
     if (isLoading) {
       return <Loading />;
@@ -108,6 +127,8 @@ const Confirmation = () => {
       ) : (
         renderShiftDetails()
       )}
+      {renderVolunteer()}
+
       <Link to="/volunteers/ck-kitchen">
         <button className="hc-confirm-button">Volunteers Home</button>
       </Link>

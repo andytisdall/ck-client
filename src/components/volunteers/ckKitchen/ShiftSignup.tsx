@@ -60,6 +60,22 @@ const ShiftSignup = () => {
 
   const isLoading =
     signUpForVolunteerShiftResult.isLoading || kitchenShiftsQuery.isLoading;
+
+  const renderVolunteer = () => {
+    if (volunteer) {
+      return (
+        <div className="vol-info">
+          <b>Your Info:</b>
+          <ul>
+            <li>
+              <b>Name:</b> {volunteer.name}
+            </li>
+          </ul>
+        </div>
+      );
+    }
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -99,6 +115,7 @@ const ShiftSignup = () => {
           <b>Duration: </b>
           {shift.duration} Hours
         </p>
+        {renderVolunteer()}
       </div>
       <div className="volunteers-signup-btns">
         <button onClick={() => navigate('../list')} className="cancel">

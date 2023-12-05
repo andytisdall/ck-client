@@ -1,16 +1,27 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import { useGetCBOReportsQuery, Age } from '../../state/apis/cboApi';
 import Loading from '../reusable/loading/Loading';
-import { sumField, renderValues, defaultOptions } from './CBO';
+import {
+  sumField,
+  renderValues,
+  defaultOptions,
+  CBOReportProps,
+  filterByDate,
+} from './CBO';
 
-const Ages = () => {
+const Ages = ({ startDate, endDate, filterOn }: CBOReportProps) => {
+  const [show, setShow] = useState(false);
   const { data: reports, isLoading } = useGetCBOReportsQuery();
 
   const data = useMemo(() => {
     if (reports) {
-      const ages: Age[] = reports.map((r) => r.age);
+      let filteredReports = reports;
+      if (filterOn) {
+        filteredReports = filterByDate(startDate, endDate, reports);
+      }
+      const ages: Age[] = filteredReports.map((r) => r.age);
       return {
         '0 - 17': sumField(ages, 'age17'),
         '18 - 26': sumField(ages, 'age26'),
@@ -20,7 +31,7 @@ const Ages = () => {
         Unknown: sumField(ages, 'ageUnknown'),
       };
     }
-  }, [reports]);
+  }, [reports, startDate, endDate, filterOn]);
 
   const chartData = useMemo(() => {
     if (data) {
@@ -45,14 +56,22 @@ const Ages = () => {
     return <ul>{renderValues(data)}</ul>;
   };
 
+  const openStyle = show ? 'cbo-report-open' : '';
+
   if (isLoading) {
     return <Loading />;
   }
   return (
-    <div className="cbo-dataset">
-      <h2 className="cbo-title">Age</h2>
-      {renderAges()}
-      {renderChart()}
+    <div className={`cbo-report ${openStyle}`}>
+      <h2 className="cbo-report-title" onClick={() => setShow(!show)}>
+        Age
+      </h2>
+      {show && (
+        <div className="cbo-dataset">
+          {renderAges()}
+          {renderChart()}
+        </div>
+      )}
     </div>
   );
 };

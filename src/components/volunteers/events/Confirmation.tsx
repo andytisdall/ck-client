@@ -58,6 +58,21 @@ const Confirmation = () => {
     }
   };
 
+  const renderVolunteer = () => {
+    if (volunteer) {
+      return (
+        <div className="vol-info">
+          <b>Your Info:</b>
+          <ul>
+            <li>
+              <b>Name:</b> {volunteer.name}
+            </li>
+          </ul>
+        </div>
+      );
+    }
+  };
+
   const confirmMessage = <p>You have successfully signed up for this shift:</p>;
 
   const cancelMessage = (
@@ -103,6 +118,7 @@ const Confirmation = () => {
               {job.description}
             </li>
           </ul>
+          {renderVolunteer()}
           <p>You have been sent an email with this information.</p>
         </div>
       );

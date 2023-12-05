@@ -103,7 +103,7 @@
 }
 
 .volunteers-email-field {
-  max-width: 15rem;
+  width: 90%;
 }
 
 .volunteers-email-display {
@@ -230,4 +230,12 @@
   }
 
 
+}
+
+.vol-info {
+  background-color: rgba(255, 121, 255, 0.3);
+  border: 1px solid black;
+  padding: 1rem;
+  width: fit-content;
+  margin-bottom: 1rem;
 }

@@ -1,8 +1,11 @@
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '../../state/store';
 import Loading from '../reusable/loading/Loading';
 import TextButton from '../reusable/TextButton';
 import { useGetEventsQuery } from '../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../state/apis/authApi';
 
 const homeChefDescription =
   'A hub for CK Home Chefs to get started in the program, sign up for Town Fridge Deliveries, and access resources like recipes.';
@@ -11,6 +14,11 @@ const ckKitchenDescription = 'Sign up to help out in the CK Kitchen.';
 
 const VolunteersHome = () => {
   const { data: eventCampaigns, isLoading } = useGetEventsQuery();
+  const { data: user } = useGetUserQuery();
+  const volunteer = useSelector((state: RootState) => {
+    return state.volunteer.volunteer;
+  });
+
   const renderEvents = () => {
     if (isLoading) {
       return <Loading />;
@@ -43,12 +51,14 @@ const VolunteersHome = () => {
                 description = cam.buttonText;
               }
 
+              const link = user || volunteer ? 'signup' : 'signin';
+
               return (
                 <TextButton
                   key={cam.id}
                   buttonText={cam.name}
                   descriptionText={description}
-                  to={`events/signup/${cam.id}`}
+                  to={`events/${link}/${cam.id}`}
                 />
               );
             })}

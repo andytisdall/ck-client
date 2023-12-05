@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import { useGetCBOReportsQuery, Race } from '../../state/apis/cboApi';
@@ -9,9 +9,12 @@ import {
   defaultOptions,
   sortKeys,
   sortValues,
+  CBOReportProps,
 } from './CBO';
 
-const Races = () => {
+const Races = ({ startDate, endDate }: CBOReportProps) => {
+  const [show, setShow] = useState(false);
+
   const { data: reports, isLoading } = useGetCBOReportsQuery();
 
   const data = useMemo(() => {
@@ -56,14 +59,22 @@ const Races = () => {
     return <ul>{renderValues(data, true)}</ul>;
   };
 
+  const openStyle = show ? 'cbo-report-open' : '';
+
   if (isLoading) {
     return <Loading />;
   }
   return (
-    <div className="cbo-dataset">
-      <h2 className="cbo-title">Race</h2>
-      {renderAges()}
-      {renderChart()}
+    <div className={`cbo-report ${openStyle}`}>
+      <h2 onClick={() => setShow(!show)} className="cbo-report-title">
+        Race
+      </h2>
+      {show && (
+        <div className="cbo-dataset">
+          {renderAges()}
+          {renderChart()}
+        </div>
+      )}
     </div>
   );
 };

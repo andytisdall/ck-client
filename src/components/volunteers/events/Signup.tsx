@@ -79,6 +79,21 @@ const EventShiftSignup = () => {
     }
   };
 
+  const renderVolunteer = () => {
+    if (volunteer) {
+      return (
+        <div className="vol-info">
+          <b>Your Info:</b>
+          <ul>
+            <li>
+              <b>Name:</b> {volunteer.name}
+            </li>
+          </ul>
+        </div>
+      );
+    }
+  };
+
   if (!shift?.open) {
     return <p>This shift is not available for signup</p>;
   }
@@ -114,6 +129,7 @@ const EventShiftSignup = () => {
           <b>Duration: </b>
           {shift.duration} Hours
         </p>
+        {renderVolunteer()}
       </div>
       {isLoading ? (
         <Loading />
