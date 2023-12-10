@@ -38,3 +38,27 @@
 .cbo-date-filter-item {
   display: flex;
 }
+.cbo-date-input-row {
+  display: flex;
+  align-items: center;
+}
+
+.cbo-date-input {
+  margin: 1rem;
+}
+
+.cbo-month-select {
+  margin-left: 1rem;
+  margin-top: 15px;
+}
+
+.cbo-date-input-section {
+  display: flex;
+  align-items: center;
+  padding: .5rem;
+  margin: .5rem 1rem;
+}
+
+.cbo-input-selected {
+  background-color: rgba(0, 255, 0, 0.54);
+}

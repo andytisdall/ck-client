@@ -1,69 +1,47 @@
 import { useMemo, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-import { useGetCBOReportsQuery, Race } from '../../state/apis/cboApi';
-import Loading from '../reusable/loading/Loading';
-import {
-  sumField,
-  renderValues,
-  defaultOptions,
-  sortKeys,
-  sortValues,
-  CBOReportProps,
-} from './CBO';
+import { Race } from '../../state/apis/cboApi';
+import { CBOReportProps, defaultOptions } from './CBO';
+import { sumField, renderValues, sortKeys, sortValues } from './reportMethods';
 
-const Races = ({ startDate, endDate }: CBOReportProps) => {
+const Races = ({ reports }: CBOReportProps) => {
   const [show, setShow] = useState(false);
 
-  const { data: reports, isLoading } = useGetCBOReportsQuery();
-
   const data = useMemo(() => {
-    if (reports) {
-      const races: Race[] = reports.map((r) => r.race);
-      return {
-        Black: sumField(races, 'raceAfrican'),
-        White: sumField(races, 'raceWhite'),
-        Asian: sumField(races, 'raceAsian'),
-        Latin: sumField(races, 'raceLatin'),
-        Other: sumField(races, 'raceOther'),
-        Unknown: sumField(races, 'raceUnknown'),
-      };
-    }
+    const races: Race[] = reports.map((r) => r.race);
+    return {
+      Black: sumField(races, 'raceAfrican'),
+      White: sumField(races, 'raceWhite'),
+      Asian: sumField(races, 'raceAsian'),
+      Latin: sumField(races, 'raceLatin'),
+      Other: sumField(races, 'raceOther'),
+      Unknown: sumField(races, 'raceUnknown'),
+    };
   }, [reports]);
 
   const chartData = useMemo(() => {
-    if (data) {
-      return {
-        labels: sortKeys(data),
-        datasets: [
-          {
-            data: sortValues(data),
-            backgroundColor: 'blue',
-          },
-        ],
-      };
-    }
+    return {
+      labels: sortKeys(data),
+      datasets: [
+        {
+          data: sortValues(data),
+          backgroundColor: 'blue',
+        },
+      ],
+    };
   }, [data]);
 
   const renderChart = () => {
-    if (chartData) {
-      return <Bar data={chartData} options={defaultOptions} />;
-    }
+    return <Bar data={chartData} options={defaultOptions} />;
   };
 
   const renderAges = () => {
-    if (!data) {
-      return <p>Reports not found</p>;
-    }
-
     return <ul>{renderValues(data, true)}</ul>;
   };
 
   const openStyle = show ? 'cbo-report-open' : '';
 
-  if (isLoading) {
-    return <Loading />;
-  }
   return (
     <div className={`cbo-report ${openStyle}`}>
       <h2 onClick={() => setShow(!show)} className="cbo-report-title">
@@ -71,6 +49,7 @@ const Races = ({ startDate, endDate }: CBOReportProps) => {
       </h2>
       {show && (
         <div className="cbo-dataset">
+          Number of Reports used: {reports.length}
           {renderAges()}
           {renderChart()}
         </div>

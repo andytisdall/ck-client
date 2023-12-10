@@ -9,19 +9,17 @@ import {
   LinearScale,
   ChartOptions,
 } from 'chart.js';
-import { useState } from 'react';
+import { useState, useMemo, useRef } from 'react';
+import { format, lastDayOfMonth } from 'date-fns';
 
+import { useGetCBOReportsQuery, CBOReport } from '../../state/apis/cboApi';
 import Ages from './Ages';
 import Races from './Race';
 import PerformanceMeasures from './PerformanceMeasures';
 import ZipCodes from './ZipCodes';
-import { CBOReport } from '../../state/apis/cboApi';
-
-export type CBOReportProps = {
-  startDate: string;
-  endDate: string;
-  filterOn: boolean;
-};
+import Loading from '../reusable/loading/Loading';
+import Households from './Households';
+import { filterByDate } from './reportMethods';
 
 ChartJS.register(
   ArcElement,
@@ -33,6 +31,8 @@ ChartJS.register(
   LinearScale
 );
 
+export type CBOReportProps = { reports: CBOReport[] };
+
 export const defaultOptions: ChartOptions = {
   responsive: true,
   plugins: {
@@ -42,64 +42,103 @@ export const defaultOptions: ChartOptions = {
   },
 };
 
-export const filterByDate = (
-  startDate: string,
-  endDate: string,
-  data: CBOReport[]
-) => {
-  return data.filter((report) => {
-    const reportDate = new Date(`${report.month} ${report.year}`);
-    return reportDate >= new Date(startDate) && reportDate <= new Date(endDate);
-  });
-};
-
-export function sumField<T>(reportList: T[], field: keyof T) {
-  return reportList.reduce((prev, cur) => prev + (cur[field] as number), 0);
-}
-
-export const sortKeys = (obj: Record<string, number>) => {
-  return Object.entries(obj)
-    .sort(([, valueA], [, valueB]) => (valueA > valueB ? -1 : 1))
-    .map(([key]) => key);
-};
-
-export const sortValues = (obj: Record<string, number>) => {
-  return Object.values(obj).sort((a, b) => (a > b ? -1 : 1));
-};
-
-export const renderValues = (obj: Record<string, number>, sorted = false) => {
-  let object = Object.keys(obj);
-  if (sorted) {
-    object = sortKeys(obj);
-  }
-  return object.map((key) => {
-    return (
-      <li key={key}>
-        {key}: {obj[key]}
-      </li>
-    );
-  });
-};
-
 const CBO = () => {
-  const [filterByDate, setFilterByDate] = useState(false);
+  const [filterOn, setFilterOn] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
+  const { data: reports, isLoading } = useGetCBOReportsQuery();
+
+  const monthHighlightRef = useRef(false);
+  const monthPickerRef = useRef<HTMLSelectElement>(null);
+
+  const monthOptions = useMemo(() => {
+    if (reports) {
+      const months: string[] = [];
+      reports.forEach((rep) => {
+        const date = `${rep.month} ${rep.year}`;
+        if (!months.includes(date)) {
+          months.push(date);
+        }
+      });
+      return months;
+    }
+  }, [reports]);
+
+  const filteredReports = useMemo(() => {
+    if (reports) {
+      if (filterOn) {
+        return filterByDate(startDate, endDate, reports);
+      }
+      return reports;
+    }
+  }, [reports, filterOn, startDate, endDate]);
+
   const renderDateSelect = () => {
-    if (filterByDate) {
+    if (filterOn) {
+      const datePickerStyle = monthHighlightRef.current
+        ? ''
+        : 'cbo-input-selected';
+      const monthPickerStyle = monthHighlightRef.current
+        ? 'cbo-input-selected'
+        : '';
+
       return (
-        <div>
-          <input
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            type="date"
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+        <div className="cbo-date-input-row">
+          <div className={`cbo-date-input-section ${datePickerStyle}`}>
+            <input
+              value={startDate}
+              onChange={(e) => {
+                setStartDate(e.target.value);
+                monthHighlightRef.current = false;
+              }}
+              type="date"
+              className="cbo-date-input"
+            />
+            <p>to</p>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => {
+                setEndDate(e.target.value);
+                monthHighlightRef.current = false;
+                if (monthPickerRef.current) {
+                  monthPickerRef.current.value = '';
+                }
+              }}
+              className="cbo-date-input"
+            />
+          </div>
+          <p>Or</p>
+          <div className={`cbo-date-input-section ${monthPickerStyle}`}>
+            <select
+              ref={monthPickerRef}
+              className="cbo-month-select"
+              onChange={(e) => {
+                const monthYear = e.target.value;
+                if (monthYear) {
+                  const monthStartDate = format(
+                    new Date(monthYear),
+                    'yyyy-MM-dd'
+                  );
+                  const monthEndDate = format(
+                    lastDayOfMonth(new Date(monthYear)),
+                    'yyyy-MM-dd'
+                  );
+                  setStartDate(monthStartDate);
+                  setEndDate(monthEndDate);
+                  monthHighlightRef.current = true;
+                }
+              }}
+            >
+              <option value="">select month</option>
+              {monthOptions?.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       );
     }
@@ -114,47 +153,52 @@ const CBO = () => {
             name="date"
             onChange={(e) => {
               if (e.target.checked) {
-                setFilterByDate(false);
+                setFilterOn(false);
               }
             }}
-            checked={!filterByDate}
+            checked={!filterOn}
+            id="all-time"
           />
-          <label>All Time</label>
+          <label htmlFor="all-time">All Time</label>
         </div>
         <div className="cbo-date-filter-item">
           <input
+            id="date"
             type="radio"
             name="date"
             onChange={(e) => {
               if (e.target.checked) {
-                setFilterByDate(true);
+                setFilterOn(true);
               }
             }}
           />
-          <label>Filter by Date</label>
+          <label htmlFor="date">Filter by Date</label>
         </div>
         {renderDateSelect()}
       </div>
     );
   };
 
-  return (
-    <div className="cbo">
-      {dateFilter()}
-      <Ages startDate={startDate} endDate={endDate} filterOn={filterByDate} />
-      <Races startDate={startDate} endDate={endDate} filterOn={filterByDate} />
-      <PerformanceMeasures
-        startDate={startDate}
-        endDate={endDate}
-        filterOn={filterByDate}
-      />
-      <ZipCodes
-        startDate={startDate}
-        endDate={endDate}
-        filterOn={filterByDate}
-      />
-    </div>
-  );
+  if (isLoading) {
+    return (
+      <div className="cbo main">
+        <Loading />
+      </div>
+    );
+  }
+  if (filteredReports) {
+    return (
+      <div className="cbo main">
+        {dateFilter()}
+        <Ages reports={filteredReports} />
+        <Races reports={filteredReports} />
+        <PerformanceMeasures reports={filteredReports} />
+        <ZipCodes reports={filteredReports} />
+        <Households reports={filteredReports} />
+      </div>
+    );
+  }
+  return <p>No Data Found</p>;
 };
 
 export default CBO;
