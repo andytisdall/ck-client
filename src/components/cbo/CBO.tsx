@@ -61,7 +61,7 @@ const CBO = () => {
           months.push(date);
         }
       });
-      return months;
+      return months.sort((a, b) => (new Date(a) > new Date(b) ? 1 : -1));
     }
   }, [reports]);
 
