@@ -1,11 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { CBOReportProps } from './CBO';
 import { sumField, renderValues } from './reportMethods';
+import Chart from './Chart';
 
 const Households = ({ reports }: CBOReportProps) => {
-  const [show, setShow] = useState(false);
-
   const data = useMemo(() => {
     return {
       'Households Provided Meals': sumField(reports, 'households'),
@@ -16,20 +15,11 @@ const Households = ({ reports }: CBOReportProps) => {
     return <ul>{renderValues(data)}</ul>;
   };
 
-  const openStyle = show ? 'cbo-report-open' : '';
-
   return (
-    <div className={`cbo-report ${openStyle}`}>
-      <h2 className="cbo-report-title" onClick={() => setShow(!show)}>
-        Households
-      </h2>
-      {show && (
-        <div className="cbo-dataset">
-          Number of Reports used: {reports.length}
-          {renderHouseholds()}
-        </div>
-      )}
-    </div>
+    <Chart title="Households">
+      <p>Number of Reports used: {reports.length}</p>
+      {renderHouseholds()}
+    </Chart>
   );
 };
 

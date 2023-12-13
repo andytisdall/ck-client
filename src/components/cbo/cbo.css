@@ -6,12 +6,12 @@
 
 .cbo-report {
   border: 1px solid grey;
-  width: 15rem;
   margin: 1rem;
+  max-width: 50rem;
+
 }
 
 .cbo-report-title {
-  text-align: center;
   background-color: aqua;
   border-bottom: 1px solid black;
   padding: 1rem;
@@ -23,9 +23,8 @@
 }
 
 .cbo-dataset {
-  max-width: 50rem;
   padding: 1rem;
-
+  background-color: white;
 }
 
 

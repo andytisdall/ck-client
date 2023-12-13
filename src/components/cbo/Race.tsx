@@ -1,13 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import { Race } from '../../state/apis/cboApi';
 import { CBOReportProps, defaultOptions } from './CBO';
 import { sumField, renderValues, sortKeys, sortValues } from './reportMethods';
+import Chart from './Chart';
 
 const Races = ({ reports }: CBOReportProps) => {
-  const [show, setShow] = useState(false);
-
   const data = useMemo(() => {
     const races: Race[] = reports.map((r) => r.race);
     return {
@@ -40,21 +39,14 @@ const Races = ({ reports }: CBOReportProps) => {
     return <ul>{renderValues(data, true)}</ul>;
   };
 
-  const openStyle = show ? 'cbo-report-open' : '';
-
   return (
-    <div className={`cbo-report ${openStyle}`}>
-      <h2 onClick={() => setShow(!show)} className="cbo-report-title">
-        Race
-      </h2>
-      {show && (
-        <div className="cbo-dataset">
-          Number of Reports used: {reports.length}
-          {renderAges()}
-          {renderChart()}
-        </div>
-      )}
-    </div>
+    <Chart title="Race">
+      <div className="cbo-dataset">
+        Number of Reports used: {reports.length}
+        {renderAges()}
+        {renderChart()}
+      </div>
+    </Chart>
   );
 };
 

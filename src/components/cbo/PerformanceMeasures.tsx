@@ -1,13 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import { PerformanceMeasures } from '../../state/apis/cboApi';
 import { defaultOptions, CBOReportProps } from './CBO';
 import { sumField, renderValues, sortKeys, sortValues } from './reportMethods';
+import Chart from './Chart';
 
 const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
-  const [show, setShow] = useState(false);
-
   const data = useMemo(() => {
     const performanceMeasures: PerformanceMeasures[] = reports.map(
       (r) => r.performanceMeasures
@@ -50,21 +49,14 @@ const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
     return <Bar data={chartData} options={defaultOptions} />;
   };
 
-  const openStyle = show ? 'cbo-report-open' : '';
-
   return (
-    <div className={`cbo-report ${openStyle}`}>
-      <h2 onClick={() => setShow(!show)} className="cbo-report-title">
-        Performance Measures
-      </h2>
-      {show && (
-        <div className="cbo-dataset">
-          Number of Reports used: {reports.length}
-          {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
-          {renderChart()}
-        </div>
-      )}
-    </div>
+    <Chart title="Performance Measures">
+      <div className="cbo-dataset">
+        Number of Reports used: {reports.length}
+        {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
+        {renderChart()}
+      </div>
+    </Chart>
   );
 };
 

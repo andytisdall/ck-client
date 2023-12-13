@@ -1,14 +1,13 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Pie } from 'react-chartjs-2';
 import randomColor from 'randomcolor';
 
 import { ZipCode } from '../../state/apis/cboApi';
 import { sumField, renderValues, sortKeys, sortValues } from './reportMethods';
 import { CBOReportProps } from './CBO';
+import Chart from './Chart';
 
 const ZipCodes = ({ reports }: CBOReportProps) => {
-  const [show, setShow] = useState(false);
-
   const data = useMemo(() => {
     const zips: Record<ZipCode, number | undefined>[] = reports.map(
       (r) => r.zips
@@ -45,21 +44,14 @@ const ZipCodes = ({ reports }: CBOReportProps) => {
     return <Pie data={chartData} />;
   };
 
-  const openStyle = show ? 'cbo-report-open' : '';
-
   return (
-    <div className={`cbo-report ${openStyle}`}>
-      <h2 onClick={() => setShow(!show)} className="cbo-report-title">
-        Zip Codes
-      </h2>
-      {show && (
-        <div className="cbo-dataset">
-          Number of Reports used: {reports.length}
-          {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
-          {renderChart()}
-        </div>
-      )}
-    </div>
+    <Chart title="Zip Codes">
+      <div className="cbo-dataset">
+        Number of Reports used: {reports.length}
+        <ul>{renderValues(data, true)}</ul>
+        {renderChart()}
+      </div>
+    </Chart>
   );
 };
 
