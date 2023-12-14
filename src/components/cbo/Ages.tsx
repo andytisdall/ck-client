@@ -36,7 +36,6 @@ const Ages = ({ reports }: CBOReportProps) => {
 
   return (
     <Chart title="Ages">
-      <p>Number of reports used: {reports.length}</p>
       {renderAges()}
       {renderChart()}
     </Chart>

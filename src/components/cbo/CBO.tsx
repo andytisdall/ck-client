@@ -20,6 +20,7 @@ import ZipCodes from './ZipCodes';
 import Loading from '../reusable/loading/Loading';
 import Households from './Households';
 import { filterByDate } from './reportMethods';
+import { useGetUserQuery } from '../../state/apis/authApi';
 
 ChartJS.register(
   ArcElement,
@@ -47,7 +48,9 @@ const CBO = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  const { data: reports, isLoading } = useGetCBOReportsQuery();
+  const { data: reports, isLoading: reportsIsLoading } =
+    useGetCBOReportsQuery();
+  const { data: user, isLoading: userIsLoading } = useGetUserQuery();
 
   const monthHighlightRef = useRef(false);
   const monthPickerRef = useRef<HTMLSelectElement>(null);
@@ -179,17 +182,52 @@ const CBO = () => {
     );
   };
 
-  if (isLoading) {
+  const renderInfo = () => {
+    return (
+      <div className="cbo-date-range-display">
+        <p>
+          Date Range:{' '}
+          <span className="cbo-date-bold">
+            {!filterOn
+              ? 'All Time'
+              : startDate && endDate
+              ? `${format(new Date(startDate), 'M/d/yy')} - ${format(
+                  new Date(endDate),
+                  'M/d/yy'
+                )}`
+              : '-'}
+          </span>
+        </p>
+        <p>
+          Number of reports being used:{' '}
+          <span className="cbo-date-bold">{filteredReports?.length}</span>
+        </p>
+      </div>
+    );
+  };
+
+  if (reportsIsLoading || userIsLoading) {
     return (
       <div className="cbo main">
         <Loading />
       </div>
     );
   }
+
+  if (!user?.admin) {
+    return (
+      <div className="cbo main">
+        <h3>User is not authorized.</h3>
+      </div>
+    );
+  }
+
   if (filteredReports) {
     return (
       <div className="cbo main">
+        <h1>CBO Report Data</h1>
         {dateFilter()}
+        {renderInfo()}
         <Ages reports={filteredReports} />
         <Races reports={filteredReports} />
         <PerformanceMeasures reports={filteredReports} />
@@ -198,7 +236,7 @@ const CBO = () => {
       </div>
     );
   }
-  return <p>No Data Found</p>;
+  return <div className="cbo main">No Data Found</div>;
 };
 
 export default CBO;

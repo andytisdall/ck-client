@@ -15,12 +15,7 @@ const Households = ({ reports }: CBOReportProps) => {
     return <ul>{renderValues(data)}</ul>;
   };
 
-  return (
-    <Chart title="Households">
-      <p>Number of Reports used: {reports.length}</p>
-      {renderHouseholds()}
-    </Chart>
-  );
+  return <Chart title="Households">{renderHouseholds()}</Chart>;
 };
 
 export default Households;

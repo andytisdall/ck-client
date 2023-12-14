@@ -47,7 +47,6 @@ const ZipCodes = ({ reports }: CBOReportProps) => {
   return (
     <Chart title="Zip Codes">
       <div className="cbo-dataset">
-        Number of Reports used: {reports.length}
         <ul>{renderValues(data, true)}</ul>
         {renderChart()}
       </div>

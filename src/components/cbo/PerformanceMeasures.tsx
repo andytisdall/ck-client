@@ -52,7 +52,6 @@ const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
   return (
     <Chart title="Performance Measures">
       <div className="cbo-dataset">
-        Number of Reports used: {reports.length}
         {!data ? <p>No Data</p> : <ul>{renderValues(data, true)}</ul>}
         {renderChart()}
       </div>

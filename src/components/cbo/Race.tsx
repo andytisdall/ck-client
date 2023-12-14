@@ -42,7 +42,6 @@ const Races = ({ reports }: CBOReportProps) => {
   return (
     <Chart title="Race">
       <div className="cbo-dataset">
-        Number of Reports used: {reports.length}
         {renderAges()}
         {renderChart()}
       </div>

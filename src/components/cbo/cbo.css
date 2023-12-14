@@ -61,3 +61,14 @@
 .cbo-input-selected {
   background-color: rgba(0, 255, 0, 0.54);
 }
+
+.cbo-date-range-display {
+  background-color: rgba(255, 0, 255, 0.395);
+  padding: .5rem 1rem;
+  width: fit-content;
+  margin-left: 2rem;
+}
+
+.cbo-date-bold {
+  font-weight: 700;
+}
