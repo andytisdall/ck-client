@@ -29,12 +29,14 @@ const EditUser = () => {
       username,
       password: password1,
       salesforceId,
-    }).then(() => dispatch(setAlert('User Edited')));
-    setUser('');
-    setUsername('');
-    setSalesforceId('');
-    setPassword1('');
-    setPassword2('');
+    }).then(() => {
+      dispatch(setAlert('User Edited'));
+      setUser('');
+      setUsername('');
+      setSalesforceId('');
+      setPassword1('');
+      setPassword2('');
+    });
   };
 
   const renderUsers = () => {

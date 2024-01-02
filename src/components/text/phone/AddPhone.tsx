@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 import { Region, useAddPhoneMutation } from '../../../state/apis/textApi';
 import Loading from '../../reusable/loading/Loading';
 
@@ -9,9 +11,13 @@ const AddPhone = () => {
 
   const [addPhone, addPhoneResult] = useAddPhoneMutation();
 
+  const dispatch = useDispatch();
+
   const submitPhone: React.FormEventHandler = async (e) => {
     e.preventDefault();
-    addPhone({ phone, region });
+    addPhone({ phone, region })
+      .unwrap()
+      .then(() => dispatch(setAlert('Phone number added successfully')));
   };
 
   return (

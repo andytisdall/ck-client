@@ -23,11 +23,11 @@ const CreateUser = () => {
       .unwrap()
       .then(() => {
         dispatch(setAlert('User Created'));
+        setUsername('');
+        setSalesforceId('');
+        setPassword1('');
+        setPassword2('');
       });
-    setUsername('');
-    setSalesforceId('');
-    setPassword1('');
-    setPassword2('');
   };
 
   return (

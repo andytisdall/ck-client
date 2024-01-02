@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { api } from '../../api';
 import {
   Fridge,
-  HomeChefNotificationArgs,
+  NotificationArgs,
   Campaign,
   JobShiftsState,
   SignUpForHomeChefShiftArgs,
@@ -19,7 +19,7 @@ export const homeChefApi = api.injectEndpoints({
     getFridges: builder.query<Fridge[], void>({
       query: () => '/home-chef/campaign/fridges',
     }),
-    sendHomeChefNotification: builder.mutation<null, HomeChefNotificationArgs>({
+    sendHomeChefNotification: builder.mutation<null, NotificationArgs>({
       query: (body) => ({
         url: '/home-chef/notifications',
         body,

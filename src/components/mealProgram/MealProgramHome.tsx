@@ -1,4 +1,6 @@
 import TextButton from '../reusable/TextButton';
+import { useGetTotalMealsQuery } from '../../state/apis/mealProgramApi';
+import Loading from '../reusable/loading/Loading';
 
 const onboardingDescription =
   'Fill out and upload the documents that are required of meal program restaurants';
@@ -7,6 +9,7 @@ const resourcesDescription =
   'Access meal guidelines, label templates, and invoices';
 
 const MealProgramHome = () => {
+  const { data: mealProgramData, isLoading } = useGetTotalMealsQuery();
   return (
     <div className="meal-program-home">
       <div className="meal-program-home-text">
@@ -24,7 +27,13 @@ const MealProgramHome = () => {
           Program, The Eat. Learn. Play Bus, Serenity House, Berkeley Free
           Clinic, Kerry’s Kids and many others.
         </p>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <p>Total meals served: {mealProgramData?.total}</p>
+        )}
       </div>
+
       <div>
         <TextButton
           to="resources"

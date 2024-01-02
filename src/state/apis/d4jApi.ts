@@ -1,4 +1,5 @@
 import { api } from '../api';
+import { NotificationArgs } from './volunteerApi';
 
 interface UploadReceiptArgs {
   receipt: File;
@@ -15,7 +16,15 @@ const d4jApi = api.injectEndpoints({
         return { url: '/d4j/receipt', method: 'POST', body, formData: true };
       },
     }),
+    sendD4JNotification: builder.mutation<null, NotificationArgs>({
+      query: (body) => ({
+        url: '/d4j/notifications',
+        body,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
-export const { useUploadReceiptMutation } = d4jApi;
+export const { useUploadReceiptMutation, useSendD4JNotificationMutation } =
+  d4jApi;

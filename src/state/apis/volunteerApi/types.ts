@@ -8,7 +8,7 @@ export type Campaign = {
   mealsDonated: number;
 };
 
-export interface HomeChefNotificationArgs {
+export interface NotificationArgs {
   title: string;
   message: string;
 }

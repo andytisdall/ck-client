@@ -151,6 +151,10 @@
       display: block;
     }
 
+  .number-input {
+    max-width: 200px;
+  }
+
     #paypal-fee-amt {
       color: rgb(220, 30, 0);
       font-size: 20px;
@@ -177,13 +181,13 @@
             <label for="amount-display" class="paypal-form-label">Or enter your own amount:</label>
             <div class="paypal-field">
               <span class="paypal-dollar-sign">$</span>
-              <input type="number" id="amount-display" name="amount-display" placeholder="100" required="true" min="1"/>
+              <input class="number-input" type="number" id="amount-display" name="amount-display" placeholder="100" required="true" min="1"/>
             </div>
           </div>
 
 
           <input id="total" name="amount" value="0">
-          <input type="hidden" name="business" value="maria@lukasoakland.com">
+          <input type="hidden" name="business" value="maria@ckoakland.org">
           <input type="hidden" name="no_recurring" value="0">
           <input type="hidden" name="no-shipping" value="1">
           <input type="hidden" name="currency_code" value="USD">
@@ -201,7 +205,7 @@
 
   <script>
 
-    const donationValues = [25, 50, 100, 250, 500, 1000];
+    const donationValues = [50, 100, 250, 500, 1000];
     const buttonContainer = document.querySelector('.paypal-btn-container');
     const amountInput = document.querySelector('#amount-display');
     let selectedBtn;

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useSendHomeChefNotificationMutation } from '../../../state/apis/volunteerApi/homeChefApi';
 import Loading from '../../reusable/loading/Loading';
 import { setAlert } from '../../../state/apis/slices/alertSlice';
+import { useSendD4JNotificationMutation } from '../../../state/apis/d4jApi';
 
 const HomeChefNotification = () => {
   const [title, setTitle] = useState('');
@@ -11,11 +11,10 @@ const HomeChefNotification = () => {
 
   const dispatch = useDispatch();
 
-  const [sendHomeChefNotification, { isLoading }] =
-    useSendHomeChefNotificationMutation();
+  const [sendD4JNotification, { isLoading }] = useSendD4JNotificationMutation();
 
   const handleSend = () => {
-    sendHomeChefNotification({ title, message })
+    sendD4JNotification({ title, message })
       .unwrap()
       .then(() => {
         dispatch(setAlert('Notification Sent'));

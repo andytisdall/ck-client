@@ -14,7 +14,11 @@ const mealProgramApi = api.injectEndpoints({
         };
       },
     }),
+    getTotalMeals: builder.query<{ total: number }, void>({
+      query: () => '/meal-program/campaign',
+    }),
   }),
 });
 
-export const { useGetMealProgramScheduleQuery } = mealProgramApi;
+export const { useGetMealProgramScheduleQuery, useGetTotalMealsQuery } =
+  mealProgramApi;

@@ -1,5 +1,7 @@
 import { format } from 'date-fns-tz';
+import { useDispatch } from 'react-redux';
 
+import { setAlert } from '../../../state/apis/slices/alertSlice';
 import Loading from '../../reusable/loading/Loading';
 import {
   useGetScheduledTextsQuery,
@@ -9,16 +11,18 @@ import {
 import './RecurringConsole.css';
 
 const RecurringConsole = () => {
-  const { data: scheduledTexts, isLoading } = useGetScheduledTextsQuery();
+  const { data: scheduledTexts, isFetching } = useGetScheduledTextsQuery();
 
   const [deleteScheduledText, deleteScheduledTextResult] =
     useDeleteScheduledTextMutation();
 
-  if (isLoading || deleteScheduledTextResult.isLoading) {
+  const dispatch = useDispatch();
+
+  if (isFetching || deleteScheduledTextResult.isLoading) {
     return <Loading />;
   }
 
-  if (!isLoading && scheduledTexts && !Object.keys(scheduledTexts).length) {
+  if (!isFetching && scheduledTexts && !Object.keys(scheduledTexts).length) {
     return <p>No scheduled texts found</p>;
   }
 
@@ -36,13 +40,16 @@ const RecurringConsole = () => {
                   'MM/dd/yy'
                 )}
                 <p>{scheduledTexts[key][0].body}</p>
+                <p>Status: {scheduledTexts[key][0].status}</p>
                 <button
                   className="cancel"
-                  onClick={() =>
+                  onClick={() => {
                     deleteScheduledText(
-                      Object.values(scheduledTexts[key]).map((text) => text.sid)
+                      scheduledTexts[key].map((text) => text.sid)
                     )
-                  }
+                      .unwrap()
+                      .then(() => dispatch(setAlert('Message Canceled')));
+                  }}
                 >
                   cancel
                 </button>

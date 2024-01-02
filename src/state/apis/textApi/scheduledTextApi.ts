@@ -37,7 +37,7 @@ export const scheduledTextApi = api.injectEndpoints({
     deleteScheduledText: builder.mutation<null, string[]>({
       query: (body) => ({
         url: '/text/scheduled/delete',
-        body,
+        body: { ids: body },
         method: 'POST',
       }),
       invalidatesTags: ['ScheduledText'],

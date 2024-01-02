@@ -29,6 +29,7 @@ export interface MessageInstance {
   dateCreated: string;
   dateUpdated: string;
   delivery: any;
+  status: string;
 }
 
 export type ScheduledTextState = Record<string, MessageInstance[]>;

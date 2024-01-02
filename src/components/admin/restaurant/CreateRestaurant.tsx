@@ -17,12 +17,12 @@ const CreateRestaurant = () => {
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    createRestaurant({ name, salesforceId, userId }).then(() =>
-      dispatch(setAlert('Restaurant Created'))
-    );
-    setName('');
-    setSalesforceId('');
-    setUserId('');
+    createRestaurant({ name, salesforceId, userId }).then(() => {
+      dispatch(setAlert('Restaurant Created'));
+      setName('');
+      setSalesforceId('');
+      setUserId('');
+    });
   };
 
   return (

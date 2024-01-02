@@ -27,11 +27,13 @@ const EditRestaurant = () => {
       name,
       salesforceId,
       userId,
-    }).then(() => dispatch(setAlert('Restaurant Edited')));
-    setRestaurant('');
-    setName('');
-    setSalesforceId('');
-    setUserId('');
+    }).then(() => {
+      dispatch(setAlert('Restaurant Edited'));
+      setRestaurant('');
+      setName('');
+      setSalesforceId('');
+      setUserId('');
+    });
   };
 
   const renderRestaurants = () => {
