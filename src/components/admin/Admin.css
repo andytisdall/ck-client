@@ -5,6 +5,12 @@
 
 .admin-home {
   display: flex;
+  flex-direction: column;
+}
+
+.admin-home-btn {
+  width: fit-content;
+  margin-top: 1rem;
 }
 
 .admin-item {
@@ -50,4 +56,11 @@
 
 .admin-id-text {
   font-size: 12px;
+}
+
+.admin-app-name {
+  font-size: 2rem;
+  color: yellow;
+  margin-left: .5rem;
+  margin-right: .5rem;
 }

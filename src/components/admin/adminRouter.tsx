@@ -13,6 +13,9 @@ const HomeChefNotification = lazy(
 );
 const AdminBase = lazy(() => import('./AdminBase'));
 const D4JNotification = lazy(() => import('./notifications/D4JNotification'));
+const NotificationsHome = lazy(
+  () => import('./notifications/NotificationsHome')
+);
 
 const adminRouter: RouteObject = {
   path: 'admin',
@@ -27,6 +30,7 @@ const adminRouter: RouteObject = {
     {
       path: 'notifications',
       children: [
+        { index: true, element: renderWithFallback(<NotificationsHome />) },
         {
           path: 'home-chef',
           element: renderWithFallback(<HomeChefNotification />),
