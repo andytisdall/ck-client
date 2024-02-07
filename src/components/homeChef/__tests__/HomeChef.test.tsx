@@ -16,7 +16,7 @@ test('navigate to home chef page', async () => {
 
   // home chef home
   const statusText = await screen.findByText(
-    'Your Status: You are done with the onboarding process and may sign up for Town Fridge deliveries'
+    'You are done with the onboarding process and may sign up for Town Fridge deliveries'
   );
   expect(statusText).toBeDefined();
 });

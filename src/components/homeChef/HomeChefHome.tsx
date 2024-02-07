@@ -29,8 +29,8 @@ const HomeChefHome = () => {
     if (userInfo?.homeChefStatus === 'Active') {
       return (
         <p className="hc-home-active-status">
-          Your Status: You are done with the onboarding process and may sign up
-          for Town Fridge deliveries
+          <strong>Your Status:</strong> You are done with the onboarding process
+          and may sign up for Town Fridge deliveries
         </p>
       );
     } else {
@@ -58,6 +58,15 @@ const HomeChefHome = () => {
   return (
     <div className="hc-home">
       <div>
+        <div className="home-chef-announcement">
+          <h3>Upcoming Home Chef Supply Pick Up</h3>
+          <h4>Tuesday, 2/13</h4>
+          <h4>4-6pm at the CK Kitchen, 2270 Telegraph Ave</h4>
+          <p>
+            * pick up containers, labels and local produce sourced from Mandela
+            Partners.
+          </p>
+        </div>
         {renderStatus()}
         <TextButton
           to="signup/list"

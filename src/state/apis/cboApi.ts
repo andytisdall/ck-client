@@ -120,6 +120,7 @@ const cboApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCBOReports: builder.query<CBOReport[], void>({
       query: () => 'meal-program/cbo/reports',
+      providesTags: ['CBOData'],
     }),
   }),
 });

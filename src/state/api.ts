@@ -48,5 +48,6 @@ export const api = createApi({
     'HomeChefShifts',
     'CkKitchenShifts',
     'EventShifts',
+    'CBOData',
   ],
 });

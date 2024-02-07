@@ -32,12 +32,7 @@ const ChefShifts = () => {
                 'eee, M/d/yy'
               )}
             </div>
-            <Link
-              className="chef-hours-fridge"
-              to={'../signup/fridge/' + job.id}
-            >
-              - {job.name}
-            </Link>
+            <p>{job.name}</p>
           </div>
           <div className="chef-hours-info">
             <span className="chef-hours-meals">
