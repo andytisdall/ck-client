@@ -13,6 +13,11 @@ interface CBOReportArgs {
   phone?: string;
   email: string;
   year: string;
+  waters: string;
+  juices: string;
+  socks: string;
+  extraItem: string;
+  extraItemAmount: string;
 }
 
 interface MealQualitySurveyArgs {

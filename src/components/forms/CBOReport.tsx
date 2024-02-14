@@ -50,6 +50,12 @@ const CBOReport = () => {
 
   const [feedback, setFeedback] = useState('');
 
+  const [waters, setWaters] = useState('');
+  const [juices, setJuices] = useState('');
+  const [socks, setSocks] = useState('');
+  const [extraItem, setExtraItem] = useState('');
+  const [extraItemAmount, setExtraItemAmount] = useState('');
+
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const dispatch = useDispatch();
 
@@ -97,6 +103,11 @@ const CBOReport = () => {
         phone,
         email,
         year,
+        waters,
+        juices,
+        socks,
+        extraItem,
+        extraItemAmount,
       },
       name: 'CBO_REPORT',
     })
@@ -462,6 +473,7 @@ const CBOReport = () => {
           />
         </div>
       </div>
+
       <div className="form-item">
         <label htmlFor="households">
           # of unduplicated households provided food in the month
@@ -474,6 +486,59 @@ const CBOReport = () => {
           onChange={(e) => setHouseholds(e.target.value)}
         />
       </div>
+
+      <div className="form-item">
+        <label htmlFor="waters"># of water bottles distributed</label>
+        <input
+          id="waters"
+          type="number"
+          min={0}
+          value={waters}
+          onChange={(e) => setWaters(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="juices"># of juice boxes distributed</label>
+        <input
+          id="juices"
+          type="number"
+          min={0}
+          value={juices}
+          onChange={(e) => setJuices(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="socks">Pairs of socks distributed</label>
+        <input
+          id="socks"
+          type="number"
+          min={0}
+          value={socks}
+          onChange={(e) => setSocks(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label>If you distrbuted an item not on this form, enter it here</label>
+        <label htmlFor="xtra">Item Name</label>
+        <input
+          id="xtra"
+          type="text"
+          value={extraItem}
+          onChange={(e) => setExtraItem(e.target.value)}
+        />
+        <label htmlFor="xtraAmount"># distributed</label>
+        <input
+          id="xtraAmount"
+          type="number"
+          min={0}
+          value={extraItemAmount}
+          onChange={(e) => setExtraItemAmount(e.target.value)}
+        />
+      </div>
+
       <div className="form-item">
         <div className="demo-title">Zip Code</div>
         <div className="form-instructions">
