@@ -522,21 +522,23 @@ const CBOReport = () => {
 
       <div className="form-item">
         <label>If you distrbuted an item not on this form, enter it here</label>
-        <label htmlFor="xtra">Item Name</label>
-        <input
-          id="xtra"
-          type="text"
-          value={extraItem}
-          onChange={(e) => setExtraItem(e.target.value)}
-        />
-        <label htmlFor="xtraAmount"># distributed</label>
-        <input
-          id="xtraAmount"
-          type="number"
-          min={0}
-          value={extraItemAmount}
-          onChange={(e) => setExtraItemAmount(e.target.value)}
-        />
+        <div className="form-checkbox">
+          <label htmlFor="xtra">Item Name</label>
+          <input
+            id="xtra"
+            type="text"
+            value={extraItem}
+            onChange={(e) => setExtraItem(e.target.value)}
+          />
+          <label htmlFor="xtraAmount"># distributed</label>
+          <input
+            id="xtraAmount"
+            type="number"
+            min={0}
+            value={extraItemAmount}
+            onChange={(e) => setExtraItemAmount(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="form-item">

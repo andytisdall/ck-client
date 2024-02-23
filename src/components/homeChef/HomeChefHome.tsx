@@ -55,18 +55,24 @@ const HomeChefHome = () => {
     }
   };
 
+  const renderAnnouncement = () => {
+    return (
+      <div className="home-chef-announcement">
+        <h3>Upcoming Home Chef Supply Pick Up</h3>
+        <h4>Tuesday, 3/12</h4>
+        <h4>4-6pm at the CK Kitchen, 2270 Telegraph Ave</h4>
+        <p>
+          * pick up containers, labels and local produce sourced from Mandela
+          Partners.
+        </p>
+      </div>
+    );
+  };
+
   return (
     <div className="hc-home">
       <div>
-        <div className="home-chef-announcement">
-          <h3>Upcoming Home Chef Supply Pick Up</h3>
-          <h4>Tuesday, 2/13</h4>
-          <h4>4-6pm at the CK Kitchen, 2270 Telegraph Ave</h4>
-          <p>
-            * pick up containers, labels and local produce sourced from Mandela
-            Partners.
-          </p>
-        </div>
+        {renderAnnouncement()}
         {renderStatus()}
         <TextButton
           to="signup/list"
