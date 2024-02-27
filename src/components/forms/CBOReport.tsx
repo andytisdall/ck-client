@@ -53,6 +53,9 @@ const CBOReport = () => {
   const [waters, setWaters] = useState('');
   const [juices, setJuices] = useState('');
   const [socks, setSocks] = useState('');
+  const [granolaBars, setGranolaBars] = useState('');
+  const [tortillaChips, setTortillaChips] = useState('');
+
   const [extraItem, setExtraItem] = useState('');
   const [extraItemAmount, setExtraItemAmount] = useState('');
 
@@ -106,6 +109,8 @@ const CBOReport = () => {
         waters,
         juices,
         socks,
+        granolaBars,
+        tortillaChips,
         extraItem,
         extraItemAmount,
       },
@@ -517,6 +522,28 @@ const CBOReport = () => {
           min={0}
           value={socks}
           onChange={(e) => setSocks(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="granola">Granola bars distributed</label>
+        <input
+          id="granola"
+          type="number"
+          min={0}
+          value={granolaBars}
+          onChange={(e) => setGranolaBars(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="chips">Tortilla chip bags distributed</label>
+        <input
+          id="chips"
+          type="number"
+          min={0}
+          value={tortillaChips}
+          onChange={(e) => setTortillaChips(e.target.value)}
         />
       </div>
 

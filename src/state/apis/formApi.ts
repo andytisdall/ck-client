@@ -16,6 +16,8 @@ interface CBOReportArgs {
   waters: string;
   juices: string;
   socks: string;
+  granolaBars: string;
+  tortillaChips: string;
   extraItem: string;
   extraItemAmount: string;
 }
