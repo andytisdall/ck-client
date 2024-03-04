@@ -13,6 +13,13 @@ export interface NotificationArgs {
   message: string;
 }
 
+export interface Notification {
+  payload: { title: string; body: string };
+  app: string;
+  date: string;
+  id: string;
+}
+
 export interface Shift {
   id: string;
   startTime: string;

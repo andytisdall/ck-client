@@ -12,6 +12,7 @@ import {
   GetShiftsResponse,
   SendInviteArgs,
   EditHoursArgs,
+  Notification,
 } from './types';
 
 export const homeChefApi = api.injectEndpoints({
@@ -25,6 +26,9 @@ export const homeChefApi = api.injectEndpoints({
         body,
         method: 'POST',
       }),
+    }),
+    getHomeChefNotifications: builder.query<Notification[], void>({
+      query: () => '/home-chef/notifications',
     }),
     getCampaign: builder.query<Campaign, void>({
       query: () => '/home-chef/campaign',
@@ -81,4 +85,5 @@ export const {
   useGetHomeChefHoursQuery,
   useSendInviteMutation,
   useEditHoursMutation,
+  useGetHomeChefNotificationsQuery,
 } = homeChefApi;
