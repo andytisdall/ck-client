@@ -72,7 +72,7 @@ const HomeChefHome = () => {
   return (
     <div className="hc-home">
       <div>
-        {renderAnnouncement()}
+        {/* {renderAnnouncement()} */}
         {renderStatus()}
         <TextButton
           to="signup/list"

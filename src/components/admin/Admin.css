@@ -64,3 +64,15 @@
   margin-left: .5rem;
   margin-right: .5rem;
 }
+
+.d4j-btn {
+  margin-bottom: 2rem;
+  color: black;
+  font-size: 2rem;
+  padding:1rem;
+}
+
+.d4j-item {
+  margin-bottom: 1rem;
+}
+

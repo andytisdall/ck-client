@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app-link"></div>
+</body>
+<style>
+  #app-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .download-btn {
+    border-left: 3px solid rgb(223, 187, 108);
+    border-bottom: 3px solid rgb(223, 187, 108);
+    border-top: 3px solid gold;
+    border-right: 3px solid gold;
+    width: fit-content;
+    padding: 20px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.314);
+    background-color: gold;
+    text-decoration: none;
+    color: black;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 600;
+  }
+</style>
+<script>
+  const android = /Android/i.test(navigator.userAgent);
+  const ios = /iPhone|iPad/i.test(navigator.userAgent);
+  const linkElement = document.getElementById('app-link');
+
+  if (android || ios || true) {
+    const url = ios ? 'https://apple.com' : "https://google.com"; 
+    linkElement.innerHTML = `<a href="${url}"" class="download-btn">Download App</a>`
+  } else {
+    linkElement.innerHTML = '<div>To download the app, visit this page on an Apple or Android mobile device.</div>'
+  }
+
+</script>
+</html>

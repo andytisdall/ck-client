@@ -26,9 +26,11 @@ export const homeChefApi = api.injectEndpoints({
         body,
         method: 'POST',
       }),
+      invalidatesTags: ['PushNotifications'],
     }),
     getHomeChefNotifications: builder.query<Notification[], void>({
       query: () => '/home-chef/notifications',
+      providesTags: ['PushNotifications'],
     }),
     getCampaign: builder.query<Campaign, void>({
       query: () => '/home-chef/campaign',

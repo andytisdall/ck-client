@@ -1,20 +1,25 @@
 import { api } from '../api';
 import { NotificationArgs } from './volunteerApi';
+import { Notification } from './volunteerApi';
 
-interface UploadReceiptArgs {
-  receipt: File;
+interface PrizeDrawingResponse {
+  contact: Winner;
+  numberOfCheckIns: number;
+}
+
+interface Winner {
   id: string;
+  firstName?: string;
+  lastName: string;
 }
 
 const d4jApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    uploadReceipt: builder.mutation<null, UploadReceiptArgs>({
-      query: ({ receipt, id }) => {
-        const body = new FormData();
-        body.append('receipt', receipt);
-        body.append('id', id);
-        return { url: '/d4j/receipt', method: 'POST', body, formData: true };
-      },
+    drawPrize: builder.mutation<PrizeDrawingResponse, void>({
+      query: () => ({
+        url: '/d4j/rewards/prize-drawing',
+        method: 'POST',
+      }),
     }),
     sendD4JNotification: builder.mutation<null, NotificationArgs>({
       query: (body) => ({
@@ -22,9 +27,17 @@ const d4jApi = api.injectEndpoints({
         body,
         method: 'POST',
       }),
+      invalidatesTags: ['PushNotifications'],
+    }),
+    getD4JNotifications: builder.query<Notification[], void>({
+      query: () => '/d4j/notifications',
+      providesTags: ['PushNotifications'],
     }),
   }),
 });
 
-export const { useUploadReceiptMutation, useSendD4JNotificationMutation } =
-  d4jApi;
+export const {
+  useSendD4JNotificationMutation,
+  useGetD4JNotificationsQuery,
+  useDrawPrizeMutation,
+} = d4jApi;

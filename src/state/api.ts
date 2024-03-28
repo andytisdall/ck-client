@@ -49,5 +49,6 @@ export const api = createApi({
     'CkKitchenShifts',
     'EventShifts',
     'CBOData',
+    'PushNotifications',
   ],
 });

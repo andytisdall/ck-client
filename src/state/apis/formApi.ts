@@ -67,17 +67,22 @@ interface HCInterestFormArgs {
   lastName: string;
   phoneNumber: string;
   instagramHandle?: string;
-  commit?: boolean;
   foodHandler?: boolean;
-  daysAvailable?: Record<string, boolean>;
+  foodHandlerOther?: string;
   experience?: string;
-  pickup?: boolean;
+  otherExperience?: string;
+  transport?: boolean;
+  transportOther?: string;
+  workOnFeet?: boolean;
+  workOnFeetOther?: string;
   source: string;
   extraInfo?: string;
-  otherExperience?: string;
-  foodHandlerOther?: string;
-  pickupMaybe: boolean;
-  programs: { ckKitchen: boolean; ckHomeChefs: boolean; other: string };
+  programs: {
+    ckKitchen: boolean;
+    ckHomeChefs: boolean;
+    corporate: boolean;
+    other: string;
+  };
 }
 
 interface SubmitFormArgs {

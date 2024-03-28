@@ -10,18 +10,10 @@ const successMessage =
   'A Community Kitchens staff member will be in touch with you. Thanks for helping out!';
 
 const InterestForm = () => {
-  const initialDays = {
-    Tuesday: false,
-    Wednesday: false,
-    Thursday: false,
-    Friday: false,
-    Saturday: false,
-    Sunday: false,
-  };
-
   const initialPrograms = {
     ckKitchen: false,
     ckHomeChefs: false,
+    corporate: false,
     other: '',
   };
 
@@ -29,24 +21,26 @@ const InterestForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [instagramHandle, setInstagramHandle] = useState('');
 
   const [programs, setPrograms] = useState(initialPrograms);
   const [otherProgram, setOtherProgram] = useState('');
 
-  const [instagramHandle, setInstagramHandle] = useState('');
+  const [workOnFeet, setWorkOnFeet] = useState<boolean>();
+  const [workOnFeetOther, setWorkOnFeetOther] = useState('');
 
-  const [foodHandler, setFoodHandler] = useState<boolean>();
-  const [foodHandlerOther, setFoodHandlerOther] = useState('');
-
-  const [daysAvailable, setDaysAvailable] = useState(initialDays);
+  const [transport, setTransport] = useState<boolean>();
+  const [transportOther, setTransportOther] = useState('');
 
   const [experience, setExperience] = useState('');
   const [otherExperience, setOtherExperience] = useState('');
 
-  const [pickup, setPickup] = useState<boolean>();
-  const [pickupMaybe, setPickupMaybe] = useState(false);
+  const [foodHandler, setFoodHandler] = useState<boolean>();
+  const [foodHandlerOther, setFoodHandlerOther] = useState('');
+
   const [source, setSource] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
+
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
@@ -55,6 +49,8 @@ const InterestForm = () => {
 
   const otherProgramRef = useRef<HTMLInputElement | null>(null);
   const otherExperienceRef = useRef<HTMLInputElement | null>(null);
+  const otherWorkOnFeetRef = useRef<HTMLInputElement | null>(null);
+  const otherTransportRef = useRef<HTMLInputElement | null>(null);
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -63,6 +59,10 @@ const InterestForm = () => {
 
     if (Object.values(programs).every((pr) => !pr)) {
       newErrors.programs = true;
+    }
+
+    if (!transport && !transportOther) {
+      newErrors.transport = true;
     }
 
     if (!Object.values(newErrors).every((e) => !e)) {
@@ -78,15 +78,14 @@ const InterestForm = () => {
         phoneNumber,
         instagramHandle,
         foodHandler,
-        daysAvailable,
         experience,
-        pickup,
         source,
         extraInfo,
-        pickupMaybe,
         foodHandlerOther,
         otherExperience,
         programs,
+        workOnFeet,
+        transport,
       },
       name: 'VOLUNTEER_INTEREST',
     })
@@ -100,86 +99,40 @@ const InterestForm = () => {
     return <div className="required-error">This field must be completed</div>;
   };
 
-  const daysOfWeek = () => {
-    const days = [
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-
-    return (
-      <div className="form-item">
-        <label>What is your availability?</label>
-        {days.map((d) => {
-          return (
-            <div className="form-checkbox" key={d}>
-              <input
-                type="checkbox"
-                name="days"
-                id={d}
-                onChange={(e) => {
-                  const { checked } = e.target;
-                  setDaysAvailable({ ...daysAvailable, [d]: checked });
-
-                  if (checked) {
-                    setErrors({ ...errors, days: false });
-                  }
-                }}
-              />
-              <label htmlFor={d}>{d}</label>
-            </div>
-          );
-        })}
-        {errors.days && showError()}
-      </div>
-    );
-  };
-
   const header = () => {
     return (
       <div className="form-item">
         <h1>CK Cooking Volunteer Opportunities</h1>
         <p>
-          Thank you so much for your interest in volunteering with Community
-          Kitchens! We currently have{' '}
           <strong>
-            two cooking volunteer opportunities: helping out at the CK Kitchen,
-            and the CK Home Chef Program.
+            Thank you for your interest in volunteering with Community Kitchens.
+            Please take a moment to tell us about yourself and which program(s)
+            you're interested in volunteering for:
           </strong>
         </p>
 
         <ol>
           <li>
-            <strong>CK Kitchen</strong> volunteers assist Chef Kendall on
-            Tuesdays with meal prep and/or Wednesdays making wraps and
-            sandwiches. All shifts are 2-5pm at the CK Kitchen, located at 2270
-            Telegraph Ave. Meals are later delivered to encampments by the CK
-            Mobile Oasis.
+            <strong>CK Central Kitchen</strong> volunteers work in teams to help
+            prepare and package meals for special events, youth programs and
+            curbside communities. Shifts are 2-3 hours long with convenient
+            slots throughout the week. The CK Central Kitchen is located at 2270
+            Telegraph in Oakland.
           </li>
           <br />
           <li>
-            <strong>
-              The CK Home Chef Program is a way to turn your home kitchen into a
-              community kitchen and is great for groups of people to cook
-              together on their own schedule. Home Chefs attend orientation and
-              food safety certification training, sign up to prepare 15-25 meals
-              1-2 times per month, purchase ingredients, prepare meals at home,
-              and deliver meals to selected Town Fridges.
-            </strong>{' '}
-            Community Kitchens will conduct zoom orientation and training,
-            reimburse chefs for a CA Food Handlers Card, provide meal
-            containers, printable labels and supplemental produce, share recipes
-            from Oakland’s treasured restaurants and chefs, and provide an
-            annual tax deductible in-kind donation receipt.
+            <strong>CK Home Chef</strong> volunteers work with friends andfamily
+            to prepare meals in their own homes. Home Chefs help stock Town
+            Fridge pantries throughout Oakland with free and nutritious
+            home-cooked meals.
           </li>
         </ol>
 
         <p>
-          Please take a moment to tell us about yourself and which programs
-          you're interested in volunteering for.
+          <strong>
+            Questions? Contact Mollye Chudacoff,{' '}
+            <a href="mailto:mollye@ckoakland.org">mollye@ckoakland.org</a>
+          </strong>
         </p>
         <br />
         <p>
@@ -250,23 +203,20 @@ const InterestForm = () => {
         </div>
 
         <div className="form-item">
-          <label>Which programs are you interested in volunteering for?</label>
+          <label htmlFor="instagramHandle">Instagram Handle</label>
+          <input
+            id="instagramHandle"
+            type="text"
+            value={instagramHandle}
+            onChange={(e) => setInstagramHandle(e.target.value)}
+          />
+        </div>
 
-          <div className="form-checkbox">
-            <input
-              type="checkbox"
-              name="programs"
-              id="kitchen"
-              onChange={(e) => {
-                const { checked } = e.target;
-                setPrograms({ ...programs, ckKitchen: checked });
-                if (checked) {
-                  setErrors({ ...errors, programs: false });
-                }
-              }}
-            />
-            <label htmlFor="kitchen">CK Kitchen</label>
-          </div>
+        <div className="form-item">
+          <label>
+            Which programs are you interested in volunteering for?
+            <span className="required">*</span>
+          </label>
 
           <div className="form-checkbox">
             <input
@@ -281,7 +231,46 @@ const InterestForm = () => {
                 }
               }}
             />
-            <label htmlFor="home-chef">CK Home Chefs</label>
+            <label htmlFor="home-chef">
+              CK Home Chef - complete training, make meals at home and deliver
+              to Town Fridges
+            </label>
+          </div>
+
+          <div className="form-checkbox">
+            <input
+              type="checkbox"
+              name="programs"
+              id="kitchen"
+              onChange={(e) => {
+                const { checked } = e.target;
+                setPrograms({ ...programs, ckKitchen: checked });
+                if (checked) {
+                  setErrors({ ...errors, programs: false });
+                }
+              }}
+            />
+            <label htmlFor="kitchen">
+              CK Kitchen - help out at the CK Kitchen
+            </label>
+          </div>
+
+          <div className="form-checkbox">
+            <input
+              type="checkbox"
+              name="programs"
+              id="kitchen"
+              onChange={(e) => {
+                const { checked } = e.target;
+                setPrograms({ ...programs, corporate: checked });
+                if (checked) {
+                  setErrors({ ...errors, programs: false });
+                }
+              }}
+            />
+            <label htmlFor="kitchen">
+              Community or corporate volunteer groups
+            </label>
           </div>
 
           <div className="form-checkbox">
@@ -300,6 +289,7 @@ const InterestForm = () => {
                 }
               }}
             />
+
             <label htmlFor="other">Other:</label>
             <input
               type="text"
@@ -317,16 +307,123 @@ const InterestForm = () => {
         </div>
 
         <div className="form-item">
-          <label htmlFor="instagramHandle">Instagram Handle</label>
-          <input
-            id="instagramHandle"
-            type="text"
-            value={instagramHandle}
-            onChange={(e) => setInstagramHandle(e.target.value)}
-          />
+          <label>
+            Are you able to work on your feet for a 2-3 hour cooking shift?
+          </label>
+
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="feet-true"
+              name="feet"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setWorkOnFeet(true);
+                }
+              }}
+            />
+            <label htmlFor="feet-true">Yes</label>
+          </div>
+
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="feet-no"
+              name="feet"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setWorkOnFeet(false);
+                }
+              }}
+            />
+            <label htmlFor="feet-no">No</label>
+          </div>
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="feet-other"
+              ref={otherWorkOnFeetRef}
+              name="feet"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setWorkOnFeetOther(workOnFeetOther);
+                }
+              }}
+            />
+            <label htmlFor="feet-other">Other:</label>
+            <input
+              type="text"
+              value={workOnFeetOther}
+              onChange={(e) => {
+                setWorkOnFeetOther(e.target.value);
+                if (otherWorkOnFeetRef.current?.checked) {
+                  setWorkOnFeetOther(e.target.value);
+                }
+              }}
+            />
+          </div>
         </div>
 
-        {daysOfWeek()}
+        <div className="form-item">
+          <label>
+            Are you able to cook and transport 15-25 meals at a time to help
+            stock Town Fridges?<span className="required">*</span>
+          </label>
+
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="transport-true"
+              name="transport"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setTransport(true);
+                }
+              }}
+            />
+            <label htmlFor="transport-true">Yes</label>
+          </div>
+
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="transport-no"
+              name="transport"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setTransport(false);
+                }
+              }}
+            />
+            <label htmlFor="transport-no">No</label>
+          </div>
+          <div className="form-checkbox">
+            <input
+              type="radio"
+              id="transport-other"
+              ref={otherTransportRef}
+              name="transport"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setTransportOther(workOnFeetOther);
+                }
+              }}
+            />
+            <label htmlFor="transport-other">Other:</label>
+            <input
+              type="text"
+              value={transportOther}
+              onChange={(e) => {
+                setTransportOther(e.target.value);
+                if (otherTransportRef.current?.checked) {
+                  setTransportOther(e.target.value);
+                }
+              }}
+            />
+          </div>
+
+          {errors.transport && showError()}
+        </div>
 
         <div className="form-item">
           <label>Do you have any cooking experience?</label>
@@ -402,56 +499,6 @@ const InterestForm = () => {
 
         <div className="form-item">
           <label>
-            Are you interested in picking up meals from various events and
-            delivering to Town Fridges on an as needed basis?
-          </label>
-
-          <div className="form-checkbox">
-            <input
-              id="pickup-yes"
-              name="pickup"
-              type="radio"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setPickup(true);
-                }
-              }}
-            />
-            <label htmlFor="pickup-yes">Yes</label>
-          </div>
-
-          <div className="form-checkbox">
-            <input
-              id="pickup-no"
-              name="pickup"
-              type="radio"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setPickup(false);
-                }
-              }}
-            />
-            <label htmlFor="pickup-no">No</label>
-          </div>
-
-          <div className="form-checkbox">
-            <input
-              id="pickup-maybe"
-              name="pickup"
-              type="radio"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setPickup(false);
-                  setPickupMaybe(true);
-                }
-              }}
-            />
-            <label htmlFor="pickup-maybe">Maybe</label>
-          </div>
-        </div>
-
-        <div className="form-item">
-          <label>
             If you do not have a CA Food Handlers Card, are you able to complete
             the online Food Safety training and exam in order to participate in
             the Volunteer Program? (It is 90 minutes long, and CK can reimburse
@@ -509,11 +556,9 @@ const InterestForm = () => {
         <div className="form-item">
           <label htmlFor="source">
             How did you hear about Community Kitchens?
-            <span className="required">*</span>
           </label>
           <input
             id="source"
-            required
             type="text"
             value={source}
             onChange={(e) => setSource(e.target.value)}

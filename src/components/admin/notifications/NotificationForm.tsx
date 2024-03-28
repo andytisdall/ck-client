@@ -23,6 +23,8 @@ const NotificationForm = ({
       .unwrap()
       .then(() => {
         dispatch(setAlert('Notification Sent'));
+        setTitle('');
+        setMessage('');
       });
   };
 

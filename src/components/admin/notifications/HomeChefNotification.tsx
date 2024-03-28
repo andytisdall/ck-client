@@ -5,12 +5,14 @@ import {
   useGetHomeChefNotificationsQuery,
 } from '../../../state/apis/volunteerApi/homeChefApi';
 import NotificationForm from './NotificationForm';
+import Loading from '../../reusable/loading/Loading';
 
 const HomeChefNotification = () => {
   const [sendHomeChefNotification, { isLoading }] =
     useSendHomeChefNotificationMutation();
 
-  const { data: pastNotifications } = useGetHomeChefNotificationsQuery();
+  const { data: pastNotifications, isLoading: pastLoading } =
+    useGetHomeChefNotificationsQuery();
 
   const renderPastNotifications = () => {
     if (pastNotifications) {
@@ -42,7 +44,7 @@ const HomeChefNotification = () => {
         onSubmit={sendHomeChefNotification}
         isLoading={isLoading}
       />
-      {renderPastNotifications()}
+      {pastLoading ? <Loading /> : renderPastNotifications()}
     </div>
   );
 };
