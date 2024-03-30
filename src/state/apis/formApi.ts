@@ -61,7 +61,7 @@ interface MealProgramIntakeArgs {
   food: String;
 }
 
-interface HCInterestFormArgs {
+interface VolunteerInterestFormArgs {
   email: string;
   firstName: string;
   lastName: string;
@@ -91,7 +91,7 @@ interface SubmitFormArgs {
     | TextSignUpSurveyArgs
     | MealQualitySurveyArgs
     | MealProgramIntakeArgs
-    | HCInterestFormArgs;
+    | VolunteerInterestFormArgs;
   name: string;
 }
 

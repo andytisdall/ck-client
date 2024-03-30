@@ -82,10 +82,11 @@ const InterestForm = () => {
         source,
         extraInfo,
         foodHandlerOther,
-        otherExperience,
         programs,
         workOnFeet,
+        workOnFeetOther,
         transport,
+        transportOther,
       },
       name: 'VOLUNTEER_INTEREST',
     })
@@ -346,7 +347,7 @@ const InterestForm = () => {
               name="feet"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setWorkOnFeetOther(workOnFeetOther);
+                  setWorkOnFeet(undefined);
                 }
               }}
             />
@@ -356,9 +357,6 @@ const InterestForm = () => {
               value={workOnFeetOther}
               onChange={(e) => {
                 setWorkOnFeetOther(e.target.value);
-                if (otherWorkOnFeetRef.current?.checked) {
-                  setWorkOnFeetOther(e.target.value);
-                }
               }}
             />
           </div>
@@ -405,7 +403,7 @@ const InterestForm = () => {
               name="transport"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTransportOther(workOnFeetOther);
+                  setTransport(undefined);
                 }
               }}
             />
@@ -415,9 +413,6 @@ const InterestForm = () => {
               value={transportOther}
               onChange={(e) => {
                 setTransportOther(e.target.value);
-                if (otherTransportRef.current?.checked) {
-                  setTransportOther(e.target.value);
-                }
               }}
             />
           </div>
