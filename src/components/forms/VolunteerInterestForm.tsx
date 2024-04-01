@@ -61,7 +61,7 @@ const InterestForm = () => {
       newErrors.programs = true;
     }
 
-    if (!transport && !transportOther) {
+    if (transport === undefined && !transportOther) {
       newErrors.transport = true;
     }
 

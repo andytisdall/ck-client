@@ -24,8 +24,8 @@ const KitchenHome = () => {
         className="volunteers-kitchen-home-photo volunteers-photo-frame"
       />
       <TextButton
-        descriptionText="Check out when you can volunteer in the CK Kitchen, and sign up online."
-        buttonText="Sign Up to Volunteer"
+        descriptionText="Check out when you can volunteer in the CK Kitchen, and sign up online. If you already have a shift booked, you can view it here, and modify or cancel it if you need to."
+        buttonText="Sign Up to Volunteer / See your shifts"
         to={link}
       />
     </div>
