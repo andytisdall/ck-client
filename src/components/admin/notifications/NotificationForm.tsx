@@ -31,10 +31,18 @@ const NotificationForm = ({
   return (
     <div className="admin-form">
       <label>Title:</label>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
+      <input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        maxLength={50}
+      />
 
       <label>Message:</label>
-      <textarea value={message} onChange={(e) => setMessage(e.target.value)} />
+      <textarea
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        maxLength={125}
+      />
 
       {isLoading ? (
         <Loading />

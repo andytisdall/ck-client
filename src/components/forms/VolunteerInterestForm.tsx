@@ -160,6 +160,7 @@ const InterestForm = () => {
             type="email"
             required
             value={email}
+            maxLength={200}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -172,6 +173,7 @@ const InterestForm = () => {
             id="firstName"
             type="text"
             required
+            maxLength={40}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -185,6 +187,7 @@ const InterestForm = () => {
             id="lastName"
             type="text"
             required
+            maxLength={80}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -198,6 +201,7 @@ const InterestForm = () => {
             id="phoneNumber"
             type="tel"
             required
+            maxLength={10}
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
@@ -208,6 +212,7 @@ const InterestForm = () => {
           <input
             id="instagramHandle"
             type="text"
+            maxLength={40}
             value={instagramHandle}
             onChange={(e) => setInstagramHandle(e.target.value)}
           />
@@ -294,6 +299,7 @@ const InterestForm = () => {
             <label htmlFor="other">Other:</label>
             <input
               type="text"
+              maxLength={200}
               value={otherProgram}
               onChange={(e) => {
                 setOtherProgram(e.target.value);
@@ -353,6 +359,7 @@ const InterestForm = () => {
             />
             <label htmlFor="feet-other">Other:</label>
             <input
+              maxLength={200}
               type="text"
               value={workOnFeetOther}
               onChange={(e) => {
@@ -410,6 +417,7 @@ const InterestForm = () => {
             <label htmlFor="transport-other">Other:</label>
             <input
               type="text"
+              maxLength={200}
               value={transportOther}
               onChange={(e) => {
                 setTransportOther(e.target.value);
@@ -481,6 +489,7 @@ const InterestForm = () => {
             <label htmlFor="experience-other">Other:</label>
             <input
               type="text"
+              maxLength={200}
               value={otherExperience}
               onChange={(e) => {
                 setOtherExperience(e.target.value);
@@ -542,6 +551,7 @@ const InterestForm = () => {
             <label htmlFor="foodHandler-other">Other:</label>
             <input
               type="text"
+              maxLength={100}
               value={foodHandlerOther}
               onChange={(e) => setFoodHandlerOther(e.target.value)}
             />
@@ -554,6 +564,7 @@ const InterestForm = () => {
           </label>
           <input
             id="source"
+            maxLength={200}
             type="text"
             value={source}
             onChange={(e) => setSource(e.target.value)}
@@ -566,6 +577,7 @@ const InterestForm = () => {
           </label>
           <input
             id="extraInfo"
+            maxLength={1000}
             type="text"
             value={extraInfo}
             onChange={(e) => setExtraInfo(e.target.value)}
