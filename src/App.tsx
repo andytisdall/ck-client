@@ -41,6 +41,9 @@ const Header = lazy(() => import('./components/header/Header'));
 const PageNotFound = lazy(() => import('./components/error/PageNotFound'));
 const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('./components/user/ResetPassword'));
+const DeleteD4JAccount = lazy(
+  () => import('./components/auth/DeleteD4JAccount')
+);
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: 'forgot-password',
         element: renderWithFallback(<ForgotPassword />),
+      },
+      {
+        path: 'delete-data',
+        element: renderWithFallback(<DeleteD4JAccount />),
       },
       {
         path: 'reset-password/:token',

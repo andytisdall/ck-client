@@ -60,6 +60,8 @@ const EditUser = () => {
         setUser(usr.id);
         setUsername(usr.username);
         setSalesforceId(usr.salesforceId);
+        setPassword1('');
+        setPassword2('');
       } else {
         setUser('');
         setUsername('');
