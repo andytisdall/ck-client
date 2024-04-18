@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<ForgotPassword />),
       },
       {
-        path: 'delete-data',
+        path: 'delete-data/:email',
         element: renderWithFallback(<DeleteD4JAccount />),
       },
       {

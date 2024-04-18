@@ -34,12 +34,12 @@ const d4jApi = api.injectEndpoints({
       providesTags: ['PushNotifications'],
     }),
     generateDeleteAccountCode: builder.query<null, string>({
-      query: (email) => '/user/delete-account/' + email,
+      query: (email) => '/d4j/delete-account/' + email,
     }),
     verifyDeleteAccountCode: builder.mutation<null, string>({
       query: (code) => ({
         method: 'POST',
-        url: '/user/delete-account',
+        url: '/d4j/delete-account',
         body: { code },
       }),
     }),
@@ -50,6 +50,6 @@ export const {
   useSendD4JNotificationMutation,
   useGetD4JNotificationsQuery,
   useDrawPrizeMutation,
-  useGenerateDeleteAccountCodeQuery,
+  useLazyGenerateDeleteAccountCodeQuery,
   useVerifyDeleteAccountCodeMutation,
 } = d4jApi;

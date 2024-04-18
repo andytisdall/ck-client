@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
+import '../Home.css';
+import './SignedOut/SignIn.css';
 import Loading from '../reusable/loading/Loading';
 import {
-  useGenerateDeleteAccountCodeQuery,
+  useLazyGenerateDeleteAccountCodeQuery,
   useVerifyDeleteAccountCodeMutation,
 } from '../../state/apis/d4jApi';
 
@@ -11,9 +13,11 @@ const DeleteD4JAccount = () => {
   const [code, setCode] = useState('');
   const { email } = useParams();
 
-  const { isError, isLoading: codeIsLoading } =
-    useGenerateDeleteAccountCodeQuery(email || '');
-  const [verifyCode, { isLoading, isSuccess }] =
+  const [
+    generateCode,
+    { isError, isLoading: codeIsLoading, isSuccess: codeGenerated },
+  ] = useLazyGenerateDeleteAccountCodeQuery();
+  const [verifyCode, { isLoading, isSuccess: codeVerified }] =
     useVerifyDeleteAccountCodeMutation();
 
   const renderSuccess = () => {
@@ -24,7 +28,11 @@ const DeleteD4JAccount = () => {
     return (
       <div>
         <p>You have been emailed a code. Please enter the code here.</p>
-        <form onSubmit={() => verifyCode(code)}>
+        <form
+          onSubmit={async () => {
+            await verifyCode(code);
+          }}
+        >
           <label htmlFor="code">Code:</label>
           <input
             type="text"
@@ -38,21 +46,45 @@ const DeleteD4JAccount = () => {
     );
   };
 
-  if (isError) {
-    return <p>An error has occurred.</p>;
-  }
+  const renderGenerateCode = () => {
+    if (!email) {
+      return (
+        <div>
+          <p>An error has occurred.</p>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <p>To delete your data, click below</p>
+        <button onClick={() => generateCode(email)}>Delete My Data</button>
+      </div>
+    );
+  };
 
-  if (codeIsLoading) {
-    return <Loading />;
-  }
+  const renderForm = () => {
+    if (isError) {
+      return <p>An error has occurred.</p>;
+    }
 
-  return (
-    <div>
-      <h3>Delete Account Data</h3>
-      <h5>Email: {email}</h5>
-      {isSuccess ? renderSuccess() : renderCodeInput()}
-    </div>
-  );
+    if (codeIsLoading) {
+      return <Loading />;
+    }
+
+    if (!codeGenerated) {
+      return renderGenerateCode();
+    }
+
+    return (
+      <>
+        <h3>Delete Account Data</h3>
+        <h5>Email: {email}</h5>
+        {codeVerified ? renderSuccess() : renderCodeInput()}
+      </>
+    );
+  };
+
+  return <div className="main user">{renderForm()}</div>;
 };
 
 export default DeleteD4JAccount;
