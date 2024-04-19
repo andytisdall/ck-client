@@ -7,6 +7,7 @@ interface CBOReportArgs {
   performanceMeasures: Record<string, string>;
   age: Record<string, string>;
   race: Record<string, string>;
+  individuals?: string;
   households?: string;
   zips: Record<string, string>;
   feedback?: string;

@@ -43,6 +43,7 @@ const CBOReport = () => {
   const [raceMixed, setRaceMixed] = useState('');
   const [raceMixedText, setRaceMixedText] = useState('');
 
+  const [individuals, setIndividuals] = useState('');
   const [households, setHouseholds] = useState('');
 
   const [zips, setZips] = useState({});
@@ -100,6 +101,7 @@ const CBOReport = () => {
         performanceMeasures,
         age,
         race,
+        individuals,
         households,
         zips,
         feedback,
@@ -477,6 +479,19 @@ const CBOReport = () => {
             onChange={(e) => setRaceUnknown(e.target.value)}
           />
         </div>
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="households">
+          # of unduplicated individuals provided food in the month
+        </label>
+        <input
+          id="households"
+          type="number"
+          min={0}
+          value={individuals}
+          onChange={(e) => setIndividuals(e.target.value)}
+        />
       </div>
 
       <div className="form-item">

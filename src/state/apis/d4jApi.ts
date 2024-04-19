@@ -36,11 +36,14 @@ const d4jApi = api.injectEndpoints({
     generateDeleteAccountCode: builder.query<null, string>({
       query: (email) => '/d4j/delete-account/' + email,
     }),
-    verifyDeleteAccountCode: builder.mutation<null, string>({
-      query: (code) => ({
+    verifyDeleteAccountCode: builder.mutation<
+      null,
+      { code: string; email: string }
+    >({
+      query: (body) => ({
         method: 'POST',
         url: '/d4j/delete-account',
-        body: { code },
+        body,
       }),
     }),
   }),

@@ -15,24 +15,30 @@ const DeleteD4JAccount = () => {
 
   const [
     generateCode,
-    { isError, isLoading: codeIsLoading, isSuccess: codeGenerated },
+    {
+      isError: generateCodeError,
+      isLoading: codeGenerationIsLoading,
+      isSuccess: codeGenerated,
+    },
   ] = useLazyGenerateDeleteAccountCodeQuery();
-  const [verifyCode, { isLoading, isSuccess: codeVerified }] =
-    useVerifyDeleteAccountCodeMutation();
+  const [
+    verifyCode,
+    {
+      isLoading: codeVerificationIsLoading,
+      isSuccess: codeVerified,
+      isError: verifyCodeError,
+    },
+  ] = useVerifyDeleteAccountCodeMutation();
 
   const renderSuccess = () => {
     return <p>You have successfully deleted your account.</p>;
   };
 
   const renderCodeInput = () => {
-    return (
-      <div>
-        <p>You have been emailed a code. Please enter the code here.</p>
-        <form
-          onSubmit={async () => {
-            await verifyCode(code);
-          }}
-        >
+    if (email) {
+      return (
+        <div>
+          <p>You have been emailed a code. Please enter the code here.</p>
           <label htmlFor="code">Code:</label>
           <input
             type="text"
@@ -40,35 +46,34 @@ const DeleteD4JAccount = () => {
             id="code"
             onChange={(e) => setCode(e.target.value)}
           />
-          {isLoading ? <Loading /> : <input type="submit" />}
-        </form>
-      </div>
-    );
-  };
-
-  const renderGenerateCode = () => {
-    if (!email) {
-      return (
-        <div>
-          <p>An error has occurred.</p>
+          {codeVerificationIsLoading ? (
+            <Loading />
+          ) : (
+            <button onClick={() => verifyCode({ code, email })}>Submit</button>
+          )}
         </div>
       );
     }
-    return (
-      <div>
-        <p>To delete your data, click below</p>
-        <button onClick={() => generateCode(email)}>Delete My Data</button>
-      </div>
-    );
+  };
+
+  const renderGenerateCode = () => {
+    if (email) {
+      return (
+        <div>
+          <p>To delete your data, click below</p>
+          {codeGenerationIsLoading ? (
+            <Loading />
+          ) : (
+            <button onClick={() => generateCode(email)}>Delete My Data</button>
+          )}
+        </div>
+      );
+    }
   };
 
   const renderForm = () => {
-    if (isError) {
+    if (generateCodeError || verifyCodeError || !email) {
       return <p>An error has occurred.</p>;
-    }
-
-    if (codeIsLoading) {
-      return <Loading />;
     }
 
     if (!codeGenerated) {
