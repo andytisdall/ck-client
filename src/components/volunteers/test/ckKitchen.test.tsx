@@ -31,7 +31,9 @@ test('create contact and see list of jobs', async () => {
   const kitchenLink = await screen.findByText('CK Kitchen Volunteers');
   userEvent.click(kitchenLink);
 
-  const signupLink = await screen.findByText('Sign Up to Volunteer');
+  const signupLink = await screen.findByText(
+    'Sign Up to Volunteer / See your shifts'
+  );
   userEvent.click(signupLink);
 
   const email = 'notinsalesforce@fake.com';

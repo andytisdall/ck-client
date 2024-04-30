@@ -60,6 +60,8 @@ const CBOReport = () => {
   const [extraItem, setExtraItem] = useState('');
   const [extraItemAmount, setExtraItemAmount] = useState('');
 
+  const [mobileOasisSectionOpen, setMobileOasisSectionOpen] = useState(false);
+
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const dispatch = useDispatch();
 
@@ -228,6 +230,54 @@ const CBOReport = () => {
       </div>
 
       <div className="form-item">
+        <label htmlFor="meals"># of CK Meals provided</label>
+        <input
+          id="meals"
+          type="number"
+          min={0}
+          value={mealsProvided}
+          onChange={(e) => setMealsProvided(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="unusable"># of unusable meals</label>
+        <input
+          id="unusable"
+          type="number"
+          min={0}
+          value={unusable}
+          onChange={(e) => setUnusable(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="households">
+          # of unduplicated individuals provided food in the month
+        </label>
+        <input
+          id="households"
+          type="number"
+          min={0}
+          value={individuals}
+          onChange={(e) => setIndividuals(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="households">
+          # of unduplicated households provided food in the month
+        </label>
+        <input
+          id="households"
+          type="number"
+          min={0}
+          value={households}
+          onChange={(e) => setHouseholds(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
         <label htmlFor="access">
           Percent of people served who do not have access to a kitchen to
           prepare meals
@@ -241,26 +291,7 @@ const CBOReport = () => {
           onChange={(e) => setPercentWOAccess(e.target.value)}
         />
       </div>
-      <div className="form-item">
-        <label htmlFor="meals"># of CK Meals provided</label>
-        <input
-          id="meals"
-          type="number"
-          min={0}
-          value={mealsProvided}
-          onChange={(e) => setMealsProvided(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label htmlFor="unusable"># of unusable meals</label>
-        <input
-          id="unusable"
-          type="number"
-          min={0}
-          value={unusable}
-          onChange={(e) => setUnusable(e.target.value)}
-        />
-      </div>
+
       <div className="form-item">
         <label htmlFor="postcards">
           # Cal Fresh postcards distributed with meals
@@ -482,108 +513,6 @@ const CBOReport = () => {
       </div>
 
       <div className="form-item">
-        <label htmlFor="households">
-          # of unduplicated individuals provided food in the month
-        </label>
-        <input
-          id="households"
-          type="number"
-          min={0}
-          value={individuals}
-          onChange={(e) => setIndividuals(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="households">
-          # of unduplicated households provided food in the month
-        </label>
-        <input
-          id="households"
-          type="number"
-          min={0}
-          value={households}
-          onChange={(e) => setHouseholds(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="waters"># of water bottles distributed</label>
-        <input
-          id="waters"
-          type="number"
-          min={0}
-          value={waters}
-          onChange={(e) => setWaters(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="juices"># of juice boxes distributed</label>
-        <input
-          id="juices"
-          type="number"
-          min={0}
-          value={juices}
-          onChange={(e) => setJuices(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="socks">Pairs of socks distributed</label>
-        <input
-          id="socks"
-          type="number"
-          min={0}
-          value={socks}
-          onChange={(e) => setSocks(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="granola">Granola bars distributed</label>
-        <input
-          id="granola"
-          type="number"
-          min={0}
-          value={granolaBars}
-          onChange={(e) => setGranolaBars(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label htmlFor="chips">Tortilla chip bags distributed</label>
-        <input
-          id="chips"
-          type="number"
-          min={0}
-          value={tortillaChips}
-          onChange={(e) => setTortillaChips(e.target.value)}
-        />
-      </div>
-
-      <div className="form-item">
-        <label>If you distrbuted an item not on this form, enter it here</label>
-        <div className="form-checkbox">
-          <label htmlFor="xtra">Item Name</label>
-          <input
-            id="xtra"
-            type="text"
-            value={extraItem}
-            onChange={(e) => setExtraItem(e.target.value)}
-          />
-          <label htmlFor="xtraAmount"># distributed</label>
-          <input
-            id="xtraAmount"
-            type="number"
-            min={0}
-            value={extraItemAmount}
-            onChange={(e) => setExtraItemAmount(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div className="form-item">
         <div className="demo-title">Zip Code</div>
         <div className="form-instructions">
           Select one or more zip codes and enter the number of people from that
@@ -614,6 +543,102 @@ const CBOReport = () => {
           onChange={(e) => setFeedback(e.target.value)}
         />
       </div>
+
+      <div className="form-item form-mobile-oasis">
+        <div onClick={() => setMobileOasisSectionOpen(!mobileOasisSectionOpen)}>
+          <h2>
+            {mobileOasisSectionOpen ? (
+              <span className="form-mobile-oasis-arrow">&darr;</span>
+            ) : (
+              <span className="form-mobile-oasis-arrow">&rarr;</span>
+            )}
+            CK Mobile Oasis drivers only
+          </h2>
+        </div>
+
+        {mobileOasisSectionOpen && (
+          <>
+            <div className="form-item">
+              <label htmlFor="waters"># of water bottles distributed</label>
+              <input
+                id="waters"
+                type="number"
+                min={0}
+                value={waters}
+                onChange={(e) => setWaters(e.target.value)}
+              />
+            </div>
+
+            <div className="form-item">
+              <label htmlFor="juices"># of juice boxes distributed</label>
+              <input
+                id="juices"
+                type="number"
+                min={0}
+                value={juices}
+                onChange={(e) => setJuices(e.target.value)}
+              />
+            </div>
+
+            <div className="form-item">
+              <label htmlFor="socks">Pairs of socks distributed</label>
+              <input
+                id="socks"
+                type="number"
+                min={0}
+                value={socks}
+                onChange={(e) => setSocks(e.target.value)}
+              />
+            </div>
+
+            <div className="form-item">
+              <label htmlFor="granola">Granola bars distributed</label>
+              <input
+                id="granola"
+                type="number"
+                min={0}
+                value={granolaBars}
+                onChange={(e) => setGranolaBars(e.target.value)}
+              />
+            </div>
+
+            <div className="form-item">
+              <label htmlFor="chips">Tortilla chip bags distributed</label>
+              <input
+                id="chips"
+                type="number"
+                min={0}
+                value={tortillaChips}
+                onChange={(e) => setTortillaChips(e.target.value)}
+              />
+            </div>
+
+            <div className="form-item">
+              <label>
+                If you distributed an item not on this form, enter it here
+              </label>
+              <div className="form-checkbox">
+                <label htmlFor="xtra">Item Name</label>
+                <input
+                  id="xtra"
+                  type="text"
+                  value={extraItem}
+                  onChange={(e) => setExtraItem(e.target.value)}
+                />
+                <label htmlFor="xtraAmount"># distributed</label>
+                <input
+                  id="xtraAmount"
+                  type="number"
+                  min={0}
+                  value={extraItemAmount}
+                  onChange={(e) => setExtraItemAmount(e.target.value)}
+                />
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
       {!isLoading ? <input type="submit" value="Submit" /> : <Loading />}
     </form>
   );
