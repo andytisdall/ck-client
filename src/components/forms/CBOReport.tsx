@@ -157,7 +157,7 @@ const CBOReport = () => {
     <form onSubmit={onSubmit}>
       <div className="form-item">
         <h1>CBO Monthly Report</h1>
-        <p>Please fill out and submit this form by the 5th of every month</p>
+        <p>Please fill out and submit this form by the 3rd of every month</p>
       </div>
       <div className="form-item">
         <label htmlFor="cbo-name">CBO Name</label>

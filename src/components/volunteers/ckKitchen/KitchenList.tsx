@@ -11,9 +11,11 @@ import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
 import { RootState } from '../../../state/store';
 
+const DESCRIPTION =
+  "Assist Chef Kendall at the CK Kitchen to make and package sandwiches, wraps and meal prep. Please wear comfortable shoes, and you can bring a water bottle and apron if you'd like.";
+
 const KitchenList = () => {
   const { data, isLoading } = useGetKitchenShiftsQuery();
-  const jobs = data?.jobs;
   const shifts = data?.shifts;
 
   const { volunteer } = useSelector((state: RootState) => ({
@@ -34,76 +36,70 @@ const KitchenList = () => {
     : [];
 
   const renderJobs = () => {
-    if (jobs && shifts) {
-      return Object.values(jobs).map((job) => {
-        return (
-          <div key={job.id} className="volunteers-job">
-            <h3 className="volunteers-job-header">{job.name}</h3>
-            <p>{job.description}</p>
-            <h5>Available Times:</h5>
-            <div>
-              {Object.values(shifts)
-                .filter((sh) => sh.job === job.id)
-                .map((shift) => {
-                  const dateDisplay = format(
-                    utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-                    'eee, M/d/yy'
-                  );
+    if (shifts) {
+      return (
+        <div className="volunteers-job">
+          <h3 className="volunteers-job-header">Meal Prep</h3>
+          <p>{DESCRIPTION}</p>
+          <h5>Available Times:</h5>
+          <div>
+            {Object.values(shifts).map((shift) => {
+              const dateDisplay = format(
+                utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                'eee, M/d/yy'
+              );
 
-                  const timeDisplay = format(
-                    utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-                    'h:mmaaa'
-                  );
+              const timeDisplay = format(
+                utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                'h:mmaaa'
+              );
 
-                  const jobBooked = bookedJobs?.includes(shift.id);
-                  let bookedHours: VolunteerHours | undefined;
+              const jobBooked = bookedJobs?.includes(shift.id);
+              let bookedHours: VolunteerHours | undefined;
 
-                  if (jobBooked && hours) {
-                    bookedHours = Object.values(hours).find(
-                      (h) => h.shift === shift.id && h.status === 'Confirmed'
-                    );
+              if (jobBooked && hours) {
+                bookedHours = Object.values(hours).find(
+                  (h) => h.shift === shift.id && h.status === 'Confirmed'
+                );
+              }
+
+              let linkUrl = '';
+
+              if (jobBooked) {
+                if (bookedHours) {
+                  if (volunteer) {
+                    linkUrl = `../../signup-confirm/${bookedHours.id}/${volunteer.id}`;
+                  } else if (user) {
+                    linkUrl = `../../signup-confirm/${bookedHours.id}`;
                   }
+                }
+              } else if (shift.open) {
+                linkUrl = `../shift/${shift.id}`;
+              }
 
-                  let linkUrl = '';
+              const unavailable = !shift.open ? 'volunteers-unavailable' : '';
 
-                  if (jobBooked) {
-                    if (bookedHours) {
-                      if (volunteer) {
-                        linkUrl = `../../signup-confirm/${bookedHours.id}/${volunteer.id}`;
-                      } else if (user) {
-                        linkUrl = `../../signup-confirm/${bookedHours.id}`;
-                      }
-                    }
-                  } else if (shift.open) {
-                    linkUrl = `../shift/${shift.id}`;
-                  }
-
-                  const unavailable = !shift.open
-                    ? 'volunteers-unavailable'
-                    : '';
-
-                  return (
-                    <Link key={shift.id} to={linkUrl}>
-                      <div className={`volunteers-shift ${unavailable}`}>
-                        <div className="volunteers-shift-date">
-                          &bull; {dateDisplay}
-                        </div>
-                        <div>{timeDisplay}</div>
-                        <div className="volunteers-shift-space">-</div>
-                        <div>{shift.slots} volunteers needed</div>
-                        {jobBooked && (
-                          <div className="volunteers-shift-checkmark">
-                            &#x2713; Signed Up
-                          </div>
-                        )}
+              return (
+                <Link key={shift.id} to={linkUrl}>
+                  <div className={`volunteers-shift ${unavailable}`}>
+                    <div className="volunteers-shift-date">
+                      &bull; {dateDisplay}
+                    </div>
+                    <div>{timeDisplay}</div>
+                    <div className="volunteers-shift-space">-</div>
+                    <div>{shift.slots} volunteers needed</div>
+                    {jobBooked && (
+                      <div className="volunteers-shift-checkmark">
+                        &#x2713; Signed Up
                       </div>
-                    </Link>
-                  );
-                })}
-            </div>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
-        );
-      });
+        </div>
+      );
     }
   };
 
