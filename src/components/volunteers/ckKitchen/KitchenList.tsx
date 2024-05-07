@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
 import {
   useGetKitchenShiftsQuery,
@@ -29,21 +30,30 @@ const KitchenList = () => {
   );
   const hours = getKitchenHoursQuery.data;
 
-  const bookedJobs = hours
-    ? Object.values(hours)
-        .filter((h) => h.status === 'Confirmed')
-        .map((h) => h.shift)
-    : [];
+  const bookedJobs = useMemo(() => {
+    return hours
+      ? Object.values(hours)
+          .filter((h) => h.status === 'Confirmed')
+          .map((h) => h.shift)
+      : [];
+  }, [hours]);
+
+  const sortedShifts = useMemo(() => {
+    if (shifts)
+      return Object.values(shifts).sort((a, b) =>
+        new Date(a.startTime) > new Date(b.startTime) ? 1 : -1
+      );
+  }, [shifts]);
 
   const renderJobs = () => {
-    if (shifts) {
+    if (sortedShifts) {
       return (
         <div className="volunteers-job">
           <h3 className="volunteers-job-header">Meal Prep</h3>
           <p>{DESCRIPTION}</p>
           <h5>Available Times:</h5>
           <div>
-            {Object.values(shifts).map((shift) => {
+            {sortedShifts.map((shift) => {
               const dateDisplay = format(
                 utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
                 'eee, M/d/yy'
