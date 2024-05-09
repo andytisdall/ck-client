@@ -1,13 +1,13 @@
 import DownloadFile from '../../reusable/file/DownloadFile';
 
 const PDF_FILE = 'home-chef/food-label-template.pdf';
-const DOC_FILE = 'home-chef/food-label-template.docx';
+const DOC_FILE = 'home-chef/food-label-template.doc';
 
 const Labels = () => {
   return (
     <div>
       <h4>Label Templates</h4>
-      <p>Use this template with Avery 8463 shipping labels.</p>
+      <p>Use this template with Avery 8162 shipping labels.</p>
       <img
         src="/images/food-label.png"
         alt="food label"
