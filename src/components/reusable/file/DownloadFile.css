@@ -5,6 +5,7 @@
   color: rgb(1, 1, 66);
   width: fit-content;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .download-icon {

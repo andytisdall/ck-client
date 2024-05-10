@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { format } from 'date-fns';
 
 import { useGetCampaignQuery } from '../../state/apis/volunteerApi/homeChefApi';
 import { useGetUserInfoQuery } from '../../state/apis/authApi';
@@ -56,17 +57,21 @@ const HomeChefHome = () => {
   };
 
   const renderAnnouncement = () => {
-    return (
-      <div className="home-chef-announcement">
-        <h3>Upcoming Home Chef Supply Pick Up</h3>
-        <h4>Wednesday, 5/8</h4>
-        <h4>4-6pm at the CK Kitchen, 2270 Telegraph Ave</h4>
-        <p>
-          * pick up containers, labels and local produce sourced from Mandela
-          Partners.
-        </p>
-      </div>
-    );
+    const ANNOUNCEMENT_DATE = new Date('2024/05/08');
+
+    if (new Date() <= ANNOUNCEMENT_DATE) {
+      return (
+        <div className="home-chef-announcement">
+          <h3>Upcoming Home Chef Supply Pick Up</h3>
+          <h4>{format(ANNOUNCEMENT_DATE, 'eeee, M/d')}</h4>
+          <h4>4-6pm at the CK Kitchen, 2270 Telegraph Ave</h4>
+          <p>
+            * pick up containers, labels and local produce sourced from Mandela
+            Partners.
+          </p>
+        </div>
+      );
+    }
   };
 
   return (

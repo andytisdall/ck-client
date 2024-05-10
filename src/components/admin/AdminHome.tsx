@@ -12,6 +12,9 @@ const AdminHome = () => {
       <Link className="text-button-link admin-home-btn" to="notifications">
         Send a Push Notification
       </Link>
+      <Link className="text-button-link admin-home-btn" to="d4j">
+        Dining for Justice
+      </Link>
     </div>
   );
 };
