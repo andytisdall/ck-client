@@ -38,7 +38,10 @@ const DeleteD4JAccount = () => {
     if (email) {
       return (
         <div>
-          <p>You have been emailed a code. Please enter the code here.</p>
+          <p>
+            You have been emailed a code. Please enter the code here to remove
+            your info from CK's database.
+          </p>
           <label htmlFor="code">Code:</label>
           <input
             type="text"
@@ -49,7 +52,9 @@ const DeleteD4JAccount = () => {
           {codeVerificationIsLoading ? (
             <Loading />
           ) : (
-            <button onClick={() => verifyCode({ code, email })}>Submit</button>
+            <button onClick={() => verifyCode({ code, email })}>
+              Delete My Data
+            </button>
           )}
         </div>
       );
@@ -60,7 +65,9 @@ const DeleteD4JAccount = () => {
     if (email) {
       return (
         <div>
-          <p>To delete your data, click below</p>
+          <p>To delete your data, click below.</p>
+          <h5>Email: {email}</h5>
+
           {codeGenerationIsLoading ? (
             <Loading />
           ) : (
@@ -72,8 +79,15 @@ const DeleteD4JAccount = () => {
   };
 
   const renderForm = () => {
-    if (generateCodeError || verifyCodeError || !email) {
-      return <p>An error has occurred.</p>;
+    if (generateCodeError) {
+      return (
+        <div>
+          <p>No user data found for email:</p> <h5>{email}</h5>
+        </div>
+      );
+    }
+    if (verifyCodeError) {
+      return <p>Incorrect code</p>;
     }
 
     if (!codeGenerated) {
