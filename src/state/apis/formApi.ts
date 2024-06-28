@@ -62,7 +62,7 @@ interface MealProgramIntakeArgs {
   food: String;
 }
 
-interface VolunteerInterestFormArgs {
+interface OldVolunteerInterestFormArgs {
   email: string;
   firstName: string;
   lastName: string;
@@ -71,7 +71,6 @@ interface VolunteerInterestFormArgs {
   foodHandler?: boolean;
   foodHandlerOther?: string;
   experience?: string;
-  otherExperience?: string;
   transport?: boolean;
   transportOther?: string;
   workOnFeet?: boolean;
@@ -86,22 +85,55 @@ interface VolunteerInterestFormArgs {
   };
 }
 
+interface VolunteerInterestFormArgs {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  zoom?: boolean;
+  inPerson?: boolean;
+  unavailable?: boolean;
+  feet?: boolean;
+  source: string;
+  extraInfo?: string;
+  programs: {
+    ckKitchen: boolean;
+    homeChef: boolean;
+  };
+}
+
+interface HomeChefRegistrationArgs {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  instagramHandle?: string;
+  foodHandler?: boolean;
+  foodHandlerOther?: string;
+  source?: string;
+  extraInfo?: string;
+}
+
 interface SubmitFormArgs {
   formData:
     | CBOReportArgs
     | TextSignUpSurveyArgs
     | MealQualitySurveyArgs
     | MealProgramIntakeArgs
-    | VolunteerInterestFormArgs;
-  name: string;
+    | VolunteerInterestFormArgs
+    | HomeChefRegistrationArgs
+    | OldVolunteerInterestFormArgs;
+  name: keyof typeof urls;
 }
 
-const urls: Record<string, string> = {
+const urls = {
   MEAL_SURVEY: '/text/meal-survey',
   VOLUNTEER_INTEREST: '/volunteers/signup',
+  VOLUNTEER_INTEREST_OLD: '/volunteers/signup/old',
   TEXT_SIGNUP_SURVEY: '/text/signup-survey',
   MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   CBO_REPORT: '/meal-program/cbo-report',
+  HOME_CHEF_REGISTRATION: '/volunteers/home-chef-registration',
 };
 
 const formApi = api.injectEndpoints({

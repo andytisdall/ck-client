@@ -11,6 +11,7 @@ const TextSignupSurvey = lazy(() => import('./TextSignupSurvey'));
 const MealProgramIntake = lazy(() => import('./MealProgramIntake'));
 const CBOReport = lazy(() => import('./CBOReport'));
 const D4JSurvey = lazy(() => import('./D4JSurvey'));
+const HomeChefRegistration = lazy(() => import('./HomeChefRegistration'));
 
 const Forms = () => {
   const headerImage = () => {
@@ -56,6 +57,10 @@ const formsRouter: RouteObject = {
     },
     { path: 'form-sent', element: renderWithFallback(<FormSent />) },
     { path: 'd4j-survey', element: renderWithFallback(<D4JSurvey />) },
+    {
+      path: 'home-chef-registration',
+      element: renderWithFallback(<HomeChefRegistration />),
+    },
   ],
 };
 

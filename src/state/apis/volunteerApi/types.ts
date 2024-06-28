@@ -11,6 +11,9 @@ export type Campaign = {
 export interface NotificationArgs {
   title: string;
   message: string;
+  screen?: string;
+  subScreen?: string;
+  params?: Record<string, string>;
 }
 
 export interface Notification {
