@@ -29,8 +29,7 @@ const volunteersRouter: RouteObject = {
   element: <VolunteersBase />,
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
-    { path: 'get-started', element: renderWithFallback(<IntakeBase />) },
-
+    // { path: 'get-started', element: renderWithFallback(<IntakeBase />) },
     eventsRouter,
     ckKitchenRouter,
     {

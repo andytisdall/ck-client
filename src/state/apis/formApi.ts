@@ -62,7 +62,7 @@ interface MealProgramIntakeArgs {
   food: String;
 }
 
-interface OldVolunteerInterestFormArgs {
+interface VolunteerInterestFormArgs {
   email: string;
   firstName: string;
   lastName: string;
@@ -85,33 +85,11 @@ interface OldVolunteerInterestFormArgs {
   };
 }
 
-interface VolunteerInterestFormArgs {
-  email: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  zoom?: boolean;
-  inPerson?: boolean;
-  unavailable?: boolean;
-  feet?: boolean;
-  source: string;
-  extraInfo?: string;
-  programs: {
-    ckKitchen: boolean;
-    homeChef: boolean;
-  };
-}
-
 interface HomeChefRegistrationArgs {
   email: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
-  instagramHandle?: string;
-  foodHandler?: boolean;
-  foodHandlerOther?: string;
-  source?: string;
-  extraInfo?: string;
+  phone: string;
 }
 
 interface SubmitFormArgs {
@@ -121,15 +99,14 @@ interface SubmitFormArgs {
     | MealQualitySurveyArgs
     | MealProgramIntakeArgs
     | VolunteerInterestFormArgs
-    | HomeChefRegistrationArgs
-    | OldVolunteerInterestFormArgs;
+    | HomeChefRegistrationArgs;
+
   name: keyof typeof urls;
 }
 
 const urls = {
   MEAL_SURVEY: '/text/meal-survey',
-  VOLUNTEER_INTEREST: '/volunteers/signup',
-  VOLUNTEER_INTEREST_OLD: '/volunteers/signup/old',
+  VOLUNTEER_INTEREST_OLD: '/volunteers/signup',
   TEXT_SIGNUP_SURVEY: '/text/signup-survey',
   MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   CBO_REPORT: '/meal-program/cbo-report',
