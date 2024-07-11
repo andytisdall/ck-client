@@ -4,8 +4,11 @@ import Loading from '../../reusable/loading/Loading';
 const PrizeDrawing = () => {
   const [drawPrize, { isLoading, data }] = useDrawPrizeMutation();
 
-  const winner = data?.contact;
   const checkIns = data?.numberOfCheckIns;
+
+  const first = data?.firstPrize;
+  const second = data?.secondPrize;
+  const third = data?.thirdPrize;
 
   return (
     <div>
@@ -20,9 +23,19 @@ const PrizeDrawing = () => {
       {!!data && (
         <>
           <div className="admin-item">
-            <div>Winner: </div>
+            <div>First Prize Winner: </div>
             <div className="d4j-item">
-              {winner?.firstName} {winner?.lastName}
+              {first?.firstName} {first?.lastName}
+            </div>
+
+            <div>Second Prize Winner: </div>
+            <div className="d4j-item">
+              {second?.firstName} {second?.lastName}
+            </div>
+
+            <div>Third Prize Winner: </div>
+            <div className="d4j-item">
+              {third?.firstName} {third?.lastName}
             </div>
 
             <div className="d4j-item">

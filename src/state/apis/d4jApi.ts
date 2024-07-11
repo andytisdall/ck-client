@@ -3,7 +3,9 @@ import { NotificationArgs } from './volunteerApi';
 import { Notification } from './volunteerApi';
 
 interface PrizeDrawingResponse {
-  contact: Winner;
+  firstPrize: Winner;
+  secondPrize: Winner;
+  thirdPrize: Winner;
   numberOfCheckIns: number;
 }
 
