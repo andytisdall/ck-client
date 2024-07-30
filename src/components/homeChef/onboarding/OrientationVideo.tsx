@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import './Orientation.css';
 
-const VIDEO_NAME = 'orientation_june_2024.mp4';
+const VIDEO_NAME = 'Orientation_072324.mp4';
 
 const OrientationVideo = () => {
   return (

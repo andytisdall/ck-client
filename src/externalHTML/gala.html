@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+</head>
+<style>
+  .hero-container {
+    position: relative;
+    background-color: rgb(86, 86, 86);
+    z-index: -2;
+    color: white;
+    font-family: mulish, Arial, Helvetica, sans-serif;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero {
+    background-image: url(https://storage.googleapis.com/coherent-vision-368820.appspot.com/moooon.jpeg);
+    background-size: cover;
+    background-position-y: -120px;
+    position: absolute;
+    width:100%;
+    height: 130%;
+    opacity: .42;
+    filter: blur(5px);
+    z-index: -1;
+  }
+  .content-container {
+    padding:2rem;
+    box-sizing: border-box;
+    font-weight: 300;
+  }
+  .header {
+    font-size: 3rem;
+    padding: 3rem;
+    max-width: 60%;
+    margin: 0 auto;
+  }
+  .sub-header-1 {
+    font-size: 2rem;
+    margin-bottom: .7rem;
+  }
+  .sub-header-2 {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+  }
+  .btn {
+    background-color: #ef9c0e;
+    color: white;
+    padding: 2rem 1rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    /* width: 200px; */
+    width: fit-content;
+    margin: 0 .5rem 1.5rem .5rem;
+    font-weight: 600;
+  }
+  .btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sponsor-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  @media (max-width: 1280px) {
+    .content-container {
+      padding: 1rem
+    }
+    .btns {
+      flex-direction: column;
+    }
+    .btn {
+      width: 320px;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    .header {
+      max-width: 100%;
+    }
+    .sub-header-1 {
+      font-size: 1.2rem;
+    }
+    .sub-header-2 {
+      font-size: 1rem;
+    }
+  }
+  @media (max-width: 1000px) {
+    .header {
+      font-size: 6vw;
+    }
+  }
+  @media (max-width: 600px) {
+    .header {
+      font-size: 6vw;
+    }
+  }
+
+</style>
+<body>
+  <div class="hero-container">
+    <div class="hero">
+    </div>
+    <div class="content-container">
+      <div class="header">Community Kitchens Inaugural Gala Fundraiser</div>
+      <div class="sub-header-1">Thursday September 19th 2024 • 6:00 pm</div>
+      <div class="sub-header-2">Oakland Museum Gardens, 1000 Oak Street, Oakland, CA
+      </div>
+      <div class="btns">
+        <div class="btn">GET TICKETS</div>
+        <div class="btn">BECOME A SPONSOR</div>
+      </div>
+    </div>
+  </div>
+  <div class='sponsors'>
+    <div class="sponsor-row">
+      <img class="sponsor-big sponsor-img" alt="Ava Community Energy" />
+      <img class="sponsor-big sponsor-img" alt="Pacific Gas and Electric"/>
+    </div>
+
+    <div class="sponsor-row">
+      <img class="sponsor-med sponsor-img" alt="EBMUD"/>
+      <img class="sponsor-med sponsor-img" alt="Oakland Fund for Public Innovation" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/OFPI-logo-Vert-w-Tag%20(1).jpg' />
+      <img class="sponsor-med sponsor-img" alt="Anthem Blue Cross" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/anthem.png' />
+    </div>
+
+    <div class="sponsor-row">
+      <img class="sponsor-sm sponsor-img" alt="Oakland Soul" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/OaklandSoulSC_%20Primary.png'/>
+      <img class="sponsor-sm sponsor-img" alt="Kaiser Permanente" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/kaiser.png'/>
+      <img class="sponsor-sm sponsor-img" alt="Oakland Roots"src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/OaklandRootsSC_Primary.png'/>
+    </div>
+
+    <div class="sponsor-row">
+      <img class="sponsor-xsm sponsor-img" alt="Port of Oakland" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/PofO-v1.2-Brandmark_C_Slogan_full_color-for_light_backgrounds-RGB-2000pxw.png'/>
+      <img class="sponsor-xsm sponsor-img" alt="Lane Partners" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/LanePartners_Logo_RGB.png'/>
+      <img class="sponsor-xsm sponsor-img" alt="UCSF Benioff Children's Hospital" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/UCSF_BCH_Logo_21.11_Oakland_Horiz_Color_300dpi_RGB.png'/>
+      <img class="sponsor-xsm sponsor-img" alt="Nia Impact Capital" src='https://storage.googleapis.com/coherent-vision-368820.appspot.com/Nia_Primary_Logo.png'/>
+    </div>
+  </div>
+</body>
+</html>

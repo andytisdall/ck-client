@@ -96,6 +96,7 @@ const Confirmation = () => {
       return (
         <div className="vol-info">
           <b>Your Info:</b>
+          <br />
           <ul>
             <li>
               <b>Name:</b> {volunteer.name}
