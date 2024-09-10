@@ -48,6 +48,9 @@ const d4jApi = api.injectEndpoints({
         body,
       }),
     }),
+    confirmEmail: builder.query<null, string>({
+      query: (code) => '/d4j/confirm-email/' + code,
+    }),
   }),
 });
 
@@ -57,4 +60,5 @@ export const {
   useDrawPrizeMutation,
   useLazyGenerateDeleteAccountCodeQuery,
   useVerifyDeleteAccountCodeMutation,
+  useConfirmEmailQuery,
 } = d4jApi;

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
 
 import { useGetUserInfoQuery } from '../../state/apis/authApi';
 
@@ -8,19 +9,33 @@ const HomeChefStatus = () => {
   const foodHandler =
     'Obtain a Food Handler certification and upload the certificate';
   const volunteerAgreement = 'Sign our volunteer agreement';
+  const homeChefQuiz =
+    'Watch the orientation video and pass the home chef quiz';
 
-  let incompleteActions: string[] = [];
-  let completedActions: string[] = [];
-  if (!userInfo?.foodHandler) {
-    incompleteActions.push(foodHandler);
-  } else {
-    completedActions.push(foodHandler);
-  }
-  if (!userInfo?.volunteerAgreement) {
-    incompleteActions.push(volunteerAgreement);
-  } else {
-    completedActions.push(volunteerAgreement);
-  }
+  const [completedActions, incompleteActions] = useMemo(() => {
+    let completedActions = [];
+    let incompleteActions = [];
+
+    if (!userInfo?.foodHandler) {
+      incompleteActions.push(foodHandler);
+    } else {
+      completedActions.push(foodHandler);
+    }
+
+    if (!userInfo?.volunteerAgreement) {
+      incompleteActions.push(volunteerAgreement);
+    } else {
+      completedActions.push(volunteerAgreement);
+    }
+
+    if (!userInfo?.homeChefQuizPassed) {
+      incompleteActions.push(homeChefQuiz);
+    } else {
+      completedActions.push(homeChefQuiz);
+    }
+
+    return [completedActions, incompleteActions];
+  }, [userInfo]);
 
   const renderAsLi = (text: string) => {
     return <li key={text}>{text}</li>;
@@ -34,11 +49,19 @@ const HomeChefStatus = () => {
             You have to complete the following tasks before you can sign up for
             Town Fridge deliveries:
           </p>
-          <Link to="onboarding/documents">
-            <ul className="incomplete-doc">
-              {incompleteActions.map(renderAsLi)}
-            </ul>
-          </Link>
+          <ul className="incomplete-doc">
+            {incompleteActions.map((text: string) => {
+              const linkUrl =
+                text === homeChefQuiz
+                  ? 'onboarding/orientation-video'
+                  : 'onboarding/documents';
+              return (
+                <Link key={text} to={linkUrl}>
+                  <li>{text}</li>
+                </Link>
+              );
+            })}
+          </ul>
         </div>
       );
     }

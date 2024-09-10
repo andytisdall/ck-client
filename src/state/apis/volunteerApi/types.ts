@@ -167,3 +167,19 @@ export interface GetVolunteerHoursArgs {
   campaignId: string;
   contactId: string;
 }
+
+export interface HomeChefQuizQuestion {
+  question: string;
+  answers: string[];
+}
+
+export interface HomeChefQuizAnswer {
+  index: number;
+  answer: number;
+}
+
+export interface HomeChefQuizResponse {
+  passed: boolean;
+  score: number;
+  wrongAnswers: number[];
+}

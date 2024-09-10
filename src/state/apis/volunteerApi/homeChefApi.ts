@@ -13,6 +13,9 @@ import {
   SendInviteArgs,
   EditHoursArgs,
   Notification,
+  HomeChefQuizQuestion,
+  HomeChefQuizAnswer,
+  HomeChefQuizResponse,
 } from './types';
 
 export const homeChefApi = api.injectEndpoints({
@@ -75,6 +78,20 @@ export const homeChefApi = api.injectEndpoints({
       }),
       invalidatesTags: ['HomeChefHours'],
     }),
+    getQuizQuestions: builder.query<HomeChefQuizQuestion[], void>({
+      query: () => '/home-chef/quiz',
+    }),
+    submitQuizAnswers: builder.mutation<
+      HomeChefQuizResponse,
+      HomeChefQuizAnswer[]
+    >({
+      query: (body) => ({
+        body,
+        url: '/home-chef/quiz',
+        method: 'POST',
+      }),
+      invalidatesTags: ['UserInfo'],
+    }),
   }),
 });
 
@@ -88,4 +105,6 @@ export const {
   useSendInviteMutation,
   useEditHoursMutation,
   useGetHomeChefNotificationsQuery,
+  useGetQuizQuestionsQuery,
+  useSubmitQuizAnswersMutation,
 } = homeChefApi;

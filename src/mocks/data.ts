@@ -31,6 +31,7 @@ export const userInfo1: ContactInfo = {
   volunteerAgreement: true,
   foodHandler: true,
   homeChefStatus: 'Active',
+  homeChefQuizPassed: true,
 };
 
 export const userInfo2: ContactInfo = {
@@ -39,6 +40,7 @@ export const userInfo2: ContactInfo = {
   volunteerAgreement: false,
   foodHandler: true,
   homeChefStatus: 'Attended Orientation',
+  homeChefQuizPassed: false,
 };
 
 export const restaurant1: Restaurant = {

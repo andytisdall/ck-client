@@ -17,10 +17,22 @@ const DocusignSuccess = lazy(
   () => import('../../reusable/docusign/DocusignSuccess')
 );
 
+// quiz
+const Quiz = lazy(() => import('./quiz/Quiz'));
+const QuizResults = lazy(() => import('./quiz/QuizResults'));
+
 const onboardingRouter: RouteObject = {
   path: 'onboarding',
   children: [
     { index: true, element: renderWithFallback(<HomeChefOnboarding />) },
+    {
+      path: 'quiz',
+      element: renderWithFallback(<Quiz />),
+    },
+    {
+      path: 'quiz-results',
+      element: renderWithFallback(<QuizResults />),
+    },
     {
       path: 'orientation-video',
       element: renderWithFallback(<OrientationVideo />),

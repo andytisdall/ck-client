@@ -36,14 +36,16 @@ const HomeChefOnboarding = () => {
       <h2>Home Chef Onboarding</h2>
       {renderActive()}
       <div>
-        <TextButton
-          to="documents"
-          buttonText="Upload your Documents"
-          descriptionText={documentsDescription}
-        />
+        {userInfo?.homeChefStatus !== 'Active' && (
+          <TextButton
+            to="documents"
+            buttonText="Upload your Documents"
+            descriptionText={documentsDescription}
+          />
+        )}
         <TextButton
           to="orientation-video"
-          buttonText="Watch the Orientation Video"
+          buttonText="Watch the Orientation Video and Take the Home Chef Quiz"
           descriptionText={videoDescription}
         />
         <TextButton

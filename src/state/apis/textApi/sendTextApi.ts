@@ -24,6 +24,7 @@ export const sendTextApi = api.injectEndpoints({
           formData: true,
         };
       },
+      invalidatesTags: ['Feedback'],
     }),
   }),
 });

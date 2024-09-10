@@ -40,7 +40,7 @@ const HomeChefRegistration = () => {
         <p className="form-home-chef-reg-sub-header">
           <strong>
             Sign up here for hands on training at the CK Kitchen, 2270 Telegraph
-            Ave on July 27th, 12pm-3pm
+            Ave on Saturday, August 17th, 12pm-3pm
           </strong>
         </p>
         <br />
@@ -84,6 +84,7 @@ const HomeChefRegistration = () => {
           Community Kitchens
           <br />
           <a href="https://ckoakland.org/volunteer">CKoakland.org/volunteer</a>
+          <p className="required">* Indicates required question</p>
         </p>
       </div>
     );
@@ -94,7 +95,9 @@ const HomeChefRegistration = () => {
       {header()}
       <form onSubmit={onSubmit}>
         <div className="form-item">
-          <label>Email</label>
+          <label>
+            Email<span className="required">*</span>
+          </label>
           <input
             type="text"
             value={email}
@@ -103,16 +106,22 @@ const HomeChefRegistration = () => {
           />
         </div>
         <div className="form-item">
-          <label>First Name</label>
+          <label>
+            First Name<span className="required">*</span>
+          </label>
           <input
+            required
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
         <div className="form-item">
-          <label>Last Name</label>
+          <label>
+            Last Name<span className="required">*</span>
+          </label>
           <input
+            required
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}

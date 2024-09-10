@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import '../Home.css';
-import './SignedOut/SignIn.css';
+import '../auth/SignedOut/SignIn.css';
 import Loading from '../reusable/loading/Loading';
 import {
   useLazyGenerateDeleteAccountCodeQuery,

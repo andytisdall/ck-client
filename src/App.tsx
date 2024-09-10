@@ -42,8 +42,9 @@ const PageNotFound = lazy(() => import('./components/error/PageNotFound'));
 const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('./components/user/ResetPassword'));
 const DeleteD4JAccount = lazy(
-  () => import('./components/auth/DeleteD4JAccount')
+  () => import('./components/user/DeleteD4JAccount')
 );
+const ConfirmEmail = lazy(() => import('./components/user/ConfirmEmail'));
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: 'delete-data/:email',
         element: renderWithFallback(<DeleteD4JAccount />),
+      },
+      {
+        path: 'confirm-email/:code',
+        element: renderWithFallback(<ConfirmEmail />),
       },
       {
         path: 'reset-password/:token',

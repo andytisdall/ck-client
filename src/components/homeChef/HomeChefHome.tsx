@@ -3,7 +3,6 @@ import { format } from 'date-fns';
 
 import { useGetCampaignQuery } from '../../state/apis/volunteerApi/homeChefApi';
 import { useGetUserInfoQuery } from '../../state/apis/authApi';
-import { slidesDescription } from './onboarding/HomeChefOnboarding';
 import TextButton from '../reusable/TextButton';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
 
@@ -21,6 +20,7 @@ const emailDescription =
   'Let your friends know about CK Home Chef and invite them to cook for town fridges';
 const appDescription =
   'Download and install the Home Chef App, where you can sign up for shifts and send alerts about your Town Fridge deliveries';
+const orientationDescription = 'View the Home Chef orientation materials';
 
 const HomeChefHome = () => {
   const userInfo = useGetUserInfoQuery().data;
@@ -86,7 +86,7 @@ const HomeChefHome = () => {
         />
         <TextButton
           to="chef"
-          buttonText="See Fridges You've Signed Up For"
+          buttonText="Your Account"
           descriptionText={chefDescription}
         />
         <TextButton
@@ -103,13 +103,13 @@ const HomeChefHome = () => {
           <>
             <TextButton
               to="../home-chef-app"
-              buttonText="Get the CK Home Chef App"
+              buttonText="CK Home Chef App"
               descriptionText={appDescription}
             />
             <TextButton
-              to="onboarding/orientation-slides"
-              buttonText="Read the Orientation Materials"
-              descriptionText={slidesDescription}
+              to="onboarding"
+              buttonText="Orientation Materials"
+              descriptionText={orientationDescription}
             />
           </>
         )}
