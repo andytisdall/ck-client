@@ -1,18 +1,30 @@
 import { useParams } from 'react-router-dom';
-import { useConfirmEmailQuery } from '../../state/apis/d4jApi';
+import { useEffect } from 'react';
+
+import { useConfirmEmailMutation } from '../../state/apis/d4jApi';
 import Loading from '../reusable/loading/Loading';
 
 const ConfirmEmail = () => {
   const { code } = useParams();
-  const { isSuccess, isLoading, isError } = useConfirmEmailQuery(code || '');
+  const [confirmEmail, { isSuccess, isLoading, isError }] =
+    useConfirmEmailMutation();
+
+  useEffect(() => {
+    if (code) {
+      confirmEmail({ code });
+    }
+  }, [code, confirmEmail]);
 
   return (
     <div className="main user">
       {isLoading && <Loading />}
-      {isSuccess && <h3>Confirmation Successful!</h3>}
-      {isError && (
-        <h4>An error occurred and we were not able to confirm this account.</h4>
+      {isSuccess && (
+        <div>
+          <h3>Confirmation Successful!</h3>
+          <p>You now have full access to the Dining for Justice app</p>
+        </div>
       )}
+      {isError && <h4>Unable to verify</h4>}
     </div>
   );
 };

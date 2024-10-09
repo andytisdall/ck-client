@@ -23,7 +23,9 @@ test('navigate to home chef page', async () => {
 
 test('see chef shifts', async () => {
   render(<App />, { wrapper: Root });
-  const chefLink = await screen.findByText("See Fridges You've Signed Up For");
+  const chefLink = await screen.findByText(
+    "See upcoming deliveries you've signed up for, and past deliveries you've made"
+  );
   userEvent.click(chefLink);
 
   // chef page

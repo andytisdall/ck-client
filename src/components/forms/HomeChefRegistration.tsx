@@ -37,55 +37,47 @@ const HomeChefRegistration = () => {
     return (
       <div className="form-item">
         <h1>In-Person Home Chef Training</h1>
-        <p className="form-home-chef-reg-sub-header">
-          <strong>
-            Sign up here for hands on training at the CK Kitchen, 2270 Telegraph
-            Ave on Saturday, August 17th, 12pm-3pm
-          </strong>
+
+        <br />
+        <p>
+          Thanks for signing up for the Home Chef Training at the CK Central
+          Kitchen located at 2270 Telegraph Ave on TUESDAY, 10/29 from 5:30-7:30
+          PM!
         </p>
         <br />
         <p>
-          Thank you for your interest in becoming a CK Home Chef! Home Chefs
-          donate home cooked, delicious meals to Town Fridges that are located
-          in neighborhoods that experience high levels of food insecurity. Home
-          Chef Volunteers cook 15-25 meals at home with family and friends,
-          procure ingredients and deliver to Town Fridges on a regular schedule
-          where anyone can take a meal for free 24/7. CK provides packaging,
-          labels, local restaurant recipes, supplemental produce and a tax
-          deductible annual In-Kind Gift Donation receipt.
+          Join us as the amazing Melinda Drayton, a seasoned Home Chef, guides
+          us in whipping up her beloved family recipe—Cowgirl Chili and Maple
+          Butter Cornbread—to share with our community through Town Fridges.
         </p>
         <br />
         <p>
-          Come get hands-on experience and learn best practices, tips & tricks
-          for cooking for 25+ at our in person training at the CK Central
-          Kitchen. We will be cooking a large batch meal together for Town
-          Fridges with the assistance of active Home Chefs who will share their
-          experiences and answer any questions.
+          This is your chance to roll up your sleeves and gain hands-on
+          experience cooking for 25+ people. Bring your family and friends along
+          to learn how to cook in large batches while having a blast together,
+          sip on some wine and beer and enjoy the meal together!
         </p>
         <br />
         <p>
-          Please wear comfortable shoes and bring a water bottle.
-          <br />
-          <br />
-          Thank you for joining us and feel free to contact me with any
-          questions:{' '}
-          <a href="mailto:mollye@ckoakland.org">mollye@ckoakland.org</a>
-          <br />
-          <br />
-          Looking forward to meeting you!
-          <br />
-          <br />
-          Best,
-          <br />
-          Mollye Chudacoff
-          <br />
-          Meal & Volunteer Program Manager
-          <br />
-          Community Kitchens
-          <br />
-          <a href="https://ckoakland.org/volunteer">CKoakland.org/volunteer</a>
-          <p className="required">* Indicates required question</p>
+          As a Home Chef, you’ll be part of a heartwarming mission, donating
+          home-cooked meals made with love to Town Fridges in neighborhoods
+          facing food insecurity. Home Chef Volunteers cook 15-25 meals at home
+          with family and friends, procure ingredients and deliver to Town
+          Fridges where anyone can take a meal for free 24/7. CK provides
+          packaging, labels, local restaurant recipes, supplemental produce and
+          a tax deductible annual In-Kind Gift Donation receipt.
         </p>
+        <br />
+        <p>
+          We can’t wait to see you there! If you have any questions, feel free
+          to reach out at{' '}
+          <a href="mailto:mollye@ckoakland.org">mollye@ckoakland.org.</a>
+        </p>
+        <br />
+        <p>Let’s make a difference together—see you soon! 🌟</p>
+        <br />
+        <br />
+        <p className="required">* Indicates required question</p>
       </div>
     );
   };

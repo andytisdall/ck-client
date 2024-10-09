@@ -5,7 +5,6 @@ import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
 //home chef onboarding
 const HomeChefOnboarding = lazy(() => import('./HomeChefOnboarding'));
-const HomeChefDocuments = lazy(() => import('./HomeChefDocuments'));
 const UploadFoodHandler = lazy(() => import('./UploadFoodHandler'));
 const OrientationVideo = lazy(() => import('./OrientationVideo'));
 const OrientationSlides = lazy(() => import('./OrientationSlides'));
@@ -40,10 +39,6 @@ const onboardingRouter: RouteObject = {
     {
       path: 'orientation-slides',
       element: renderWithFallback(<OrientationSlides />),
-    },
-    {
-      path: 'documents',
-      element: renderWithFallback(<HomeChefDocuments />),
     },
     {
       path: 'upload-food-handler',

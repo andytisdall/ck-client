@@ -60,3 +60,17 @@
 .hc-quiz-wrong {
   margin-top: 2rem;
 }
+
+.hc-quiz-wrong li {
+  margin-bottom: 1rem;
+}
+
+.hc-quiz-right {
+  font-weight: 600;
+  margin-left: 2rem;
+}
+
+.hc-quiz-right-answer {
+  color: green;
+  margin-left: 10px;
+}

@@ -65,7 +65,7 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<DeleteD4JAccount />),
       },
       {
-        path: 'confirm-email/:code',
+        path: 'd4japp/account/confirm/:code',
         element: renderWithFallback(<ConfirmEmail />),
       },
       {

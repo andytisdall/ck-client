@@ -3,18 +3,31 @@ import { useMemo } from 'react';
 
 import { useGetUserInfoQuery } from '../../state/apis/authApi';
 
+const foodHandler = {
+  text: 'Obtain a Food Handler certification and upload the certificate',
+  url: 'onboarding/upload-food-handler',
+};
+const volunteerAgreement = {
+  text: 'Sign our volunteer agreement',
+  url: 'onboarding/docusign/sign/HC',
+};
+const homeChefQuiz = {
+  text: 'Watch the orientation video and pass the home chef quiz',
+  url: 'onboarding/orientation-video',
+};
+
 const HomeChefStatus = () => {
   const userInfo = useGetUserInfoQuery().data;
-
-  const foodHandler =
-    'Obtain a Food Handler certification and upload the certificate';
-  const volunteerAgreement = 'Sign our volunteer agreement';
-  const homeChefQuiz =
-    'Watch the orientation video and pass the home chef quiz';
 
   const [completedActions, incompleteActions] = useMemo(() => {
     let completedActions = [];
     let incompleteActions = [];
+
+    if (!userInfo?.homeChefQuizPassed) {
+      incompleteActions.push(homeChefQuiz);
+    } else {
+      completedActions.push(homeChefQuiz);
+    }
 
     if (!userInfo?.foodHandler) {
       incompleteActions.push(foodHandler);
@@ -28,17 +41,11 @@ const HomeChefStatus = () => {
       completedActions.push(volunteerAgreement);
     }
 
-    if (!userInfo?.homeChefQuizPassed) {
-      incompleteActions.push(homeChefQuiz);
-    } else {
-      completedActions.push(homeChefQuiz);
-    }
-
     return [completedActions, incompleteActions];
   }, [userInfo]);
 
-  const renderAsLi = (text: string) => {
-    return <li key={text}>{text}</li>;
+  const renderAsLi = (action: { text: string; url: string }) => {
+    return <li key={action.text}>{action.text}</li>;
   };
 
   const renderIncomplete = () => {
@@ -46,18 +53,16 @@ const HomeChefStatus = () => {
       return (
         <div>
           <p>
-            You have to complete the following tasks before you can sign up for
-            Town Fridge deliveries:
+            <strong>
+              Thank you for signing up to become a CK Home Chef! Please complete
+              the following tasks to become an Active Home Chef.
+            </strong>
           </p>
           <ul className="incomplete-doc">
-            {incompleteActions.map((text: string) => {
-              const linkUrl =
-                text === homeChefQuiz
-                  ? 'onboarding/orientation-video'
-                  : 'onboarding/documents';
+            {incompleteActions.map((action: { text: string; url: string }) => {
               return (
-                <Link key={text} to={linkUrl}>
-                  <li>{text}</li>
+                <Link key={action.text} to={action.url}>
+                  <li>{action.text}</li>
                 </Link>
               );
             })}

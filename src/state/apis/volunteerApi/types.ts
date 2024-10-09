@@ -182,4 +182,5 @@ export interface HomeChefQuizResponse {
   passed: boolean;
   score: number;
   wrongAnswers: number[];
+  rightAnswers?: string[];
 }

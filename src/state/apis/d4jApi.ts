@@ -15,6 +15,11 @@ interface Winner {
   lastName: string;
 }
 
+interface EventConfig {
+  contestActive: boolean;
+  styleMonthActive: boolean;
+}
+
 const d4jApi = api.injectEndpoints({
   endpoints: (builder) => ({
     drawPrize: builder.mutation<PrizeDrawingResponse, void>({
@@ -48,8 +53,22 @@ const d4jApi = api.injectEndpoints({
         body,
       }),
     }),
-    confirmEmail: builder.query<null, string>({
-      query: (code) => '/d4j/confirm-email/' + code,
+    confirmEmail: builder.mutation<null, { code: string }>({
+      query: (body) => ({ url: '/d4j/confirm-email', method: 'POST', body }),
+    }),
+    deleteAndy: builder.query<null, void>({
+      query: () => '/d4j/delete-andy',
+    }),
+    getStyleWeekActive: builder.query<EventConfig, void>({
+      query: () => '/d4j/style-week',
+      providesTags: ['D4JConfig'],
+    }),
+    setStyleWeekActive: builder.mutation<null, EventConfig>({
+      query: (body) => ({ url: '/d4j/style-week', method: 'POST', body }),
+      invalidatesTags: ['D4JConfig'],
+    }),
+    declareWinner: builder.mutation<string[], void>({
+      query: () => ({ url: '/d4j/contest/winner', method: 'POST' }),
     }),
   }),
 });
@@ -60,5 +79,9 @@ export const {
   useDrawPrizeMutation,
   useLazyGenerateDeleteAccountCodeQuery,
   useVerifyDeleteAccountCodeMutation,
-  useConfirmEmailQuery,
+  useConfirmEmailMutation,
+  useLazyDeleteAndyQuery,
+  useGetStyleWeekActiveQuery,
+  useSetStyleWeekActiveMutation,
+  useDeclareWinnerMutation,
 } = d4jApi;

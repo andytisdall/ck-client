@@ -50,5 +50,6 @@ export const api = createApi({
     'EventShifts',
     'CBOData',
     'PushNotifications',
+    'D4JConfig',
   ],
 });

@@ -14,3 +14,9 @@
   margin-bottom: 2rem;
   align-self: center;
 }
+
+.food-handler {
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 600;
+}

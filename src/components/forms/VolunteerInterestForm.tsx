@@ -108,7 +108,8 @@ const InterestForm = () => {
           <strong>
             Thank you for your interest in volunteering with Community Kitchens.
             Please take a moment to tell us about yourself and which program(s)
-            you're interested in volunteering for:
+            you're interested in volunteering for. You will receive a
+            confirmation email with next steps to volunteer.
           </strong>
         </p>
 

@@ -19,10 +19,20 @@ const QuizResults = () => {
         <div className="hc-quiz-wrong">
           <p>Questions answered incorrectly:</p>
           <ul>
-            {results.wrongAnswers.map((ans) => {
+            {results.wrongAnswers.map((ans, i) => {
               return (
                 <div key={ans}>
-                  <li>{questions[ans].question}</li>
+                  <li>
+                    {questions[ans].question}
+                    {results.passed && results.rightAnswers && (
+                      <div className="hc-quiz-right">
+                        Correct Answer:
+                        <span className="hc-quiz-right-answer">
+                          {results.rightAnswers[i]}
+                        </span>
+                      </div>
+                    )}
+                  </li>
                 </div>
               );
             })}

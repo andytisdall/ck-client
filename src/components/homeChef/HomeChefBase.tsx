@@ -5,45 +5,29 @@ import Loading from '../reusable/loading/Loading';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
 import { useGetUserInfoQuery } from '../../state/apis/authApi';
 
+const HomeChefNotSignedIn = lazy(() => import('./HomeChefNotSignedIn'));
 const HomeChefStatus = lazy(() => import('./HomeChefStatus'));
 
 const HomeChef = () => {
   const { data, isLoading } = useGetUserInfoQuery();
   const userInfo = data;
 
-  const renderNoChef = () => {
-    return (
-      <div>
-        <h3>You must be a CK Home Chef to access this page.</h3>
-        <h3>If you are a Home Chef, sign in at the top of the page.</h3>
-        <h3>
-          If you want to become a Home Chef,{' '}
-          <Link to="/forms/volunteer" className="retro-link">
-            please complete the signup form.
-          </Link>
-        </h3>
-        <h4>
-          Once you submit the form, you will be invited to orientation and given
-          a username.
-        </h4>
-        <Link to="../volunteers" className="retro-link">
-          Other volunteer opportunities
-        </Link>
-      </div>
-    );
+  const renderStatus = () => {
+    if (userInfo?.homeChefStatus !== 'Active') {
+      return renderWithFallback(<HomeChefStatus />);
+    }
   };
 
   const renderHomeChef = () => {
     if (userInfo?.homeChefStatus) {
       return (
         <>
-          {userInfo.homeChefStatus !== 'Active' &&
-            renderWithFallback(<HomeChefStatus />)}
+          {renderStatus()}
           <Outlet />
         </>
       );
     } else {
-      return renderNoChef();
+      return renderWithFallback(<HomeChefNotSignedIn />);
     }
   };
 

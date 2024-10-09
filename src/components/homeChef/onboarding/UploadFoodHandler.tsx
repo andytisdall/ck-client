@@ -1,10 +1,11 @@
 import { FormEventHandler } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import './Orientation.css';
 import { requiredDocuments } from './requiredDocuments';
 import FileUpload from '../../reusable/file/FileUpload';
 import Loading from '../../reusable/loading/Loading';
-import { FOOD_HANDLER_URL } from './HomeChefDocuments';
+import { FOOD_HANDLER_URL } from './HomeChefOnboarding';
 import { useUploadFilesMutation } from '../../../state/apis/fileApi';
 
 const UploadFoodHandler = () => {
@@ -43,16 +44,17 @@ const UploadFoodHandler = () => {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <FileUpload doc={requiredDocuments.foodHandler} />
-        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
-      </form>
-      <p>
+      <h1>Upload your food handler certificate</h1>
+      <p className="food-handler">
         Don't have your food handler certificate yet?{' '}
         <a className="retro-link" href={FOOD_HANDLER_URL}>
           Click here to apply.
         </a>
       </p>
+      <form onSubmit={onSubmit}>
+        <FileUpload doc={requiredDocuments.foodHandler} />
+        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
+      </form>
     </div>
   );
 };
