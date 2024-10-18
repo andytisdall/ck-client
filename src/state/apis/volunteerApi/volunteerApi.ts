@@ -63,7 +63,7 @@ export const volunteerApi = api.injectEndpoints({
 export const {
   useLazyGetVolunteerQuery,
   useCreateVolunteerMutation,
-
   useSignUpForVolunteerShiftMutation,
   useCancelVolunteerShiftMutation,
+  useGetVolunteerQuery,
 } = volunteerApi;

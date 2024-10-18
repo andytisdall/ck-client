@@ -26,6 +26,7 @@ const ShiftSignup = () => {
       if (!volunteer && !userInfo) {
         navigate('../signin');
       } else if (volunteer && volunteer.ckKitchenStatus !== 'Active') {
+        console.log(volunteer);
         setRedirectToDocusign(true);
         docusignLink.current = '../../docusign/sign/CKK/' + volunteer.id;
       } else if (userInfo && userInfo?.ckKitchenStatus !== 'Active') {

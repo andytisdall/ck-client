@@ -31,9 +31,12 @@ const VolunteerEvent = () => {
       if (!volunteer && !userInfo) {
         navigate('../signin/' + id);
       } else if (volunteer && volunteer.ckKitchenStatus !== 'Active') {
+        console.log(volunteer);
         setRedirectToDocusign(true);
         docusignLink.current = '../../docusign/sign/CKK/' + volunteer.id;
       } else if (userInfo && userInfo?.ckKitchenStatus !== 'Active') {
+        console.log('b');
+
         setRedirectToDocusign(true);
         docusignLink.current = '../../docusign/sign/CKK';
       }

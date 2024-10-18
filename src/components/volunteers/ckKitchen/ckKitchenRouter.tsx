@@ -21,11 +21,7 @@ const ckKitchenRouter: RouteObject = {
   children: [
     { index: true, element: renderWithFallback(<KitchenHome />) },
     {
-      path: 'signup-confirm/:hoursId/',
-      element: renderWithFallback(<Confirmation />),
-    },
-    {
-      path: 'signup-confirm/:hoursId/:contactId',
+      path: 'signup-confirm/:campaignId/:hoursId/',
       element: renderWithFallback(<Confirmation />),
     },
     {
@@ -42,7 +38,7 @@ const ckKitchenRouter: RouteObject = {
           element: renderWithFallback(<KitchenCalendar />),
         },
         {
-          path: 'shift/:shiftId',
+          path: ':shiftId',
           element: renderWithFallback(<ShiftSignup />),
         },
       ],

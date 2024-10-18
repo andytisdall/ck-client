@@ -111,7 +111,7 @@ const urls = {
   TEXT_SIGNUP_SURVEY: '/text/signup-survey',
   MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   CBO_REPORT: '/meal-program/cbo-report',
-  HOME_CHEF_REGISTRATION: '/volunteers/home-chef-registration',
+  HOME_CHEF_REGISTRATION: '/home-chef/home-chef-registration',
 };
 
 const formApi = api.injectEndpoints({

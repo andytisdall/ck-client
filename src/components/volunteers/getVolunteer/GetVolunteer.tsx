@@ -25,7 +25,7 @@ const GetVolunteer = ({ returnLink }: { returnLink: string }) => {
 
   const navigate = useNavigate();
 
-  const url = returnLink || `../signup/${id}` || '';
+  const url = returnLink || `../signup/${id}`;
 
   useEffect(() => {
     if (user) {

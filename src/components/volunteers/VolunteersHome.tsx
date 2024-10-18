@@ -1,11 +1,5 @@
-import { format, utcToZonedTime } from 'date-fns-tz';
-import { useSelector } from 'react-redux';
-
-import { RootState } from '../../state/store';
-import Loading from '../reusable/loading/Loading';
 import TextButton from '../reusable/TextButton';
-import { useGetEventsQuery } from '../../state/apis/volunteerApi';
-import { useGetUserQuery } from '../../state/apis/authApi';
+import EventsList from './events/EventsList';
 
 const homeChefDescription =
   'A hub for CK Home Chefs to get started in the program, sign up for Town Fridge Deliveries, and access resources like recipes.';
@@ -13,61 +7,6 @@ const homeChefDescription =
 const ckKitchenDescription = 'Sign up to help out in the CK Kitchen.';
 
 const VolunteersHome = () => {
-  const { data: eventCampaigns, isLoading } = useGetEventsQuery();
-  const { data: user } = useGetUserQuery();
-  const volunteer = useSelector((state: RootState) => {
-    return state.volunteer.volunteer;
-  });
-
-  const renderEvents = () => {
-    if (isLoading) {
-      return <Loading />;
-    }
-    if (eventCampaigns?.length) {
-      return (
-        <div className="volunteers-home-section">
-          <div className="volunteers-home-section-title">
-            Special Event Volunteer Opportunities
-          </div>
-          <div className="volunteers-home-section-body">
-            {eventCampaigns.map((cam) => {
-              let description = '';
-              if (!cam.buttonText) {
-                const startDate = cam.startDate
-                  ? format(
-                      utcToZonedTime(cam.startDate, 'America/Los_Angeles'),
-                      'eeee, MMMM do'
-                    )
-                  : '';
-                const endDate = cam.endDate
-                  ? ' - ' +
-                    format(
-                      utcToZonedTime(cam.endDate, 'America/Los_Angeles'),
-                      'eeee, MMMM do'
-                    )
-                  : '';
-                description = startDate + endDate;
-              } else {
-                description = cam.buttonText;
-              }
-
-              const link = user || volunteer ? 'signup' : 'signin';
-
-              return (
-                <TextButton
-                  key={cam.id}
-                  buttonText={cam.name}
-                  descriptionText={description}
-                  to={`events/${link}/${cam.id}`}
-                />
-              );
-            })}
-          </div>
-        </div>
-      );
-    }
-  };
-
   const renderOngoing = () => {
     return (
       <div className="volunteers-home-section">
@@ -93,7 +32,7 @@ const VolunteersHome = () => {
   return (
     <div className="volunteers-home">
       {renderOngoing()}
-      {renderEvents()}
+      <EventsList />
       <img
         src="/images/volunteers/volunteer-group.jpg"
         alt="A group of CK Kitchen volunteers"

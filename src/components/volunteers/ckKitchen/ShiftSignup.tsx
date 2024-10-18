@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { format, utcToZonedTime } from 'date-fns-tz';
 import { useSelector } from 'react-redux';
 import { useEffect, useMemo } from 'react';
 
@@ -11,6 +10,7 @@ import {
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
+import ShiftInfo from '../ShiftInfo';
 
 const ShiftSignup = () => {
   const navigate = useNavigate();
@@ -61,21 +61,6 @@ const ShiftSignup = () => {
   const isLoading =
     signUpForVolunteerShiftResult.isLoading || kitchenShiftsQuery.isLoading;
 
-  const renderVolunteer = () => {
-    if (volunteer) {
-      return (
-        <div className="vol-info">
-          <b>Your Info:</b>
-          <ul>
-            <li>
-              <b>Name:</b> {volunteer.name}
-            </li>
-          </ul>
-        </div>
-      );
-    }
-  };
-
   if (isLoading) {
     return <Loading />;
   }
@@ -84,39 +69,14 @@ const ShiftSignup = () => {
     return <p>This shift is not available for signup</p>;
   }
 
+  if (!job) {
+    return <p>Job info not found.</p>;
+  }
+
   return (
     <div className="volunteer-signup">
       <h3 className="volunteers-signup-btns">Signing up for:</h3>
-      <div className="volunteers-shift-detail">
-        <p>
-          <b>Job:</b> {job?.name}
-        </p>
-        <p>
-          <b>Description:</b> {job?.description}
-        </p>
-        <p>
-          <b>Location:</b> {job?.location}
-        </p>
-        <p>
-          <b>Date: </b>
-          {format(
-            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-            'eeee, M/d/yy'
-          )}
-        </p>
-        <p>
-          <b>Time: </b>
-          {format(
-            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-            'h:mm a'
-          )}
-        </p>
-        <p>
-          <b>Duration: </b>
-          {shift.duration} Hours
-        </p>
-        {renderVolunteer()}
-      </div>
+      <ShiftInfo job={job} shift={shift} />
       <div className="volunteers-signup-btns">
         <button onClick={() => navigate('../list')} className="cancel">
           Cancel

@@ -11,7 +11,6 @@ const DocusignSuccess = lazy(
   () => import('../reusable/docusign/DocusignSuccess')
 );
 const VolunteersHome = lazy(() => import('./VolunteersHome'));
-const IntakeBase = lazy(() => import('./intake/IntakeBase'));
 
 const VolunteersBase = () => {
   return (
@@ -29,7 +28,6 @@ const volunteersRouter: RouteObject = {
   element: <VolunteersBase />,
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
-    // { path: 'get-started', element: renderWithFallback(<IntakeBase />) },
     eventsRouter,
     ckKitchenRouter,
     {
