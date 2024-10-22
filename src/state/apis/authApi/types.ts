@@ -5,6 +5,7 @@ export interface User {
   salesforceId: string;
   id: string;
   googleId?: string;
+  busDriver?: boolean;
 }
 
 export type UsersState = Record<string, User>;

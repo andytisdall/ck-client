@@ -53,6 +53,8 @@ beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
   store.dispatch(api.util.resetApiState());
+  store.dispatch({ type: 'volunteer/reset' });
+
   // window.localStorage.removeItem('ck-token');
 });
 

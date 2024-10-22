@@ -1,68 +1,70 @@
-import { useSelector } from 'react-redux';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { useSelector } from 'react-redux';
 
-import { useGetEventsQuery } from '../../../state/apis/volunteerApi';
-import { useGetUserQuery } from '../../../state/apis/authApi';
 import { RootState } from '../../../state/store';
 import Loading from '../../reusable/loading/Loading';
 import TextButton from '../../reusable/TextButton';
+import { useGetCampaignsQuery } from '../../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../../state/apis/authApi';
 
 const EventsList = () => {
-  const { data: eventCampaigns, isLoading } = useGetEventsQuery();
+  const { data: campaigns, isLoading } = useGetCampaignsQuery();
   const { data: user } = useGetUserQuery();
   const volunteer = useSelector((state: RootState) => {
     return state.volunteer.volunteer;
   });
 
+  const eventCampaigns = campaigns?.filter(
+    (cam) => cam.name !== 'CK Kitchen Volunteers'
+  );
+
   if (isLoading) {
     return <Loading />;
   }
-
-  if (!eventCampaigns?.length) {
-    return <></>;
-  }
-
-  const renderEvents = eventCampaigns.map((cam) => {
-    let description = '';
-    if (!cam.buttonText) {
-      const startDate = cam.startDate
-        ? format(
-            utcToZonedTime(cam.startDate, 'America/Los_Angeles'),
-            'eeee, MMMM do'
-          )
-        : '';
-      const endDate = cam.endDate
-        ? ' - ' +
-          format(
-            utcToZonedTime(cam.endDate, 'America/Los_Angeles'),
-            'eeee, MMMM do'
-          )
-        : '';
-      description = startDate + endDate;
-    } else {
-      description = cam.buttonText;
-    }
-
-    const link = user || volunteer ? 'signup' : 'signin';
-
+  if (eventCampaigns?.length) {
     return (
-      <TextButton
-        key={cam.id}
-        buttonText={cam.name}
-        descriptionText={description}
-        to={`events/${link}/${cam.id}`}
-      />
-    );
-  });
+      <div className="volunteers-home-section">
+        <div className="volunteers-home-section-title">
+          Special Event Volunteer Opportunities
+        </div>
+        <div className="volunteers-home-section-body">
+          {eventCampaigns.map((cam) => {
+            let description = '';
+            if (!cam.buttonText) {
+              const startDate = cam.startDate
+                ? format(
+                    utcToZonedTime(cam.startDate, 'America/Los_Angeles'),
+                    'eeee, MMMM do'
+                  )
+                : '';
+              const endDate = cam.endDate
+                ? ' - ' +
+                  format(
+                    utcToZonedTime(cam.endDate, 'America/Los_Angeles'),
+                    'eeee, MMMM do'
+                  )
+                : '';
+              description = startDate + endDate;
+            } else {
+              description = cam.buttonText;
+            }
 
-  return (
-    <div className="volunteers-home-section">
-      <div className="volunteers-home-section-title">
-        Special Event Volunteer Opportunities
+            const link = user || volunteer ? 'signup' : 'signin';
+
+            return (
+              <TextButton
+                key={cam.id}
+                buttonText={cam.name}
+                descriptionText={description}
+                to={`events/${link}/${cam.id}`}
+              />
+            );
+          })}
+        </div>
       </div>
-      <div className="volunteers-home-section-body">{renderEvents}</div>
-    </div>
-  );
+    );
+  }
+  return <></>;
 };
 
 export default EventsList;

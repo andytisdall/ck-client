@@ -1,8 +1,11 @@
 import { rest } from 'msw';
 
 import * as data from './data';
+import { VolunteerHours } from '../state/apis/volunteerApi';
 
 const BASE = 'http://localhost:3001';
+
+const getHoursResponse: VolunteerHours[] = [data.hours1];
 
 export const handlers = [
   rest.post(BASE + '/api/signin', (req, res, ctx) => {
@@ -12,7 +15,7 @@ export const handlers = [
     if (window.localStorage.getItem('ck-token')) {
       return res(ctx.json(data.user1));
     } else {
-      return res(ctx.status(403), ctx.json({ error: 'Unauthorized' }));
+      return res(ctx.json(null));
     }
   }),
   rest.get(BASE + '/api/user/userInfo', (req, res, ctx) => {
@@ -39,12 +42,11 @@ export const handlers = [
   }),
 
   rest.get(BASE + '/api/volunteers/events', (req, res, ctx) => {
-    return res(ctx.json([]));
+    return res(ctx.json([data.ckKitchenCampaign, data.eventCampaign]));
   }),
 
   rest.get(BASE + '/api/volunteers/:email', (req, res, ctx) => {
     const email = req.params.email;
-    console.log(req);
     if (email === 'andrew.tisdall@gmail.com') {
       return res(ctx.json(data.volunteer1));
     }
@@ -55,7 +57,19 @@ export const handlers = [
   }),
 
   rest.post(BASE + '/api/volunteers', (req, res, ctx) => {
-    return res(ctx.json({ email: 'andrew.tisdall@gmail.com' }));
+    return res(ctx.json(data.newVolunteer));
+  }),
+
+  rest.get(
+    BASE + '/api/volunteers/hours/:campaignId/:contactId',
+    (req, res, ctx) => {
+      return res(ctx.json(getHoursResponse));
+    }
+  ),
+
+  rest.post(BASE + '/api/volunteers/hours', (req, res, ctx) => {
+    getHoursResponse.push(data.hours2);
+    return res(ctx.json(data.hours2));
   }),
 
   rest.get(
@@ -64,4 +78,18 @@ export const handlers = [
       return res(ctx.json(data.restaurantInfo2));
     }
   ),
+
+  rest.delete(
+    BASE + '/api/volunteers/hours/:hoursId/:contactId',
+    (req, res, ctx) => {
+      const hours = { ...data.hours2 };
+      hours.status = 'Canceled';
+      getHoursResponse[1] = hours;
+      return res(ctx.json(null));
+    }
+  ),
+
+  rest.get(BASE + '/api/meal-program/campaign', (req, res, ctx) => {
+    return res(ctx.json({ total: 1000 }));
+  }),
 ];

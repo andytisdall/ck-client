@@ -7,6 +7,8 @@ import {
   VolunteerHours,
   Campaign,
   GetShiftsResponse,
+  CreateVolunteerResponse,
+  VolunteerCampaign,
 } from '../state/apis/volunteerApi';
 
 export const user1: User = {
@@ -32,6 +34,7 @@ export const userInfo1: ContactInfo = {
   foodHandler: true,
   homeChefStatus: 'Active',
   homeChefQuizPassed: true,
+  ckKitchenStatus: 'Active',
 };
 
 export const userInfo2: ContactInfo = {
@@ -151,4 +154,26 @@ export const volunteer2 = {
   name: 'Andrew Tisdall',
   lastName: 'Tisdall',
   ckKitchenStatus: undefined,
+};
+
+export const newVolunteer: CreateVolunteerResponse = {
+  name: 'Andrew Tisdall',
+  email: 'andrew.tisdall@gmail.com',
+  householdId: '0017400000IG2QzAAL',
+  id: '0037400000FU7XrAAL',
+};
+
+export const ckKitchenCampaign: VolunteerCampaign = {
+  name: 'CK Kitchen Volunteers',
+  id: 'dewneic',
+  jobs: [job1],
+  shifts: [shift1, shift2],
+};
+
+export const eventCampaign: VolunteerCampaign = {
+  name: 'Holiday Cookies',
+  id: 'dw3h87hd8',
+  jobs: [job1],
+  shifts: [shift1, shift2],
+  buttonText: 'dkuhewd',
 };

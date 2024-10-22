@@ -6,6 +6,7 @@ import {
   Volunteer,
   CreateVolunteerArgs,
   CreateVolunteerResponse,
+  GetVolunteerHoursArgs,
 } from './types';
 
 export const volunteerApi = api.injectEndpoints({
@@ -14,6 +15,13 @@ export const volunteerApi = api.injectEndpoints({
       query: (email) => '/volunteers/' + email,
       providesTags: ['Volunteer'],
     }),
+
+    getHours: builder.query<VolunteerHours[], GetVolunteerHoursArgs>({
+      query: ({ campaignId, contactId }) =>
+        `/volunteers/hours/${campaignId}/${contactId}`,
+      providesTags: ['VolunteerHours'],
+    }),
+
     createVolunteer: builder.mutation<
       CreateVolunteerResponse,
       CreateVolunteerArgs
@@ -34,12 +42,7 @@ export const volunteerApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: [
-        'EventHours',
-        'EventShifts',
-        'CkKitchenHours',
-        'CkKitchenShifts',
-      ],
+      invalidatesTags: ['VolunteerHours', 'VolunteerShifts'],
     }),
 
     cancelVolunteerShift: builder.mutation<null, CancelVolunteerHoursArgs>({
@@ -50,12 +53,7 @@ export const volunteerApi = api.injectEndpoints({
         }
         return { url, method: 'DELETE' };
       },
-      invalidatesTags: [
-        'CkKitchenHours',
-        'CkKitchenShifts',
-        'EventHours',
-        'EventShifts',
-      ],
+      invalidatesTags: ['VolunteerHours', 'VolunteerShifts'],
     }),
   }),
 });
@@ -66,4 +64,5 @@ export const {
   useSignUpForVolunteerShiftMutation,
   useCancelVolunteerShiftMutation,
   useGetVolunteerQuery,
+  useGetHoursQuery,
 } = volunteerApi;

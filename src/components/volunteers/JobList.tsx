@@ -1,35 +1,78 @@
 import { format, utcToZonedTime } from 'date-fns-tz';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
-import { Job, Shift, VolunteerHours } from '../../state/apis/volunteerApi';
+import { RootState } from '../../state/store';
+import { useGetUserQuery } from '../../state/apis/authApi';
+import Loading from '../reusable/loading/Loading';
+import {
+  VolunteerHours,
+  useGetCampaignsQuery,
+  useGetHoursQuery,
+} from '../../state/apis/volunteerApi';
 
-const JobList = ({
-  jobs,
-  shifts,
-  hours,
-  campaignId,
-  contactId,
-}: {
-  jobs: Job[];
-  shifts: Shift[];
-  hours: VolunteerHours[];
-  campaignId: string;
-  contactId?: string;
-}) => {
+const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
+  const { campaignId } = useParams();
+
+  const { data, isLoading } = useGetCampaignsQuery();
+  const campaigns = data;
+
+  const campaign =
+    campaigns && campaignId
+      ? campaigns.find((cam) =>
+          campaignIdProp ? cam.id === campaignIdProp : cam.id === campaignId
+        )
+      : undefined;
+
+  const shifts = campaign?.shifts;
+  const jobs = campaign?.jobs;
+
+  const { volunteer } = useSelector((state: RootState) => ({
+    volunteer: state.volunteer.volunteer,
+  }));
+
+  const { data: user } = useGetUserQuery();
+
+  const { data: hours } = useGetHoursQuery({
+    campaignId: campaignId || '',
+    contactId: volunteer?.id || user?.salesforceId || '',
+  });
+
+  const sortedShifts = useMemo(() => {
+    if (shifts)
+      return Object.values(shifts)
+        .filter(
+          (shift) =>
+            utcToZonedTime(shift.startTime, 'America/Los_Angeles') > new Date()
+        )
+        .sort((a, b) =>
+          new Date(a.startTime) > new Date(b.startTime) ? 1 : -1
+        );
+  }, [shifts]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!sortedShifts || !hours || !jobs || !campaign) {
+    return <div>Could not find info.</div>;
+  }
+
   const bookedJobs = hours
-    ? hours.filter((h) => h.status === 'Confirmed').map((h) => h.shift)
-    : [];
+    .filter((h) => h.status === 'Confirmed')
+    .map((h) => h.shift);
 
   return (
     <div>
       <h3 className="volunteers-signup-btns">Positions Available</h3>
 
-      {jobs.map((j: Job) => {
+      {jobs.map((j) => {
         return (
           <div className="volunteers-job" key={j.id}>
             <h3>{j.name}</h3>
             <p>{j.description}</p>
-            {shifts
+            {sortedShifts
               .filter((sh) => sh && j.shifts.includes(sh.id))
               .map((shift) => {
                 const full = shift.open ? '' : 'volunteers-unavailable';
@@ -45,25 +88,28 @@ const JobList = ({
                 let linkUrl = '';
                 if (jobBooked) {
                   if (bookedHours) {
-                    linkUrl = `../signup-confirm/${campaignId}/${bookedHours.id}/${contactId}`;
+                    linkUrl = `../signup-confirm/${campaign.id}/${
+                      bookedHours.id
+                    }/${volunteer?.id || user?.id}`;
                   }
                 } else if (shift.open) {
-                  linkUrl =
-                    campaignId === 'ck-kitchen' ? `../${shift.id}` : shift.id;
+                  linkUrl = shift.id;
                 }
 
                 return (
                   <Link key={shift.id} to={linkUrl}>
                     <div className={`volunteers-shift ${full}`}>
                       <div>
-                        &bull;{' '}
-                        {format(
-                          utcToZonedTime(
-                            shift.startTime,
-                            'America/Los_Angeles'
-                          ),
-                          'eee, M/d/yy h:mm a'
-                        )}
+                        <span>&bull; </span>
+                        <span>
+                          {format(
+                            utcToZonedTime(
+                              shift.startTime,
+                              'America/Los_Angeles'
+                            ),
+                            'eee, M/d/yy h:mm a'
+                          )}
+                        </span>
                       </div>
 
                       {shift.slots !== null && (

@@ -3,6 +3,7 @@ import { useGetUserQuery } from '../../../state/apis/authApi';
 import Loading from '../../reusable/loading/Loading';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
+import { useGetCampaignsQuery } from '../../../state/apis/volunteerApi';
 
 const KitchenHome = () => {
   const { data, isLoading } = useGetUserQuery();
@@ -11,7 +12,14 @@ const KitchenHome = () => {
     volunteer: state.volunteer.volunteer,
   }));
 
-  const link = data || volunteer ? 'signup/list' : 'signin';
+  const { data: campaigns } = useGetCampaignsQuery();
+
+  const kitchenId = campaigns?.find(
+    (cam) => cam.name === 'CK Kitchen Volunteers'
+  )?.id;
+
+  const link =
+    data || volunteer ? `signup/${kitchenId}` : `signin/${kitchenId}`;
 
   if (isLoading) {
     return <Loading />;

@@ -11,8 +11,8 @@ import {
 } from '../../../state/apis/volunteerApi';
 import { useGetUserQuery } from '../../../state/apis/authApi';
 
-const GetVolunteer = ({ returnLink }: { returnLink: string }) => {
-  const { id } = useParams();
+const GetVolunteer = () => {
+  const { campaignId } = useParams();
 
   const [email, setEmail] = useState('');
   const [showNameFields, setShowNameFields] = useState(false);
@@ -25,7 +25,7 @@ const GetVolunteer = ({ returnLink }: { returnLink: string }) => {
 
   const navigate = useNavigate();
 
-  const url = returnLink || `../signup/${id}`;
+  const url = `../signup/${campaignId}`;
 
   useEffect(() => {
     if (user) {
@@ -48,13 +48,13 @@ const GetVolunteer = ({ returnLink }: { returnLink: string }) => {
     } else {
       createVolunteer({ email, firstName, lastName })
         .unwrap()
-        .then((vol) =>
+        .then((vol) => {
           getVolunteer(vol.email)
             .unwrap()
             .then(() => {
               navigate(url);
-            })
-        );
+            });
+        });
     }
   };
 

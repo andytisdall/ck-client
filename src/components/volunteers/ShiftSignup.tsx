@@ -1,20 +1,20 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '../../../state/store';
-import Loading from '../../reusable/loading/Loading';
+import { RootState } from '../../state/store';
+import Loading from '../reusable/loading/Loading';
 import {
-  useGetEventsQuery,
+  useGetCampaignsQuery,
   useSignUpForVolunteerShiftMutation,
-  useGetEventHoursQuery,
-} from '../../../state/apis/volunteerApi';
-import { useGetUserQuery } from '../../../state/apis/authApi';
-import ShiftInfo from '../ShiftInfo';
+  useGetHoursQuery,
+} from '../../state/apis/volunteerApi';
+import { useGetUserQuery } from '../../state/apis/authApi';
+import ShiftInfo from './ShiftInfo';
 
-const EventShiftSignup = () => {
+const ShiftSignup = () => {
   const navigate = useNavigate();
-  const { shiftId, id } = useParams();
+  const { shiftId, campaignId } = useParams();
 
   const [signUpForVolunteerShift, { isLoading }] =
     useSignUpForVolunteerShiftMutation();
@@ -23,15 +23,30 @@ const EventShiftSignup = () => {
     volunteer: state.volunteer.volunteer,
   }));
 
-  const { data } = useGetEventsQuery();
-  const campaign = data?.find((cam) => cam.id === id);
+  const { data: campaigns } = useGetCampaignsQuery();
+  const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
   const { data: user } = useGetUserQuery();
 
-  const { data: hours } = useGetEventHoursQuery({
-    campaignId: id || '',
+  const { data: hours } = useGetHoursQuery({
+    campaignId: campaignId || '',
     contactId: user?.salesforceId || '',
   });
+
+  let contactSalesforceId = '';
+  if (user) {
+    contactSalesforceId = user.salesforceId;
+  }
+  if (volunteer) {
+    contactSalesforceId = volunteer.id;
+  }
+
+  const getConfirmUrl = useCallback(
+    (hoursId: string) => {
+      return `../../signup-confirm/${campaignId}/${hoursId}/${contactSalesforceId}`;
+    },
+    [contactSalesforceId, campaignId]
+  );
 
   const bookedJobs = useMemo(() => {
     return hours
@@ -52,20 +67,13 @@ const EventShiftSignup = () => {
         (h) => h.shift === shiftId && h.status === 'Confirmed'
       );
       if (hour) {
-        navigate(`../../signup-confirm/${id}/${hour.id}`);
+        navigate(getConfirmUrl(hour.id));
       }
     }
-  }, [hours, shiftId, navigate, bookedJobs, id]);
+  }, [hours, shiftId, navigate, bookedJobs, campaignId, getConfirmUrl]);
 
   const onSubmit = () => {
     if (shift && shiftId && job) {
-      let contactSalesforceId = '';
-      if (user) {
-        contactSalesforceId = user.salesforceId;
-      }
-      if (volunteer) {
-        contactSalesforceId = volunteer.id;
-      }
       signUpForVolunteerShift({
         shiftId,
         jobId: job.id,
@@ -74,9 +82,20 @@ const EventShiftSignup = () => {
       })
         .unwrap()
         .then((hour) => {
-          navigate(`../../signup-confirm/${id}/${hour.id}`);
+          navigate(getConfirmUrl(hour.id));
         });
     }
+  };
+
+  const renderBtns = () => {
+    return (
+      <div className="volunteers-signup-btns">
+        <button onClick={onSubmit}>Confirm Signup</button>
+        <button onClick={() => navigate('..')} className="cancel">
+          Cancel
+        </button>
+      </div>
+    );
   };
 
   if (!shift?.open) {
@@ -91,18 +110,9 @@ const EventShiftSignup = () => {
     <div>
       <h3 className="volunteers-signup-btns">Confirm your signup:</h3>
       <ShiftInfo shift={shift} job={job} />
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className="volunteers-signup-btns">
-          <button onClick={onSubmit}>Confirm Signup</button>
-          <button onClick={() => navigate('/volunteers')} className="cancel">
-            Cancel
-          </button>
-        </div>
-      )}
+      {isLoading ? <Loading /> : renderBtns()}
     </div>
   );
 };
 
-export default EventShiftSignup;
+export default ShiftSignup;

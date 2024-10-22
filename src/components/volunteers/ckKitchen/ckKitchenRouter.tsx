@@ -2,17 +2,17 @@ import { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 
 import renderWithFallback from '../../reusable/loading/renderWithFallback';
-
-const SignupBase = lazy(() => import('./SignupBase'));
-
-const ShiftSignup = lazy(() => import('./ShiftSignup'));
-const KitchenHome = lazy(() => import('./KitchenHome'));
-
-const Confirmation = lazy(() => import('./Confirmation'));
-const GetVolunteer = lazy(() => import('../getVolunteer/GetVolunteer'));
+import JobList from '../JobList';
 
 const KitchenCalendar = lazy(() => import('./KitchenCalendar'));
-const KitchenList = lazy(() => import('./KitchenList'));
+const KitchenSignupBase = lazy(() => import('./KitchenSignupBase'));
+
+const ShiftSignup = lazy(() => import('../ShiftSignup'));
+const KitchenHome = lazy(() => import('./KitchenHome'));
+
+const Confirmation = lazy(() => import('../Confirmation'));
+const GetVolunteer = lazy(() => import('../getVolunteer/GetVolunteer'));
+
 const KitchenBase = lazy(() => import('./KitchenBase'));
 
 const ckKitchenRouter: RouteObject = {
@@ -21,22 +21,24 @@ const ckKitchenRouter: RouteObject = {
   children: [
     { index: true, element: renderWithFallback(<KitchenHome />) },
     {
-      path: 'signup-confirm/:campaignId/:hoursId/',
+      path: 'signup-confirm/:campaignId/:hoursId/:contactId',
       element: renderWithFallback(<Confirmation />),
     },
     {
-      path: 'signin',
-      element: renderWithFallback(<GetVolunteer returnLink="../signup/list" />),
+      path: 'signin/:campaignId',
+      element: renderWithFallback(<GetVolunteer />),
     },
     {
-      path: 'signup',
-      element: renderWithFallback(<SignupBase />),
+      path: 'signup/:campaignId',
+      element: renderWithFallback(<KitchenSignupBase />),
       children: [
-        { path: 'list', element: renderWithFallback(<KitchenList />) },
         {
-          path: 'calendar',
-          element: renderWithFallback(<KitchenCalendar />),
+          index: true,
+          element: renderWithFallback(<JobList />),
         },
+
+        { path: 'cal', element: renderWithFallback(<KitchenCalendar />) },
+
         {
           path: ':shiftId',
           element: renderWithFallback(<ShiftSignup />),

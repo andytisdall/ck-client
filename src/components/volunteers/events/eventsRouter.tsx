@@ -3,33 +3,34 @@ import { RouteObject } from 'react-router-dom';
 
 import renderWithFallback from '../../reusable/loading/renderWithFallback';
 
-const VolunteerEvent = lazy(() => import('./VolunteerEvent'));
-const EventJobList = lazy(() => import('./EventJobList'));
-const EventShiftSignup = lazy(() => import('./Signup'));
-const EventShiftConfirmation = lazy(() => import('./Confirmation'));
+const EventSignupBase = lazy(() => import('./EventSignupBase'));
+const JobList = lazy(() => import('../JobList'));
+const ShiftSignup = lazy(() => import('../ShiftSignup'));
+const Confirmation = lazy(() => import('../Confirmation'));
 const GetVolunteer = lazy(() => import('../getVolunteer/GetVolunteer'));
 
 const eventsRouter: RouteObject = {
   path: 'events',
   children: [
     {
-      path: 'signin/:id',
-      element: renderWithFallback(<GetVolunteer returnLink="" />),
+      path: 'signin/:campaignId',
+      element: renderWithFallback(<GetVolunteer />),
     },
     {
-      path: 'signup/:id',
-      element: renderWithFallback(<VolunteerEvent />),
+      path: 'signup/:campaignId',
+      element: renderWithFallback(<EventSignupBase />),
       children: [
-        { index: true, element: renderWithFallback(<EventJobList />) },
+        { index: true, element: renderWithFallback(<JobList />) },
+
         {
           path: ':shiftId',
-          element: renderWithFallback(<EventShiftSignup />),
+          element: renderWithFallback(<ShiftSignup />),
         },
       ],
     },
     {
-      path: 'signup-confirm/:campaignId/:hoursId',
-      element: renderWithFallback(<EventShiftConfirmation />),
+      path: 'signup-confirm/:campaignId/:hoursId/:contactId',
+      element: renderWithFallback(<Confirmation />),
     },
   ],
 };

@@ -7,8 +7,8 @@ import { RootState } from '../../../state/store';
 import Calendar from '../../reusable/calendar/Calendar';
 import Loading from '../../reusable/loading/Loading';
 import {
-  useGetKitchenShiftsQuery,
-  useGetKitchenHoursQuery,
+  useGetCampaignsQuery,
+  useGetHoursQuery,
   Shift,
   VolunteerHours,
 } from '../../../state/apis/volunteerApi';
@@ -17,9 +17,12 @@ import { useGetUserQuery } from '../../../state/apis/authApi';
 const KitchenCalendar = () => {
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetKitchenShiftsQuery();
-  const shifts = data?.shifts;
-  const jobs = data?.jobs;
+  const { data: campaigns, isLoading } = useGetCampaignsQuery();
+  const ckKitchenCampaign = campaigns?.find(
+    (cam) => cam.name === 'CK Kitchen Volunteers'
+  );
+  const shifts = ckKitchenCampaign?.shifts;
+  const jobs = ckKitchenCampaign?.jobs;
 
   const { volunteer } = useSelector((state: RootState) => ({
     volunteer: state.volunteer.volunteer,
@@ -27,9 +30,10 @@ const KitchenCalendar = () => {
 
   const { data: user } = useGetUserQuery();
 
-  const getKitchenHoursQuery = useGetKitchenHoursQuery(
-    volunteer?.id || user?.salesforceId
-  );
+  const getKitchenHoursQuery = useGetHoursQuery({
+    contactId: volunteer?.id || user?.salesforceId || '',
+    campaignId: ckKitchenCampaign?.id || '',
+  });
   const hours = getKitchenHoursQuery.data;
 
   const bookedJobs = hours
@@ -83,14 +87,14 @@ const KitchenCalendar = () => {
                 if (bookedHours) {
                   if (volunteer) {
                     navigate(
-                      `../../signup-confirm/${bookedHours.id}/${volunteer.id}`
+                      `../../signup-confirm/${ckKitchenCampaign?.id}/${bookedHours.id}/${volunteer.id}`
                     );
                   } else if (user) {
                     navigate(`../../signup-confirm/${bookedHours.id}`);
                   }
                 }
               } else if (sh.open) {
-                navigate(`../shift/${sh.id}`);
+                navigate(`../${sh.id}`);
               }
             }}
           >
