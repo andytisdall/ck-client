@@ -11,6 +11,7 @@ const TextSignupSurvey = lazy(() => import('./TextSignupSurvey'));
 const MealProgramIntake = lazy(() => import('./MealProgramIntake'));
 const CBOReport = lazy(() => import('./CBOReport'));
 const HomeChefRegistration = lazy(() => import('./HomeChefRegistration'));
+const CookieParty = lazy(() => import('./CookieParty'));
 
 const Forms = () => {
   const headerImage = () => {
@@ -59,6 +60,7 @@ const formsRouter: RouteObject = {
       path: 'home-chef-registration',
       element: renderWithFallback(<HomeChefRegistration />),
     },
+    { path: 'cookie-party', element: renderWithFallback(<CookieParty />) },
   ],
 };
 

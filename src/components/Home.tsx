@@ -48,7 +48,7 @@ const Home = () => {
   };
 
   const renderTextService = () => {
-    if (user?.admin) {
+    if (user?.admin || user?.busDriver) {
       return (
         <TextButton
           to="text"

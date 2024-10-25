@@ -29,7 +29,9 @@ const HomeChefRegistration = () => {
     })
       .unwrap()
       .then(() => {
-        navigate('/forms/form-sent');
+        navigate('/forms/form-sent', {
+          state: { message: 'You will receive a confirmation email.' },
+        });
       });
   };
 

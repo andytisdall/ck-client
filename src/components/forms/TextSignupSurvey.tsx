@@ -1,9 +1,7 @@
 import { useState, useRef, FormEventHandler } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { setAlert } from '../../state/apis/slices/alertSlice';
 import { useSubmitFormMutation } from '../../state/apis/formApi';
 import Loading from '../reusable/loading/Loading';
 
@@ -26,7 +24,6 @@ const TextSignupSurvey = () => {
   const otherRefText = useRef<HTMLInputElement | null>(null);
 
   const { phone } = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
@@ -47,8 +44,7 @@ const TextSignupSurvey = () => {
     })
       .unwrap()
       .then(() => {
-        dispatch(setAlert(successMessage));
-        navigate('/forms/form-sent');
+        navigate('/forms/form-sent', { state: { message: successMessage } });
       });
   };
 

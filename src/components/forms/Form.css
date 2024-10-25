@@ -22,7 +22,6 @@
   padding: 2rem;
   align-items: flex-start;
   background-color: white;
-
 }
 
 .form-item input[type='text'], .form-item input[type='email'], .form-item input[type='tel'] {
@@ -169,4 +168,14 @@ flex: .4;}
   border-color: black;
   display: flex;
   align-items: stretch;
+}
+
+.form-center-text {
+  align-self: center;
+  text-align: center;
+}
+
+.form-link {
+  align-self: center;
+  margin-top: 3rem;
 }

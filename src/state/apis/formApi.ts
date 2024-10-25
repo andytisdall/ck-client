@@ -112,6 +112,7 @@ const urls = {
   MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   CBO_REPORT: '/meal-program/cbo-report',
   HOME_CHEF_REGISTRATION: '/home-chef/home-chef-registration',
+  COOKIE_PARTY: '/volunteers/hours/cookies',
 };
 
 const formApi = api.injectEndpoints({

@@ -1,10 +1,8 @@
 import { useState, FormEventHandler, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Loading from '../reusable/loading/Loading';
 import { useSubmitFormMutation } from '../../state/apis/formApi';
-import { setAlert } from '../../state/apis/slices/alertSlice';
 
 const successMessage =
   'A Community Kitchens staff member will be in touch with you. Thanks for helping out!';
@@ -44,7 +42,6 @@ const InterestForm = () => {
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const otherProgramRef = useRef<HTMLInputElement | null>(null);
@@ -92,8 +89,7 @@ const InterestForm = () => {
     })
       .unwrap()
       .then(() => {
-        dispatch(setAlert(successMessage));
-        navigate('/forms/form-sent');
+        navigate('/forms/form-sent', { state: { message: successMessage } });
       });
   };
   const showError = () => {
