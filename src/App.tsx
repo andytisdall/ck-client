@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from 'react-router-dom';
 import { lazy } from 'react';
 
 import './App.css';
@@ -46,6 +50,12 @@ const DeleteD4JAccount = lazy(
 );
 const ConfirmEmail = lazy(() => import('./components/user/ConfirmEmail'));
 
+const RedirectCookies = () => {
+  const navigate = useNavigate();
+  navigate('/forms/cookie-party');
+  return <></>;
+};
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -73,6 +83,7 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<ResetPassword />),
       },
       { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
+      { path: 'cookies', element: <RedirectCookies /> },
       textRouter,
       adminRouter,
       mealProgramRouter,

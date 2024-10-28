@@ -105,7 +105,6 @@ export interface CBOReport {
   month: string;
   year: string;
   name: string;
-  CBOName: string;
   performanceMeasures: PerformanceMeasures;
   age: Age;
   race: Race;
@@ -114,6 +113,7 @@ export interface CBOReport {
   feedback: string;
   phoneNumber: string;
   email: string;
+  cboId: string;
 }
 
 const cboApi = api.injectEndpoints({
