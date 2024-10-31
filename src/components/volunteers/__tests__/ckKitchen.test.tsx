@@ -4,7 +4,7 @@ import { format } from 'date-fns-tz';
 
 import { hours2, job1 } from '../../../mocks/data';
 import App from '../../../App';
-import { Root } from '../../../setupTests';
+import { Root, signInUser } from '../../../setupTests';
 
 // const getRandomChars = () => {
 //   return (Math.random() + 1).toString(36).substring(7);
@@ -13,10 +13,8 @@ import { Root } from '../../../setupTests';
 test('navigate to CK Kitchen home', async () => {
   render(<App />, { wrapper: Root });
 
-  window.localStorage.removeItem('ck-token');
-
   const volLink = await screen.findByText('CK Volunteers');
-  userEvent.click(volLink);
+  await userEvent.click(volLink);
 
   // text home
   const headerText = await screen.findByRole('heading', {
@@ -28,21 +26,20 @@ test('navigate to CK Kitchen home', async () => {
 
 test('create contact and see list of jobs', async () => {
   render(<App />, { wrapper: Root });
-  window.localStorage.removeItem('ck-token');
 
   const kitchenLink = await screen.findByText('CK Kitchen Volunteers');
-  userEvent.click(kitchenLink);
+  await userEvent.click(kitchenLink);
 
   const signupLink = await screen.findByText(
     'Sign Up to Volunteer / See your shifts'
   );
-  userEvent.click(signupLink);
+  await userEvent.click(signupLink);
 
   const email = 'andrew@gmail.com';
 
   const emailInput = await screen.findByText('Email:');
-  userEvent.click(emailInput);
-  userEvent.type(emailInput, email + '[Enter]');
+  await userEvent.click(emailInput);
+  await userEvent.type(emailInput, email + '[Enter]');
 
   await waitFor(() => {
     const firstNameInputLabel = screen.getByText('First Name:');
@@ -52,7 +49,7 @@ test('create contact and see list of jobs', async () => {
   const firstNameInputLabel = screen.getByText('First Name:');
   const lastNameInputLabel = screen.getByText('Last Name:');
 
-  userEvent.type(firstNameInputLabel, 'New');
+  await userEvent.type(firstNameInputLabel, 'New');
   setTimeout(() => {
     userEvent.type(lastNameInputLabel, 'User[Enter]');
   }, 50);
@@ -65,21 +62,20 @@ test('create contact and see list of jobs', async () => {
 
 test('find contact and show list of jobs', async () => {
   render(<App />, { wrapper: Root });
-  window.localStorage.removeItem('ck-token');
 
   const volLink = await screen.findByText('CK Volunteers');
-  userEvent.click(volLink);
+  await userEvent.click(volLink);
   const kitchenLink = await screen.findByText('CK Kitchen Volunteers');
-  userEvent.click(kitchenLink);
+  await userEvent.click(kitchenLink);
   const signupLink = await screen.findByText(
     'Sign Up to Volunteer / See your shifts'
   );
-  userEvent.click(signupLink);
+  await userEvent.click(signupLink);
 
   const emailInput = await screen.findByText('Email:');
 
-  userEvent.click(emailInput);
-  userEvent.type(emailInput, 'andrew.tisdall@gmail.com[Enter]');
+  await userEvent.click(emailInput);
+  await userEvent.type(emailInput, 'andrew.tisdall@gmail.com[Enter]');
 
   await waitFor(() => {
     const jobName = screen.getByText(job1.name);
@@ -89,19 +85,20 @@ test('find contact and show list of jobs', async () => {
 
 test('get job info and sign up for shift', async () => {
   render(<App />, { wrapper: Root });
+  signInUser();
 
   const jobLink = await screen.findByText(
     format(new Date(hours2.time), 'eee, M/d/yy h:mm a')
   );
   expect(jobLink).toBeDefined();
 
-  userEvent.click(jobLink);
+  await userEvent.click(jobLink);
 
   const jobName = await screen.findByText(job1.name);
   expect(jobName).toBeDefined();
 
   const confirmSignup = await screen.findByText('Confirm Signup');
-  userEvent.click(confirmSignup);
+  await userEvent.click(confirmSignup);
 
   const confirmationMsg = await screen.findByText(
     'You have successfully signed up for this shift:'
@@ -111,11 +108,12 @@ test('get job info and sign up for shift', async () => {
 
 test('cancel job signup', async () => {
   render(<App />, { wrapper: Root });
+  signInUser();
 
   const cancelBtn = await screen.findByText(
     'Cancel Your Booked Volunteer Time'
   );
-  userEvent.click(cancelBtn);
+  await userEvent.click(cancelBtn);
 
   const cancelMsg = await screen.findByText('You have canceled this shift:');
   expect(cancelMsg).toBeDefined();

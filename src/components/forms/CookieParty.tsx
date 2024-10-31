@@ -9,6 +9,7 @@ const CookieParty = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
+  const [numberOfVolunteers, setNumberOfVolunteers] = useState(1);
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
 
@@ -39,7 +40,14 @@ const CookieParty = () => {
   const header = () => {
     return (
       <div className="form-item">
-        <h1>CK Holiday Cookie Decorating Party</h1>
+        <div className="form-center">
+          <img
+            src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/gingerbread.jpg"
+            alt="Holiday Cookies"
+            className="form-img"
+          />
+          <h1>CK Holiday Cookie Decorating Party</h1>
+        </div>
         <p>
           In December, Community Kitchens will serve holiday cookies along with
           free hot meals to those in our community who are struggling with
@@ -115,6 +123,23 @@ const CookieParty = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
+        </div>
+
+        <div className="form-item">
+          <label>
+            Number of Volunteers<span className="required">*</span>
+          </label>
+          <input
+            type="number"
+            value={numberOfVolunteers}
+            min={1}
+            required
+            onChange={(e) => setNumberOfVolunteers(parseInt(e.target.value))}
+          />
+          <p>
+            If you're with a group, please indicate the number of people in your
+            group.
+          </p>
         </div>
 
         {isLoading ? <Loading /> : <input type="submit" value="Submit" />}

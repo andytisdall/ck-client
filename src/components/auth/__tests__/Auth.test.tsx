@@ -1,24 +1,25 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import App from './App';
-import { user1 } from './mocks/data';
-import { Root } from './setupTests';
+import App from '../../../App';
+import { user2 } from '../../../mocks/data';
+import { Root, signInUser } from '../../../setupTests';
 
 test('sign in button if not signed in', async () => {
-  // const wrapper = getWrapper({});
   render(<App />, { wrapper: Root });
-  window.localStorage.removeItem('ck-token');
   // home page
+
   const userMenuBtn = await screen.findByAltText('User Menu');
+
   userEvent.click(userMenuBtn);
+
   const unauthorizedMessage = await screen.findByText(/Sign In/);
   expect(unauthorizedMessage).toBeInTheDocument();
 });
 
 test('can sign in', async () => {
   render(<App />, { wrapper: Root });
-  window.localStorage.removeItem('ck-token');
+
   const userMenuBtn = await screen.findByAltText('User Menu');
   userEvent.click(userMenuBtn);
 
@@ -31,16 +32,19 @@ test('can sign in', async () => {
   const submitButton = screen.getByRole('button', { name: 'Submit' });
 
   userEvent.click(submitButton);
+
   await waitFor(() => {
-    const username = screen.getByText(user1.username);
+    const username = screen.getByText(user2.username);
     expect(username).toBeInTheDocument();
   });
 });
 
 test('username if signed in', async () => {
   render(<App />, { wrapper: Root });
+  signInUser();
+
   const userMenuBtn = await screen.findByAltText('User Menu');
   userEvent.click(userMenuBtn);
-  const username = await screen.findByText(user1.username);
+  const username = await screen.findByText(user2.username);
   expect(username).toBeInTheDocument();
 });

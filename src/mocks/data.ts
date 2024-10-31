@@ -22,7 +22,7 @@ export const user1: User = {
 export const user2: User = {
   username: 'chompy',
   id: '48yrf848fy48',
-  admin: true,
+  admin: false,
   salesforceId: 'd093900',
   active: true,
 };

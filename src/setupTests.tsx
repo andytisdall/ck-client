@@ -15,8 +15,6 @@ const clientId =
   '385802469502-061cv1crj954fcp56kthk40u918eu1ot.apps.googleusercontent.com';
 
 export const Root = ({ children }: PropsWithChildren) => {
-  window.localStorage.setItem('ck-token', 'token');
-
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <Provider store={store}>{children}</Provider>
@@ -46,6 +44,14 @@ const localStorageMock = (function () {
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 });
+
+export const signInUser = () => {
+  window.localStorage.setItem('ck-token', 'auth');
+};
+
+export const signInAdmin = () => {
+  window.localStorage.setItem('ck-token', 'admin');
+};
 
 // set up server before all tests and then close after
 beforeAll(() => server.listen());

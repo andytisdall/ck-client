@@ -4,15 +4,16 @@ import { format, utcToZonedTime } from 'date-fns-tz';
 
 import App from '../../../App';
 import { job1, shift1, hours1, hours2 } from '../../../mocks/data';
-import Root from '../../../Root';
+import { Root, signInUser } from '../../../setupTests';
 
 test('navigate to home chef page', async () => {
   render(<App />, { wrapper: Root });
+
   const volunteersLink = await screen.findByText('CK Volunteers');
-  userEvent.click(volunteersLink);
+  await userEvent.click(volunteersLink);
   // volunteers home
   const homeChefLink = await screen.findByText('Home Chef Volunteers');
-  userEvent.click(homeChefLink);
+  await userEvent.click(homeChefLink);
 
   // home chef home
   const statusText = await screen.findByText(
@@ -23,10 +24,12 @@ test('navigate to home chef page', async () => {
 
 test('see chef shifts', async () => {
   render(<App />, { wrapper: Root });
+  signInUser();
+
   const chefLink = await screen.findByText(
     "See upcoming deliveries you've signed up for, and past deliveries you've made"
   );
-  userEvent.click(chefLink);
+  await userEvent.click(chefLink);
 
   // chef page
   const upcomingShifts = await screen.findByRole('heading', {
@@ -42,22 +45,24 @@ test('see chef shifts', async () => {
 
 test('sign up with list view', async () => {
   render(<App />, { wrapper: Root });
-  const homeChefHome = screen.getByAltText('home chef header');
-  userEvent.click(homeChefHome);
+  signInUser();
+
+  const homeChefHome = await screen.findByAltText('home chef header');
+  await userEvent.click(homeChefHome);
   const signupLink = await screen.findByText('Sign Up to Stock a Town Fridge');
-  userEvent.click(signupLink);
+  await userEvent.click(signupLink);
 
   // list view
 
   const jobTitle = await screen.findByText(job1.name);
-  userEvent.click(jobTitle);
+  await userEvent.click(jobTitle);
   const shiftDate = await screen.findByText(
     format(utcToZonedTime(shift1.startTime, 'America/Los_Angeles'), 'M/d/yy')
   );
   expect(shiftDate).toBeDefined();
 
   const signupBtn = screen.getAllByRole('button', { name: 'Sign Up' });
-  userEvent.click(signupBtn[1]);
+  await userEvent.click(signupBtn[1]);
 
   // sign up screen
 
@@ -65,10 +70,10 @@ test('sign up with list view', async () => {
     'Number of Meals You Plan to Deliver:'
   );
 
-  userEvent.type(mealInput, '30');
+  await userEvent.type(mealInput, '30');
 
   const submitBtn = await screen.findByText('Submit');
-  userEvent.click(submitBtn);
+  await userEvent.click(submitBtn);
 
   // confirmation screen
   const confirmation = await screen.findByText(/confirmation/i);
@@ -82,5 +87,5 @@ test('sign up with list view', async () => {
   const chefLink = screen.getByRole('button', {
     name: 'See your future and past shifts',
   });
-  userEvent.click(chefLink);
+  await userEvent.click(chefLink);
 });

@@ -2,25 +2,30 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../../../App';
-import { Root } from '../../../setupTests';
+import { Root, signInUser } from '../../../setupTests';
 
 test('navigate to text page', async () => {
   render(<App />, { wrapper: Root });
+  signInUser();
+
   const textLink = await screen.findByText('Restaurant Meal Program');
-  userEvent.click(textLink);
+  await userEvent.click(textLink);
 
   // meal program home
   const headerText = await screen.findByRole('heading', {
     level: 1,
     name: 'CK Meal Program',
   });
+
   expect(headerText).toBeDefined();
 });
 
 test('go to resources', async () => {
   render(<App />, { wrapper: Root });
+  signInUser();
+
   const resourcesLink = await screen.findByText('Resources');
-  userEvent.click(resourcesLink);
+  await userEvent.click(resourcesLink);
 
   const guidlinesLink = await screen.findByText('Meal Guidelines');
   const packagingLink = await screen.findByText('Packaging');
@@ -32,12 +37,13 @@ test('go to resources', async () => {
 
 test('guidelines page', async () => {
   render(<App />, { wrapper: Root });
+  signInUser();
 
   const guidlinesLink = await screen.findByText('Meal Guidelines');
-  userEvent.click(guidlinesLink);
+  await userEvent.click(guidlinesLink);
 
   const youthLink = await screen.findByText('Youth Meal Program Guidelines');
-  userEvent.click(youthLink);
+  await userEvent.click(youthLink);
   const youthHeader = await screen.findByRole('heading', {
     level: 1,
     name: 'Community Kitchens Youth Meal Program Guidelines',
@@ -47,7 +53,7 @@ test('guidelines page', async () => {
   const encampmentLink = await screen.findByText(
     'Encampment Meal Program Guidelines'
   );
-  userEvent.click(encampmentLink);
+  await userEvent.click(encampmentLink);
   const encampmentHeader = await screen.findByRole('heading', {
     level: 1,
     name: 'Community Kitchens Encampment Meal Program Guidelines',
@@ -55,5 +61,5 @@ test('guidelines page', async () => {
   expect(encampmentHeader).toBeDefined();
 
   const resourcesLink = await screen.findByText('Meal Program Resources');
-  userEvent.click(resourcesLink);
+  await userEvent.click(resourcesLink);
 });

@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useNavigate,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { lazy } from 'react';
 
 import './App.css';
@@ -51,8 +47,7 @@ const DeleteD4JAccount = lazy(
 const ConfirmEmail = lazy(() => import('./components/user/ConfirmEmail'));
 
 const RedirectCookies = () => {
-  const navigate = useNavigate();
-  navigate('/forms/cookie-party');
+  window.location.href = '/forms/cookie-party';
   return <></>;
 };
 

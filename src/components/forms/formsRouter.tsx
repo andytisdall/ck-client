@@ -19,7 +19,7 @@ const Forms = () => {
       <img
         src="../images/logos/ck-header.png"
         alt="Community Kitchens"
-        className="form-item form-image"
+        className="form-item form-logo"
       />
     );
   };

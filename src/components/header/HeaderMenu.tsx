@@ -14,10 +14,6 @@ const HeaderMenu = ({
 }) => {
   const { data, isFetching } = useGetUserQuery();
 
-  if (isFetching) {
-    return <Loading />;
-  }
-
   return (
     <>
       <img
@@ -29,7 +25,7 @@ const HeaderMenu = ({
       {menuOpen && (
         <div className="header-right">
           <div className="header-auth">
-            {data ? <SignedIn /> : <SignedOut />}
+            {isFetching ? <Loading /> : data ? <SignedIn /> : <SignedOut />}
           </div>
         </div>
       )}

@@ -8,12 +8,17 @@ const BASE = 'http://localhost:3001';
 const getHoursResponse: VolunteerHours[] = [data.hours1];
 
 export const handlers = [
-  rest.post(BASE + '/api/signin', (req, res, ctx) => {
-    return res(ctx.json({ user: data.user1, token: 'token' }));
+  rest.post(BASE + '/api/signin', async (req, res, ctx) => {
+    return res(ctx.json({ user: data.user1, token: 'auth' }));
   }),
+
   rest.get(BASE + '/api/user', (req, res, ctx) => {
-    if (window.localStorage.getItem('ck-token')) {
+    const token = window.localStorage.getItem('ck-token');
+
+    if (token === 'admin') {
       return res(ctx.json(data.user1));
+    } else if (token === 'auth') {
+      return res(ctx.json(data.user2));
     } else {
       return res(ctx.json(null));
     }
