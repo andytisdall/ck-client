@@ -73,6 +73,7 @@ export interface VolunteerHours {
   status: string;
   shift: string;
   campaign?: string;
+  mealType: 'Entree' | 'Soup';
 }
 
 export type VolunteerHoursState = Record<string, VolunteerHours>;
@@ -97,6 +98,7 @@ export interface EditHoursArgs {
   cancel: boolean;
   date: string;
   fridge: string;
+  mealType: 'Soup' | 'Entree';
 }
 
 export interface SignUpForVolunteerShiftArgs {

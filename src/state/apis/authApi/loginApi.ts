@@ -43,6 +43,25 @@ export const loginApi = api.injectEndpoints({
       },
       invalidatesTags: ['User', 'UserInfo'],
     }),
+
+    signInAsUser: builder.mutation<User, string>({
+      query: (userId) => ({
+        body: { userId },
+        method: 'POST',
+        url: '/admin-auth',
+      }),
+      transformResponse: async (response: SignInResponse) => {
+        localStorage.setItem('ck-token', response.token);
+        return response.user;
+      },
+      invalidatesTags: [
+        'User',
+        'UserInfo',
+        'Volunteer',
+        'Restaurant',
+        'CBOData',
+      ],
+    }),
   }),
 });
 
@@ -50,4 +69,5 @@ export const {
   useSignInMutation,
   useSignOutMutation,
   useGoogleSignInMutation,
+  useSignInAsUserMutation,
 } = loginApi;

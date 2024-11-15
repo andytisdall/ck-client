@@ -1,4 +1,4 @@
-import { Outlet, RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 
 import './Form.css';
@@ -12,31 +12,12 @@ const MealProgramIntake = lazy(() => import('./MealProgramIntake'));
 const CBOReport = lazy(() => import('./CBOReport'));
 const HomeChefRegistration = lazy(() => import('./HomeChefRegistration'));
 const CookieParty = lazy(() => import('./CookieParty'));
-
-const Forms = () => {
-  const headerImage = () => {
-    return (
-      <img
-        src="../images/logos/ck-header.png"
-        alt="Community Kitchens"
-        className="form-item form-logo"
-      />
-    );
-  };
-
-  return (
-    <div className="form-background">
-      <div className="form main">
-        {headerImage()}
-        <Outlet />
-      </div>
-    </div>
-  );
-};
+const Form = lazy(() => import('./Form'));
+const NewMealSurvery = lazy(() => import('./NewMealSurvey'));
 
 const formsRouter: RouteObject = {
   path: 'forms',
-  element: <Forms />,
+  element: renderWithFallback(<Form />),
   children: [
     {
       path: 'volunteer',
@@ -61,6 +42,7 @@ const formsRouter: RouteObject = {
       element: renderWithFallback(<HomeChefRegistration />),
     },
     { path: 'cookie-party', element: renderWithFallback(<CookieParty />) },
+    { path: 'meal-survey-2', element: renderWithFallback(<NewMealSurvery />) },
   ],
 };
 

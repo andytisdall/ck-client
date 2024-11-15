@@ -116,6 +116,7 @@ export const hours1: VolunteerHours = {
   job: job1.id,
   status: 'Confirmed',
   shift: shift1.id,
+  mealType: 'Soup',
 };
 
 export const hours2: VolunteerHours = {
@@ -125,6 +126,7 @@ export const hours2: VolunteerHours = {
   job: job1.id,
   status: 'Confirmed',
   shift: shift2.id,
+  mealType: 'Entree',
 };
 
 export const jobs: GetShiftsResponse = {

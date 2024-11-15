@@ -3,6 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSubmitFormMutation } from '../../state/apis/formApi';
 import Loading from '../reusable/loading/Loading';
+import FormHeader from './reusable/FormHeader';
+import { useGetCampaignsQuery } from '../../state/apis/volunteerApi';
+
+const COOKIE_PARTY_CAMPAIGN_ID = '701UP00000EYblBYAT';
+const COOKIE_PARTY_SHIFT_ID = 'a0yUP000002pdHjYAI';
+
+// sandbox
+// const COOKIE_PARTY_CAMPAIGN_ID = '701U800000EaS90IAF';
+// const COOKIE_PARTY_SHIFT_ID = 'a0yU8000000VKNRIA4';
 
 const CookieParty = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +19,14 @@ const CookieParty = () => {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [numberOfVolunteers, setNumberOfVolunteers] = useState(1);
+
+  const { data: campaigns } = useGetCampaignsQuery();
+  const campaign = campaigns?.find(
+    (cam) => cam.id === COOKIE_PARTY_CAMPAIGN_ID
+  );
+  const shift = campaign?.shifts.find((sh) => sh.id === COOKIE_PARTY_SHIFT_ID);
+
+  const remainingVolunteers = shift?.slots;
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
 
@@ -23,6 +40,7 @@ const CookieParty = () => {
         firstName,
         lastName,
         phone,
+        numberOfVolunteers,
       },
       name: 'COOKIE_PARTY',
     })
@@ -37,51 +55,58 @@ const CookieParty = () => {
       });
   };
 
-  const header = () => {
+  const headerText = (
+    <>
+      <p>
+        In December, Community Kitchens will serve holiday cookies along with
+        free hot meals to those in our community who are struggling with hunger
+        and homelessness this holiday season. Everyone deserves a sweet treat
+        and you can help make this happen!
+      </p>
+      <br />
+      <p>
+        We invite you to help share the love by joining us for a holiday cookie
+        decorating party where we’ll work together to decorate 1,500 festive and
+        colorful bundles of holiday happiness. All ages are welcome, no
+        experience necessary. We hope you’ll share this special moment with us!
+      </p>
+      <br />
+      <p className="form-center-text">
+        <strong>Event Details</strong>
+        <br />
+        Saturday, December 14th
+        <br />
+        9-11am
+        <br />
+        The CK Central Kitchen at 2270 Telegraph in Oakland
+      </p>
+    </>
+  );
+
+  const title = 'CK Holiday Decorating Party';
+
+  if (remainingVolunteers === 0) {
     return (
       <div className="form-item">
-        <div className="form-center">
-          <img
-            src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/gingerbread.jpg"
-            alt="Holiday Cookies"
-            className="form-img"
-          />
-          <h1>CK Holiday Cookie Decorating Party</h1>
-        </div>
         <p>
-          In December, Community Kitchens will serve holiday cookies along with
-          free hot meals to those in our community who are struggling with
-          hunger and homelessness this holiday season. Everyone deserves a sweet
-          treat and you can help make this happen!
+          Thanks for your interest in our holiday cookie decorating party!
+          Unfortunately all volunteer spots have been taken for this event. Stay
+          tuned for more volunteer opportunities!
         </p>
-        <br />
-        <p>
-          We invite you to help share the love by joining us for a holiday
-          cookie decorating party where we’ll work together to decorate 1,500
-          festive and colorful bundles of holiday happiness. All ages are
-          welcome, no experience necessary. We hope you’ll share this special
-          moment with us!
-        </p>
-        <br />
-        <p className="form-center-text">
-          <strong>Event Details</strong>
-          <br />
-          Saturday, December 14th
-          <br />
-          9-11am
-          <br />
-          The CK Central Kitchen at 2270 Telegraph in Oakland
-        </p>
-        <br />
-        <br />
-        <p className="required">* Indicates required question</p>
       </div>
     );
-  };
+  }
 
   return (
     <>
-      {header()}
+      <FormHeader
+        title={title}
+        img={
+          'https://storage.googleapis.com/coherent-vision-368820.appspot.com/gingerbread.jpg'
+        }
+      >
+        {headerText}
+      </FormHeader>
       <form onSubmit={onSubmit}>
         <div className="form-item">
           <label>
@@ -133,6 +158,7 @@ const CookieParty = () => {
             type="number"
             value={numberOfVolunteers}
             min={1}
+            max={30}
             required
             onChange={(e) => setNumberOfVolunteers(parseInt(e.target.value))}
           />

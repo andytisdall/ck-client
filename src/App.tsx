@@ -45,6 +45,7 @@ const DeleteD4JAccount = lazy(
   () => import('./components/user/DeleteD4JAccount')
 );
 const ConfirmEmail = lazy(() => import('./components/user/ConfirmEmail'));
+const Acrobat = lazy(() => import('./components/reusable/acrobat/Acrobat'));
 
 const RedirectCookies = () => {
   window.location.href = '/forms/cookie-party';
@@ -79,6 +80,7 @@ export const router = createBrowserRouter([
       },
       { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
       { path: 'cookies', element: <RedirectCookies /> },
+      { path: 'acrobat', element: renderWithFallback(<Acrobat />) },
       textRouter,
       adminRouter,
       mealProgramRouter,
