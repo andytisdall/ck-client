@@ -1,17 +1,32 @@
 .job-container {
   border-bottom: 1px solid grey;
-  margin-bottom: 1rem;
+  padding: 1rem 0;
+}
+
+.region-name {
+  text-decoration: underline;
+  text-align: center;
+  padding-bottom: 1rem;
 }
 
 .job-name {
   cursor: pointer;
-  width: fit-content;
+  font-weight: 600;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: baseline;
 }
-
 
 .job-name-small {
   font-size: .8rem;
   color: purple
+}
+
+.job-location {
+  margin-left: 2rem;
+  font-size: .9rem;
+  color: rgba(0, 0, 0, 0.7);
+  width: 10rem;
 }
 
 
@@ -40,16 +55,13 @@
   margin-bottom: 0;
 }
 
-.job-location {
-  margin: .5rem 0 1rem 4rem;
-  color: purple;
-  font-size: .9rem;
-}
+
 
 .job-full {
   margin: .5rem 3rem .5rem 2rem;
   color: red;
 }
+
 .job-date {
   font-size: 1.3rem;
 }
@@ -72,4 +84,22 @@
 .job-disabled {
   margin-left: 2rem;
   color: rgb(121, 48, 60)
+}
+
+.home-chef-fridges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.home-chef-fridges-region {
+  min-width: 28rem;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+}
+
+.job-notes {
+  width: 21rem;
+  font-size: .9rem;
+  margin: auto;
 }

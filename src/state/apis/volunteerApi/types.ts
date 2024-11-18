@@ -42,6 +42,8 @@ export interface Job {
   ongoing: boolean;
   description: string;
   campaign: string;
+  region?: 'East Oakland' | 'West Oakland';
+  notes?: string;
 }
 
 export interface JobShiftsState {

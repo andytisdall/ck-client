@@ -79,8 +79,6 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
               {sortedShifts
                 .filter((sh) => sh && j.shifts.includes(sh.id))
                 .map((shift) => {
-                  const full = shift.open ? '' : 'volunteers-unavailable';
-
                   const jobBooked = bookedJobs?.includes(shift.id);
                   let bookedHours: VolunteerHours | undefined;
 
@@ -94,11 +92,14 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
                     if (bookedHours) {
                       linkUrl = `../signup-confirm/${campaign.id}/${
                         bookedHours.id
-                      }/${volunteer?.id || user?.id}`;
+                      }/${volunteer?.id || user?.salesforceId}`;
                     }
                   } else if (shift.open) {
                     linkUrl = shift.id;
                   }
+
+                  const full =
+                    shift.open || jobBooked ? '' : 'volunteers-unavailable';
 
                   return (
                     <Link key={shift.id} to={linkUrl}>

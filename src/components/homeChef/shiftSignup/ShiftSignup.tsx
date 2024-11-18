@@ -21,13 +21,16 @@ const ShiftSignup = () => {
   const renderSignup = () => {
     return (
       <>
-        <div className="shift-signup-links">
-          <NavLink to="list" className={navLink}>
-            List View
-          </NavLink>
-          <NavLink to="calendar" className={navLink}>
-            Calendar View
-          </NavLink>
+        <div className="shift-signup-header">
+          <h1>Town Fridge Sign Up</h1>
+          <div className="shift-signup-links">
+            <NavLink to="list" className={navLink}>
+              List View
+            </NavLink>
+            <NavLink to="calendar" className={navLink}>
+              Calendar View
+            </NavLink>
+          </div>
         </div>
         <Outlet />
       </>
@@ -41,12 +44,7 @@ const ShiftSignup = () => {
     return renderSignup();
   };
 
-  return (
-    <div className="shift-signup">
-      <h1>Town Fridge Sign Up</h1>
-      {renderContent()}
-    </div>
-  );
+  return <div className="shift-signup">{renderContent()}</div>;
 };
 
 export default ShiftSignup;

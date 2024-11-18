@@ -29,23 +29,25 @@ const SignInAsUser = () => {
 
   return (
     <div className="admin-item">
-      <h2>Edit a User</h2>
-      <select onChange={(e) => setUserId(e.target.value)}>
-        {renderUsers()}
-      </select>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <button
-          onClick={async () => {
-            await signInAsUser(userId);
-            navigate('/');
-          }}
-          disabled={!userId}
-        >
-          Sign In As User
-        </button>
-      )}
+      <h2>Sign in as a User</h2>
+      <div className="admin-form">
+        <select onChange={(e) => setUserId(e.target.value)}>
+          {renderUsers()}
+        </select>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <button
+            onClick={async () => {
+              await signInAsUser(userId);
+              navigate('/');
+            }}
+            disabled={!userId}
+          >
+            Sign In As User
+          </button>
+        )}
+      </div>
     </div>
   );
 };

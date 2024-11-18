@@ -48,7 +48,7 @@ export const loginApi = api.injectEndpoints({
       query: (userId) => ({
         body: { userId },
         method: 'POST',
-        url: '/admin-auth',
+        url: '/admin-signin',
       }),
       transformResponse: async (response: SignInResponse) => {
         localStorage.setItem('ck-token', response.token);

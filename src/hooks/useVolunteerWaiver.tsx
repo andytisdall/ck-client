@@ -36,8 +36,6 @@ const useVolunteerWaiver = (campaignId?: string) => {
     return <Loading />;
   }
 
-  console.log(volunteer);
-
   if (redirectToDocusign) {
     return (
       <div>

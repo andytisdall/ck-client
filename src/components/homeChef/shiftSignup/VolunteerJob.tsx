@@ -50,35 +50,29 @@ const VolunteerJob = ({ job }: { job: Job }) => {
   const expanded = expand ? 'expanded' : '';
   const inactive = job.active ? '' : 'job-name-inactive';
   return (
-    <div className="job-container">
+    <div
+      className="job-container"
+      onClick={() => {
+        if (job.active) {
+          setExpand(!expand);
+        }
+      }}
+    >
       <div className={`job-name ${inactive}`}>
-        {job.active && (
-          <div
-            className={`expand-btn ${expanded}`}
-            onClick={() => setExpand(!expand)}
-          >
-            &rarr;
-          </div>
-        )}
-        <h3
-          className="job-name"
-          onClick={() => {
-            if (job.active) {
-              setExpand(!expand);
-            }
-          }}
-        >
-          {job.name}
-        </h3>
-        {!job.active && <h4 className="job-disabled">Out of Service</h4>}
-      </div>
-      <div className="job-location">
-        {expand && (
-          <div>
-            Location: <span>{job.location}</span>
-          </div>
+        {job.active && <div className={`expand-btn ${expanded}`}>&rarr;</div>}
+        <div>{job.name}</div>
+        {job.active ? (
+          <div className="job-location">{job.location}</div>
+        ) : (
+          <div className="job-disabled">Out of Service</div>
         )}
       </div>
+      {job.active && job.notes && (
+        <div className="job-notes">
+          <p>{job.notes}</p>
+        </div>
+      )}
+
       <div className={`shift-list ${expanded ? '' : 'closed'}`}>
         {expand && renderShifts()}
       </div>
