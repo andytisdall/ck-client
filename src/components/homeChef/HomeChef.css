@@ -96,6 +96,14 @@
     margin: 0;
     margin-top: 2rem;
   }
+
+  .home-chef-status {
+    font-size: .7rem;
+  }
+
+  .home-chef-status li {
+    font-size: .7rem;
+  }
 }
 
 .home-chef-header {

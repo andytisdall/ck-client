@@ -6,11 +6,14 @@ import renderWithFallback from '../reusable/loading/renderWithFallback';
 import eventsRouter from './events/eventsRouter';
 import ckKitchenRouter from './ckKitchen/ckKitchenRouter';
 
-const DocusignSign = lazy(() => import('../reusable/docusign/DocusignSign'));
-const DocusignSuccess = lazy(
-  () => import('../reusable/docusign/DocusignSuccess')
-);
+const Sign = lazy(() => import('../reusable/signature/Sign'));
+const SignSuccess = lazy(() => import('../reusable/signature/SignSuccess'));
+
 const VolunteersHome = lazy(() => import('./VolunteersHome'));
+// const DocusignSign = lazy(() => import('../reusable/docusign/DocusignSign'));
+// const DocusignSuccess = lazy(
+//   () => import('../reusable/docusign/DocusignSuccess')
+// );
 
 const VolunteersBase = () => {
   return (
@@ -30,20 +33,37 @@ const volunteersRouter: RouteObject = {
     { index: true, element: renderWithFallback(<VolunteersHome />) },
     eventsRouter,
     ckKitchenRouter,
+    // {
+    //   path: 'sign',
+    //   children: [
+    //     {
+    //       path: ':doc',
+    //       element: renderWithFallback(<DocusignSign />),
+    //     },
+    //     {
+    //       path: ':doc/:id',
+    //       element: renderWithFallback(<DocusignSign />),
+    //     },
+    //     {
+    //       path: 'success',
+    //       element: renderWithFallback(<DocusignSuccess returnLink="../.." />),
+    //     },
+    //   ],
+    // },
     {
-      path: 'docusign',
+      path: 'sign',
       children: [
         {
-          path: 'sign/:doc',
-          element: renderWithFallback(<DocusignSign />),
+          path: 'success/:email',
+          element: renderWithFallback(<SignSuccess returnLink="../.." />),
         },
         {
-          path: 'sign/:doc/:id',
-          element: renderWithFallback(<DocusignSign />),
+          path: ':doc',
+          element: renderWithFallback(<Sign />),
         },
         {
-          path: 'success',
-          element: renderWithFallback(<DocusignSuccess returnLink="../.." />),
+          path: ':doc/:contactId',
+          element: renderWithFallback(<Sign />),
         },
       ],
     },

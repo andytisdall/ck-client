@@ -24,10 +24,10 @@ const useVolunteerWaiver = (campaignId?: string) => {
         navigate('../signin/' + campaignId);
       } else if (volunteer && volunteer.ckKitchenStatus !== 'Active') {
         setRedirectToDocusign(true);
-        docusignLink.current = '../../docusign/sign/CKK/' + volunteer.id;
+        docusignLink.current = '../../sign/CKK/' + volunteer.id;
       } else if (userInfo && userInfo?.ckKitchenStatus !== 'Active') {
         setRedirectToDocusign(true);
-        docusignLink.current = '../../docusign/sign/CKK';
+        docusignLink.current = '../../sign/CKK';
       }
     }
   }, [volunteer, navigate, isFetching, userInfo, campaignId]);

@@ -68,16 +68,14 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
       <h3 className="volunteers-signup-btns">Positions Available</h3>
 
       {jobs
-        .filter((j) =>
-          j.shifts.every((id) => sortedShifts.find((sh) => sh.id === id))
-        )
+        .filter((j) => sortedShifts.find((sh) => sh.job === j.id))
         .map((j) => {
           return (
             <div className="volunteers-job" key={j.id}>
               <h3>{j.name}</h3>
               <p>{j.description}</p>
               {sortedShifts
-                .filter((sh) => sh && j.shifts.includes(sh.id))
+                .filter((sh) => sh.job === j.id)
                 .map((shift) => {
                   const jobBooked = bookedJobs?.includes(shift.id);
                   let bookedHours: VolunteerHours | undefined;

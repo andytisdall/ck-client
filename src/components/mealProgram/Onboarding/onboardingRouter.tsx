@@ -21,22 +21,22 @@ const onboardingRouter = {
       path: 'upload-documents',
       element: renderWithFallback(<UploadDocuments />),
     },
-    {
-      path: 'sign-documents',
-      children: [
-        { index: true, element: renderWithFallback(<SignDocumentsHome />) },
-        {
-          path: 'sign/:doc',
-          element: renderWithFallback(<DocusignSign />),
-        },
-        {
-          path: 'success',
-          element: renderWithFallback(
-            <DocusignSuccess returnLink="/meal-program/onboarding" />
-          ),
-        },
-      ],
-    },
+    // {
+    //   path: 'sign-documents',
+    //   children: [
+    //     { index: true, element: renderWithFallback(<SignDocumentsHome />) },
+    //     {
+    //       path: 'sign/:doc',
+    //       element: renderWithFallback(<DocusignSign />),
+    //     },
+    //     {
+    //       path: 'success',
+    //       element: renderWithFallback(
+    //         <DocusignSuccess returnLink="/meal-program/onboarding" />
+    //       ),
+    //     },
+    //   ],
+    // },
     {
       path: 'file-success/:filesUploaded',
       element: renderWithFallback(

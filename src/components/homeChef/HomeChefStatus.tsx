@@ -9,7 +9,7 @@ const foodHandler = {
 };
 const volunteerAgreement = {
   text: 'Sign our volunteer agreement',
-  url: 'onboarding/docusign/sign/HC',
+  url: 'onboarding/sign/HC',
 };
 const homeChefQuiz = {
   text: 'Watch the orientation video and pass the home chef quiz',
@@ -17,7 +17,9 @@ const homeChefQuiz = {
 };
 
 const HomeChefStatus = () => {
-  const userInfo = useGetUserInfoQuery().data;
+  const { data: userInfo } = useGetUserInfoQuery(undefined, {
+    pollingInterval: 20000,
+  });
 
   const [completedActions, incompleteActions] = useMemo(() => {
     let completedActions = [];

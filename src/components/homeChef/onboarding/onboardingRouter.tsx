@@ -11,14 +11,18 @@ const OrientationSlides = lazy(() => import('./OrientationSlides'));
 
 // documents
 const FileSuccess = lazy(() => import('../../reusable/file/FileSuccess'));
-const DocusignSign = lazy(() => import('../../reusable/docusign/DocusignSign'));
-const DocusignSuccess = lazy(
-  () => import('../../reusable/docusign/DocusignSuccess')
-);
 
 // quiz
 const Quiz = lazy(() => import('./quiz/Quiz'));
 const QuizResults = lazy(() => import('./quiz/QuizResults'));
+
+const Sign = lazy(() => import('../../reusable/signature/Sign'));
+const SignSuccess = lazy(() => import('../../reusable/signature/SignSuccess'));
+
+// const DocusignSign = lazy(() => import('../../reusable/docusign/DocusignSign'));
+// const DocusignSuccess = lazy(
+//   () => import('../../reusable/docusign/DocusignSuccess')
+// );
 
 const onboardingRouter: RouteObject = {
   path: 'onboarding',
@@ -50,18 +54,34 @@ const onboardingRouter: RouteObject = {
         <FileSuccess returnLink="/home-chef/onboarding" />
       ),
     },
+    // {
+    //   path: 'sign',
+    //   children: [
+    //     {
+    //       path: ':doc',
+    //       element: renderWithFallback(<DocusignSign />),
+    //     },
+    //     {
+    //       path: 'success',
+    //       element: renderWithFallback(
+    //         <DocusignSuccess returnLink="/home-chef/onboarding" />
+    //       ),
+    //     },
+    //   ],
+    // },
     {
-      path: 'docusign',
+      path: 'sign',
       children: [
         {
-          path: 'sign/:doc',
-          element: renderWithFallback(<DocusignSign />),
-        },
-        {
-          path: 'success',
+          path: 'success/:email',
           element: renderWithFallback(
-            <DocusignSuccess returnLink="/home-chef/onboarding" />
+            <SignSuccess returnLink="/home-chef/onboarding" />
           ),
+        },
+
+        {
+          path: ':doc',
+          element: renderWithFallback(<Sign />),
         },
       ],
     },

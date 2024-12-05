@@ -72,7 +72,7 @@ const RecipeList = () => {
         <ul>{renderRecipes()}</ul>
       </div>
       <div className="recipe-list-images">
-        <img src="/images/home-chef/recipe-list-1.png" alt="food" />
+        <img src="/images/home-chef/recipe-list-1.jpg" alt="food" />
         <img src="/images/home-chef/recipe-list-2.png" alt="food" />
         <img src="/images/home-chef/recipe-list-3.png" alt="food" />
         <img src="/images/home-chef/recipe-list-4.jpeg" alt="food" />

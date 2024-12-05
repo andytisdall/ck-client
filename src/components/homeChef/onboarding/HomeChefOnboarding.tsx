@@ -42,7 +42,7 @@ const HomeChefOnboarding = () => {
     return (
       <div className="col">
         <TextButton
-          to="docusign/sign/HC"
+          to="sign/HC"
           buttonText="Sign the Volunteer Agreement"
           descriptionText={agreementDescription}
         />
