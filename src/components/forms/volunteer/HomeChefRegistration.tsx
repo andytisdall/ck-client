@@ -1,8 +1,8 @@
 import { FormEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useSubmitFormMutation } from '../../state/apis/formApi';
-import Loading from '../reusable/loading/Loading';
+import { useSubmitFormMutation } from '../../../state/apis/formApi';
+import Loading from '../../reusable/loading/Loading';
 
 const HomeChefRegistration = () => {
   const [email, setEmail] = useState('');

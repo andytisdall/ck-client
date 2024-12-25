@@ -50,11 +50,6 @@ const ConfirmEmail = lazy(() => import('./components/user/ConfirmEmail'));
 //   () => import('./components/reusable/signature/AcrobatSuccess')
 // );
 
-const RedirectCookies = () => {
-  window.location.href = '/forms/cookie-party';
-  return <></>;
-};
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -65,6 +60,7 @@ export const router = createBrowserRouter([
         index: true,
         element: renderWithFallback(<Home />),
       },
+
       {
         path: 'forgot-password',
         element: renderWithFallback(<ForgotPassword />),
@@ -82,15 +78,7 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<ResetPassword />),
       },
       { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
-      { path: 'cookies', element: <RedirectCookies /> },
-      // {
-      //   path: 'acrobat',
-      //   element: renderWithFallback(<Acrobat />),
-      // },
-      // {
-      //   path: 'acrobat/success',
-      //   element: renderWithFallback(<AcrobatSuccess returnLink="" />),
-      // },
+
       textRouter,
       adminRouter,
       mealProgramRouter,
@@ -105,10 +93,9 @@ export const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const [error, alert] = useSelector((state: RootState) => [
-    state.error,
-    state.alert,
-  ]);
+  const error = useSelector((state: RootState) => state.error);
+  const alert = useSelector((state: RootState) => state.alert);
+
   const dispatch = useDispatch();
 
   const renderError = () => {

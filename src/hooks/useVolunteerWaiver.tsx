@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../state/store';
+import { useLazyGetVolunteerQuery } from '../state/apis/volunteerApi';
 import { useGetUserInfoQuery } from '../state/apis/authApi';
 import Loading from '../components/reusable/loading/Loading';
 
@@ -13,7 +14,17 @@ const useVolunteerWaiver = (campaignId?: string) => {
     volunteer: state.volunteer.volunteer,
   }));
 
-  const { data: userInfo, isFetching } = useGetUserInfoQuery();
+  const intervalRef = useRef<ReturnType<typeof setTimeout>>();
+
+  const [getVolunteer] = useLazyGetVolunteerQuery();
+
+  const {
+    data: userInfo,
+    isFetching,
+    isLoading,
+  } = useGetUserInfoQuery(undefined, {
+    pollingInterval: 10000,
+  });
 
   const navigate = useNavigate();
   const docusignLink = useRef('');
@@ -28,11 +39,26 @@ const useVolunteerWaiver = (campaignId?: string) => {
       } else if (userInfo && userInfo?.ckKitchenStatus !== 'Active') {
         setRedirectToDocusign(true);
         docusignLink.current = '../../sign/CKK';
+      } else if (userInfo && userInfo?.ckKitchenStatus === 'Active') {
+        setRedirectToDocusign(false);
+      } else if (volunteer && volunteer?.ckKitchenStatus === 'Active') {
+        setRedirectToDocusign(false);
       }
     }
   }, [volunteer, navigate, isFetching, userInfo, campaignId]);
 
-  if (isFetching) {
+  useEffect(() => {
+    if (redirectToDocusign) {
+      intervalRef.current = setInterval(() => {
+        getVolunteer(volunteer?.email);
+      }, 10000);
+    } else if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [redirectToDocusign]);
+
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -42,6 +68,10 @@ const useVolunteerWaiver = (campaignId?: string) => {
         <h3>CK Volunteer Waiver</h3>
         <p>
           Before you can sign up to volunteer, you'll need to sign an agreement.
+        </p>
+        <p>
+          If you just signed the agreement, please wait up to one minute for the
+          page to update.
         </p>
         <button onClick={() => navigate(docusignLink.current)}>Continue</button>
       </div>

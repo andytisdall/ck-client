@@ -3,7 +3,7 @@ import { format } from 'date-fns-tz';
 interface TextPreviewProps {
   onSubmit: () => void;
   message: string;
-  region: string;
+  region?: string;
   photo?: File | string;
   onCancel: () => void;
   number?: string;
@@ -35,7 +35,7 @@ const TextPreview = ({
       {photo && <img className="photo-preview" src={getSrc()} alt="preview" />}
 
       <div>
-        <p>Region: {region}</p>
+        {!!region && <p>Region: {region}</p>}
         <p>To: {!!number ? number : 'All Subscribers in this Region'}</p>
       </div>
 

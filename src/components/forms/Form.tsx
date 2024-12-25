@@ -4,7 +4,7 @@ const Form = () => {
   const headerImage = () => {
     return (
       <img
-        src="../images/logos/ck-header.png"
+        src="/images/logos/ck-header.png"
         alt="Community Kitchens"
         className="form-item form-logo"
       />

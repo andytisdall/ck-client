@@ -2,8 +2,8 @@ import { useState, useRef, FormEventHandler } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import { useSubmitFormMutation } from '../../state/apis/formApi';
-import Loading from '../reusable/loading/Loading';
+import { useSubmitFormMutation } from '../../../state/apis/formApi';
+import Loading from '../../reusable/loading/Loading';
 
 const successMessage =
   'Thank you for you giving us some information about yourself.';

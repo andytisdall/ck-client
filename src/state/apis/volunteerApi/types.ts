@@ -147,6 +147,7 @@ export interface Volunteer {
   portalUsername?: string;
   firstName?: string;
   ckKitchenStatus?: string;
+  email: string;
 }
 
 export interface CreateVolunteerArgs {

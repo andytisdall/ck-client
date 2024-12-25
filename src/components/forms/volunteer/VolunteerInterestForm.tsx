@@ -1,8 +1,8 @@
 import { useState, FormEventHandler, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Loading from '../reusable/loading/Loading';
-import { useSubmitFormMutation } from '../../state/apis/formApi';
+import Loading from '../../reusable/loading/Loading';
+import { useSubmitFormMutation } from '../../../state/apis/formApi';
 
 const successMessage =
   'A Community Kitchens staff member will be in touch with you. Thanks for helping out!';

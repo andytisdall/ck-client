@@ -1,5 +1,10 @@
 import RadioFormItem from './RadioFormItem';
-import { Question } from '../mealSurveyQuestions';
+
+export interface Question {
+  English: string;
+  Spanish: string;
+  options?: { English: string[]; Spanish: string[] };
+}
 
 const RadioFormSet = ({
   name,

@@ -142,6 +142,16 @@ interface NewMealSurveyArgs {
   name: 'NEW_MEAL_SURVEY';
 }
 
+interface RSVPArgs {
+  formData: {
+    attending: boolean;
+    guest: boolean;
+    email: string;
+    campaignId: string;
+  };
+  name: 'RSVP';
+}
+
 type SubmitFormArgs =
   | CBOReportArgs
   | TextSignUpSurveyArgs
@@ -150,7 +160,8 @@ type SubmitFormArgs =
   | VolunteerInterestFormArgs
   | HomeChefRegistrationArgs
   | CookiePartyArgs
-  | NewMealSurveyArgs;
+  | NewMealSurveyArgs
+  | RSVPArgs;
 
 const urls = {
   MEAL_SURVEY: '/text/meal-survey',
@@ -161,6 +172,8 @@ const urls = {
   HOME_CHEF_REGISTRATION: '/home-chef/home-chef-registration',
   COOKIE_PARTY: '/volunteers/hours/cookies',
   NEW_MEAL_SURVEY: '/meal-program/survey',
+  RSVP: '/volunteers/events/rsvp',
+  SIGN_KITCHEN_WAIVER: '/sign/kitchen',
 };
 
 const formApi = api.injectEndpoints({

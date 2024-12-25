@@ -44,7 +44,7 @@ test('username if signed in', async () => {
   signInUser();
 
   const userMenuBtn = await screen.findByAltText('User Menu');
-  userEvent.click(userMenuBtn);
+  await userEvent.click(userMenuBtn);
   const username = await screen.findByText(user2.username);
   expect(username).toBeInTheDocument();
 });

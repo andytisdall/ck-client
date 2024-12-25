@@ -14,20 +14,30 @@ const HeaderMenu = ({
 }) => {
   const { data, isFetching } = useGetUserQuery();
 
+  const renderMenuOpen = () => {
+    return (
+      <div className="header-right">
+        <div className="header-auth">{data ? <SignedIn /> : <SignedOut />}</div>
+      </div>
+    );
+  };
+
   return (
     <>
-      <img
-        src={'/images/icons/' + (menuOpen ? 'close.svg' : 'burger-menu.svg')}
-        alt="User Menu"
-        className="burger-menu-img"
-        onClick={() => setMenuOpen(!menuOpen)}
-      />
-      {menuOpen && (
-        <div className="header-right">
-          <div className="header-auth">
-            {isFetching ? <Loading /> : data ? <SignedIn /> : <SignedOut />}
-          </div>
-        </div>
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <>
+          <img
+            src={
+              '/images/icons/' + (menuOpen ? 'close.svg' : 'burger-menu.svg')
+            }
+            alt="User Menu"
+            className="burger-menu-img"
+            onClick={() => setMenuOpen((current) => !current)}
+          />
+          {menuOpen && renderMenuOpen()}
+        </>
       )}
     </>
   );

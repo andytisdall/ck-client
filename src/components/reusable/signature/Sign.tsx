@@ -5,7 +5,6 @@ import Loading from '../loading/Loading';
 
 const Sign = () => {
   const { doc, contactId } = useParams();
-
   const { data, isLoading } = useGetSigningUrlQuery({ doc, contactId });
 
   if (data) {

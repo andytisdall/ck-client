@@ -4,16 +4,34 @@ import { lazy } from 'react';
 import './Form.css';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
 
-const VolunteerInterestForm = lazy(() => import('./VolunteerInterestForm'));
-const FormSent = lazy(() => import('./FormSent'));
-const MealQualitySurvey = lazy(() => import('./MealQualitySurvey'));
-const TextSignupSurvey = lazy(() => import('./TextSignupSurvey'));
-const MealProgramIntake = lazy(() => import('./MealProgramIntake'));
-const CBOReport = lazy(() => import('./CBOReport'));
-const HomeChefRegistration = lazy(() => import('./HomeChefRegistration'));
-const CookieParty = lazy(() => import('./CookieParty'));
 const Form = lazy(() => import('./Form'));
-const NewMealSurvery = lazy(() => import('./NewMealSurvey'));
+const FormSent = lazy(() => import('./FormSent'));
+
+const MealQualitySurvey = lazy(
+  () => import('./meal-program/MealQualitySurvey')
+);
+const TextSignupSurvey = lazy(() => import('./meal-program/TextSignupSurvey'));
+const MealProgramIntake = lazy(
+  () => import('./meal-program/MealProgramIntake')
+);
+const NewMealSurvery = lazy(() => import('./meal-program/NewMealSurvey'));
+const CBOReport = lazy(() => import('./meal-program/CBOReport'));
+
+const HomeChefRegistration = lazy(
+  () => import('./volunteer/HomeChefRegistration')
+);
+const VolunteerInterestForm = lazy(
+  () => import('./volunteer/VolunteerInterestForm')
+);
+
+const VolunteerAppreciation2024 = lazy(
+  () => import('./events/VolunteerAppeciation2024')
+);
+const KitchenWaiverSuccess = lazy(
+  () => import('./volunteer/KitchenWaiverSuccess')
+);
+
+const SignKitchenWaiver = lazy(() => import('./volunteer/SignKitchenWaiver'));
 
 const formsRouter: RouteObject = {
   path: 'forms',
@@ -41,8 +59,19 @@ const formsRouter: RouteObject = {
       path: 'home-chef-registration',
       element: renderWithFallback(<HomeChefRegistration />),
     },
-    { path: 'cookie-party', element: renderWithFallback(<CookieParty />) },
     { path: 'meal-survey-2', element: renderWithFallback(<NewMealSurvery />) },
+    {
+      path: 'volunteer-appreciation',
+      element: renderWithFallback(<VolunteerAppreciation2024 />),
+    },
+    {
+      path: 'kitchen-agreement',
+      element: renderWithFallback(<SignKitchenWaiver />),
+    },
+    {
+      path: 'kitchen-agreement/success/:email',
+      element: renderWithFallback(<KitchenWaiverSuccess />),
+    },
   ],
 };
 

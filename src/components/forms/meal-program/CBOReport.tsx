@@ -1,9 +1,9 @@
 import { useState, FormEventHandler } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Loading from '../reusable/loading/Loading';
-import ZipCodeSelector from '../reusable/form/ZipCodeSelector';
-import { useSubmitFormMutation } from '../../state/apis/formApi';
+import Loading from '../../reusable/loading/Loading';
+import ZipCodeSelector from '../../reusable/form/ZipCodeSelector';
+import { useSubmitFormMutation } from '../../../state/apis/formApi';
 
 const successMessage = 'Thank you for providing this information.';
 

@@ -93,3 +93,9 @@ export const {
   useResetPasswordMutation,
   useForgotPasswordMutation,
 } = userApi;
+
+export const optimisticallyUpdateVolunteerAgreement =
+  userApi.util.updateQueryData('getUserInfo', undefined, (userInfo) => ({
+    ...userInfo,
+    volunteerAgreement: true,
+  }));

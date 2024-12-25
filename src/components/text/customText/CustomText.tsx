@@ -192,18 +192,19 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
     if (!preview) {
       return composeText();
     }
-    if (region) {
+    if (region || number) {
       return (
         <TextPreview
           message={message}
-          region={region}
+          region={region || undefined}
           photo={photo}
           number={number}
           onSubmit={() => {
-            if (region) {
+            if (region || number) {
               sendText({
+                // region not used because number is included
+                region: 'EAST_OAKLAND',
                 message,
-                region,
                 photo,
                 feedbackId: replyTo?.id,
                 number,

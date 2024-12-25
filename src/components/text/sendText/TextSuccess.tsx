@@ -15,8 +15,11 @@ const TextSuccess = () => {
         <div className="file-success">
           <p>You have successfully sent this text:</p>
           <p>{message.message}</p>
-          <p>Region: {message.region}</p>
-          {!!message.number && <p>Number: {message.number}</p>}
+          {!message.number ? (
+            <p>Region: {message.region}</p>
+          ) : (
+            <p>Number: {message.number}</p>
+          )}
           {message.sendAt && (
             <p>
               This message will be sent at{' '}

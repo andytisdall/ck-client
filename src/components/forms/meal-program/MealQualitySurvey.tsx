@@ -2,8 +2,8 @@ import { useState, FormEventHandler } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import { useSubmitFormMutation } from '../../state/apis/formApi';
-import Loading from '../reusable/loading/Loading';
+import { useSubmitFormMutation } from '../../../state/apis/formApi';
+import Loading from '../../reusable/loading/Loading';
 
 const successMessage =
   'Thank you for you valuable feedback about the CK meal program.';

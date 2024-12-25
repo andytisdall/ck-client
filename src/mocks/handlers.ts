@@ -65,6 +65,10 @@ export const handlers = [
     return res(ctx.json(data.newVolunteer));
   }),
 
+  rest.get(BASE + '/api/volunteers/hours/:campaignId/', (req, res, ctx) => {
+    return res(ctx.json(getHoursResponse));
+  }),
+
   rest.get(
     BASE + '/api/volunteers/hours/:campaignId/:contactId',
     (req, res, ctx) => {

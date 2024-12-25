@@ -55,7 +55,7 @@ const volunteersRouter: RouteObject = {
       children: [
         {
           path: 'success/:email',
-          element: renderWithFallback(<SignSuccess returnLink="../.." />),
+          element: renderWithFallback(<SignSuccess />),
         },
         {
           path: ':doc',

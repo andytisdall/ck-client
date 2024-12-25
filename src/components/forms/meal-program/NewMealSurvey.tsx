@@ -1,12 +1,12 @@
 import { FormEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useSubmitFormMutation } from '../../state/apis/formApi';
-import FormHeader from './reusable/FormHeader';
-import Loading from '../reusable/loading/Loading';
-import RadioFormSet from './reusable/RadioFormSet';
-import MultiSelectSet from './reusable/MultiSelect';
-import LanguageSwitch from './reusable/LanguageSwitch';
+import { useSubmitFormMutation } from '../../../state/apis/formApi';
+import FormHeader from './../reusable/FormHeader';
+import Loading from '../../reusable/loading/Loading';
+import RadioFormSet from './../reusable/RadioFormSet';
+import MultiSelectSet from './../reusable/MultiSelect';
+import LanguageSwitch from './../reusable/LanguageSwitch';
 import { questions } from './mealSurveyQuestions';
 
 const NewMealSurvey = () => {

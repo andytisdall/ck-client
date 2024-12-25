@@ -80,13 +80,14 @@ export const campaign: Campaign = {
 
 export const job1: Job = {
   id: '7777',
-  name: 'City Slicker Farms',
+  name: 'Homies',
   shifts: ['1111', '2222'],
   active: true,
   location: 'Location',
   ongoing: true,
   description: 'kh',
   campaign: 'wslejfn',
+  region: 'East Oakland',
 };
 
 export const shift1: Shift = {
