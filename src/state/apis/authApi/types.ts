@@ -23,9 +23,9 @@ export interface ContactInfo {
   lastName: string;
   volunteerAgreement: boolean;
   foodHandler: boolean;
+  homeChefAgreement: boolean;
   homeChefQuizPassed: boolean;
   homeChefStatus?: string;
-  ckKitchenStatus?: string;
 }
 export interface CreateUserArgs {
   username: string;

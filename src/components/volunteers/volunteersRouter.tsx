@@ -33,33 +33,12 @@ const volunteersRouter: RouteObject = {
     { index: true, element: renderWithFallback(<VolunteersHome />) },
     eventsRouter,
     ckKitchenRouter,
-    // {
-    //   path: 'sign',
-    //   children: [
-    //     {
-    //       path: ':doc',
-    //       element: renderWithFallback(<DocusignSign />),
-    //     },
-    //     {
-    //       path: ':doc/:id',
-    //       element: renderWithFallback(<DocusignSign />),
-    //     },
-    //     {
-    //       path: 'success',
-    //       element: renderWithFallback(<DocusignSuccess returnLink="../.." />),
-    //     },
-    //   ],
-    // },
     {
       path: 'sign',
       children: [
         {
-          path: 'success/:email',
+          path: 'success/:contactId',
           element: renderWithFallback(<SignSuccess />),
-        },
-        {
-          path: ':doc',
-          element: renderWithFallback(<Sign />),
         },
         {
           path: ':doc/:contactId',

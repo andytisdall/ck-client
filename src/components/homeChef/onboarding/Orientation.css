@@ -1,18 +1,13 @@
 .orientation-video {
-  max-width: 700px;
+  max-width: 90%;
   margin-bottom: 2rem;
   margin-top: 1rem;
 }
 
-.orientation-slides-container {
+.orientation-video-container {
   display: flex;
   flex-direction: column;
-}
-
-.orientation-slides {
-  max-width: 100%;
-  margin-bottom: 2rem;
-  align-self: center;
+  align-items: center;
 }
 
 .food-handler {

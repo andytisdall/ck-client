@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-import { server } from './mocks/server';
+import { server } from './test/server';
 import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './state/store';

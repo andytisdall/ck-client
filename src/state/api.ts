@@ -49,5 +49,6 @@ export const api = createApi({
     'D4JConfig',
     'VolunteerHours',
     'VolunteerShifts',
+    'VolunteerCheckInList',
   ],
 });

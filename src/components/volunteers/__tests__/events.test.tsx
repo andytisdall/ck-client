@@ -2,7 +2,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { format } from 'date-fns-tz';
 
-import { hours2, job1, eventCampaign } from '../../../mocks/data';
+import { hours2, job1, eventCampaign } from '../../../test/data';
 import App from '../../../App';
 import { Root, signInUser } from '../../../setupTests';
 

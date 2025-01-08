@@ -1,0 +1,52 @@
+.check-in {
+  background-image: linear-gradient(rgb(3, 130, 1), rgb(29, 231, 39));
+  height: 100vh;
+}
+
+.check-in-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;;
+  border-bottom: 1px solid black;
+  margin-bottom: 2rem;
+}
+
+.check-in-volunteer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.check-in-volunteer button {
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+}
+
+.check-in-volunteer-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.check-in-volunteer-item {
+  margin: 2rem;
+  padding: .5rem 1.5rem;
+  border: 2px black solid;
+  background-image: radial-gradient(rgb(247, 201, 115), rgb(199, 116, 0));
+  color: black;
+  font-weight: 600;
+  border-radius: 20px;
+  transition: .3s;
+}
+
+.check-in-volunteer-item:active {
+  filter: brightness(1.5)
+}
+
+
+
+
+
+
+

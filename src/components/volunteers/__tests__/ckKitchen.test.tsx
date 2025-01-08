@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { format } from 'date-fns-tz';
 
-import { hours2, job1 } from '../../../mocks/data';
+import { hours2, job1 } from '../../../test/data';
 import App from '../../../App';
 import { Root, signInUser } from '../../../setupTests';
 
@@ -87,6 +87,8 @@ test('get job info and sign up for shift', async () => {
   render(<App />, { wrapper: Root });
   signInUser();
 
+  const signedUpShift = await screen.findByText(/signed up/i);
+
   const jobLink = await screen.findByText(
     format(new Date(hours2.time), 'eee, M/d/yy h:mm a')
   );
@@ -105,6 +107,26 @@ test('get job info and sign up for shift', async () => {
   );
   expect(confirmationMsg).toBeDefined();
 });
+
+// test('see job that you signed up for', async () => {
+//   render(<App />, { wrapper: Root });
+//   signInUser();
+
+//   const homeBtn = await screen.findByRole('button', {
+//     name: /volunteers home/i,
+//   });
+
+//   await userEvent.click(homeBtn);
+
+//   const kitchenLink = await screen.findByText('CK Kitchen Volunteers');
+//   await userEvent.click(kitchenLink);
+
+//   const signupLink = await screen.findByText(
+//     'Sign Up to Volunteer / See your shifts'
+//   );
+//   await userEvent.click(signupLink);
+
+// });
 
 test('cancel job signup', async () => {
   render(<App />, { wrapper: Root });

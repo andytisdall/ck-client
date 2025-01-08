@@ -5,7 +5,6 @@ import {
   CancelVolunteerHoursArgs,
   Volunteer,
   CreateVolunteerArgs,
-  CreateVolunteerResponse,
   GetVolunteerHoursArgs,
 } from './types';
 
@@ -22,10 +21,7 @@ export const volunteerApi = api.injectEndpoints({
       providesTags: ['VolunteerHours'],
     }),
 
-    createVolunteer: builder.mutation<
-      CreateVolunteerResponse,
-      CreateVolunteerArgs
-    >({
+    createVolunteer: builder.mutation<Volunteer, CreateVolunteerArgs>({
       query: (body) => ({
         url: '/volunteers',
         body,

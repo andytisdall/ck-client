@@ -146,7 +146,7 @@ export interface Volunteer {
   id: string;
   portalUsername?: string;
   firstName?: string;
-  ckKitchenStatus?: string;
+  volunteerAgreement: boolean;
   email: string;
 }
 
@@ -154,13 +154,6 @@ export interface CreateVolunteerArgs {
   email: string;
   firstName: string;
   lastName: string;
-}
-
-export interface CreateVolunteerResponse {
-  name: string;
-  id: string;
-  email: string;
-  householdId: string;
 }
 
 export interface CancelVolunteerHoursArgs {

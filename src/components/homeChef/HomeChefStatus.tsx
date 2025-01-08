@@ -12,13 +12,13 @@ const volunteerAgreement = {
   url: 'onboarding/sign/HC',
 };
 const homeChefQuiz = {
-  text: 'Watch the orientation video and pass the home chef quiz',
+  text: 'Watch the orientation video and take the home chef quiz',
   url: 'onboarding/orientation-video',
 };
 
 const HomeChefStatus = () => {
   const { data: userInfo } = useGetUserInfoQuery(undefined, {
-    pollingInterval: 10000,
+    pollingInterval: 60000,
   });
 
   const [completedActions, incompleteActions] = useMemo(() => {
@@ -37,7 +37,7 @@ const HomeChefStatus = () => {
       completedActions.push(foodHandler);
     }
 
-    if (!userInfo?.volunteerAgreement) {
+    if (!userInfo?.homeChefAgreement) {
       incompleteActions.push(volunteerAgreement);
     } else {
       completedActions.push(volunteerAgreement);

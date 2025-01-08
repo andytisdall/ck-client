@@ -7,7 +7,6 @@ import renderWithFallback from '../../reusable/loading/renderWithFallback';
 const HomeChefOnboarding = lazy(() => import('./HomeChefOnboarding'));
 const UploadFoodHandler = lazy(() => import('./UploadFoodHandler'));
 const OrientationVideo = lazy(() => import('./OrientationVideo'));
-const OrientationSlides = lazy(() => import('./OrientationSlides'));
 
 // documents
 const FileSuccess = lazy(() => import('../../reusable/file/FileSuccess'));
@@ -18,11 +17,6 @@ const QuizResults = lazy(() => import('./quiz/QuizResults'));
 
 const Sign = lazy(() => import('../../reusable/signature/Sign'));
 const SignSuccess = lazy(() => import('../../reusable/signature/SignSuccess'));
-
-// const DocusignSign = lazy(() => import('../../reusable/docusign/DocusignSign'));
-// const DocusignSuccess = lazy(
-//   () => import('../../reusable/docusign/DocusignSuccess')
-// );
 
 const onboardingRouter: RouteObject = {
   path: 'onboarding',
@@ -40,10 +34,7 @@ const onboardingRouter: RouteObject = {
       path: 'orientation-video',
       element: renderWithFallback(<OrientationVideo />),
     },
-    {
-      path: 'orientation-slides',
-      element: renderWithFallback(<OrientationSlides />),
-    },
+
     {
       path: 'upload-food-handler',
       element: renderWithFallback(<UploadFoodHandler />),
@@ -54,21 +45,6 @@ const onboardingRouter: RouteObject = {
         <FileSuccess returnLink="/home-chef/onboarding" />
       ),
     },
-    // {
-    //   path: 'sign',
-    //   children: [
-    //     {
-    //       path: ':doc',
-    //       element: renderWithFallback(<DocusignSign />),
-    //     },
-    //     {
-    //       path: 'success',
-    //       element: renderWithFallback(
-    //         <DocusignSuccess returnLink="/home-chef/onboarding" />
-    //       ),
-    //     },
-    //   ],
-    // },
     {
       path: 'sign',
       children: [
@@ -78,7 +54,6 @@ const onboardingRouter: RouteObject = {
             <SignSuccess returnLink="/home-chef/onboarding" />
           ),
         },
-
         {
           path: ':doc',
           element: renderWithFallback(<Sign />),

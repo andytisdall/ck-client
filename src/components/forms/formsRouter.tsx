@@ -24,14 +24,11 @@ const VolunteerInterestForm = lazy(
   () => import('./volunteer/VolunteerInterestForm')
 );
 
-const VolunteerAppreciation2024 = lazy(
-  () => import('./events/VolunteerAppeciation2024')
-);
 const KitchenWaiverSuccess = lazy(
   () => import('./volunteer/KitchenWaiverSuccess')
 );
 
-const SignKitchenWaiver = lazy(() => import('./volunteer/SignKitchenWaiver'));
+const SelfReport = lazy(() => import('./meal-program/SelfReport'));
 
 const formsRouter: RouteObject = {
   path: 'forms',
@@ -60,18 +57,12 @@ const formsRouter: RouteObject = {
       element: renderWithFallback(<HomeChefRegistration />),
     },
     { path: 'meal-survey-2', element: renderWithFallback(<NewMealSurvery />) },
-    {
-      path: 'volunteer-appreciation',
-      element: renderWithFallback(<VolunteerAppreciation2024 />),
-    },
-    {
-      path: 'kitchen-agreement',
-      element: renderWithFallback(<SignKitchenWaiver />),
-    },
+
     {
       path: 'kitchen-agreement/success/:email',
       element: renderWithFallback(<KitchenWaiverSuccess />),
     },
+    { path: 'self-report', element: renderWithFallback(<SelfReport />) },
   ],
 };
 

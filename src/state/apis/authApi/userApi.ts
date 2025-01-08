@@ -97,5 +97,5 @@ export const {
 export const optimisticallyUpdateVolunteerAgreement =
   userApi.util.updateQueryData('getUserInfo', undefined, (userInfo) => ({
     ...userInfo,
-    volunteerAgreement: true,
+    homeChefAgreement: true,
   }));

@@ -31,6 +31,8 @@ import volunteersRouter from './components/volunteers/volunteersRouter';
 
 import cboRouter from './components/cbo/cboRouter';
 
+import volunteerCheckInRouter from './components/volunteer-check-in/volunteerCheckInRouter';
+
 // public home chef app page (no sign in required)
 const HomeChefApp = lazy(() => import('./components/homeChef/HomeChefApp'));
 const SalesforceNotFound = lazy(
@@ -90,6 +92,7 @@ export const router = createBrowserRouter([
     ],
   },
   formsRouter,
+  volunteerCheckInRouter,
 ]);
 
 const App = () => {

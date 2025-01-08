@@ -1,43 +1,25 @@
-import {
-  waitFor,
-  render,
-  screen,
-  act,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
 import App from '../../../App';
-import { job1, shift1, hours1, hours2 } from '../../../mocks/data';
+import { job1, shift1, hours1, hours2 } from '../../../test/data';
 import { Root, signInUser } from '../../../setupTests';
 
-// userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-test.only('navigate to home chef page', async () => {
+test('navigate to home chef page', async () => {
   render(<App />, { wrapper: Root });
 
-  // const loading = await screen.findByTestId('rai-activity-indicator');
-
-  // expect(loading).toBeInTheDocument();
-
-  // await waitForElementToBeRemoved(
-  //   screen.queryByTestId('rai-activity-indicator')
-  // );
-
-  const burgerMenu = await screen.findByAltText(/user menu/i);
-
   const volunteersLink = await screen.findByText('CK Volunteers');
-  // await userEvent.click(volunteersLink);
-  // // volunteers home
-  // const homeChefLink = await screen.findByText('Home Chef Volunteers');
-  // await userEvent.click(homeChefLink);
+  await userEvent.click(volunteersLink);
+  // volunteers home
+  const homeChefLink = await screen.findByText('Home Chef Volunteers');
+  await userEvent.click(homeChefLink);
 
-  // // home chef home
-  // const statusText = await screen.findByText(
-  //   'You are done with the onboarding process and may sign up for Town Fridge deliveries'
-  // );
-  // expect(statusText).toBeDefined();
+  // home chef home
+  const statusText = await screen.findByText(
+    'You are done with the onboarding process and may sign up for Town Fridge deliveries'
+  );
+  expect(statusText).toBeDefined();
 });
 
 test('see chef shifts', async () => {

@@ -7,8 +7,8 @@ import {
   VolunteerHours,
   Campaign,
   GetShiftsResponse,
-  CreateVolunteerResponse,
   VolunteerCampaign,
+  Volunteer,
 } from '../state/apis/volunteerApi';
 
 export const user1: User = {
@@ -30,19 +30,20 @@ export const user2: User = {
 export const userInfo1: ContactInfo = {
   firstName: 'Testy',
   lastName: 'Testorici',
+  homeChefAgreement: true,
   volunteerAgreement: true,
   foodHandler: true,
   homeChefStatus: 'Active',
   homeChefQuizPassed: true,
-  ckKitchenStatus: 'Active',
 };
 
 export const userInfo2: ContactInfo = {
   firstName: 'Testy',
   lastName: 'Testorici',
   volunteerAgreement: false,
+  homeChefAgreement: false,
   foodHandler: true,
-  homeChefStatus: 'Attended Orientation',
+  homeChefStatus: 'Prospective',
   homeChefQuizPassed: false,
 };
 
@@ -139,14 +140,14 @@ export const homeChefHoursResponse = [hours1];
 
 export const userResponse = [user1];
 
-export const volunteer1 = {
+export const volunteer1: Volunteer = {
   id: '0037400000FU7XrAAL',
   householdId: '0017400000IG2QzAAL',
-  portalUsername: null,
+  portalUsername: undefined,
   firstName: 'Andrew',
   name: 'Andrew Tisdall',
-  lastName: 'Tisdall',
-  ckKitchenStatus: 'Active',
+  volunteerAgreement: true,
+  email: 'andrew@ck.com',
 };
 
 export const volunteer2 = {
@@ -157,13 +158,6 @@ export const volunteer2 = {
   name: 'Andrew Tisdall',
   lastName: 'Tisdall',
   ckKitchenStatus: undefined,
-};
-
-export const newVolunteer: CreateVolunteerResponse = {
-  name: 'Andrew Tisdall',
-  email: 'andrew.tisdall@gmail.com',
-  householdId: '0017400000IG2QzAAL',
-  id: '0037400000FU7XrAAL',
 };
 
 export const ckKitchenCampaign: VolunteerCampaign = {

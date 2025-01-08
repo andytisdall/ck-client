@@ -9,16 +9,6 @@ const signApi = api.injectEndpoints({
       query: ({ doc, contactId }) =>
         `/sign/${doc}${contactId ? '/' + contactId : ''}`,
     }),
-    getKitchenSigningUrl: builder.mutation<
-      { signingUrl: string },
-      { firstName: string; lastName: string; email: string }
-    >({
-      query: (body) => ({
-        body,
-        url: '/sign/kitchen',
-        method: 'POST',
-      }),
-    }),
     updateContact: builder.mutation<
       null,
       { doc?: string; email?: string; envelopeId?: string }
@@ -33,8 +23,4 @@ const signApi = api.injectEndpoints({
   }),
 });
 
-export const {
-  useGetSigningUrlQuery,
-  useUpdateContactMutation,
-  useGetKitchenSigningUrlMutation,
-} = signApi;
+export const { useGetSigningUrlQuery, useUpdateContactMutation } = signApi;

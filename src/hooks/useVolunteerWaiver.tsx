@@ -22,9 +22,7 @@ const useVolunteerWaiver = (campaignId?: string) => {
     data: userInfo,
     isFetching,
     isLoading,
-  } = useGetUserInfoQuery(undefined, {
-    pollingInterval: 10000,
-  });
+  } = useGetUserInfoQuery(undefined, { pollingInterval: 60000 });
 
   const navigate = useNavigate();
   const docusignLink = useRef('');
@@ -33,28 +31,29 @@ const useVolunteerWaiver = (campaignId?: string) => {
     if (!isFetching) {
       if (!volunteer && !userInfo) {
         navigate('../signin/' + campaignId);
-      } else if (volunteer && volunteer.ckKitchenStatus !== 'Active') {
+      } else if (volunteer && !volunteer.volunteerAgreement) {
         setRedirectToDocusign(true);
         docusignLink.current = '../../sign/CKK/' + volunteer.id;
-      } else if (userInfo && userInfo?.ckKitchenStatus !== 'Active') {
+      } else if (userInfo && !userInfo?.volunteerAgreement) {
         setRedirectToDocusign(true);
         docusignLink.current = '../../sign/CKK';
-      } else if (userInfo && userInfo?.ckKitchenStatus === 'Active') {
+      } else if (userInfo && userInfo.volunteerAgreement) {
         setRedirectToDocusign(false);
-      } else if (volunteer && volunteer?.ckKitchenStatus === 'Active') {
+      } else if (volunteer && volunteer.volunteerAgreement) {
         setRedirectToDocusign(false);
       }
     }
   }, [volunteer, navigate, isFetching, userInfo, campaignId]);
 
   useEffect(() => {
-    if (redirectToDocusign) {
+    if (redirectToDocusign && volunteer?.email) {
       intervalRef.current = setInterval(() => {
-        getVolunteer(volunteer?.email);
+        getVolunteer(volunteer.email);
       }, 10000);
     } else if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
+    return () => clearInterval(intervalRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [redirectToDocusign]);
 

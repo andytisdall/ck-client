@@ -152,6 +152,15 @@ interface RSVPArgs {
   name: 'RSVP';
 }
 
+interface SelfReportArgs {
+  formData: {
+    age: string;
+    race: string;
+    zip: string;
+  };
+  name: 'SELF_REPORT';
+}
+
 type SubmitFormArgs =
   | CBOReportArgs
   | TextSignUpSurveyArgs
@@ -161,7 +170,8 @@ type SubmitFormArgs =
   | HomeChefRegistrationArgs
   | CookiePartyArgs
   | NewMealSurveyArgs
-  | RSVPArgs;
+  | RSVPArgs
+  | SelfReportArgs;
 
 const urls = {
   MEAL_SURVEY: '/text/meal-survey',
@@ -174,6 +184,7 @@ const urls = {
   NEW_MEAL_SURVEY: '/meal-program/survey',
   RSVP: '/volunteers/events/rsvp',
   SIGN_KITCHEN_WAIVER: '/sign/kitchen',
+  SELF_REPORT: '/meal-program/self-report',
 };
 
 const formApi = api.injectEndpoints({

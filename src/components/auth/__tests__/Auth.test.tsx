@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../../../App';
-import { user2 } from '../../../mocks/data';
+import { user2 } from '../../../test/data';
 import { Root, signInUser } from '../../../setupTests';
 
 test('sign in button if not signed in', async () => {

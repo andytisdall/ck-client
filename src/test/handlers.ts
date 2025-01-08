@@ -62,7 +62,7 @@ export const handlers = [
   }),
 
   rest.post(BASE + '/api/volunteers', (req, res, ctx) => {
-    return res(ctx.json(data.newVolunteer));
+    return res(ctx.json(data.volunteer1));
   }),
 
   rest.get(BASE + '/api/volunteers/hours/:campaignId/', (req, res, ctx) => {

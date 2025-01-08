@@ -13,7 +13,7 @@ const CBOReport = () => {
   const [CBOName, setCBOName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [year, setYear] = useState('2024');
+  const [year, setYear] = useState('2025');
 
   const [percentWOAccess, setPercentWOAccess] = useState('');
   const [mealsProvided, setMealsProvided] = useState('');
@@ -190,8 +190,8 @@ const CBOReport = () => {
           onChange={(e) => setYear(e.target.value)}
           required
         >
+          <option value="2025">2025</option>
           <option value="2024">2024</option>
-          <option value="2023">2023</option>
         </select>
       </div>
       <div className="form-item">
