@@ -15,8 +15,11 @@ const AdminHome = () => {
       <Link className="text-button-link admin-home-btn" to="d4j">
         Dining for Justice
       </Link>
-      <Link className="text-button-link admin-home-btn" to="kitchen">
-        Kitchen Volunteers
+      <Link
+        className="text-button-link admin-home-btn"
+        to="../volunteer-check-in"
+      >
+        Volunteer Check-In
       </Link>
     </div>
   );

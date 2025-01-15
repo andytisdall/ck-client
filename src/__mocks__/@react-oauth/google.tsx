@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react';
+
 export const GoogleLogin = ({
   onSuccess,
   onError,
@@ -6,4 +8,11 @@ export const GoogleLogin = ({
   onError: () => void;
 }) => {
   return <></>;
+};
+
+export const GoogleOAuthProvider = ({
+  clientId,
+  children,
+}: { clientId: string } & PropsWithChildren) => {
+  return <>{children}</>;
 };

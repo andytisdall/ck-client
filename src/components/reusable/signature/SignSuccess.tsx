@@ -6,11 +6,11 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { optimisticallyUpdateVolunteerAgreement } from '../../../state/apis/authApi';
 import Loading from '../loading/Loading';
 
-const KITCHEN_RETURN_LINK = '/volunteers/ck-kitchen/signup/';
-// const KITCHEN_RETURN_LINK = '/volunteer-check-in/confirm/
+// const KITCHEN_RETURN_LINK = '/volunteers/ck-kitchen/signup/';
+const KITCHEN_RETURN_LINK = '/volunteer-check-in/confirm/';
 
 const SignSuccess = ({ returnLink }: { returnLink?: string }) => {
-  const { contactId } = useParams();
+  const { contactId, shiftId } = useParams();
 
   const navigate = useNavigate();
   const dispatch = useDispatch<Dispatch<any>>();
@@ -20,7 +20,7 @@ const SignSuccess = ({ returnLink }: { returnLink?: string }) => {
       dispatch(optimisticallyUpdateVolunteerAgreement);
     } else {
       setTimeout(() => {
-        navigate(KITCHEN_RETURN_LINK + contactId);
+        navigate(`${KITCHEN_RETURN_LINK}${shiftId}/${contactId}`);
       }, 10000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

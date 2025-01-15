@@ -69,13 +69,13 @@ export interface VolunteerCampaign {
 
 export interface VolunteerHours {
   id: string;
-  mealCount: string;
+  mealCount?: string;
   time: string;
   job: string;
   status: string;
   shift: string;
   campaign?: string;
-  mealType: 'Entree' | 'Soup';
+  mealType?: 'Entree' | 'Soup';
 }
 
 export type VolunteerHoursState = Record<string, VolunteerHours>;

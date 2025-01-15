@@ -30,8 +30,8 @@ const CheckInVolunteerBase = () => {
           className="header-logo"
         />
         <h1>Volunteer Check-In</h1>
-        <h3>{format(new Date(), 'eeee, M/d/yy')}</h3>
       </div>
+      <p>{format(new Date(), 'eeee, M/d/yy')}</p>
       <Outlet />
     </div>
   );

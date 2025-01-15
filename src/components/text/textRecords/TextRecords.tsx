@@ -73,7 +73,7 @@ const TextRecords = () => {
           }
         />
         <div>
-          <label>Start Date:</label>
+          <label>Sent By:</label>
           {users && (
             <select onChange={(e) => setUserId(e.target.value)}>
               <option value="">All Users</option>

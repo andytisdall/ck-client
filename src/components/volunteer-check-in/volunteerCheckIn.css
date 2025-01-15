@@ -8,7 +8,6 @@
   justify-content: space-between;
   align-items: center;;
   border-bottom: 1px solid black;
-  margin-bottom: 2rem;
 }
 
 .check-in-volunteer {
@@ -27,6 +26,7 @@
 .check-in-volunteer-list {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .check-in-volunteer-item {
@@ -44,9 +44,24 @@
   filter: brightness(1.5)
 }
 
+.check-in-new-volunteer-btn {
+  color: white;
+  background-image: radial-gradient(rgb(232, 49, 49), rgb(187, 26, 26));
+width: fit-content;
+}
 
+.check-in-new-volunteer-form {
+  display: flex;
+  flex-direction: column;
+}
 
+.check-in-new-volunteer-form label {
+  font-weight: 700;
+  display: block;
+  margin-top: 2rem;
 
+}
 
-
-
+.check-in-new-volunteer-form input {
+  width: 15rem;
+}

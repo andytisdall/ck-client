@@ -17,9 +17,7 @@ const homeChefQuiz = {
 };
 
 const HomeChefStatus = () => {
-  const { data: userInfo } = useGetUserInfoQuery(undefined, {
-    pollingInterval: 60000,
-  });
+  const { data: userInfo } = useGetUserInfoQuery();
 
   const [completedActions, incompleteActions] = useMemo(() => {
     let completedActions = [];

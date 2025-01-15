@@ -95,7 +95,15 @@ export const {
 } = userApi;
 
 export const optimisticallyUpdateVolunteerAgreement =
-  userApi.util.updateQueryData('getUserInfo', undefined, (userInfo) => ({
-    ...userInfo,
-    homeChefAgreement: true,
-  }));
+  userApi.util.updateQueryData('getUserInfo', undefined, (userInfo) => {
+    const newUserInfo = {
+      ...userInfo,
+      homeChefAgreement: true,
+    };
+
+    if (userInfo.foodHandler && userInfo.homeChefQuizPassed) {
+      newUserInfo.homeChefStatus = 'Active';
+    }
+
+    return newUserInfo;
+  });

@@ -2,19 +2,56 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../../../App';
-import { Root, signInUser, signInAdmin } from '../../../setupTests';
+import { Root } from '../../../setupTests';
+import { User } from '../../../state/apis/authApi';
+import { createServer } from '../../../test/createServer';
 
-test('rejected if not admin', async () => {
-  render(<App />, { wrapper: Root });
-  signInAdmin();
+const adminUser: User = {
+  username: 'bojee',
+  id: 'failjrse48jf48',
+  admin: true,
+  salesforceId: 'f4s9jf4s9j',
+  active: true,
+};
 
-  const adminBtn = await screen.findByText(/admin/i);
+const user: User = {
+  username: 'chompy',
+  id: '48yrf848fy48',
+  admin: false,
+  salesforceId: 'd093900',
+  active: true,
+};
 
-  await userEvent.click(adminBtn);
+describe('admin', () => {
+  createServer([
+    { path: '/user', res: async () => adminUser },
+    { path: '/meal-program/restaurant', res: async () => null },
+  ]);
 
-  // const unauthorizedMessage = await screen.findByRole('heading', {
-  //   name: /You must be an admin to access this page./i,
-  // });
+  test('can see admin btns if admin', async () => {
+    render(<App />, { wrapper: Root });
 
-  // expect(unauthorizedMessage).toBeInTheDocument();
+    const adminBtn = await screen.findByText(/admin/i);
+    await userEvent.click(adminBtn);
+
+    const pushNotificationBtn = await screen.findByText(
+      /send a push notification/i
+    );
+
+    expect(pushNotificationBtn).toBeInTheDocument();
+  });
+});
+
+describe('not admin', () => {
+  createServer([{ path: '/user', res: async () => user }]);
+
+  test('rejected if not admin', async () => {
+    render(<App />, { wrapper: Root });
+
+    const unauthorizedMessage = await screen.findByText(
+      /You must be an admin to access this page/i
+    );
+
+    expect(unauthorizedMessage).toBeInTheDocument();
+  });
 });

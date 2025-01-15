@@ -28,11 +28,11 @@ const CheckInVolunteers = () => {
     if (confirmedVols?.length) {
       return (
         <div>
-          <h2>Check In Here</h2>
+          <h2>Volunteers Not Checked In</h2>
           <div className="check-in-volunteer-list">
             {confirmedVols.map((vol) => {
               const url = vol.volunteerAgreement
-                ? `../confirm/${vol.contactId}`
+                ? `../confirm/${shiftId}/${vol.contactId}`
                 : `../sign/${vol.contactId}`;
               return (
                 <Link
@@ -74,6 +74,16 @@ const CheckInVolunteers = () => {
     }
   };
 
+  const renderNewVolunteerBtn = () => {
+    return (
+      <Link to={'../create/' + shiftId}>
+        <div className="check-in-volunteer-item check-in-new-volunteer-btn">
+          <p>New Volunteer</p>
+        </div>
+      </Link>
+    );
+  };
+
   const renderVolunteers = () => {
     if (!volunteers) {
       return <p>Error getting volunteer info.</p>;
@@ -89,7 +99,12 @@ const CheckInVolunteers = () => {
     return <p>No volunteers found for today.</p>;
   };
 
-  return <div>{renderVolunteers()}</div>;
+  return (
+    <div>
+      {renderNewVolunteerBtn()}
+      {renderVolunteers()}
+    </div>
+  );
 };
 
 export default CheckInVolunteers;

@@ -1,7 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const CheckInSign = () => {
   const { contactId } = useParams();
+  const navigate = useNavigate();
   return (
     <div className="check-in-volunteer">
       <p>
@@ -11,9 +12,9 @@ const CheckInSign = () => {
       <Link to={`../CKK/${contactId}`}>
         <button>Sign the Agreement</button>
       </Link>
-      <Link to="../../kitchen">
-        <button className="cancel">Start Over</button>
-      </Link>
+      <button onClick={() => navigate(-1)} className="cancel">
+        Start Over
+      </button>
     </div>
   );
 };

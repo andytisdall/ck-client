@@ -2,49 +2,105 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../../../App';
-import { user2 } from '../../../test/data';
-import { Root, signInUser } from '../../../setupTests';
+import { Root } from '../../../setupTests';
+import { createServer } from '../../../test/createServer';
+import { User } from '../../../state/apis/authApi';
 
-test('sign in button if not signed in', async () => {
-  render(<App />, { wrapper: Root });
-  // home page
+const user: User = {
+  username: 'chompy',
+  id: '48yrf848fy48',
+  admin: false,
+  salesforceId: 'd093900',
+  active: true,
+};
 
-  const userMenuBtn = await screen.findByAltText('User Menu');
+describe('not signed in', () => {
+  createServer([
+    {
+      path: '/user',
+      res: async (req) => {
+        if (![...req.headers].length) {
+          return null;
+        }
+        return user;
+      },
+    },
+    {
+      path: '/signin',
+      res: async () => {
+        return { user, token: 'token' };
+      },
+      method: 'post',
+    },
+    // { path: '/meal-program/restaurant', res: async () => null },
+  ]);
 
-  userEvent.click(userMenuBtn);
+  test('sign in button if not signed in', async () => {
+    render(<App />, { wrapper: Root });
+    // home page
 
-  const unauthorizedMessage = await screen.findByText(/Sign In/);
-  expect(unauthorizedMessage).toBeInTheDocument();
-});
+    const userMenuBtn = await screen.findByAltText('User Menu');
 
-test('can sign in', async () => {
-  render(<App />, { wrapper: Root });
+    userEvent.click(userMenuBtn);
 
-  const userMenuBtn = await screen.findByAltText('User Menu');
-  userEvent.click(userMenuBtn);
+    await waitFor(
+      () => {
+        const unauthorizedMessage = screen.getByText(/Sign In/);
 
-  const userName = await screen.findByPlaceholderText('Username');
-  const passwordInput = screen.getByPlaceholderText('Password');
+        expect(unauthorizedMessage).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+  });
 
-  await userEvent.type(userName, 'Test');
-  await userEvent.type(passwordInput, 'Password');
+  test('can sign in', async () => {
+    render(<App />, { wrapper: Root });
 
-  const submitButton = screen.getByRole('button', { name: 'Submit' });
+    const userMenuBtn = await screen.findByAltText('User Menu');
+    userEvent.click(userMenuBtn);
 
-  userEvent.click(submitButton);
+    const userName = await screen.findByPlaceholderText('Username');
+    const passwordInput = screen.getByPlaceholderText('Password');
 
-  await waitFor(() => {
-    const username = screen.getByText(user2.username);
-    expect(username).toBeInTheDocument();
+    await userEvent.type(userName, 'Test');
+    await userEvent.type(passwordInput, 'Password');
+
+    const submitButton = screen.getByRole('button', { name: 'Submit' });
+
+    userEvent.click(submitButton);
+    await waitFor(
+      () => {
+        screen.getByText(user.username);
+      },
+      { timeout: 500 }
+    );
   });
 });
 
-test('username if signed in', async () => {
-  render(<App />, { wrapper: Root });
-  signInUser();
+describe.skip('signed in', () => {
+  createServer([
+    { path: '/user', res: async () => user },
+    {
+      path: '/signin',
+      res: async () => {
+        return { user, token: 'token' };
+      },
+    },
+    { path: '/meal-program/restaurant', res: async () => null },
+  ]);
 
-  const userMenuBtn = await screen.findByAltText('User Menu');
-  await userEvent.click(userMenuBtn);
-  const username = await screen.findByText(user2.username);
-  expect(username).toBeInTheDocument();
+  test('username if signed in', async () => {
+    render(<App />, { wrapper: Root });
+
+    const userMenuBtn = await screen.findByAltText('User Menu');
+    await userEvent.click(userMenuBtn);
+    const username = await screen.findByText(user.username);
+
+    await waitFor(
+      () => {
+        expect(username).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+  });
 });

@@ -1,6 +1,6 @@
 import { api } from '../../api';
 
-interface VolunteerForCheckIn {
+export interface VolunteerForCheckIn {
   hoursId: string;
   contactId: string;
   firstName?: string;
@@ -12,7 +12,7 @@ interface VolunteerForCheckIn {
 
 const kitchenApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getTodaysShift: builder.query<string, void>({
+    getTodaysShift: builder.query<{ shiftId: string }, void>({
       query: () => '/volunteers/check-in/shifts',
     }),
     getVolunteersForCheckIn: builder.query<VolunteerForCheckIn[], string>({
@@ -27,6 +27,16 @@ const kitchenApi = api.injectEndpoints({
       }),
       invalidatesTags: ['VolunteerCheckInList'],
     }),
+    createVolunteerHours: builder.mutation<
+      null,
+      { shiftId: string; contactId: string }
+    >({
+      query: (body) => ({
+        body,
+        url: '/volunteers/check-in/hours',
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -34,4 +44,5 @@ export const {
   useGetVolunteersForCheckInQuery,
   useCheckInVolunteerMutation,
   useGetTodaysShiftQuery,
+  useCreateVolunteerHoursMutation,
 } = kitchenApi;

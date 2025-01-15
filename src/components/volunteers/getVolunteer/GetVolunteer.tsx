@@ -49,11 +49,11 @@ const GetVolunteer = () => {
       createVolunteer({ email, firstName, lastName })
         .unwrap()
         .then((vol) => {
-          getVolunteer(vol.email)
-            .unwrap()
-            .then(() => {
-              navigate(url);
-            });
+          // getVolunteer(vol.email)
+          //   .unwrap()
+          //   .then(() => {
+          navigate(url);
+          // });
         });
     }
   };

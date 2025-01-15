@@ -1,34 +1,64 @@
 import { FormEventHandler, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { useCreateVolunteerMutation } from '../../state/apis/volunteerApi';
+import emailIsValid from '../../utils/emailAddressIsValid';
+import {
+  useCreateVolunteerMutation,
+  useLazyGetVolunteerQuery,
+} from '../../state/apis/volunteerApi';
+import { useCreateVolunteerHoursMutation } from '../../state/apis/volunteerApi/kitchenApi';
 import Loading from '../reusable/loading/Loading';
+import { setError } from '../../state/apis/slices/errorSlice';
 
 const CreateVolunteer = () => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const [createVolunteer, { isLoading }] = useCreateVolunteerMutation();
+  const { shiftId } = useParams();
+
+  const [createVolunteer, { isLoading: addVolIsLoading }] =
+    useCreateVolunteerMutation();
+  const [createVolunteerHours, { isLoading: hoursIsLoading }] =
+    useCreateVolunteerHoursMutation();
+  const [getVolunteer, { isLoading: getVolIsLoading }] =
+    useLazyGetVolunteerQuery();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const isLoading = addVolIsLoading || hoursIsLoading || getVolIsLoading;
 
   const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
-    const volunteer = await createVolunteer({
-      firstName,
-      lastName,
-      email,
-    }).unwrap();
+    if (!emailIsValid(email)) {
+      return dispatch(setError('Email address is invalid'));
+    }
+
+    if (!shiftId) {
+      return dispatch(setError('No shift ID in the URL. Please start over.'));
+    }
+
+    let volunteer = await getVolunteer(email).unwrap();
+
+    if (!volunteer) {
+      volunteer = await createVolunteer({
+        firstName,
+        lastName,
+        email,
+      }).unwrap();
+    }
 
     // create hours
+    await createVolunteerHours({ shiftId, contactId: volunteer.id });
 
     navigate('../sign/' + volunteer.id);
   };
 
   return (
-    <form onSubmit={onSubmit} className="check-in-volunteer">
+    <form onSubmit={onSubmit} className="check-in-new-volunteer-form">
       <div>
         <label>First Name</label>
         <input
@@ -55,6 +85,7 @@ const CreateVolunteer = () => {
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
       </div>
 

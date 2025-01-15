@@ -1,13 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const CheckInSuccess = () => {
   const navigate = useNavigate();
 
+  const { shiftId } = useParams();
+
   useEffect(() => {
     setTimeout(() => {
-      navigate('../kitchen');
-    });
+      navigate('../list/' + shiftId);
+    }, 3000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

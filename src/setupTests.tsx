@@ -4,11 +4,9 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-import { server } from './test/server';
 import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
-import { api } from './state/api';
 
 jest.mock('@react-oauth/google');
 
@@ -38,27 +36,3 @@ const localStorageMock = (function () {
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 });
-
-export const signInUser = () => {
-  window.localStorage.setItem('ck-token', 'auth');
-};
-
-export const signInAdmin = () => {
-  window.localStorage.setItem('ck-token', 'admin');
-};
-
-// set up server before all tests and then close after
-beforeAll(() => {
-  server.listen();
-});
-
-beforeEach(() => {
-  store.dispatch(api.util.resetApiState());
-  store.dispatch({ type: 'volunteer/reset' });
-});
-
-afterEach(() => {
-  server.resetHandlers();
-});
-
-afterAll(() => server.close());

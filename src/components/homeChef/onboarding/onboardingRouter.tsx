@@ -49,7 +49,7 @@ const onboardingRouter: RouteObject = {
       path: 'sign',
       children: [
         {
-          path: 'success/:email',
+          path: 'success',
           element: renderWithFallback(
             <SignSuccess returnLink="/home-chef/onboarding" />
           ),

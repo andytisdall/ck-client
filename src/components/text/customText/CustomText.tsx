@@ -203,7 +203,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
             if (region || number) {
               sendText({
                 // region not used because number is included
-                region: 'EAST_OAKLAND',
+                region: region || 'EAST_OAKLAND',
                 message,
                 photo,
                 feedbackId: replyTo?.id,

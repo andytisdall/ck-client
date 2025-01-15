@@ -23,13 +23,13 @@ const CheckInConfirm = () => {
   const handleCheckIn = async () => {
     if (volunteer?.hoursId) {
       await checkInVolunteer({ hoursId: volunteer.hoursId });
-      navigate('../success');
+      navigate('../success/' + shiftId);
     }
   };
 
   const renderStartOverBtn = () => {
     return (
-      <button className="cancel" onClick={() => navigate('../kitchen')}>
+      <button className="cancel" onClick={() => navigate('../list/' + shiftId)}>
         Start Over
       </button>
     );

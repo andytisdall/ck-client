@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '../state/store';
 import { useLazyGetVolunteerQuery } from '../state/apis/volunteerApi';
-import { useGetUserInfoQuery } from '../state/apis/authApi';
+import { useGetUserInfoQuery, useGetUserQuery } from '../state/apis/authApi';
 import Loading from '../components/reusable/loading/Loading';
 
 const useVolunteerWaiver = (campaignId?: string) => {
@@ -17,6 +17,8 @@ const useVolunteerWaiver = (campaignId?: string) => {
   const intervalRef = useRef<ReturnType<typeof setTimeout>>();
 
   const [getVolunteer] = useLazyGetVolunteerQuery();
+
+  const { data: user } = useGetUserQuery();
 
   const {
     data: userInfo,
@@ -34,16 +36,16 @@ const useVolunteerWaiver = (campaignId?: string) => {
       } else if (volunteer && !volunteer.volunteerAgreement) {
         setRedirectToDocusign(true);
         docusignLink.current = '../../sign/CKK/' + volunteer.id;
-      } else if (userInfo && !userInfo?.volunteerAgreement) {
+      } else if (userInfo && !userInfo.volunteerAgreement) {
         setRedirectToDocusign(true);
-        docusignLink.current = '../../sign/CKK';
-      } else if (userInfo && userInfo.volunteerAgreement) {
+        docusignLink.current = '../../sign/CKK/' + user?.id;
+      } else if (userInfo?.volunteerAgreement) {
         setRedirectToDocusign(false);
-      } else if (volunteer && volunteer.volunteerAgreement) {
+      } else if (volunteer?.volunteerAgreement) {
         setRedirectToDocusign(false);
       }
     }
-  }, [volunteer, navigate, isFetching, userInfo, campaignId]);
+  }, [volunteer, navigate, isFetching, userInfo, campaignId, user]);
 
   useEffect(() => {
     if (redirectToDocusign && volunteer?.email) {

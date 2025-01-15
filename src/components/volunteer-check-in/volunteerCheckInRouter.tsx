@@ -4,10 +4,11 @@ import { RouteObject } from 'react-router-dom';
 import renderWithFallback from '../reusable/loading/renderWithFallback';
 
 const CheckInVolunteerBase = lazy(() => import('./CheckInVolunteerBase'));
-const KitchenCheckIn = lazy(() => import('./CheckInKitchenVolunteers'));
+const CheckInList = lazy(() => import('./CheckInVolunteersList'));
 const CheckInConfirm = lazy(() => import('./CheckInConfirm'));
 const CheckInSuccess = lazy(() => import('./CheckInSuccess'));
 const CheckInHome = lazy(() => import('./CheckInHome'));
+const CreateVolunteer = lazy(() => import('./CreateVolunteer'));
 
 const Sign = lazy(() => import('../reusable/signature/Sign'));
 const SignSuccess = lazy(() => import('../reusable/signature/SignSuccess'));
@@ -20,14 +21,21 @@ const volunteerCheckInRouter: RouteObject = {
   children: [
     { index: true, element: renderWithFallback(<CheckInHome />) },
     {
-      path: 'kitchen/:shiftId',
-      element: renderWithFallback(<KitchenCheckIn />),
+      path: 'list/:shiftId',
+      element: renderWithFallback(<CheckInList />),
     },
     {
       path: 'confirm/:shiftId/:contactId',
       element: renderWithFallback(<CheckInConfirm />),
     },
-    { path: 'success', element: renderWithFallback(<CheckInSuccess />) },
+    {
+      path: 'success/:shiftId',
+      element: renderWithFallback(<CheckInSuccess />),
+    },
+    {
+      path: 'create/:shiftId',
+      element: renderWithFallback(<CreateVolunteer />),
+    },
     {
       path: 'sign',
       children: [
