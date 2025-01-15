@@ -33,7 +33,7 @@ const kitchenApi = api.injectEndpoints({
     >({
       query: (body) => ({
         body,
-        url: '/volunteers/check-in/hours',
+        url: '/volunteers/check-in',
         method: 'POST',
       }),
     }),
