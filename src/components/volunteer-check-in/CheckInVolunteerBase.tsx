@@ -23,15 +23,17 @@ const CheckInVolunteerBase = () => {
 
   return (
     <div className="main check-in">
-      <div className="check-in-header">
-        <img
-          src="/images/logos/ck-logo.png"
-          alt="ck logo"
-          className="header-logo"
-        />
-        <h1>Volunteer Check-In</h1>
+      <div className="check-in-header-container">
+        <div className="check-in-header">
+          <img
+            src="/images/logos/ck-logo.png"
+            alt="ck logo"
+            className="header-logo"
+          />
+          <h1>Volunteer Check-In</h1>
+        </div>
+        <p>{format(new Date(), 'eeee, M/d/yy')}</p>
       </div>
-      <p>{format(new Date(), 'eeee, M/d/yy')}</p>
       <Outlet />
     </div>
   );

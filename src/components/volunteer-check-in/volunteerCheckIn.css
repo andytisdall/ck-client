@@ -3,6 +3,10 @@
   height: 100vh;
 }
 
+.check-in-header-container {
+  margin-bottom: 3rem;
+}
+
 .check-in-header {
   display: flex;
   justify-content: space-between;
@@ -64,4 +68,13 @@ width: fit-content;
 
 .check-in-new-volunteer-form input {
   width: 15rem;
+}
+
+.check-in-empty {
+  margin: auto;
+  border: 1px solid black;
+  font-weight: 700;
+  padding: 1rem;
+  width: fit-content;
+  background-color: yellow;
 }

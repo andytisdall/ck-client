@@ -3,13 +3,10 @@ import { useParams, Outlet } from 'react-router-dom';
 
 import { useGetCampaignsQuery } from '../../../state/apis/volunteerApi';
 import Loading from '../../reusable/loading/Loading';
-import useVolunteerWaiver from '../../../hooks/useVolunteerWaiver';
 
 const EventSignupBase = () => {
   const { campaignId } = useParams();
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
-
-  const waiverMessage = useVolunteerWaiver(campaignId);
 
   const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
@@ -41,10 +38,6 @@ const EventSignupBase = () => {
         events in the future!
       </h2>
     );
-  }
-
-  if (waiverMessage) {
-    return waiverMessage;
   }
 
   return (

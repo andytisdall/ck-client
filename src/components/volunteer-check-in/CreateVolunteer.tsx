@@ -54,15 +54,16 @@ const CreateVolunteer = () => {
     // create hours
     await createVolunteerHours({ shiftId, contactId: volunteer.id });
 
-    navigate('../sign/' + volunteer.id);
+    navigate('../sign/' + shiftId + '/' + volunteer.id);
   };
 
   return (
     <form onSubmit={onSubmit} className="check-in-new-volunteer-form">
       <div>
-        <label>First Name</label>
+        <label htmlFor="first-name">First Name</label>
         <input
           required
+          id="first-name"
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -70,8 +71,9 @@ const CreateVolunteer = () => {
       </div>
 
       <div>
-        <label>Last Name</label>
+        <label htmlFor="last-name">Last Name</label>
         <input
+          id="last-name"
           required
           type="text"
           value={lastName}
@@ -80,12 +82,12 @@ const CreateVolunteer = () => {
       </div>
 
       <div>
-        <label>Email</label>
+        <label htmlFor="email">Email</label>
         <input
+          id="email"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
       </div>
 

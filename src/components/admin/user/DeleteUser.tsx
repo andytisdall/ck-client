@@ -18,7 +18,9 @@ const DeleteUser = () => {
 
   const handleSubmit = () => {
     if (user && window.confirm(`Seriously delete ${user.username}`)) {
-      deleteUser(user.id).then(() => dispatch(setAlert('User Deleted')));
+      deleteUser(user.id)
+        .unwrap()
+        .then(() => dispatch(setAlert('User Deleted')));
       setUser(undefined);
     }
   };

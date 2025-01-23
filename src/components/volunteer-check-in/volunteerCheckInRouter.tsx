@@ -40,14 +40,17 @@ const volunteerCheckInRouter: RouteObject = {
       path: 'sign',
       children: [
         {
-          path: 'success/:contactId',
+          path: 'success/:shiftId/:contactId',
           element: renderWithFallback(<SignSuccess />),
         },
         {
-          path: ':doc/:contactId',
+          path: ':doc/:shiftId/:contactId',
           element: renderWithFallback(<Sign />),
         },
-        { path: ':contactId', element: renderWithFallback(<CheckInSign />) },
+        {
+          path: ':shiftId/:contactId',
+          element: renderWithFallback(<CheckInSign />),
+        },
       ],
     },
   ],

@@ -2,14 +2,9 @@ import { NavLink, Outlet, useParams } from 'react-router-dom';
 
 import '../Volunteers.css';
 import { navLink } from '../../../utils/style';
-import useVolunteerWaiver from '../../../hooks/useVolunteerWaiver';
 
 const KitchenSignupBase = () => {
   const { campaignId } = useParams();
-  const waiverMessage = useVolunteerWaiver(campaignId);
-  if (waiverMessage) {
-    return waiverMessage;
-  }
 
   return (
     <div className="volunteers-body">

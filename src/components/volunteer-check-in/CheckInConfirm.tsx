@@ -36,9 +36,6 @@ const CheckInConfirm = () => {
   };
 
   const renderCheckIn = () => {
-    if (checkInLoading) {
-      return <Loading />;
-    }
     if (!volunteer) {
       return (
         <div className="check-in-volunteer">
@@ -56,7 +53,7 @@ const CheckInConfirm = () => {
     );
   };
 
-  if (isLoading) {
+  if (isLoading || checkInLoading) {
     return <Loading />;
   }
 

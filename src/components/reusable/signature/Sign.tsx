@@ -4,8 +4,12 @@ import { useGetSigningUrlQuery } from '../../../state/apis/signApi';
 import Loading from '../loading/Loading';
 
 const Sign = () => {
-  const { doc, contactId } = useParams();
-  const { data, isLoading } = useGetSigningUrlQuery({ doc, contactId });
+  const { doc, contactId, shiftId } = useParams();
+  const { data, isLoading } = useGetSigningUrlQuery({
+    doc,
+    contactId,
+    shiftId,
+  });
 
   if (data) {
     if (data.signingUrl) {

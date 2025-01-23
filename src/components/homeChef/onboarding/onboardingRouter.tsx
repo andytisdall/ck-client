@@ -18,6 +18,8 @@ const QuizResults = lazy(() => import('./quiz/QuizResults'));
 const Sign = lazy(() => import('../../reusable/signature/Sign'));
 const SignSuccess = lazy(() => import('../../reusable/signature/SignSuccess'));
 
+const EmailAgreement = lazy(() => import('./EmailAgreement'));
+
 const onboardingRouter: RouteObject = {
   path: 'onboarding',
   children: [
@@ -45,6 +47,7 @@ const onboardingRouter: RouteObject = {
         <FileSuccess returnLink="/home-chef/onboarding" />
       ),
     },
+    { path: 'emailAgreement', element: renderWithFallback(<EmailAgreement />) },
     {
       path: 'sign',
       children: [

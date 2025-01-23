@@ -7,7 +7,7 @@ import { optimisticallyUpdateVolunteerAgreement } from '../../../state/apis/auth
 import Loading from '../loading/Loading';
 
 // const KITCHEN_RETURN_LINK = '/volunteers/ck-kitchen/signup/';
-const KITCHEN_RETURN_LINK = '/volunteer-check-in/confirm/';
+const KITCHEN_RETURN_LINK = '/volunteer-check-in/confirm';
 
 const SignSuccess = ({ returnLink }: { returnLink?: string }) => {
   const { contactId, shiftId } = useParams();
@@ -20,8 +20,8 @@ const SignSuccess = ({ returnLink }: { returnLink?: string }) => {
       dispatch(optimisticallyUpdateVolunteerAgreement);
     } else {
       setTimeout(() => {
-        navigate(`${KITCHEN_RETURN_LINK}${shiftId}/${contactId}`);
-      }, 10000);
+        navigate(`${KITCHEN_RETURN_LINK}/${shiftId}/${contactId}`);
+      }, 3000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -29,7 +29,6 @@ const SignSuccess = ({ returnLink }: { returnLink?: string }) => {
   return (
     <div>
       <h3>Signing Completed</h3>
-      <p>Please allow up to 2 minutes for your profile to update.</p>
       <Loading />
       {!!returnLink && (
         <Link to={returnLink}>

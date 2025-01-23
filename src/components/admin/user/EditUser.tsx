@@ -19,24 +19,24 @@ const EditUser = () => {
   const [editUser] = useEditUserMutation();
   const users = useGetAllUsersQuery().data;
 
-  const handleSubmit: FormEventHandler = (e) => {
+  const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     if (password1 !== password2) {
       return dispatch(setError('Passwords do not match'));
     }
-    editUser({
+    await editUser({
       userId: user,
       username,
       password: password1,
       salesforceId,
-    }).then(() => {
-      dispatch(setAlert('User Edited'));
-      setUser('');
-      setUsername('');
-      setSalesforceId('');
-      setPassword1('');
-      setPassword2('');
-    });
+    }).unwrap();
+
+    dispatch(setAlert('User Edited'));
+    setUser('');
+    setUsername('');
+    setSalesforceId('');
+    setPassword1('');
+    setPassword2('');
   };
 
   const renderUsers = () => {

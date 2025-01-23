@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import { useGetSigningConfigQuery } from '../../../state/apis/signApi';
 import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 import TextButton from '../../reusable/TextButton';
 
@@ -17,6 +18,10 @@ export const FOOD_HANDLER_URL =
 
 const HomeChefOnboarding = () => {
   const userInfo = useGetUserInfoQuery().data;
+  const { data: signingConfig } = useGetSigningConfigQuery();
+
+  const signLink =
+    signingConfig && signingConfig.limitReached ? 'emailAgreement' : 'sign/HC';
 
   const renderActive = () => {
     if (userInfo?.homeChefStatus === 'Active') {
@@ -38,7 +43,7 @@ const HomeChefOnboarding = () => {
     return (
       <div className="col">
         <TextButton
-          to="sign/HC"
+          to={signLink}
           buttonText="Sign the Volunteer Agreement"
           descriptionText={agreementDescription}
         />

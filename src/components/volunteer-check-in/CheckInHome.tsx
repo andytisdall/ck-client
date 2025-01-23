@@ -12,11 +12,23 @@ const CheckInHome = () => {
     return <Loading />;
   }
 
-  return (
-    <Link to={`list/${shiftId}`}>
-      <button>Today's CK Kitchen Volunteer Shift</button>
-    </Link>
-  );
+  const renderKitchenShift = () => {
+    if (shiftId) {
+      return (
+        <Link to={`list/${shiftId}`}>
+          <button>Today's CK Kitchen Volunteer Shift</button>
+        </Link>
+      );
+    } else {
+      return (
+        <div className="check-in-empty">
+          <p>No shifts today.</p>
+        </div>
+      );
+    }
+  };
+
+  return <div>{renderKitchenShift()}</div>;
 };
 
 export default CheckInHome;

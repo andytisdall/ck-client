@@ -16,6 +16,7 @@ const SignInAsUser = () => {
   const renderUsers = () => {
     if (users) {
       return Object.values(users)
+        .filter((u) => !u.admin)
         .sort((a, b) => (a.username > b.username ? 1 : -1))
         .map((u) => {
           return (
@@ -39,7 +40,7 @@ const SignInAsUser = () => {
         ) : (
           <button
             onClick={async () => {
-              await signInAsUser(userId);
+              await signInAsUser(userId).unwrap();
               navigate('/');
             }}
             disabled={!userId}

@@ -77,6 +77,10 @@ describe('volunteer does not exist already', () => {
     { path: '/volunteers/:email', res: async () => null },
     { path: '/user/userInfo', res: async () => null },
     { path: '/volunteers', method: 'post', res: async () => volunteer1 },
+    {
+      path: '/volunteers/hours/:campaignId/:contactId',
+      res: async () => [hours, hours2],
+    },
   ]);
 
   test('navigate to volunteers home', async () => {
