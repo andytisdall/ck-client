@@ -31,8 +31,8 @@ describe('admin', () => {
   test('can see admin btns if admin', async () => {
     render(<App />, { wrapper: Root });
 
-    const adminBtn = await screen.findByText(/admin/i);
-    await userEvent.click(adminBtn);
+    const adminBtn = await screen.findAllByText(/admin/i);
+    await userEvent.click(adminBtn[0]);
 
     const pushNotificationBtn = await screen.findByText(
       /send a push notification/i

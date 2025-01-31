@@ -2,12 +2,32 @@ import { Question } from '../reusable/RadioFormSet';
 
 export const questions: Question[] = [
   {
-    English: 'Do you have access to a microwave?',
-    Spanish: '¿Tienes acceso a un microondas?',
+    English: 'What is your age?',
+    Spanish: '',
+    options: {
+      English: ['0-17', '18-26', '27-49', '50-60', '60+'],
+      Spanish: ['0-17', '18-26', '27-49', '50-60', '60+'],
+    },
   },
   {
-    English: 'Do you have a way to heat food?',
-    Spanish: '¿Tienes alguna manera de calentar comida?',
+    English: 'What is your ethnicity?',
+    Spanish: '',
+    options: {
+      English: [
+        'African American/Black',
+        'Asian/Pacific Islander',
+        'Latina/Latino',
+        'Native American/American Indian',
+        'White/Caucasian',
+        'Other',
+      ],
+      Spanish: ['0-17', '18-26', '27-49', '50-60', '60+'],
+    },
+  },
+  {
+    English:
+      'Do you have access to a microwave or other equipment for reheating packaged meals?',
+    Spanish: '¿Tienes acceso a un microondas?',
   },
   {
     English: 'Do you have access to utensils?',
@@ -18,7 +38,7 @@ export const questions: Question[] = [
     Spanish:
       '¿Para cuántas personas estás accediendo a las comidas? Marca una:',
     options: {
-      English: ['Just 1', '2-4', '4+'],
+      English: ['Just yourself', '2-4', '4+'],
       Spanish: ['Solo 1', '2-4', '4+'],
     },
   },
@@ -32,58 +52,66 @@ export const questions: Question[] = [
     Spanish:
       '¿A qué hora del día accedes más a las comidas del Town Fridge? Marca todas las que apliquen:',
     options: {
-      English: ['8-10am', '12-5pm', 'After 5pm'],
-      Spanish: ['8-10am', '12-5pm', 'Después de las 5pm'],
+      English: ['8am-12pm', '12pm-5pm', 'After 5pm'],
+      Spanish: ['8am-12pm', '12pm-5pm', 'Después de las 5pm'],
     },
   },
   {
-    English: 'What types of meals would you like to have in the Town Fridges?',
+    English: 'What is your favorite type of food?',
     Spanish: '¿Qué tipos de comidas te gustaría tener en los Town Fridges?',
     options: {
-      English: ['Breakfast', 'Lunch', 'Dinner'],
+      English: [
+        'American',
+        'Barbecue',
+        'Mexican',
+        'Italian',
+        'Chinese',
+        'Southern/Soul',
+        'Sandwiches',
+      ],
       Spanish: ['Desayuno', 'Almuerzo', 'Cena'],
     },
   },
   {
-    English: 'What are your dietary preferences?',
+    English: 'What is your 2nd favorite type of food?',
+    Spanish: '¿Qué tipos de comidas te gustaría tener en los Town Fridges?',
+    options: {
+      English: [
+        'American',
+        'Barbecue',
+        'Mexican',
+        'Italian',
+        'Chinese',
+        'Southern/Soul',
+        'Sandwiches',
+      ],
+      Spanish: ['Desayuno', 'Almuerzo', 'Cena'],
+    },
+  },
+  {
+    English: 'Are you:',
     Spanish: '¿Cuáles son tus preferencias dietéticas?',
     options: {
-      English: ['Meat', 'Vegetarian', 'Gluten-Free'],
+      English: [
+        'Vegetarian',
+        'Pescatarian',
+        'Allergic/sensitive to shellfish',
+        'Allergic/sensitive to dairy',
+        'Allergic/sensitive to nuts',
+        'No Pork',
+        'No Beef',
+        'No Gluten',
+        'Kosher or Halal',
+      ],
       Spanish: ['Carne', 'Vegetariano', 'Sin Gluten'],
     },
   },
+
   {
-    English: 'What protein do you enjoy?',
-    Spanish: '¿Qué proteína disfrutas? ',
-    options: {
-      English: [
-        'Chicken',
-        'Beef',
-        'Fish',
-        'Egg',
-        'Tofu',
-        'Beans',
-        'Vegetarian',
-      ],
-      Spanish: [
-        'Pollo',
-        'Carne de res',
-        'Pescado',
-        'Huevo',
-        'Tofu',
-        'Frijoles',
-        'Vegetariano',
-      ],
-    },
-  },
-  {
-    English: 'Would you like to have fresh/raw fruits added to the meal?',
+    English: 'Would you like to have fresh fruits or salad added to the meal?',
     Spanish: '¿Te gustaría que se añadieran frutas frescas/crudas a la comida?',
   },
-  {
-    English: 'Would you like to have a salad included with meals?',
-    Spanish: '¿Te gustaría que se incluyera una ensalada con las comidas?',
-  },
+
   {
     English: 'Are you enjoying the taste of the meals so far?',
     Spanish: '¿Estás disfrutando el sabor de las comidas hasta ahora?',
@@ -97,5 +125,15 @@ export const questions: Question[] = [
   {
     English: 'Without these meals, do you have to skip a meal?',
     Spanish: '¿Sin estas comidas, tienes que saltarte una comida?',
+    options: {
+      English: [
+        'No',
+        'Yes, but not very often',
+        'Yes, about weekly',
+        'Yes, 2-3 times a week',
+        'Yes, more than 3 times a week',
+      ],
+      Spanish: [],
+    },
   },
 ];

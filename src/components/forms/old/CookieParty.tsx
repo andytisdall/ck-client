@@ -1,8 +1,5 @@
 import { FormEventHandler, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { useSubmitFormMutation } from '../../../state/apis/formApi';
-import Loading from '../../reusable/loading/Loading';
 import FormHeader from './../reusable/FormHeader';
 import { useGetCampaignsQuery } from '../../../state/apis/volunteerApi';
 
@@ -28,31 +25,8 @@ const CookieParty = () => {
 
   const remainingVolunteers = shift?.slots;
 
-  const [submitForm, { isLoading }] = useSubmitFormMutation();
-
-  const navigate = useNavigate();
-
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    submitForm({
-      formData: {
-        email,
-        firstName,
-        lastName,
-        phone,
-        numberOfVolunteers,
-      },
-      name: 'COOKIE_PARTY',
-    })
-      .unwrap()
-      .then(() => {
-        navigate('/forms/form-sent', {
-          state: {
-            message:
-              'Thank you for signing up for the holiday cookie party! You will receive a confirmation email.',
-          },
-        });
-      });
   };
 
   const headerText = (
@@ -168,7 +142,7 @@ const CookieParty = () => {
           </p>
         </div>
 
-        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
+        <input type="submit" value="Submit" />
       </form>
     </>
   );

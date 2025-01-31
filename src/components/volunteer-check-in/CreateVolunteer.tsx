@@ -92,6 +92,9 @@ const CreateVolunteer = () => {
       </div>
 
       {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
+      <button className="cancel" onClick={() => navigate(-1)}>
+        Back
+      </button>
     </form>
   );
 };

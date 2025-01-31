@@ -98,8 +98,8 @@ describe('not signed in', () => {
   test('navigate to home chef page', async () => {
     render(<App />, { wrapper: Root });
 
-    const volunteersLink = await screen.findByText('CK Volunteers');
-    await userEvent.click(volunteersLink);
+    const volunteersLink = await screen.findAllByText('CK Volunteers');
+    await userEvent.click(volunteersLink[1]);
     // volunteers home
     const homeChefLink = await screen.findByText('Home Chef Volunteers');
     await userEvent.click(homeChefLink);

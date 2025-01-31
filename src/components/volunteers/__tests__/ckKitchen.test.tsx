@@ -87,21 +87,16 @@ describe('volunteer not found', () => {
   test('navigate to CK Kitchen home', async () => {
     render(<App />, { wrapper: Root });
 
-    const volLink = await screen.findByText('CK Volunteers');
-    await userEvent.click(volLink);
+    const volLink = await screen.findAllByText('CK Volunteers');
+    await userEvent.click(volLink[1]);
 
-    // text home
+    // kitchen home
     const headerText = await screen.findByRole('heading', {
       level: 1,
       name: 'CK Volunteers',
     });
 
-    await waitFor(
-      () => {
-        expect(headerText).toBeDefined();
-      },
-      { timeout: 300 }
-    );
+    expect(headerText).toBeDefined();
   });
 
   test('create contact and see list of jobs', async () => {

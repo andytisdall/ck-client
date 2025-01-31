@@ -38,3 +38,17 @@ export const renderValues = (obj: Record<string, number>, sorted = false) => {
     );
   });
 };
+
+export function averageField(
+  reportList: CBOReport[],
+  field: keyof CBOReport['performanceMeasures']
+) {
+  return (
+    reportList.reduce(
+      (prev, cur) =>
+        prev +
+        ((cur['performanceMeasures'][field] as number) / 100) * cur.individuals,
+      0
+    ) / sumField(reportList, 'individuals')
+  );
+}

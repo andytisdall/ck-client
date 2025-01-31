@@ -85,7 +85,7 @@ const InterestForm = () => {
         transport,
         transportOther,
       },
-      name: 'VOLUNTEER_INTEREST_OLD',
+      name: 'VOLUNTEER_INTEREST',
     })
       .unwrap()
       .then(() => {

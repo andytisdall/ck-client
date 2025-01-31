@@ -97,7 +97,7 @@ interface VolunteerInterestFormArgs {
       other: string;
     };
   };
-  name: 'VOLUNTEER_INTEREST_OLD';
+  name: 'VOLUNTEER_INTEREST';
 }
 
 interface HomeChefRegistrationArgs {
@@ -111,54 +111,25 @@ interface HomeChefRegistrationArgs {
   name: 'HOME_CHEF_REGISTRATION';
 }
 
-interface CookiePartyArgs {
-  formData: {
-    email: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    numberOfVolunteers: number;
-  };
-  name: 'COOKIE_PARTY';
-}
-
 interface NewMealSurveyArgs {
   formData: {
+    age?: string;
+    ethnicity?: string;
+    zip?: string;
     microwave?: boolean;
-    heatFood?: boolean;
     utensils?: boolean;
     numberOfPeople?: string;
     children?: boolean;
-    time: string[];
-    mealType: string[];
-    dietary: string[];
-    protein: string[];
+    time?: string;
+    mealType?: string;
+    mealType2?: string;
+    dietary?: string[];
     fruit?: boolean;
-    salad?: boolean;
     taste?: boolean;
     access?: boolean;
-    skip?: boolean;
+    skip?: string;
   };
   name: 'NEW_MEAL_SURVEY';
-}
-
-interface RSVPArgs {
-  formData: {
-    attending: boolean;
-    guest: boolean;
-    email: string;
-    campaignId: string;
-  };
-  name: 'RSVP';
-}
-
-interface SelfReportArgs {
-  formData: {
-    age: string;
-    race: string;
-    zip: string;
-  };
-  name: 'SELF_REPORT';
 }
 
 type SubmitFormArgs =
@@ -168,23 +139,16 @@ type SubmitFormArgs =
   | MealProgramIntakeArgs
   | VolunteerInterestFormArgs
   | HomeChefRegistrationArgs
-  | CookiePartyArgs
-  | NewMealSurveyArgs
-  | RSVPArgs
-  | SelfReportArgs;
+  | NewMealSurveyArgs;
 
 const urls = {
   MEAL_SURVEY: '/text/meal-survey',
-  VOLUNTEER_INTEREST_OLD: '/volunteers/signup',
+  VOLUNTEER_INTEREST: '/volunteers/signup',
   TEXT_SIGNUP_SURVEY: '/text/signup-survey',
   MEAL_PROGRAM_INTAKE: '/meal-program/intake-survey',
   CBO_REPORT: '/meal-program/cbo-report',
   HOME_CHEF_REGISTRATION: '/home-chef/home-chef-registration',
-  COOKIE_PARTY: '/volunteers/hours/cookies',
   NEW_MEAL_SURVEY: '/meal-program/survey',
-  RSVP: '/volunteers/events/rsvp',
-  SIGN_KITCHEN_WAIVER: '/sign/kitchen',
-  SELF_REPORT: '/meal-program/self-report',
 };
 
 const formApi = api.injectEndpoints({

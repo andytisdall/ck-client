@@ -7,11 +7,14 @@ import {
   CategoryScale,
   Title,
   LinearScale,
-  ChartOptions,
 } from 'chart.js';
 import { useState, useMemo } from 'react';
 
-import { useGetCBOReportsQuery, CBOReport } from '../../state/apis/cboApi';
+import {
+  useGetCBOReportsQuery,
+  CBOReport,
+  useEmailReportMutation,
+} from '../../state/apis/cboApi';
 import Ages from './Ages';
 import Races from './Race';
 import PerformanceMeasures from './PerformanceMeasures';
@@ -34,7 +37,7 @@ ChartJS.register(
 
 export type CBOReportProps = { reports: CBOReport[] };
 
-export const defaultOptions: ChartOptions = {
+export const defaultOptions = {
   responsive: true,
   plugins: {
     legend: {
@@ -52,6 +55,8 @@ const CBO = () => {
   const { data: reports, isLoading: reportsIsLoading } =
     useGetCBOReportsQuery();
   const { data: user, isLoading: userIsLoading } = useGetUserQuery();
+
+  const [emailReport] = useEmailReportMutation();
 
   const monthOptions = useMemo(() => {
     if (reports) {
@@ -138,6 +143,7 @@ const CBO = () => {
         <PerformanceMeasures reports={filteredReports} />
         <ZipCodes reports={filteredReports} />
         <Households reports={filteredReports} />
+        <button onClick={() => emailReport()}>Email Reports</button>
       </div>
     );
   }

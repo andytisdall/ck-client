@@ -86,8 +86,8 @@ describe('volunteer does not exist already', () => {
   test('navigate to volunteers home', async () => {
     render(<App />, { wrapper: Root });
 
-    const volLink = await screen.findByText('CK Volunteers');
-    userEvent.click(volLink);
+    const volLink = await screen.findAllByText('CK Volunteers');
+    userEvent.click(volLink[1]);
 
     const eventsTitle = await screen.findByText(
       'Special Event Volunteer Opportunities'

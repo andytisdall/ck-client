@@ -10,18 +10,20 @@ const CheckInSign = () => {
   const navigate = useNavigate();
 
   if (!volunteer || !shiftId) {
-    <div className="check-in-volunteer">
-      <p>There's been an error. Please start over.</p>
-      <button
-        onClick={() => navigate('../../list/' + shiftId)}
-        className="cancel"
-      >
-        Start Over
-      </button>
-    </div>;
+    return (
+      <div className="check-in-volunteer">
+        <p>There's been an error. Please start over.</p>
+        <button
+          onClick={() => navigate('../../list/' + shiftId)}
+          className="cancel"
+        >
+          Start Over
+        </button>
+      </div>
+    );
   }
 
-  if (!volunteer?.email) {
+  if (!volunteer.email) {
     return (
       <div className="check-in-volunteer">
         <p>

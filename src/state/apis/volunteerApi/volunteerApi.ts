@@ -27,7 +27,6 @@ export const volunteerApi = api.injectEndpoints({
         body,
         method: 'POST',
       }),
-      invalidatesTags: ['VolunteerCheckInList'],
     }),
 
     signUpForVolunteerShift: builder.mutation<

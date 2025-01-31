@@ -32,16 +32,11 @@ describe('not signed in', () => {
       },
       method: 'post',
     },
-    // { path: '/meal-program/restaurant', res: async () => null },
   ]);
 
   test('sign in button if not signed in', async () => {
     render(<App />, { wrapper: Root });
     // home page
-
-    const userMenuBtn = await screen.findByAltText('User Menu');
-
-    userEvent.click(userMenuBtn);
 
     await waitFor(
       () => {
@@ -49,15 +44,12 @@ describe('not signed in', () => {
 
         expect(unauthorizedMessage).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 700 }
     );
   });
 
   test('can sign in', async () => {
     render(<App />, { wrapper: Root });
-
-    const userMenuBtn = await screen.findByAltText('User Menu');
-    userEvent.click(userMenuBtn);
 
     const userName = await screen.findByPlaceholderText('Username');
     const passwordInput = screen.getByPlaceholderText('Password');
@@ -72,12 +64,12 @@ describe('not signed in', () => {
       () => {
         screen.getByText(user.username);
       },
-      { timeout: 500 }
+      { timeout: 700 }
     );
   });
 });
 
-describe.skip('signed in', () => {
+describe('signed in', () => {
   createServer([
     { path: '/user', res: async () => user },
     {
@@ -92,15 +84,13 @@ describe.skip('signed in', () => {
   test('username if signed in', async () => {
     render(<App />, { wrapper: Root });
 
-    const userMenuBtn = await screen.findByAltText('User Menu');
-    await userEvent.click(userMenuBtn);
     const username = await screen.findByText(user.username);
 
     await waitFor(
       () => {
         expect(username).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 700 }
     );
   });
 });

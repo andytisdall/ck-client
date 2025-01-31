@@ -114,15 +114,19 @@ export interface CBOReport {
   phoneNumber: string;
   email: string;
   cboId: string;
+  individuals: number;
 }
 
 const cboApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCBOReports: builder.query<CBOReport[], void>({
-      query: () => 'meal-program/cbo/reports',
+      query: () => '/meal-program/cbo/reports',
       providesTags: ['CBOData'],
+    }),
+    emailReport: builder.mutation<null, void>({
+      query: () => ({ url: '/meal-program/cbo/email', method: 'POST' }),
     }),
   }),
 });
 
-export const { useGetCBOReportsQuery } = cboApi;
+export const { useGetCBOReportsQuery, useEmailReportMutation } = cboApi;

@@ -10,9 +10,14 @@ export interface VolunteerForCheckIn {
   status: string;
 }
 
+interface ShiftForCheckIn {
+  id: string;
+  job: string;
+}
+
 const kitchenApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getTodaysShift: builder.query<{ shiftId: string } | null, void>({
+    getTodaysShifts: builder.query<ShiftForCheckIn[] | null, void>({
       query: () => '/volunteers/check-in/shifts',
     }),
     getVolunteersForCheckIn: builder.query<VolunteerForCheckIn[], string>({
@@ -44,6 +49,6 @@ const kitchenApi = api.injectEndpoints({
 export const {
   useGetVolunteersForCheckInQuery,
   useCheckInVolunteerMutation,
-  useGetTodaysShiftQuery,
+  useGetTodaysShiftsQuery,
   useCreateVolunteerHoursMutation,
 } = kitchenApi;

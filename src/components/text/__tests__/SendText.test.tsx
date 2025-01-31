@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { createServer } from '../../../test/createServer';
@@ -19,12 +19,9 @@ createServer([{ path: '/user', res: async () => user }]);
 test('navigate to text page', async () => {
   render(<App />, { wrapper: Root });
 
-  let textLink;
-  await waitFor(() => {
-    textLink = screen.getByText('Text Service');
-  });
-  if (textLink) {
-    await userEvent.click(textLink);
+  const textLink = await screen.findAllByText('Text Service');
+  if (textLink[0]) {
+    await userEvent.click(textLink[0]);
   }
 
   // text home

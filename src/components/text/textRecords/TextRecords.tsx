@@ -24,7 +24,7 @@ const TextRecords = () => {
           if (userId) {
             return rec.sender === userId;
           }
-          return ['EAST_OAKLAND', 'WEST_OAKLAND'].includes(rec.region);
+          return true;
         })
         .map((rec) => {
           return (

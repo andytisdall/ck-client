@@ -6,6 +6,7 @@ import Root from '../../../Root';
 import { createServer } from '../../../test/createServer';
 import { User } from '../../../state/apis/authApi';
 import { VolunteerForCheckIn } from '../../../state/apis/volunteerApi/kitchenApi';
+import { Volunteer } from '../../../state/apis/volunteerApi';
 
 const adminUser: User = {
   username: 'bojee',
@@ -35,6 +36,13 @@ const volunteer2: VolunteerForCheckIn = {
   status: 'Confirmed',
 };
 
+const newVolunteer: Volunteer = {
+  email: 'somthing@e.com',
+  id: volunteer1.contactId,
+  householdId: 'dwo8hd',
+  volunteerAgreement: false,
+};
+
 describe('volunteer not checked in', () => {
   createServer([
     { path: '/user', res: async () => adminUser },
@@ -53,8 +61,8 @@ describe('volunteer not checked in', () => {
   test("See today's volunteers", async () => {
     render(<App />, { wrapper: Root });
 
-    const adminBtn = await screen.findByText(/admin/i);
-    await userEvent.click(adminBtn);
+    const adminBtn = await screen.findAllByText(/admin/i);
+    await userEvent.click(adminBtn[0]);
 
     const volunteerCheckInBtn = await screen.findByText(/volunteer check-in/i);
     await userEvent.click(volunteerCheckInBtn);
@@ -160,19 +168,6 @@ describe('agreement not signed and limit reached', () => {
   });
 });
 
-describe('not authorized', () => {
-  createServer([
-    { path: '/user', res: async () => ({ ...adminUser, admin: false }) },
-  ]);
-
-  test('Unauthorized if not admin', async () => {
-    render(<App />, { wrapper: Root });
-
-    const permission = await screen.findByText(/permission/i);
-    expect(permission).toBeInTheDocument();
-  });
-});
-
 describe('volunteer not on list and not in salesforce', () => {
   createServer([
     { path: '/user', res: async () => adminUser },
@@ -188,7 +183,7 @@ describe('volunteer not on list and not in salesforce', () => {
     {
       path: '/volunteers',
       method: 'post',
-      res: async () => ({ id: 'clkeiuh' }),
+      res: async () => newVolunteer,
     },
     { path: '/sign/config', res: async () => ({ limitReached: false }) },
     {
@@ -231,7 +226,7 @@ describe('volunteer not on list but does exist in salesforce', () => {
       path: '/volunteers/check-in/:shiftId',
       res: async () => [volunteer1, volunteer2],
     },
-    { path: '/volunteers/:email', res: async () => volunteer1 },
+    { path: '/volunteers/:email', res: async () => newVolunteer },
 
     { path: '/sign/config', res: async () => ({ limitReached: false }) },
     {
@@ -257,5 +252,18 @@ describe('volunteer not on list but does exist in salesforce', () => {
 
     const signLink = await screen.findByText(/sign the agreement/i);
     expect(signLink).toBeInTheDocument();
+  });
+});
+
+describe('not authorized', () => {
+  createServer([
+    { path: '/user', res: async () => ({ ...adminUser, admin: false }) },
+  ]);
+
+  test('Unauthorized if not admin', async () => {
+    render(<App />, { wrapper: Root });
+
+    const permission = await screen.findByText(/permission/i);
+    expect(permission).toBeInTheDocument();
   });
 });

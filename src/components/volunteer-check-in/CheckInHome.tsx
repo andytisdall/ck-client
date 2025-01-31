@@ -1,24 +1,24 @@
 import { Link } from 'react-router-dom';
 
-import { useGetTodaysShiftQuery } from '../../state/apis/volunteerApi/kitchenApi';
+import { useGetTodaysShiftsQuery } from '../../state/apis/volunteerApi/kitchenApi';
 import Loading from '../reusable/loading/Loading';
 
 const CheckInHome = () => {
-  const { data, isLoading } = useGetTodaysShiftQuery();
-
-  const shiftId = data?.shiftId;
+  const { data: shifts, isLoading } = useGetTodaysShiftsQuery();
 
   if (isLoading) {
     return <Loading />;
   }
 
   const renderKitchenShift = () => {
-    if (shiftId) {
-      return (
-        <Link to={`list/${shiftId}`}>
-          <button>Today's CK Kitchen Volunteer Shift</button>
-        </Link>
-      );
+    if (shifts?.length) {
+      return shifts.map((shift) => {
+        return (
+          <Link to={`list/${shift.id}`} key={shift.id}>
+            <button>{shift.job}</button>
+          </Link>
+        );
+      });
     } else {
       return (
         <div className="check-in-empty">
