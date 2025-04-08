@@ -1,13 +1,13 @@
-import { format, utcToZonedTime } from 'date-fns-tz';
-import { useSelector } from 'react-redux';
+import { format, utcToZonedTime } from "date-fns-tz";
+import { useSelector } from "react-redux";
 
-import { RootState } from '../../state/store';
-import { Job, Shift } from '../../state/apis/volunteerApi';
+import { RootState } from "../../state/store";
+import { Job, Shift } from "../../state/apis/volunteerApi";
 
 const ShiftInfo = ({ job, shift }: { job: Job; shift: Shift }) => {
-  const { volunteer } = useSelector((state: RootState) => ({
-    volunteer: state.volunteer.volunteer,
-  }));
+  const volunteer = useSelector(
+    (state: RootState) => state.volunteer.volunteer
+  );
 
   const renderVolunteer = () => {
     if (volunteer) {
@@ -39,15 +39,15 @@ const ShiftInfo = ({ job, shift }: { job: Job; shift: Shift }) => {
         <p>
           <b>Date: </b>
           {format(
-            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-            'eeee, M/d/yy'
+            utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+            "eeee, M/d/yy"
           )}
         </p>
         <p>
           <b>Time: </b>
           {format(
-            utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-            'h:mm a'
+            utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+            "h:mm a"
           )}
         </p>
         <p>

@@ -1,44 +1,38 @@
-import { RouteObject } from 'react-router-dom';
-import { lazy } from 'react';
+import { RouteObject } from "react-router-dom";
+import { lazy } from "react";
 
-import renderWithFallback from '../../reusable/loading/renderWithFallback';
+import renderWithFallback from "../../reusable/loading/renderWithFallback";
+import JobList from "../JobList";
 
-const SignupBase = lazy(() => import('./SignupBase'));
+const KitchenCalendar = lazy(() => import("./KitchenCalendar"));
+const KitchenSignupBase = lazy(() => import("./KitchenSignupBase"));
 
-const ShiftSignup = lazy(() => import('./ShiftSignup'));
-const KitchenHome = lazy(() => import('./KitchenHome'));
+const ShiftSignup = lazy(() => import("../ShiftSignup"));
 
-const Confirmation = lazy(() => import('./Confirmation'));
-const GetVolunteer = lazy(() => import('../getVolunteer/GetVolunteer'));
-
-const KitchenCalendar = lazy(() => import('./KitchenCalendar'));
-const KitchenList = lazy(() => import('./KitchenList'));
-const KitchenBase = lazy(() => import('./KitchenBase'));
+const Confirmation = lazy(() => import("../Confirmation"));
+const GetVolunteer = lazy(() => import("../getVolunteer/GetVolunteer"));
 
 const ckKitchenRouter: RouteObject = {
-  path: 'ck-kitchen',
-  element: renderWithFallback(<KitchenBase />),
+  path: "ck-kitchen",
   children: [
-    { index: true, element: renderWithFallback(<KitchenHome />) },
     {
-      path: 'signup-confirm/:campaignId/:hoursId/',
-      element: renderWithFallback(<Confirmation />),
+      path: "signin/:campaignId",
+      element: renderWithFallback(<GetVolunteer />),
     },
+
     {
-      path: 'signin',
-      element: renderWithFallback(<GetVolunteer returnLink="../signup/list" />),
-    },
-    {
-      path: 'signup',
-      element: renderWithFallback(<SignupBase />),
+      path: "signup/:campaignId",
+      element: renderWithFallback(<KitchenSignupBase />),
       children: [
-        { path: 'list', element: renderWithFallback(<KitchenList />) },
         {
-          path: 'calendar',
-          element: renderWithFallback(<KitchenCalendar />),
+          index: true,
+          element: renderWithFallback(<JobList />),
         },
+
+        { path: "cal", element: renderWithFallback(<KitchenCalendar />) },
+
         {
-          path: ':shiftId',
+          path: ":shiftId",
           element: renderWithFallback(<ShiftSignup />),
         },
       ],

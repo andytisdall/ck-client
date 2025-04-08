@@ -1,23 +1,39 @@
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
 
+import { useGetSigningConfigQuery } from '../../state/apis/signApi';
 import { useGetUserInfoQuery } from '../../state/apis/authApi';
 
-const foodHandler = {
-  text: 'Obtain a Food Handler certification and upload the certificate',
-  url: 'onboarding/upload-food-handler',
-};
-const volunteerAgreement = {
-  text: 'Sign our volunteer agreement',
-  url: 'onboarding/docusign/sign/HC',
-};
-const homeChefQuiz = {
-  text: 'Watch the orientation video and pass the home chef quiz',
-  url: 'onboarding/orientation-video',
-};
-
 const HomeChefStatus = () => {
-  const userInfo = useGetUserInfoQuery().data;
+  const { data: userInfo } = useGetUserInfoQuery();
+  const { data: signingConfig } = useGetSigningConfigQuery();
+
+  const signLink =
+    signingConfig && signingConfig.limitReached ? 'emailAgreement' : 'sign/HC';
+
+  const foodHandler = useMemo(
+    () => ({
+      text: 'Obtain a Food Handler certification and upload the certificate',
+      url: 'onboarding/upload-food-handler',
+    }),
+    []
+  );
+
+  const volunteerAgreement = useMemo(
+    () => ({
+      text: 'Sign our volunteer agreement',
+      url: 'onboarding/' + signLink,
+    }),
+    [signLink]
+  );
+
+  const homeChefQuiz = useMemo(
+    () => ({
+      text: 'Watch the orientation video and take the home chef quiz',
+      url: 'onboarding/orientation-video',
+    }),
+    []
+  );
 
   const [completedActions, incompleteActions] = useMemo(() => {
     let completedActions = [];
@@ -35,14 +51,14 @@ const HomeChefStatus = () => {
       completedActions.push(foodHandler);
     }
 
-    if (!userInfo?.volunteerAgreement) {
+    if (!userInfo?.homeChefAgreement) {
       incompleteActions.push(volunteerAgreement);
     } else {
       completedActions.push(volunteerAgreement);
     }
 
     return [completedActions, incompleteActions];
-  }, [userInfo]);
+  }, [userInfo, foodHandler, volunteerAgreement, homeChefQuiz]);
 
   const renderAsLi = (action: { text: string; url: string }) => {
     return <li key={action.text}>{action.text}</li>;

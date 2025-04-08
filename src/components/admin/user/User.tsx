@@ -1,6 +1,7 @@
 import EditUser from './EditUser';
 import CreateUser from './CreateUser';
 import DeleteUser from './DeleteUser';
+import SignInAsUser from './SignInAsUser';
 
 const User = () => {
   return (
@@ -8,6 +9,7 @@ const User = () => {
       <CreateUser />
       <EditUser />
       <DeleteUser />
+      <SignInAsUser />
     </div>
   );
 };

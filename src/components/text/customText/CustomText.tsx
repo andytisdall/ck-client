@@ -1,14 +1,14 @@
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-import Loading from '../../reusable/loading/Loading';
-import TextPreview from '../sendText/TextPreview';
-import '../sendText/SendText.css';
+import Loading from "../../reusable/loading/Loading";
+import TextPreview from "../sendText/TextPreview";
+import "../sendText/SendText.css";
 //@ts-ignore
-import { formatNumber } from '../feedback/Feedback';
-import FileInput from '../../reusable/file/FileInput';
-import { useSendTextMutation } from '../../../state/apis/textApi';
-import { Region } from '../../../state/apis/textApi';
+import { formatNumber } from "../feedback/Feedback";
+import FileInput from "../../reusable/file/FileInput";
+import { useSendTextMutation } from "../../../state/apis/textApi";
+import { Region } from "../../../state/apis/textApi";
 
 export type ReplyToProps = {
   region: Region;
@@ -19,13 +19,15 @@ export type ReplyToProps = {
 
 const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
   const [sendText, sendTextResult] = useSendTextMutation({
-    fixedCacheKey: 'sent-text',
+    fixedCacheKey: "sent-text",
   });
 
-  const [message, setMessage] = useState('');
-  const [region, setRegion] = useState(replyTo?.region ? replyTo.region : null);
+  const [message, setMessage] = useState("");
+  const [region, setRegion] = useState<Region | "both" | null>(
+    replyTo?.region ? replyTo.region : null
+  );
   const [number, setNumber] = useState(
-    replyTo?.sender ? formatNumber(replyTo.sender) : ''
+    replyTo?.sender ? formatNumber(replyTo.sender) : ""
   );
   const [photo, setPhoto] = useState<File | string | undefined>();
   const [imageError, setImageError] = useState(false);
@@ -52,8 +54,8 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setNumber('');
-                  setRegion('EAST_OAKLAND');
+                  setNumber("");
+                  setRegion("EAST_OAKLAND");
                 }
               }}
             />
@@ -68,8 +70,8 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setRegion('WEST_OAKLAND');
-                  setNumber('');
+                  setRegion("WEST_OAKLAND");
+                  setNumber("");
                 }
               }}
             />
@@ -82,6 +84,22 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
               id="to-3"
               name="to"
               type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setRegion("both");
+                  setNumber("");
+                }
+              }}
+            />
+            <label htmlFor="to-3">East & West Oakland</label>
+          </div>
+
+          <div className="send-text-variables-radio">
+            <input
+              required
+              id="to-4"
+              name="to"
+              type="radio"
               ref={numberRef}
               onChange={(e) => {
                 if (e.target.checked && numberTextRef.current) {
@@ -90,7 +108,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
                 }
               }}
             />
-            <label htmlFor="to-3">Phone Number:</label>
+            <label htmlFor="to-4">Phone Number:</label>
             <input
               type="text"
               value={number}
@@ -120,7 +138,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
             <label>Photo (Optional):</label>
             <div className="send-text-photo-field-container">
               <FileInput
-                file={typeof photo !== 'string' ? photo : undefined}
+                file={typeof photo !== "string" ? photo : undefined}
                 setFile={setPhoto}
                 label="Upload Photo:"
               />
@@ -130,19 +148,19 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
               <label>Paste Photo URL:</label>
               <input
                 className={`send-text-photo-field ${
-                  imageError && 'send-text-photo-field-error'
+                  imageError && "send-text-photo-field-error"
                 }`}
-                value={!photo ? '' : typeof photo !== 'string' ? '' : photo}
+                value={!photo ? "" : typeof photo !== "string" ? "" : photo}
                 onChange={(e) => {
                   setImageError(false);
                   setPhoto(e.target.value);
                 }}
               />
-              {!!photo && typeof photo === 'string' && (
+              {!!photo && typeof photo === "string" && (
                 <div
                   className="send-text-photo-field-clear"
                   onClick={() => {
-                    setPhoto('');
+                    setPhoto("");
                     setImageError(false);
                   }}
                 >
@@ -153,7 +171,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
           </div>
 
           <button
-            className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
+            className={`send-btn ${btnActive ? "" : "btn-inactive"}`}
             onClick={() => {
               if (btnActive) {
                 setPreview(true);
@@ -174,24 +192,25 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
     if (!preview) {
       return composeText();
     }
-    if (region) {
+    if (region || number) {
       return (
         <TextPreview
           message={message}
-          region={region}
+          region={region || undefined}
           photo={photo}
           number={number}
           onSubmit={() => {
-            if (region) {
+            if (region || number) {
               sendText({
+                // region not used because number is included
+                region: region || "EAST_OAKLAND",
                 message,
-                region,
                 photo,
                 feedbackId: replyTo?.id,
                 number,
               })
                 .unwrap()
-                .then(() => navigate('../text-success'));
+                .then(() => navigate("../text-success"));
             }
           }}
           onCancel={() => setPreview(false)}

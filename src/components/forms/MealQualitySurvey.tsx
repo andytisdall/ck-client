@@ -1,11 +1,9 @@
 import { useState, FormEventHandler } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useSubmitFormMutation } from '../../state/apis/formApi';
 import Loading from '../reusable/loading/Loading';
-import { setAlert } from '../../state/apis/slices/alertSlice';
 
 const successMessage =
   'Thank you for you valuable feedback about the CK meal program.';
@@ -22,7 +20,6 @@ const Survey = () => {
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const [searchParams] = useSearchParams();
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit: FormEventHandler = (e) => {
@@ -43,8 +40,7 @@ const Survey = () => {
     })
       .unwrap()
       .then(() => {
-        dispatch(setAlert(successMessage));
-        navigate('/forms/form-sent');
+        navigate('/forms/form-sent', { state: { message: successMessage } });
       });
   };
 

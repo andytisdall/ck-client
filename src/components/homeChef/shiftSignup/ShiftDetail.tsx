@@ -51,22 +51,29 @@ const ShiftDetail = () => {
 
   return (
     <div className="shift-detail">
-      <h2>Signing up for:</h2>
-      <h2 className="signup-form-date">
+      <h3>Sign up for this delivery:</h3>
+      <div className="signup-form-item">
+        <strong>Date: </strong>
         {format(
           utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
           'eeee, M/d/yy'
         )}
-      </h2>
-      <h2 className="signup-form-fridge">{job?.name}</h2>
-      <p>{job?.location}</p>
+      </div>
+      <div className="signup-form-item">
+        <strong>Fridge: </strong>
+        {job?.name}
+      </div>
+      <div className="signup-form-item">
+        <strong>Address: </strong>
+        {job?.location}
+      </div>
 
-      <form onSubmit={onSubmit} className="shift-signup-form">
-        <ul>
-          <div className="shift-detail-meal-number">
+      <form onSubmit={onSubmit}>
+        <div className="signup-form-item">
+          <div className="signup-form-meal-count">
             <div>
               <label htmlFor="meal-count">
-                Number of Meals You Plan to Deliver:
+                <strong>Number of Meals:</strong>
               </label>
               <div className="shift-detail-meal-number-note">
                 (You can change this later)
@@ -76,29 +83,50 @@ const ShiftDetail = () => {
               type="number"
               placeholder="25"
               min={1}
+              max={99}
               required
               id="meal-count"
               value={mealCount}
               onChange={(e) => setMealCount(e.target.value)}
+              className="signup-form-input"
             />
           </div>
-          <div>
+        </div>
+        <div className="signup-form-item">
+          <p>
+            <strong>Type of Meal:</strong>
+          </p>
+          <div className="signup-form-meal-type-option">
             <input
-              type="checkbox"
-              checked={soup}
-              onChange={(e) => setSoup(e.target.checked)}
+              type="radio"
+              onChange={() => setSoup(false)}
               name="soup"
+              checked={!soup}
             />
-            <label htmlFor="soup">This meal is soup</label>
+            <label>Entree</label>
           </div>
-        </ul>
-        <h3>Click submit to sign up for this slot</h3>
+          <div className="signup-form-meal-type-option">
+            <input type="radio" onChange={() => setSoup(true)} name="soup" />
+            <label>Soup</label>
+          </div>
+        </div>
+
         {signUpForShiftResult.isLoading ? (
           <Loading />
         ) : (
-          <input type="submit" className="shift-detail-submit" value="Submit" />
+          <input
+            type="submit"
+            className="shift-detail-submit"
+            value="Sign Up"
+          />
         )}
       </form>
+      {!!job?.notes && (
+        <div className="signup-form-notes">
+          <strong>Note: </strong>
+          {job.notes}
+        </div>
+      )}
     </div>
   );
 };

@@ -2,26 +2,16 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
-import { server } from './mocks/server';
-import { PropsWithChildren } from 'react';
-import { Provider } from 'react-redux';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { store } from './state/store';
-import { api } from './state/api';
+import { PropsWithChildren } from "react";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 
-const clientId =
-  '385802469502-061cv1crj954fcp56kthk40u918eu1ot.apps.googleusercontent.com';
+jest.mock("@react-oauth/google");
 
 export const Root = ({ children }: PropsWithChildren) => {
-  window.localStorage.setItem('ck-token', 'token');
-
-  return (
-    <GoogleOAuthProvider clientId={clientId}>
-      <Provider store={store}>{children}</Provider>
-    </GoogleOAuthProvider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 const localStorageMock = (function () {
@@ -43,17 +33,10 @@ const localStorageMock = (function () {
   };
 })();
 
-Object.defineProperty(window, 'localStorage', {
+Object.defineProperty(window, "localStorage", {
   value: localStorageMock,
 });
 
-// set up server before all tests and then close after
-beforeAll(() => server.listen());
-
-afterEach(() => {
-  server.resetHandlers();
-  store.dispatch(api.util.resetApiState());
-  // window.localStorage.removeItem('ck-token');
+Object.defineProperty(window, "scrollTo", {
+  value: (to: number) => {},
 });
-
-afterAll(() => server.close());

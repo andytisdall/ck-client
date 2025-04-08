@@ -93,3 +93,17 @@ export const {
   useResetPasswordMutation,
   useForgotPasswordMutation,
 } = userApi;
+
+export const optimisticallyUpdateVolunteerAgreement =
+  userApi.util.updateQueryData('getUserInfo', undefined, (userInfo) => {
+    const newUserInfo = {
+      ...userInfo,
+      homeChefAgreement: true,
+    };
+
+    if (userInfo.foodHandler && userInfo.homeChefQuizPassed) {
+      newUserInfo.homeChefStatus = 'Active';
+    }
+
+    return newUserInfo;
+  });

@@ -1,9 +1,3 @@
-export type Fridge = {
-  name: string;
-  address: string;
-  region: 'WEST_OAKLAND' | 'EAST_OAKLAND';
-};
-
 export type Campaign = {
   mealsDonated: number;
 };
@@ -28,7 +22,7 @@ export interface Shift {
   startTime: string;
   open: boolean;
   job: string;
-  restaurantMeals: boolean;
+  restaurantMeals?: boolean;
   duration: number;
   slots: number;
 }
@@ -36,12 +30,14 @@ export interface Shift {
 export interface Job {
   id: string;
   name: string;
-  location: string;
+  location?: string;
   shifts: string[];
   active: boolean;
   ongoing: boolean;
-  description: string;
+  description?: string;
   campaign: string;
+  region?: "East Oakland" | "West Oakland";
+  notes?: string;
 }
 
 export interface JobShiftsState {
@@ -67,12 +63,13 @@ export interface VolunteerCampaign {
 
 export interface VolunteerHours {
   id: string;
-  mealCount: string;
+  mealCount?: string;
   time: string;
   job: string;
   status: string;
   shift: string;
   campaign?: string;
+  mealType?: "Entree" | "Soup";
 }
 
 export type VolunteerHoursState = Record<string, VolunteerHours>;
@@ -97,6 +94,7 @@ export interface EditHoursArgs {
   cancel: boolean;
   date: string;
   fridge: string;
+  mealType: "Soup" | "Entree";
 }
 
 export interface SignUpForVolunteerShiftArgs {
@@ -142,20 +140,14 @@ export interface Volunteer {
   id: string;
   portalUsername?: string;
   firstName?: string;
-  ckKitchenStatus?: string;
+  volunteerAgreement: boolean;
+  email: string;
 }
 
 export interface CreateVolunteerArgs {
   email: string;
   firstName: string;
   lastName: string;
-}
-
-export interface CreateVolunteerResponse {
-  name: string;
-  id: string;
-  email: string;
-  householdId: string;
 }
 
 export interface CancelVolunteerHoursArgs {

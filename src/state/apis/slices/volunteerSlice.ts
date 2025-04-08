@@ -30,6 +30,10 @@ const volunteerSlice = createSlice({
         }
       }
     );
+    builder.addMatcher(
+      ({ type }) => type === 'volunteer/reset',
+      () => initialState
+    );
   },
 });
 

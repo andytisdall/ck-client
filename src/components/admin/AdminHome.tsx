@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const AdminHome = () => {
   return (
@@ -14,6 +14,12 @@ const AdminHome = () => {
       </Link>
       <Link className="text-button-link admin-home-btn" to="d4j">
         Dining for Justice
+      </Link>
+      <Link
+        className="text-button-link admin-home-btn"
+        to="../volunteer-check-in"
+      >
+        Volunteer Check-In
       </Link>
     </div>
   );

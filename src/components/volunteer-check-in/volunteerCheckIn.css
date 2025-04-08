@@ -1,0 +1,95 @@
+.check-in {
+  background-image: linear-gradient(rgb(3, 130, 1), rgb(29, 231, 39));
+}
+
+.check-in-header-container {
+  margin-bottom: 3rem;
+}
+
+.check-in-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.check-in-volunteer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.check-in-volunteer button {
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+}
+
+.check-in-volunteer-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.check-in-volunteer-item {
+  margin: 1rem;
+  padding: 0.5rem 1.5rem;
+  border: 2px black solid;
+  background-image: radial-gradient(rgb(247, 201, 115), rgb(199, 116, 0));
+  color: black;
+  font-weight: 600;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.check-in-volunteer-item:active {
+  filter: brightness(1.5);
+}
+
+.check-in-new-volunteer-btn {
+  background-image: radial-gradient(rgb(202, 185, 206), rgb(166, 109, 128));
+}
+
+.check-in-new-volunteer-form {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.check-in-new-volunteer-form label {
+  font-weight: 700;
+  display: block;
+  margin-top: 2rem;
+}
+
+.check-in-new-volunteer-form input {
+  width: 15rem;
+}
+
+.check-in-empty {
+  margin: auto;
+  border: 1px solid black;
+  font-weight: 700;
+  padding: 1rem;
+  width: fit-content;
+  background-color: yellow;
+}
+
+.check-in-list {
+  margin: 3rem;
+}
+
+.check-in-list-header {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-between;
+  padding-left: 2rem;
+}
+
+.check-in-list-detail {
+  text-align: left;
+  border-top: 1px solid black;
+  padding: 2rem;
+}

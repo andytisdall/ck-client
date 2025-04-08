@@ -1,8 +1,7 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import { api } from '../../api';
+import { api } from "../../api";
 import {
-  Fridge,
   NotificationArgs,
   Campaign,
   JobShiftsState,
@@ -16,70 +15,68 @@ import {
   HomeChefQuizQuestion,
   HomeChefQuizAnswer,
   HomeChefQuizResponse,
-} from './types';
+  Job,
+} from "./types";
 
 export const homeChefApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getFridges: builder.query<Fridge[], void>({
-      query: () => '/home-chef/campaign/fridges',
-    }),
     sendHomeChefNotification: builder.mutation<null, NotificationArgs>({
       query: (body) => ({
-        url: '/home-chef/notifications',
+        url: "/home-chef/notifications",
         body,
-        method: 'POST',
+        method: "POST",
       }),
-      invalidatesTags: ['PushNotifications'],
+      invalidatesTags: ["PushNotifications"],
     }),
     getHomeChefNotifications: builder.query<Notification[], void>({
-      query: () => '/home-chef/notifications',
-      providesTags: ['PushNotifications'],
+      query: () => "/home-chef/notifications",
+      providesTags: ["PushNotifications"],
     }),
     getCampaign: builder.query<Campaign, void>({
-      query: () => '/home-chef/campaign',
+      query: () => "/home-chef/campaign",
     }),
     getShifts: builder.query<JobShiftsState, void>({
-      query: () => '/home-chef/job-listing',
+      query: () => "/home-chef/job-listing",
       transformResponse: (response: GetShiftsResponse) => ({
-        shifts: _.mapKeys(response.shifts, 'id'),
+        shifts: _.mapKeys(response.shifts, "id"),
         jobs: response.jobs,
       }),
-      providesTags: ['HomeChefShifts'],
+      providesTags: ["HomeChefShifts"],
     }),
     signUpForHomeChefShift: builder.mutation<
       VolunteerHours,
       SignUpForHomeChefShiftArgs
     >({
       query: (body) => ({
-        url: '/home-chef/hours',
+        url: "/home-chef/hours",
         body,
-        method: 'POST',
+        method: "POST",
       }),
-      invalidatesTags: ['HomeChefHours', 'HomeChefShifts'],
+      invalidatesTags: ["HomeChefHours", "HomeChefShifts"],
     }),
     getHomeChefHours: builder.query<VolunteerHoursState, void>({
-      query: () => '/home-chef/hours',
+      query: () => "/home-chef/hours",
       transformResponse: (response: VolunteerHours[]) =>
-        _.mapKeys(response, 'id'),
-      providesTags: ['HomeChefHours'],
+        _.mapKeys(response, "id"),
+      providesTags: ["HomeChefHours"],
     }),
     sendInvite: builder.mutation<null, SendInviteArgs>({
       query: (body) => ({
-        url: 'home-chef/invite',
+        url: "home-chef/invite",
         body,
-        method: 'POST',
+        method: "POST",
       }),
     }),
     editHours: builder.mutation<null, EditHoursArgs>({
       query: ({ id, mealCount, cancel, date, fridge }) => ({
-        url: '/home-chef/hours/' + id,
-        method: 'PATCH',
+        url: "/home-chef/hours/" + id,
+        method: "PATCH",
         body: { mealCount, cancel, emailData: { fridge, date } },
       }),
-      invalidatesTags: ['HomeChefHours'],
+      invalidatesTags: ["HomeChefHours"],
     }),
     getQuizQuestions: builder.query<HomeChefQuizQuestion[], void>({
-      query: () => '/home-chef/quiz',
+      query: () => "/home-chef/quiz",
     }),
     submitQuizAnswers: builder.mutation<
       HomeChefQuizResponse,
@@ -87,16 +84,15 @@ export const homeChefApi = api.injectEndpoints({
     >({
       query: (body) => ({
         body,
-        url: '/home-chef/quiz',
-        method: 'POST',
+        url: "/home-chef/quiz",
+        method: "POST",
       }),
-      invalidatesTags: ['UserInfo'],
+      invalidatesTags: ["UserInfo"],
     }),
   }),
 });
 
 export const {
-  useGetFridgesQuery,
   useSendHomeChefNotificationMutation,
   useGetCampaignQuery,
   useGetShiftsQuery,

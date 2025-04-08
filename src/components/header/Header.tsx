@@ -6,7 +6,7 @@ import HeaderMenu from './HeaderMenu';
 import Navigation from './Navigation';
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(window.innerWidth > 600);
   return (
     <>
       <div className="header">

@@ -1,16 +1,17 @@
-import { lazy } from 'react';
-import { Outlet, RouteObject, Link } from 'react-router-dom';
+import { lazy } from "react";
+import { Outlet, RouteObject, Link } from "react-router-dom";
 
-import './Volunteers.css';
-import renderWithFallback from '../reusable/loading/renderWithFallback';
-import eventsRouter from './events/eventsRouter';
-import ckKitchenRouter from './ckKitchen/ckKitchenRouter';
+import "./Volunteers.css";
+import renderWithFallback from "../reusable/loading/renderWithFallback";
+import eventsRouter from "./events/eventsRouter";
+import ckKitchenRouter from "./ckKitchen/ckKitchenRouter";
 
-const DocusignSign = lazy(() => import('../reusable/docusign/DocusignSign'));
-const DocusignSuccess = lazy(
-  () => import('../reusable/docusign/DocusignSuccess')
-);
-const VolunteersHome = lazy(() => import('./VolunteersHome'));
+const Sign = lazy(() => import("../reusable/signature/Sign"));
+const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
+
+const VolunteersHome = lazy(() => import("./VolunteersHome"));
+const Confirmation = lazy(() => import("./Confirmation"));
+const DriverVolunteer = lazy(() => import("./DriverSignUp"));
 
 const VolunteersBase = () => {
   return (
@@ -24,26 +25,27 @@ const VolunteersBase = () => {
 };
 
 const volunteersRouter: RouteObject = {
-  path: 'volunteers',
+  path: "volunteers",
   element: <VolunteersBase />,
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
+    {
+      path: "confirm/:contactId/:hoursId",
+      element: renderWithFallback(<Confirmation />),
+    },
     eventsRouter,
     ckKitchenRouter,
+    { path: "driver", element: renderWithFallback(<DriverVolunteer />) },
     {
-      path: 'docusign',
+      path: "sign",
       children: [
         {
-          path: 'sign/:doc',
-          element: renderWithFallback(<DocusignSign />),
+          path: "success/:contactId/:hoursId",
+          element: renderWithFallback(<SignSuccess />),
         },
         {
-          path: 'sign/:doc/:id',
-          element: renderWithFallback(<DocusignSign />),
-        },
-        {
-          path: 'success',
-          element: renderWithFallback(<DocusignSuccess returnLink="../.." />),
+          path: ":doc/:contactId/:hoursId",
+          element: renderWithFallback(<Sign />),
         },
       ],
     },

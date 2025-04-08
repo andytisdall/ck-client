@@ -26,7 +26,7 @@ export const rtkQueryErrorLogger: Middleware =
       if (error) {
         if ('status' in error) {
           const data = error.data as { error?: string };
-          if (data?.error) {
+          if (typeof data?.error === 'string') {
             message = data.error;
           } else if (data) {
             message = JSON.stringify(data);

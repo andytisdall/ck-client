@@ -1,16 +1,14 @@
-import { useState, useMemo } from 'react';
-import { format } from 'date-fns-tz';
+import { useState, useMemo } from "react";
+import { format } from "date-fns-tz";
 
-import './TextRecords.css';
-import Loading from '../../reusable/loading/Loading';
-import { useGetAllUsersQuery } from '../../../state/apis/authApi';
-import { useGetTextRecordsQuery } from '../../../state/apis/textApi';
-
-const regions = { WEST_OAKLAND: 'West Oakland', EAST_OAKLAND: 'East Oakland' };
+import "./TextRecords.css";
+import Loading from "../../reusable/loading/Loading";
+import { useGetAllUsersQuery } from "../../../state/apis/authApi";
+import { useGetTextRecordsQuery } from "../../../state/apis/textApi";
 
 const TextRecords = () => {
-  const [startDate, setStartDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-  const [userId, setUserId] = useState('');
+  const [startDate, setStartDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [userId, setUserId] = useState("");
 
   const users = useGetAllUsersQuery().data;
   const textRecords = useGetTextRecordsQuery({
@@ -24,20 +22,20 @@ const TextRecords = () => {
           if (userId) {
             return rec.sender === userId;
           }
-          return ['EAST_OAKLAND', 'WEST_OAKLAND'].includes(rec.region);
+          return true;
         })
         .map((rec) => {
           return (
             <div key={rec.id} className="text-record">
               <div className="text-record-header">
-                <div>{format(new Date(rec.date), 'eee M-d-yy h:mm a')}</div>
+                <div>{format(new Date(rec.date), "eee M-d-yy h:mm a")}</div>
                 <div>
-                  Sent by:{' '}
-                  {rec.sender === 'salesforce'
-                    ? 'Salesforce'
+                  Sent by:{" "}
+                  {rec.sender === "salesforce"
+                    ? "Salesforce"
                     : users[rec.sender]?.username}
                 </div>
-                <div>To: {regions[rec.region] || rec.region}</div>
+                <div>To: {rec.region}</div>
               </div>
               <div>{rec.message}</div>
               {!!rec.image && (
@@ -69,11 +67,11 @@ const TextRecords = () => {
           type="date"
           value={startDate}
           onChange={(e) =>
-            setStartDate(format(new Date(e.target.value), 'yyyy-MM-dd'))
+            setStartDate(format(new Date(e.target.value), "yyyy-MM-dd"))
           }
         />
         <div>
-          <label>Start Date:</label>
+          <label>Sent By:</label>
           {users && (
             <select onChange={(e) => setUserId(e.target.value)}>
               <option value="">All Users</option>

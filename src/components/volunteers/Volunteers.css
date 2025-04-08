@@ -3,13 +3,13 @@
 }
 
 .volunteers-body {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .volunteers-main-header {
   font-size: 2.4rem;
   margin: 0;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(140, 67, 235);
   letter-spacing: 5.5px;
   /* border-bottom: 2px solid rgb(85, 85, 85); */
@@ -21,7 +21,6 @@
   text-align: center;
   font-size: 2rem;
 }
-
 
 .volunteers-job {
   border: 1px solid black;
@@ -48,11 +47,12 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  transition: all .3s;
+  transition: all 0.3s;
   border-top: grey 1px solid;
 }
 
-.volunteers-shift:hover, .volunteers-shift:active {
+.volunteers-shift:hover,
+.volunteers-shift:active {
   background-color: rgba(240, 248, 255, 0.5);
 }
 
@@ -67,7 +67,7 @@
 }
 
 .volunteer-signup {
-  padding: 0 1rem
+  padding: 0 1rem;
 }
 
 .volunteers-shift-detail {
@@ -82,7 +82,7 @@
 
 .volunteers-shift-checkmark {
   margin-left: 1rem;
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: rgb(179, 255, 179);
   background-color: rgba(94, 94, 94, 0.634);
   padding: 5px;
@@ -116,12 +116,12 @@
 }
 
 .text-small {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .volunteers-unavailable {
   color: grey;
-  cursor:auto
+  cursor: auto;
 }
 
 .volunteers-unavailable:hover {
@@ -189,7 +189,6 @@
   margin-top: 10px;
 }
 
-
 .volunteers-home-section {
   padding-top: 2rem;
   padding-bottom: 1rem;
@@ -206,12 +205,12 @@
   padding-left: 2rem;
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .volunteers-kitchen-signup-photos {
     display: none;
   }
 
-  .volunteers-shift{
+  .volunteers-shift {
     flex-direction: column;
     align-items: center;
     border-left: grey solid 1px;
@@ -228,8 +227,6 @@
   .volunteers-home-section-body {
     padding-left: 0;
   }
-
-
 }
 
 .vol-info {
@@ -237,4 +234,24 @@
   padding: 1rem;
   width: fit-content;
   margin-bottom: 1rem;
+}
+
+.vol-doorfront-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  width: 300px;
+}
+
+.vol-driver-option {
+  margin: 3rem 0;
+}
+
+.vol-driver-btn {
+  width: fit-content;
+}
+
+.vol-drivers {
+  margin-top: 3rem;
+  margin-bottom: 5rem;
 }

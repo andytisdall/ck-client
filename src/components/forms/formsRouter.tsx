@@ -1,64 +1,47 @@
-import { Outlet, RouteObject } from 'react-router-dom';
-import { lazy } from 'react';
+import { RouteObject } from "react-router-dom";
+import { lazy } from "react";
 
-import './Form.css';
-import renderWithFallback from '../reusable/loading/renderWithFallback';
+import "./Form.css";
+import renderWithFallback from "../reusable/loading/renderWithFallback";
 
-const VolunteerInterestForm = lazy(() => import('./VolunteerInterestForm'));
-const FormSent = lazy(() => import('./FormSent'));
-const MealQualitySurvey = lazy(() => import('./MealQualitySurvey'));
-const TextSignupSurvey = lazy(() => import('./TextSignupSurvey'));
-const MealProgramIntake = lazy(() => import('./MealProgramIntake'));
-const CBOReport = lazy(() => import('./CBOReport'));
-const HomeChefRegistration = lazy(() => import('./HomeChefRegistration'));
+const Form = lazy(() => import("./Form"));
+const FormSent = lazy(() => import("./FormSent"));
 
-const Forms = () => {
-  const headerImage = () => {
-    return (
-      <img
-        src="../images/logos/ck-header.png"
-        alt="Community Kitchens"
-        className="form-item form-image"
-      />
-    );
-  };
+// const MealQualitySurvey = lazy(() => import('./old/MealQualitySurvey'));
+// const TextSignupSurvey = lazy(() => import('./old/TextSignupSurvey'));
+const NewMealSurvey = lazy(() => import("./meal-program/NewMealSurvey"));
+const CBOReport = lazy(() => import("./meal-program/CBOReport"));
 
-  return (
-    <div className="form-background">
-      <div className="form main">
-        {headerImage()}
-        <Outlet />
-      </div>
-    </div>
-  );
-};
+const HomeChefRegistration = lazy(
+  () => import("./volunteer/HomeChefRegistration")
+);
+const VolunteerInterestForm = lazy(
+  () => import("./volunteer/VolunteerInterestForm")
+);
 
 const formsRouter: RouteObject = {
-  path: 'forms',
-  element: <Forms />,
+  path: "forms",
+  element: renderWithFallback(<Form />),
   children: [
     {
-      path: 'volunteer',
+      path: "volunteer",
       element: renderWithFallback(<VolunteerInterestForm />),
     },
-    { path: 'meal-survey', element: renderWithFallback(<MealQualitySurvey />) },
+    // { path: 'meal-survey', element: renderWithFallback(<MealQualitySurvey />) },
+    // {
+    //   path: 'text-signup-survey',
+    //   element: renderWithFallback(<TextSignupSurvey />),
+    // },
     {
-      path: 'text-signup-survey',
-      element: renderWithFallback(<TextSignupSurvey />),
-    },
-    {
-      path: 'meal-program-intake',
-      element: renderWithFallback(<MealProgramIntake />),
-    },
-    {
-      path: 'cbo-report',
+      path: "cbo-report",
       element: renderWithFallback(<CBOReport />),
     },
-    { path: 'form-sent', element: renderWithFallback(<FormSent />) },
+    { path: "form-sent", element: renderWithFallback(<FormSent />) },
     {
-      path: 'home-chef-registration',
+      path: "home-chef-registration",
       element: renderWithFallback(<HomeChefRegistration />),
     },
+    { path: "meal-survey", element: renderWithFallback(<NewMealSurvey />) },
   ],
 };
 

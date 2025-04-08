@@ -1,29 +1,66 @@
-const Confirmation = ({ hour, shift, job, contactId }) => {
-  const canceled = hour?.status === 'Canceled';
+import { useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 
-  const [cancelShift, { isLoading }] = useCancelVolunteerShiftMutation();
+import {
+  useCancelVolunteerShiftMutation,
+  useGetHourQuery,
+  useGetCampaignsQuery,
+} from "../../state/apis/volunteerApi";
+import { setAlert } from "../../state/apis/slices/alertSlice";
+import ShiftInfo from "./ShiftInfo";
+import Loading from "../reusable/loading/Loading";
+
+const Confirmation = () => {
+  const { hoursId, contactId } = useParams();
+  const { data: campaigns } = useGetCampaignsQuery();
+  const { data: hour, isLoading } = useGetHourQuery(hoursId || "");
+
+  const campaignId = hour?.campaign;
+  const campaign = campaignId
+    ? campaigns?.find((cam) => cam.id.startsWith(campaignId))
+    : undefined;
+
+  const jobs = campaign?.jobs;
+  const shifts = campaign?.shifts;
+
+  const job = jobs?.find((j) => j.id === hour?.job);
+  const shift = shifts?.find((sh) => sh.id === hour?.shift);
+
+  const [cancelShift, { isLoading: cancelIsLoading }] =
+    useCancelVolunteerShiftMutation();
 
   const dispatch = useDispatch();
 
   const onCancel = () => {
-    cancelShift({ hoursId: hour.id, contactId })
-      .unwrap()
-      .then(() => dispatch(setAlert('You have canceled your volunteer shift')));
+    if (hour) {
+      cancelShift({ hoursId: hour.id, contactId })
+        .unwrap()
+        .then(() =>
+          dispatch(setAlert("You have canceled your volunteer shift"))
+        );
+    }
   };
 
-  const confirmMessage = <p>You have successfully signed up for this shift:</p>;
+  const canceled = hour?.status === "Canceled";
 
-  const cancelMessage = (
-    <p className="cancel-text">You have canceled this shift:</p>
-  );
-
-  const message = canceled ? cancelMessage : confirmMessage;
+  const renderMessage = () => {
+    const confirmMessage = (
+      <p>You have successfully signed up for this shift:</p>
+    );
+    const cancelMessage = (
+      <p className="cancel-text">You have canceled this shift:</p>
+    );
+    return canceled ? cancelMessage : confirmMessage;
+  };
 
   const renderShiftDetails = () => {
+    if (isLoading) {
+      return <Loading />;
+    }
     if (shift && job) {
       return (
         <div>
-          {message}
+          {renderMessage()}
           <ShiftInfo job={job} shift={shift} />
           <p>You have been sent an email with this information.</p>
         </div>
@@ -38,10 +75,10 @@ const Confirmation = ({ hour, shift, job, contactId }) => {
   };
 
   const renderCancelButton = () => {
-    if (isLoading) {
+    if (cancelIsLoading) {
       return <Loading />;
     }
-    if (canceled) {
+    if (!canceled) {
       return (
         <button onClick={onCancel} className="cancel">
           Cancel Your Booked Volunteer Time
@@ -57,7 +94,9 @@ const Confirmation = ({ hour, shift, job, contactId }) => {
       <Link to="/volunteers">
         <button className="hc-confirm-button">Volunteers Home</button>
       </Link>
-      {renderCancelButton()}
+      {hour && renderCancelButton()}
     </div>
   );
 };
+
+export default Confirmation;

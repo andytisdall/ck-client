@@ -12,7 +12,7 @@ const ForgotPassword = () => {
 
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
-    forgotPassword(email);
+    await forgotPassword(email).unwrap();
   };
 
   if (isLoading) {

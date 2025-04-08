@@ -1,11 +1,9 @@
 import { useState, FormEventHandler } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import Loading from '../reusable/loading/Loading';
 import ZipCodeSelector from '../reusable/form/ZipCodeSelector';
 import { useSubmitFormMutation } from '../../state/apis/formApi';
-import { setAlert } from '../../state/apis/slices/alertSlice';
 
 const successMessage = 'Thank you for providing this information.';
 
@@ -63,7 +61,6 @@ const CBOReport = () => {
   const [mobileOasisSectionOpen, setMobileOasisSectionOpen] = useState(false);
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -122,8 +119,7 @@ const CBOReport = () => {
     })
       .unwrap()
       .then(() => {
-        dispatch(setAlert(successMessage));
-        navigate('/forms/form-sent');
+        navigate('/forms/form-sent', { state: { message: successMessage } });
       });
   };
 

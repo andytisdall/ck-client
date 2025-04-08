@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import { useGetSigningConfigQuery } from '../../../state/apis/signApi';
 import { useGetUserInfoQuery } from '../../../state/apis/authApi';
 import TextButton from '../../reusable/TextButton';
 
-const videoDescription =
-  'Watch the recorded Zoom orientation for new Home Chefs.';
-
-export const slidesDescription =
-  'Peruse the information presented at the Home Chef orientation';
+const videoDescription = 'Watch the orientation video for new Home Chefs.';
 
 const agreementDescription =
   'Read and e-sign our volunteer agreement through Docusign.';
@@ -21,6 +18,10 @@ export const FOOD_HANDLER_URL =
 
 const HomeChefOnboarding = () => {
   const userInfo = useGetUserInfoQuery().data;
+  const { data: signingConfig } = useGetSigningConfigQuery();
+
+  const signLink =
+    signingConfig && signingConfig.limitReached ? 'emailAgreement' : 'sign/HC';
 
   const renderActive = () => {
     if (userInfo?.homeChefStatus === 'Active') {
@@ -42,7 +43,7 @@ const HomeChefOnboarding = () => {
     return (
       <div className="col">
         <TextButton
-          to="docusign/sign/HC"
+          to={signLink}
           buttonText="Sign the Volunteer Agreement"
           descriptionText={agreementDescription}
         />
@@ -70,11 +71,6 @@ const HomeChefOnboarding = () => {
           to="orientation-video"
           buttonText="Watch the Orientation Video and Take the Home Chef Quiz"
           descriptionText={videoDescription}
-        />
-        <TextButton
-          to="orientation-slides"
-          buttonText="Read the Orientation Materials"
-          descriptionText={slidesDescription}
         />
         {userInfo?.homeChefStatus !== 'Active' && renderDocumentBtns()}
       </div>

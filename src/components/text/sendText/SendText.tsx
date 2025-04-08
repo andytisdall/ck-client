@@ -1,41 +1,41 @@
-import { lazy, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+import { lazy, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
-import renderWithFallback from '../../reusable/loading/renderWithFallback';
-import './SendText.css';
-import Loading from '../../reusable/loading/Loading';
-import FileInput from '../../reusable/file/FileInput';
-import { useGetFridgesQuery } from '../../../state/apis/volunteerApi/homeChefApi';
-import { useSendTextMutation } from '../../../state/apis/textApi';
+import renderWithFallback from "../../reusable/loading/renderWithFallback";
+import "./SendText.css";
+import Loading from "../../reusable/loading/Loading";
+import FileInput from "../../reusable/file/FileInput";
+import { useGetFridgesQuery } from "../../../state/apis/textApi/sendTextApi";
+import { useSendTextMutation } from "../../../state/apis/textApi";
 
-const TextPreview = lazy(() => import('./TextPreview'));
+const TextPreview = lazy(() => import("./TextPreview"));
 
 const SendText = () => {
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState(25);
-  const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-  const [time, setTime] = useState(format(new Date(), 'HH:mm'));
-  const [source, setSource] = useState('CK Home Chef Volunteers');
+  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [time, setTime] = useState(format(new Date(), "HH:mm"));
+  const [source, setSource] = useState("CK Home Chef Volunteers");
   const [imageError, setImageError] = useState(false);
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [photo, setPhoto] = useState<File | string | undefined>(undefined);
-  const [dietary, setDietary] = useState('');
+  const [dietary, setDietary] = useState("");
   const [preview, setPreview] = useState(false);
 
   const fridgeQuery = useGetFridgesQuery();
   const fridges = fridgeQuery.data;
 
   const [sendText, sendTextResult] = useSendTextMutation({
-    fixedCacheKey: 'sent-text',
+    fixedCacheKey: "sent-text",
   });
   const navigate = useNavigate();
 
   const getAddress = () => {
-    if (fridges && fridge !== undefined && fridges[fridge].address) {
-      return `, at ${fridges[fridge].address},`;
+    if (fridges && fridge !== undefined && fridges[fridge].location) {
+      return `, at ${fridges[fridge].location},`;
     } else {
-      return '';
+      return "";
     }
   };
 
@@ -43,7 +43,7 @@ const SendText = () => {
     if (dietary) {
       return `This meal is ${dietary}. `;
     } else {
-      return '';
+      return "";
     }
   };
 
@@ -57,19 +57,6 @@ const SendText = () => {
         )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`
       : undefined;
 
-  const getRegion = () => {
-    if (fridges && fridge !== undefined) {
-      const { region } = fridges[fridge];
-      if (region === 'EAST_OAKLAND') {
-        return 'East Oakland';
-      }
-      if (region === 'WEST_OAKLAND') {
-        return 'West Oakland';
-      }
-    }
-    return '';
-  };
-
   const renderPhoto = () => {
     if (imageError) {
       return (
@@ -81,8 +68,8 @@ const SendText = () => {
       );
     }
     if (photo) {
-      let src = '';
-      if (typeof photo === 'string') {
+      let src = "";
+      if (typeof photo === "string") {
         src = photo;
       } else {
         src = URL.createObjectURL(photo);
@@ -151,14 +138,14 @@ const SendText = () => {
               {fridge !== undefined && fridges && (
                 <div className="fridge-info">
                   <div className="fridge-info-label">Address: </div>
-                  {fridges[fridge].address}
+                  {fridges[fridge].location}
                 </div>
               )}
 
-              {fridge !== undefined && (
+              {fridge !== undefined && fridges && (
                 <div className="fridge-info">
                   <div className="fridge-info-label">Region: </div>
-                  {getRegion()}
+                  {fridges[fridge].region}
                 </div>
               )}
             </div>
@@ -206,7 +193,7 @@ const SendText = () => {
             <label>Photo (Optional):</label>
             <div className="send-text-photo-field-container">
               <FileInput
-                file={typeof photo === 'string' ? undefined : photo}
+                file={typeof photo === "string" ? undefined : photo}
                 setFile={setPhoto}
                 label="Upload Photo:"
               />
@@ -216,19 +203,19 @@ const SendText = () => {
               <label>Paste Photo URL:</label>
               <input
                 className={`send-text-photo-field ${
-                  imageError && 'send-text-photo-field-error'
+                  imageError && "send-text-photo-field-error"
                 }`}
-                value={!photo ? '' : photo instanceof File ? '' : photo}
+                value={!photo ? "" : photo instanceof File ? "" : photo}
                 onChange={(e) => {
                   setImageError(false);
                   setPhoto(e.target.value);
                 }}
               />
-              {!!photo && typeof photo === 'string' && (
+              {!!photo && typeof photo === "string" && (
                 <div
                   className="send-text-photo-field-clear"
                   onClick={() => {
-                    setPhoto('');
+                    setPhoto("");
                     setImageError(false);
                   }}
                 >
@@ -239,7 +226,7 @@ const SendText = () => {
           </div>
           {renderPhoto()}
           <button
-            className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}
+            className={`send-btn ${btnActive ? "" : "btn-inactive"}`}
             onClick={() => {
               if (btnActive) {
                 setPreview(true);
@@ -260,18 +247,16 @@ const SendText = () => {
     if (!preview) {
       return composeText();
     }
-    if (message && getRegion()) {
+    if (message && fridge !== undefined && fridges[fridge].region) {
       return renderWithFallback(
         <TextPreview
           message={message}
-          region={getRegion()}
+          region={fridges[fridge].region}
           photo={photo}
           onSubmit={() => {
-            if (fridges && fridge !== undefined && message) {
-              sendText({ message, region: fridges[fridge].region, photo })
-                .unwrap()
-                .then(() => navigate('../text-success'));
-            }
+            sendText({ message, region: fridges[fridge].region!, photo })
+              .unwrap()
+              .then(() => navigate("../text-success"));
           }}
           onCancel={() => setPreview(false)}
         />

@@ -15,7 +15,8 @@ const UserHome = () => {
   };
 
   const renderHomeChef = () => {
-    const status = userInfo?.homeChefStatus ? 'Active' : 'Not Yet Active';
+    const status =
+      userInfo?.homeChefStatus === 'Active' ? 'Active' : 'Not Yet Active';
     if (userInfo?.homeChefStatus) {
       return <p>Your Home Chef Status: {status}</p>;
     }

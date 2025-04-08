@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { setAlert } from '../../../state/apis/slices/alertSlice';
-import { Region, useAddPhoneMutation } from '../../../state/apis/textApi';
-import Loading from '../../reusable/loading/Loading';
+import { setAlert } from "../../../state/apis/slices/alertSlice";
+import { Region, useAddPhoneMutation } from "../../../state/apis/textApi";
+import Loading from "../../reusable/loading/Loading";
 
 const AddPhone = () => {
-  const [phone, setPhone] = useState('');
-  const [region, setRegion] = useState<Region>('EAST_OAKLAND');
+  const [phone, setPhone] = useState("");
+  const [region, setRegion] = useState<Region>("EAST_OAKLAND");
 
   const [addPhone, addPhoneResult] = useAddPhoneMutation();
 
@@ -17,7 +17,7 @@ const AddPhone = () => {
     e.preventDefault();
     addPhone({ phone, region })
       .unwrap()
-      .then(() => dispatch(setAlert('Phone number added successfully')));
+      .then(() => dispatch(setAlert("Phone number added successfully")));
   };
 
   return (
@@ -39,8 +39,8 @@ const AddPhone = () => {
           value={region}
           onChange={(e) => setRegion(e.target.value as Region)}
         >
-          <option value={'EAST_OAKLAND'}>East Oakland</option>
-          <option value={'WEST_OAKLAND'}>West Oakland</option>
+          <option value={"EAST_OAKLAND"}>East Oakland</option>
+          <option value={"WEST_OAKLAND"}>West Oakland</option>
         </select>
         {addPhoneResult.isLoading ? (
           <Loading />

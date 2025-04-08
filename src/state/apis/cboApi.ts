@@ -105,7 +105,6 @@ export interface CBOReport {
   month: string;
   year: string;
   name: string;
-  CBOName: string;
   performanceMeasures: PerformanceMeasures;
   age: Age;
   race: Race;
@@ -114,15 +113,20 @@ export interface CBOReport {
   feedback: string;
   phoneNumber: string;
   email: string;
+  cboId: string;
+  individuals: number;
 }
 
 const cboApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCBOReports: builder.query<CBOReport[], void>({
-      query: () => 'meal-program/cbo/reports',
+      query: () => '/meal-program/cbo/reports',
       providesTags: ['CBOData'],
+    }),
+    emailReport: builder.mutation<null, void>({
+      query: () => ({ url: '/meal-program/cbo/email', method: 'POST' }),
     }),
   }),
 });
 
-export const { useGetCBOReportsQuery } = cboApi;
+export const { useGetCBOReportsQuery, useEmailReportMutation } = cboApi;

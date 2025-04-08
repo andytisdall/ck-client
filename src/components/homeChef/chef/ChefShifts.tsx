@@ -59,7 +59,10 @@ const ChefShifts = () => {
     if (hours) {
       return Object.values(hours)
         .filter((h) => h.status === 'Completed')
-        .reduce((total, current) => total + parseInt(current.mealCount), 0);
+        .reduce(
+          (total, current) => total + parseInt(current.mealCount || '0'),
+          0
+        );
     }
   }, [hours]);
 

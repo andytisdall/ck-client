@@ -5,6 +5,7 @@ export interface User {
   salesforceId: string;
   id: string;
   googleId?: string;
+  busDriver?: boolean;
 }
 
 export type UsersState = Record<string, User>;
@@ -22,9 +23,9 @@ export interface ContactInfo {
   lastName: string;
   volunteerAgreement: boolean;
   foodHandler: boolean;
+  homeChefAgreement: boolean;
   homeChefQuizPassed: boolean;
   homeChefStatus?: string;
-  ckKitchenStatus?: string;
 }
 export interface CreateUserArgs {
   username: string;

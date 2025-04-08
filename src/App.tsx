@@ -1,54 +1,56 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { lazy } from 'react';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy } from "react";
 
-import './App.css';
-import './components/reusable/TextButton.css';
-import renderWithFallback from './components/reusable/loading/renderWithFallback';
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from './state/store';
-import { setError } from './state/apis/slices/errorSlice';
-import { setAlert } from './state/apis/slices/alertSlice';
+import "./App.css";
+import "./components/reusable/TextButton.css";
+import renderWithFallback from "./components/reusable/loading/renderWithFallback";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "./state/store";
+import { setError } from "./state/apis/slices/errorSlice";
+import { setAlert } from "./state/apis/slices/alertSlice";
 // text service
-import textRouter from './components/text/textRouter';
+import textRouter from "./components/text/textRouter";
 
 // // meal program onboarding
-import mealProgramRouter from './components/mealProgram/mealProgramRouter';
+import mealProgramRouter from "./components/mealProgram/mealProgramRouter";
 
 // // admin
-import adminRouter from './components/admin/adminRouter';
+import adminRouter from "./components/admin/adminRouter";
 
 // user settings
-import userRouter from './components/user/userRouter';
+import userRouter from "./components/user/userRouter";
 
 // // home chef
-import homeChefRouter from './components/homeChef/homeChefRouter';
+import homeChefRouter from "./components/homeChef/homeChefRouter";
 
 // // forms
-import formsRouter from './components/forms/formsRouter';
+import formsRouter from "./components/forms/formsRouter";
 
 // // volunteers
-import volunteersRouter from './components/volunteers/volunteersRouter';
+import volunteersRouter from "./components/volunteers/volunteersRouter";
 
-import cboRouter from './components/cbo/cboRouter';
+import cboRouter from "./components/cbo/cboRouter";
+
+import volunteerCheckInRouter from "./components/volunteer-check-in/volunteerCheckInRouter";
 
 // public home chef app page (no sign in required)
-const HomeChefApp = lazy(() => import('./components/homeChef/HomeChefApp'));
+const HomeChefApp = lazy(() => import("./components/homeChef/HomeChefApp"));
 const SalesforceNotFound = lazy(
-  () => import('./components/error/SalesforceNotFound')
+  () => import("./components/error/SalesforceNotFound")
 );
-const Home = lazy(() => import('./components/Home'));
-const Header = lazy(() => import('./components/header/Header'));
-const PageNotFound = lazy(() => import('./components/error/PageNotFound'));
-const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
-const ResetPassword = lazy(() => import('./components/user/ResetPassword'));
+const Home = lazy(() => import("./components/Home"));
+const Header = lazy(() => import("./components/header/Header"));
+const PageNotFound = lazy(() => import("./components/error/PageNotFound"));
+const ForgotPassword = lazy(() => import("./components/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const DeleteD4JAccount = lazy(
-  () => import('./components/user/DeleteD4JAccount')
+  () => import("./components/user/DeleteD4JAccount")
 );
-const ConfirmEmail = lazy(() => import('./components/user/ConfirmEmail'));
+const ConfirmEmail = lazy(() => import("./components/user/ConfirmEmail"));
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: renderWithFallback(<Header />),
     errorElement: renderWithFallback(<PageNotFound />),
     children: [
@@ -56,23 +58,25 @@ export const router = createBrowserRouter([
         index: true,
         element: renderWithFallback(<Home />),
       },
+
       {
-        path: 'forgot-password',
+        path: "forgot-password",
         element: renderWithFallback(<ForgotPassword />),
       },
       {
-        path: 'delete-data/:email',
+        path: "delete-data/:email",
         element: renderWithFallback(<DeleteD4JAccount />),
       },
       {
-        path: 'd4japp/account/confirm/:code',
+        path: "d4japp/account/confirm/:code",
         element: renderWithFallback(<ConfirmEmail />),
       },
       {
-        path: 'reset-password/:token',
+        path: "reset-password/:token",
         element: renderWithFallback(<ResetPassword />),
       },
-      { path: 'home-chef-app', element: renderWithFallback(<HomeChefApp />) },
+      { path: "home-chef-app", element: renderWithFallback(<HomeChefApp />) },
+
       textRouter,
       adminRouter,
       mealProgramRouter,
@@ -80,34 +84,34 @@ export const router = createBrowserRouter([
       homeChefRouter,
       volunteersRouter,
       cboRouter,
-      { path: '404', element: renderWithFallback(<SalesforceNotFound />) },
+      { path: "404", element: renderWithFallback(<SalesforceNotFound />) },
     ],
   },
   formsRouter,
+  volunteerCheckInRouter,
 ]);
 
 const App = () => {
-  const [error, alert] = useSelector((state: RootState) => [
-    state.error,
-    state.alert,
-  ]);
+  const error = useSelector((state: RootState) => state.error.message);
+  const alert = useSelector((state: RootState) => state.alert.message);
+
   const dispatch = useDispatch();
 
   const renderError = () => {
-    setTimeout(() => dispatch(setError('')), 5000);
-    return <div className="error">{error.message}</div>;
+    setTimeout(() => dispatch(setError("")), 5000);
+    return <div className="error">{error}</div>;
   };
 
   const renderAlert = () => {
-    setTimeout(() => dispatch(setAlert('')), 5000);
-    return <div className="error alert">{alert.message}</div>;
+    setTimeout(() => dispatch(setAlert("")), 5000);
+    return <div className="error alert">{alert}</div>;
   };
 
   return (
     <div className="app">
       <RouterProvider router={router} />
-      {error.message && renderError()}
-      {alert.message && renderAlert()}
+      {error && renderError()}
+      {alert && renderAlert()}
     </div>
   );
 };

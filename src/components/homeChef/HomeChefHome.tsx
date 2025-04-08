@@ -20,7 +20,7 @@ const emailDescription =
   'Let your friends know about CK Home Chef and invite them to cook for town fridges';
 const appDescription =
   'Download and install the Home Chef App, where you can sign up for shifts and send alerts about your Town Fridge deliveries';
-const orientationDescription = 'View the Home Chef orientation materials';
+const orientationDescription = 'Watch the Home Chef orientation video';
 
 const HomeChefHome = () => {
   const userInfo = useGetUserInfoQuery().data;
@@ -108,7 +108,7 @@ const HomeChefHome = () => {
             />
             <TextButton
               to="onboarding"
-              buttonText="Orientation Materials"
+              buttonText="Orientation Video"
               descriptionText={orientationDescription}
             />
           </>
