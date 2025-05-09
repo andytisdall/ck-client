@@ -36,9 +36,16 @@ const NewMealSurvey = () => {
 
   const navigate = useNavigate();
 
-  const title = {English: "Meal Quality Survey", Spanish: 'Encuesta de calidad de las comidas'}
-  const headerText = {English: "Thank you for completing the Community Kitchens meal survey. Rest assured, your personal data will remain confidential. Your input is invaluable and plays a crucial role in securing funding to provide free meals to those in need.", Spanish: "Gracias por completar la encuesta sobre comidas de Community Kitchens. Tenga la seguridad de que sus datos personales se mantendrán confidenciales. Su aporte es invaluable y desempeña un papel crucial en la obtención de fondos para brindar comidas gratuitas a quienes las necesitan."}
-
+  const title = {
+    English: "Meal Quality Survey",
+    Spanish: "Encuesta de calidad de las comidas",
+  };
+  const headerText = {
+    English:
+      "Thank you for completing the Community Kitchens meal survey. Rest assured, your personal data will remain confidential. Your input is invaluable and plays a crucial role in securing funding to provide free meals to those in need.",
+    Spanish:
+      "Gracias por completar la encuesta sobre comidas de Community Kitchens. Tenga la seguridad de que sus datos personales se mantendrán confidenciales. Su aporte es invaluable y desempeña un papel crucial en la obtención de fondos para brindar comidas gratuitas a quienes las necesitan.",
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -74,14 +81,14 @@ const NewMealSurvey = () => {
       state: {
         message:
           "Thank you for filling out this survey! We will use your info to improve our free meal program.",
-        reload: true,
+        redirect: "/forms/meal-survey",
       },
     });
   };
 
   return (
     <>
-      <FormHeader title={title[language]} spanish={language==='Spanish'}>
+      <FormHeader title={title[language]} spanish={language === "Spanish"}>
         {headerText[language]}
         <LanguageSwitch language={language} setLanguage={setLanguage} />
       </FormHeader>
@@ -199,7 +206,14 @@ const NewMealSurvey = () => {
           question={questions[17]}
           language={language}
         />
-        {!isLoading ? <input type="submit" value={language ==='Spanish' ? 'Enviar' : "Submit"} /> : <Loading />}
+        {!isLoading ? (
+          <input
+            type="submit"
+            value={language === "Spanish" ? "Enviar" : "Submit"}
+          />
+        ) : (
+          <Loading />
+        )}
       </form>
     </>
   );

@@ -9,6 +9,7 @@ import {
   useSignUpForVolunteerShiftMutation,
   useGetHoursQuery,
 } from "../../state/apis/volunteerApi";
+import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 import { useGetUserQuery, useGetUserInfoQuery } from "../../state/apis/authApi";
 import ShiftInfo from "./ShiftInfo";
 
@@ -18,6 +19,8 @@ const ShiftSignup = () => {
 
   const [signUpForVolunteerShift, { isLoading }] =
     useSignUpForVolunteerShiftMutation();
+
+  const { data: signingConfig } = useGetSigningConfigQuery();
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -86,7 +89,7 @@ const ShiftSignup = () => {
       })
         .unwrap()
         .then((hour) => {
-          if (!waiverSigned) {
+          if (!waiverSigned && !signingConfig?.limitReached) {
             navigate(`../../../sign/CKK/${contactSalesforceId}/${hour.id}`);
           } else {
             navigate(getConfirmUrl(hour.id));

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+// import DoSomething from "./DoSomething";
 
 const AdminHome = () => {
   return (
@@ -21,6 +22,8 @@ const AdminHome = () => {
       >
         Volunteer Check-In
       </Link>
+
+      {/* <DoSomething /> */}
     </div>
   );
 };

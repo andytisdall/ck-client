@@ -218,6 +218,10 @@ describe("signed up for shift", () => {
       res: async () => [],
     },
     {
+      path: "/volunteers/hours/:campaignId/:contactId",
+      res: async () => [hours],
+    },
+    {
       path: "/volunteers/hour/:hoursId",
       res: async () => hours,
     },
@@ -244,6 +248,17 @@ describe("signed up for shift", () => {
 
   test("cancel job signup", async () => {
     render(<App />, { wrapper: Root });
+
+    const backBtn = screen.getByText(/volunteers home/i);
+    await userEvent.click(backBtn);
+    const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
+    await userEvent.click(kitchenLink);
+    const jobLink = await screen.findByText(
+      format(new Date(hours.time), "eee, M/d/yy h:mm a")
+    );
+    expect(jobLink).toBeDefined();
+
+    await userEvent.click(jobLink);
 
     const cancelBtn = await screen.findByText(
       "Cancel Your Booked Volunteer Time"

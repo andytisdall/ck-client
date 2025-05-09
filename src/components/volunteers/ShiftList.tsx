@@ -1,12 +1,12 @@
-import { format, utcToZonedTime } from 'date-fns-tz';
-import { Link } from 'react-router-dom';
+import { format, utcToZonedTime } from "date-fns-tz";
+import { Link } from "react-router-dom";
 
 import {
   Job,
   Shift,
   VolunteerHours,
   useGetHoursQuery,
-} from '../../state/apis/volunteerApi';
+} from "../../state/apis/volunteerApi";
 
 const ShiftList = ({
   sortedShifts,
@@ -26,7 +26,7 @@ const ShiftList = ({
 
   const bookedJobs = !hours
     ? []
-    : hours.filter((h) => h.status === 'Confirmed').map((h) => h.shift);
+    : hours.filter((h) => h.status === "Confirmed").map((h) => h.shift);
 
   return (
     <div className="volunteers-job">
@@ -40,19 +40,19 @@ const ShiftList = ({
 
           if (jobBooked && hours) {
             bookedHours = hours.find(
-              (h) => h.shift === shift.id && h.status === 'Confirmed'
+              (h) => h.shift === shift.id && h.status === "Confirmed"
             );
           }
-          let linkUrl = '';
+          let linkUrl = "";
           if (jobBooked) {
             if (bookedHours) {
-              linkUrl = `../signup-confirm/${campaignId}/${bookedHours.id}/${contactId}`;
+              linkUrl = `../../confirm/${contactId}/${bookedHours.id}`;
             }
           } else if (shift.open) {
             linkUrl = shift.id;
           }
 
-          const full = shift.open || jobBooked ? '' : 'volunteers-unavailable';
+          const full = shift.open || jobBooked ? "" : "volunteers-unavailable";
 
           return (
             <Link key={shift.id} to={linkUrl}>
@@ -61,8 +61,8 @@ const ShiftList = ({
                   <span>&bull; </span>
                   <span>
                     {format(
-                      utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-                      'eee, M/d/yy h:mm a'
+                      utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+                      "eee, M/d/yy h:mm a"
                     )}
                   </span>
                 </div>

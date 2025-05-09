@@ -12,8 +12,15 @@ import Loading from "../reusable/loading/Loading";
 
 const Confirmation = () => {
   const { hoursId, contactId } = useParams();
-  const { data: campaigns } = useGetCampaignsQuery();
-  const { data: hour, isLoading } = useGetHourQuery(hoursId || "");
+  const { data: campaigns, isLoading: campaignsIsLoading } =
+    useGetCampaignsQuery();
+  const { data: hour, isLoading: hourIsLoading } = useGetHourQuery(
+    hoursId || ""
+  );
+  const isLoading = campaignsIsLoading || hourIsLoading;
+
+  const [cancelShift, { isLoading: cancelIsLoading }] =
+    useCancelVolunteerShiftMutation();
 
   const campaignId = hour?.campaign;
   const campaign = campaignId
@@ -22,12 +29,8 @@ const Confirmation = () => {
 
   const jobs = campaign?.jobs;
   const shifts = campaign?.shifts;
-
   const job = jobs?.find((j) => j.id === hour?.job);
   const shift = shifts?.find((sh) => sh.id === hour?.shift);
-
-  const [cancelShift, { isLoading: cancelIsLoading }] =
-    useCancelVolunteerShiftMutation();
 
   const dispatch = useDispatch();
 
