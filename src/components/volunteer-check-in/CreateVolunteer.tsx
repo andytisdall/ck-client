@@ -57,7 +57,7 @@ const CreateVolunteer = () => {
     }
 
     // create hours
-    const hours = await createVolunteerHours({
+    await createVolunteerHours({
       shiftId,
       contactId: volunteer.id,
     }).unwrap();

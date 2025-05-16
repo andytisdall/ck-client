@@ -66,6 +66,7 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
               sortedShifts={sortedShifts}
               key={j.id}
               contactId={contactId}
+              driver={campaign.name === "Drivers"}
             />
           );
         })}

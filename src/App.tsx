@@ -12,7 +12,7 @@ import { setAlert } from "./state/apis/slices/alertSlice";
 import textRouter from "./components/text/textRouter";
 
 // // meal program onboarding
-import mealProgramRouter from "./components/mealProgram/mealProgramRouter";
+// import mealProgramRouter from "./components/mealProgram/mealProgramRouter";
 
 // // admin
 import adminRouter from "./components/admin/adminRouter";
@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
 
       textRouter,
       adminRouter,
-      mealProgramRouter,
+      // mealProgramRouter,
       userRouter,
       homeChefRouter,
       volunteersRouter,

@@ -6,14 +6,17 @@ import EventsList from "./events/EventsList";
 import Loading from "../reusable/loading/Loading";
 import { useGetUserQuery } from "../../state/apis/authApi";
 import { RootState } from "../../state/store";
+import { useGetDriverQuery } from "../../state/apis/volunteerApi/driver";
+import da from "date-fns/esm/locale/da";
 
 const homeChefDescription =
   "A hub for CK Home Chefs to get started in the program, sign up for Town Fridge Deliveries, and access resources like recipes.";
 
 const VolunteersHome = () => {
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
+  const { data: driver } = useGetDriverQuery();
 
-  const { data } = useGetUserQuery();
+  const { data: user } = useGetUserQuery();
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
   );
@@ -21,11 +24,17 @@ const VolunteersHome = () => {
   const renderOngoingCampaign = (campaignName: string) => {
     const cam = campaigns?.find((c) => c.name === campaignName);
     if (cam) {
-      const link = data || volunteer ? "signup" : "signin";
+      const action = user || volunteer ? "signup" : "signin";
+      let link = `${action}/${cam.id}`;
+
+      if (cam.name === "Drivers" && driver?.driverStatus !== "Active") {
+        link = "driver";
+      }
 
       return (
         <TextButton
-          to={`ck-kitchen/${link}/${cam.id}`}
+          key={cam.id}
+          to={`ck-kitchen/${link}`}
           descriptionText={cam.description!}
           buttonText={cam.name}
         />
@@ -48,10 +57,9 @@ const VolunteersHome = () => {
           {isLoading ? (
             <Loading />
           ) : (
-            <>
-              {renderOngoingCampaign("CK Kitchen Volunteers")}
-              {renderOngoingCampaign("Door Distribution")}
-            </>
+            campaigns
+              ?.filter((cam) => !cam.startDate)
+              .map((cam) => renderOngoingCampaign(cam.name))
           )}
         </div>
       </div>

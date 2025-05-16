@@ -14,14 +14,12 @@ const EventsList = () => {
     return state.volunteer.volunteer;
   });
 
-  const eventCampaigns = campaigns?.filter(
-    (cam) => cam.name !== "CK Kitchen Volunteers" && cam.name !== 'Door Distribution'
-  );
+  const eventCampaigns = campaigns?.filter((cam) => cam.startDate);
 
   if (isLoading) {
     return <Loading />;
   }
-  
+
   if (eventCampaigns?.length) {
     return (
       <div className="volunteers-home-section">

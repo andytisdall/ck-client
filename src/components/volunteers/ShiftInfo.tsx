@@ -4,7 +4,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { Job, Shift } from "../../state/apis/volunteerApi";
 
-const ShiftInfo = ({ job, shift }: { job: Job; shift: Shift }) => {
+const ShiftInfo = ({
+  job,
+  shift,
+  driver,
+}: {
+  job: Job;
+  shift: Shift;
+  driver?: boolean;
+}) => {
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
   );
@@ -23,6 +31,10 @@ const ShiftInfo = ({ job, shift }: { job: Job; shift: Shift }) => {
       );
     }
   };
+
+  if (driver) {
+    // render driver info
+  }
 
   return (
     <div>

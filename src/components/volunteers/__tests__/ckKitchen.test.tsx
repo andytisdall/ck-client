@@ -93,6 +93,7 @@ describe("volunteer not found", () => {
       path: "/volunteers/hours/:campaignId/:contactId",
       res: async () => [hours],
     },
+    { path: "/sign/config", res: async () => ({ limitReached: false }) },
   ]);
 
   test("navigate to CK Kitchen home", async () => {
@@ -164,6 +165,8 @@ describe("volunteer found", () => {
       method: "post",
       res: async () => hours,
     },
+    { path: "/sign/config", res: async () => ({ limitReached: false }) },
+    { path: "sign/CKK/:idd/:id", res: async () => {} },
   ]);
 
   test("get job info and sign up for shift", async () => {
@@ -183,25 +186,9 @@ describe("volunteer found", () => {
 
     const confirmSignup = await screen.findByText("Confirm Signup");
     await userEvent.click(confirmSignup);
+
+    // const sign = await screen.findByText(/sign this document/i);
   });
-
-  // test('see job that you signed up for', async () => {
-  //   render(<App />, { wrapper: Root });
-  //   signInUser();
-
-  //   const homeBtn = await screen.findByRole('button', {
-  //     name: /volunteers home/i,
-  //   });
-
-  //   await userEvent.click(homeBtn);
-
-  //   const kitchenLink = await screen.findByText('CK Kitchen Volunteers');
-  //   await userEvent.click(kitchenLink);
-
-  //   const signupLink = await screen.findByText(
-  //     'Sign Up to Volunteer / See your shifts'
-  //   );
-  //   await userEvent.click(signupLink);
 });
 
 describe("signed up for shift", () => {
@@ -230,6 +217,7 @@ describe("signed up for shift", () => {
       method: "delete",
       res: async () => null,
     },
+    { path: "/sign/config", res: async () => ({ limitReached: false }) },
   ]);
 
   test("see signed up shift", async () => {

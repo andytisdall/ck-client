@@ -13,11 +13,13 @@ const ShiftList = ({
   contactId,
   job,
   campaignId,
+  driver,
 }: {
   sortedShifts: Shift[];
   contactId: string;
   job: Job;
   campaignId: string;
+  driver?: boolean;
 }) => {
   const { data: hours } = useGetHoursQuery({
     campaignId,
@@ -70,7 +72,11 @@ const ShiftList = ({
                 {shift.slots !== null && (
                   <>
                     <div className="volunteers-shift-space">-</div>
-                    <div>{shift.slots} volunteers needed</div>
+                    {driver ? (
+                      <div>driver info</div>
+                    ) : (
+                      <div>{shift.slots} volunteers needed</div>
+                    )}
                   </>
                 )}
                 {jobBooked && (

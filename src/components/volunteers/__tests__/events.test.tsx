@@ -42,6 +42,7 @@ export const eventCampaign: VolunteerCampaign = {
   jobs: [job1],
   shifts: [shift1],
   buttonText: "dkuhewd",
+  startDate: formatISO(new Date()),
 };
 
 export const hours: VolunteerHours = {
@@ -149,6 +150,8 @@ describe("volunteer found", () => {
       res: async () => null,
     },
     { path: "/volunteers/hours", method: "post", res: async () => hours },
+    { path: "/sign/config", res: async () => ({ limitReached: false }) },
+    { path: "sign/CKK/:idd/:id", res: async () => {} },
   ]);
 
   test("get job info and sign up for shift", async () => {
@@ -191,6 +194,7 @@ describe("hours created", () => {
       method: "delete",
       res: async () => null,
     },
+    { path: "/sign/config", res: async () => ({ limitReached: false }) },
   ]);
 
   test("cancel job signup", async () => {

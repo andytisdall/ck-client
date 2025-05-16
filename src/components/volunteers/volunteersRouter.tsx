@@ -11,7 +11,6 @@ const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
 
 const VolunteersHome = lazy(() => import("./VolunteersHome"));
 const Confirmation = lazy(() => import("./Confirmation"));
-const DriverVolunteer = lazy(() => import("./DriverSignUp"));
 
 const VolunteersBase = () => {
   return (
@@ -35,7 +34,6 @@ const volunteersRouter: RouteObject = {
     },
     eventsRouter,
     ckKitchenRouter,
-    { path: "driver", element: renderWithFallback(<DriverVolunteer />) },
     {
       path: "sign",
       children: [

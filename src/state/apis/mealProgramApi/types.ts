@@ -1,5 +1,3 @@
-import { UploadFilesResponse } from '../fileApi';
-
 export interface Restaurant {
   name: string;
   salesforceId: string;
@@ -18,7 +16,7 @@ export type EditRestaurantArgs = CreateRestaurantArgs & {
 };
 
 export interface RestaurantInfo {
-  remainingDocs: UploadFilesResponse[];
+  // remainingDocs: UploadFilesResponse[];
   completedDocs: string[];
   status: string;
   healthPermitExpired: boolean;

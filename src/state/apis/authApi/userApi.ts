@@ -1,81 +1,81 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import { api } from '../../api';
+import { api } from "../../api";
 import {
   User,
   UsersState,
   EditUserArgs,
   ContactInfo,
   CreateUserArgs,
-} from './types';
+} from "./types";
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<User | null, void>({
-      query: () => '/user',
-      providesTags: ['User'],
+      query: () => "/user",
+      providesTags: ["User"],
     }),
 
     getUserInfo: builder.query<ContactInfo, void>({
-      query: () => '/user/userInfo',
-      providesTags: ['UserInfo'],
+      query: () => "/user/userInfo",
+      providesTags: ["UserInfo"],
     }),
 
     editUser: builder.mutation<null, EditUserArgs>({
       query: (body) => ({
-        url: '/user',
+        url: "/user",
         body,
-        method: 'PATCH',
+        method: "PATCH",
       }),
-      invalidatesTags: ['User', 'UserInfo', 'AllUsers'],
+      invalidatesTags: ["User", "UserInfo", "AllUsers"],
     }),
 
     getAllUsers: builder.query<UsersState, void>({
       query: () => ({
-        url: '/user/all',
+        url: "/user/all",
       }),
-      transformResponse: (response: User[]) => _.mapKeys(response, 'id'),
-      providesTags: ['AllUsers'],
+      transformResponse: (response: User[]) => _.mapKeys(response, "id"),
+      providesTags: ["AllUsers"],
     }),
 
     createUser: builder.mutation<User, CreateUserArgs>({
       query: (body) => ({
-        url: '/user',
+        url: "/user",
         body,
-        method: 'POST',
+        method: "POST",
       }),
-      invalidatesTags: ['AllUsers', 'User'],
+      invalidatesTags: ["AllUsers", "User"],
     }),
 
     deleteUser: builder.mutation<null, string>({
       query: (userId) => ({
-        url: '/user/' + userId,
-        method: 'DELETE',
+        url: "/user/" + userId,
+        method: "DELETE",
       }),
-      invalidatesTags: ['AllUsers'],
+      invalidatesTags: ["AllUsers"],
     }),
 
     connectGoogle: builder.mutation<null, string>({
       query: (credential) => ({
-        url: '/user/connect-google',
+        url: "/user/connect-google",
         body: { credential },
-        method: 'POST',
+        method: "POST",
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ["User"],
     }),
 
     forgotPassword: builder.mutation<null, string>({
       query: (email) => ({
-        url: '/user/forgot-password',
-        method: 'POST',
+        url: "/user/forgot-password",
+        method: "POST",
         body: { email },
       }),
     }),
 
     resetPassword: builder.mutation<null, { token: string; password: string }>({
       query: (body) => ({
-        url: '/user/reset-password',
-        method: 'POST',
+        url: "/user/reset-password",
+        method: "POST",
         body,
       }),
     }),
@@ -94,15 +94,15 @@ export const {
   useForgotPasswordMutation,
 } = userApi;
 
-export const optimisticallyUpdateVolunteerAgreement =
-  userApi.util.updateQueryData('getUserInfo', undefined, (userInfo) => {
+export const optimisticallyUpdateHomeChefAgreement =
+  userApi.util.updateQueryData("getUserInfo", undefined, (userInfo) => {
     const newUserInfo = {
       ...userInfo,
       homeChefAgreement: true,
     };
 
     if (userInfo.foodHandler && userInfo.homeChefQuizPassed) {
-      newUserInfo.homeChefStatus = 'Active';
+      newUserInfo.homeChefStatus = "Active";
     }
 
     return newUserInfo;

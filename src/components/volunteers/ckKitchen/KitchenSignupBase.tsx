@@ -4,15 +4,15 @@ import "../Volunteers.css";
 import { navLink } from "../../../utils/style";
 import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi";
 
-const images: Record<string, string[]> = {
-  "CK Kitchen Volunteers": ["cookies-1.jpg", "wraps.jpeg", "sandwiches.jpeg"],
-  "Door Distribution": ["cookies-1.jpg", "wraps.jpeg", "sandwiches.jpeg"],
-};
+const images = ["cookies-1.jpg", "wraps.jpeg", "sandwiches.jpeg"];
 
 const KitchenSignupBase = () => {
   const { campaignId } = useParams();
   const { data: campaigns } = useGetCampaignsQuery();
-  const campaign = campaigns?.find((c) => c.id === campaignId);
+  const campaign = campaigns?.find(
+    (c) =>
+      c.id === campaignId || c.id.substring(0, c.id.length - 3) === campaignId
+  );
 
   return (
     <div className="volunteers-body">
@@ -29,7 +29,7 @@ const KitchenSignupBase = () => {
       </div>
       <div className="volunteers-kitchen-signup-photos">
         {campaign &&
-          images[campaign.name].map((img) => (
+          images.map((img) => (
             <img
               key={img}
               src={`/images/volunteers/${img}`}

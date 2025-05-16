@@ -6,7 +6,6 @@ import renderWithFallback from "../../reusable/loading/renderWithFallback";
 const EventSignupBase = lazy(() => import("./EventSignupBase"));
 const JobList = lazy(() => import("../JobList"));
 const ShiftSignup = lazy(() => import("../ShiftSignup"));
-const Confirmation = lazy(() => import("../Confirmation"));
 const GetVolunteer = lazy(() => import("../getVolunteer/GetVolunteer"));
 
 const eventsRouter: RouteObject = {

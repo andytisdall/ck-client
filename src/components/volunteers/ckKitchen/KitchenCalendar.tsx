@@ -11,31 +11,50 @@ import {
   useGetHoursQuery,
   Shift,
   VolunteerHours,
+  VolunteerCampaign,
 } from "../../../state/apis/volunteerApi";
 import { useGetUserQuery } from "../../../state/apis/authApi";
 
-const KitchenCalendar = () => {
-  const navigate = useNavigate();
-  const {campaignId} = useParams()
+const KitchenCalBase = () => {
+  const { campaignId } = useParams();
 
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const campaign = campaigns?.find(
-    (cam) => cam.id === campaignId
-  );
-  const shifts = campaign?.shifts;
-  const jobs = campaign?.jobs;
+  const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
   );
 
   const { data: user } = useGetUserQuery();
+  const contactId = volunteer?.id || user?.salesforceId;
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  const getKitchenHoursQuery = useGetHoursQuery({
-    contactId: volunteer?.id || user?.salesforceId || "",
-    campaignId: campaign?.id || "",
+  if (!(contactId && campaign)) {
+    return <div>Volunteer campaign data not found</div>;
+  }
+
+  return <KitchenCalendar contactId={contactId} campaign={campaign} />;
+};
+
+const KitchenCalendar = ({
+  contactId,
+  campaign,
+}: {
+  contactId: string;
+  campaign: VolunteerCampaign;
+}) => {
+  const navigate = useNavigate();
+
+  const { shifts, jobs } = campaign;
+
+  const { data: hours, isLoading } = useGetHoursQuery({
+    contactId,
+    campaignId: campaign.id,
   });
-  const hours = getKitchenHoursQuery.data;
+
+  const driver = campaign.name === "Drivers";
 
   const bookedJobs = hours
     ? Object.values(hours)
@@ -86,13 +105,9 @@ const KitchenCalendar = () => {
             onClick={() => {
               if (jobBooked) {
                 if (bookedHours) {
-                  if (volunteer) {
-                    navigate(
-                      `../../signup-confirm/${campaign?.id}/${bookedHours.id}/${volunteer.id}`
-                    );
-                  } else if (user) {
-                    navigate(`../../signup-confirm/${bookedHours.id}`);
-                  }
+                  navigate(
+                    `../../signup-confirm/${campaign?.id}/${bookedHours.id}/${contactId}`
+                  );
                 }
               } else if (sh.open) {
                 navigate(`../${sh.id}`);
@@ -100,9 +115,13 @@ const KitchenCalendar = () => {
             }}
           >
             <div>{job?.name}</div>
-            <div className="volunteers-calendar-spots">
-              {sh.slots} Spots Left
-            </div>
+            {driver ? (
+              <div className="volunteers-calendar-spots">Driver Info</div>
+            ) : (
+              <div className="volunteers-calendar-spots">
+                {sh.slots} Spots Left
+              </div>
+            )}
             {jobBooked && (
               <div className="volunteers-calendar-checkmark">
                 &#x2713; Signed Up
@@ -123,4 +142,4 @@ const KitchenCalendar = () => {
   return <Calendar renderItems={renderShifts} />;
 };
 
-export default KitchenCalendar;
+export default KitchenCalBase;

@@ -1,0 +1,19 @@
+.driver-license-form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.driver-onboarding {
+  font-weight: 700;
+}
+
+.driver-onboarding-incomplete {
+  padding: 5px;
+  color: red;
+}
+
+.driver-onboarding-complete {
+  padding: 5px;
+  color: green;
+}

@@ -29,6 +29,8 @@ const ShiftSignup = () => {
   const { data: campaigns } = useGetCampaignsQuery();
   const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
+  const driver = campaign?.name === "Drivers";
+
   const { data: user } = useGetUserQuery();
   const { data: userInfo } = useGetUserInfoQuery();
 
@@ -120,7 +122,7 @@ const ShiftSignup = () => {
   return (
     <div>
       <h3 className="volunteers-signup-btns">Confirm your signup:</h3>
-      <ShiftInfo shift={shift} job={job} />
+      <ShiftInfo shift={shift} job={job} driver={driver} />
       {isLoading ? <Loading /> : renderBtns()}
     </div>
   );

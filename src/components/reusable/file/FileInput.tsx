@@ -1,13 +1,13 @@
-import './FileInput.css';
+import "./FileInput.css";
 
 interface FileInputProps {
   file: File | string | undefined;
   setFile: React.Dispatch<React.SetStateAction<string | File | undefined>>;
   label?: string;
-  data?: string;
+  doc?: string;
 }
 
-const FileInput = ({ file, setFile, label, data }: FileInputProps) => {
+const FileInput = ({ file, setFile, label, doc }: FileInputProps) => {
   const processFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.target;
     if (files && files[0]) {
@@ -16,8 +16,8 @@ const FileInput = ({ file, setFile, label, data }: FileInputProps) => {
   };
 
   const displayName = () => {
-    if (typeof file !== 'string') {
-      return file?.name.slice(0, 15) + '...';
+    if (typeof file !== "string") {
+      return file?.name.slice(0, 15) + "...";
     }
   };
 
@@ -41,7 +41,7 @@ const FileInput = ({ file, setFile, label, data }: FileInputProps) => {
       </div>
       <input
         type="file"
-        name={data}
+        name={doc}
         id={label}
         className="file-hidden"
         onChange={processFile}

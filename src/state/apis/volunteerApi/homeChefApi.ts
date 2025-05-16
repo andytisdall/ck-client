@@ -89,6 +89,17 @@ export const homeChefApi = api.injectEndpoints({
       }),
       invalidatesTags: ["UserInfo"],
     }),
+    uploadFoodHandlerCertificate: builder.mutation<null, FormData>({
+      query: (body) => {
+        return {
+          url: "/home-chef/food-handler",
+          body,
+          formData: true,
+          method: "POST",
+        };
+      },
+      invalidatesTags: ["UserInfo"],
+    }),
   }),
 });
 
@@ -103,4 +114,5 @@ export const {
   useGetHomeChefNotificationsQuery,
   useGetQuizQuestionsQuery,
   useSubmitQuizAnswersMutation,
+  useUploadFoodHandlerCertificateMutation,
 } = homeChefApi;
