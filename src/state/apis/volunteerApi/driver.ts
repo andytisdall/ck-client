@@ -2,10 +2,11 @@ import { api } from "../../api";
 
 export type CarSize = "Small" | "Medium" | "Large" | "Bike";
 
-interface DriverInfo {
+export interface DriverInfo {
   firstName?: string;
   lastName: string;
   licenseExpiration?: string;
+  insuranceExpiration?: string;
   volunteerAgreement: boolean;
   car?: CarSize;
   driverStatus?: "Active" | "Inactive";
@@ -15,9 +16,20 @@ interface CarInfo {
   size: CarSize;
 }
 
+interface DriverShift {
+  id: string;
+  startTime: string;
+  open: boolean;
+  job: string;
+  duration: number;
+  origin: string;
+  destination: string;
+  distance: string;
+}
+
 const driverApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getDriver: builder.query<DriverInfo, void>({
+    getDriver: builder.query<DriverInfo | null, void>({
       query: () => "/volunteers/driver",
       providesTags: ["DriverInfo"],
     }),
@@ -43,6 +55,16 @@ const driverApi = api.injectEndpoints({
     getCars: builder.query<Record<string, string>[], void>({
       query: () => "/volunteers/driver/cars",
     }),
+    getDirections: builder.query<
+      { distance: string },
+      { origin: string; destination: string }
+    >({
+      query: ({ origin, destination }) =>
+        `/volunteers/driver/directions/${origin}/${destination}`,
+    }),
+    getDriverShifts: builder.query<DriverShift[], void>({
+      query: () => "/volunteers/driver/shifts",
+    }),
   }),
 });
 
@@ -50,6 +72,9 @@ export const optimisticallyUpdateDriverStatus = driverApi.util.updateQueryData(
   "getDriver",
   undefined,
   (driverInfo) => {
+    if (!driverInfo) {
+      return null;
+    }
     const newUserInfo = {
       ...driverInfo,
       volunteerAgreement: true,
@@ -58,7 +83,9 @@ export const optimisticallyUpdateDriverStatus = driverApi.util.updateQueryData(
     if (
       driverInfo.car &&
       driverInfo.licenseExpiration &&
-      new Date(driverInfo.licenseExpiration) > new Date()
+      driverInfo.insuranceExpiration &&
+      new Date(driverInfo.licenseExpiration) > new Date() &&
+      new Date(driverInfo.insuranceExpiration) > new Date()
     ) {
       newUserInfo.driverStatus = "Active";
     }
@@ -72,4 +99,6 @@ export const {
   useUploadLicenseMutation,
   useSubmitCarInfoMutation,
   useGetCarsQuery,
+  useLazyGetDirectionsQuery,
+  useGetDriverShiftsQuery,
 } = driverApi;

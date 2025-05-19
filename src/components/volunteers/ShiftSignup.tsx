@@ -34,11 +34,6 @@ const ShiftSignup = () => {
   const { data: user } = useGetUserQuery();
   const { data: userInfo } = useGetUserInfoQuery();
 
-  const { data: hours } = useGetHoursQuery({
-    campaignId: campaignId || "",
-    contactId: user?.salesforceId || "",
-  });
-
   let contactSalesforceId = "";
   if (user) {
     contactSalesforceId = user.salesforceId;
@@ -46,6 +41,11 @@ const ShiftSignup = () => {
   if (volunteer) {
     contactSalesforceId = volunteer.id;
   }
+
+  const { data: hours } = useGetHoursQuery({
+    campaignId: campaignId || "",
+    contactId: contactSalesforceId,
+  });
 
   const getConfirmUrl = useCallback(
     (hoursId: string) => {
@@ -77,6 +77,12 @@ const ShiftSignup = () => {
       }
     }
   }, [hours, shiftId, navigate, bookedJobs, campaignId, getConfirmUrl]);
+
+  useEffect(() => {
+    if (!contactSalesforceId) {
+      navigate("/volunteers");
+    }
+  }, []);
 
   const onSubmit = () => {
     const waiverSigned =

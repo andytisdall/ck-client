@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useGetDriverQuery } from "../../../../state/apis/volunteerApi/driver";
 import Loading from "../../../reusable/loading/Loading";
 
 const Onboarding = () => {
   const { data: driver, isLoading } = useGetDriverQuery();
+
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <Loading />;
@@ -28,6 +30,15 @@ const Onboarding = () => {
     }
     return <li className="driver-onboarding-complete">{step}</li>;
   };
+
+  if (driver?.driverStatus === "Active") {
+    return (
+      <div>
+        <h3>You are ready to sign up!</h3>
+        <button onClick={() => navigate("..")}>Continue</button>
+      </div>
+    );
+  }
 
   return (
     <div>
