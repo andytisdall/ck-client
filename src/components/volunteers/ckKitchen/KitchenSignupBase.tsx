@@ -2,7 +2,7 @@ import { NavLink, Outlet, useParams } from "react-router-dom";
 
 import "../Volunteers.css";
 import { navLink } from "../../../utils/style";
-import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi";
+import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
 
 const images = ["cookies-1.jpg", "wraps.jpeg", "sandwiches.jpeg"];
 

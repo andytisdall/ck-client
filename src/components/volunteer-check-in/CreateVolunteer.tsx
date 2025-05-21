@@ -6,7 +6,7 @@ import emailIsValid from "../../utils/emailAddressIsValid";
 import {
   useCreateVolunteerMutation,
   useLazyGetVolunteerQuery,
-} from "../../state/apis/volunteerApi";
+} from "../../state/apis/volunteerApi/volunteerApi";
 import { useCreateVolunteerHoursMutation } from "../../state/apis/volunteerApi/checkInApi";
 import Loading from "../reusable/loading/Loading";
 import { setError } from "../../state/apis/slices/errorSlice";

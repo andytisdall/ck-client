@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   useSubmitQuizAnswersMutation,
   useGetQuizQuestionsQuery,
-} from '../../../../state/apis/volunteerApi';
+} from "../../../../state/apis/volunteerApi/homeChefApi";
 
 const QuizResults = () => {
   const [, { data: results }] = useSubmitQuizAnswersMutation({
-    fixedCacheKey: 'home-chef-quiz',
+    fixedCacheKey: "home-chef-quiz",
   });
 
   const { data: questions } = useGetQuizQuestionsQuery();
 
-  const result = results?.passed ? 'passed' : 'did not pass';
+  const result = results?.passed ? "passed" : "did not pass";
 
   const renderWrongAnswers = () => {
     if (questions && results?.wrongAnswers.length) {
@@ -66,7 +66,7 @@ const QuizResults = () => {
     );
   }
 
-  const scoreColor = results.passed ? 'hc-quiz-passed' : 'hc-quiz-failed';
+  const scoreColor = results.passed ? "hc-quiz-passed" : "hc-quiz-failed";
 
   return (
     <div className="hc-quiz-form">

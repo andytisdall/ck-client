@@ -12,12 +12,12 @@ import {
   Shift,
   Volunteer,
   VolunteerHours,
-} from "../../../state/apis/volunteerApi";
+} from "../../../state/apis/volunteerApi/types";
 
 export const job1: Job = {
   id: "398y",
   name: "Meal Prep",
-  shifts: ["1", "2"],
+  shifts: [],
   active: true,
   location: "Location",
   ongoing: true,
@@ -27,7 +27,7 @@ export const job1: Job = {
 };
 
 export const shift1: Shift = {
-  id: job1.shifts[0],
+  id: "383u8e78",
   startTime: formatISO(addDays(new Date(), 1)),
   open: true,
   job: job1.id,
@@ -36,11 +36,11 @@ export const shift1: Shift = {
   slots: 3,
 };
 
+job1.shifts = [shift1];
+
 export const eventCampaign: VolunteerCampaign = {
   name: "Holiday Cookies",
   id: "dw3h87hd8",
-  jobs: [job1],
-  shifts: [shift1],
   buttonText: "dkuhewd",
   startDate: formatISO(new Date()),
 };
@@ -76,12 +76,20 @@ describe("volunteer does not exist already", () => {
   createServer([
     { path: "/user", res: async () => null },
     { path: "/volunteers/campaigns", res: async () => [eventCampaign] },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
     { path: "/volunteers/:email", res: async () => null },
     { path: "/user/userInfo", res: async () => null },
     { path: "/volunteers", method: "post", res: async () => volunteer1 },
     {
       path: "/volunteers/hours/:campaignId/:contactId",
       res: async () => [hours, hours2],
+    },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
     },
   ]);
 
@@ -134,6 +142,10 @@ describe("volunteer found", () => {
   createServer([
     { path: "/user", res: async () => null },
     { path: "/volunteers/campaigns", res: async () => [eventCampaign] },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
     { path: "/volunteers/:email", res: async () => volunteer1 },
     { path: "/user/userInfo", res: async () => null },
     {
@@ -152,6 +164,10 @@ describe("volunteer found", () => {
     { path: "/volunteers/hours", method: "post", res: async () => hours },
     { path: "/sign/config", res: async () => ({ limitReached: false }) },
     { path: "sign/CKK/:idd/:id", res: async () => {} },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
   ]);
 
   test("get job info and sign up for shift", async () => {
@@ -176,6 +192,10 @@ describe("hours created", () => {
   createServer([
     { path: "/user", res: async () => null },
     { path: "/volunteers/campaigns", res: async () => [eventCampaign] },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
     { path: "/user/userInfo", res: async () => null },
     {
       path: "/volunteers/hours/:campaignId/:contactId",
@@ -211,6 +231,10 @@ describe("canceled hours", () => {
   createServer([
     { path: "/user", res: async () => null },
     { path: "/volunteers/campaigns", res: async () => [eventCampaign] },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
     { path: "/user/userInfo", res: async () => null },
     {
       path: "/volunteers/hour/:hoursId",

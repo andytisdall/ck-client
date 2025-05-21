@@ -14,8 +14,9 @@ const SignSuccess = lazy(
 );
 
 const Onboarding = lazy(() => import("./Onboarding"));
-
-const Calendar = lazy(() => import("../KitchenCalendar"));
+const JobList = lazy(() => import("../../JobList"));
+const KitchenCalendar = lazy(() => import("../KitchenCalendar"));
+const ShiftSignup = lazy(() => import("../../ShiftSignup"));
 
 const driverRouter: RouteObject = {
   path: "driver",
@@ -23,19 +24,22 @@ const driverRouter: RouteObject = {
   children: [
     {
       index: true,
-      element: renderWithFallback(<DriverSignupBase />),
+      element: renderWithFallback(
+        <JobList campaignIdProp="701U800000O3WxhIAF" />
+      ),
     },
-    // {
-    //   path: "/",
-    //   element: renderWithFallback(<JobList />),
-    // },
 
-    // { path: "cal", element: renderWithFallback(<KitchenCalendar />) },
+    {
+      path: "cal",
+      element: renderWithFallback(
+        <KitchenCalendar campaignIdProp="701U800000O3WxhIAF" />
+      ),
+    },
 
-    // {
-    //   path: ":shiftId",
-    //   element: renderWithFallback(<ShiftSignup />),
-    // },
+    {
+      path: ":shiftId",
+      element: renderWithFallback(<ShiftSignup />),
+    },
     {
       path: "onboarding",
       element: <Onboarding />,

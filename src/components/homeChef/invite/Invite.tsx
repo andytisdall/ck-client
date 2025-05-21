@@ -1,10 +1,10 @@
-import { useState, FormEventHandler } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, FormEventHandler } from "react";
+import { useNavigate } from "react-router-dom";
 
-import Loading from '../../reusable/loading/Loading';
-import './Invite.css';
-import { useSendInviteMutation } from '../../../state/apis/volunteerApi';
-import { useGetUserInfoQuery } from '../../../state/apis/authApi';
+import Loading from "../../reusable/loading/Loading";
+import "./Invite.css";
+import { useSendInviteMutation } from "../../../state/apis/volunteerApi/homeChefApi";
+import { useGetUserInfoQuery } from "../../../state/apis/authApi";
 
 const Invite = () => {
   const [sendInvite, { isLoading }] = useSendInviteMutation();
@@ -23,7 +23,7 @@ ${userInfo?.firstName}
   `;
   const defaultSubject = `${userInfo?.firstName} ${userInfo?.lastName} invites you to become a home chef!`;
 
-  const [recipients, setRecipients] = useState(['']);
+  const [recipients, setRecipients] = useState([""]);
   const [subject, setSubject] = useState(defaultSubject);
   const [message, setMessage] = useState(defaultMessage);
 
@@ -32,7 +32,7 @@ ${userInfo?.firstName}
   const renderInputs = () => {
     return recipients.map((rec, i) => {
       return (
-        <li key={'emailRecipient' + i} className="form-horizontal">
+        <li key={"emailRecipient" + i} className="form-horizontal">
           <input
             type="email"
             value={rec}
@@ -63,11 +63,11 @@ ${userInfo?.firstName}
     e.preventDefault();
     sendInvite({ recipients, message, subject })
       .unwrap()
-      .then(() => navigate('..'));
+      .then(() => navigate(".."));
   };
 
   const addField = () => {
-    const newArr = [...recipients, ''];
+    const newArr = [...recipients, ""];
     setRecipients(newArr);
   };
 

@@ -57,7 +57,8 @@
 }
 
 .volunteers-shift-date {
-  width: 130px;
+  width: 40%;
+  max-width: 400px;
 }
 
 .volunteers-signup-btns {
@@ -214,6 +215,9 @@
     flex-direction: column;
     align-items: center;
     border-left: grey solid 1px;
+  }
+  .volunteers-shift-date {
+    width: auto;
   }
 
   .volunteers-shift-checkmark {

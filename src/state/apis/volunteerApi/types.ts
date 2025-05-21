@@ -1,3 +1,5 @@
+import { CarSize } from "./driver";
+
 export type Campaign = {
   mealsDonated: number;
 };
@@ -25,13 +27,16 @@ export interface Shift {
   restaurantMeals?: boolean;
   duration: number;
   slots: number;
+  carSizeRequired?: CarSize;
 }
 
 export interface Job {
   id: string;
   name: string;
   location?: string;
-  shifts: string[];
+  destination?: string;
+  distance?: string;
+  shifts: Shift[];
   active: boolean;
   ongoing: boolean;
   description?: string;
@@ -51,8 +56,6 @@ export interface GetShiftsResponse {
 }
 
 export interface VolunteerCampaign {
-  jobs: Job[];
-  shifts: Shift[];
   name: string;
   startDate?: string;
   endDate?: string;

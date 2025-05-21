@@ -12,12 +12,12 @@ import {
   Shift,
   VolunteerHours,
   Volunteer,
-} from "../../../state/apis/volunteerApi";
+} from "../../../state/apis/volunteerApi/types";
 
 export const job1: Job = {
   id: "398y",
   name: "Meal Prep",
-  shifts: ["1", "2"],
+  shifts: [],
   active: true,
   location: "Location",
   ongoing: true,
@@ -27,7 +27,7 @@ export const job1: Job = {
 };
 
 export const shift1: Shift = {
-  id: job1.shifts[0],
+  id: "4i3ghd",
   startTime: formatISO(addDays(new Date(), 1)),
   open: true,
   job: job1.id,
@@ -37,7 +37,7 @@ export const shift1: Shift = {
 };
 
 export const shift2: Shift = {
-  id: job1.shifts[1],
+  id: "dei8hdew",
   startTime: formatISO(addDays(new Date(), 2)),
   open: false,
   job: job1.id,
@@ -46,18 +46,16 @@ export const shift2: Shift = {
   slots: 0,
 };
 
+job1.shifts = [shift1, shift2];
+
 export const ckKitchenCampaign: VolunteerCampaign = {
   name: "CK Kitchen Volunteers",
   id: "dewneic",
-  jobs: [job1],
-  shifts: [shift1, shift2],
 };
 
 export const ckDoorCampaign: VolunteerCampaign = {
   name: "Door Distribution",
   id: "dfli",
-  jobs: [job1],
-  shifts: [shift1, shift2],
 };
 
 export const hours: VolunteerHours = {
@@ -85,6 +83,10 @@ describe("volunteer not found", () => {
     {
       path: "/volunteers/campaigns",
       res: async () => [ckKitchenCampaign, ckDoorCampaign],
+    },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
     },
     { path: "/volunteers/:email", res: async () => null },
     { path: "/user/userInfo", res: async () => null },
@@ -150,6 +152,10 @@ describe("volunteer found", () => {
       path: "/volunteers/campaigns",
       res: async () => [ckKitchenCampaign, ckDoorCampaign],
     },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
     { path: "/volunteers/:email", res: async () => volunteer1 },
     { path: "/user/userInfo", res: async () => null },
     {
@@ -198,6 +204,10 @@ describe("signed up for shift", () => {
       path: "/volunteers/campaigns",
       res: async () => [ckKitchenCampaign, ckDoorCampaign],
     },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
     { path: "/volunteers/:email", res: async () => volunteer1 },
     { path: "/user/userInfo", res: async () => null },
     {
@@ -230,20 +240,19 @@ describe("signed up for shift", () => {
       () => {
         expect(confirmationMsg).toBeDefined();
       },
-      { timeout: 300 }
+      { timeout: 500 }
     );
   });
 
   test("cancel job signup", async () => {
     render(<App />, { wrapper: Root });
-
-    const backBtn = screen.getByText(/volunteers home/i);
+    const backBtn = await screen.findByText(/volunteers home/i);
     await userEvent.click(backBtn);
     const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
     await userEvent.click(kitchenLink);
-    const jobLink = await screen.findByText(
-      format(new Date(hours.time), "eee, M/d/yy h:mm a")
-    );
+    const calLink = await screen.findByText(/calendar/i);
+    await userEvent.click(calLink);
+    const jobLink = await screen.findByText(/signed up/i);
     expect(jobLink).toBeDefined();
 
     await userEvent.click(jobLink);

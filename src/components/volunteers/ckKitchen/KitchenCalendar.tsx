@@ -7,19 +7,26 @@ import { RootState } from "../../../state/store";
 import Calendar from "../../reusable/calendar/Calendar";
 import Loading from "../../reusable/loading/Loading";
 import {
-  useGetCampaignsQuery,
-  useGetHoursQuery,
+  Job,
   Shift,
   VolunteerHours,
   VolunteerCampaign,
-} from "../../../state/apis/volunteerApi";
+} from "../../../state/apis/volunteerApi/types";
+import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
 import { useGetUserQuery } from "../../../state/apis/authApi";
+import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
+import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
 
-const KitchenCalBase = () => {
+const KitchenCalBase = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   const { campaignId } = useParams();
 
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const campaign = campaigns?.find((cam) => cam.id === campaignId);
+  const campaign = campaigns?.find((cam) =>
+    campaignIdProp ? cam.id === campaignIdProp : cam.id === campaignId
+  );
+  const { data: jobs } = useGetJobsQuery({
+    campaignId: campaignId || campaignIdProp || "",
+  });
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -31,28 +38,31 @@ const KitchenCalBase = () => {
     return <Loading />;
   }
 
-  if (!(contactId && campaign)) {
+  if (!(contactId && campaign && jobs)) {
     return <div>Volunteer campaign data not found</div>;
   }
 
-  return <KitchenCalendar contactId={contactId} campaign={campaign} />;
+  return (
+    <KitchenCalendar contactId={contactId} campaign={campaign} jobs={jobs} />
+  );
 };
 
 const KitchenCalendar = ({
   contactId,
   campaign,
+  jobs,
 }: {
   contactId: string;
   campaign: VolunteerCampaign;
+  jobs: Job[];
 }) => {
   const navigate = useNavigate();
-
-  const { shifts, jobs } = campaign;
 
   const { data: hours, isLoading } = useGetHoursQuery({
     contactId,
     campaignId: campaign.id,
   });
+  const shifts = jobs?.map((j) => j.shifts).flat();
 
   const driver = campaign.name === "Drivers";
 
@@ -105,9 +115,7 @@ const KitchenCalendar = ({
             onClick={() => {
               if (jobBooked) {
                 if (bookedHours) {
-                  navigate(
-                    `../../signup-confirm/${campaign?.id}/${bookedHours.id}/${contactId}`
-                  );
+                  navigate(`../../../confirm/${contactId}/${bookedHours.id}`);
                 }
               } else if (sh.open) {
                 navigate(`../${sh.id}`);

@@ -15,7 +15,6 @@ import {
   HomeChefQuizQuestion,
   HomeChefQuizAnswer,
   HomeChefQuizResponse,
-  Job,
 } from "./types";
 
 export const homeChefApi = api.injectEndpoints({

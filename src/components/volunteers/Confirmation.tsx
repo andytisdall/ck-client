@@ -1,36 +1,58 @@
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
-import {
-  useCancelVolunteerShiftMutation,
-  useGetHourQuery,
-  useGetCampaignsQuery,
-} from "../../state/apis/volunteerApi";
+import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
+import { useCancelVolunteerShiftMutation } from "../../state/apis/volunteerApi/volunteerApi";
+import { useGetHourQuery } from "../../state/apis/volunteerApi/volunteerApi";
+import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
 import { setAlert } from "../../state/apis/slices/alertSlice";
 import ShiftInfo from "./ShiftInfo";
 import Loading from "../reusable/loading/Loading";
+import { VolunteerHours } from "../../state/apis/volunteerApi/types";
 
-const Confirmation = () => {
-  const { hoursId, contactId } = useParams();
+const ConfirmationBase = () => {
+  const { hoursId } = useParams();
+
   const { data: campaigns, isLoading: campaignsIsLoading } =
     useGetCampaignsQuery();
+
   const { data: hour, isLoading: hourIsLoading } = useGetHourQuery(
     hoursId || ""
   );
-  const isLoading = campaignsIsLoading || hourIsLoading;
 
-  const [cancelShift, { isLoading: cancelIsLoading }] =
-    useCancelVolunteerShiftMutation();
+  const isLoading = campaignsIsLoading || hourIsLoading;
 
   const campaignId = hour?.campaign;
   const campaign = campaignId
     ? campaigns?.find((cam) => cam.id.startsWith(campaignId))
     : undefined;
 
-  const jobs = campaign?.jobs;
-  const shifts = campaign?.shifts;
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!campaign || !hour) {
+    return <div>Not Found.</div>;
+  }
+
+  return <Confirmation campaignId={campaign.id} hour={hour} />;
+};
+
+const Confirmation = ({
+  hour,
+  campaignId,
+}: {
+  hour: VolunteerHours;
+  campaignId: string;
+}) => {
+  const { contactId } = useParams();
+  const [cancelShift, { isLoading: cancelIsLoading }] =
+    useCancelVolunteerShiftMutation();
+
+  const { data: jobs, isLoading } = useGetJobsQuery({ campaignId });
+
   const job = jobs?.find((j) => j.id === hour?.job);
-  const shift = shifts?.find((sh) => sh.id === hour?.shift);
+  const shift = job?.shifts?.find((sh) => sh.id === hour?.shift);
 
   const dispatch = useDispatch();
 
@@ -102,4 +124,4 @@ const Confirmation = () => {
   );
 };
 
-export default Confirmation;
+export default ConfirmationBase;

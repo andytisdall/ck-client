@@ -5,7 +5,7 @@ import "./Orientation.css";
 import FileUpload from "../../reusable/file/FileUpload";
 import Loading from "../../reusable/loading/Loading";
 import { FOOD_HANDLER_URL } from "./HomeChefOnboarding";
-import { useUploadFoodHandlerCertificateMutation } from "../../../state/apis/volunteerApi";
+import { useUploadFoodHandlerCertificateMutation } from "../../../state/apis/volunteerApi/homeChefApi";
 
 const UploadFoodHandler = () => {
   const [uploadFiles, { isLoading }] =

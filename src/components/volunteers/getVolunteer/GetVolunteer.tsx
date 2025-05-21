@@ -1,23 +1,23 @@
-import { useState, FormEventHandler, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, FormEventHandler, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Loading from '../../reusable/loading/Loading';
-import '../Volunteers.css';
-import EnterEmail from './EnterEmail';
-import EnterName from './EnterName';
+import Loading from "../../reusable/loading/Loading";
+import "../Volunteers.css";
+import EnterEmail from "./EnterEmail";
+import EnterName from "./EnterName";
 import {
   useLazyGetVolunteerQuery,
   useCreateVolunteerMutation,
-} from '../../../state/apis/volunteerApi';
-import { useGetUserQuery } from '../../../state/apis/authApi';
+} from "../../../state/apis/volunteerApi/volunteerApi";
+import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const GetVolunteer = () => {
   const { campaignId } = useParams();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [showNameFields, setShowNameFields] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
   const [createVolunteer, createVolunteerResult] = useCreateVolunteerMutation();

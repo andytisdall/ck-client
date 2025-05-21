@@ -3,6 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import "./Driver.css";
 import { useGetUserQuery } from "../../../../state/apis/authApi";
 import Loading from "../../../reusable/loading/Loading";
+import DriverSignupBase from "./DriverSignupBase";
 
 const DriverBase = () => {
   const { data: user, isLoading } = useGetUserQuery();
@@ -24,7 +25,11 @@ const DriverBase = () => {
       );
     }
 
-    return <Outlet />;
+    return (
+      <DriverSignupBase>
+        <Outlet />
+      </DriverSignupBase>
+    );
   };
 
   return (

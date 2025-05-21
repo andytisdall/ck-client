@@ -1,10 +1,11 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { useGetDriverQuery } from "../../../../state/apis/volunteerApi/driver";
 import { navLink } from "../../../../utils/style";
 import Loading from "../../../reusable/loading/Loading";
+import { PropsWithChildren } from "react";
 
-const DriverSignupBase = () => {
+const DriverSignupBase = ({ children }: PropsWithChildren) => {
   const { data: driver, isLoading } = useGetDriverQuery();
 
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const DriverSignupBase = () => {
   return (
     <div className="volunteers-body">
       <div className="volunteers-shift-signup-links">
-        <NavLink className={navLink} to="/volunteers/driver/signup/">
+        <NavLink className={navLink} to="">
           List
         </NavLink>
         <NavLink className={navLink} to="cal">
@@ -28,7 +29,7 @@ const DriverSignupBase = () => {
         </NavLink>
       </div>
 
-      <Outlet />
+      {children}
     </div>
   );
 };

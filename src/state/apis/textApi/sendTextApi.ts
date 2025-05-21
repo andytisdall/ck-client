@@ -1,6 +1,6 @@
 import { api } from "../../api";
 import { SendTextResponse, SendTextBody } from "./types";
-import { Job } from "../volunteerApi";
+import { Job } from "../volunteerApi/types";
 
 export const sendTextApi = api.injectEndpoints({
   endpoints: (builder) => ({

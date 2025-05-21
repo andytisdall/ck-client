@@ -1,16 +1,16 @@
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 
 import {
   useGetRecipesQuery,
-  RecipeItem,
   useDeleteRecipeMutation,
-} from '../../../../state/apis/volunteerApi';
-import { useGetUserQuery } from '../../../../state/apis/authApi';
-import CreateRecipe from './CreateRecipe';
-import Loading from '../../../reusable/loading/Loading';
-import { categories } from './RecipeList';
-import './Recipe.css';
+} from "../../../../state/apis/volunteerApi/recipeApi";
+import { RecipeItem } from "../../../../state/apis/volunteerApi/types";
+import { useGetUserQuery } from "../../../../state/apis/authApi";
+import CreateRecipe from "./CreateRecipe";
+import Loading from "../../../reusable/loading/Loading";
+import { categories } from "./RecipeList";
+import "./Recipe.css";
 
 const Recipe = () => {
   const { recipeId } = useParams();
@@ -39,7 +39,7 @@ const Recipe = () => {
             className="recipe-delete"
             onClick={() => {
               deleteRecipe(recipeId);
-              navigate('..');
+              navigate("..");
             }}
           >
             delete this recipe
@@ -49,7 +49,7 @@ const Recipe = () => {
     }
   };
 
-  const renderItems = (name: 'instructions' | 'ingredients') => {
+  const renderItems = (name: "instructions" | "ingredients") => {
     const listItems = ({ text }: RecipeItem) =>
       text
         .filter((i?: string) => i)
@@ -133,8 +133,8 @@ const Recipe = () => {
             </p>
             <div className="recipe-description">{renderDescription()}</div>
           </div>
-          {renderItems('ingredients')}
-          {renderItems('instructions')}
+          {renderItems("ingredients")}
+          {renderItems("instructions")}
         </div>
         {renderImage()}
       </div>

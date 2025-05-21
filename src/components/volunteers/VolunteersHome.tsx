@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { useGetCampaignsQuery } from "../../state/apis/volunteerApi";
+import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import TextButton from "../reusable/TextButton";
 import EventsList from "./events/EventsList";
 import Loading from "../reusable/loading/Loading";
@@ -56,6 +56,7 @@ const VolunteersHome = () => {
           ) : (
             campaigns
               ?.filter((cam) => !cam.startDate)
+              .sort((a, b) => (a.name > b.name ? 1 : -1))
               .map((cam) => renderOngoingCampaign(cam.name))
           )}
         </div>

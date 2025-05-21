@@ -4,13 +4,12 @@ import { useSelector } from "react-redux";
 
 import { RootState } from "../../state/store";
 import Loading from "../reusable/loading/Loading";
-import {
-  useGetCampaignsQuery,
-  useSignUpForVolunteerShiftMutation,
-  useGetHoursQuery,
-} from "../../state/apis/volunteerApi";
+import { useGetHoursQuery } from "../../state/apis/volunteerApi/volunteerApi";
+import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
+import { useSignUpForVolunteerShiftMutation } from "../../state/apis/volunteerApi/volunteerApi";
 import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 import { useGetUserQuery, useGetUserInfoQuery } from "../../state/apis/authApi";
+import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
 import ShiftInfo from "./ShiftInfo";
 
 const ShiftSignup = () => {
@@ -21,6 +20,9 @@ const ShiftSignup = () => {
     useSignUpForVolunteerShiftMutation();
 
   const { data: signingConfig } = useGetSigningConfigQuery();
+  const { data: jobs } = useGetJobsQuery({ campaignId: campaignId || "" });
+
+  const shifts = jobs?.map((j) => j.shifts).flat();
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -60,12 +62,8 @@ const ShiftSignup = () => {
       : [];
   }, [hours]);
 
-  const shift = shiftId
-    ? campaign?.shifts.find((sh) => sh.id === shiftId)
-    : undefined;
-  const job = shift
-    ? campaign?.jobs.find((j) => j.id === shift.job)
-    : undefined;
+  const shift = shiftId ? shifts?.find((sh) => sh.id === shiftId) : undefined;
+  const job = shift ? jobs?.find((j) => j.id === shift.job) : undefined;
 
   useEffect(() => {
     if (hours && shiftId && bookedJobs.includes(shiftId)) {

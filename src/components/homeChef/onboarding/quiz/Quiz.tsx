@@ -4,16 +4,16 @@ import {
   useState,
   useMemo,
   FormEventHandler,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
+} from "react";
+import { useNavigate } from "react-router-dom";
 
-import './Quiz.css';
+import "./Quiz.css";
 import {
   useGetQuizQuestionsQuery,
   useSubmitQuizAnswersMutation,
-} from '../../../../state/apis/volunteerApi';
-import QuizQuestion from './QuizQuestion';
-import Loading from '../../../reusable/loading/Loading';
+} from "../../../../state/apis/volunteerApi/homeChefApi";
+import QuizQuestion from "./QuizQuestion";
+import Loading from "../../../reusable/loading/Loading";
 
 const ANIMATION_DURATION = 200;
 
@@ -24,7 +24,7 @@ const Quiz = () => {
   const { data: questions } = useGetQuizQuestionsQuery();
 
   const [submitQuizAnswers, { isLoading }] = useSubmitQuizAnswersMutation({
-    fixedCacheKey: 'home-chef-quiz',
+    fixedCacheKey: "home-chef-quiz",
   });
 
   const navigate = useNavigate();
@@ -38,12 +38,12 @@ const Quiz = () => {
     submitQuizAnswers(formattedAnswers)
       .unwrap()
       .then(() => {
-        navigate('../quiz-results');
+        navigate("../quiz-results");
       });
   };
 
-  const transitionAnimation = useCallback((action: 'add' | 'sub') => {
-    const modifier = action === 'add' ? 1 : -1;
+  const transitionAnimation = useCallback((action: "add" | "sub") => {
+    const modifier = action === "add" ? 1 : -1;
 
     const width = window.outerWidth;
 
@@ -56,7 +56,7 @@ const Quiz = () => {
         formRef.current?.animate(
           [
             { transform: `translateX(${width * -modifier}px)` },
-            { display: 'none' },
+            { display: "none" },
           ],
           10
         );
@@ -72,7 +72,7 @@ const Quiz = () => {
   const nextPageBtn = useMemo(() => {
     const nextBtnDisabled = userAnswers[page] === undefined;
 
-    const style = nextBtnDisabled ? 'hc-quiz-btn-disabled' : '';
+    const style = nextBtnDisabled ? "hc-quiz-btn-disabled" : "";
 
     const submitBtnDisabled =
       !Object.values(userAnswers).every((answer) => answer !== undefined) ||
@@ -82,7 +82,7 @@ const Quiz = () => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          transitionAnimation('add');
+          transitionAnimation("add");
         }}
         disabled={nextBtnDisabled}
         className={style}
@@ -92,7 +92,7 @@ const Quiz = () => {
     ) : (
       <button
         type="submit"
-        className={submitBtnDisabled ? 'hc-quiz-btn-disabled' : ''}
+        className={submitBtnDisabled ? "hc-quiz-btn-disabled" : ""}
       >
         Submit Quiz
       </button>
@@ -105,7 +105,7 @@ const Quiz = () => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            transitionAnimation('sub');
+            transitionAnimation("sub");
           }}
         >
           Previous Question

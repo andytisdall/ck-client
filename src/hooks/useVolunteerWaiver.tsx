@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import { RootState } from "../state/store";
-import { useLazyGetVolunteerQuery } from "../state/apis/volunteerApi";
+import { useLazyGetVolunteerQuery } from "../state/apis/volunteerApi/volunteerApi";
 import { useGetUserInfoQuery, useGetUserQuery } from "../state/apis/authApi";
 import Loading from "../components/reusable/loading/Loading";
 

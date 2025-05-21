@@ -2,7 +2,7 @@ import { format, utcToZonedTime } from "date-fns-tz";
 import { useSelector } from "react-redux";
 
 import { RootState } from "../../state/store";
-import { Job, Shift } from "../../state/apis/volunteerApi";
+import { Job, Shift } from "../../state/apis/volunteerApi/types";
 
 const ShiftInfo = ({
   job,
