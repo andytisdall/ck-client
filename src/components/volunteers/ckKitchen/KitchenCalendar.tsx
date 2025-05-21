@@ -105,9 +105,7 @@ const KitchenCalendar = ({
             onClick={() => {
               if (jobBooked) {
                 if (bookedHours) {
-                  navigate(
-                    `../../signup-confirm/${campaign?.id}/${bookedHours.id}/${contactId}`
-                  );
+                  navigate(`../../../confirm/${contactId}/${bookedHours.id}/`);
                 }
               } else if (sh.open) {
                 navigate(`../${sh.id}`);
