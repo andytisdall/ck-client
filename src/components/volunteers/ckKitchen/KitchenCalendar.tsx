@@ -17,46 +17,42 @@ import { useGetUserQuery } from "../../../state/apis/authApi";
 import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
 
-const KitchenCalBase = ({ campaignIdProp }: { campaignIdProp?: string }) => {
+const KitchenCalBase = () => {
   const { campaignId } = useParams();
 
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const campaign = campaigns?.find((cam) =>
-    campaignIdProp ? cam.id === campaignIdProp : cam.id === campaignId
-  );
-  const { data: jobs } = useGetJobsQuery({
-    campaignId: campaignId || campaignIdProp || "",
-  });
+  const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
   );
 
-  const { data: user } = useGetUserQuery();
+  const { data: user, isLoading: userIsLoading } = useGetUserQuery();
   const contactId = volunteer?.id || user?.salesforceId;
-  if (isLoading) {
+
+  if (isLoading || userIsLoading) {
     return <Loading />;
   }
 
-  if (!(contactId && campaign && jobs)) {
+  if (!(contactId && campaign)) {
     return <div>Volunteer campaign data not found</div>;
   }
 
-  return (
-    <KitchenCalendar contactId={contactId} campaign={campaign} jobs={jobs} />
-  );
+  return <KitchenCalendar contactId={contactId} campaign={campaign} />;
 };
 
 const KitchenCalendar = ({
   contactId,
   campaign,
-  jobs,
 }: {
   contactId: string;
   campaign: VolunteerCampaign;
-  jobs: Job[];
 }) => {
   const navigate = useNavigate();
+
+  const { data: jobs } = useGetJobsQuery({
+    campaignId: campaign.id,
+  });
 
   const { data: hours, isLoading } = useGetHoursQuery({
     contactId,

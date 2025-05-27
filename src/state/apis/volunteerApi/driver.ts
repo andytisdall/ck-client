@@ -8,24 +8,28 @@ export interface DriverInfo {
   licenseExpiration?: string;
   insuranceExpiration?: string;
   volunteerAgreement: boolean;
-  car?: CarSize;
+  car?: CarInfo;
   driverStatus?: "Active" | "Inactive";
 }
 
 interface CarInfo {
   size: CarSize;
+  make: string;
+  model: string;
+  year: string;
+  color: string;
 }
 
-interface DriverShift {
-  id: string;
-  startTime: string;
-  open: boolean;
-  job: string;
-  duration: number;
-  origin: string;
-  destination: string;
-  distance: string;
-}
+// interface DriverShift {
+//   id: string;
+//   startTime: string;
+//   open: boolean;
+//   job: string;
+//   duration: number;
+//   origin: string;
+//   destination: string;
+//   distance: string;
+// }
 
 const driverApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -44,6 +48,17 @@ const driverApi = api.injectEndpoints({
       },
       invalidatesTags: ["DriverInfo"],
     }),
+    uploadInsurance: builder.mutation<null, FormData>({
+      query: (body) => {
+        return {
+          url: "/volunteers/driver/insurance",
+          body,
+          formData: true,
+          method: "POST",
+        };
+      },
+      invalidatesTags: ["DriverInfo"],
+    }),
     submitCarInfo: builder.mutation<null, CarInfo>({
       query: (body) => ({
         method: "POST",
@@ -52,9 +67,7 @@ const driverApi = api.injectEndpoints({
       }),
       invalidatesTags: ["DriverInfo"],
     }),
-    getCars: builder.query<Record<string, string>[], void>({
-      query: () => "/volunteers/driver/cars",
-    }),
+
     getDirections: builder.query<
       { distance: string },
       { origin: string; destination: string }
@@ -62,9 +75,9 @@ const driverApi = api.injectEndpoints({
       query: ({ origin, destination }) =>
         `/volunteers/driver/directions/${origin}/${destination}`,
     }),
-    getDriverShifts: builder.query<DriverShift[], void>({
-      query: () => "/volunteers/driver/shifts",
-    }),
+    // getDriverShifts: builder.query<DriverShift[], void>({
+    //   query: () => "/volunteers/driver/shifts",
+    // }),
   }),
 });
 
@@ -98,7 +111,8 @@ export const {
   useGetDriverQuery,
   useUploadLicenseMutation,
   useSubmitCarInfoMutation,
-  useGetCarsQuery,
+
   useLazyGetDirectionsQuery,
-  useGetDriverShiftsQuery,
+  // useGetDriverShiftsQuery,
+  useUploadInsuranceMutation,
 } = driverApi;

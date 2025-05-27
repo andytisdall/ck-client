@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useGetSigningUrlQuery } from "../../../state/apis/signApi";
 import Loading from "../loading/Loading";
@@ -18,6 +18,9 @@ const Sign = () => {
       return (
         <div>
           <p>You have already signed this document.</p>
+          <Link to="../..">
+            <button>Back</button>
+          </Link>
         </div>
       );
     }

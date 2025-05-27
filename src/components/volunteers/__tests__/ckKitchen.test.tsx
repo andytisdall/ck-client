@@ -172,7 +172,7 @@ describe("volunteer found", () => {
       res: async () => hours,
     },
     { path: "/sign/config", res: async () => ({ limitReached: false }) },
-    { path: "sign/CKK/:idd/:id", res: async () => {} },
+    { path: "/sign/CKK/:idd/:id", res: async () => {} },
   ]);
 
   test("get job info and sign up for shift", async () => {

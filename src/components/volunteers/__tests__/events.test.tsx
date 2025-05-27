@@ -99,10 +99,12 @@ describe("volunteer does not exist already", () => {
     const volLink = await screen.findAllByText("CK Volunteers");
     userEvent.click(volLink[1]);
 
-    const eventsTitle = await screen.findByText(
-      "Special Event Volunteer Opportunities"
+    await waitFor(
+      () => {
+        screen.getByText("Special Event Volunteer Opportunities");
+      },
+      { timeout: 3000 }
     );
-    expect(eventsTitle).toBeDefined();
   });
 
   test("create contact", async () => {

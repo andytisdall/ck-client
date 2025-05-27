@@ -12,7 +12,7 @@ import { useGetUserQuery, useGetUserInfoQuery } from "../../state/apis/authApi";
 import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
 import ShiftInfo from "./ShiftInfo";
 
-const ShiftSignup = () => {
+const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   const navigate = useNavigate();
   const { shiftId, campaignId } = useParams();
 
@@ -20,7 +20,9 @@ const ShiftSignup = () => {
     useSignUpForVolunteerShiftMutation();
 
   const { data: signingConfig } = useGetSigningConfigQuery();
-  const { data: jobs } = useGetJobsQuery({ campaignId: campaignId || "" });
+  const { data: jobs } = useGetJobsQuery({
+    campaignId: campaignId || campaignIdProp || "",
+  });
 
   const shifts = jobs?.map((j) => j.shifts).flat();
 
@@ -45,7 +47,7 @@ const ShiftSignup = () => {
   }
 
   const { data: hours } = useGetHoursQuery({
-    campaignId: campaignId || "",
+    campaignId: campaignId || campaignIdProp || "",
     contactId: contactSalesforceId,
   });
 
@@ -75,12 +77,6 @@ const ShiftSignup = () => {
       }
     }
   }, [hours, shiftId, navigate, bookedJobs, campaignId, getConfirmUrl]);
-
-  useEffect(() => {
-    if (!contactSalesforceId) {
-      navigate("/volunteers");
-    }
-  }, []);
 
   const onSubmit = () => {
     const waiverSigned =

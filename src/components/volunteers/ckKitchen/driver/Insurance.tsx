@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
 import FileUpload from "../../../reusable/file/FileUpload";
-import { useUploadLicenseMutation } from "../../../../state/apis/volunteerApi/driver";
+import { useUploadInsuranceMutation } from "../../../../state/apis/volunteerApi/driver";
 import Loading from "../../../reusable/loading/Loading";
 import { FormEventHandler } from "react";
 
-const License = () => {
-  const [uploadLicense, { isLoading }] = useUploadLicenseMutation();
+const Insurance = () => {
+  const [uploadInsurance, { isLoading }] = useUploadInsuranceMutation();
 
   const navigate = useNavigate();
 
@@ -22,15 +22,15 @@ const License = () => {
         }
       }
     });
-    await uploadLicense(formData).unwrap();
+    await uploadInsurance(formData).unwrap();
     navigate("..");
   };
   return (
     <div>
       <h3>Upload Driver's License</h3>
       <form className="driver-license-form" onSubmit={onSubmit}>
-        <FileUpload label="Driver's License" doc="DL" />
-        <label>Driver's License Expiration Date:</label>
+        <FileUpload label="Proof of Insurance" doc="INS" />
+        <label>Insurance Expiration Date:</label>
         <input type="date" required name="expirationDate" />
         {isLoading ? <Loading /> : <input type="submit" />}
       </form>
@@ -39,4 +39,4 @@ const License = () => {
   );
 };
 
-export default License;
+export default Insurance;

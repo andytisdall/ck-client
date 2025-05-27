@@ -35,7 +35,7 @@ const Onboarding = () => {
     return (
       <div>
         <h3>You are ready to sign up!</h3>
-        <button onClick={() => navigate("..")}>Continue</button>
+        <button onClick={() => navigate("../..")}>Continue</button>
       </div>
     );
   }
@@ -51,6 +51,12 @@ const Onboarding = () => {
             "Upload driver's license",
             !!driver.licenseExpiration,
             "license"
+          )}
+
+          {renderStepStatus(
+            "Upload proof of insurance",
+            !!driver.insuranceExpiration,
+            "insurance"
           )}
 
           {renderStepStatus("Enter info about your car", !!driver.car, "car")}

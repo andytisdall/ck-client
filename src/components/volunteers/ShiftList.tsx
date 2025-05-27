@@ -3,11 +3,7 @@ import { addHours } from "date-fns";
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
 
-import {
-  Job,
-  Shift,
-  VolunteerHours,
-} from "../../state/apis/volunteerApi/types";
+import { Job, VolunteerHours } from "../../state/apis/volunteerApi/types";
 import { useGetHoursQuery } from "../../state/apis/volunteerApi/volunteerApi";
 
 const ShiftList = ({
@@ -29,16 +25,13 @@ const ShiftList = ({
   const { shifts } = job;
 
   const sortedShifts = useMemo(() => {
-    if (shifts)
-      return Object.values(shifts)
-        .filter(
-          (shift) =>
-            utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date()
-        )
-        .sort((a, b) =>
-          new Date(a.startTime) > new Date(b.startTime) ? 1 : -1
-        );
-  }, [shifts]);
+    return shifts
+      .filter(
+        (shift) =>
+          utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date()
+      )
+      .sort((a, b) => (new Date(a.startTime) > new Date(b.startTime) ? 1 : -1));
+  }, []);
 
   const bookedJobs = !hours
     ? []
@@ -71,6 +64,8 @@ const ShiftList = ({
           } else if (shift.open) {
             linkUrl = shift.id;
           }
+
+          // console.log(linkUrl);
 
           const formattedStartTime = format(
             utcToZonedTime(shift.startTime, "America/Los_Angeles"),

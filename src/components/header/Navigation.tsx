@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import './Navigation.css';
-import { useGetUserQuery } from '../../state/apis/authApi';
+import "./Navigation.css";
+import { useGetUserQuery } from "../../state/apis/authApi";
 
 const Navigation = () => {
   const userQuery = useGetUserQuery();
@@ -18,12 +18,6 @@ const Navigation = () => {
   const renderVolunteers = () => {
     return <NavButton to="volunteers" text="CK Volunteers" />;
   };
-
-  // const renderMealProgram = () => {
-  //   if (restaurant) {
-  //     return <NavButton to="meal-program" text="Restaurant Meal Program" />;
-  //   }
-  // };
 
   const renderTextService = () => {
     if (user?.admin) {
@@ -44,7 +38,6 @@ const Navigation = () => {
   const renderWithUser = () => {
     return (
       <div className="nav-btns">
-        {/* {renderMealProgram()} */}
         {renderTextService()}
         {renderVolunteers()}
         <NavButton to="user" text="User Settings" />

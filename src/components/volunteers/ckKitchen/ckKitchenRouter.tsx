@@ -2,18 +2,21 @@ import { RouteObject } from "react-router-dom";
 import { lazy } from "react";
 
 import renderWithFallback from "../../reusable/loading/renderWithFallback";
-import JobList from "../JobList";
 import driverRouter from "./driver/driverRouter";
 
 const KitchenCalendar = lazy(() => import("./KitchenCalendar"));
 const KitchenSignupBase = lazy(() => import("./KitchenSignupBase"));
 
 const ShiftSignup = lazy(() => import("../ShiftSignup"));
+const JobList = lazy(() => import("../JobList"));
 
 const GetVolunteer = lazy(() => import("../getVolunteer/GetVolunteer"));
 
+const DriverBase = lazy(() => import("./driver/DriverBase"));
+
 const ckKitchenRouter: RouteObject = {
   path: "ck-kitchen",
+  element: renderWithFallback(<DriverBase />),
   children: [
     driverRouter,
     {

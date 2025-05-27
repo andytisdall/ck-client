@@ -1,4 +1,5 @@
 import { format, utcToZonedTime } from "date-fns-tz";
+import { addHours } from "date-fns";
 import { useSelector } from "react-redux";
 
 import { RootState } from "../../state/store";
@@ -33,7 +34,47 @@ const ShiftInfo = ({
   };
 
   if (driver) {
-    // render driver info
+    const endTime = addHours(
+      utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+      shift.duration
+    );
+    return (
+      <div>
+        <div className="volunteers-shift-detail">
+          <p>
+            <b>Job:</b> {job?.name}
+          </p>
+          <p>
+            <b>Description:</b> {job?.description}
+          </p>
+          <p>
+            <b>Pick Up:</b> {job?.location}
+          </p>
+          <p>
+            <b>Drop Off:</b> {job?.destination}
+          </p>
+          <p>
+            <b>Distance:</b> {job.distance}
+          </p>
+          <p>
+            <b>Date: </b>
+            {format(
+              utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+              "eeee, M/d/yy"
+            )}
+          </p>
+          <p>
+            <b>Time: </b>
+            {format(
+              utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+              "h:mm a"
+            )}{" "}
+            - {format(endTime, "h:mm a")}
+          </p>
+          {renderVolunteer()}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -43,10 +84,10 @@ const ShiftInfo = ({
           <b>Job:</b> {job?.name}
         </p>
         <p>
-          <b>Description:</b> {job?.description}
+          <b>Description:</b> {job.description}
         </p>
         <p>
-          <b>Location:</b> {job?.location}
+          <b>Location:</b> {job.location}
         </p>
         <p>
           <b>Date: </b>

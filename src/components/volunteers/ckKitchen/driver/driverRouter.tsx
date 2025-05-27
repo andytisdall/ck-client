@@ -3,10 +3,9 @@ import { RouteObject } from "react-router-dom";
 
 import renderWithFallback from "../../../reusable/loading/renderWithFallback";
 
-const DriverBase = lazy(() => import("./DriverBase"));
-const DriverSignupBase = lazy(() => import("./DriverSignupBase"));
 const License = lazy(() => import("./License"));
 const Car = lazy(() => import("./Car"));
+const Insurance = lazy(() => import("./Insurance"));
 
 const Sign = lazy(() => import("../../../reusable/signature/Sign"));
 const SignSuccess = lazy(
@@ -14,48 +13,24 @@ const SignSuccess = lazy(
 );
 
 const Onboarding = lazy(() => import("./Onboarding"));
-const JobList = lazy(() => import("../../JobList"));
-const KitchenCalendar = lazy(() => import("../KitchenCalendar"));
-const ShiftSignup = lazy(() => import("../../ShiftSignup"));
 
 const driverRouter: RouteObject = {
-  path: "driver",
-  element: renderWithFallback(<DriverBase />),
+  path: "driver-onboarding",
+
   children: [
-    {
-      index: true,
-      element: renderWithFallback(
-        <JobList campaignIdProp="701U800000O3WxhIAF" />
-      ),
-    },
+    { index: true, element: renderWithFallback(<Onboarding />) },
+    { path: "license", element: renderWithFallback(<License />) },
+    { path: "insurance", element: renderWithFallback(<Insurance />) },
 
+    { path: "car", element: renderWithFallback(<Car />) },
     {
-      path: "cal",
-      element: renderWithFallback(
-        <KitchenCalendar campaignIdProp="701U800000O3WxhIAF" />
-      ),
-    },
-
-    {
-      path: ":shiftId",
-      element: renderWithFallback(<ShiftSignup />),
-    },
-    {
-      path: "onboarding",
-      element: <Onboarding />,
+      path: "sign",
       children: [
-        { path: "license", element: renderWithFallback(<License />) },
-        { path: "car", element: renderWithFallback(<Car />) },
         {
-          path: "sign",
-          children: [
-            {
-              path: "success",
-              element: renderWithFallback(<SignSuccess returnLink="../.." />),
-            },
-            { path: ":doc", element: renderWithFallback(<Sign />) },
-          ],
+          path: "success",
+          element: renderWithFallback(<SignSuccess returnLink="../.." />),
         },
+        { path: ":doc", element: renderWithFallback(<Sign />) },
       ],
     },
   ],

@@ -7,18 +7,25 @@ import { useGetUserQuery } from "../../state/apis/authApi";
 import Loading from "../reusable/loading/Loading";
 import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import ShiftList from "./ShiftList";
+import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
 
-const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
+const JobListBase = () => {
   const { campaignId } = useParams();
 
   const { data: campaigns } = useGetCampaignsQuery();
-  const { data: jobs, isLoading } = useGetJobsQuery({
-    campaignId: campaignId || campaignIdProp || "",
-  });
+  const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
-  const campaign = campaigns?.find((cam) =>
-    campaignIdProp ? cam.id === campaignIdProp : cam.id === campaignId
-  );
+  if (!campaign) {
+    return <div>Could not find campaign.</div>;
+  }
+
+  return <JobList campaign={campaign} />;
+};
+
+const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
+  const { data: jobs, isLoading } = useGetJobsQuery({
+    campaignId: campaign.id,
+  });
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -54,4 +61,4 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   );
 };
 
-export default JobList;
+export default JobListBase;
