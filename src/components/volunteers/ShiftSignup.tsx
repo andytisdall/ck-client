@@ -11,6 +11,7 @@ import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 import { useGetUserQuery, useGetUserInfoQuery } from "../../state/apis/authApi";
 import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
 import ShiftInfo from "./ShiftInfo";
+import config from "./ckKitchen/driver/config";
 
 const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   const { data: campaigns } = useGetCampaignsQuery();
   const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
-  const driver = campaign?.name === "Drivers";
+  const driver = campaign?.name === config.driverCampaignName;
 
   const { data: user } = useGetUserQuery();
   const { data: userInfo } = useGetUserInfoQuery();
@@ -105,7 +106,7 @@ const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
       <div className="volunteers-signup-btns">
         <button onClick={onSubmit}>Confirm Signup</button>
         <button onClick={() => navigate("..")} className="cancel">
-          Cancel
+          Back
         </button>
       </div>
     );
@@ -115,14 +116,14 @@ const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
     return <p>This shift is not available for signup</p>;
   }
 
-  if (!job) {
+  if (!job || !campaign) {
     return <p>Could not find the info for this job.</p>;
   }
 
   return (
     <div>
       <h3 className="volunteers-signup-btns">Confirm your signup:</h3>
-      <ShiftInfo shift={shift} job={job} driver={driver} />
+      <ShiftInfo shift={shift} job={job} campaign={campaign} />
       {isLoading ? <Loading /> : renderBtns()}
     </div>
   );

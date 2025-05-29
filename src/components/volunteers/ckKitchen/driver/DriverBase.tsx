@@ -30,7 +30,7 @@ const DriverBase = () => {
     }
   }, [driver]);
 
-  if (campaign?.name !== "Drivers") {
+  if (campaign && campaign.name !== "Drivers") {
     return <Outlet />;
   }
 
@@ -49,6 +49,7 @@ const DriverBase = () => {
       </div>
     );
   }
+
   return <Outlet />;
 };
 

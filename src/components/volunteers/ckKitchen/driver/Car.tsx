@@ -43,54 +43,69 @@ const Car = () => {
         <li>Large: 6 or more Cambros</li>
       </ul>
       <form onSubmit={onSubmit}>
+        <label>Car Size: </label>
         <select
-          defaultValue={driver?.car?.size}
-          onChange={(e) => setSize(e.target.value as CarSize)}
+          defaultValue={driver?.car.size}
+          onChange={(e) => setSize(e.currentTarget.value as CarSize)}
         >
-          <option>Select a size</option>
-          {["Bike, Small, Medium, Large"].map((opt) => (
+          <option value={undefined}></option>
+          {["Bike", "Small", "Medium", "Large"].map((opt) => (
             <option value={opt} key={opt}>
               {opt}
             </option>
           ))}
         </select>
-
-        {size !== "Bike" && (
+        {size && size !== "Bike" && (
           <>
-            <label htmlFor="make">Make:</label>
-            <input
-              id="make"
-              value={make}
-              onChange={(e) => setMake(e.target.value)}
-              required
-            />
-            <label htmlFor="model">Model:</label>
-            <input
-              id="model"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
-              required
-            />
-            <label htmlFor="year">Year:</label>
-            <input
-              id="year"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              required
-            />
-            <label htmlFor="color">Color:</label>
-            <input
-              value={color}
-              id="color"
-              onChange={(e) => setColor(e.target.value)}
-              required
-            />
+            <div>
+              <label htmlFor="make">Make:</label>
+              <input
+                id="make"
+                value={make}
+                onChange={(e) => setMake(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="model">Model:</label>
+              <input
+                id="model"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="year">Year:</label>
+              <input
+                id="year"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="color">Color:</label>
+              <input
+                value={color}
+                id="color"
+                onChange={(e) => setColor(e.target.value)}
+                required
+              />
+            </div>
           </>
         )}
-
-        {isLoading ? <Loading /> : <input type="submit" disabled={!size} />}
+        <div>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <input type="submit" className={!size ? "btn-inactive" : ""} />
+          )}
+          <button className="cancel" onClick={() => navigate("..")}>
+            Back
+          </button>
+        </div>
       </form>
-      <button onClick={() => navigate("..")}>Back</button>
     </div>
   );
 };

@@ -23,12 +23,19 @@ const Onboarding = () => {
   ) => {
     if (!stepCompleted) {
       return (
-        <Link to={url}>
-          <li className="driver-onboarding-incomplete">{step}</li>
+        <Link
+          className="driver-onboarding-step driver-onboarding-incomplete"
+          to={url}
+        >
+          {step}
         </Link>
       );
     }
-    return <li className="driver-onboarding-complete">{step}</li>;
+    return (
+      <div className="driver-onboarding-step driver-onboarding-complete">
+        {step}
+      </div>
+    );
   };
 
   if (driver?.driverStatus === "Active") {
@@ -40,13 +47,15 @@ const Onboarding = () => {
     );
   }
 
+  console.log(driver);
+
   return (
     <div>
       <h3>
         You must complete onboarding to sign up for driver volunteer shifts.
       </h3>
       <div>
-        <ul className="driver-onboarding">
+        <div className="driver-onboarding">
           {renderStepStatus(
             "Upload driver's license",
             !!driver.licenseExpiration,
@@ -59,14 +68,23 @@ const Onboarding = () => {
             "insurance"
           )}
 
-          {renderStepStatus("Enter info about your car", !!driver.car, "car")}
+          {renderStepStatus(
+            "Enter info about your car",
+            !!driver.car.size,
+            "car"
+          )}
 
           {renderStepStatus(
             "Sign the volunteer agreement",
             !!driver.volunteerAgreement,
             "sign/DRV"
           )}
-        </ul>
+        </div>
+      </div>
+      <div className="driver-btns">
+        <Link to="/volunteers">
+          <button className="cancel">Back</button>
+        </Link>
       </div>
     </div>
   );

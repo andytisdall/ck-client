@@ -28,14 +28,15 @@ export interface Shift {
   duration: number;
   slots: number;
   carSizeRequired?: CarSize;
+  destination?: string;
+  dropoffNotes?: string;
+  distance?: string;
 }
 
 export interface Job {
   id: string;
   name: string;
   location?: string;
-  destination?: string;
-  distance?: string;
   shifts: Shift[];
   active: boolean;
   ongoing: boolean;

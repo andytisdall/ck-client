@@ -6,7 +6,8 @@
   height: 100vh;
 }
 
-a, a:visited {
+a,
+a:visited {
   text-decoration: none;
 }
 
@@ -32,37 +33,44 @@ a, a:visited {
   background-color: rgb(167, 255, 167);
 }
 
-input, select {
-  padding: .3rem;
+input,
+select {
+  padding: 0.3rem;
 }
 
-input, select, label {
+input,
+select,
+label {
   margin-right: 1.5rem;
-  margin-bottom: .7rem;
+  margin-bottom: 0.7rem;
   margin-top: 0;
   height: fit-content;
 }
 
-input[type=submit], button, .button {
+input[type="submit"],
+button,
+.button {
   background-color: rgb(98, 163, 255);
   border: 2px solid grey;
   border-radius: 50px;
-  padding: .5rem 1rem;
-  margin-right: .5rem;
-  margin-left: .5rem;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 1rem;
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
   width: max-content;
   color: inherit;
 }
 
-input[type=submit] {
+input[type="submit"] {
   margin-top: 1.5rem;
 }
 
-input[type=submit]:hover, button:hover, .nav-link-active {
+input[type="submit"]:hover,
+button:hover,
+.nav-link-active {
   background-color: rgb(128, 193, 285);
 }
 
@@ -71,12 +79,14 @@ input[type=submit]:hover, button:hover, .nav-link-active {
   color: black;
 }
 
-input[type=submit]:active, button:active {
+input[type="submit"]:active,
+button:active {
   transform: translateY(5px);
   box-shadow: none;
 }
 
-input[type="date"], input[type="time"] {
+input[type="date"],
+input[type="time"] {
   height: auto;
 }
 
@@ -87,10 +97,12 @@ input[type="date"], input[type="time"] {
 textarea {
   box-sizing: border-box;
   height: 3rem;
-  padding: .5rem;
+  padding: 0.5rem;
   word-wrap: normal;
   font-size: 1rem;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .page-header {
@@ -115,18 +127,17 @@ textarea {
 }
 
 .cancel {
-  background-color: rgba(238, 38, 75, 0.637)
+  background-color: rgba(238, 38, 75, 0.637);
 }
 
 .cancel-text {
   background-color: rgba(238, 38, 75, 0.637);
   width: fit-content;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
-
 .completed-doc li {
-  padding: .5rem;
+  padding: 0.5rem;
   color: rgb(0, 76, 0);
 }
 
@@ -140,9 +151,9 @@ textarea {
 
 .onboarding-checklist li {
   font-weight: 600;
-  margin: .5rem 0;
-  padding: .5rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
   border-radius: 25px;
   width: fit-content;
-  transition: all .6s;
+  transition: all 0.6s;
 }

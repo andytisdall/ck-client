@@ -1,28 +1,33 @@
-import { format, utcToZonedTime } from "date-fns-tz";
-import { addHours } from "date-fns";
-import { Link } from "react-router-dom";
+import { utcToZonedTime } from "date-fns-tz";
+
 import { useMemo } from "react";
 
-import { Job, VolunteerHours } from "../../state/apis/volunteerApi/types";
+import {
+  Job,
+  VolunteerCampaign,
+  VolunteerHours,
+} from "../../state/apis/volunteerApi/types";
 import { useGetHoursQuery } from "../../state/apis/volunteerApi/volunteerApi";
+import config from "./ckKitchen/driver/config";
+import ShiftListItem from "./ShiftListItem";
 
 const ShiftList = ({
   contactId,
   job,
-  campaignId,
-  driver,
+  campaign,
 }: {
   contactId: string;
   job: Job;
-  campaignId: string;
-  driver?: boolean;
+  campaign: VolunteerCampaign;
 }) => {
   const { data: hours } = useGetHoursQuery({
-    campaignId,
+    campaignId: campaign.id,
     contactId,
   });
 
   const { shifts } = job;
+
+  const driver = campaign.name === config.driverCampaignName;
 
   const sortedShifts = useMemo(() => {
     return shifts
@@ -56,59 +61,13 @@ const ShiftList = ({
               (h) => h.shift === shift.id && h.status === "Confirmed"
             );
           }
-          let linkUrl = "";
-          if (jobBooked) {
-            if (bookedHours) {
-              linkUrl = `../../confirm/${contactId}/${bookedHours.id}`;
-            }
-          } else if (shift.open) {
-            linkUrl = shift.id;
-          }
-
-          // console.log(linkUrl);
-
-          const formattedStartTime = format(
-            utcToZonedTime(shift.startTime, "America/Los_Angeles"),
-            "eee, M/d/yy h:mm a"
-          );
-          const endTime = addHours(
-            utcToZonedTime(shift.startTime, "America/Los_Angeles"),
-            shift.duration
-          );
-
-          const full = shift.open || jobBooked ? "" : "volunteers-unavailable";
-
           return (
-            <Link key={shift.id} to={linkUrl}>
-              <div className={`volunteers-shift ${full}`}>
-                <div className="volunteers-shift-date">
-                  <span>&bull; </span>
-                  <span>
-                    {formattedStartTime}
-                    {driver ? ` - ${format(endTime, "h:mm a")}` : ""}
-                  </span>
-                </div>
-
-                {shift.slots !== null && (
-                  <>
-                    <div className="volunteers-shift-space"></div>
-                    {driver ? (
-                      <ul>
-                        <li>Car size required: {shift.carSizeRequired}</li>
-                        <li>Distance: {job.distance}</li>
-                      </ul>
-                    ) : (
-                      <div>{shift.slots} volunteers needed</div>
-                    )}
-                  </>
-                )}
-                {jobBooked && (
-                  <div className="volunteers-shift-checkmark">
-                    &#x2713; Signed Up
-                  </div>
-                )}
-              </div>
-            </Link>
+            <ShiftListItem
+              shift={shift}
+              contactId={contactId}
+              bookedHoursId={bookedHours?.id}
+              driver={driver}
+            />
           );
         })}
     </div>

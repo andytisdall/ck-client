@@ -8,7 +8,10 @@ import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
 import { setAlert } from "../../state/apis/slices/alertSlice";
 import ShiftInfo from "./ShiftInfo";
 import Loading from "../reusable/loading/Loading";
-import { VolunteerHours } from "../../state/apis/volunteerApi/types";
+import {
+  VolunteerCampaign,
+  VolunteerHours,
+} from "../../state/apis/volunteerApi/types";
 
 const ConfirmationBase = () => {
   const { hoursId } = useParams();
@@ -35,21 +38,23 @@ const ConfirmationBase = () => {
     return <div>Not Found.</div>;
   }
 
-  return <Confirmation campaignId={campaign.id} hour={hour} />;
+  return <Confirmation campaign={campaign} hour={hour} />;
 };
 
 const Confirmation = ({
   hour,
-  campaignId,
+  campaign,
 }: {
   hour: VolunteerHours;
-  campaignId: string;
+  campaign: VolunteerCampaign;
 }) => {
   const { contactId } = useParams();
   const [cancelShift, { isLoading: cancelIsLoading }] =
     useCancelVolunteerShiftMutation();
 
-  const { data: jobs, isLoading } = useGetJobsQuery({ campaignId });
+  const { data: jobs, isLoading } = useGetJobsQuery({
+    campaignId: campaign.id,
+  });
 
   const job = jobs?.find((j) => j.id === hour?.job);
   const shift = job?.shifts?.find((sh) => sh.id === hour?.shift);
@@ -84,9 +89,9 @@ const Confirmation = ({
     }
     if (shift && job) {
       return (
-        <div>
+        <div className="volunteers-signup-confirm">
           {renderMessage()}
-          <ShiftInfo job={job} shift={shift} />
+          <ShiftInfo job={job} shift={shift} campaign={campaign} />
           <p>You have been sent an email with this information.</p>
         </div>
       );
@@ -116,10 +121,12 @@ const Confirmation = ({
     <div>
       <h1>Volunteer Sign Up Confirmation</h1>
       {renderShiftDetails()}
-      <Link to="/volunteers">
-        <button className="hc-confirm-button">Volunteers Home</button>
-      </Link>
-      {hour && renderCancelButton()}
+      <div className="volunteers-signup-btns">
+        <Link to="/volunteers">
+          <button className="hc-confirm-button">Volunteers Home</button>
+        </Link>
+        {hour && renderCancelButton()}
+      </div>
     </div>
   );
 };

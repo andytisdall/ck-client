@@ -3,33 +3,20 @@ import { api } from "../../api";
 export type CarSize = "Small" | "Medium" | "Large" | "Bike";
 
 export interface DriverInfo {
-  firstName?: string;
-  lastName: string;
   licenseExpiration?: string;
   insuranceExpiration?: string;
   volunteerAgreement: boolean;
-  car?: CarInfo;
+  car: CarInfo;
   driverStatus?: "Active" | "Inactive";
 }
 
 interface CarInfo {
-  size: CarSize;
-  make: string;
-  model: string;
-  year: string;
-  color: string;
+  size?: CarSize;
+  make?: string;
+  model?: string;
+  year?: string;
+  color?: string;
 }
-
-// interface DriverShift {
-//   id: string;
-//   startTime: string;
-//   open: boolean;
-//   job: string;
-//   duration: number;
-//   origin: string;
-//   destination: string;
-//   distance: string;
-// }
 
 const driverApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -67,17 +54,6 @@ const driverApi = api.injectEndpoints({
       }),
       invalidatesTags: ["DriverInfo"],
     }),
-
-    getDirections: builder.query<
-      { distance: string },
-      { origin: string; destination: string }
-    >({
-      query: ({ origin, destination }) =>
-        `/volunteers/driver/directions/${origin}/${destination}`,
-    }),
-    // getDriverShifts: builder.query<DriverShift[], void>({
-    //   query: () => "/volunteers/driver/shifts",
-    // }),
   }),
 });
 
@@ -111,8 +87,5 @@ export const {
   useGetDriverQuery,
   useUploadLicenseMutation,
   useSubmitCarInfoMutation,
-
-  useLazyGetDirectionsQuery,
-  // useGetDriverShiftsQuery,
   useUploadInsuranceMutation,
 } = driverApi;

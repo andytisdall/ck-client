@@ -49,8 +49,6 @@ const driverJob: Job = {
   ongoing: true,
   campaign: driversCampaign.id,
   shifts: [],
-  distance: "5 mi",
-  destination: "EOC",
   location: "CK Kitchen",
 };
 
@@ -61,13 +59,14 @@ const driverShift: Shift = {
   job: driverJob.id,
   duration: 3,
   slots: 1,
+  distance: "5 mi",
+  destination: "EOC",
 };
 
 driverJob.shifts = [driverShift];
 
-const driver: DriverInfo = { lastName: "Tisdall", volunteerAgreement: false };
+const driver: DriverInfo = { volunteerAgreement: false, car: {} };
 const onboardedDriver: DriverInfo = {
-  lastName: "Tisdall",
   volunteerAgreement: true,
   car: {
     size: "Large",
@@ -249,7 +248,7 @@ describe("sign up", () => {
   test("sign up for shift", async () => {
     render(<App />, { wrapper: Root });
 
-    const distanceText = await screen.findByText(driverJob.destination!);
+    const distanceText = await screen.findByText(driverShift.destination!);
     expect(distanceText).toBeDefined();
     const signupBtn = screen.getByText(/Confirm Signup/i);
     await userEvent.click(signupBtn);

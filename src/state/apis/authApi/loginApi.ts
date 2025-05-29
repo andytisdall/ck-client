@@ -29,7 +29,7 @@ export const loginApi = api.injectEndpoints({
         api.util.resetApiState();
         return { data: null };
       },
-      invalidatesTags: ["User", "UserInfo"],
+      invalidatesTags: ["User", "UserInfo", "DriverInfo"],
     }),
 
     googleSignIn: builder.mutation<User, string>({
@@ -42,7 +42,7 @@ export const loginApi = api.injectEndpoints({
         localStorage.setItem("ck-token", response.token);
         return response.user;
       },
-      invalidatesTags: ["User", "UserInfo"],
+      invalidatesTags: ["User", "UserInfo", "DriverInfo"],
     }),
 
     signInAsUser: builder.mutation<User, string>({
@@ -61,6 +61,7 @@ export const loginApi = api.injectEndpoints({
         "Volunteer",
         "Restaurant",
         "CBOData",
+        "DriverInfo",
       ],
     }),
   }),

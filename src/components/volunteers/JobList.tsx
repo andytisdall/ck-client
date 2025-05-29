@@ -46,17 +46,18 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   return (
     <div>
       <h3 className="volunteers-signup-btns">Positions Available</h3>
-      {jobs.map((j) => {
-        return (
-          <ShiftList
-            campaignId={campaign.id}
-            job={j}
-            key={j.id}
-            contactId={contactId}
-            driver={campaign.name === "Drivers"}
-          />
-        );
-      })}
+      {jobs
+        .filter((j) => j.ongoing && j.active)
+        .map((j) => {
+          return (
+            <ShiftList
+              campaign={campaign}
+              job={j}
+              key={j.id}
+              contactId={contactId}
+            />
+          );
+        })}
     </div>
   );
 };
