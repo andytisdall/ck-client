@@ -1,12 +1,12 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
-import { useGetUserQuery } from '../../state/apis/authApi';
-import Loading from '../reusable/loading/Loading';
+import { useGetUserQuery } from "../../state/apis/authApi";
+import Loading from "../reusable/loading/Loading";
 
 const Text = () => {
   const { data: user, isLoading } = useGetUserQuery();
 
-  const permitted = user?.admin || user?.busDriver;
+  const permitted = user?.admin || user?.busDriver || user?.textOnlyPermission;
 
   const renderSignIn = () => {
     return <h3>You must have the proper permissions to access this page.</h3>;

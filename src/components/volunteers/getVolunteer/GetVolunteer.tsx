@@ -12,8 +12,6 @@ import {
 import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const GetVolunteer = () => {
-  const { campaignId } = useParams();
-
   const [email, setEmail] = useState("");
   const [showNameFields, setShowNameFields] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -21,17 +19,6 @@ const GetVolunteer = () => {
 
   const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
   const [createVolunteer, createVolunteerResult] = useCreateVolunteerMutation();
-  const { data: user } = useGetUserQuery();
-
-  const navigate = useNavigate();
-
-  const url = `../signup/${campaignId}`;
-
-  useEffect(() => {
-    if (user) {
-      navigate(url);
-    }
-  }, [user, navigate, url]);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -41,20 +28,10 @@ const GetVolunteer = () => {
         .then((volunteer) => {
           if (!volunteer) {
             setShowNameFields(true);
-          } else {
-            navigate(url);
           }
         });
     } else {
-      createVolunteer({ email, firstName, lastName })
-        .unwrap()
-        .then((vol) => {
-          // getVolunteer(vol.email)
-          //   .unwrap()
-          //   .then(() => {
-          navigate(url);
-          // });
-        });
+      createVolunteer({ email, firstName, lastName }).unwrap();
     }
   };
 

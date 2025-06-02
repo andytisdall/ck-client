@@ -3,8 +3,9 @@ import { Outlet, RouteObject, Link } from "react-router-dom";
 
 import "./Volunteers.css";
 import renderWithFallback from "../reusable/loading/renderWithFallback";
-import eventsRouter from "./events/eventsRouter";
-import ckKitchenRouter from "./ckKitchen/ckKitchenRouter";
+import driverRouter from "./driver/driverRouter";
+
+const GetVolunteer = lazy(() => import("./getVolunteer/GetVolunteer"));
 
 const Sign = lazy(() => import("../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
@@ -12,9 +13,16 @@ const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
 const VolunteersHome = lazy(() => import("./VolunteersHome"));
 const Confirmation = lazy(() => import("./Confirmation"));
 
+const CampaignBase = lazy(() => import("./CampaignBase"));
+const JobList = lazy(() => import("./JobList"));
+const VolunteerCalendar = lazy(() => import("./VolunteerCalendar"));
+
+const ShiftSignup = lazy(() => import("./ShiftSignup"));
+const VolunteerSignInBase = lazy(() => import("./VolunteerSignInBase"));
+
 const VolunteersBase = () => {
   return (
-    <div className="main volunteers">
+    <div className="main home-chef">
       <Link to="/volunteers">
         <h1 className="volunteers-main-header">CK Volunteers</h1>
       </Link>
@@ -32,8 +40,35 @@ const volunteersRouter: RouteObject = {
       path: "confirm/:contactId/:hoursId",
       element: renderWithFallback(<Confirmation />),
     },
-    eventsRouter,
-    ckKitchenRouter,
+    driverRouter,
+    {
+      path: "signin/:campaignId",
+      element: renderWithFallback(<GetVolunteer />),
+    },
+    {
+      path: "signup",
+      element: renderWithFallback(<VolunteerSignInBase />),
+      children: [
+        {
+          path: ":campaignId",
+          element: renderWithFallback(<CampaignBase />),
+          children: [
+            {
+              index: true,
+              element: renderWithFallback(<JobList />),
+            },
+
+            { path: "cal", element: renderWithFallback(<VolunteerCalendar />) },
+
+            {
+              path: ":shiftId",
+              element: renderWithFallback(<ShiftSignup />),
+            },
+          ],
+        },
+      ],
+    },
+
     {
       path: "sign",
       children: [

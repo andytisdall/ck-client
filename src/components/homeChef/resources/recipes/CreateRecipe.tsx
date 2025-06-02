@@ -27,7 +27,7 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
   );
   const [description, setDescription] = useState(recipe?.description || "");
   const [category, setCategory] = useState(recipe?.category || "");
-  const [photo, setPhoto] = useState<File | string>();
+  const [photo, setPhoto] = useState<File>();
   const [author, setAuthor] = useState(recipe?.author || "");
 
   const [editRecipe, editRecipeResult] = useEditRecipeMutation();

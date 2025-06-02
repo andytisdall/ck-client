@@ -1,6 +1,6 @@
 .header {
-  background-color: rgb(106, 106, 106);
-  padding: .5rem 2rem;
+  background-color: rgb(90, 90, 90);
+  padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,7 +37,7 @@
   width: 2rem;
   height: 2rem;
   cursor: pointer;
-  transition: .3s all;
+  transition: 0.3s all;
   padding: 1rem;
   border-radius: 100px;
 }
@@ -61,18 +61,19 @@
   min-height: 85vh;
   height: fit-content;
   padding-bottom: 5rem;
-  min-width: fit-content 
+  min-width: fit-content;
 }
 
-.user-link, .user-link:visited {
+.user-link,
+.user-link:visited {
   color: white;
   text-decoration: underline;
   font-size: 1.5rem;
-  margin: 1rem
+  margin: 1rem;
 }
 
 .error-page {
-  background-image: linear-gradient(pink,rgb(198, 102, 198));
+  background-image: linear-gradient(pink, rgb(198, 102, 198));
 }
 
 .unauthorized-text {
@@ -80,9 +81,8 @@
 }
 
 .forgot-password {
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: white;
   margin-top: 3vh;
   text-align: right;
 }
-

@@ -1,19 +1,22 @@
-import { useState, FormEventHandler, ChangeEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, FormEventHandler, ChangeEventHandler } from "react";
+import { useDispatch } from "react-redux";
 
 import {
   useEditUserMutation,
   useGetAllUsersQuery,
-} from '../../../state/apis/authApi';
-import { setError } from '../../../state/apis/slices/errorSlice';
-import { setAlert } from '../../../state/apis/slices/alertSlice';
+} from "../../../state/apis/authApi";
+import { setError } from "../../../state/apis/slices/errorSlice";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
 
 const EditUser = () => {
-  const [user, setUser] = useState('');
-  const [username, setUsername] = useState('');
-  const [salesforceId, setSalesforceId] = useState('');
-  const [password1, setPassword1] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
+  const [salesforceId, setSalesforceId] = useState("");
+  const [busDriver, setBusdriver] = useState<boolean>();
+  const [textOnlyPermission, setTextOnlyPermission] = useState<boolean>();
+
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const dispatch = useDispatch();
   const [editUser] = useEditUserMutation();
@@ -22,21 +25,25 @@ const EditUser = () => {
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     if (password1 !== password2) {
-      return dispatch(setError('Passwords do not match'));
+      return dispatch(setError("Passwords do not match"));
     }
     await editUser({
       userId: user,
       username,
       password: password1,
       salesforceId,
+      busDriver,
+      textOnlyPermission,
     }).unwrap();
 
-    dispatch(setAlert('User Edited'));
-    setUser('');
-    setUsername('');
-    setSalesforceId('');
-    setPassword1('');
-    setPassword2('');
+    dispatch(setAlert("User Edited"));
+    setUser("");
+    setUsername("");
+    setSalesforceId("");
+    setBusdriver(false);
+    setTextOnlyPermission(false);
+    setPassword1("");
+    setPassword2("");
   };
 
   const renderUsers = () => {
@@ -46,6 +53,7 @@ const EditUser = () => {
         .map((u) => {
           return (
             <option key={u.id} value={u.id}>
+              {u.admin && "* "}
               {u.username}
             </option>
           );
@@ -60,14 +68,17 @@ const EditUser = () => {
         setUser(usr.id);
         setUsername(usr.username);
         setSalesforceId(usr.salesforceId);
-        setPassword1('');
-        setPassword2('');
+        setBusdriver(usr.busDriver);
+        setTextOnlyPermission(usr.textOnlyPermission);
+
+        setPassword1("");
+        setPassword2("");
       } else {
-        setUser('');
-        setUsername('');
-        setSalesforceId('');
-        setPassword1('');
-        setPassword2('');
+        setUser("");
+        setUsername("");
+        setSalesforceId("");
+        setPassword1("");
+        setPassword2("");
       }
     }
   };
@@ -83,7 +94,7 @@ const EditUser = () => {
         {!!user && <div className="admin-id-text">ID: {user}</div>}
         <label htmlFor="name">Username:</label>
         <input
-          name="name"
+          id="name"
           type="text"
           value={username}
           required
@@ -91,25 +102,43 @@ const EditUser = () => {
         />
         <label htmlFor="salesforceId">Salesforce ID:</label>
         <input
-          name="salesforceId"
+          id="salesforceId"
           type="text"
           value={salesforceId}
           onChange={(e) => setSalesforceId(e.target.value)}
         />
         <label htmlFor="password1">Password:</label>
         <input
-          name="password1"
+          id="password1"
           type="password"
           value={password1}
           onChange={(e) => setPassword1(e.target.value)}
         />
-        <label htmlFor="user">Re-Enter Password:</label>
+        <label htmlFor="password2">Re-Enter Password:</label>
         <input
           type="password"
           value={password2}
-          name="password2"
+          id="password2"
           onChange={(e) => setPassword2(e.target.value)}
         />
+        <div>
+          <label htmlFor="busDriver">Bus Driver</label>
+          <input
+            type="checkbox"
+            checked={busDriver}
+            id="password2"
+            onChange={(e) => setBusdriver(e.target.checked)}
+          />
+        </div>
+        <div>
+          <label htmlFor="text-only">Text-Only Permission</label>
+          <input
+            type="checkbox"
+            checked={textOnlyPermission}
+            id="text-only"
+            onChange={(e) => setTextOnlyPermission(e.target.checked)}
+          />
+        </div>
         <input type="submit" />
       </form>
     </div>

@@ -44,129 +44,133 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
     return (
       <div className="send-text">
         <div className="send-text-variables">
-          <label>To:</label>
+          <div className="send-text-section">
+            <div className="send-text-section-title">To:</div>
 
-          <div className="send-text-variables-radio">
-            <input
-              required
-              id="to-1"
-              name="to"
-              type="radio"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setNumber("");
-                  setRegion("EAST_OAKLAND");
-                }
-              }}
-            />
-            <label htmlFor="to-1">East Oakland</label>
-          </div>
-
-          <div className="send-text-variables-radio">
-            <input
-              required
-              id="to-2"
-              name="to"
-              type="radio"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setRegion("WEST_OAKLAND");
-                  setNumber("");
-                }
-              }}
-            />
-            <label htmlFor="to-2">West Oakland</label>
-          </div>
-
-          <div className="send-text-variables-radio">
-            <input
-              required
-              id="to-3"
-              name="to"
-              type="radio"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setRegion("both");
-                  setNumber("");
-                }
-              }}
-            />
-            <label htmlFor="to-3">East & West Oakland</label>
-          </div>
-
-          <div className="send-text-variables-radio">
-            <input
-              required
-              id="to-4"
-              name="to"
-              type="radio"
-              ref={numberRef}
-              onChange={(e) => {
-                if (e.target.checked && numberTextRef.current) {
-                  const ref = numberTextRef.current as HTMLInputElement;
-                  ref.focus();
-                }
-              }}
-            />
-            <label htmlFor="to-4">Phone Number:</label>
-            <input
-              type="text"
-              value={number}
-              ref={numberTextRef}
-              onFocus={() => {
-                if (numberRef.current) {
-                  numberRef.current.checked = true;
-                }
-              }}
-              onChange={(e) => {
-                setNumber(e.target.value);
-              }}
-            />
-          </div>
-
-          <div className="send-text-variables-item">
-            <label htmlFor="message">Message:</label>
-            <textarea
-              required
-              id="message"
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-            />
-          </div>
-
-          <div className="send-text-variables-item">
-            <label>Photo (Optional):</label>
-            <div className="send-text-photo-field-container">
-              <FileInput
-                file={typeof photo !== "string" ? photo : undefined}
-                setFile={setPhoto}
-                label="Upload Photo:"
-              />
-            </div>
-            <div className="send-text-photo-field-or">Or</div>
-            <div className="send-text-photo-field-container">
-              <label>Paste Photo URL:</label>
+            <div className="send-text-variables-radio">
               <input
-                className={`send-text-photo-field ${
-                  imageError && "send-text-photo-field-error"
-                }`}
-                value={!photo ? "" : typeof photo !== "string" ? "" : photo}
+                required
+                id="to-1"
+                name="to"
+                type="radio"
                 onChange={(e) => {
-                  setImageError(false);
-                  setPhoto(e.target.value);
+                  if (e.target.checked) {
+                    setNumber("");
+                    setRegion("EAST_OAKLAND");
+                  }
                 }}
               />
-              {!!photo && typeof photo === "string" && (
-                <div
-                  className="send-text-photo-field-clear"
-                  onClick={() => {
-                    setPhoto("");
+              <label htmlFor="to-1">East Oakland</label>
+            </div>
+
+            <div className="send-text-variables-radio">
+              <input
+                required
+                id="to-2"
+                name="to"
+                type="radio"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setRegion("WEST_OAKLAND");
+                    setNumber("");
+                  }
+                }}
+              />
+              <label htmlFor="to-2">West Oakland</label>
+            </div>
+
+            <div className="send-text-variables-radio">
+              <input
+                required
+                id="to-3"
+                name="to"
+                type="radio"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setRegion("both");
+                    setNumber("");
+                  }
+                }}
+              />
+              <label htmlFor="to-3">East & West Oakland</label>
+            </div>
+
+            <div className="send-text-variables-radio">
+              <input
+                required
+                id="to-4"
+                name="to"
+                type="radio"
+                ref={numberRef}
+                onChange={(e) => {
+                  if (e.target.checked && numberTextRef.current) {
+                    const ref = numberTextRef.current as HTMLInputElement;
+                    ref.focus();
+                  }
+                }}
+              />
+              <label htmlFor="to-4">Phone Number:</label>
+              <input
+                type="text"
+                value={number}
+                ref={numberTextRef}
+                onFocus={() => {
+                  if (numberRef.current) {
+                    numberRef.current.checked = true;
+                  }
+                }}
+                onChange={(e) => {
+                  setNumber(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div className="send-text-section">
+            <div className="send-text-section-title">Message:</div>
+            <div className="send-text-variables-item">
+              <textarea
+                required
+                id="message"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+              />
+            </div>
+          </div>
+          <div className="send-text-section">
+            <div className="send-text-section-title">Photo (Optional):</div>
+            <div className="send-text-variables-item">
+              <div className="send-text-photo-field-container">
+                <FileInput
+                  file={typeof photo !== "string" ? photo : undefined}
+                  setFile={setPhoto}
+                  label="Upload Photo:"
+                />
+              </div>
+              <div className="send-text-photo-field-or">Or</div>
+              <div className="send-text-photo-field-container">
+                <label>Paste Photo URL:</label>
+                <input
+                  className={`send-text-photo-field ${
+                    imageError && "send-text-photo-field-error"
+                  }`}
+                  value={!photo ? "" : typeof photo !== "string" ? "" : photo}
+                  onChange={(e) => {
                     setImageError(false);
+                    setPhoto(e.target.value);
                   }}
-                >
-                  X
-                </div>
-              )}
+                />
+                {!!photo && typeof photo === "string" && (
+                  <div
+                    className="send-text-photo-field-clear"
+                    onClick={() => {
+                      setPhoto("");
+                      setImageError(false);
+                    }}
+                  >
+                    X
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

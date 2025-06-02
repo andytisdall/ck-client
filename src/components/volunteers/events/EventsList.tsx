@@ -48,14 +48,12 @@ const EventsList = () => {
               description = cam.buttonText;
             }
 
-            const link = user || volunteer ? "signup" : "signin";
-
             return (
               <TextButton
                 key={cam.id}
                 buttonText={cam.name}
                 descriptionText={description}
-                to={`events/${link}/${cam.id}`}
+                to={`signup/${cam.id}`}
               />
             );
           })}

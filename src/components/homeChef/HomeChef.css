@@ -2,12 +2,6 @@
   background-image: linear-gradient(rgb(177, 221, 240), rgb(103, 128, 230));
 }
 
-.home-chef-status {
-  background-color: rgba(255, 234, 0, 0.505);
-  padding: 1rem;
-  margin-bottom: 2rem;
-}
-
 .job-name {
   display: flex;
   align-items: center;
@@ -16,7 +10,7 @@
 .home-chef-announcement {
   background-color: rgb(252, 219, 121);
   border: 3px brown solid;
-  padding: .5rem;
+  padding: 0.5rem;
   font-size: 1rem;
   text-align: center;
   box-shadow: -5px 2px 10px rgba(0, 0, 0, 0.442);
@@ -28,7 +22,6 @@
   margin-bottom: 5px;
 }
 
-
 .expand-btn {
   margin-right: 1rem;
   background-color: white;
@@ -39,7 +32,7 @@
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .expanded {
@@ -51,7 +44,7 @@
   align-items: flex-start;
 }
 
-@media(max-width: 500px) {
+@media (max-width: 500px) {
   .hc-home {
     flex-direction: column;
     /* flex-flow: column-reverse; */
@@ -78,7 +71,7 @@
   border-radius: 25px;
   padding: 1rem 1.5rem;
   margin-top: 1rem;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.3rem;
   text-align: center;
   box-shadow: -2px 3px 5px;
@@ -98,11 +91,11 @@
   }
 
   .home-chef-status {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   .home-chef-status li {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 }
 
@@ -111,7 +104,7 @@
   max-width: 500px;
   padding: 1rem;
   margin-bottom: 1rem;
-  transition: .5s all;
+  transition: 0.5s all;
   border-radius: 50px;
 }
 
@@ -127,7 +120,7 @@
 }
 
 .edit-shift-date {
-  color:rgb(77, 20, 130);
+  color: rgb(77, 20, 130);
   font-size: 1rem;
   margin-left: 1rem;
 }

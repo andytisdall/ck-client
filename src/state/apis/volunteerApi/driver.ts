@@ -18,14 +18,22 @@ interface CarInfo {
   color?: string;
 }
 
+export interface UploadDocArgs {
+  file: File;
+  date: string;
+}
+
 const driverApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getDriver: builder.query<DriverInfo | null, void>({
       query: () => "/volunteers/driver",
       providesTags: ["DriverInfo"],
     }),
-    uploadLicense: builder.mutation<null, FormData>({
-      query: (body) => {
+    uploadLicense: builder.mutation<null, UploadDocArgs>({
+      query: ({ file, date }) => {
+        const body = new FormData();
+        body.append("DL", file);
+        body.append("expirationDate", date);
         return {
           url: "/volunteers/driver/license",
           body,
@@ -35,8 +43,11 @@ const driverApi = api.injectEndpoints({
       },
       invalidatesTags: ["DriverInfo"],
     }),
-    uploadInsurance: builder.mutation<null, FormData>({
-      query: (body) => {
+    uploadInsurance: builder.mutation<null, UploadDocArgs>({
+      query: ({ file, date }) => {
+        const body = new FormData();
+        body.append("INS", file);
+        body.append("expirationDate", date);
         return {
           url: "/volunteers/driver/insurance",
           body,

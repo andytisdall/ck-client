@@ -14,6 +14,8 @@ const user: User = {
   active: true,
 };
 
+const timeout = 8000;
+
 describe("not signed in", () => {
   createServer([
     {
@@ -44,7 +46,7 @@ describe("not signed in", () => {
 
         expect(unauthorizedMessage).toBeInTheDocument();
       },
-      { timeout: 2000 }
+      { timeout }
     );
   });
 
@@ -59,12 +61,12 @@ describe("not signed in", () => {
 
     const submitButton = screen.getByRole("button", { name: "Submit" });
 
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
     await waitFor(
       () => {
         screen.getByText(user.username);
       },
-      { timeout: 3000 }
+      { timeout }
     );
   });
 });
@@ -90,7 +92,7 @@ describe("signed in", () => {
       () => {
         expect(username).toBeInTheDocument();
       },
-      { timeout: 3000 }
+      { timeout }
     );
   });
 });

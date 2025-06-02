@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { format } from "date-fns-tz";
+import { format, utcToZonedTime } from "date-fns-tz";
 import { formatISO, addDays } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
@@ -181,7 +181,7 @@ describe("volunteer found", () => {
     // const signedUpShift = await screen.findByText(/signed up/i);
 
     const jobLink = await screen.findByText(
-      format(new Date(hours.time), "eee, M/d/yy h:mm a")
+      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "eee, M/d/yy")
     );
     expect(jobLink).toBeDefined();
 
@@ -246,12 +246,14 @@ describe("signed up for shift", () => {
 
   test("cancel job signup", async () => {
     render(<App />, { wrapper: Root });
-    const backBtn = await screen.findByText(/volunteers home/i);
+    const backBtn = await screen.findByText(/back/i);
     await userEvent.click(backBtn);
     const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
     await userEvent.click(kitchenLink);
     const calLink = await screen.findByText(/calendar/i);
     await userEvent.click(calLink);
+    const arrow = await screen.findByText(/→/);
+    await userEvent.click(arrow);
     const jobLink = await screen.findByText(/signed up/i);
     expect(jobLink).toBeDefined();
 

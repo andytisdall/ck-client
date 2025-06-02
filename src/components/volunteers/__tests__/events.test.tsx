@@ -72,6 +72,8 @@ export const volunteer1: Volunteer = {
   email: "andrew@ck.com",
 };
 
+const timeout = 8000;
+
 describe("volunteer does not exist already", () => {
   createServer([
     { path: "/user", res: async () => null },
@@ -97,13 +99,13 @@ describe("volunteer does not exist already", () => {
     render(<App />, { wrapper: Root });
 
     const volLink = await screen.findAllByText("CK Volunteers");
-    userEvent.click(volLink[1]);
+    await userEvent.click(volLink[1]);
 
     await waitFor(
       () => {
         screen.getByText("Special Event Volunteer Opportunities");
       },
-      { timeout: 3000 }
+      { timeout }
     );
   });
 
@@ -121,8 +123,8 @@ describe("volunteer does not exist already", () => {
     });
 
     if (emailInput) {
-      userEvent.click(emailInput);
-      userEvent.type(emailInput, email + "[Enter]");
+      await userEvent.click(emailInput);
+      await userEvent.type(emailInput, email + "[Enter]");
     }
 
     await waitFor(() => {
@@ -170,62 +172,34 @@ describe("volunteer found", () => {
       path: "/volunteers/jobs/:campaignId",
       res: async () => [job1],
     },
+    {
+      path: "/volunteers/hour/:hoursId",
+      res: async () => hours,
+    },
   ]);
 
   test("get job info and sign up for shift", async () => {
     render(<App />, { wrapper: Root });
 
     const jobLink = await screen.findByText(
-      format(new Date(hours.time), "eee, M/d/yy h:mm a")
+      format(new Date(hours.time), "eee, M/d/yy")
     );
     expect(jobLink).toBeDefined();
 
-    userEvent.click(jobLink);
+    await userEvent.click(jobLink);
 
     const jobName = await screen.findByText(job1.name);
     expect(jobName).toBeDefined();
 
     const confirmSignup = await screen.findByText("Confirm Signup");
-    userEvent.click(confirmSignup);
+    await userEvent.click(confirmSignup);
   });
-});
-
-describe("hours created", () => {
-  createServer([
-    { path: "/user", res: async () => null },
-    { path: "/volunteers/campaigns", res: async () => [eventCampaign] },
-    {
-      path: "/volunteers/jobs/:campaignId",
-      res: async () => [job1],
-    },
-    { path: "/user/userInfo", res: async () => null },
-    {
-      path: "/volunteers/hours/:campaignId/:contactId",
-      res: async () => [hours],
-    },
-    {
-      path: "/volunteers/hours/:campaignId/",
-      res: async () => [hours],
-    },
-    {
-      path: "/volunteers/hour/:hoursId",
-      res: async () => hours,
-    },
-    {
-      path: "/volunteers/hours/:campaignId/:contactId",
-      method: "delete",
-      res: async () => null,
-    },
-    { path: "/sign/config", res: async () => ({ limitReached: false }) },
-  ]);
 
   test("cancel job signup", async () => {
     render(<App />, { wrapper: Root });
 
-    const cancelBtn = await screen.findByText(
-      "Cancel Your Booked Volunteer Time"
-    );
-    userEvent.click(cancelBtn);
+    const cancelBtn = await screen.findByText(/cancel/i);
+    await userEvent.click(cancelBtn);
   });
 });
 

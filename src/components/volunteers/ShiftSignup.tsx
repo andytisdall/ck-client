@@ -10,8 +10,7 @@ import { useSignUpForVolunteerShiftMutation } from "../../state/apis/volunteerAp
 import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 import { useGetUserQuery, useGetUserInfoQuery } from "../../state/apis/authApi";
 import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
-import ShiftInfo from "./ShiftInfo";
-import config from "./ckKitchen/driver/config";
+import ShiftInfo from "./shiftInfo/ShiftInfo";
 
 const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   const navigate = useNavigate();
@@ -33,8 +32,6 @@ const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
 
   const { data: campaigns } = useGetCampaignsQuery();
   const campaign = campaigns?.find((cam) => cam.id === campaignId);
-
-  const driver = campaign?.name === config.driverCampaignName;
 
   const { data: user } = useGetUserQuery();
   const { data: userInfo } = useGetUserInfoQuery();
@@ -93,7 +90,7 @@ const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
         .unwrap()
         .then((hour) => {
           if (!waiverSigned && !signingConfig?.limitReached) {
-            navigate(`../../../sign/CKK/${contactSalesforceId}/${hour.id}`);
+            navigate(`../../sign/CKK/${contactSalesforceId}/${hour.id}`);
           } else {
             navigate(getConfirmUrl(hour.id));
           }

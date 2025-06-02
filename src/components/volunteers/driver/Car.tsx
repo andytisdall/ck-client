@@ -2,19 +2,19 @@ import { FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { useGetDriverQuery } from "../../../../state/apis/volunteerApi/driver";
-import { setAlert } from "../../../../state/apis/slices/alertSlice";
-import Loading from "../../../reusable/loading/Loading";
+import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
+import Loading from "../../reusable/loading/Loading";
 import {
   useSubmitCarInfoMutation,
   CarSize,
-} from "../../../../state/apis/volunteerApi/driver";
+} from "../../../state/apis/volunteerApi/driver";
 
 const Car = () => {
   const [submitCarInfo, { isLoading }] = useSubmitCarInfoMutation();
   const { data: driver } = useGetDriverQuery();
 
-  const [size, setSize] = useState<CarSize>();
+  const [size, setSize] = useState<CarSize | undefined>(driver?.car.size);
   const [make, setMake] = useState(driver?.car?.make || "");
   const [model, setModel] = useState(driver?.car?.model || "");
   const [year, setYear] = useState(driver?.car?.year || "");

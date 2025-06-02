@@ -6,9 +6,8 @@ import {
   Job,
   VolunteerCampaign,
   VolunteerHours,
-} from "../../state/apis/volunteerApi/types";
-import { useGetHoursQuery } from "../../state/apis/volunteerApi/volunteerApi";
-import config from "./ckKitchen/driver/config";
+} from "../../../state/apis/volunteerApi/types";
+import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
 import ShiftListItem from "./ShiftListItem";
 
 const ShiftList = ({
@@ -27,8 +26,6 @@ const ShiftList = ({
 
   const { shifts } = job;
 
-  const driver = campaign.name === config.driverCampaignName;
-
   const sortedShifts = useMemo(() => {
     return shifts
       .filter(
@@ -41,10 +38,6 @@ const ShiftList = ({
   const bookedJobs = !hours
     ? []
     : hours.filter((h) => h.status === "Confirmed").map((h) => h.shift);
-
-  if (!sortedShifts?.length) {
-    return <></>;
-  }
 
   return (
     <div className="volunteers-job">
@@ -63,10 +56,11 @@ const ShiftList = ({
           }
           return (
             <ShiftListItem
+              key={shift.id}
               shift={shift}
               contactId={contactId}
               bookedHoursId={bookedHours?.id}
-              driver={driver}
+              campaign={campaign}
             />
           );
         })}

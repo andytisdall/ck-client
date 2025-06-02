@@ -1,7 +1,7 @@
 .file-input {
   height: 1rem;
   width: 6rem;
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: black;
   background-color: white;
   padding: 5px;
@@ -11,14 +11,17 @@
 }
 
 .file-input-container {
+  width: 10rem;
+
   display: flex;
   align-items: center;
-  color: inherit
+
+  color: inherit;
 }
 
 .file-name {
-  font-size: .8rem;
-  color: inherit
+  font-size: 0.8rem;
+  color: inherit;
 }
 
 .file-delete {
@@ -29,4 +32,23 @@
 
 .file-hidden {
   display: none;
+}
+
+.file-present,
+.field-completed {
+  background-color: rgb(119, 246, 115);
+}
+
+.file-upload {
+  margin: 1rem 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+}
+
+.file-upload .file-label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }

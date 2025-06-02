@@ -6,7 +6,7 @@ import { RootState } from "../../state/store";
 import { useGetUserQuery } from "../../state/apis/authApi";
 import Loading from "../reusable/loading/Loading";
 import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
-import ShiftList from "./ShiftList";
+import ShiftList from "./shiftList/ShiftList";
 import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
 
 const JobListBase = () => {
@@ -47,7 +47,7 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
     <div>
       <h3 className="volunteers-signup-btns">Positions Available</h3>
       {jobs
-        .filter((j) => j.ongoing && j.active)
+        .filter((j) => j.active)
         .map((j) => {
           return (
             <ShiftList

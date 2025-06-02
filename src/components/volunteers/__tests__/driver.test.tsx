@@ -1,19 +1,20 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { format } from "date-fns-tz";
 import { formatISO, addDays, addYears } from "date-fns";
 
-import { createServer } from "../../../../../test/createServer";
-import App from "../../../../../App";
-import { Root } from "../../../../../setupTests";
+import { createServer } from "../../../test/createServer";
+import App from "../../../App";
+import { Root } from "../../../setupTests";
 import {
   VolunteerCampaign,
   Job,
   Shift,
   VolunteerHours,
-} from "../../../../../state/apis/volunteerApi/types";
-import { ContactInfo, User } from "../../../../../state/apis/authApi";
-import { DriverInfo } from "../../../../../state/apis/volunteerApi/driver";
+} from "../../../state/apis/volunteerApi/types";
+import { ContactInfo, User } from "../../../state/apis/authApi";
+import { DriverInfo } from "../../../state/apis/volunteerApi/driver";
+import config from "../driver/config";
 
 const userInfo: ContactInfo = {
   firstName: "Andy",
@@ -31,7 +32,7 @@ export const ckKitchenCampaign: VolunteerCampaign = {
 
 export const driversCampaign: VolunteerCampaign = {
   name: "Drivers",
-  id: "dfli",
+  id: config.driverCampaignId,
 };
 
 const user: User = {
@@ -61,15 +62,19 @@ const driverShift: Shift = {
   slots: 1,
   distance: "5 mi",
   destination: "EOC",
+  carSizeRequired: "Small",
 };
 
 driverJob.shifts = [driverShift];
 
-const driver: DriverInfo = { volunteerAgreement: false, car: {} };
+const driver: DriverInfo = {
+  volunteerAgreement: false,
+  car: {},
+};
 const onboardedDriver: DriverInfo = {
   volunteerAgreement: true,
   car: {
-    size: "Large",
+    size: "Medium",
     make: "Honda",
     model: "HR-V",
     year: "2021",
@@ -121,11 +126,19 @@ describe("onboarding", () => {
   createServer([
     { path: "/user", res: async () => user },
     {
+      path: "/volunteers/hours/:campaignId/:contactId",
+      res: async () => [],
+    },
+    {
       path: "/volunteers/campaigns",
       res: async () => [ckKitchenCampaign, driversCampaign],
     },
     { path: "/volunteers/driver", res: async () => driver },
     { path: "/sign/DRV", res: async () => ({}) },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [driverJob],
+    },
   ]);
 
   test("go to onboarding home", async () => {
@@ -182,7 +195,7 @@ describe("onboarding", () => {
     const carText = await screen.findByText(/car/i);
     await userEvent.click(carText);
 
-    const sizeText = await screen.findByText(/select a size/i);
+    const sizeText = await screen.findByText(/select your car size/i);
     const back = screen.getByText(/back/i);
     await userEvent.click(back);
   });
@@ -236,10 +249,8 @@ describe("sign up", () => {
   test("find job list", async () => {
     render(<App />, { wrapper: Root });
 
-    const driverLink = await screen.findByText(/drivers/i);
-    await userEvent.click(driverLink);
     const date = await screen.findByText(
-      RegExp(format(new Date(driverShift.startTime), "eee, M/dd/yy"))
+      RegExp(format(new Date(driverShift.startTime), "eee, M/d/yy"))
     );
 
     await userEvent.click(date);

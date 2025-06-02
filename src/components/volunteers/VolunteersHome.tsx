@@ -1,11 +1,8 @@
-import { useSelector } from "react-redux";
-
 import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import TextButton from "../reusable/TextButton";
 import EventsList from "./events/EventsList";
 import Loading from "../reusable/loading/Loading";
-import { useGetUserQuery } from "../../state/apis/authApi";
-import { RootState } from "../../state/store";
+
 import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
 
 const homeChefDescription =
@@ -14,16 +11,8 @@ const homeChefDescription =
 const VolunteersHome = () => {
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
 
-  // console.log(window.location.href);
-
-  const { data: user } = useGetUserQuery();
-  const volunteer = useSelector(
-    (state: RootState) => state.volunteer.volunteer
-  );
-
   const renderOngoingCampaign = (cam: VolunteerCampaign) => {
-    const action = user || volunteer ? "signup" : "signin";
-    const link = `ck-kitchen/${action}/${cam.id}`;
+    const link = `signup/${cam.id}`;
 
     return (
       <TextButton

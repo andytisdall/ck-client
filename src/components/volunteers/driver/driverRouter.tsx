@@ -1,16 +1,14 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
-import renderWithFallback from "../../../reusable/loading/renderWithFallback";
+import renderWithFallback from "../../reusable/loading/renderWithFallback";
 
 const License = lazy(() => import("./License"));
 const Car = lazy(() => import("./Car"));
 const Insurance = lazy(() => import("./Insurance"));
 
-const Sign = lazy(() => import("../../../reusable/signature/Sign"));
-const SignSuccess = lazy(
-  () => import("../../../reusable/signature/SignSuccess")
-);
+const Sign = lazy(() => import("../../reusable/signature/Sign"));
+const SignSuccess = lazy(() => import("../../reusable/signature/SignSuccess"));
 
 const Onboarding = lazy(() => import("./Onboarding"));
 

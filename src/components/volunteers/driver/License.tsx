@@ -1,5 +1,5 @@
 import UploadPhoto from "./UploadPhoto";
-import { useUploadLicenseMutation } from "../../../../state/apis/volunteerApi/driver";
+import { useUploadLicenseMutation } from "../../../state/apis/volunteerApi/driver";
 
 const License = () => {
   const [uploadLicense, { isLoading }] = useUploadLicenseMutation();

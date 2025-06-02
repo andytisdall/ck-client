@@ -1,5 +1,5 @@
 import UploadPhoto from "./UploadPhoto";
-import { useUploadInsuranceMutation } from "../../../../state/apis/volunteerApi/driver";
+import { useUploadInsuranceMutation } from "../../../state/apis/volunteerApi/driver";
 
 const Insurance = () => {
   const [uploadInsurance, { isLoading }] = useUploadInsuranceMutation();

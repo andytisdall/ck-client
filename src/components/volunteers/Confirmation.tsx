@@ -6,7 +6,7 @@ import { useCancelVolunteerShiftMutation } from "../../state/apis/volunteerApi/v
 import { useGetHourQuery } from "../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
 import { setAlert } from "../../state/apis/slices/alertSlice";
-import ShiftInfo from "./ShiftInfo";
+import ShiftInfo from "./shiftInfo/ShiftInfo";
 import Loading from "../reusable/loading/Loading";
 import {
   VolunteerCampaign,
@@ -123,7 +123,7 @@ const Confirmation = ({
       {renderShiftDetails()}
       <div className="volunteers-signup-btns">
         <Link to="/volunteers">
-          <button className="hc-confirm-button">Volunteers Home</button>
+          <button className="hc-confirm-button">Back</button>
         </Link>
         {hour && renderCancelButton()}
       </div>
