@@ -51,5 +51,6 @@ export const api = createApi({
     "VolunteerShifts",
     "VolunteerCheckInList",
     "DriverInfo",
+    "Doorfront",
   ],
 });

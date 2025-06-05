@@ -1,0 +1,23 @@
+.doorfront-btns {
+  margin: 1rem 0;
+}
+
+.doorfront {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.doorfront-col {
+  width: 40%;
+  min-width: 20rem;
+  border: white 1px solid;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  box-sizing: border-box;
+}
+
+.doorfront-alert {
+  font-size: 14px;
+  margin-bottom: 1rem;
+  color: yellow;
+}

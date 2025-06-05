@@ -22,7 +22,9 @@ const AdminHome = () => {
       >
         Volunteer Check-In
       </Link>
-
+      <Link className="text-button-link admin-home-btn" to="scan">
+        Scan Barcode
+      </Link>
       {/* <DoSomething /> */}
     </div>
   );

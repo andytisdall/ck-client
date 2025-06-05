@@ -1,25 +1,27 @@
-import { useState, FormEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, FormEventHandler } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { setError } from '../../state/apis/slices/errorSlice';
-import { useGetUserQuery, useEditUserMutation } from '../../state/apis/authApi';
-import { setAlert } from '../../state/apis/slices/alertSlice';
-import Loading from '../reusable/loading/Loading';
+import { setError } from "../../state/apis/slices/errorSlice";
+import { useGetUserQuery, useEditUserMutation } from "../../state/apis/authApi";
+import { setAlert } from "../../state/apis/slices/alertSlice";
+import Loading from "../reusable/loading/Loading";
 
 const ChangePassword = () => {
-  const [password1, setPassword1] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const user = useGetUserQuery().data;
   const [editUser, { isLoading }] = useEditUserMutation();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (user) {
       if (password1 !== password2) {
-        return dispatch(setError({ message: 'Passwords do not match' }));
+        return dispatch(setError({ message: "Passwords do not match" }));
       }
       editUser({
         userId: user.id,
@@ -28,9 +30,12 @@ const ChangePassword = () => {
         salesforceId: user.salesforceId,
       })
         .unwrap()
-        .then(() => dispatch(setAlert('You have changed your password')));
-      setPassword1('');
-      setPassword2('');
+        .then(() => {
+          dispatch(setAlert("You have changed your password"));
+          navigate("/");
+        });
+      setPassword1("");
+      setPassword2("");
     }
   };
 

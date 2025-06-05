@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import './Navigation.css';
-import { useGetUserQuery } from '../../state/apis/authApi';
+import "./Navigation.css";
+import { useGetUserQuery } from "../../state/apis/authApi";
 
 const Navigation = () => {
   const userQuery = useGetUserQuery();
@@ -19,14 +19,8 @@ const Navigation = () => {
     return <NavButton to="volunteers" text="CK Volunteers" />;
   };
 
-  // const renderMealProgram = () => {
-  //   if (restaurant) {
-  //     return <NavButton to="meal-program" text="Restaurant Meal Program" />;
-  //   }
-  // };
-
   const renderTextService = () => {
-    if (user?.admin) {
+    if (user?.admin || user?.busDriver || user?.textOnlyPermission) {
       return <NavButton to="text" text="Text Service" />;
     }
   };

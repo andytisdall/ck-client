@@ -6,6 +6,7 @@ export interface User {
   id: string;
   googleId?: string;
   busDriver?: boolean;
+  textOnlyPermission?: boolean;
 }
 
 export type UsersState = Record<string, User>;

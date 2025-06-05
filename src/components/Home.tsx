@@ -1,22 +1,22 @@
-import { useGetUserQuery } from '../state/apis/authApi';
+import { useGetUserQuery } from "../state/apis/authApi";
 // import { useGetRestaurantQuery } from '../state/apis/mealProgramApi/restaurantApi';
-import TextButton from './reusable/TextButton';
-import './Home.css';
+import TextButton from "./reusable/TextButton";
+import "./Home.css";
 
 const volunteersDescription =
-  'Sign up to volunteer as a Home Chef, help out in the CK Kitchen, or donate your time at special events.';
+  "Sign up to volunteer as a Home Chef, help out in the CK Kitchen, or donate your time at special events.";
 
 // const mealProgramDescription =
 // 'A portal for restaurants participating in our meal program to complete the tasks necessary to start providing meals.';
 
 const textServiceDescription =
-  'An interface for sending out text message alerts, adding phone numbers to the subscriber lists and reviewing feedback received from users.';
+  "An interface for sending out text message alerts, adding phone numbers to the subscriber lists and reviewing feedback received from users.";
 
 const userDescription =
-  'An area for users to see their information and to change their password or username.';
+  "An area for users to see their information and to change their password or username.";
 
 const adminDescription =
-  'An interface for CK staff to create users or restaurants for this site.';
+  "An interface for CK staff to create users or restaurants for this site.";
 
 const Home = () => {
   const userQuery = useGetUserQuery();
@@ -45,7 +45,7 @@ const Home = () => {
   // };
 
   const renderTextService = () => {
-    if (user?.admin || user?.busDriver) {
+    if (user?.admin || user?.busDriver || user?.textOnlyPermission) {
       return (
         <TextButton
           to="text"
