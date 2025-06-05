@@ -1,9 +1,9 @@
-import { Outlet, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Outlet, Link } from "react-router-dom";
+import { useState } from "react";
 
-import './Header.css';
-import HeaderMenu from './HeaderMenu';
-import Navigation from './Navigation';
+import "./Header.css";
+import HeaderMenu from "./HeaderMenu";
+import Navigation from "./Navigation";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(window.innerWidth > 600);

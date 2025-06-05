@@ -1,10 +1,11 @@
-import { useMemo, useCallback } from 'react';
-import { format, utcToZonedTime } from 'date-fns-tz';
-import { useNavigate } from 'react-router-dom';
+import { useMemo, useCallback } from "react";
+import { format, utcToZonedTime } from "date-fns-tz";
+import { useNavigate } from "react-router-dom";
 
-import Loading from '../../reusable/loading/Loading';
-import Calendar from '../../reusable/calendar/Calendar';
-import { useGetShiftsQuery, Shift } from '../../../state/apis/volunteerApi';
+import Loading from "../../reusable/loading/Loading";
+import Calendar from "../../reusable/calendar/Calendar";
+import { Shift } from "../../../state/apis/volunteerApi/types";
+import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 
 const HomeChefCalendar = () => {
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ const HomeChefCalendar = () => {
       })
       .forEach((sh) => {
         const formattedTime = format(
-          utcToZonedTime(sh.startTime, 'America/Los_Angeles'),
-          'yyyy-MM-dd'
+          utcToZonedTime(sh.startTime, "America/Los_Angeles"),
+          "yyyy-MM-dd"
         );
         if (orderedByDate[formattedTime]) {
           orderedByDate[formattedTime].push(sh);
@@ -48,8 +49,8 @@ const HomeChefCalendar = () => {
           const jobIndex = jobs.findIndex((j) => j.id === sh.job);
           const job = jobs[jobIndex];
           const available = sh.open;
-          const status = available ? '' : 'calendar-shift-disabled';
-          const link = () => navigate('../shift/' + sh.id);
+          const status = available ? "" : "calendar-shift-disabled";
+          const link = () => navigate("../shift/" + sh.id);
           return (
             <div
               key={sh.id}

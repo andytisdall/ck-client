@@ -1,16 +1,16 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState, FormEventHandler } from 'react';
-import { format, utcToZonedTime } from 'date-fns-tz';
-import { useDispatch } from 'react-redux';
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, FormEventHandler } from "react";
+import { format, utcToZonedTime } from "date-fns-tz";
+import { useDispatch } from "react-redux";
 
-import './ChefShifts.css';
-import { setAlert } from '../../../state/apis/slices/alertSlice';
-import Loading from '../../reusable/loading/Loading';
+import "./ChefShifts.css";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
+import Loading from "../../reusable/loading/Loading";
 import {
   useEditHoursMutation,
   useGetHomeChefHoursQuery,
   useGetShiftsQuery,
-} from '../../../state/apis/volunteerApi';
+} from "../../../state/apis/volunteerApi/homeChefApi";
 
 const EditShift = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const EditShift = () => {
   const { data: hours, isLoading: hoursLoading } = useGetHomeChefHoursQuery();
   const hour = hours && id ? hours[id] : undefined;
 
-  const [mealCount, setMealCount] = useState(hour?.mealCount || '');
+  const [mealCount, setMealCount] = useState(hour?.mealCount || "");
   const [mealType, setMealType] = useState(hour?.mealType);
   const [cancel, setCancel] = useState(false);
 
@@ -34,7 +34,7 @@ const EditShift = () => {
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if ((!mealCount || parseInt(mealCount, 10) < 1) && !cancel) {
-      throw Error('Invalid number of meals');
+      throw Error("Invalid number of meals");
     }
     if (jobs) {
       const fridge = jobs.find((j) => j.id === hour?.job)?.name;
@@ -42,9 +42,9 @@ const EditShift = () => {
         editHours({ id, mealCount, cancel, fridge, date: hour.time, mealType })
           .unwrap()
           .then(() => {
-            const action = cancel ? 'Canceled' : 'Edited';
-            dispatch(setAlert('Delivery ' + action));
-            navigate('..');
+            const action = cancel ? "Canceled" : "Edited";
+            dispatch(setAlert("Delivery " + action));
+            navigate("..");
           });
     }
   };
@@ -55,11 +55,11 @@ const EditShift = () => {
 
   const renderCancel = () => {
     let text;
-    if (hour?.status === 'Confirmed') {
-      text = 'Check here to cancel this delivery';
+    if (hour?.status === "Confirmed") {
+      text = "Check here to cancel this delivery";
     }
-    if (hour?.status === 'Completed') {
-      text = 'Check here if you did not make this delivery';
+    if (hour?.status === "Completed") {
+      text = "Check here if you did not make this delivery";
     }
     return (
       <div className="chef-cancel">
@@ -86,11 +86,11 @@ const EditShift = () => {
 
       <form onSubmit={onSubmit} className="volunteer-edit">
         <h3>
-          Date:{' '}
+          Date:{" "}
           <span className="edit-shift-date">
             {format(
-              utcToZonedTime(hour.time, 'America/Los_Angeles'),
-              'eee, M/d/yy'
+              utcToZonedTime(hour.time, "America/Los_Angeles"),
+              "eee, M/d/yy"
             )}
           </span>
         </h3>
@@ -112,7 +112,7 @@ const EditShift = () => {
               id="entree"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setMealType('Entree');
+                  setMealType("Entree");
                 }
               }}
             />
@@ -125,7 +125,7 @@ const EditShift = () => {
               id="soup"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setMealType('Soup');
+                  setMealType("Soup");
                 }
               }}
             />

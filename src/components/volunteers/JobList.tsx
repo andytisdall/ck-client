@@ -1,29 +1,31 @@
-import { utcToZonedTime } from "date-fns-tz";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useMemo } from "react";
 
+import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
 import { RootState } from "../../state/store";
 import { useGetUserQuery } from "../../state/apis/authApi";
 import Loading from "../reusable/loading/Loading";
-import { useGetCampaignsQuery } from "../../state/apis/volunteerApi";
-import ShiftList from "./ShiftList";
+import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
+import ShiftList from "./shiftList/ShiftList";
+import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
 
-const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
+const JobListBase = () => {
   const { campaignId } = useParams();
 
-  const { data, isLoading } = useGetCampaignsQuery();
-  const campaigns = data;
+  const { data: campaigns } = useGetCampaignsQuery();
+  const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
-  const campaign =
-    campaigns && campaignId
-      ? campaigns.find((cam) =>
-          campaignIdProp ? cam.id === campaignIdProp : cam.id === campaignId
-        )
-      : undefined;
+  if (!campaign) {
+    return <div>Could not find campaign.</div>;
+  }
 
-  const shifts = campaign?.shifts;
-  const jobs = campaign?.jobs;
+  return <JobList campaign={campaign} />;
+};
+
+const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
+  const { data: jobs, isLoading } = useGetJobsQuery({
+    campaignId: campaign.id,
+  });
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -33,23 +35,11 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
 
   const contactId = volunteer?.id || user?.salesforceId;
 
-  const sortedShifts = useMemo(() => {
-    if (shifts)
-      return Object.values(shifts)
-        .filter(
-          (shift) =>
-            utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date()
-        )
-        .sort((a, b) =>
-          new Date(a.startTime) > new Date(b.startTime) ? 1 : -1
-        );
-  }, [shifts]);
-
   if (isLoading) {
     return <Loading />;
   }
 
-  if (!sortedShifts || !jobs || !campaign || !contactId) {
+  if (!jobs || !campaign || !contactId) {
     return <div>Could not find info.</div>;
   }
 
@@ -57,16 +47,14 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
     <div>
       <h3 className="volunteers-signup-btns">Positions Available</h3>
       {jobs
-        .filter((j) => sortedShifts.find((sh) => sh.job === j.id))
+        .filter((j) => j.active)
         .map((j) => {
           return (
             <ShiftList
-              campaignId={campaign.id}
+              campaign={campaign}
               job={j}
-              sortedShifts={sortedShifts}
               key={j.id}
               contactId={contactId}
-              driver={campaign.name === "Drivers"}
             />
           );
         })}
@@ -74,4 +62,4 @@ const JobList = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   );
 };
 
-export default JobList;
+export default JobListBase;

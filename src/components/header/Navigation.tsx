@@ -38,7 +38,6 @@ const Navigation = () => {
   const renderWithUser = () => {
     return (
       <div className="nav-btns">
-        {/* {renderMealProgram()} */}
         {renderTextService()}
         {renderVolunteers()}
         <NavButton to="user" text="User Settings" />

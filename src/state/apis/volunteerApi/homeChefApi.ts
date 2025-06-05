@@ -15,7 +15,6 @@ import {
   HomeChefQuizQuestion,
   HomeChefQuizAnswer,
   HomeChefQuizResponse,
-  Job,
 } from "./types";
 
 export const homeChefApi = api.injectEndpoints({
@@ -89,8 +88,10 @@ export const homeChefApi = api.injectEndpoints({
       }),
       invalidatesTags: ["UserInfo"],
     }),
-    uploadFoodHandlerCertificate: builder.mutation<null, FormData>({
-      query: (body) => {
+    uploadFoodHandlerCertificate: builder.mutation<null, File>({
+      query: (file) => {
+        const body = new FormData();
+        body.append("FH", file);
         return {
           url: "/home-chef/food-handler",
           body,

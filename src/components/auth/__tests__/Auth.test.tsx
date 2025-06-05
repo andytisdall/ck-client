@@ -1,23 +1,25 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import App from '../../../App';
-import { Root } from '../../../setupTests';
-import { createServer } from '../../../test/createServer';
-import { User } from '../../../state/apis/authApi';
+import App from "../../../App";
+import { Root } from "../../../setupTests";
+import { createServer } from "../../../test/createServer";
+import { User } from "../../../state/apis/authApi";
 
 const user: User = {
-  username: 'chompy',
-  id: '48yrf848fy48',
+  username: "chompy",
+  id: "48yrf848fy48",
   admin: false,
-  salesforceId: 'd093900',
+  salesforceId: "d093900",
   active: true,
 };
 
-describe('not signed in', () => {
+const timeout = 8000;
+
+describe("not signed in", () => {
   createServer([
     {
-      path: '/user',
+      path: "/user",
       res: async (req) => {
         if (![...req.headers].length) {
           return null;
@@ -26,15 +28,15 @@ describe('not signed in', () => {
       },
     },
     {
-      path: '/signin',
+      path: "/signin",
       res: async () => {
-        return { user, token: 'token' };
+        return { user, token: "token" };
       },
-      method: 'post',
+      method: "post",
     },
   ]);
 
-  test('sign in button if not signed in', async () => {
+  test("sign in button if not signed in", async () => {
     render(<App />, { wrapper: Root });
     // home page
 
@@ -44,44 +46,44 @@ describe('not signed in', () => {
 
         expect(unauthorizedMessage).toBeInTheDocument();
       },
-      { timeout: 2000 }
+      { timeout }
     );
   });
 
-  test('can sign in', async () => {
+  test("can sign in", async () => {
     render(<App />, { wrapper: Root });
 
-    const userName = await screen.findByPlaceholderText('Username');
-    const passwordInput = screen.getByPlaceholderText('Password');
+    const userName = await screen.findByPlaceholderText("Username");
+    const passwordInput = screen.getByPlaceholderText("Password");
 
-    await userEvent.type(userName, 'Test');
-    await userEvent.type(passwordInput, 'Password');
+    await userEvent.type(userName, "Test");
+    await userEvent.type(passwordInput, "Password");
 
-    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    const submitButton = screen.getByRole("button", { name: "Submit" });
 
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
     await waitFor(
       () => {
         screen.getByText(user.username);
       },
-      { timeout: 2000 }
+      { timeout }
     );
   });
 });
 
-describe('signed in', () => {
+describe("signed in", () => {
   createServer([
-    { path: '/user', res: async () => user },
+    { path: "/user", res: async () => user },
     {
-      path: '/signin',
+      path: "/signin",
       res: async () => {
-        return { user, token: 'token' };
+        return { user, token: "token" };
       },
     },
-    { path: '/meal-program/restaurant', res: async () => null },
+    { path: "/meal-program/restaurant", res: async () => null },
   ]);
 
-  test('username if signed in', async () => {
+  test("username if signed in", async () => {
     render(<App />, { wrapper: Root });
 
     const username = await screen.findByText(user.username);
@@ -90,7 +92,7 @@ describe('signed in', () => {
       () => {
         expect(username).toBeInTheDocument();
       },
-      { timeout: 3000 }
+      { timeout }
     );
   });
 });

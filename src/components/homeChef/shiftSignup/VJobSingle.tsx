@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import Loading from '../../reusable/loading/Loading';
-import VolunteerJob from './VolunteerJob';
-import { useGetShiftsQuery } from '../../../state/apis/volunteerApi';
+import Loading from "../../reusable/loading/Loading";
+import VolunteerJob from "./VolunteerJob";
+import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 
 const VJobSingle = () => {
   const { jobId } = useParams();

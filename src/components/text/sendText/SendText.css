@@ -12,7 +12,7 @@
   display: block;
   padding: 1rem;
   text-align: center;
-  border: 1px solid black
+  border: 1px solid black;
 }
 
 .send-btn {
@@ -31,18 +31,28 @@
   align-items: flex-start;
 }
 
-
 .send-text-variables-item {
   margin-left: 1rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   padding-bottom: 1rem;
-  border-bottom: 1px solid white;
-} 
+  /* border-bottom: 1px solid white; */
+}
 
-.send-text-variables-item label {
-  margin-left: -1rem;
+.send-text-section {
+  border-bottom: white solid 1px;
+  margin-bottom: 2rem;
+}
+
+.send-text-section-title {
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.send-text-variables-item textarea {
+  min-width: 25rem;
+  min-height: 10rem;
 }
 
 .send-text-variables-radio {
@@ -56,7 +66,7 @@
   width: 70%;
   line-height: 1.5rem;
   background-color: black;
-  padding: 1rem
+  padding: 1rem;
 }
 
 .fridge {
@@ -70,9 +80,8 @@
 .fridge-info-label {
   color: yellow;
   font-weight: 600;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
-
 
 .photo-preview {
   border-style: none;
@@ -92,14 +101,14 @@
 }
 
 .send-text-photo-field {
-  width: 17rem;
+  min-width: 17rem;
 }
 
 .send-text-photo-field-container {
-display: flex;
-align-items: center;
-margin-top: 1rem;
-margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  margin-left: 2rem;
 }
 
 .send-text-photo-field-clear {
@@ -109,8 +118,9 @@ margin-left: 2rem;
 }
 
 .send-text-photo-field-or {
-  margin-top: .5rem;
-margin-left: 4rem;}
+  margin-top: 0.5rem;
+  margin-left: 4rem;
+}
 
 .send-text-photo-field-error {
   border: 3px rgba(241, 78, 78, 0.721) solid;
@@ -124,5 +134,5 @@ margin-left: 4rem;}
 .send-text-small-photo img {
   max-width: 17rem;
   display: block;
-  width: '100%'
-  }
+  width: "100%";
+}

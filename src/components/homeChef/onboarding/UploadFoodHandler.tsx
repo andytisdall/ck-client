@@ -1,30 +1,24 @@
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Orientation.css";
-import FileUpload from "../../reusable/file/FileUpload";
+import FileInput from "../../reusable/file/FileInput";
 import Loading from "../../reusable/loading/Loading";
 import { FOOD_HANDLER_URL } from "./HomeChefOnboarding";
-import { useUploadFoodHandlerCertificateMutation } from "../../../state/apis/volunteerApi";
+import { useUploadFoodHandlerCertificateMutation } from "../../../state/apis/volunteerApi/homeChefApi";
 
 const UploadFoodHandler = () => {
   const [uploadFiles, { isLoading }] =
     useUploadFoodHandlerCertificateMutation();
+  const [file, setFile] = useState<File>();
 
   const navigate = useNavigate();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    Array.from(e.currentTarget.elements).forEach((input) => {
-      if (input instanceof HTMLInputElement && input.files?.length) {
-        formData.append(input.name, input.files[0]);
-      }
-    });
-
-    if (Array.from(formData).length) {
-      await uploadFiles(formData).unwrap();
+    if (file) {
+      await uploadFiles(file).unwrap();
       navigate("../file-success/");
     }
   };
@@ -39,8 +33,20 @@ const UploadFoodHandler = () => {
         </a>
       </p>
       <form onSubmit={onSubmit}>
-        <FileUpload label="Food Handler Certification" doc="FH" />
-        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
+        <FileInput
+          label="Food Handler Certification"
+          file={file}
+          setFile={setFile}
+        />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <input
+            type="submit"
+            value="Submit"
+            className={file ? "" : "btn-inactive"}
+          />
+        )}
       </form>
     </div>
   );

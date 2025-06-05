@@ -1,19 +1,17 @@
-import { useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  useGetRecipesQuery,
-  Recipe,
-} from '../../../../state/apis/volunteerApi';
+import { useMemo, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { useGetRecipesQuery } from "../../../../state/apis/volunteerApi/recipeApi";
+import { Recipe } from "../../../../state/apis/volunteerApi/types";
 
-import Loading from '../../../reusable/loading/Loading';
-import './RecipeList.css';
+import Loading from "../../../reusable/loading/Loading";
+import "./RecipeList.css";
 
 export const categories = [
-  { label: 'Mains', name: 'mains' },
-  { label: 'Sides', name: 'sides' },
-  { label: 'Salads & Veggies', name: 'veggies' },
-  { label: 'Soups', name: 'soups' },
-  { label: 'Desserts', name: 'desserts' },
+  { label: "Mains", name: "mains" },
+  { label: "Sides", name: "sides" },
+  { label: "Salads & Veggies", name: "veggies" },
+  { label: "Soups", name: "soups" },
+  { label: "Desserts", name: "desserts" },
 ];
 
 const RecipeList = () => {

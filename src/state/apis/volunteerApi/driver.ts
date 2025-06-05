@@ -3,28 +3,24 @@ import { api } from "../../api";
 export type CarSize = "Small" | "Medium" | "Large" | "Bike";
 
 export interface DriverInfo {
-  firstName?: string;
-  lastName: string;
   licenseExpiration?: string;
   insuranceExpiration?: string;
   volunteerAgreement: boolean;
-  car?: CarSize;
+  car: CarInfo;
   driverStatus?: "Active" | "Inactive";
 }
 
 interface CarInfo {
-  size: CarSize;
+  size?: CarSize;
+  make?: string;
+  model?: string;
+  year?: string;
+  color?: string;
 }
 
-interface DriverShift {
-  id: string;
-  startTime: string;
-  open: boolean;
-  job: string;
-  duration: number;
-  origin: string;
-  destination: string;
-  distance: string;
+export interface UploadDocArgs {
+  file: File;
+  date: string;
 }
 
 const driverApi = api.injectEndpoints({
@@ -33,10 +29,27 @@ const driverApi = api.injectEndpoints({
       query: () => "/volunteers/driver",
       providesTags: ["DriverInfo"],
     }),
-    uploadLicense: builder.mutation<null, FormData>({
-      query: (body) => {
+    uploadLicense: builder.mutation<null, UploadDocArgs>({
+      query: ({ file, date }) => {
+        const body = new FormData();
+        body.append("DL", file);
+        body.append("expirationDate", date);
         return {
           url: "/volunteers/driver/license",
+          body,
+          formData: true,
+          method: "POST",
+        };
+      },
+      invalidatesTags: ["DriverInfo"],
+    }),
+    uploadInsurance: builder.mutation<null, UploadDocArgs>({
+      query: ({ file, date }) => {
+        const body = new FormData();
+        body.append("INS", file);
+        body.append("expirationDate", date);
+        return {
+          url: "/volunteers/driver/insurance",
           body,
           formData: true,
           method: "POST",
@@ -51,19 +64,6 @@ const driverApi = api.injectEndpoints({
         url: "/volunteers/driver/car",
       }),
       invalidatesTags: ["DriverInfo"],
-    }),
-    getCars: builder.query<Record<string, string>[], void>({
-      query: () => "/volunteers/driver/cars",
-    }),
-    getDirections: builder.query<
-      { distance: string },
-      { origin: string; destination: string }
-    >({
-      query: ({ origin, destination }) =>
-        `/volunteers/driver/directions/${origin}/${destination}`,
-    }),
-    getDriverShifts: builder.query<DriverShift[], void>({
-      query: () => "/volunteers/driver/shifts",
     }),
   }),
 });
@@ -98,7 +98,5 @@ export const {
   useGetDriverQuery,
   useUploadLicenseMutation,
   useSubmitCarInfoMutation,
-  useGetCarsQuery,
-  useLazyGetDirectionsQuery,
-  useGetDriverShiftsQuery,
+  useUploadInsuranceMutation,
 } = driverApi;

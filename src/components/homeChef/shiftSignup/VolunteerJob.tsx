@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { utcToZonedTime, format } from 'date-fns-tz';
+import { useState } from "react";
+import { utcToZonedTime, format } from "date-fns-tz";
 
-import { useGetShiftsQuery } from '../../../state/apis/volunteerApi/homeChefApi';
-import { Job } from '../../../state/apis/volunteerApi/types';
-import { Link } from 'react-router-dom';
-import './VolunteerJob.css';
+import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
+import { Job } from "../../../state/apis/volunteerApi/types";
+import { Link } from "react-router-dom";
+import "./VolunteerJob.css";
 
 const VolunteerJob = ({ job }: { job: Job }) => {
   const [expand, setExpand] = useState(false);
@@ -14,7 +14,7 @@ const VolunteerJob = ({ job }: { job: Job }) => {
 
   const renderShifts = () => {
     if (shifts) {
-      const jobShifts = job.shifts.map((id) => shifts[id]);
+      const jobShifts = Object.values(shifts).filter((sh) => sh.job === job.id);
 
       return jobShifts
         .sort((a, b) => (a.startTime > b.startTime ? 1 : -1))
@@ -28,16 +28,16 @@ const VolunteerJob = ({ job }: { job: Job }) => {
               ) : (
                 <div className="job-full">full</div>
               )}
-              <div className={`job-date ${shift.open ? '' : 'job-date-full'}`}>
+              <div className={`job-date ${shift.open ? "" : "job-date-full"}`}>
                 {format(
-                  utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-                  'M/d/yy'
+                  utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+                  "M/d/yy"
                 )}
               </div>
-              <div className={`job-time ${shift.open ? '' : 'job-date-full'}`}>
+              <div className={`job-time ${shift.open ? "" : "job-date-full"}`}>
                 {format(
-                  utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-                  'eeee'
+                  utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+                  "eeee"
                 )}
                 <span className="job-name-small"> - {job.name}</span>
               </div>
@@ -47,8 +47,8 @@ const VolunteerJob = ({ job }: { job: Job }) => {
     }
   };
 
-  const expanded = expand ? 'expanded' : '';
-  const inactive = job.active ? '' : 'job-name-inactive';
+  const expanded = expand ? "expanded" : "";
+  const inactive = job.active ? "" : "job-name-inactive";
   return (
     <div
       className="job-container"
@@ -73,7 +73,7 @@ const VolunteerJob = ({ job }: { job: Job }) => {
         </div>
       )}
 
-      <div className={`shift-list ${expanded ? '' : 'closed'}`}>
+      <div className={`shift-list ${expanded ? "" : "closed"}`}>
         {expand && renderShifts()}
       </div>
     </div>

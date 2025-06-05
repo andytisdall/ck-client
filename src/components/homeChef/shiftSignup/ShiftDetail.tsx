@@ -1,15 +1,15 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState, FormEventHandler } from 'react';
-import { format, utcToZonedTime } from 'date-fns-tz';
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, FormEventHandler } from "react";
+import { format, utcToZonedTime } from "date-fns-tz";
 
 import {
   useGetShiftsQuery,
   useSignUpForHomeChefShiftMutation,
-} from '../../../state/apis/volunteerApi';
-import Loading from '../../reusable/loading/Loading';
+} from "../../../state/apis/volunteerApi/homeChefApi";
+import Loading from "../../reusable/loading/Loading";
 
 const ShiftDetail = () => {
-  const [mealCount, setMealCount] = useState('');
+  const [mealCount, setMealCount] = useState("");
   const [soup, setSoup] = useState(false);
 
   const { data, isLoading } = useGetShiftsQuery();
@@ -34,7 +34,7 @@ const ShiftDetail = () => {
         soup,
       })
         .unwrap()
-        .then((hours) => navigate('/home-chef/signup/confirm/' + hours.id));
+        .then((hours) => navigate("/home-chef/signup/confirm/" + hours.id));
     }
   };
 
@@ -55,8 +55,8 @@ const ShiftDetail = () => {
       <div className="signup-form-item">
         <strong>Date: </strong>
         {format(
-          utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-          'eeee, M/d/yy'
+          utcToZonedTime(shift.startTime, "America/Los_Angeles"),
+          "eeee, M/d/yy"
         )}
       </div>
       <div className="signup-form-item">

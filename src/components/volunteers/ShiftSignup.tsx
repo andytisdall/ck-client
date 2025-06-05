@@ -4,16 +4,15 @@ import { useSelector } from "react-redux";
 
 import { RootState } from "../../state/store";
 import Loading from "../reusable/loading/Loading";
-import {
-  useGetCampaignsQuery,
-  useSignUpForVolunteerShiftMutation,
-  useGetHoursQuery,
-} from "../../state/apis/volunteerApi";
+import { useGetHoursQuery } from "../../state/apis/volunteerApi/volunteerApi";
+import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
+import { useSignUpForVolunteerShiftMutation } from "../../state/apis/volunteerApi/volunteerApi";
 import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 import { useGetUserQuery, useGetUserInfoQuery } from "../../state/apis/authApi";
-import ShiftInfo from "./ShiftInfo";
+import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
+import ShiftInfo from "./shiftInfo/ShiftInfo";
 
-const ShiftSignup = () => {
+const ShiftSignup = ({ campaignIdProp }: { campaignIdProp?: string }) => {
   const navigate = useNavigate();
   const { shiftId, campaignId } = useParams();
 
@@ -21,6 +20,11 @@ const ShiftSignup = () => {
     useSignUpForVolunteerShiftMutation();
 
   const { data: signingConfig } = useGetSigningConfigQuery();
+  const { data: jobs } = useGetJobsQuery({
+    campaignId: campaignId || campaignIdProp || "",
+  });
+
+  const shifts = jobs?.map((j) => j.shifts).flat();
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -28,8 +32,6 @@ const ShiftSignup = () => {
 
   const { data: campaigns } = useGetCampaignsQuery();
   const campaign = campaigns?.find((cam) => cam.id === campaignId);
-
-  const driver = campaign?.name === "Drivers";
 
   const { data: user } = useGetUserQuery();
   const { data: userInfo } = useGetUserInfoQuery();
@@ -43,7 +45,7 @@ const ShiftSignup = () => {
   }
 
   const { data: hours } = useGetHoursQuery({
-    campaignId: campaignId || "",
+    campaignId: campaignId || campaignIdProp || "",
     contactId: contactSalesforceId,
   });
 
@@ -60,12 +62,8 @@ const ShiftSignup = () => {
       : [];
   }, [hours]);
 
-  const shift = shiftId
-    ? campaign?.shifts.find((sh) => sh.id === shiftId)
-    : undefined;
-  const job = shift
-    ? campaign?.jobs.find((j) => j.id === shift.job)
-    : undefined;
+  const shift = shiftId ? shifts?.find((sh) => sh.id === shiftId) : undefined;
+  const job = shift ? jobs?.find((j) => j.id === shift.job) : undefined;
 
   useEffect(() => {
     if (hours && shiftId && bookedJobs.includes(shiftId)) {
@@ -77,12 +75,6 @@ const ShiftSignup = () => {
       }
     }
   }, [hours, shiftId, navigate, bookedJobs, campaignId, getConfirmUrl]);
-
-  useEffect(() => {
-    if (!contactSalesforceId) {
-      navigate("/volunteers");
-    }
-  }, []);
 
   const onSubmit = () => {
     const waiverSigned =
@@ -98,7 +90,7 @@ const ShiftSignup = () => {
         .unwrap()
         .then((hour) => {
           if (!waiverSigned && !signingConfig?.limitReached) {
-            navigate(`../../../sign/CKK/${contactSalesforceId}/${hour.id}`);
+            navigate(`../../sign/CKK/${contactSalesforceId}/${hour.id}`);
           } else {
             navigate(getConfirmUrl(hour.id));
           }
@@ -111,7 +103,7 @@ const ShiftSignup = () => {
       <div className="volunteers-signup-btns">
         <button onClick={onSubmit}>Confirm Signup</button>
         <button onClick={() => navigate("..")} className="cancel">
-          Cancel
+          Back
         </button>
       </div>
     );
@@ -121,14 +113,14 @@ const ShiftSignup = () => {
     return <p>This shift is not available for signup</p>;
   }
 
-  if (!job) {
+  if (!job || !campaign) {
     return <p>Could not find the info for this job.</p>;
   }
 
   return (
     <div>
       <h3 className="volunteers-signup-btns">Confirm your signup:</h3>
-      <ShiftInfo shift={shift} job={job} driver={driver} />
+      <ShiftInfo shift={shift} job={job} campaign={campaign} />
       {isLoading ? <Loading /> : renderBtns()}
     </div>
   );

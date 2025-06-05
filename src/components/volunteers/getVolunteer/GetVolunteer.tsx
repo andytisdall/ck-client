@@ -1,37 +1,24 @@
-import { useState, FormEventHandler, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, FormEventHandler, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Loading from '../../reusable/loading/Loading';
-import '../Volunteers.css';
-import EnterEmail from './EnterEmail';
-import EnterName from './EnterName';
+import Loading from "../../reusable/loading/Loading";
+import "../Volunteers.css";
+import EnterEmail from "./EnterEmail";
+import EnterName from "./EnterName";
 import {
   useLazyGetVolunteerQuery,
   useCreateVolunteerMutation,
-} from '../../../state/apis/volunteerApi';
-import { useGetUserQuery } from '../../../state/apis/authApi';
+} from "../../../state/apis/volunteerApi/volunteerApi";
+import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const GetVolunteer = () => {
-  const { campaignId } = useParams();
-
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [showNameFields, setShowNameFields] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
   const [createVolunteer, createVolunteerResult] = useCreateVolunteerMutation();
-  const { data: user } = useGetUserQuery();
-
-  const navigate = useNavigate();
-
-  const url = `../signup/${campaignId}`;
-
-  useEffect(() => {
-    if (user) {
-      navigate(url);
-    }
-  }, [user, navigate, url]);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -41,20 +28,10 @@ const GetVolunteer = () => {
         .then((volunteer) => {
           if (!volunteer) {
             setShowNameFields(true);
-          } else {
-            navigate(url);
           }
         });
     } else {
-      createVolunteer({ email, firstName, lastName })
-        .unwrap()
-        .then((vol) => {
-          // getVolunteer(vol.email)
-          //   .unwrap()
-          //   .then(() => {
-          navigate(url);
-          // });
-        });
+      createVolunteer({ email, firstName, lastName }).unwrap();
     }
   };
 

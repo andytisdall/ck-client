@@ -1,5 +1,4 @@
 import TextButton from "../reusable/TextButton";
-
 import { useGetUserQuery } from "../../state/apis/authApi";
 
 const textAlertDescription =
@@ -26,7 +25,6 @@ const TextHome = () => {
       </div>
     );
   }
-
   return (
     <div className="text-main">
       <TextButton

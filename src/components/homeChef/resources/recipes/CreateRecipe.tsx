@@ -1,46 +1,45 @@
-import { useState, FormEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, FormEventHandler } from "react";
+import { useDispatch } from "react-redux";
 
-import { setError } from '../../../../state/apis/slices/errorSlice';
+import { setError } from "../../../../state/apis/slices/errorSlice";
 import {
-  Recipe,
-  RecipeItem,
   useEditRecipeMutation,
   useCreateRecipeMutation,
-} from '../../../../state/apis/volunteerApi';
-import './CreateRecipe.css';
-import Loading from '../../../reusable/loading/Loading';
-import FileInput from '../../../reusable/file/FileInput';
+} from "../../../../state/apis/volunteerApi/recipeApi";
+import { Recipe, RecipeItem } from "../../../../state/apis/volunteerApi/types";
+import "./CreateRecipe.css";
+import Loading from "../../../reusable/loading/Loading";
+import FileInput from "../../../reusable/file/FileInput";
 
 const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
   const dispatch = useDispatch();
 
   const mapSections = (r: RecipeItem) => {
-    return { header: r.header, text: r.text.join('\n') };
+    return { header: r.header, text: r.text.join("\n") };
   };
 
-  const [name, setName] = useState(recipe?.name || '');
+  const [name, setName] = useState(recipe?.name || "");
   const [ingredients, setIngredients] = useState(
-    recipe?.ingredients.map(mapSections) || [{ header: '', text: '' }]
+    recipe?.ingredients.map(mapSections) || [{ header: "", text: "" }]
   );
   const [instructions, setInstructions] = useState(
-    recipe?.instructions.map(mapSections) || [{ header: '', text: '' }]
+    recipe?.instructions.map(mapSections) || [{ header: "", text: "" }]
   );
-  const [description, setDescription] = useState(recipe?.description || '');
-  const [category, setCategory] = useState(recipe?.category || '');
-  const [photo, setPhoto] = useState<File | string>();
-  const [author, setAuthor] = useState(recipe?.author || '');
+  const [description, setDescription] = useState(recipe?.description || "");
+  const [category, setCategory] = useState(recipe?.category || "");
+  const [photo, setPhoto] = useState<File>();
+  const [author, setAuthor] = useState(recipe?.author || "");
 
   const [editRecipe, editRecipeResult] = useEditRecipeMutation();
   const [createRecipe, createRecipeResult] = useCreateRecipeMutation();
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    if (typeof photo === 'string') {
+    if (typeof photo === "string") {
       return;
     }
     if (!category) {
-      return dispatch(setError('Please choose a category'));
+      return dispatch(setError("Please choose a category"));
     }
     const formValues = {
       name,
@@ -58,7 +57,7 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
     }
   };
 
-  const renderSections = (fieldName: 'instructions' | 'ingredients') => {
+  const renderSections = (fieldName: "instructions" | "ingredients") => {
     const config = {
       instructions: {
         field: instructions,
@@ -76,7 +75,7 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
       return (
         <div className="create-recipe-section" key={fieldName + i}>
           <label htmlFor="section-title">
-            {list.length > 1 && 'Section '}Header (optional):
+            {list.length > 1 && "Section "}Header (optional):
           </label>
           <input
             type="text"
@@ -90,7 +89,7 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
             }}
           />
           <label htmlFor="instructions">
-            {list.length > 1 && 'Section '}
+            {list.length > 1 && "Section "}
             {label} (each on a new line, do not number):
           </label>
           <textarea
@@ -122,7 +121,7 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
       <div className="recipe-add-section-info">
         <div
           className="recipe-add-section"
-          onClick={() => setField([...field, { header: '', text: '' }])}
+          onClick={() => setField([...field, { header: "", text: "" }])}
         >
           +
         </div>
@@ -138,7 +137,7 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
     );
   };
 
-  const action = recipe ? 'Edit this' : 'Create a ';
+  const action = recipe ? "Edit this" : "Create a ";
 
   return (
     <div>
@@ -162,10 +161,10 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
               type="radio"
               name="category"
               id="category-1"
-              checked={category === 'mains'}
+              checked={category === "mains"}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCategory('mains');
+                  setCategory("mains");
                 }
               }}
             />
@@ -176,10 +175,10 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
               type="radio"
               name="category"
               id="category-2"
-              checked={category === 'sides'}
+              checked={category === "sides"}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCategory('sides');
+                  setCategory("sides");
                 }
               }}
             />
@@ -190,10 +189,10 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
               type="radio"
               name="category"
               id="category-3"
-              checked={category === 'soups'}
+              checked={category === "soups"}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCategory('soups');
+                  setCategory("soups");
                 }
               }}
             />
@@ -204,10 +203,10 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
               type="radio"
               name="category"
               id="category-4"
-              checked={category === 'veggies'}
+              checked={category === "veggies"}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCategory('veggies');
+                  setCategory("veggies");
                 }
               }}
             />
@@ -218,10 +217,10 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
               type="radio"
               name="category"
               id="category-5"
-              checked={category === 'desserts'}
+              checked={category === "desserts"}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCategory('desserts');
+                  setCategory("desserts");
                 }
               }}
             />
@@ -249,11 +248,11 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
         </div>
 
         <div className="create-recipe-field">
-          {renderSections('ingredients')}
+          {renderSections("ingredients")}
         </div>
 
         <div className="create-recipe-field">
-          {renderSections('instructions')}
+          {renderSections("instructions")}
         </div>
 
         <div className="create-recipe-field">

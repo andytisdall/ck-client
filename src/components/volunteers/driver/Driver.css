@@ -1,0 +1,31 @@
+.driver-license-form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  min-width: 5rem;
+  max-width: 25rem;
+}
+
+.driver-license-form input[type="date"] {
+  width: 10rem;
+}
+
+.driver-btns {
+  padding-top: 2rem;
+}
+
+.driver-date-input {
+  display: flex;
+  font-weight: 600;
+}
+
+.driver-file-error {
+  background-color: rgba(255, 0, 0, 0.46);
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  font-weight: 600;
+}
+
+.driver-onboarding {
+  margin-top: 2rem;
+}

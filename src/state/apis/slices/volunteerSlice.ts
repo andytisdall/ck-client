@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-import { volunteerApi, Volunteer } from '../volunteerApi';
-import { userApi } from '../authApi';
+import { Volunteer } from "../volunteerApi/types";
+import { userApi } from "../authApi";
+import { volunteerApi } from "../volunteerApi/volunteerApi";
 
 const initialState: { volunteer: Volunteer | null } = { volunteer: null };
 
 const volunteerSlice = createSlice({
-  name: 'volunteer',
+  name: "volunteer",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -31,7 +32,7 @@ const volunteerSlice = createSlice({
       }
     );
     builder.addMatcher(
-      ({ type }) => type === 'volunteer/reset',
+      ({ type }) => type === "volunteer/reset",
       () => initialState
     );
   },

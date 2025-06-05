@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import Loading from '../../reusable/loading/Loading';
-import { setAlert } from '../../../state/apis/slices/alertSlice';
-import { NotificationArgs } from '../../../state/apis/volunteerApi';
+import Loading from "../../reusable/loading/Loading";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
+import { NotificationArgs } from "../../../state/apis/volunteerApi/types";
 
 const D4J_SCREENS = {
   Restaurants: {
     RestaurantHome: undefined,
-    RestaurantDetail: 'id',
-    RestaurantMap: 'id',
+    RestaurantDetail: "id",
+    RestaurantMap: "id",
   },
-  Events: { EventsHome: undefined, EventDetail: 'id' },
+  Events: { EventsHome: undefined, EventDetail: "id" },
   Rewards: { RewardsHome: undefined, GetContact: undefined },
 };
 
@@ -30,11 +30,11 @@ const NotificationForm = ({
   };
   isLoading: boolean;
 }) => {
-  const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
   const [screen, setScreen] = useState<D4JScreen>();
   const [subScreen, setSubScreen] = useState<D4JSubScreen>();
-  const [paramsValue, setParamsValue] = useState('');
+  const [paramsValue, setParamsValue] = useState("");
 
   const dispatch = useDispatch();
 
@@ -51,9 +51,9 @@ const NotificationForm = ({
     })
       .unwrap()
       .then(() => {
-        dispatch(setAlert('Notification Sent'));
-        setTitle('');
-        setMessage('');
+        dispatch(setAlert("Notification Sent"));
+        setTitle("");
+        setMessage("");
       });
   };
   const renderSetScreenSelect = () => {
@@ -66,7 +66,7 @@ const NotificationForm = ({
             const scr = e.target.value;
             //@ts-ignore
             setScreen(scr);
-            setParamsValue('');
+            setParamsValue("");
           }}
         >
           <option value={undefined}>Select a Screen</option>

@@ -1,20 +1,19 @@
-import { Outlet, Link } from 'react-router-dom';
-import { lazy } from 'react';
+import { Outlet, Link } from "react-router-dom";
+import { lazy } from "react";
 
-import Loading from '../reusable/loading/Loading';
-import renderWithFallback from '../reusable/loading/renderWithFallback';
-import { useGetUserInfoQuery } from '../../state/apis/authApi';
-
-const HomeChefNotSignedIn = lazy(() => import('./HomeChefNotSignedIn'));
-const HomeChefStatus = lazy(() => import('./HomeChefStatus'));
+import Loading from "../reusable/loading/Loading";
+import renderWithFallback from "../reusable/loading/renderWithFallback";
+import { useGetUserInfoQuery } from "../../state/apis/authApi";
+import HomeChefStatus from "./HomeChefStatus";
+import HomeChefNotSignedIn from "./HomeChefNotSignedIn";
 
 const HomeChef = () => {
   const { data, isLoading } = useGetUserInfoQuery();
   const userInfo = data;
 
   const renderStatus = () => {
-    if (userInfo?.homeChefStatus !== 'Active') {
-      return renderWithFallback(<HomeChefStatus />);
+    if (userInfo?.homeChefStatus !== "Active") {
+      return <HomeChefStatus />;
     }
   };
 

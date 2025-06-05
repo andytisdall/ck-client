@@ -1,15 +1,15 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { format, utcToZonedTime } from 'date-fns-tz';
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { format, utcToZonedTime } from "date-fns-tz";
 
-import './ChefShifts.css';
-import Loading from '../../reusable/loading/Loading';
+import "./ChefShifts.css";
+import Loading from "../../reusable/loading/Loading";
 import {
   useGetShiftsQuery,
-  VolunteerHours,
   useGetHomeChefHoursQuery,
-} from '../../../state/apis/volunteerApi';
-import { useGetUserInfoQuery } from '../../../state/apis/authApi';
+} from "../../../state/apis/volunteerApi/homeChefApi";
+import { VolunteerHours } from "../../../state/apis/volunteerApi/types";
+import { useGetUserInfoQuery } from "../../../state/apis/authApi";
 
 const ChefShifts = () => {
   const [upcomingExpand, setUpcomingExpand] = useState(true);
@@ -28,8 +28,8 @@ const ChefShifts = () => {
           <div className="chef-hours-title">
             <div className="chef-hours-date">
               {format(
-                utcToZonedTime(hour.time, 'America/Los_Angeles'),
-                'eee, M/d/yy'
+                utcToZonedTime(hour.time, "America/Los_Angeles"),
+                "eee, M/d/yy"
               )}
             </div>
             <p>{job.name}</p>
@@ -58,24 +58,24 @@ const ChefShifts = () => {
   const totalMeals = useMemo(() => {
     if (hours) {
       return Object.values(hours)
-        .filter((h) => h.status === 'Completed')
+        .filter((h) => h.status === "Completed")
         .reduce(
-          (total, current) => total + parseInt(current.mealCount || '0'),
+          (total, current) => total + parseInt(current.mealCount || "0"),
           0
         );
     }
   }, [hours]);
 
-  const renderHours = (period: 'past' | 'upcoming') => {
+  const renderHours = (period: "past" | "upcoming") => {
     if (hours && jobs && sortedHours) {
-      let status = '';
+      let status = "";
       let hoursArray: VolunteerHours[] = [];
-      if (period === 'past') {
+      if (period === "past") {
         hoursArray = [...sortedHours].reverse();
-        status = 'Completed';
+        status = "Completed";
       } else {
         hoursArray = sortedHours;
-        status = 'Confirmed';
+        status = "Confirmed";
       }
       const renderedList = hoursArray
         .filter((h) => h.status === status)
@@ -94,8 +94,8 @@ const ChefShifts = () => {
     return <Loading />;
   }
 
-  const upcomingExpanded = upcomingExpand ? 'expanded' : '';
-  const pastExpanded = pastExpand ? 'expanded' : '';
+  const upcomingExpanded = upcomingExpand ? "expanded" : "";
+  const pastExpanded = pastExpand ? "expanded" : "";
 
   return (
     <div className="chef-shifts">
@@ -117,10 +117,10 @@ const ChefShifts = () => {
         </div>
         <div
           className={`chef-hours-list ${
-            !upcomingExpand ? 'chef-hours-list-closed' : ''
+            !upcomingExpand ? "chef-hours-list-closed" : ""
           }`}
         >
-          {upcomingExpand && renderHours('upcoming')}
+          {upcomingExpand && renderHours("upcoming")}
         </div>
         <div className="job-name" onClick={() => setPastExpand(!pastExpand)}>
           <div className={`expand-btn ${pastExpanded}`}>&rarr;</div>
@@ -128,10 +128,10 @@ const ChefShifts = () => {
         </div>
         <div
           className={`chef-hours-list ${
-            !pastExpand ? 'chef-hours-list-closed' : ''
+            !pastExpand ? "chef-hours-list-closed" : ""
           }`}
         >
-          {pastExpand && renderHours('past')}
+          {pastExpand && renderHours("past")}
         </div>
       </div>
       <div className="chef-images">

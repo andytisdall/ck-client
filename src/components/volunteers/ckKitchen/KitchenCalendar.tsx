@@ -7,13 +7,13 @@ import { RootState } from "../../../state/store";
 import Calendar from "../../reusable/calendar/Calendar";
 import Loading from "../../reusable/loading/Loading";
 import {
-  useGetCampaignsQuery,
-  useGetHoursQuery,
   Shift,
   VolunteerHours,
   VolunteerCampaign,
-} from "../../../state/apis/volunteerApi";
+} from "../../../state/apis/volunteerApi/types";
 import { useGetUserQuery } from "../../../state/apis/authApi";
+import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
+import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
 
 const KitchenCalBase = () => {
   const { campaignId } = useParams();

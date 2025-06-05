@@ -6,7 +6,7 @@ import Root from "../../../Root";
 import { createServer } from "../../../test/createServer";
 import { User } from "../../../state/apis/authApi";
 import { VolunteerForCheckIn } from "../../../state/apis/volunteerApi/checkInApi";
-import { Volunteer } from "../../../state/apis/volunteerApi";
+import { Volunteer } from "../../../state/apis/volunteerApi/types";
 
 const adminUser: User = {
   username: "bojee",

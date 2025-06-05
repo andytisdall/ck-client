@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
 import Loading from "../../reusable/loading/Loading";
 import TextButton from "../../reusable/TextButton";
-import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi";
+import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
 import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const EventsList = () => {
@@ -48,14 +48,12 @@ const EventsList = () => {
               description = cam.buttonText;
             }
 
-            const link = user || volunteer ? "signup" : "signin";
-
             return (
               <TextButton
                 key={cam.id}
                 buttonText={cam.name}
                 descriptionText={description}
-                to={`events/${link}/${cam.id}`}
+                to={`signup/${cam.id}`}
               />
             );
           })}

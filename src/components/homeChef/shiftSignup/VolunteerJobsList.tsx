@@ -1,8 +1,8 @@
-import { useGetShiftsQuery } from '../../../state/apis/volunteerApi/homeChefApi';
-import VolunteerJob from './VolunteerJob';
-import Loading from '../../reusable/loading/Loading';
-import { Job } from '../../../state/apis/volunteerApi';
-import './VolunteerJob.css';
+import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
+import VolunteerJob from "./VolunteerJob";
+import Loading from "../../reusable/loading/Loading";
+import { Job } from "../../../state/apis/volunteerApi/types";
+import "./VolunteerJob.css";
 
 const VolunteerJobsList = () => {
   const { data, isLoading } = useGetShiftsQuery();
@@ -25,7 +25,7 @@ const VolunteerJobsList = () => {
             <h2 className="region-name">East Oakland</h2>
             <div>
               {renderFridges(
-                jobs.filter((fridge) => fridge.region === 'East Oakland')
+                jobs.filter((fridge) => fridge.region === "East Oakland")
               )}
             </div>
           </div>
@@ -33,7 +33,7 @@ const VolunteerJobsList = () => {
             <h2 className="region-name">West Oakland</h2>
             <div>
               {renderFridges(
-                jobs.filter((fridge) => fridge.region === 'West Oakland')
+                jobs.filter((fridge) => fridge.region === "West Oakland")
               )}
             </div>
           </div>

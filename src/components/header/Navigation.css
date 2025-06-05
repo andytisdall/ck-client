@@ -2,7 +2,7 @@ nav {
   display: flex;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #6b0508;
 }
 
 .nav-btns {
@@ -19,10 +19,9 @@ nav {
   padding: 5px 10px;
   min-width: 8rem;
   text-align: center;
-
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .nav-btns {
     flex-direction: column;
     align-items: center;
@@ -32,7 +31,6 @@ nav {
   .header-auth {
     margin-right: 0;
   }
-
 }
 
 .nav-btn:hover {

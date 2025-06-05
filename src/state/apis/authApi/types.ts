@@ -34,4 +34,8 @@ export interface CreateUserArgs {
   salesforceId?: string;
 }
 
-export type EditUserArgs = CreateUserArgs & { userId: string };
+export type EditUserArgs = CreateUserArgs & {
+  userId: string;
+  busDriver?: boolean;
+  textOnlyPermission?: boolean;
+};

@@ -1,13 +1,12 @@
 import "./FileInput.css";
 
 interface FileInputProps {
-  file: File | string | undefined;
-  setFile: React.Dispatch<React.SetStateAction<string | File | undefined>>;
+  file?: File;
+  setFile: (file: File | undefined) => void;
   label?: string;
-  doc?: string;
 }
 
-const FileInput = ({ file, setFile, label, doc }: FileInputProps) => {
+const FileInput = ({ file, setFile, label }: FileInputProps) => {
   const processFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.target;
     if (files && files[0]) {
@@ -21,8 +20,10 @@ const FileInput = ({ file, setFile, label, doc }: FileInputProps) => {
     }
   };
 
+  const style = file ? "file-present" : "";
+
   return (
-    <>
+    <div className={`file-upload ${style}`}>
       <label htmlFor={label} className="file-label">
         {label}
       </label>
@@ -41,12 +42,11 @@ const FileInput = ({ file, setFile, label, doc }: FileInputProps) => {
       </div>
       <input
         type="file"
-        name={doc}
         id={label}
         className="file-hidden"
         onChange={processFile}
       />
-    </>
+    </div>
   );
 };
 

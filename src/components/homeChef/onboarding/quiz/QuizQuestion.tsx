@@ -1,5 +1,5 @@
-import { useGetQuizQuestionsQuery } from '../../../../state/apis/volunteerApi';
-import Loading from '../../../reusable/loading/Loading';
+import { useGetQuizQuestionsQuery } from "../../../../state/apis/volunteerApi/homeChefApi";
+import Loading from "../../../reusable/loading/Loading";
 
 const QuizQuestion = ({
   page,
@@ -23,7 +23,7 @@ const QuizQuestion = ({
         <input
           type="radio"
           value={i}
-          name={'question-' + page}
+          name={"question-" + page}
           id={`question-${page}-${i}`}
           checked={selected}
           onChange={(e) =>
