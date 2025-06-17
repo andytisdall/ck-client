@@ -7,7 +7,6 @@ const Insurance = () => {
   return (
     <UploadPhoto
       label="Proof of Insurance"
-      doc="INS"
       isLoading={isLoading}
       upload={uploadInsurance}
       dateLabel="Insurance Expiration Date:"

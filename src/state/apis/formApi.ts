@@ -136,6 +136,16 @@ interface NewMealSurveyArgs {
   name: "NEW_MEAL_SURVEY";
 }
 
+interface BikeSignupArgs {
+  formData: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    bikeNotes: string;
+  };
+  name: "BIKE_SIGNUP";
+}
+
 type SubmitFormArgs =
   | CBOReportArgs
   | TextSignUpSurveyArgs
@@ -143,7 +153,8 @@ type SubmitFormArgs =
   | MealProgramIntakeArgs
   | VolunteerInterestFormArgs
   | HomeChefRegistrationArgs
-  | NewMealSurveyArgs;
+  | NewMealSurveyArgs
+  | BikeSignupArgs;
 
 const urls = {
   MEAL_SURVEY: "/text/meal-survey",
@@ -153,6 +164,7 @@ const urls = {
   CBO_REPORT: "/meal-program/cbo-report",
   HOME_CHEF_REGISTRATION: "/home-chef/home-chef-registration",
   NEW_MEAL_SURVEY: "/meal-program/survey",
+  BIKE_SIGNUP: "/volunteers/bike",
 };
 
 const formApi = api.injectEndpoints({

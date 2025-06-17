@@ -1,18 +1,11 @@
 import { format, utcToZonedTime } from "date-fns-tz";
-import { useSelector } from "react-redux";
 
-import { RootState } from "../../../state/store";
 import Loading from "../../reusable/loading/Loading";
 import TextButton from "../../reusable/TextButton";
 import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
-import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const EventsList = () => {
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const { data: user } = useGetUserQuery();
-  const volunteer = useSelector((state: RootState) => {
-    return state.volunteer.volunteer;
-  });
 
   const eventCampaigns = campaigns?.filter((cam) => cam.startDate);
 

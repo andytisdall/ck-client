@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
 import renderWithFallback from "../../reusable/loading/renderWithFallback";
+import "./Driver.css";
 
 const License = lazy(() => import("./License"));
 const Car = lazy(() => import("./Car"));

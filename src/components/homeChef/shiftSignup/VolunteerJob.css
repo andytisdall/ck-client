@@ -18,47 +18,39 @@
 }
 
 .job-name-small {
-  font-size: .8rem;
-  color: purple
+  font-size: 0.8rem;
+  color: purple;
 }
 
 .job-location {
   margin-left: 2rem;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.7);
   width: 10rem;
 }
 
-
 .job-listing {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   border-bottom: 1px solid black;
-  padding: .5rem 0;
-}
-
-
-.jobs-list {
-  margin: 1.5rem;
+  padding: 0.5rem 0;
 }
 
 .shift-list {
   display: flex;
   flex-direction: column;
-  transition: all .5s;
-  margin-left: 2.5rem;
+  transition: all 0.5s;
+  margin-left: 1rem;
   margin-bottom: 2rem;
 }
 
 .closed {
-  transform: scaleY(.05) translateY(-60%);
+  transform: scaleY(0.05) translateY(-60%);
   margin-bottom: 0;
 }
 
-
-
 .job-full {
-  margin: .5rem 3rem .5rem 2rem;
+  margin: 0.5rem 3rem 0.5rem 2rem;
   color: red;
 }
 
@@ -72,6 +64,7 @@
 
 .job-time {
   margin-left: 1rem;
+  font-size: 0.8rem;
 }
 
 .job-name-inactive {
@@ -83,23 +76,22 @@
 
 .job-disabled {
   margin-left: 2rem;
-  color: rgb(121, 48, 60)
+  color: rgb(121, 48, 60);
 }
 
 .home-chef-fridges {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .home-chef-fridges-region {
-  min-width: 28rem;
-  margin-left: 1rem;
+  flex: 1;
+  max-width: 40rem;
   margin-bottom: 3rem;
+  margin: 0 0.5rem;
 }
 
 .job-notes {
-  width: 21rem;
-  font-size: .9rem;
-  margin: auto;
+  font-size: 0.9rem;
 }

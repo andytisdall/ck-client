@@ -1,19 +1,41 @@
 .home-chef-app-links {
   display: flex;
-  margin-top: 4rem;
-flex-direction: column;
-align-items: center;
+  margin-top: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 700px;
 }
 
 .home-chef-app-logos {
+  height: 10rem;
   width: 10rem;
-  height: 5rem;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  margin-bottom: 5rem;
+  margin: 2rem;
+  box-sizing: border-box;
+  padding: 2rem;
+  box-shadow: -8px 5px 20px rgba(0, 0, 0, 0.273);
 }
 
 .home-chef-app-logos img {
-max-width: 100%;
-max-height: 100%;}
+  max-width: 100%;
+  max-height: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.home-chef-app-apple {
+  background-color: black;
+  color: white;
+}
+
+.home-chef-app-apple img {
+  height: 75%;
+  width: 75%;
+}
+
+.home-chef-app-android {
+  background-color: white;
+}

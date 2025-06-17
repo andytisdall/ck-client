@@ -1,15 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import "./Driver.css";
+import DriverSettings from "./DriverSettings";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
 import Loading from "../../reusable/loading/Loading";
 import Status, { Task } from "../../reusable/status/Status";
-import config from "./config";
 
 const Onboarding = () => {
-  const { data: driver, isLoading } = useGetDriverQuery();
-
-  const navigate = useNavigate();
+  const { data: driver, isFetching } = useGetDriverQuery();
 
   const driversLicense: Task = {
     text: "Upload driver's license",
@@ -36,24 +33,27 @@ const Onboarding = () => {
   };
   const tasks = [driversLicense, insurance, car, volunteerAgreement];
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loading />;
   }
 
   if (!driver) {
-    return <div>Driver not found.</div>;
-  }
-  if (driver?.driverStatus === "Active") {
     return (
       <div className="driver-onboarding">
-        <h3>You are ready to sign up for driving volunteer shifts!</h3>
-        <button
-          onClick={() => navigate(`../signup/${config.driverCampaignId}`)}
-        >
-          Continue
-        </button>
+        <p>You must sign in to use this page.</p>
+        <Link to="/volunteers">
+          <button>Volunteers Home</button>
+        </Link>
       </div>
     );
+  }
+  if (
+    driver.insuranceExpiration &&
+    driver.licenseExpiration &&
+    driver.car.size &&
+    driver.volunteerAgreement
+  ) {
+    return <DriverSettings />;
   }
 
   return (

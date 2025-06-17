@@ -1,5 +1,5 @@
-import './HomeChefApp.css';
-import './HomeChef.css';
+import "./HomeChefApp.css";
+import "./HomeChef.css";
 
 const HomeChefApp = () => {
   return (
@@ -12,19 +12,19 @@ const HomeChefApp = () => {
       <div className="home-chef-app-links">
         <a
           href="https://apps.apple.com/us/app/ck-home-chef/id6457099267"
-          className="home-chef-app-logos"
+          className="home-chef-app-logos home-chef-app-apple"
           target="blank"
         >
           <img src="/images/logos/apple-logo.png" alt="Apple Logo" />
-          <p>Apple App</p>
+          Apple App
         </a>
         <a
           href="https://play.google.com/store/apps/details?id=com.ckhomechefapp"
-          className="home-chef-app-logos"
+          className="home-chef-app-logos home-chef-app-android"
           target="blank"
         >
           <img src="/images/logos/google-logo.png" alt="Google Logo" />
-          <p>Android App</p>
+          Android App
         </a>
       </div>
     </div>

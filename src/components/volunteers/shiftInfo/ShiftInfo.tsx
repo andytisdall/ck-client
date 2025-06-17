@@ -10,6 +10,7 @@ import ShiftInfoField from "./ShiftInfoField";
 import config from "../driver/config";
 import { formatDate, formatTime } from "../formatDateTime";
 import DriverShiftInfo from "./DriverInfo";
+import "./ShiftInfo.css";
 
 const ShiftInfo = ({
   job,

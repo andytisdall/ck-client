@@ -181,6 +181,8 @@ describe("volunteer found", () => {
   test("get job info and sign up for shift", async () => {
     render(<App />, { wrapper: Root });
 
+    await new Promise<void>((resolve) => setTimeout(resolve, 1000));
+
     const jobLink = await screen.findByText(
       format(new Date(hours.time), "eee, M/d/yy")
     );
@@ -226,7 +228,7 @@ describe("canceled hours", () => {
       () => {
         expect(cancelMsg).toBeDefined();
       },
-      { timeout: 2000 }
+      { timeout }
     );
   });
 });

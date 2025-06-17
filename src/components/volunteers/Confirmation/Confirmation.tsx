@@ -1,45 +1,17 @@
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
-import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
-import { useCancelVolunteerShiftMutation } from "../../state/apis/volunteerApi/volunteerApi";
-import { useGetHourQuery } from "../../state/apis/volunteerApi/volunteerApi";
-import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
-import { setAlert } from "../../state/apis/slices/alertSlice";
-import ShiftInfo from "./shiftInfo/ShiftInfo";
-import Loading from "../reusable/loading/Loading";
+import { useCancelVolunteerShiftMutation } from "../../../state/apis/volunteerApi/volunteerApi";
+import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
+import ShiftInfo from "../shiftInfo/ShiftInfo";
+import Loading from "../../reusable/loading/Loading";
 import {
   VolunteerCampaign,
   VolunteerHours,
-} from "../../state/apis/volunteerApi/types";
-
-const ConfirmationBase = () => {
-  const { hoursId } = useParams();
-
-  const { data: campaigns, isLoading: campaignsIsLoading } =
-    useGetCampaignsQuery();
-
-  const { data: hour, isLoading: hourIsLoading } = useGetHourQuery(
-    hoursId || ""
-  );
-
-  const isLoading = campaignsIsLoading || hourIsLoading;
-
-  const campaignId = hour?.campaign;
-  const campaign = campaignId
-    ? campaigns?.find((cam) => cam.id.startsWith(campaignId))
-    : undefined;
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (!campaign || !hour) {
-    return <div>Not Found.</div>;
-  }
-
-  return <Confirmation campaign={campaign} hour={hour} />;
-};
+} from "../../../state/apis/volunteerApi/types";
+import config from "../driver/config";
+import AppInfo from "../driver/AppInfo";
 
 const Confirmation = ({
   hour,
@@ -59,6 +31,8 @@ const Confirmation = ({
   const job = jobs?.find((j) => j.id === hour?.job);
   const shift = job?.shifts?.find((sh) => sh.id === hour?.shift);
 
+  const driver = campaign?.id === config.driverCampaignId;
+
   const dispatch = useDispatch();
 
   const onCancel = () => {
@@ -75,7 +49,9 @@ const Confirmation = ({
 
   const renderMessage = () => {
     const confirmMessage = (
-      <p>You have successfully signed up for this shift:</p>
+      <p className="success-text">
+        You have successfully signed up for this shift:
+      </p>
     );
     const cancelMessage = (
       <p className="cancel-text">You have canceled this shift:</p>
@@ -92,6 +68,7 @@ const Confirmation = ({
         <div className="volunteers-signup-confirm">
           {renderMessage()}
           <ShiftInfo job={job} shift={shift} campaign={campaign} />
+          {driver && !canceled && <AppInfo />}
           <p>You have been sent an email with this information.</p>
         </div>
       );
@@ -122,7 +99,7 @@ const Confirmation = ({
       <h1>Volunteer Sign Up Confirmation</h1>
       {renderShiftDetails()}
       <div className="volunteers-signup-btns">
-        <Link to="/volunteers">
+        <Link to={"/volunteers/signup/" + campaign.id}>
           <button className="hc-confirm-button">Back</button>
         </Link>
         {hour && renderCancelButton()}
@@ -131,4 +108,4 @@ const Confirmation = ({
   );
 };
 
-export default ConfirmationBase;
+export default Confirmation;

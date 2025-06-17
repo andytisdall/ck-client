@@ -1,23 +1,99 @@
 .doorfront-btns {
   margin: 1rem 0;
+  display: flex;
+}
+
+.doorfront-btn {
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  margin: 1rem;
+}
+
+.doorfront-btn-add {
+  background-color: rgb(68, 193, 68);
+}
+
+.doorfront-btn-sub {
+  background-color: rgb(203, 119, 119);
+}
+
+.doorfront-btns button {
+  height: 3rem;
+  width: 3rem;
+}
+
+.doorfront-scan {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.doorfront-nav {
+  margin: 2rem 0;
+}
+
+.doorfront-text-input {
+  max-width: 10rem;
+}
+
+.doorfront-camera-scanner {
+  height: 20rem;
+  width: 30rem;
 }
 
 .doorfront {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.doorfront-submit-row {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  align-items: center;
+}
+
+.doorfront-submit {
+  font-size: 3rem;
+  border-radius: 25px;
+  padding: 1rem 1.5rem;
 }
 
 .doorfront-col {
   width: 40%;
   min-width: 20rem;
   border: white 1px solid;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   margin: 0.5rem;
+  margin-bottom: 1rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .doorfront-alert {
   font-size: 14px;
   margin-bottom: 1rem;
   color: yellow;
+}
+
+.doorfront-scan-now {
+  border: white 1px solid;
+  max-width: 400px;
+  padding: 2rem;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+.doorfront-scan-input {
+  opacity: 0;
 }

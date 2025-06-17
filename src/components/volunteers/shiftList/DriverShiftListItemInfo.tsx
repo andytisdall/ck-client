@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Shift } from "../../../state/apis/volunteerApi/types";
 import { PropsWithChildren } from "react";
-import {
-  CarSize,
-  useGetDriverQuery,
-} from "../../../state/apis/volunteerApi/driver";
+import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
 import { formatDate, formatTime, isCarBigEnough } from "../formatDateTime";
 
 const DriverShiftListItemInfo = ({
@@ -42,8 +39,8 @@ const DriverShiftListItemInfo = ({
           <span>&bull; </span>
           <div>
             {formattedStartDate}
-            <div className="volunteers-shift-date-time">
-              Delivery window: {formattedStartTime} - {formattedEndTime}
+            <div className={`volunteers-shift-date-time ${disabled}`}>
+              Pickup window: {formattedStartTime} - {formattedEndTime}
             </div>
           </div>
         </div>
@@ -52,7 +49,7 @@ const DriverShiftListItemInfo = ({
           <>
             <div className="volunteers-shift-space"></div>
             <ul>
-              <li>Car size required: {shift.carSizeRequired}</li>
+              <li>Minimum vehicle size required: {shift.carSizeRequired}</li>
               <li>Distance: {shift.distance}</li>
             </ul>
           </>

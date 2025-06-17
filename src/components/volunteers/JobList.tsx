@@ -12,8 +12,12 @@ import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
 const JobListBase = () => {
   const { campaignId } = useParams();
 
-  const { data: campaigns } = useGetCampaignsQuery();
+  const { data: campaigns, isLoading } = useGetCampaignsQuery();
   const campaign = campaigns?.find((cam) => cam.id === campaignId);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (!campaign) {
     return <div>Could not find campaign.</div>;
@@ -43,21 +47,25 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
     return <div>Could not find info.</div>;
   }
 
+  const visibleJobs = jobs.filter((j) => j.active && j.shifts.length);
+
+  if (!visibleJobs.length) {
+    return <div>No upcoming shifts are available for sign up.</div>;
+  }
+
   return (
     <div>
       <h3 className="volunteers-signup-btns">Positions Available</h3>
-      {jobs
-        .filter((j) => j.active)
-        .map((j) => {
-          return (
-            <ShiftList
-              campaign={campaign}
-              job={j}
-              key={j.id}
-              contactId={contactId}
-            />
-          );
-        })}
+      {visibleJobs.map((j) => {
+        return (
+          <ShiftList
+            campaign={campaign}
+            job={j}
+            key={j.id}
+            contactId={contactId}
+          />
+        );
+      })}
     </div>
   );
 };

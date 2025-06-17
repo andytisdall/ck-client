@@ -9,7 +9,6 @@ const License = () => {
       upload={uploadLicense}
       isLoading={isLoading}
       label="Driver's License"
-      doc="DL"
       dateLabel="Driver's License Expiration Date:"
     />
   );

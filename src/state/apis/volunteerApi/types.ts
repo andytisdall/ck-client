@@ -37,6 +37,7 @@ export interface Job {
   id: string;
   name: string;
   location?: string;
+  locationInfo?: string;
   shifts: Shift[];
   active: boolean;
   ongoing: boolean;
@@ -44,6 +45,10 @@ export interface Job {
   campaign: string;
   region?: "East Oakland" | "West Oakland";
   notes?: string;
+}
+
+export interface HomeChefJob extends Omit<Job, "shifts"> {
+  shifts: string[];
 }
 
 export interface JobShiftsState {

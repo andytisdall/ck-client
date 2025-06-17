@@ -20,7 +20,7 @@ const Navigation = () => {
   };
 
   const renderTextService = () => {
-    if (user?.admin || user?.busDriver || user?.textOnlyPermission) {
+    if (user?.admin || user?.busDriver) {
       return <NavButton to="text" text="Text Service" />;
     }
   };

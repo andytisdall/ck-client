@@ -122,16 +122,16 @@ textarea {
 }
 
 .btn-inactive {
-  background-color: grey;
-  cursor: auto;
+  background-color: grey !important;
+  cursor: auto !important;
 }
 
 .btn-inactive:hover {
-  background-color: grey;
+  background-color: grey !important;
 }
 
 .btn-inactive:active {
-  transform: none;
+  transform: none !important;
 }
 
 .col {
@@ -140,15 +140,21 @@ textarea {
 }
 
 .cancel {
-  background-color: rgb(219, 102, 102);
+  background-color: rgba(233, 82, 109, 0.637);
 }
 
 .cancel:hover {
-  background-color: rgb(232, 132, 117);
+  background-color: rgba(237, 148, 164, 0.637);
 }
 
 .cancel-text {
-  background-color: rgba(238, 38, 75, 0.637);
+  background-color: rgba(233, 82, 109, 0.637);
+  width: fit-content;
+  padding: 0.5rem;
+}
+
+.success-text {
+  background-color: rgba(59, 211, 32);
   width: fit-content;
   padding: 0.5rem;
 }

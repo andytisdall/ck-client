@@ -39,7 +39,7 @@ const VolunteerJob = ({ job }: { job: Job }) => {
                   utcToZonedTime(shift.startTime, "America/Los_Angeles"),
                   "eeee"
                 )}
-                <span className="job-name-small"> - {job.name}</span>
+                {/* <span className="job-name-small"> - {job.name}</span> */}
               </div>
             </div>
           );

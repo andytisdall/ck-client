@@ -29,3 +29,133 @@
 .driver-onboarding {
   margin-top: 2rem;
 }
+
+.driver-onboarding button {
+  margin-top: 1rem;
+}
+
+.driver-onboarding-car {
+  padding: 1rem;
+}
+
+.driver-onboarding-car-field {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.driver-onboarding-car-field label {
+  width: 5rem;
+}
+
+.driver-settings {
+  margin: 1rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid grey;
+}
+
+.driver-settings-header {
+  text-align: center;
+}
+
+.driver-settings-date {
+  margin-left: 2rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  background-color: rgb(91, 241, 91);
+  width: fit-content;
+  padding: 0.5rem 0.9rem;
+}
+
+.driver-settings-expired {
+  background-color: rgb(215, 109, 109);
+}
+
+.driver-settings-update {
+  display: flex;
+  align-items: flex-end;
+}
+
+.driver-car-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+  max-width: 45rem;
+}
+
+.driver-car-size {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border: 5px rgb(180, 180, 180) solid;
+  background-color: rgb(180, 180, 180);
+  box-shadow: -0.2rem 0.1rem 0.5rem rgba(0, 0, 0, 0.424);
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.driver-car-size-selected {
+  border: 5px solid rgb(78, 239, 78);
+  background-color: rgb(78, 239, 78);
+}
+
+.driver-car-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.driver-car-text {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.driver-car-cambro {
+  width: 12rem;
+  object-fit: contain;
+  margin-right: 2rem;
+}
+
+.driver-car-text div {
+  flex: 1;
+  max-width: 30rem;
+}
+
+.driver-car-size-label {
+  height: 40%;
+  font-weight: 600;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.driver-app-info {
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.driver-app-phone-icon {
+  height: 12rem;
+  margin-top: 1.5rem;
+}
+
+.driver-app-text {
+  flex: 1;
+}
+
+.driver-app-qr-code {
+  height: 8rem;
+}

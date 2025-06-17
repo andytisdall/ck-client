@@ -1,0 +1,39 @@
+.volunteers-shift-detail {
+  border: 1px solid black;
+  padding: 1rem 1.5rem;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.volunteers-shift-detail-field:last-child {
+  border: none;
+}
+
+.volunteers-shift-detail-field {
+  display: flex;
+  border-bottom: 1px solid grey;
+}
+
+.volunteers-shift-detail-field > * {
+  padding: 0.5rem;
+}
+
+.volunteers-shift-detail-field-title {
+  font-weight: 600;
+  background-color: rgba(156, 156, 156, 0.487);
+  margin-right: 0.5rem;
+  min-width: 7rem;
+  max-width: 7rem;
+  box-sizing: border-box;
+}
+
+.volunteers-shift-detail-field-notes {
+  font-size: 14px;
+  font-style: italic;
+  padding: 0.3rem 0 0.3rem 1rem;
+}
+
+.vol-info {
+  padding: 1rem;
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}

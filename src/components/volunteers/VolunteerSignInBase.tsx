@@ -2,11 +2,11 @@ import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+import "./Volunteers.css";
 import { RootState } from "../../state/store";
 import { useGetUserQuery } from "../../state/apis/authApi";
 import Loading from "../reusable/loading/Loading";
 import { useGetDriverQuery } from "../../state/apis/volunteerApi/driver";
-import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import config from "./driver/config";
 import GetVolunteer from "./getVolunteer/GetVolunteer";
 
@@ -23,12 +23,21 @@ const VolunteerSignInBase = () => {
   const navigate = useNavigate();
 
   const driverCampaign = campaignId === config.driverCampaignId;
+  const invalidDriver =
+    driverCampaign &&
+    driver &&
+    user &&
+    (driver.driverStatus !== "Active" ||
+      !driver.insuranceExpiration ||
+      !driver.licenseExpiration ||
+      new Date() > new Date(driver.insuranceExpiration) ||
+      new Date() > new Date(driver.licenseExpiration));
 
   useEffect(() => {
-    if (user && driver && driverCampaign && driver.driverStatus !== "Active") {
+    if (invalidDriver) {
       navigate("../driver-onboarding");
     }
-  }, [driver]);
+  }, [invalidDriver, navigate]);
 
   if (userIsLoading || driverIsLoading) {
     return <Loading />;

@@ -1,9 +1,7 @@
 import { format, utcToZonedTime } from "date-fns-tz";
-import { useNavigate, useParams } from "react-router-dom";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 
-import { RootState } from "../../../state/store";
+import CalendarShift from "./CalendarShift";
 import Calendar from "../../reusable/calendar/Calendar";
 import Loading from "../../reusable/loading/Loading";
 import {
@@ -11,32 +9,10 @@ import {
   VolunteerHours,
   VolunteerCampaign,
 } from "../../../state/apis/volunteerApi/types";
-import { useGetUserQuery } from "../../../state/apis/authApi";
-import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
 import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
-
-const KitchenCalBase = () => {
-  const { campaignId } = useParams();
-
-  const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const campaign = campaigns?.find((cam) => cam.id === campaignId);
-
-  const volunteer = useSelector(
-    (state: RootState) => state.volunteer.volunteer
-  );
-
-  const { data: user } = useGetUserQuery();
-  const contactId = volunteer?.id || user?.salesforceId;
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (!(contactId && campaign)) {
-    return <div>Volunteer campaign data not found</div>;
-  }
-
-  return <KitchenCalendar contactId={contactId} campaign={campaign} />;
-};
+import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
+import config from "../driver/config";
+import DriverCalendarShift from "./DriverCalendarShift";
 
 const KitchenCalendar = ({
   contactId,
@@ -45,16 +21,18 @@ const KitchenCalendar = ({
   contactId: string;
   campaign: VolunteerCampaign;
 }) => {
-  const navigate = useNavigate();
-
-  const { shifts, jobs } = campaign;
+  const { data: jobs } = useGetJobsQuery({
+    campaignId: campaign.id,
+  });
 
   const { data: hours, isLoading } = useGetHoursQuery({
     contactId,
     campaignId: campaign.id,
   });
+  const shifts = jobs?.map((j) => j.shifts).flat();
 
-  const driver = campaign.name === "Drivers";
+  const driverCampaign = campaign.id === config.driverCampaignId;
+  const Component = driverCampaign ? DriverCalendarShift : CalendarShift;
 
   const bookedJobs = hours
     ? Object.values(hours)
@@ -68,7 +46,7 @@ const KitchenCalendar = ({
       Object.values(shifts)
         .filter((shift) => {
           const job = jobs?.find((j) => j.id === shift.job);
-          return job?.ongoing && job.active;
+          return job?.active;
         })
         .forEach((shift) => {
           const formattedTime = format(
@@ -88,7 +66,10 @@ const KitchenCalendar = ({
   const renderShifts = (date: string) => {
     if (shiftsByDate && shiftsByDate[date]) {
       return shiftsByDate[date].map((sh) => {
-        const job = jobs ? jobs.find((j) => j.id === sh.job) : undefined;
+        const job = jobs?.find((j) => j.id === sh.job);
+        if (!job) {
+          return <div>Job not found.</div>;
+        }
         const jobBooked = bookedJobs.includes(sh.id);
         let bookedHours: VolunteerHours | undefined;
         if (jobBooked && hours) {
@@ -96,36 +77,25 @@ const KitchenCalendar = ({
             (h) => h.shift === sh.id && h.status === "Confirmed"
           );
         }
-        const shiftStatus = !sh.open ? "calendar-shift-disabled" : "";
+
+        const getLinkUrl = () => {
+          if (jobBooked) {
+            if (bookedHours) {
+              return `../../../confirm/${contactId}/${bookedHours.id}`;
+            }
+          } else if (sh.open) {
+            return `../${sh.id}`;
+          }
+        };
 
         return (
-          <div
-            key={sh.id}
-            className={"calendar-item calendar-color-0 " + shiftStatus}
-            onClick={() => {
-              if (jobBooked) {
-                if (bookedHours) {
-                  navigate(`../../../confirm/${contactId}/${bookedHours.id}/`);
-                }
-              } else if (sh.open) {
-                navigate(`../${sh.id}`);
-              }
-            }}
-          >
-            <div>{job?.name}</div>
-            {driver ? (
-              <div className="volunteers-calendar-spots">Driver Info</div>
-            ) : (
-              <div className="volunteers-calendar-spots">
-                {sh.slots} Spots Left
-              </div>
-            )}
+          <Component shift={sh} job={job} linkUrl={getLinkUrl()} key={sh.id}>
             {jobBooked && (
               <div className="volunteers-calendar-checkmark">
                 &#x2713; Signed Up
               </div>
             )}
-          </div>
+          </Component>
         );
       });
     } else {
@@ -140,4 +110,4 @@ const KitchenCalendar = ({
   return <Calendar renderItems={renderShifts} />;
 };
 
-export default KitchenCalBase;
+export default KitchenCalendar;

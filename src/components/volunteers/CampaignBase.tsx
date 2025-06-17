@@ -5,12 +5,13 @@ import "./Volunteers.css";
 import { navLink } from "../../utils/style";
 import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import config from "./driver/config";
+import Loading from "../reusable/loading/Loading";
 
 const images = ["cookies-1.jpg", "wraps.jpeg", "sandwiches.jpeg"];
 
 const CampaignBase = () => {
   const { campaignId } = useParams();
-  const { data: campaigns } = useGetCampaignsQuery();
+  const { data: campaigns, isLoading } = useGetCampaignsQuery();
   const campaign = campaigns?.find(
     (c) =>
       c.id === campaignId || c.id.substring(0, c.id.length - 3) === campaignId
@@ -23,7 +24,7 @@ const CampaignBase = () => {
     if (driver) {
       return (
         <div>
-          <Link to="../driver-onboarding/car">
+          <Link to="../../driver-onboarding">
             <button>Edit your information</button>
           </Link>
         </div>
@@ -38,6 +39,10 @@ const CampaignBase = () => {
       />
     ));
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (!campaign) {
     if (event) {
@@ -58,7 +63,7 @@ const CampaignBase = () => {
     );
   }
 
-  if (event) {
+  const renderEvent = () => {
     const startDate = campaign?.startDate
       ? format(
           utcToZonedTime(campaign.startDate, "America/Los_Angeles"),
@@ -77,32 +82,37 @@ const CampaignBase = () => {
     const date = startDate + endDate;
 
     return (
-      <div>
-        <h1 className="volunteers-main-header volunteers-kitchen-header">
-          {campaign.name}
-        </h1>
+      <div className="volunteers-body">
         <h3>{date}</h3>
         <p className="volunteers-home-section-body">{campaign.description}</p>
         <Outlet />
       </div>
     );
-  }
+  };
+
+  const renderOngoing = () => {
+    return (
+      <div className="volunteers-body">
+        <div className="volunteers-shift-signup-links">
+          <NavLink className={navLink} to={`/volunteers/signup/${campaignId}`}>
+            List
+          </NavLink>
+          <NavLink className={navLink} to="cal">
+            Calendar
+          </NavLink>
+        </div>
+        <div className="volunteers-kitchen-signup-photos">{renderMain()}</div>
+        <Outlet />
+      </div>
+    );
+  };
 
   return (
-    <div className="volunteers-body">
-      <div className="volunteers-shift-signup-links">
-        <NavLink
-          className={navLink}
-          to={`/volunteers/ck-kitchen/signup/${campaignId}`}
-        >
-          List
-        </NavLink>
-        <NavLink className={navLink} to="cal">
-          Calendar
-        </NavLink>
-      </div>
-      <div className="volunteers-kitchen-signup-photos">{renderMain()}</div>
-      <Outlet />
+    <div>
+      <h1 className="volunteers-main-header volunteers-kitchen-header">
+        {campaign.name}
+      </h1>
+      {event ? renderEvent() : renderOngoing()}
     </div>
   );
 };

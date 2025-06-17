@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import Loading from "../../reusable/loading/Loading";
 import FileInput from "../../reusable/file/FileInput";
@@ -8,13 +8,11 @@ import { UploadDocArgs } from "../../../state/apis/volunteerApi/driver";
 const UploadPhoto = ({
   upload,
   isLoading,
-  doc,
   label,
   dateLabel,
 }: {
   upload: (data: UploadDocArgs) => { unwrap: () => Promise<null> };
   isLoading: boolean;
-  doc: string;
   label: string;
   dateLabel: string;
 }) => {

@@ -6,11 +6,11 @@ import { formatISO, addDays } from "date-fns";
 import { createServer } from "../../../test/createServer";
 import { User, ContactInfo } from "../../../state/apis/authApi";
 import {
-  Job,
   Shift,
   VolunteerHours,
   Campaign,
-} from "../../../state/apis/volunteerApi";
+  HomeChefJob,
+} from "../../../state/apis/volunteerApi/types";
 import App from "../../../App";
 import { Root } from "../../../setupTests";
 
@@ -36,7 +36,7 @@ export const userInfo1: ContactInfo = {
   homeChefQuizPassed: true,
 };
 
-export const job1: Job = {
+export const job1: HomeChefJob = {
   id: "7777",
   name: "Homies",
   shifts: ["1111", "2222"],

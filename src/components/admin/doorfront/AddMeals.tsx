@@ -16,7 +16,7 @@ const mealMax = 30;
 const AddMeals = () => {
   const { clientId } = useParams();
 
-  const [meals, setMeals] = useState<string[]>([]);
+  const [meals, setMeals] = useState(1);
   const [addMeals, { isLoading: addIsLoading }] = useAddMealsMutation();
 
   const { data: pastMeals, isLoading: getIsLoading } = useGetClientMealsQuery(
@@ -49,47 +49,50 @@ const AddMeals = () => {
   const mealsThisMonth = pastMeals?.filter(
     (meal) => getMonth(new Date(meal.date)) === getMonth(new Date())
   );
-  const cannotAddMeals = mealsThisMonth.length >= mealMax;
+  const numberOfMealsThisMonth = mealsThisMonth.reduce(
+    (prev, cur) => prev + cur.amount,
+    0
+  );
 
-  const maxReachedForThisSesh = mealsThisMonth.length + meals.length >= mealMax;
+  const cannotAddMeals = numberOfMealsThisMonth >= mealMax;
+
+  const maxReachedForThisSesh = numberOfMealsThisMonth + meals >= mealMax;
 
   const renderAddMeals = () => {
     return (
       <div className="doorfront-col">
-        <h4>Client is receiving {meals.length} meals</h4>
+        <b>Client is receiving</b>
+        <h3>{`${meals} meal${meals === 1 ? "" : "s"}`}</h3>
         {maxReachedForThisSesh && (
           <div className="doorfront-alert">Cannot add more meals</div>
         )}
 
-        <button
-          className={maxReachedForThisSesh ? "btn-inactive" : ""}
-          onClick={() => {
-            if (!maxReachedForThisSesh) setMeals([...meals, "Meal"]);
-          }}
-        >
-          Add Meal
-        </button>
-        <button
-          className={meals.length === 0 ? "btn-inactive" : ""}
-          onClick={() => {
-            const newMeals = [...meals];
-            newMeals.pop();
-            setMeals(newMeals);
-          }}
-        >
-          Subtract Meal
-        </button>
-        <ul>
-          {meals.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
         <div className="doorfront-btns">
           <button
-            className={meals.length ? "" : "btn-inactive"}
-            onClick={onSubmit}
+            className={
+              "doorfront-btn-sub doorfront-btn " +
+              (meals === 1 ? "btn-inactive" : "")
+            }
+            onClick={() => {
+              if (meals > 1) {
+                setMeals((current) => current - 1);
+              }
+            }}
           >
-            Submit
+            -
+          </button>
+          <button
+            className={
+              "doorfront-btn-add doorfront-btn " +
+              (maxReachedForThisSesh ? "btn-inactive" : "")
+            }
+            onClick={() => {
+              if (!maxReachedForThisSesh) {
+                setMeals((current) => current + 1);
+              }
+            }}
+          >
+            +
           </button>
         </div>
       </div>
@@ -98,7 +101,7 @@ const AddMeals = () => {
 
   const renderCannotAdd = () => {
     return (
-      <div>
+      <div className="doorfront-col">
         This client has reached their maximum amount of meals and may not add
         more for this period.
       </div>
@@ -108,11 +111,15 @@ const AddMeals = () => {
   const renderPastMeals = () => {
     return (
       <div className="doorfront-col">
-        <h4>Past Meals ({pastMeals.length}):</h4>
+        <b>Meals received this month ({numberOfMealsThisMonth}):</b>
         <ul>
-          {pastMeals?.map((meal) => (
-            <li key={meal.id}>{format(new Date(meal.date), "M/d/yy")}</li>
-          ))}
+          {mealsThisMonth
+            ?.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1))
+            .map((meal) => (
+              <li
+                key={meal.id}
+              >{`${format(new Date(meal.date), "M/d/yy")} - ${meal.amount} meal${meal.amount === 1 ? "" : "s"}`}</li>
+            ))}
         </ul>
       </div>
     );
@@ -124,10 +131,17 @@ const AddMeals = () => {
         {cannotAddMeals ? renderCannotAdd() : renderAddMeals()}
         {renderPastMeals()}
       </div>
-      <div className="doorfront-btns">
+      <div className="doorfront-submit-row">
         <button className="cancel" onClick={() => navigate("..")}>
           Cancel
         </button>
+        <button
+          className={"doorfront-submit" + (meals > 0 ? "" : "btn-inactive")}
+          onClick={onSubmit}
+        >
+          Submit
+        </button>
+        <div />
       </div>
     </div>
   );

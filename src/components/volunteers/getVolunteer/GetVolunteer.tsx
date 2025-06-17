@@ -1,5 +1,4 @@
-import { useState, FormEventHandler, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState, FormEventHandler } from "react";
 
 import Loading from "../../reusable/loading/Loading";
 import "../Volunteers.css";
@@ -9,7 +8,6 @@ import {
   useLazyGetVolunteerQuery,
   useCreateVolunteerMutation,
 } from "../../../state/apis/volunteerApi/volunteerApi";
-import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const GetVolunteer = () => {
   const [email, setEmail] = useState("");

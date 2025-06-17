@@ -195,7 +195,8 @@ describe("onboarding", () => {
     const carText = await screen.findByText(/car/i);
     await userEvent.click(carText);
 
-    const sizeText = await screen.findByText(/select your car size/i);
+    const sizeText = await screen.findByText(/select your vehicle size/i);
+    expect(sizeText).toBeDefined();
     const back = screen.getByText(/back/i);
     await userEvent.click(back);
   });
@@ -240,7 +241,7 @@ describe("sign up", () => {
   test("onboarding complete", async () => {
     render(<App />, { wrapper: Root });
 
-    const readyText = await screen.findByText(/You are ready to sign up/i);
+    const readyText = await screen.findByText(/You are ready to transport/i);
     expect(readyText).toBeDefined();
     const continueBtn = screen.getByText(/continue/i);
     await userEvent.click(continueBtn);

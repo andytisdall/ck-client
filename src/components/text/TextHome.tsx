@@ -14,7 +14,7 @@ const textRecordsDescription = "View past text alerts";
 const TextHome = () => {
   const { data: user } = useGetUserQuery();
 
-  if (user?.textOnlyPermission) {
+  if (!user?.admin) {
     return (
       <div className="text-main">
         <TextButton

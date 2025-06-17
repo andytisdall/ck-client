@@ -18,33 +18,32 @@ const VolunteerJobsList = () => {
   };
 
   const renderRegions = () => {
-    if (jobs) {
-      return (
-        <div className="home-chef-fridges">
-          <div className="home-chef-fridges-region">
-            <h2 className="region-name">East Oakland</h2>
-            <div>
-              {renderFridges(
-                jobs.filter((fridge) => fridge.region === "East Oakland")
-              )}
-            </div>
-          </div>
-          <div className="home-chef-fridges-region">
-            <h2 className="region-name">West Oakland</h2>
-            <div>
-              {renderFridges(
-                jobs.filter((fridge) => fridge.region === "West Oakland")
-              )}
-            </div>
+    if (!jobs) {
+      return <div>Could not retrieve fridge info.</div>;
+    }
+    return (
+      <div className="home-chef-fridges">
+        <div className="home-chef-fridges-region">
+          <h2 className="region-name">East Oakland</h2>
+          <div>
+            {renderFridges(
+              jobs.filter((fridge) => fridge.region === "East Oakland")
+            )}
           </div>
         </div>
-      );
-    }
+        <div className="home-chef-fridges-region">
+          <h2 className="region-name">West Oakland</h2>
+          <div>
+            {renderFridges(
+              jobs.filter((fridge) => fridge.region === "West Oakland")
+            )}
+          </div>
+        </div>
+      </div>
+    );
   };
 
-  return (
-    <div className="jobs-list">{isLoading ? <Loading /> : renderRegions()}</div>
-  );
+  return isLoading ? <Loading /> : renderRegions();
 };
 
 export default VolunteerJobsList;

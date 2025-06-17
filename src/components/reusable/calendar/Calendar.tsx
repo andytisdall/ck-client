@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { format, utcToZonedTime } from 'date-fns-tz';
+import { useState, useCallback } from "react";
+import { format, utcToZonedTime } from "date-fns-tz";
 import {
   startOfMonth,
   getDay,
@@ -7,9 +7,9 @@ import {
   addDays,
   subMonths,
   addMonths,
-} from 'date-fns';
+} from "date-fns";
 
-import './Calendar.css';
+import "./Calendar.css";
 
 type RenderItems = (date: string) => JSX.Element[];
 
@@ -31,8 +31,8 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
 
       days.push(
         format(
-          utcToZonedTime(new Date(date), 'America/Los_Angeles'),
-          'yyyy-MM-dd'
+          utcToZonedTime(new Date(date), "America/Los_Angeles"),
+          "yyyy-MM-dd"
         )
       );
     }
@@ -45,7 +45,7 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
       return (
         <div className="calendar-date" key={d}>
           <div className="calendar-date-number">
-            {format(utcToZonedTime(d, 'America/Los_Angeles'), 'd')}
+            {format(utcToZonedTime(d, "America/Los_Angeles"), "d")}
           </div>
           <div className="calendar-date-body">{items}</div>
         </div>
@@ -71,7 +71,7 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
   };
 
   return (
-    <div>
+    <div className="calendar-container">
       <div className="calendar-top">
         <div className="calendar-header">
           <div
@@ -84,7 +84,7 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
             &larr;
           </div>
           <div className="calendar-header-month">
-            {format(month, 'MMMM yyyy')}
+            {format(month, "MMMM yyyy")}
           </div>
           <div
             className="calendar-header-arrow"

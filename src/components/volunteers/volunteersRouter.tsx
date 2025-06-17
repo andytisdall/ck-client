@@ -11,13 +11,13 @@ const Sign = lazy(() => import("../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
 
 const VolunteersHome = lazy(() => import("./VolunteersHome"));
-const Confirmation = lazy(() => import("./Confirmation"));
+const ConfirmationBase = lazy(() => import("./Confirmation/ConfirmationBase"));
 
 const CampaignBase = lazy(() => import("./CampaignBase"));
 const JobList = lazy(() => import("./JobList"));
-const VolunteerCalendar = lazy(() => import("./VolunteerCalendar"));
+const VolunteerCalendar = lazy(() => import("./calendar/CalendarBase"));
 
-const ShiftSignup = lazy(() => import("./ShiftSignup"));
+const ShiftSignup = lazy(() => import("./signup/SignupBase"));
 const VolunteerSignInBase = lazy(() => import("./VolunteerSignInBase"));
 
 const VolunteersBase = () => {
@@ -38,7 +38,7 @@ const volunteersRouter: RouteObject = {
     { index: true, element: renderWithFallback(<VolunteersHome />) },
     {
       path: "confirm/:contactId/:hoursId",
-      element: renderWithFallback(<Confirmation />),
+      element: renderWithFallback(<ConfirmationBase />),
     },
     driverRouter,
     {

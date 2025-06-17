@@ -248,12 +248,11 @@ describe("signed up for shift", () => {
     render(<App />, { wrapper: Root });
     const backBtn = await screen.findByText(/back/i);
     await userEvent.click(backBtn);
-    const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
-    await userEvent.click(kitchenLink);
+
     const calLink = await screen.findByText(/calendar/i);
     await userEvent.click(calLink);
-    const arrow = await screen.findByText(/→/);
-    await userEvent.click(arrow);
+    // const arrow = await screen.findByText(/→/);
+    // await userEvent.click(arrow);
     const jobLink = await screen.findByText(/signed up/i);
     expect(jobLink).toBeDefined();
 

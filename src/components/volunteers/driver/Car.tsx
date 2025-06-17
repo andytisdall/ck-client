@@ -9,6 +9,7 @@ import {
   useSubmitCarInfoMutation,
   CarSize,
 } from "../../../state/apis/volunteerApi/driver";
+import CarSizeOption from "./CarSize";
 
 const Car = () => {
   const [submitCarInfo, { isLoading }] = useSubmitCarInfoMutation();
@@ -32,69 +33,94 @@ const Car = () => {
     }
   };
 
+  const renderSizes = () => {
+    const sizes: CarSize[] = ["Bike", "Small", "Medium", "Large"];
+    return (
+      <div className="driver-car-sizes">
+        {sizes.map((opt) => {
+          return (
+            <CarSizeOption
+              size={opt}
+              setSize={setSize}
+              key={opt}
+              selected={opt === size}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderCarInfo = () => {
+    if (size && size !== "Bike") {
+      return (
+        <div>
+          <h3>
+            <u>Car Info</u>
+          </h3>
+          <div className="driver-onboarding-car-field">
+            <label htmlFor="make">Make:</label>
+            <input
+              id="make"
+              value={make}
+              onChange={(e) => setMake(e.target.value)}
+              required
+            />
+          </div>
+          <div className="driver-onboarding-car-field">
+            <label htmlFor="model">Model:</label>
+            <input
+              id="model"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+              required
+            />
+          </div>
+          <div className="driver-onboarding-car-field">
+            <label htmlFor="year">Year:</label>
+            <input
+              id="year"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              required
+            />
+          </div>
+          <div className="driver-onboarding-car-field">
+            <label htmlFor="color">Color:</label>
+            <input
+              value={color}
+              id="color"
+              onChange={(e) => setColor(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+      );
+    }
+  };
+
   return (
     // write explanation about cambro sizes
     // take photos of cars with cambros in them
     <div>
-      <h3>Select your car size</h3>
-      <ul>
-        <li>Small: 2-3 Cambros</li>
-        <li>Medium: 4-5 Cambros</li>
-        <li>Large: 6 or more Cambros</li>
-      </ul>
-      <form onSubmit={onSubmit}>
-        <label>Car Size: </label>
-        <select
-          defaultValue={driver?.car.size}
-          onChange={(e) => setSize(e.currentTarget.value as CarSize)}
-        >
-          <option value={undefined}></option>
-          {["Bike", "Small", "Medium", "Large"].map((opt) => (
-            <option value={opt} key={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
-        {size && size !== "Bike" && (
-          <>
-            <div>
-              <label htmlFor="make">Make:</label>
-              <input
-                id="make"
-                value={make}
-                onChange={(e) => setMake(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="model">Model:</label>
-              <input
-                id="model"
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="year">Year:</label>
-              <input
-                id="year"
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="color">Color:</label>
-              <input
-                value={color}
-                id="color"
-                onChange={(e) => setColor(e.target.value)}
-                required
-              />
-            </div>
-          </>
-        )}
+      <h3>Select your vehicle size</h3>
+      <div className="driver-car-text">
+        <img
+          className="driver-car-cambro"
+          src="/images/volunteers/cambro.webp"
+          alt="cambro"
+        />
+        <div>
+          <p>
+            Our cambros are insulated storage for transporting meals in bulk.
+            They are 30" tall, 20" wide and 25" deep, and fit about 75 meals.
+          </p>
+          <p>Estimate your vehicle's size by how many cambros it can fit:</p>
+        </div>
+      </div>
+      {renderSizes()}
+      <form onSubmit={onSubmit} className="driver-onboarding-car">
+        {renderCarInfo()}
         <div>
           {isLoading ? (
             <Loading />

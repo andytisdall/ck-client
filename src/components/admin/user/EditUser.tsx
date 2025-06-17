@@ -13,7 +13,6 @@ const EditUser = () => {
   const [username, setUsername] = useState("");
   const [salesforceId, setSalesforceId] = useState("");
   const [busDriver, setBusdriver] = useState<boolean>();
-  const [textOnlyPermission, setTextOnlyPermission] = useState<boolean>();
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -33,7 +32,6 @@ const EditUser = () => {
       password: password1,
       salesforceId,
       busDriver,
-      textOnlyPermission,
     }).unwrap();
 
     dispatch(setAlert("User Edited"));
@@ -41,7 +39,6 @@ const EditUser = () => {
     setUsername("");
     setSalesforceId("");
     setBusdriver(false);
-    setTextOnlyPermission(false);
     setPassword1("");
     setPassword2("");
   };
@@ -69,8 +66,6 @@ const EditUser = () => {
         setUsername(usr.username);
         setSalesforceId(usr.salesforceId);
         setBusdriver(usr.busDriver);
-        setTextOnlyPermission(usr.textOnlyPermission);
-
         setPassword1("");
         setPassword2("");
       } else {
@@ -130,15 +125,7 @@ const EditUser = () => {
             onChange={(e) => setBusdriver(e.target.checked)}
           />
         </div>
-        <div>
-          <label htmlFor="text-only">Text-Only Permission</label>
-          <input
-            type="checkbox"
-            checked={textOnlyPermission}
-            id="text-only"
-            onChange={(e) => setTextOnlyPermission(e.target.checked)}
-          />
-        </div>
+
         <input type="submit" />
       </form>
     </div>

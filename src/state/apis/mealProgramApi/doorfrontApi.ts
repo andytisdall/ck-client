@@ -4,10 +4,11 @@ interface ClientMeal {
   client: string;
   date: string;
   id: string;
+  amount: number;
 }
 
 interface AddMealsArgs {
-  meals: string[];
+  meals: number;
   clientId: string;
 }
 

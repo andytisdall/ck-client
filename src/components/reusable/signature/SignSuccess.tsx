@@ -5,10 +5,14 @@ import { Dispatch } from "@reduxjs/toolkit";
 
 import { optimisticallyUpdateHomeChefAgreement } from "../../../state/apis/authApi";
 import Loading from "../loading/Loading";
-import { optimisticallyUpdateDriverStatus } from "../../../state/apis/volunteerApi/driver";
+import {
+  optimisticallyUpdateDriverStatus,
+  useGetDriverQuery,
+} from "../../../state/apis/volunteerApi/driver";
 
 const SignSuccess = ({ returnLink }: { returnLink?: string }) => {
   const { contactId, hoursId } = useParams();
+  useGetDriverQuery();
 
   const navigate = useNavigate();
   const dispatch = useDispatch<Dispatch<any>>();

@@ -6,7 +6,6 @@ export interface User {
   id: string;
   googleId?: string;
   busDriver?: boolean;
-  textOnlyPermission?: boolean;
 }
 
 export type UsersState = Record<string, User>;
@@ -37,5 +36,4 @@ export interface CreateUserArgs {
 export type EditUserArgs = CreateUserArgs & {
   userId: string;
   busDriver?: boolean;
-  textOnlyPermission?: boolean;
 };

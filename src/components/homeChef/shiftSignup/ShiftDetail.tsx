@@ -67,6 +67,12 @@ const ShiftDetail = () => {
         <strong>Address: </strong>
         {job?.location}
       </div>
+      {!!job?.locationInfo && (
+        <div className="signup-form-item">
+          <strong>Location Notes: </strong>
+          {job.locationInfo}
+        </div>
+      )}
 
       <form onSubmit={onSubmit}>
         <div className="signup-form-item">

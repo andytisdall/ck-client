@@ -33,7 +33,7 @@ const ShiftList = ({
           utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date()
       )
       .sort((a, b) => (new Date(a.startTime) > new Date(b.startTime) ? 1 : -1));
-  }, []);
+  }, [shifts]);
 
   const bookedJobs = !hours
     ? []
@@ -43,27 +43,25 @@ const ShiftList = ({
     <div className="volunteers-job">
       <h3>{job.name}</h3>
       <p>{job.description}</p>
-      {sortedShifts
-        .filter((sh) => sh.job === job.id)
-        .map((shift) => {
-          const jobBooked = bookedJobs.includes(shift.id);
-          let bookedHours: VolunteerHours | undefined;
+      {sortedShifts.map((shift) => {
+        const jobBooked = bookedJobs.includes(shift.id);
+        let bookedHours: VolunteerHours | undefined;
 
-          if (jobBooked && hours) {
-            bookedHours = hours.find(
-              (h) => h.shift === shift.id && h.status === "Confirmed"
-            );
-          }
-          return (
-            <ShiftListItem
-              key={shift.id}
-              shift={shift}
-              contactId={contactId}
-              bookedHoursId={bookedHours?.id}
-              campaign={campaign}
-            />
+        if (jobBooked && hours) {
+          bookedHours = hours.find(
+            (h) => h.shift === shift.id && h.status === "Confirmed"
           );
-        })}
+        }
+        return (
+          <ShiftListItem
+            key={shift.id}
+            shift={shift}
+            contactId={contactId}
+            bookedHoursId={bookedHours?.id}
+            campaign={campaign}
+          />
+        );
+      })}
     </div>
   );
 };
