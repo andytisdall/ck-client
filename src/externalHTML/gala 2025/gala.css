@@ -1,0 +1,254 @@
+@font-face {
+  font-family: "Acid";
+  src: url(https://portal.ckoakland.org/api/meal-program/font);
+}
+a {
+  text-decoration: none;
+}
+body {
+  margin: 0;
+}
+section {
+  background-color: #ef9c0e;
+  margin: 0;
+  font-family: "Acid", Verdana, Geneva, Tahoma, sans-serif;
+  padding: 0;
+}
+.carousel {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  position: relative;
+  background-color: transparent;
+}
+.carousel-img {
+  position: absolute;
+  height: 100%;
+  opacity: 0.6;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.carousel-text {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 100;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+p {
+  margin: 0;
+}
+.title-section {
+  background-color: rgba(0, 0, 0, 0.41);
+  padding: 0.7rem;
+}
+.ck-text {
+  color: white;
+  font-size: 4rem;
+  line-height: 3rem;
+}
+.title-text {
+  color: #ef9c0e;
+  font-size: 6rem;
+  font-weight: 600;
+  padding: 0 1rem;
+  line-height: 5rem;
+}
+.date-text {
+  margin-top: 7rem;
+  background-color: rgba(0, 0, 0, 0.41);
+  line-height: 3rem;
+  font-size: 4rem;
+  padding: 0.5rem;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 2rem;
+  box-sizing: border-box;
+  padding-top: 2rem;
+}
+p {
+  max-width: 800px;
+  text-align: center;
+  color: #b1272b;
+  padding: 1rem;
+  font-size: 2rem;
+  line-height: 2rem;
+}
+.button {
+  background-color: #c32b2f;
+  border: #7f1b1e 3px solid;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 1rem 1.5rem;
+  font-size: 1.8rem;
+  margin: 1rem 0;
+  box-shadow: -3px 5px 10px rgba(0, 0, 0, 0.209);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.button:hover {
+  background-color: #821b1e;
+}
+.button:active {
+  background-color: #ee363c;
+}
+.ticket-container {
+  position: relative;
+  width: 22rem;
+  height: 11rem;
+  cursor: pointer;
+  margin: 1rem 0;
+}
+.ticket {
+  width: 22rem;
+  position: absolute;
+  top: -5px;
+  left: 0;
+}
+.ticket-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: black;
+}
+.ticket-container:hover {
+  filter: invert();
+}
+.ticket-container:active {
+  filter: none;
+}
+.vip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgb(169, 169, 169);
+  padding: 1rem;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+}
+.vip-text {
+  text-align: center;
+  padding: 1rem;
+  max-width: 800px;
+  color: black;
+}
+.vip-highlight {
+  color: #c32b2f;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+}
+
+.col {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.gala-photo {
+  max-height: 250px;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.exhibit-photo {
+  max-width: 90%;
+}
+
+.exhibit-photo img {
+  border: 5px rgb(101, 101, 101) solid;
+  width: 100%;
+}
+
+.logos {
+  background-color: white;
+  padding-bottom: 1rem;
+}
+
+.logo-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo-row * {
+  padding: 1rem;
+  font-size: 1.6rem;
+  text-align: center;
+  color: rgb(70, 70, 70);
+  text-decoration: underline;
+}
+
+.sponsor {
+  padding: 1rem 0;
+}
+
+.sponsor-btn {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.sponsor-xl {
+  width: 50%;
+  max-width: 28rem;
+  min-width: 18rem;
+  margin-bottom: 2rem;
+}
+
+.sponsor-lg {
+  width: 30%;
+  max-width: 24rem;
+  min-width: 12rem;
+  box-sizing: border-box;
+}
+
+.sponsor-md {
+  width: 22%;
+  max-width: 20rem;
+  min-width: 8rem;
+}
+
+@media (max-width: 700px) {
+  .row {
+    flex-direction: column;
+  }
+  .gala-photo {
+    display: none;
+  }
+  .col {
+    padding: 0.5rem;
+  }
+  .title-text {
+    font-size: 5rem;
+  }
+  .ck-text,
+  .date-text {
+    font-size: 3rem;
+  }
+}
