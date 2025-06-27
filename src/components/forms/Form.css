@@ -261,3 +261,16 @@ li {
 .form-switch-selected-spanish {
   color: blue;
 }
+
+.form-bike-headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: black solid 2px;
+  margin-bottom: 1rem;
+}
+
+.form-bike-headline img {
+  height: 80px;
+  margin: 0 2rem;
+}

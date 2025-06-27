@@ -39,14 +39,18 @@ const Bike = () => {
   const header = () => {
     return (
       <div className="form-item">
-        <h2>CK Bike Volunteers</h2>
+        <div className="form-bike-headline">
+          <img src="/images/volunteers/vehicle-Bike.jpg" alt="bicycle" />
+          <h1 className="form-center-text">CK Mobile Meal Team</h1>
+          <img src="/images/volunteers/vehicle-Bike.jpg" alt="bicycle" />
+        </div>
         <img
           className="form-img"
           src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/burritoroll.jpeg"
           alt="CK Bike Volunteers"
         />
         <p>
-          Next Date: <strong>Sunday, 7/13</strong> - 1pm - 3pm
+          Next Date: <strong>Sunday, 7/13</strong> - 10am - 12pm
         </p>
         <br />
         <p>

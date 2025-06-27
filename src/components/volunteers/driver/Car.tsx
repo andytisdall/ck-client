@@ -103,20 +103,39 @@ const Car = () => {
     // write explanation about cambro sizes
     // take photos of cars with cambros in them
     <div>
-      <h3>Select your vehicle size</h3>
+      <h2>Enter your vehicle's information</h2>
+
       <div className="driver-car-text">
-        <img
-          className="driver-car-cambro"
-          src="/images/volunteers/cambro.webp"
-          alt="cambro"
-        />
-        <div>
-          <p>
-            Our cambros are insulated storage for transporting meals in bulk.
-            They are 30" tall, 20" wide and 25" deep, and fit about 75 meals.
-          </p>
-          <p>Estimate your vehicle's size by how many cambros it can fit:</p>
+        <p>
+          Our cambros are insulated storage for transporting meals in bulk. They
+          are 30" tall, 20" wide and 25" deep, and fit about 75 meals.
+        </p>
+      </div>
+      <div className="driver-car-images">
+        <div className="driver-car-cambro-container">
+          <div className="driver-car-cambro-label">Small</div>
+          <img src="/images/volunteers/drivers/sm-cambro.jpg" alt="cambro" />
         </div>
+        <div className="driver-car-cambro-container">
+          <div className="driver-car-cambro-label">Large</div>
+          <img src="/images/volunteers/drivers/lg-cambro.jpg" alt="cambro" />
+        </div>
+        <div className="driver-car-cambro-row">
+          <div className="driver-car-cambro-container">
+            <div className="driver-car-cambro-label">Medium</div>
+            <img src="/images/volunteers/drivers/md-cambro.jpg" alt="cambro" />
+          </div>
+          <div className="driver-car-cambro-container">
+            <div className="driver-car-cambro-label">Medium</div>
+            <img
+              src="/images/volunteers/drivers/md-cambro-2.jpg"
+              alt="cambro"
+            />
+          </div>
+        </div>
+      </div>
+      <div className="driver-car-text">
+        <p>Estimate your vehicle's size by how many cambros it can fit:</p>
       </div>
       {renderSizes()}
       <form onSubmit={onSubmit} className="driver-onboarding-car">

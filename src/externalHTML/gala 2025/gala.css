@@ -46,6 +46,7 @@ p {
 }
 .title-section {
   background-color: rgba(0, 0, 0, 0.41);
+  border-radius: 5px;
   padding: 0.7rem;
 }
 .ck-text {
@@ -63,10 +64,12 @@ p {
 .date-text {
   margin-top: 7rem;
   background-color: rgba(0, 0, 0, 0.41);
+  border-radius: 5px;
   line-height: 3rem;
   font-size: 4rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1.5rem;
 }
+
 .text {
   display: flex;
   flex-direction: column;
@@ -77,10 +80,11 @@ p {
   box-sizing: border-box;
   padding-top: 2rem;
 }
+
 p {
   max-width: 800px;
   text-align: center;
-  color: #b1272b;
+  color: #8e1e21;
   padding: 1rem;
   font-size: 2rem;
   line-height: 2rem;
@@ -96,6 +100,7 @@ p {
   box-shadow: -3px 5px 10px rgba(0, 0, 0, 0.209);
   cursor: pointer;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .button:hover {
   background-color: #821b1e;
@@ -109,6 +114,7 @@ p {
   height: 11rem;
   cursor: pointer;
   margin: 1rem 0;
+  transition: all 0.2s;
 }
 .ticket {
   width: 22rem;
@@ -145,6 +151,7 @@ p {
   padding-bottom: 2rem;
   box-sizing: border-box;
 }
+
 .vip-text {
   text-align: center;
   padding: 1rem;
@@ -174,6 +181,7 @@ p {
   width: 100%;
   object-fit: cover;
   object-position: top;
+  border-radius: 5px;
 }
 
 .exhibit-photo {
@@ -182,12 +190,17 @@ p {
 
 .exhibit-photo img {
   border: 5px rgb(101, 101, 101) solid;
+  border-radius: 5px;
   width: 100%;
+}
+
+.sponsor {
+  background-color: white;
+  padding: 1rem 0;
 }
 
 .logos {
   background-color: white;
-  padding-bottom: 1rem;
 }
 
 .logo-row {
@@ -203,10 +216,6 @@ p {
   text-align: center;
   color: rgb(70, 70, 70);
   text-decoration: underline;
-}
-
-.sponsor {
-  padding: 1rem 0;
 }
 
 .sponsor-btn {

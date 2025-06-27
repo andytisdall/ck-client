@@ -120,15 +120,42 @@
   margin-bottom: 1rem;
 }
 
-.driver-car-cambro {
-  width: 12rem;
-  object-fit: contain;
-  margin-right: 2rem;
+.driver-car-cambro-container {
+  position: relative;
+  width: 40%;
+  max-width: 40rem;
+  min-width: 20rem;
+  margin: 0.6rem;
 }
 
-.driver-car-text div {
-  flex: 1;
-  max-width: 30rem;
+.driver-car-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.driver-car-cambro-container img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+}
+
+.driver-car-cambro-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.driver-car-cambro-label {
+  background-color: yellow;
+  border: black 2px solid;
+  width: fit-content;
+  padding: 0.4rem 0.7rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .driver-car-size-label {

@@ -17,8 +17,6 @@ const NotificationsHome = lazy(
   () => import("./notifications/NotificationsHome")
 );
 const D4J = lazy(() => import("./d4j/D4J"));
-const ScanBarcode = lazy(() => import("./doorfront/ScanBarcode"));
-const AddMeals = lazy(() => import("./doorfront/AddMeals"));
 
 const adminRouter: RouteObject = {
   path: "admin",
@@ -31,13 +29,7 @@ const adminRouter: RouteObject = {
     { path: "d4j", element: renderWithFallback(<D4J />) },
     { path: "user", element: renderWithFallback(<User />) },
     { path: "restaurant", element: renderWithFallback(<Restaurant />) },
-    {
-      path: "scan",
-      children: [
-        { index: true, element: renderWithFallback(<ScanBarcode />) },
-        { path: ":clientId", element: renderWithFallback(<AddMeals />) },
-      ],
-    },
+
     {
       path: "notifications",
       children: [

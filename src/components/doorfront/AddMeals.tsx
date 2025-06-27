@@ -3,13 +3,12 @@ import { useState } from "react";
 import { format, getMonth } from "date-fns";
 import { useDispatch } from "react-redux";
 
-import "./Doorfront.css";
 import {
   useGetClientMealsQuery,
   useAddMealsMutation,
-} from "../../../state/apis/mealProgramApi/doorfrontApi";
-import Loading from "../../reusable/loading/Loading";
-import { setAlert } from "../../../state/apis/slices/alertSlice";
+} from "../../state/apis/mealProgramApi/doorfrontApi";
+import Loading from "../reusable/loading/Loading";
+import { setAlert } from "../../state/apis/slices/alertSlice";
 
 const mealMax = 30;
 

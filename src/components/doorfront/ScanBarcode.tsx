@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { BarcodeScanner } from "react-barcode-scanner";
 import "react-barcode-scanner/polyfill";
 
-import "./Doorfront.css";
-
 const ScanBarcode = () => {
   const [clientId, setClientId] = useState("");
   const [entryType, setEntryType] = useState<"manual" | "external" | "camera">(
@@ -16,6 +14,26 @@ const ScanBarcode = () => {
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     navigate(clientId);
+  };
+
+  const getMode = () => {
+    if (entryType === "manual") {
+      return "Manual Entry";
+    }
+    if (entryType === "external") {
+      return "External Scanner";
+    }
+    if (entryType === "camera") {
+      return "Built-In Camera";
+    }
+  };
+
+  const renderMode = () => {
+    return (
+      <div>
+        <strong>Scan Mode:</strong> {getMode()}
+      </div>
+    );
   };
 
   const renderCameraScanner = () => {
@@ -65,7 +83,7 @@ const ScanBarcode = () => {
       <div className="doorfront-nav">
         {entryType !== "camera" && (
           <button onClick={() => setEntryType("camera")}>
-            Scan with this device's camera
+            Scan with this device's built-in camera
           </button>
         )}
         {entryType !== "manual" && (
@@ -97,8 +115,9 @@ const ScanBarcode = () => {
 
   return (
     <form onSubmit={onSubmit} className="doorfront-scan">
+      <div className="doorfront-content">{renderContent()}</div>
+      {renderMode()}
       {renderNav()}
-      {renderContent()}
     </form>
   );
 };

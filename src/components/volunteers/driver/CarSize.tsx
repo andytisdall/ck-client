@@ -22,7 +22,7 @@ const CarSizeOption = ({
       onClick={() => setSize(size)}
     >
       <img
-        src={`/images/volunteers/vehicle-${size}.jpg`}
+        src={`/images/volunteers/drivers/vehicle-${size}.jpg`}
         alt={size}
         className="driver-car-photo"
       />

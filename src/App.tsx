@@ -32,6 +32,7 @@ import volunteersRouter from "./components/volunteers/volunteersRouter";
 import cboRouter from "./components/cbo/cboRouter";
 
 import volunteerCheckInRouter from "./components/volunteer-check-in/volunteerCheckInRouter";
+import doorfrontRouter from "./components/doorfront/doorfrontRouter";
 
 // public home chef app page (no sign in required)
 const HomeChefApp = lazy(() => import("./components/homeChef/HomeChefApp"));
@@ -89,6 +90,7 @@ export const router = createBrowserRouter([
   },
   formsRouter,
   volunteerCheckInRouter,
+  doorfrontRouter,
 ]);
 
 const App = () => {
