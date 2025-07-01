@@ -1,30 +1,12 @@
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { utcToZonedTime } from "date-fns-tz";
 
-import { useGetJobsQuery } from "../../state/apis/volunteerApi/jobs";
-import { RootState } from "../../state/store";
-import { useGetUserQuery } from "../../state/apis/authApi";
-import Loading from "../reusable/loading/Loading";
-import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
-import ShiftList from "./shiftList/ShiftList";
-import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
-
-const JobListBase = () => {
-  const { campaignId } = useParams();
-
-  const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const campaign = campaigns?.find((cam) => cam.id === campaignId);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (!campaign) {
-    return <div>Could not find campaign.</div>;
-  }
-
-  return <JobList campaign={campaign} />;
-};
+import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
+import { RootState } from "../../../state/store";
+import { useGetUserQuery } from "../../../state/apis/authApi";
+import Loading from "../../reusable/loading/Loading";
+import ShiftList from "../shiftList/ShiftList";
+import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
 
 const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const { data: jobs, isLoading } = useGetJobsQuery({
@@ -47,7 +29,13 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
     return <div>Could not find info.</div>;
   }
 
-  const visibleJobs = jobs.filter((j) => j.active && j.shifts.length);
+  const visibleJobs = jobs.filter((j) => {
+    const filteredShifts = j.shifts.filter(
+      (shift) =>
+        utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date()
+    );
+    return j.active && filteredShifts.length;
+  });
 
   if (!visibleJobs.length) {
     return <div>No upcoming shifts are available for sign up.</div>;
@@ -70,4 +58,4 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   );
 };
 
-export default JobListBase;
+export default JobList;

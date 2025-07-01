@@ -59,7 +59,7 @@
 }
 
 .driver-settings-date {
-  margin-left: 2rem;
+  margin-left: 1rem;
   font-weight: 700;
   font-size: 1.2rem;
   background-color: rgb(91, 241, 91);
@@ -73,7 +73,7 @@
 
 .driver-settings-update {
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
 }
 
 .driver-car-sizes {
@@ -117,7 +117,10 @@
 .driver-car-text {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  border-top: grey 1px solid;
+  font-weight: 600;
 }
 
 .driver-car-cambro-container {

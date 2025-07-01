@@ -15,7 +15,7 @@
 }
 
 .doorfront-base {
-  background-color: rgb(117, 50, 0);
+  background-color: rgb(74, 38, 11);
   color: white;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .doorfront-nav {
-  margin: 2rem 0;
+  margin: 2rem;
 }
 
 .doorfront-text-input {

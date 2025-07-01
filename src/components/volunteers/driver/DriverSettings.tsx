@@ -13,28 +13,30 @@ const DriverSettings = () => {
     return (
       <li className="driver-settings">
         <h3>Your Vehicle:</h3>
-        <ul>
-          <li>
-            <strong>Size:</strong> {driver?.car.size}{" "}
-            <button onClick={() => navigate("car")}>Edit Vehicle Info</button>
-          </li>
-          {driver?.car.size !== "Bike" && (
-            <>
-              <li>
-                <strong>Color:</strong> {driver?.car.color}
-              </li>
-              <li>
-                <strong>Make:</strong> {driver?.car.make}
-              </li>
-              <li>
-                <strong>Model:</strong> {driver?.car.model}
-              </li>
-              <li>
-                <strong>Year:</strong> {driver?.car.year}
-              </li>
-            </>
-          )}
-        </ul>
+        <div className="driver-settings-update">
+          <ul>
+            <li>
+              <strong>Size:</strong> {driver?.car.size}
+            </li>
+            {driver?.car.size !== "Bike" && (
+              <>
+                <li>
+                  <strong>Color:</strong> {driver?.car.color}
+                </li>
+                <li>
+                  <strong>Make:</strong> {driver?.car.make}
+                </li>
+                <li>
+                  <strong>Model:</strong> {driver?.car.model}
+                </li>
+                <li>
+                  <strong>Year:</strong> {driver?.car.year}
+                </li>
+              </>
+            )}
+          </ul>
+          <button onClick={() => navigate("car")}>Edit Vehicle Info</button>
+        </div>
       </li>
     );
   };

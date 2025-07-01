@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        background-color: black;
+      }
+      @font-face {
+        font-family: "Acid";
+        src: url(https://portal.ckoakland.org/api/meal-program/font);
+      }
+      section {
+        margin: 0;
+        line-height: 2.5rem;
+        font-family: "Acid", Verdana, Geneva, Tahoma, sans-serif;
+        background-color: black;
+        padding: 0;
+      }
+      .carousel {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        position: relative;
+        background-color: black;
+      }
+      .carousel-img {
+        position: absolute;
+        height: 100%;
+        opacity: 0.6;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .carousel-text {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 100;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 1rem;
+      }
+      p {
+        margin: 0;
+      }
+      .title-section {
+        background-color: rgba(0, 0, 0, 0.41);
+        padding: 1rem 2rem;
+      }
+      .ck-text {
+        color: white;
+        font-size: 3rem;
+        padding: 0 1rem;
+      }
+      .title-text {
+        color: #ef9c0e;
+        font-size: 5rem;
+        font-weight: 600;
+        padding: 0 1rem;
+        line-height: 4rem;
+      }
+      .date-text {
+        margin-top: 7rem;
+        background-color: rgba(0, 0, 0, 0.41);
+        line-height: 3rem;
+      }
+      .ck-logo {
+        width: 20rem;
+      }
+    </style>
+    <section class="carousel" aria-label="Gallery">
+      <div class="carousel-text">
+        <div class="title-section">
+          <img
+            src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/ck_logo_long.png"
+            alt="CK logo"
+            class="ck-logo"
+          />
+          <div class="title-text">New Moon<br />Night Market</div>
+        </div>
+        <div class="ck-text date-text">
+          September 24th, 2025<br />
+          Oakland Museum Gardens
+        </div>
+      </div>
+      <img
+        alt=""
+        src="https://storage.googleapis.com/coherent-vision-368820.appspot.com/gala1.jpg"
+        class="carousel-img"
+      />
+    </section>
+  </body>
+</html>

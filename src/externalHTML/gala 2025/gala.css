@@ -210,12 +210,22 @@ p {
   flex-wrap: wrap;
 }
 
-.logo-row * {
+.logo {
   padding: 1rem;
   font-size: 1.6rem;
   text-align: center;
   color: rgb(70, 70, 70);
   text-decoration: underline;
+}
+
+.logo-sub-row {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 48rem;
+  min-width: 24rem;
 }
 
 .sponsor-btn {
@@ -231,9 +241,8 @@ p {
 }
 
 .sponsor-lg {
-  width: 30%;
-  max-width: 24rem;
-  min-width: 12rem;
+  width: 50%;
+  min-width: 18rem;
   box-sizing: border-box;
 }
 

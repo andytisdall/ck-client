@@ -20,24 +20,30 @@ const CampaignBase = () => {
   const driver = campaign?.id === config.driverCampaignId;
   const event = !!campaign?.startDate;
 
-  const renderMain = () => {
+  const renderImages = () => {
+    if (!driver) {
+      return images.map((img) => (
+        <img
+          key={img}
+          src={`/images/volunteers/${img}`}
+          alt="CK Volunteers"
+          className="volunteers-kitchen-signup-photo volunteers-photo-frame"
+        />
+      ));
+    }
+  };
+
+  const renderEditDriverInfoBtn = () => {
     if (driver) {
       return (
-        <div>
+        <div className="volunteers-shift-signup-links">
+          {" "}
           <Link to="../../driver-onboarding">
             <button>Edit your information</button>
           </Link>
         </div>
       );
     }
-    return images.map((img) => (
-      <img
-        key={img}
-        src={`/images/volunteers/${img}`}
-        alt="CK Volunteers"
-        className="volunteers-kitchen-signup-photo volunteers-photo-frame"
-      />
-    ));
   };
 
   if (isLoading) {
@@ -101,7 +107,9 @@ const CampaignBase = () => {
             Calendar
           </NavLink>
         </div>
-        <div className="volunteers-kitchen-signup-photos">{renderMain()}</div>
+
+        {renderEditDriverInfoBtn()}
+        <div className="volunteers-kitchen-signup-photos">{renderImages()}</div>
         <Outlet />
       </div>
     );

@@ -14,32 +14,31 @@ const DriverShiftInfo = ({ shift, job }: { shift: Shift; job: Job }) => {
   );
 
   return (
-    <>
-      <div className="volunteers-shift-detail">
-        <ShiftInfoField label="Job" value={job.name} />
-        <ShiftInfoField
-          label="Minimum Vehicle Size Required"
-          value={shift.carSizeRequired}
-        />
-        <ShiftInfoField
-          label="Pick Up Location"
-          value={job.location}
-          notes={job.locationInfo}
-        />
-        <ShiftInfoField
-          label="Drop Off Location"
-          value={shift.destination}
-          notes={shift.dropoffNotes}
-        />
-        <ShiftInfoField label="Distance" value={shift.distance} />
-        <ShiftInfoField label="Date" value={formatDate(shift.startTime)} />
-        <ShiftInfoField
-          label="Pickup Window"
-          value={`${formatTime(shift.startTime)}
+    <div className="volunteers-shift-detail">
+      <ShiftInfoField label="Job" value={job.name} />
+      <ShiftInfoField label="Description" value={job.description} />
+      <ShiftInfoField
+        label="Minimum Vehicle Size Required"
+        value={shift.carSizeRequired}
+      />
+      <ShiftInfoField
+        label="Pick Up Location"
+        value={job.location}
+        notes={job.locationInfo}
+      />
+      <ShiftInfoField
+        label="Drop Off Location"
+        value={shift.destination}
+        notes={shift.dropoffNotes}
+      />
+      <ShiftInfoField label="Distance" value={shift.distance} />
+      <ShiftInfoField label="Date" value={formatDate(shift.startTime)} />
+      <ShiftInfoField
+        label="Pickup Window"
+        value={`${formatTime(shift.startTime)}
             - ${formatTime(endTime)}`}
-        />
-      </div>
-    </>
+      />
+    </div>
   );
 };
 

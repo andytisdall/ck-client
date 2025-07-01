@@ -11,13 +11,14 @@ const Insurance = lazy(() => import("./Insurance"));
 const Sign = lazy(() => import("../../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../../reusable/signature/SignSuccess"));
 
-const Onboarding = lazy(() => import("./Onboarding"));
+const OnboardingHome = lazy(() => import("./OnboardingHome"));
+const OnboardingBase = lazy(() => import("./OnboardingBase"));
 
 const driverRouter: RouteObject = {
   path: "driver-onboarding",
-
+  element: renderWithFallback(<OnboardingBase />),
   children: [
-    { index: true, element: renderWithFallback(<Onboarding />) },
+    { index: true, element: renderWithFallback(<OnboardingHome />) },
     { path: "license", element: renderWithFallback(<License />) },
     { path: "insurance", element: renderWithFallback(<Insurance />) },
 

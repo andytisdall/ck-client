@@ -11,10 +11,10 @@ const Sign = lazy(() => import("../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
 
 const VolunteersHome = lazy(() => import("./VolunteersHome"));
-const ConfirmationBase = lazy(() => import("./Confirmation/ConfirmationBase"));
+const ConfirmationBase = lazy(() => import("./confirmation/ConfirmationBase"));
 
 const CampaignBase = lazy(() => import("./CampaignBase"));
-const JobList = lazy(() => import("./JobList"));
+const JobListBase = lazy(() => import("./jobList/JobListBase"));
 const VolunteerCalendar = lazy(() => import("./calendar/CalendarBase"));
 
 const ShiftSignup = lazy(() => import("./signup/SignupBase"));
@@ -55,7 +55,7 @@ const volunteersRouter: RouteObject = {
           children: [
             {
               index: true,
-              element: renderWithFallback(<JobList />),
+              element: renderWithFallback(<JobListBase />),
             },
 
             { path: "cal", element: renderWithFallback(<VolunteerCalendar />) },

@@ -195,7 +195,9 @@ describe("onboarding", () => {
     const carText = await screen.findByText(/car/i);
     await userEvent.click(carText);
 
-    const sizeText = await screen.findByText(/select your vehicle size/i);
+    const sizeText = await screen.findByText(
+      /Enter your vehicle's information/i
+    );
     expect(sizeText).toBeDefined();
     const back = screen.getByText(/back/i);
     await userEvent.click(back);

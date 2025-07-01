@@ -3,6 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { BarcodeScanner } from "react-barcode-scanner";
 import "react-barcode-scanner/polyfill";
 
+const barcodeTypes = [
+  "code_128",
+  "code_39",
+  "code_93",
+  "codabar",
+  "ean_13",
+  "itf",
+  "upc_a",
+  "pdf417",
+  "ean_8",
+];
+
 const ScanBarcode = () => {
   const [clientId, setClientId] = useState("");
   const [entryType, setEntryType] = useState<"manual" | "external" | "camera">(
@@ -40,9 +52,11 @@ const ScanBarcode = () => {
     return (
       <div className="doorfront-camera-scanner">
         <BarcodeScanner
+          options={{ formats: barcodeTypes }}
           onCapture={(detected) => {
-            const rawValue = detected[0].rawValue.split("/");
-            navigate(rawValue[rawValue.length - 1]);
+            console.log(detected[0]);
+            // const rawValue = detected[0].rawValue.split("/");
+            // navigate(rawValue[rawValue.length - 1]);
           }}
         />
       </div>

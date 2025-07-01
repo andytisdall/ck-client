@@ -1,12 +1,9 @@
-import { Link } from "react-router-dom";
-
 import DriverSettings from "./DriverSettings";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
-import Loading from "../../reusable/loading/Loading";
 import Status, { Task } from "../../reusable/status/Status";
 
 const Onboarding = () => {
-  const { data: driver, isFetching } = useGetDriverQuery();
+  const { data: driver } = useGetDriverQuery();
 
   const driversLicense: Task = {
     text: "Upload driver's license",
@@ -33,22 +30,8 @@ const Onboarding = () => {
   };
   const tasks = [driversLicense, insurance, car, volunteerAgreement];
 
-  if (isFetching) {
-    return <Loading />;
-  }
-
-  if (!driver) {
-    return (
-      <div className="driver-onboarding">
-        <p>You must sign in to use this page.</p>
-        <Link to="/volunteers">
-          <button>Volunteers Home</button>
-        </Link>
-      </div>
-    );
-  }
   if (
-    driver.insuranceExpiration &&
+    driver?.insuranceExpiration &&
     driver.licenseExpiration &&
     driver.car.size &&
     driver.volunteerAgreement

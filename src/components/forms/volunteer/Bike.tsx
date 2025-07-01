@@ -40,9 +40,15 @@ const Bike = () => {
     return (
       <div className="form-item">
         <div className="form-bike-headline">
-          <img src="/images/volunteers/vehicle-Bike.jpg" alt="bicycle" />
+          <img
+            src="/images/volunteers/drivers/vehicle-Bike.jpg"
+            alt="bicycle"
+          />
           <h1 className="form-center-text">CK Mobile Meal Team</h1>
-          <img src="/images/volunteers/vehicle-Bike.jpg" alt="bicycle" />
+          <img
+            src="/images/volunteers/drivers/vehicle-Bike.jpg"
+            alt="bicycle"
+          />
         </div>
         <img
           className="form-img"

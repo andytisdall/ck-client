@@ -18,12 +18,6 @@ const DoorfrontBase = () => {
   return (
     <div className="main doorfront-base">
       <div className="check-in-header-container">
-        {/* <div className="check-in-header">
-          <img
-            src="/images/logos/ck-logo.png"
-            alt="ck logo"
-            className="header-logo"
-          /> */}
         <h1>CK Kitchen Doorfront</h1>
       </div>
       <Outlet />
