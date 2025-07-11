@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import DoSomething from "./DoSomething";
 
 const AdminHome = () => {
   return (
@@ -25,7 +24,9 @@ const AdminHome = () => {
       <Link className="text-button-link admin-home-btn" to="/doorfront">
         Scan Barcode
       </Link>
-      {/* <DoSomething /> */}
+      {/* <Link className="text-button-link admin-home-btn" to="action">
+        Take Action
+      </Link> */}
     </div>
   );
 };

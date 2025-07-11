@@ -7,11 +7,14 @@ import { useGetUserQuery } from "../../../state/apis/authApi";
 import Loading from "../../reusable/loading/Loading";
 import ShiftList from "../shiftList/ShiftList";
 import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
+import config from "../driver/config";
 
 const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const { data: jobs, isLoading } = useGetJobsQuery({
     campaignId: campaign.id,
   });
+
+  const driver = campaign.id === config.driverCampaignId;
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -32,8 +35,10 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const visibleJobs = jobs.filter((j) => {
     const filteredShifts = j.shifts.filter(
       (shift) =>
-        utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date()
+        utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date() &&
+        (!driver ? true : shift.carSizeRequired)
     );
+
     return j.active && filteredShifts.length;
   });
 

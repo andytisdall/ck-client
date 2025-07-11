@@ -201,6 +201,7 @@ p {
 
 .logos {
   background-color: white;
+  /* display: none; */
 }
 
 .logo-row {
@@ -225,7 +226,7 @@ p {
   justify-content: center;
   align-items: center;
   max-width: 48rem;
-  min-width: 24rem;
+  min-width: 22rem;
 }
 
 .sponsor-btn {
@@ -257,7 +258,8 @@ p {
     flex-direction: column;
   }
   .gala-photo {
-    display: none;
+    height: 180px;
+    max-width: 500px;
   }
   .col {
     padding: 0.5rem;

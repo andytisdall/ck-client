@@ -41,9 +41,38 @@ const Onboarding = () => {
 
   return (
     <div className="driver-onboarding">
+      <p>
+        Thank you for volunteering to support pickups and deliveries with
+        Community Kitchens! It takes many hands to get nutritious food out to
+        our community, and we truly appreciate you being part of the effort.
+        Here are a few examples of delivery volunteer roles:
+      </p>
+      <ul>
+        <li>
+          Picking up donated food and bringing it to the CK Kitchen (2270
+          Telegraph Ave, Oakland)
+        </li>
+        <li>Delivering meals from the CK Kitchen to Town Fridges</li>
+        <li>Distributing meals by bike to our unhoused neighbors</li>
+      </ul>
+      <p>
+        If you have any questions about the delivery program, please reach out
+        to Kenai at{" "}
+        <a href="mailto:kenai@ckoakland.org" className="retro-link">
+          kenai@ckoakland.org
+        </a>
+        . For technical support, contact Andy at{" "}
+        <a href="mailto:andy@ckoakland.org" className="retro-link">
+          andy@ckoakland.org
+        </a>
+        . Thanks again for being part of the team!
+      </p>
+      <p>— Community Kitchens</p>
       <Status tasks={tasks}>
         <div>
-          You must complete onboarding to sign up for driver volunteer shifts.
+          <strong>
+            You must complete onboarding to sign up for driver volunteer shifts.
+          </strong>
         </div>
       </Status>
     </div>

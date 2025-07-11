@@ -1,19 +1,7 @@
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { BarcodeScanner } from "react-barcode-scanner";
 import "react-barcode-scanner/polyfill";
-
-const barcodeTypes = [
-  "code_128",
-  "code_39",
-  "code_93",
-  "codabar",
-  "ean_13",
-  "itf",
-  "upc_a",
-  "pdf417",
-  "ean_8",
-];
 
 const ScanBarcode = () => {
   const [clientId, setClientId] = useState("");
@@ -21,11 +9,52 @@ const ScanBarcode = () => {
     "external"
   );
 
+  const scannerInputRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
+
+  // manually entered (missing 0s)
+
+  // scanned with camera or scanner
+  // scanned with C code
+  // scanned with long code
+
+  const processScan = (scanValue: string) => {
+    if (scanValue.includes("C")) {
+      const id = scanValue.replace(/[^a-zA-Z0-9 ]/g, "");
+      navigate(id);
+    } else {
+      navigate(scanValue);
+    }
+  };
+
+  const submitManual = () => {
+    let id = clientId.split("C")[1];
+    if (id) {
+      while (id.length < 8) {
+        id = "0" + id;
+      }
+      id = "C" + id;
+      navigate(id);
+    } else {
+      navigate(clientId);
+    }
+  };
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    navigate(clientId);
+    if (entryType === "manual") {
+      return submitManual();
+    }
+    if (entryType === "external") {
+      const scannerInputValue = scannerInputRef.current?.value;
+      if (scannerInputValue) {
+        return processScan(scannerInputValue);
+      }
+    }
+    if (entryType === "camera") {
+      return processScan(clientId);
+    }
   };
 
   const getMode = () => {
@@ -39,7 +68,6 @@ const ScanBarcode = () => {
       return "Built-In Camera";
     }
   };
-
   const renderMode = () => {
     return (
       <div>
@@ -52,11 +80,10 @@ const ScanBarcode = () => {
     return (
       <div className="doorfront-camera-scanner">
         <BarcodeScanner
-          options={{ formats: barcodeTypes }}
+          options={{ formats: ["code_128"] }}
           onCapture={(detected) => {
-            console.log(detected[0]);
-            // const rawValue = detected[0].rawValue.split("/");
-            // navigate(rawValue[rawValue.length - 1]);
+            const id = detected[0].rawValue.replace(/[^a-zA-Z0-9 ]/g, "");
+            navigate(id);
           }}
         />
       </div>
@@ -69,7 +96,7 @@ const ScanBarcode = () => {
         <label>Client ID:</label>
         <input
           value={clientId}
-          onChange={(e) => setClientId(e.target.value)}
+          onChange={(e) => setClientId(e.target.value.toUpperCase())}
           autoFocus
           className="doorfront-text-input"
         />
@@ -83,10 +110,10 @@ const ScanBarcode = () => {
       <div>
         <div className="doorfront-scan-now">Scan Barcode Now</div>
         <input
-          onChange={(e) => navigate(e.target.value)}
+          key="scan"
           autoFocus
           className="doorfront-scan-input"
-          value=""
+          ref={scannerInputRef}
         />
       </div>
     );
@@ -128,11 +155,13 @@ const ScanBarcode = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="doorfront-scan">
-      <div className="doorfront-content">{renderContent()}</div>
+    <div>
+      <form onSubmit={onSubmit} className="doorfront-scan">
+        <div className="doorfront-content">{renderContent()}</div>
+      </form>
       {renderMode()}
       {renderNav()}
-    </form>
+    </div>
   );
 };
 

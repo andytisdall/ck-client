@@ -10,18 +10,29 @@ const OnboardingBase = () => {
     return <Loading />;
   }
 
-  if (!driver) {
-    return (
-      <div className="driver-onboarding">
-        <p>You must sign in to use this page.</p>
-        <Link to="/volunteers">
-          <button>Volunteers Home</button>
-        </Link>
-      </div>
-    );
-  }
+  const renderContent = () => {
+    if (!driver) {
+      return (
+        <div className="driver-onboarding">
+          <p>You must sign in to use this page.</p>
+          <Link to="/volunteers">
+            <button>Volunteers Home</button>
+          </Link>
+        </div>
+      );
+    }
 
-  return <Outlet />;
+    return <Outlet />;
+  };
+
+  return (
+    <>
+      <h1 className="volunteers-main-header volunteers-kitchen-header">
+        Delivery Drivers
+      </h1>
+      {renderContent()}
+    </>
+  );
 };
 
 export default OnboardingBase;

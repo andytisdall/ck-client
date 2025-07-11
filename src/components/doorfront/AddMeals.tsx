@@ -1,26 +1,31 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { format, getMonth } from "date-fns";
+import { getMonth } from "date-fns";
 import { useDispatch } from "react-redux";
 
 import {
-  useGetClientMealsQuery,
+  useGetClientQuery,
   useAddMealsMutation,
 } from "../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../reusable/loading/Loading";
 import { setAlert } from "../../state/apis/slices/alertSlice";
+import PastMeals from "./PastMeals";
+import ClientInfo from "./Client";
 
 const mealMax = 30;
 
 const AddMeals = () => {
-  const { clientId } = useParams();
+  const { barcodeValue } = useParams();
 
   const [meals, setMeals] = useState(1);
   const [addMeals, { isLoading: addIsLoading }] = useAddMealsMutation();
 
-  const { data: pastMeals, isLoading: getIsLoading } = useGetClientMealsQuery(
-    clientId || ""
+  const { data, isLoading: getIsLoading } = useGetClientQuery(
+    barcodeValue || ""
   );
+
+  const pastMeals = data?.clientMeals;
+  const clientId = data?.client.id;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,7 +35,7 @@ const AddMeals = () => {
     return <Loading />;
   }
 
-  if (!clientId || !pastMeals) {
+  if (!barcodeValue || !pastMeals) {
     return (
       <div>
         <h2>Something went wrong</h2>
@@ -40,9 +45,11 @@ const AddMeals = () => {
   }
 
   const onSubmit = async () => {
-    await addMeals({ clientId, meals }).unwrap();
-    dispatch(setAlert("Data Entered Sucessfully"));
-    navigate("..");
+    if (clientId) {
+      await addMeals({ clientId, meals }).unwrap();
+      dispatch(setAlert("Data Entered Sucessfully"));
+      navigate("..");
+    }
   };
 
   const mealsThisMonth = pastMeals?.filter(
@@ -107,29 +114,8 @@ const AddMeals = () => {
     );
   };
 
-  const renderPastMeals = () => {
+  const renderControls = () => {
     return (
-      <div className="doorfront-col">
-        <b>Meals received this month ({numberOfMealsThisMonth}):</b>
-        <ul>
-          {mealsThisMonth
-            ?.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1))
-            .map((meal) => (
-              <li
-                key={meal.id}
-              >{`${format(new Date(meal.date), "M/d/yy")} - ${meal.amount} meal${meal.amount === 1 ? "" : "s"}`}</li>
-            ))}
-        </ul>
-      </div>
-    );
-  };
-
-  return (
-    <div>
-      <div className="doorfront">
-        {cannotAddMeals ? renderCannotAdd() : renderAddMeals()}
-        {renderPastMeals()}
-      </div>
       <div className="doorfront-submit-row">
         <button className="cancel" onClick={() => navigate("..")}>
           Cancel
@@ -142,6 +128,21 @@ const AddMeals = () => {
         </button>
         <div />
       </div>
+    );
+  };
+
+  if (!clientId) {
+    return <div>Error</div>;
+  }
+
+  return (
+    <div>
+      <ClientInfo client={data.client} />
+      <div className="doorfront">
+        {cannotAddMeals ? renderCannotAdd() : renderAddMeals()}
+        <PastMeals meals={pastMeals} />
+      </div>
+      {renderControls()}
     </div>
   );
 };

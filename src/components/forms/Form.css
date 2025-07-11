@@ -271,6 +271,12 @@ li {
 }
 
 .form-bike-headline img {
-  height: 80px;
+  max-height: 80px;
   margin: 0 2rem;
+}
+
+@media (max-width: 540px) {
+  .form-bike-headline img {
+    display: none;
+  }
 }

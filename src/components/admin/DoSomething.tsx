@@ -1,11 +1,13 @@
 // import serverCall from 'state'
 import Loading from "../reusable/loading/Loading";
+import { useTestEmailMutation } from "../../state/apis/authApi";
 
-const DoSomething = async () => {
-  // const [doSomething, {isLoading, isError, data}] = useServerCall()
+const DoSomething = () => {
+  const [doSomething, { isLoading, isError, data, isSuccess }] =
+    useTestEmailMutation();
   return (
     <div>
-      {/* {isError ? (
+      {isError ? (
         "Error"
       ) : isLoading ? (
         <Loading />
@@ -13,7 +15,7 @@ const DoSomething = async () => {
         `${data}`
       ) : (
         <button onClick={() => doSomething()}>Do the Thing</button>
-      )} */}
+      )}
     </div>
   );
 };

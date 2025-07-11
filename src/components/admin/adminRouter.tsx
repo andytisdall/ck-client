@@ -17,6 +17,7 @@ const NotificationsHome = lazy(
   () => import("./notifications/NotificationsHome")
 );
 const D4J = lazy(() => import("./d4j/D4J"));
+const DoSomething = lazy(() => import("./DoSomething"));
 
 const adminRouter: RouteObject = {
   path: "admin",
@@ -29,7 +30,7 @@ const adminRouter: RouteObject = {
     { path: "d4j", element: renderWithFallback(<D4J />) },
     { path: "user", element: renderWithFallback(<User />) },
     { path: "restaurant", element: renderWithFallback(<Restaurant />) },
-
+    { path: "action", element: renderWithFallback(<DoSomething />) },
     {
       path: "notifications",
       children: [

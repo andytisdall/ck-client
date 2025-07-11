@@ -113,3 +113,31 @@
 .doorfront-scan-input {
   opacity: 0;
 }
+
+.doorfront-client {
+  display: flex;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.doorfront-client {
+  margin-bottom: 1rem;
+  border-bottom: 1px white solid;
+}
+
+.doorfront-client-label,
+.doorfront-client-value {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.doorfront-client-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.doorfront-client-missing {
+  border: 1px solid red;
+  background-color: pink;
+}
