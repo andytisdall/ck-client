@@ -64,7 +64,12 @@ const SignupBase = () => {
   }, [bookedJobs, destinationUrl, hours, navigate, shiftId]);
 
   const afterSubmit = (hoursId: string) => {
-    if (!waiverSigned && !signingConfig?.limitReached) {
+    if (
+      (userInfo || volunteer) &&
+      signingConfig &&
+      !waiverSigned &&
+      !signingConfig.limitReached
+    ) {
       navigate(`../../../sign/CKK/${contactId}/${hoursId}`);
     } else {
       navigate(destinationUrl + hoursId);

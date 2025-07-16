@@ -1,77 +1,77 @@
-import { useState, FormEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, FormEventHandler } from "react";
+import { useDispatch } from "react-redux";
 
-import { setAlert } from '../../../state/apis/slices/alertSlice';
-import Loading from '../../reusable/loading/Loading';
-import { useSubmitFormMutation } from '../../../state/apis/formApi';
-import { useNavigate } from 'react-router-dom';
+import { setAlert } from "../../../state/apis/slices/alertSlice";
+import Loading from "../../reusable/loading/Loading";
+import { useSubmitFormMutation } from "../../../state/apis/formApi";
+import { useNavigate } from "react-router-dom";
 
 const successMessage =
-  'Thank you for giving us some information about your restaurant. Community Kitchens will be in touch with future opportunies to feed the community!';
+  "Thank you for giving us some information about your restaurant. Community Kitchens will be in touch with future opportunies to feed the community!";
 
 const MealProgramIntake = () => {
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
 
-  const [contactName, setContactName] = useState('');
-  const [contactPosition, setContactPosition] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
+  const [contactName, setContactName] = useState("");
+  const [contactPosition, setContactPosition] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
 
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
   const [bipoc, setBipoc] = useState<boolean>();
   const [female, setFemale] = useState<boolean>();
-  const [neighborhood, setNeighborhood] = useState('');
+  const [neighborhood, setNeighborhood] = useState("");
   const [hardship, setHardship] = useState<boolean>();
   const [ebt, setEbt] = useState<boolean>();
   const [deliver, setDeliver] = useState<boolean>();
-  const [source, setSource] = useState('');
-  const [food, setFood] = useState('');
+  const [source, setSource] = useState("");
+  const [food, setFood] = useState("");
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const neighborhoodList = [
-    'Rockridge',
-    'Uptown',
-    'Grand Lake',
-    'Laurel',
-    'Fruitvale',
-    'Jack London Square',
-    'Old Oakland',
-    'Temescal',
-    'East Oakland',
-    'Dimond',
+    "Rockridge",
+    "Uptown",
+    "Grand Lake",
+    "Laurel",
+    "Fruitvale",
+    "Jack London Square",
+    "Old Oakland",
+    "Temescal",
+    "East Oakland",
+    "Dimond",
   ];
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    submitForm({
-      formData: {
-        name,
-        contactName,
-        contactEmail,
-        contactNumber,
-        contactPosition,
-        bipoc: bipoc || false,
-        female: female || false,
-        address,
-        date,
-        neighborhood,
-        hardship: hardship || false,
-        ebt: ebt || false,
-        deliver: deliver || false,
-        source,
-        food,
-      },
-      name: 'MEAL_PROGRAM_INTAKE',
-    })
-      .unwrap()
-      .then(() => {
-        dispatch(setAlert(successMessage));
-        navigate('/forms/form-sent');
-      });
+    // submitForm({
+    //   formData: {
+    //     name,
+    //     contactName,
+    //     contactEmail,
+    //     contactNumber,
+    //     contactPosition,
+    //     bipoc: bipoc || false,
+    //     female: female || false,
+    //     address,
+    //     date,
+    //     neighborhood,
+    //     hardship: hardship || false,
+    //     ebt: ebt || false,
+    //     deliver: deliver || false,
+    //     source,
+    //     food,
+    //   },
+    //   name: "MEAL_PROGRAM_INTAKE",
+    // })
+    //   .unwrap()
+    //   .then(() => {
+    //     dispatch(setAlert(successMessage));
+    //     navigate("/forms/form-sent");
+    //   });
   };
 
   return (
@@ -139,7 +139,7 @@ const MealProgramIntake = () => {
             value={contactPosition}
             onChange={(e) => setContactPosition(e.target.value)}
           />
-        </div>{' '}
+        </div>{" "}
         <div className="form-horizontal">
           <label htmlFor="email">Email Address:</label>
           <input
@@ -182,7 +182,7 @@ const MealProgramIntake = () => {
             }}
           />
           <label htmlFor="bipoc-yes">Yes</label>
-        </div>{' '}
+        </div>{" "}
         <div className="form-checkbox">
           <input
             required

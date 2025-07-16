@@ -5,6 +5,7 @@ const jobsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getJobs: builder.query<Job[], { campaignId: string }>({
       query: ({ campaignId }) => "/volunteers/jobs/" + campaignId,
+      providesTags: ["VolunteerShifts"],
     }),
   }),
 });

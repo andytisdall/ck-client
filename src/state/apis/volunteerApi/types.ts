@@ -38,6 +38,7 @@ export interface Job {
   name: string;
   location?: string;
   locationInfo?: string;
+  locationCity?: string;
   shifts: Shift[];
   active: boolean;
   ongoing: boolean;

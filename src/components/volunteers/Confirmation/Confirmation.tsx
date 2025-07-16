@@ -10,8 +10,7 @@ import {
   VolunteerCampaign,
   VolunteerHours,
 } from "../../../state/apis/volunteerApi/types";
-import config from "../driver/config";
-import AppInfo from "../driver/AppInfo";
+// import config from "../driver/config";
 
 const Confirmation = ({
   hour,
@@ -31,7 +30,7 @@ const Confirmation = ({
   const job = jobs?.find((j) => j.id === hour?.job);
   const shift = job?.shifts?.find((sh) => sh.id === hour?.shift);
 
-  const driver = campaign?.id === config.driverCampaignId;
+  // const driver = campaign?.id === config.driverCampaignId;
 
   const dispatch = useDispatch();
 
@@ -68,7 +67,6 @@ const Confirmation = ({
         <div className="volunteers-signup-confirm">
           {renderMessage()}
           <ShiftInfo job={job} shift={shift} campaign={campaign} />
-          {driver && !canceled && <AppInfo />}
           <p>You have been sent an email with this information.</p>
         </div>
       );

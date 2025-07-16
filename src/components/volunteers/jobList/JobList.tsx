@@ -59,6 +59,12 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
           />
         );
       })}
+      {driver && (
+        <div className="volunteers-job">
+          <h3>COMING SOON! CK Kitchen meals for Town Fridges</h3>
+          <p>Deliver Meals to Town Fridges</p>
+        </div>
+      )}
     </div>
   );
 };

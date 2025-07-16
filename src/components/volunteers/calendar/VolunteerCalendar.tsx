@@ -65,7 +65,7 @@ const KitchenCalendar = ({
 
   const renderShifts = (date: string) => {
     if (shiftsByDate && shiftsByDate[date]) {
-      return shiftsByDate[date].map((sh) => {
+      return shiftsByDate[date].map((sh, index) => {
         const job = jobs?.find((j) => j.id === sh.job);
         if (!job) {
           return <div>Job not found.</div>;
@@ -89,7 +89,13 @@ const KitchenCalendar = ({
         };
 
         return (
-          <Component shift={sh} job={job} linkUrl={getLinkUrl()} key={sh.id}>
+          <Component
+            shift={sh}
+            job={job}
+            linkUrl={getLinkUrl()}
+            key={sh.id}
+            index={index}
+          >
             {jobBooked && (
               <div className="volunteers-calendar-checkmark">
                 &#x2713; Signed Up

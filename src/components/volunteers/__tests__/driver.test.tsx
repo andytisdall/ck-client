@@ -192,7 +192,7 @@ describe("onboarding", () => {
   test("enter car info", async () => {
     render(<App />, { wrapper: Root });
 
-    const carText = await screen.findByText(/car/i);
+    const carText = await screen.findByText(/vehicle/i);
     await userEvent.click(carText);
 
     const sizeText = await screen.findByText(

@@ -1,15 +1,15 @@
-import { FormEventHandler, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FormEventHandler, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useSubmitFormMutation } from '../../state/apis/formApi';
-import Loading from '../reusable/loading/Loading';
+import { useSubmitFormMutation } from "../../../state/apis/formApi";
+import Loading from "../../reusable/loading/Loading";
 
 const HomeChefRegistration = () => {
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [source, setSource] = useState('');
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [source, setSource] = useState("");
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
 
@@ -17,22 +17,22 @@ const HomeChefRegistration = () => {
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    submitForm({
-      formData: {
-        email,
-        firstName,
-        lastName,
-        phone,
-        source,
-      },
-      name: 'HOME_CHEF_REGISTRATION',
-    })
-      .unwrap()
-      .then(() => {
-        navigate('/forms/form-sent', {
-          state: { message: 'You will receive a confirmation email.' },
-        });
-      });
+    // submitForm({
+    //   formData: {
+    //     email,
+    //     firstName,
+    //     lastName,
+    //     phone,
+    //     source,
+    //   },
+    //   name: "HOME_CHEF_REGISTRATION",
+    // })
+    //   .unwrap()
+    //   .then(() => {
+    //     navigate("/forms/form-sent", {
+    //       state: { message: "You will receive a confirmation email." },
+    //     });
+    //   });
   };
 
   const header = () => {
@@ -72,7 +72,7 @@ const HomeChefRegistration = () => {
         <br />
         <p>
           We can’t wait to see you there! If you have any questions, feel free
-          to reach out at{' '}
+          to reach out at{" "}
           <a href="mailto:mollye@ckoakland.org">mollye@ckoakland.org.</a>
         </p>
         <br />

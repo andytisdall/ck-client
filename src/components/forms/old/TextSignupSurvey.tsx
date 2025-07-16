@@ -1,22 +1,22 @@
-import { useState, useRef, FormEventHandler } from 'react';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef, FormEventHandler } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { useSubmitFormMutation } from '../../../state/apis/formApi';
-import Loading from '../../reusable/loading/Loading';
+import { useSubmitFormMutation } from "../../../state/apis/formApi";
+import Loading from "../../reusable/loading/Loading";
 
 const successMessage =
-  'Thank you for you giving us some information about yourself.';
+  "Thank you for you giving us some information about yourself.";
 
 const TextSignupSurvey = () => {
-  const [age, setAge] = useState('');
-  const [ethnicity, setEthnicity] = useState('');
-  const [zip, setZip] = useState('');
-  const [mixedRace, setMixedRace] = useState('');
-  const [otherEth, setOtherEth] = useState('');
-  const [type, setType] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [days, setDays] = useState('');
+  const [age, setAge] = useState("");
+  const [ethnicity, setEthnicity] = useState("");
+  const [zip, setZip] = useState("");
+  const [mixedRace, setMixedRace] = useState("");
+  const [otherEth, setOtherEth] = useState("");
+  const [type, setType] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [days, setDays] = useState("");
 
   const mixedRefBox = useRef<HTMLInputElement | null>(null);
   const mixedRefText = useRef<HTMLInputElement | null>(null);
@@ -30,22 +30,22 @@ const TextSignupSurvey = () => {
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    submitForm({
-      formData: {
-        age,
-        ethnicity,
-        zip,
-        type,
-        ingredients,
-        days,
-        phone,
-      },
-      name: 'TEXT_SIGNUP_SURVEY',
-    })
-      .unwrap()
-      .then(() => {
-        navigate('/forms/form-sent', { state: { message: successMessage } });
-      });
+    // submitForm({
+    //   formData: {
+    //     age,
+    //     ethnicity,
+    //     zip,
+    //     type,
+    //     ingredients,
+    //     days,
+    //     phone,
+    //   },
+    //   name: 'TEXT_SIGNUP_SURVEY',
+    // })
+    //   .unwrap()
+    //   .then(() => {
+    //     navigate('/forms/form-sent', { state: { message: successMessage } });
+    //   });
   };
 
   return (
@@ -62,7 +62,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setAge('0-17');
+                setAge("0-17");
               }
             }}
           />
@@ -75,7 +75,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setAge('18-26');
+                setAge("18-26");
               }
             }}
           />
@@ -88,7 +88,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setAge('27-50');
+                setAge("27-50");
               }
             }}
           />
@@ -101,7 +101,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setAge('50-60');
+                setAge("50-60");
               }
             }}
           />
@@ -114,7 +114,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setAge('60+');
+                setAge("60+");
               }
             }}
           />
@@ -131,7 +131,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setEthnicity('African American/Black');
+                setEthnicity("African American/Black");
               }
             }}
           />
@@ -144,7 +144,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setEthnicity('Asian/Pacific Islander');
+                setEthnicity("Asian/Pacific Islander");
               }
             }}
           />
@@ -157,7 +157,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setEthnicity('Latina/Latino');
+                setEthnicity("Latina/Latino");
               }
             }}
           />
@@ -170,7 +170,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setEthnicity('Native American/American Indian');
+                setEthnicity("Native American/American Indian");
               }
             }}
           />
@@ -183,7 +183,7 @@ const TextSignupSurvey = () => {
             type="radio"
             onChange={(e) => {
               if (e.target.checked) {
-                setEthnicity('White/Caucasian');
+                setEthnicity("White/Caucasian");
               }
             }}
           />

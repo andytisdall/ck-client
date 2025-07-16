@@ -26,54 +26,6 @@ interface CBOReportArgs {
   name: "CBO_REPORT";
 }
 
-interface MealQualitySurveyArgs {
-  formData: {
-    mealName?: string;
-    location?: string;
-    taste?: string;
-    size?: string;
-    type?: string;
-    ingredients?: string;
-    days?: string;
-    phone?: string;
-  };
-  name: "MEAL_SURVEY";
-}
-
-interface TextSignUpSurveyArgs {
-  formData: {
-    age?: string;
-    ethnicity?: string;
-    zip?: string;
-    type?: string;
-    ingredients?: string;
-    days?: string;
-    phone?: string;
-  };
-  name: "TEXT_SIGNUP_SURVEY";
-}
-
-interface MealProgramIntakeArgs {
-  formData: {
-    name: string;
-    contactName: string;
-    contactEmail: string;
-    contactNumber: string;
-    contactPosition: string;
-    bipoc: boolean;
-    female: boolean;
-    address: string;
-    date: string;
-    neighborhood: string;
-    hardship: boolean;
-    ebt: boolean;
-    deliver: boolean;
-    source: string;
-    food: String;
-  };
-  name: "MEAL_PROGRAM_INTAKE";
-}
-
 interface VolunteerInterestFormArgs {
   formData: {
     email: string;
@@ -98,17 +50,6 @@ interface VolunteerInterestFormArgs {
     };
   };
   name: "VOLUNTEER_INTEREST";
-}
-
-interface HomeChefRegistrationArgs {
-  formData: {
-    email: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    source: string;
-  };
-  name: "HOME_CHEF_REGISTRATION";
 }
 
 interface NewMealSurveyArgs {
@@ -146,25 +87,33 @@ interface BikeSignupArgs {
   name: "BIKE_SIGNUP";
 }
 
+interface CulinaryTrainingArgs {
+  formData: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    address: string;
+    internet: boolean;
+    description: string;
+    source: string;
+  };
+  name: "CULINARY_TRAINING";
+}
+
 type SubmitFormArgs =
   | CBOReportArgs
-  | TextSignUpSurveyArgs
-  | MealQualitySurveyArgs
-  | MealProgramIntakeArgs
   | VolunteerInterestFormArgs
-  | HomeChefRegistrationArgs
+  | CulinaryTrainingArgs
   | NewMealSurveyArgs
   | BikeSignupArgs;
 
 const urls = {
-  MEAL_SURVEY: "/text/meal-survey",
   VOLUNTEER_INTEREST: "/volunteers/signup",
-  TEXT_SIGNUP_SURVEY: "/text/signup-survey",
-  MEAL_PROGRAM_INTAKE: "/meal-program/intake-survey",
   CBO_REPORT: "/meal-program/cbo-report",
-  HOME_CHEF_REGISTRATION: "/home-chef/home-chef-registration",
   NEW_MEAL_SURVEY: "/meal-program/survey",
   BIKE_SIGNUP: "/volunteers/bike",
+  CULINARY_TRAINING: "/meal-program/workforce-development",
 };
 
 const formApi = api.injectEndpoints({

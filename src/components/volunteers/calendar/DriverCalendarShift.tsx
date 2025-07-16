@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { isCarBigEnough } from "../formatDateTime";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
 import { Shift } from "../../../state/apis/volunteerApi/types";
+import "./DriverCalendar.css";
 
 const DriverCalendarShift = ({
   shift,
   linkUrl,
   children,
+  index,
 }: {
   shift: Shift;
   linkUrl?: string;
+  index: number;
 } & PropsWithChildren) => {
   const { data: driver } = useGetDriverQuery();
   const navigate = useNavigate();
@@ -29,8 +32,9 @@ const DriverCalendarShift = ({
     <div
       key={shift.id}
       className={
-        "calendar-item calendar-color-0 " +
-        (shiftDisabled ? "calendar-shift-disabled" : "")
+        "calendar-item calendar-color-" +
+        index +
+        (shiftDisabled ? " calendar-shift-disabled" : "")
       }
       onClick={() => {
         if (!shiftDisabled) {

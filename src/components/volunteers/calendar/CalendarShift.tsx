@@ -7,10 +7,12 @@ const CalendarShift = ({
   shift,
   job,
   linkUrl,
+  index,
   children,
 }: {
   shift: Shift;
   job: Job;
+  index: number;
   linkUrl?: string;
 } & PropsWithChildren) => {
   const navigate = useNavigate();
@@ -21,8 +23,9 @@ const CalendarShift = ({
     <div
       key={shift.id}
       className={
-        "calendar-item calendar-color-0 " +
-        (shiftDisabled ? "calendar-shift-disabled" : "")
+        "calendar-item calendar-color-" +
+        index +
+        (shiftDisabled ? " calendar-shift-disabled" : "")
       }
       onClick={() => {
         if (!shiftDisabled) {
@@ -30,7 +33,7 @@ const CalendarShift = ({
         }
       }}
     >
-      <div>{job.name}</div>
+      <div className="volunteers-calendar-size">{job.name}</div>
       <div className="volunteers-calendar-spots">{shift.slots} Spots Left</div>
       {children}
     </div>

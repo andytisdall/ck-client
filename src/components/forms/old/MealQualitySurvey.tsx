@@ -1,21 +1,21 @@
-import { useState, FormEventHandler } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useState, FormEventHandler } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { useSubmitFormMutation } from '../../../state/apis/formApi';
-import Loading from '../../reusable/loading/Loading';
+import { useSubmitFormMutation } from "../../../state/apis/formApi";
+import Loading from "../../reusable/loading/Loading";
 
 const successMessage =
-  'Thank you for you valuable feedback about the CK meal program.';
+  "Thank you for you valuable feedback about the CK meal program.";
 
 const Survey = () => {
-  const [mealName, setMealName] = useState('');
-  const [location, setLocation] = useState('');
-  const [taste, setTaste] = useState('');
-  const [size, setSize] = useState('');
-  const [type, setType] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [days, setDays] = useState('');
+  const [mealName, setMealName] = useState("");
+  const [location, setLocation] = useState("");
+  const [taste, setTaste] = useState("");
+  const [size, setSize] = useState("");
+  const [type, setType] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [days, setDays] = useState("");
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const [searchParams] = useSearchParams();
@@ -24,24 +24,24 @@ const Survey = () => {
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    const phone = searchParams.get('phone');
-    submitForm({
-      formData: {
-        mealName,
-        location,
-        taste,
-        size,
-        type,
-        ingredients,
-        days,
-        phone: phone || undefined,
-      },
-      name: 'MEAL_SURVEY',
-    })
-      .unwrap()
-      .then(() => {
-        navigate('/forms/form-sent', { state: { message: successMessage } });
-      });
+    // const phone = searchParams.get('phone');
+    // submitForm({
+    //   formData: {
+    //     mealName,
+    //     location,
+    //     taste,
+    //     size,
+    //     type,
+    //     ingredients,
+    //     days,
+    //     phone: phone || undefined,
+    //   },
+    //   name: 'MEAL_SURVEY',
+    // })
+    //   .unwrap()
+    //   .then(() => {
+    //     navigate('/forms/form-sent', { state: { message: successMessage } });
+    //   });
   };
 
   return (
@@ -83,7 +83,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTaste('1');
+                  setTaste("1");
                 }
               }}
             />
@@ -96,7 +96,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTaste('2');
+                  setTaste("2");
                 }
               }}
             />
@@ -109,7 +109,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTaste('3');
+                  setTaste("3");
                 }
               }}
             />
@@ -122,7 +122,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTaste('4');
+                  setTaste("4");
                 }
               }}
             />
@@ -135,7 +135,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setTaste('5');
+                  setTaste("5");
                 }
               }}
             />
@@ -156,7 +156,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setSize('1');
+                  setSize("1");
                 }
               }}
             />
@@ -169,7 +169,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setSize('2');
+                  setSize("2");
                 }
               }}
             />
@@ -182,7 +182,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setSize('3');
+                  setSize("3");
                 }
               }}
             />
@@ -195,7 +195,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setSize('4');
+                  setSize("4");
                 }
               }}
             />
@@ -208,7 +208,7 @@ const Survey = () => {
               type="radio"
               onChange={(e) => {
                 if (e.target.checked) {
-                  setSize('5');
+                  setSize("5");
                 }
               }}
             />

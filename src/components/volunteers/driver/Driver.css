@@ -27,8 +27,14 @@
 }
 
 .driver-onboarding {
+  margin: 0 auto;
+
   margin-top: 2rem;
   max-width: 800px;
+}
+
+.driver-onboarding-text {
+  background-color: rgba(255, 255, 255, 0.365);
 }
 
 .driver-onboarding p {
@@ -37,6 +43,10 @@
 
 .driver-onboarding button {
   margin-top: 1rem;
+}
+
+.driver-onboarding img {
+  width: 100%;
 }
 
 .driver-onboarding-car {
@@ -166,6 +176,13 @@
   top: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.driver-car-model {
+  bottom: 1.5rem;
+  top: auto;
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 .driver-car-size-label {

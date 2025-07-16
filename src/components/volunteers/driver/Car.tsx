@@ -113,14 +113,23 @@ const Car = () => {
         <div className="driver-car-cambro-container">
           <div className="driver-car-cambro-label">Small</div>
           <img src="/images/volunteers/drivers/sm-cambro.jpg" alt="cambro" />
-        </div>
-        <div className="driver-car-cambro-container">
-          <div className="driver-car-cambro-label">Large</div>
-          <img src="/images/volunteers/drivers/lg-cambro.jpg" alt="cambro" />
+          <div className="driver-car-cambro-label driver-car-model">
+            Toyota Prius C
+          </div>
         </div>
         <div className="driver-car-cambro-container">
           <div className="driver-car-cambro-label">Medium</div>
           <img src="/images/volunteers/drivers/md-cambro-2.jpg" alt="cambro" />
+          <div className="driver-car-cambro-label driver-car-model">
+            Honda HR-V
+          </div>
+        </div>
+        <div className="driver-car-cambro-container">
+          <div className="driver-car-cambro-label">Large</div>
+          <img src="/images/volunteers/drivers/lg-cambro.jpg" alt="cambro" />
+          <div className="driver-car-cambro-label driver-car-model">
+            Toyota Tacoma
+          </div>
         </div>
       </div>
       <div className="driver-car-text">

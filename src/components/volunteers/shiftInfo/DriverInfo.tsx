@@ -23,7 +23,7 @@ const DriverShiftInfo = ({ shift, job }: { shift: Shift; job: Job }) => {
       />
       <ShiftInfoField
         label="Pick Up Location"
-        value={job.location}
+        value={`${job.location}, ${job.locationCity}`}
         notes={job.locationInfo}
       />
       <ShiftInfoField
