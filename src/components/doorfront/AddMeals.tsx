@@ -18,6 +18,8 @@ const AddMeals = () => {
   const { barcodeValue } = useParams();
 
   const [meals, setMeals] = useState(1);
+  const [cCode, setCcode] = useState("");
+
   const [addMeals, { isLoading: addIsLoading }] = useAddMealsMutation();
 
   const { data, isLoading: getIsLoading } = useGetClientQuery(
@@ -25,7 +27,8 @@ const AddMeals = () => {
   );
 
   const pastMeals = data?.clientMeals;
-  const clientId = data?.client.id;
+  const client = data?.client;
+  const clientId = client?.id;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,7 +49,8 @@ const AddMeals = () => {
 
   const onSubmit = async () => {
     if (clientId) {
-      await addMeals({ clientId, meals }).unwrap();
+      const numberOfMeals = cannotAddMeals ? 0 : meals;
+      await addMeals({ clientId, meals: numberOfMeals, cCode }).unwrap();
       dispatch(setAlert("Data Entered Sucessfully"));
       navigate("..");
     }
@@ -68,7 +72,7 @@ const AddMeals = () => {
     return (
       <div className="doorfront-col">
         <b>Client is receiving</b>
-        <h3>{`${meals} meal${meals === 1 ? "" : "s"}`}</h3>
+        <h3 className="doorfront-meal-count">{`${meals} meal${meals === 1 ? "" : "s"}`}</h3>
         {maxReachedForThisSesh && (
           <div className="doorfront-alert">Cannot add more meals</div>
         )}
@@ -137,7 +141,7 @@ const AddMeals = () => {
 
   return (
     <div>
-      <ClientInfo client={data.client} />
+      <ClientInfo client={client} setCcode={setCcode} />
       <div className="doorfront">
         {cannotAddMeals ? renderCannotAdd() : renderAddMeals()}
         <PastMeals meals={pastMeals} />

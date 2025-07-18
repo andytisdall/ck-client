@@ -11,7 +11,7 @@ import {
 } from "../../../state/apis/volunteerApi/types";
 import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
-import config from "../driver/config";
+import config from "../config";
 import DriverCalendarShift from "./DriverCalendarShift";
 
 const KitchenCalendar = ({
@@ -31,7 +31,7 @@ const KitchenCalendar = ({
   });
   const shifts = jobs?.map((j) => j.shifts).flat();
 
-  const driverCampaign = campaign.id === config.driverCampaignId;
+  const driverCampaign = campaign.id === config.deliveryDrivers.id;
   const Component = driverCampaign ? DriverCalendarShift : CalendarShift;
 
   const bookedJobs = hours

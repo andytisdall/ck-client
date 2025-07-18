@@ -10,6 +10,7 @@ export interface ClientMeal {
 interface AddMealsArgs {
   meals: number;
   clientId: string;
+  cCode?: string;
 }
 
 interface GetClientMealsResponse {

@@ -7,7 +7,7 @@ import { RootState } from "../../state/store";
 import { useGetUserQuery } from "../../state/apis/authApi";
 import Loading from "../reusable/loading/Loading";
 import { useGetDriverQuery } from "../../state/apis/volunteerApi/driver";
-import config from "./driver/config";
+import config from "./config";
 import GetVolunteer from "./getVolunteer/GetVolunteer";
 
 const VolunteerSignInBase = () => {
@@ -22,7 +22,7 @@ const VolunteerSignInBase = () => {
 
   const navigate = useNavigate();
 
-  const driverCampaign = campaignId === config.driverCampaignId;
+  const driverCampaign = campaignId === config.deliveryDrivers.id;
   const invalidDriver =
     driverCampaign &&
     driver &&

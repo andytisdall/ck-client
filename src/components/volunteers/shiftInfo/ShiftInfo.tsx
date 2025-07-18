@@ -7,7 +7,7 @@ import {
   VolunteerCampaign,
 } from "../../../state/apis/volunteerApi/types";
 import ShiftInfoField from "./ShiftInfoField";
-import config from "../driver/config";
+import config from "../config";
 import { formatDate, formatTime } from "../formatDateTime";
 import DriverShiftInfo from "./DriverInfo";
 import "./ShiftInfo.css";
@@ -25,7 +25,7 @@ const ShiftInfo = ({
     (state: RootState) => state.volunteer.volunteer
   );
 
-  const driver = campaign.id === config.driverCampaignId;
+  const driver = campaign.id === config.deliveryDrivers.id;
 
   const renderVolunteer = () => {
     if (volunteer) {

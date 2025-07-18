@@ -1,15 +1,18 @@
 import { useState } from "react";
 
+import { addZerosToCcode } from "./ScanBarcode";
 import { Client } from "../../state/apis/mealProgramApi/doorfrontApi";
 
-const ClientInfo = ({ client }: { client: Client }) => {
-  const [cCode, setCcode] = useState(client.cCode || "");
+const ClientInfo = ({
+  client,
+  setCcode,
+}: {
+  client: Client;
+  setCcode: (code: string) => void;
+}) => {
+  const [code, setCode] = useState(client.cCode || "");
 
-  if (!client) {
-    return <div>No Client Found</div>;
-  }
-
-  const missingStyle = !cCode ? "doorfront-client-missing" : "";
+  const missingStyle = !code ? "doorfront-client-missing" : "";
 
   return (
     <div className="doorfront-client">
@@ -21,8 +24,11 @@ const ClientInfo = ({ client }: { client: Client }) => {
         <div className="doorfront-client-value">{client.barcode}</div>
         <input
           className={`doorfront-client-value ${missingStyle}`}
-          value={cCode}
-          onChange={(e) => setCcode(e.target.value)}
+          value={code}
+          onChange={(e) => {
+            setCode(e.target.value);
+            setCcode(addZerosToCcode(e.target.value));
+          }}
         />
       </div>
     </div>

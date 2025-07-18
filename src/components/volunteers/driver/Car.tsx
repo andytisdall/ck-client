@@ -106,7 +106,7 @@ const Car = () => {
       <div className="driver-car-text">
         <p>
           Our cambros are insulated storage for transporting meals in bulk. They
-          are 30" tall, 20" wide and 25" deep, and fit about 75 meals.
+          are 24" tall, 16.5" wide and 25.5" deep.
         </p>
       </div>
       <div className="driver-car-images">

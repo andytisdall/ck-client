@@ -2,16 +2,13 @@ import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import TextButton from "../reusable/TextButton";
 import EventsList from "./events/EventsList";
 import Loading from "../reusable/loading/Loading";
-import { useGetUserQuery } from "../../state/apis/authApi";
 import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
-import config from "./driver/config";
 
 const homeChefDescription =
   "A hub for CK Home Chefs to get started in the program, sign up for Town Fridge Deliveries, and access resources like recipes.";
 
 const VolunteersHome = () => {
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const { data: user } = useGetUserQuery();
 
   const renderOngoingCampaign = (cam: VolunteerCampaign) => {
     const link = `signup/${cam.id}`;
@@ -42,11 +39,7 @@ const VolunteersHome = () => {
             <Loading />
           ) : (
             campaigns
-              ?.filter(
-                (cam) =>
-                  !cam.startDate &&
-                  !(cam.id === config.driverCampaignId && !user?.admin)
-              )
+              ?.filter((cam) => !cam.startDate)
               .sort((a, b) => (a.name > b.name ? 1 : -1))
               .map((cam) => renderOngoingCampaign(cam))
           )}

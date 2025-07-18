@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
-import config from "./config";
+import config from "../config";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
 
 const DriverSettings = () => {
@@ -115,7 +115,7 @@ const DriverSettings = () => {
         <div className="driver-settings-header">
           <h2>You are ready to transport meals!</h2>
           <button
-            onClick={() => navigate(`../signup/${config.driverCampaignId}`)}
+            onClick={() => navigate(`../signup/${config.deliveryDrivers.id}`)}
           >
             Continue to Sign Up
           </button>

@@ -4,10 +4,8 @@ import { utcToZonedTime, format } from "date-fns-tz";
 import "./Volunteers.css";
 import { navLink } from "../../utils/style";
 import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
-import config from "./driver/config";
+import config from "./config";
 import Loading from "../reusable/loading/Loading";
-
-const images = ["cookies-1.jpg", "wraps.jpeg", "sandwiches.jpeg"];
 
 const CampaignBase = () => {
   const { campaignId } = useParams();
@@ -17,12 +15,15 @@ const CampaignBase = () => {
       c.id === campaignId || c.id.substring(0, c.id.length - 3) === campaignId
   );
 
-  const driver = campaign?.id === config.driverCampaignId;
+  const driver = campaign?.id === config.deliveryDrivers.id;
   const event = !!campaign?.startDate;
 
   const renderImages = () => {
-    if (!driver) {
-      return images.map((img) => (
+    const campaignConfig = Object.values(config).find(
+      ({ id }) => id === campaignId
+    );
+    if (campaignConfig) {
+      return campaignConfig.images.map((img) => (
         <img
           key={img}
           src={`/images/volunteers/${img}`}
@@ -36,8 +37,7 @@ const CampaignBase = () => {
   const renderEditDriverInfoBtn = () => {
     if (driver) {
       return (
-        <div className="volunteers-shift-signup-links">
-          {" "}
+        <div className="volunteers-kitchen-signup-photos">
           <Link to="../../driver-onboarding">
             <button>Edit your information</button>
           </Link>
@@ -107,8 +107,8 @@ const CampaignBase = () => {
             Calendar
           </NavLink>
         </div>
-
         {renderEditDriverInfoBtn()}
+
         <div className="volunteers-kitchen-signup-photos">{renderImages()}</div>
         <Outlet />
       </div>

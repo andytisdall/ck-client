@@ -33,21 +33,9 @@ interface VolunteerInterestFormArgs {
     lastName: string;
     phoneNumber: string;
     instagramHandle?: string;
-    foodHandler?: boolean;
-    foodHandlerOther?: string;
-    experience?: string;
-    transport?: boolean;
-    transportOther?: string;
-    workOnFeet?: boolean;
-    workOnFeetOther?: string;
+    corporate?: string;
     source: string;
     extraInfo?: string;
-    programs: {
-      ckKitchen: boolean;
-      ckHomeChefs: boolean;
-      corporate: boolean;
-      other: string;
-    };
   };
   name: "VOLUNTEER_INTEREST";
 }
@@ -82,7 +70,6 @@ interface BikeSignupArgs {
     email: string;
     firstName: string;
     lastName: string;
-    bikeNotes: string;
   };
   name: "BIKE_SIGNUP";
 }

@@ -76,7 +76,7 @@
 }
 
 .doorfront-submit {
-  font-size: 3rem;
+  font-size: 2.5rem;
   border-radius: 25px;
   padding: 1rem 1.5rem;
 }
@@ -112,6 +112,11 @@
 
 .doorfront-scan-input {
   opacity: 0;
+}
+
+.doorfront-meal-count {
+  color: yellow;
+  font-size: 2rem;
 }
 
 .doorfront-client {

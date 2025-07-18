@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
 const Form = () => {
   const headerImage = () => {
@@ -13,7 +13,7 @@ const Form = () => {
 
   return (
     <div className="form-background">
-      <div className="form main">
+      <div className="form">
         {headerImage()}
         <Outlet />
       </div>

@@ -14,7 +14,7 @@ import {
 } from "../../../state/apis/volunteerApi/types";
 import { ContactInfo, User } from "../../../state/apis/authApi";
 import { DriverInfo } from "../../../state/apis/volunteerApi/driver";
-import config from "../driver/config";
+import config from "../config";
 
 const userInfo: ContactInfo = {
   firstName: "Andy",
@@ -32,7 +32,7 @@ export const ckKitchenCampaign: VolunteerCampaign = {
 
 export const driversCampaign: VolunteerCampaign = {
   name: "Drivers",
-  id: config.driverCampaignId,
+  id: config.deliveryDrivers.id,
 };
 
 const user: User = {

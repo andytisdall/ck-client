@@ -7,14 +7,14 @@ import { useGetUserQuery } from "../../../state/apis/authApi";
 import Loading from "../../reusable/loading/Loading";
 import ShiftList from "../shiftList/ShiftList";
 import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
-import config from "../driver/config";
+import config from "../config";
 
 const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const { data: jobs, isLoading } = useGetJobsQuery({
     campaignId: campaign.id,
   });
 
-  const driver = campaign.id === config.driverCampaignId;
+  const driver = campaign.id === config.deliveryDrivers.id;
 
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer
@@ -61,8 +61,7 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
       })}
       {driver && (
         <div className="volunteers-job">
-          <h3>COMING SOON! CK Kitchen meals for Town Fridges</h3>
-          <p>Deliver Meals to Town Fridges</p>
+          <h3>More driver opportunities coming soon</h3>
         </div>
       )}
     </div>

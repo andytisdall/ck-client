@@ -1,10 +1,12 @@
-import config from "../driver/config";
+import config from "../config";
 import {
   Shift,
   VolunteerCampaign,
 } from "../../../state/apis/volunteerApi/types";
 import DriverShiftListItemInfo from "./DriverShiftListItemInfo";
 import ShiftListItemInfo from "./ShiftListItemInfo";
+import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
+import { isCarBigEnough } from "../formatDateTime";
 
 const ShiftListItem = ({
   shift,
@@ -17,6 +19,7 @@ const ShiftListItem = ({
   contactId: string;
   campaign: VolunteerCampaign;
 }) => {
+  const { data: driver } = useGetDriverQuery();
   let linkUrl = "";
   if (bookedHoursId) {
     linkUrl = `../../confirm/${contactId}/${bookedHoursId}`;
@@ -24,14 +27,24 @@ const ShiftListItem = ({
     linkUrl = shift.id;
   }
 
-  const full = shift.open || bookedHoursId ? "" : "volunteers-unavailable";
+  const driverCampaign = campaign.id === config.deliveryDrivers.id;
 
-  const driver = campaign.id === config.driverCampaignId;
+  let isAvailable = shift.open || bookedHoursId ? true : false;
+
+  if (driverCampaign) {
+    const carIsBigEnough = isCarBigEnough({
+      requirement: shift.carSizeRequired,
+      userCar: driver?.car.size,
+    });
+    const disabled = !bookedHoursId && !carIsBigEnough;
+
+    isAvailable = isAvailable && !disabled;
+  }
 
   const Component = driver ? DriverShiftListItemInfo : ShiftListItemInfo;
 
   return (
-    <Component shift={shift} isAvailable={!full} linkUrl={linkUrl}>
+    <Component shift={shift} isAvailable={isAvailable} linkUrl={linkUrl}>
       {bookedHoursId && (
         <div className="volunteers-shift-checkmark">&#x2713; Signed Up</div>
       )}

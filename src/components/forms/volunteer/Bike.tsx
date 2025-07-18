@@ -8,32 +8,27 @@ const Bike = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [bikeNotes, setBikeNotes] = useState("");
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
 
   const navigate = useNavigate();
 
-  const onSubmit: FormEventHandler = (e) => {
+  const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
-    submitForm({
+    await submitForm({
       formData: {
         email,
         firstName,
         lastName,
-        bikeNotes,
       },
       name: "BIKE_SIGNUP",
-    })
-      .unwrap()
-      .then(() => {
-        navigate("/forms/form-sent", {
-          state: {
-            message:
-              "Thanks for your interest! You will receive a confirmation email.",
-          },
-        });
-      });
+    }).unwrap();
+    navigate("/forms/form-sent", {
+      state: {
+        message:
+          "Thanks for your interest! You will receive a confirmation email.",
+      },
+    });
   };
 
   const header = () => {
@@ -56,7 +51,7 @@ const Bike = () => {
           alt="CK Bike Volunteers"
         />
         <p>
-          Next Date: <strong>Sunday, 7/13</strong> - 10am - 12pm
+          Next Date: <strong>Sunday, 8/10</strong> - 12pm - 2pm
         </p>
         <br />
         <p>
@@ -67,8 +62,8 @@ const Bike = () => {
         </p>
         <br />
         <p>
-          To sign up for the next bike volunteer event, give us the following
-          info.
+          If you're interested in participating in a Mobile Meal Team event,
+          please give us the following info.
         </p>
         <br />
         <p className="required">* Indicates required question</p>
@@ -111,19 +106,6 @@ const Bike = () => {
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-          />
-        </div>
-
-        <div className="form-item">
-          <label>
-            Do you have any equipment on your bike that allows you to carry more
-            cargo?
-          </label>
-          <input
-            type="text"
-            value={bikeNotes}
-            onChange={(e) => setBikeNotes(e.target.value)}
-            required
           />
         </div>
 
