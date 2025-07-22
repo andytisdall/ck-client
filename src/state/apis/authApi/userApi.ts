@@ -80,11 +80,8 @@ export const userApi = api.injectEndpoints({
       }),
     }),
 
-    testEmail: builder.mutation<null, void>({
-      query: () => ({
-        url: "/user/email",
-        method: "POST",
-      }),
+    testSign: builder.query<null, void>({
+      query: () => "/sign/token",
     }),
   }),
 });
@@ -99,7 +96,7 @@ export const {
   useConnectGoogleMutation,
   useResetPasswordMutation,
   useForgotPasswordMutation,
-  useTestEmailMutation,
+  useLazyTestSignQuery,
 } = userApi;
 
 export const optimisticallyUpdateHomeChefAgreement =

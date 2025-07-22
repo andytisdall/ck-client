@@ -1,13 +1,8 @@
-import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 import { useGetUserInfoQuery } from "../../state/apis/authApi";
 import Status, { Task } from "../reusable/status/Status";
 
 const HomeChefStatus = () => {
   const { data: userInfo } = useGetUserInfoQuery();
-  const { data: signingConfig } = useGetSigningConfigQuery();
-
-  const signLink =
-    signingConfig && signingConfig.limitReached ? "emailAgreement" : "sign/HC";
 
   const foodHandler: Task = {
     text: "Obtain a Food Handler certification and upload the certificate",
@@ -16,7 +11,7 @@ const HomeChefStatus = () => {
   };
   const volunteerAgreement: Task = {
     text: "Sign our volunteer agreement",
-    url: "onboarding/" + signLink,
+    url: "onboarding/sign/HC",
     completed: userInfo?.homeChefAgreement || false,
   };
   const homeChefQuiz: Task = {
