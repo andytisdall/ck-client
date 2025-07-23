@@ -14,6 +14,8 @@ const SignSuccess = lazy(() => import("../../reusable/signature/SignSuccess"));
 const OnboardingHome = lazy(() => import("./OnboardingHome"));
 const OnboardingBase = lazy(() => import("./OnboardingBase"));
 
+const EmailAgreement = lazy(() => import("./EmailAgreement"));
+
 const driverRouter: RouteObject = {
   path: "driver-onboarding",
   element: renderWithFallback(<OnboardingBase />),
@@ -33,6 +35,7 @@ const driverRouter: RouteObject = {
         { path: ":doc", element: renderWithFallback(<Sign />) },
       ],
     },
+    { path: "emailAgreement", element: renderWithFallback(<EmailAgreement />) },
   ],
 };
 
