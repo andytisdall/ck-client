@@ -31,7 +31,7 @@ const Onboarding = () => {
   const volunteerAgreement = {
     text: "Sign the volunteer agreement",
     completed: !!driver?.volunteerAgreement,
-    url: "sign/DRV",
+    url: signLink,
   };
   const tasks = [driversLicense, insurance, car, volunteerAgreement];
 
