@@ -1,6 +1,7 @@
 import { getMonth, format } from "date-fns";
 
 import { ClientMeal } from "../../state/apis/mealProgramApi/doorfrontApi";
+import { utcToZonedTime } from "date-fns-tz";
 
 const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
   const mealsThisMonth = meals?.filter(
@@ -20,7 +21,7 @@ const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
           .map((meal) => (
             <li
               key={meal.id}
-            >{`${format(new Date(meal.date), "M/d/yy")} - ${meal.amount} meal${meal.amount === 1 ? "" : "s"}`}</li>
+            >{`${format(utcToZonedTime(meal.date, "America/Los_Angeles"), "M/d/yy")} - ${meal.amount} meal${meal.amount === 1 ? "" : "s"}`}</li>
           ))}
       </ul>
     </div>

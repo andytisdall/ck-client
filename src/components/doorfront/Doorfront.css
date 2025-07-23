@@ -95,9 +95,9 @@
 }
 
 .doorfront-alert {
-  font-size: 14px;
+  font-weight: 600;
   margin-bottom: 1rem;
-  color: yellow;
+  color: rgb(246, 174, 245);
 }
 
 .doorfront-scan-now {
