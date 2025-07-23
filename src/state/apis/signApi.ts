@@ -12,8 +12,8 @@ const signApi = api.injectEndpoints({
     getSigningConfig: builder.query<{ limitReached: boolean }, void>({
       query: () => "/sign/config",
     }),
-    requestHomeChefAgreement: builder.query<null, void>({
-      query: () => "/sign/emailAgreement",
+    requestAgreement: builder.query<null, string>({
+      query: (doc) => "/sign/emailAgreement/" + doc,
     }),
   }),
 });
@@ -21,5 +21,5 @@ const signApi = api.injectEndpoints({
 export const {
   useGetSigningUrlQuery,
   useGetSigningConfigQuery,
-  useRequestHomeChefAgreementQuery,
+  useRequestAgreementQuery,
 } = signApi;

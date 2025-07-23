@@ -1,9 +1,14 @@
 import DriverSettings from "./DriverSettings";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
+import { useGetSigningConfigQuery } from "../../../state/apis/signApi";
 import Status, { Task } from "../../reusable/status/Status";
 
 const Onboarding = () => {
   const { data: driver } = useGetDriverQuery();
+  const { data: signingConfig } = useGetSigningConfigQuery();
+
+  const signLink =
+    signingConfig && signingConfig.limitReached ? "emailAgreement" : "sign/DRV";
 
   const driversLicense: Task = {
     text: "Upload driver's license",
