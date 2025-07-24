@@ -18,6 +18,10 @@ const volunteerCampaignConfig = {
         : "701TH00000QR0TEYA1",
     images: ["gala1.jpg"],
   },
+  bike: {
+    id: "701TH00000QTWFFYA5",
+    images: ["bike_volunteers.jpg", "bikes2.jpeg", "bikes_3.jpeg"],
+  },
 };
 
 export default volunteerCampaignConfig;
