@@ -154,7 +154,7 @@
 
 .volunteers-kitchen-signup-photos {
   display: flex;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   justify-content: center;
 }
 
@@ -209,6 +209,11 @@
 
 .volunteers-home-section-body {
   padding-left: 2rem;
+}
+
+.volunteers-driver-info-btn {
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 600px) {

@@ -41,7 +41,9 @@ const ShiftListItem = ({
     isAvailable = isAvailable && !disabled;
   }
 
-  const Component = driver ? DriverShiftListItemInfo : ShiftListItemInfo;
+  const Component = driverCampaign
+    ? DriverShiftListItemInfo
+    : ShiftListItemInfo;
 
   return (
     <Component shift={shift} isAvailable={isAvailable} linkUrl={linkUrl}>

@@ -4,18 +4,19 @@ const volunteerCampaignConfig = {
     images: ["cookies-1.jpg", "wraps.jpeg", "sandwiches.jpeg"],
   },
   doorfront: {
-    id:
-      process.env.NODE_ENV === "production"
-        ? "701UP00000JyWOgYAN"
-        : "701U800000KMZoQIAX",
+    id: "701UP00000JyWOgYAN",
     images: ["door-distribution.jpg"],
   },
   deliveryDrivers: {
+    id: "701UP00000KA6bhYAD",
+    images: ["driver-onboarding.jpg"],
+  },
+  gala2025: {
     id:
       process.env.NODE_ENV === "production"
-        ? "701UP00000KA6bhYAD"
-        : "701U800000O3WxhIAF",
-    images: ["driver-onboarding.jpg"],
+        ? "701UP00000Q6OboYAF"
+        : "701TH00000QR0TEYA1",
+    images: ["gala1.jpg"],
   },
 };
 

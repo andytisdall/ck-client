@@ -22,6 +22,7 @@ const CampaignBase = () => {
     const campaignConfig = Object.values(config).find(
       ({ id }) => id === campaignId
     );
+
     if (campaignConfig) {
       return campaignConfig.images.map((img) => (
         <img
@@ -37,7 +38,7 @@ const CampaignBase = () => {
   const renderEditDriverInfoBtn = () => {
     if (driver) {
       return (
-        <div className="volunteers-kitchen-signup-photos">
+        <div className="volunteers-driver-info-btn">
           <Link to="../../driver-onboarding">
             <button>Edit your information</button>
           </Link>
@@ -91,7 +92,6 @@ const CampaignBase = () => {
       <div className="volunteers-body">
         <h3>{date}</h3>
         <p className="volunteers-home-section-body">{campaign.description}</p>
-        <Outlet />
       </div>
     );
   };
@@ -108,9 +108,6 @@ const CampaignBase = () => {
           </NavLink>
         </div>
         {renderEditDriverInfoBtn()}
-
-        <div className="volunteers-kitchen-signup-photos">{renderImages()}</div>
-        <Outlet />
       </div>
     );
   };
@@ -120,7 +117,10 @@ const CampaignBase = () => {
       <h1 className="volunteers-main-header volunteers-kitchen-header">
         {campaign.name}
       </h1>
+      <div className="volunteers-kitchen-signup-photos">{renderImages()}</div>
+
       {event ? renderEvent() : renderOngoing()}
+      <Outlet />
     </div>
   );
 };
