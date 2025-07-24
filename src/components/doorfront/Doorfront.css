@@ -38,10 +38,16 @@
   width: 3rem;
 }
 
+.doorfront-scan-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .doorfront-scan {
   display: flex;
   flex-direction: column;
-  margin-left: 2rem;
 }
 
 .doorfront-content {
@@ -50,6 +56,10 @@
 
 .doorfront-nav {
   margin: 2rem;
+}
+
+.doorfront-nav button {
+  margin-bottom: 1rem;
 }
 
 .doorfront-text-input {
@@ -128,6 +138,9 @@
 .doorfront-client {
   margin-bottom: 1rem;
   border-bottom: 1px white solid;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .doorfront-client-label,
@@ -137,12 +150,30 @@
   margin-bottom: 1rem;
 }
 
-.doorfront-client-col {
+.doorfront-client-row {
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
 }
 
 .doorfront-client-missing {
   border: 1px solid red;
   background-color: pink;
+}
+
+.doorfront-past {
+  min-width: 5rem;
+  max-width: 15rem;
+  height: fit-content;
+}
+
+.doorfront-past-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doorfront-past-header-arrow {
+  padding-right: 1rem;
+  font-weight: 600;
+  font-size: 1.5rem;
 }

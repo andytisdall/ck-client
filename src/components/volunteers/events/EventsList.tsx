@@ -22,7 +22,7 @@ const EventsList = () => {
         <div className="volunteers-home-section-body">
           {eventCampaigns.map((cam) => {
             let description = "";
-            if (!cam.buttonText) {
+            if (!cam.description) {
               const startDate = cam.startDate
                 ? format(
                     utcToZonedTime(cam.startDate, "America/Los_Angeles"),
@@ -38,7 +38,7 @@ const EventsList = () => {
                 : "";
               description = startDate + endDate;
             } else {
-              description = cam.buttonText;
+              description = cam.description;
             }
 
             return (

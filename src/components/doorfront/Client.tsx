@@ -16,12 +16,12 @@ const ClientInfo = ({
 
   return (
     <div className="doorfront-client">
-      <div className="doorfront-client-col">
+      <div className="doorfront-client-row">
         <div className="doorfront-client-label">Long Barcode:</div>
-        <div className="doorfront-client-label">C-Code:</div>
-      </div>
-      <div className="doorfront-client-col">
         <div className="doorfront-client-value">{client.barcode}</div>
+      </div>
+      <div className="doorfront-client-row">
+        <div className="doorfront-client-label">C-Code:</div>
         <input
           className={`doorfront-client-value ${missingStyle}`}
           value={code}

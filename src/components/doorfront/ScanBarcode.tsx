@@ -158,7 +158,7 @@ const ScanBarcode = () => {
   };
 
   return (
-    <div>
+    <div className="doorfront-scan-container">
       <form onSubmit={onSubmit} className="doorfront-scan">
         <div className="doorfront-content">{renderContent()}</div>
       </form>

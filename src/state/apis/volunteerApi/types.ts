@@ -68,7 +68,6 @@ export interface VolunteerCampaign {
   endDate?: string;
   description?: string;
   id: string;
-  buttonText?: string;
 }
 
 export interface VolunteerHours {
