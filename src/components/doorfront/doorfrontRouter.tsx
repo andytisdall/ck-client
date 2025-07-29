@@ -6,7 +6,7 @@ import renderWithFallback from "../reusable/loading/renderWithFallback";
 const ScanBarcode = lazy(() => import("./ScanBarcode"));
 const AddMeals = lazy(() => import("./AddMeals"));
 const DoorfrontBase = lazy(() => import("./DoorfrontBase"));
-const MealReport = lazy(() => import("./MealReport"));
+const MealReport = lazy(() => import("./report/MealReport"));
 
 const doorfrontRouter: RouteObject = {
   path: "doorfront",

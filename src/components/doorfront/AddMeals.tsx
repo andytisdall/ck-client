@@ -20,7 +20,7 @@ const AddMeals = () => {
   const { barcodeValue } = useParams();
 
   const [meals, setMeals] = useState(1);
-  const [cCode, setCcode] = useState("");
+  const [clientInfo, setClientInfo] = useState({ cCode: "", barcode: "" });
 
   const [addMeals, { isLoading: addIsLoading }] = useAddMealsMutation();
 
@@ -67,7 +67,11 @@ const AddMeals = () => {
   const onSubmit = async () => {
     if (clientId) {
       const numberOfMeals = cannotSubmit ? 0 : meals;
-      await addMeals({ clientId, meals: numberOfMeals, cCode }).unwrap();
+      await addMeals({
+        clientId,
+        meals: numberOfMeals,
+        ...clientInfo,
+      }).unwrap();
       dispatch(setAlert("Data Entered Sucessfully"));
       navigate("..");
     }
@@ -167,7 +171,7 @@ const AddMeals = () => {
 
   return (
     <div>
-      <ClientInfo client={client} setCcode={setCcode} />
+      <ClientInfo client={client} setClientInfo={setClientInfo} />
       <div className="doorfront">
         {cannotSubmit ? renderCannotAdd() : renderAddMeals()}
         <PastMeals meals={pastMeals} />

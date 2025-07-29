@@ -3,17 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { BarcodeScanner } from "react-barcode-scanner";
 import "react-barcode-scanner/polyfill";
 
-export const addZerosToCcode = (cCode: string) => {
-  let id = cCode.split("C")[1];
-  if (id) {
-    while (id.length < 8) {
-      id = "0" + id;
-    }
-    return "C" + id;
-  }
-  return cCode;
-};
-
 const ScanBarcode = () => {
   const [clientId, setClientId] = useState("");
   const [entryType, setEntryType] = useState<"manual" | "external" | "camera">(
@@ -40,8 +29,7 @@ const ScanBarcode = () => {
   };
 
   const submitManual = () => {
-    const id = addZerosToCcode(clientId);
-    navigate(id);
+    navigate(clientId);
   };
 
   const onSubmit: FormEventHandler = (e) => {

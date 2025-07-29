@@ -1,33 +1,52 @@
 import { useState } from "react";
 
-import { addZerosToCcode } from "./ScanBarcode";
 import { Client } from "../../state/apis/mealProgramApi/doorfrontApi";
 
-const ClientInfo = ({
+interface ClientInfo {
+  cCode: string;
+  barcode: string;
+}
+
+const ClientInformation = ({
   client,
-  setCcode,
+  setClientInfo,
 }: {
   client: Client;
-  setCcode: (code: string) => void;
+  setClientInfo: (cb: (current: ClientInfo) => ClientInfo) => void;
 }) => {
-  const [code, setCode] = useState(client.cCode || "");
+  const [cCode, setCcode] = useState(client.cCode || "");
+  const [barcode, setBarcode] = useState(client.barcode || "");
 
-  const missingStyle = !code ? "doorfront-client-missing" : "";
+  const missingCcodeStyle = !cCode ? "doorfront-client-missing" : "";
+  const missingBarCodeStyle = !barcode ? "doorfront-client-missing" : "";
 
   return (
     <div className="doorfront-client">
       <div className="doorfront-client-row">
-        <div className="doorfront-client-label">Long Barcode:</div>
-        <div className="doorfront-client-value">{client.barcode}</div>
+        <div className="doorfront-client-label">Barcode:</div>
+        <input
+          className={`doorfront-client-value ${missingBarCodeStyle}`}
+          value={barcode}
+          onChange={(e) => {
+            setBarcode(e.target.value);
+            setClientInfo((current) => ({
+              ...current,
+              barcode: e.target.value,
+            }));
+          }}
+        />
       </div>
       <div className="doorfront-client-row">
-        <div className="doorfront-client-label">C-Code:</div>
+        <div className="doorfront-client-label">Client Number:</div>
         <input
-          className={`doorfront-client-value ${missingStyle}`}
-          value={code}
+          className={`doorfront-client-value ${missingCcodeStyle}`}
+          value={cCode}
           onChange={(e) => {
-            setCode(e.target.value);
-            setCcode(addZerosToCcode(e.target.value));
+            setCcode(e.target.value);
+            setClientInfo((current) => ({
+              ...current,
+              cCode: e.target.value,
+            }));
           }}
         />
       </div>
@@ -35,4 +54,4 @@ const ClientInfo = ({
   );
 };
 
-export default ClientInfo;
+export default ClientInformation;

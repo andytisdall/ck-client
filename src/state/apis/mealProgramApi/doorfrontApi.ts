@@ -1,16 +1,18 @@
 import { api } from "../../api";
 
 export interface ClientMeal {
-  client: string;
+  client: Client;
   date: string;
   id: string;
   amount: number;
+  logged: boolean;
 }
 
 interface AddMealsArgs {
   meals: number;
   clientId: string;
   cCode?: string;
+  barcode?: string;
 }
 
 interface GetClientMealsResponse {
@@ -38,8 +40,13 @@ const doorfrontApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Doorfront"],
     }),
-    getMeals: builder.query<ClientMeal[], string>({
-      query: (date) => "/meal-program/doorfront/meals/" + date,
+    getMeals: builder.query<
+      ClientMeal[],
+      { startDate: string; endDate: string }
+    >({
+      query: ({ startDate, endDate }) =>
+        "/meal-program/doorfront/meals/" + startDate + "&" + endDate,
+      providesTags: ["Doorfront"],
     }),
   }),
 });

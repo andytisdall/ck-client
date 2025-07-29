@@ -57,7 +57,6 @@ p {
 .title-text {
   color: #ef9c0e;
   font-size: 6rem;
-  font-weight: 600;
   padding: 0 1rem;
   line-height: 5rem;
 }
@@ -206,6 +205,14 @@ p {
 
 .logo-row {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-sub-row {
+  display: flex;
+  flex: 1;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
@@ -219,38 +226,35 @@ p {
   text-decoration: underline;
 }
 
-.logo-sub-row {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  max-width: 48rem;
-  min-width: 22rem;
-}
-
 .sponsor-btn {
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
 }
 
-.sponsor-xl {
-  width: 50%;
-  max-width: 28rem;
+.sponsor-xl img {
+  width: 60%;
+  max-width: 30rem;
   min-width: 18rem;
   margin-bottom: 2rem;
 }
 
-.sponsor-lg {
+.sponsor-lg img {
   width: 50%;
+  max-width: 24rem;
   min-width: 18rem;
-  box-sizing: border-box;
 }
 
-.sponsor-md {
-  width: 22%;
-  max-width: 20rem;
-  min-width: 8rem;
+.sponsor-md img {
+  width: 50%;
+  max-width: 16rem;
+  min-width: 12rem;
+}
+
+.sponsor-sm img,
+.thompson {
+  width: 18%;
+  max-width: 12rem;
+  min-width: 10rem;
 }
 
 @media (max-width: 700px) {

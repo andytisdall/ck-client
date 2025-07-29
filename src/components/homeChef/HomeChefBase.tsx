@@ -4,16 +4,16 @@ import { lazy } from "react";
 import Loading from "../reusable/loading/Loading";
 import renderWithFallback from "../reusable/loading/renderWithFallback";
 import { useGetUserInfoQuery } from "../../state/apis/authApi";
-import HomeChefStatus from "./HomeChefStatus";
-import HomeChefNotSignedIn from "./HomeChefNotSignedIn";
+
+const HomeChefNotSignedIn = lazy(() => import("./HomeChefNotSignedIn"));
+const HomeChefStatus = lazy(() => import("./HomeChefStatus"));
 
 const HomeChef = () => {
-  const { data, isLoading } = useGetUserInfoQuery();
-  const userInfo = data;
+  const { data: userInfo, isLoading } = useGetUserInfoQuery();
 
   const renderStatus = () => {
     if (userInfo?.homeChefStatus !== "Active") {
-      return <HomeChefStatus />;
+      return renderWithFallback(<HomeChefStatus />);
     }
   };
 

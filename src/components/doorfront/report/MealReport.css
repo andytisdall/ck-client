@@ -1,0 +1,48 @@
+.meal-report {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.meal-report-row {
+  display: flex;
+  border-bottom: 1px solid white;
+  width: fit-content;
+}
+
+.meal-report-col {
+  padding: 10px;
+  display: flex;
+  width: 8rem;
+  justify-content: flex-end;
+  text-align: right;
+  align-items: center;
+}
+
+.meal-report-checkbox {
+  display: flex;
+  width: 1rem;
+}
+
+.meal-report-checkbox input {
+  margin: 0;
+  height: auto;
+}
+
+.meal-reports-dates {
+  display: flex;
+  margin-left: 2rem;
+}
+
+.meal-reports-dates input {
+  margin: 0;
+}
+
+.meal-reports-dates div {
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
