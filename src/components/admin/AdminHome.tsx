@@ -24,9 +24,9 @@ const AdminHome = () => {
       <Link className="text-button-link admin-home-btn" to="/doorfront">
         Scan Barcode
       </Link>
-      {/* <Link className="text-button-link admin-home-btn" to="action">
+      <Link className="text-button-link admin-home-btn" to="action">
         Take Action
-      </Link> */}
+      </Link>
     </div>
   );
 };

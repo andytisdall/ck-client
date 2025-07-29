@@ -10,7 +10,6 @@ import {
 import { useCreateVolunteerHoursMutation } from "../../state/apis/volunteerApi/checkInApi";
 import Loading from "../reusable/loading/Loading";
 import { setError } from "../../state/apis/slices/errorSlice";
-import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 
 const CreateVolunteer = () => {
   const [email, setEmail] = useState("");
@@ -25,10 +24,6 @@ const CreateVolunteer = () => {
     useCreateVolunteerHoursMutation();
   const [getVolunteer, { isLoading: getVolIsLoading }] =
     useLazyGetVolunteerQuery();
-
-  const { data: signApiConfig } = useGetSigningConfigQuery(undefined, {
-    pollingInterval: 60000,
-  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,11 +57,7 @@ const CreateVolunteer = () => {
       contactId: volunteer.id,
     }).unwrap();
 
-    if (signApiConfig?.limitReached) {
-      navigate(`../confirm/${volunteer.id}/${shiftId}`);
-    } else {
-      navigate("../sign/pre/" + volunteer.id + "/" + shiftId);
-    }
+    navigate("../sign/pre/" + volunteer.id + "/" + shiftId);
   };
 
   return (

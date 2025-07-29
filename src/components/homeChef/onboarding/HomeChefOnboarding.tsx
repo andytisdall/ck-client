@@ -1,30 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import { useGetSigningConfigQuery } from '../../../state/apis/signApi';
-import { useGetUserInfoQuery } from '../../../state/apis/authApi';
-import TextButton from '../../reusable/TextButton';
+import { useGetUserInfoQuery } from "../../../state/apis/authApi";
+import TextButton from "../../reusable/TextButton";
 
-const videoDescription = 'Watch the orientation video for new Home Chefs.';
+const videoDescription = "Watch the orientation video for new Home Chefs.";
 
 const agreementDescription =
-  'Read and e-sign our volunteer agreement through Docusign.';
+  "Read and e-sign our volunteer agreement through Docusign.";
 const uploadDescription =
-  'Once you have received your food handler certification, upload the document here.';
+  "Once you have received your food handler certification, upload the document here.";
 const applyDescription =
-  'Follow this link to start the process of receiving your food handler certification.';
+  "Follow this link to start the process of receiving your food handler certification.";
 
 export const FOOD_HANDLER_URL =
-  'https://premierfoodsafety.com/food-handlers-card/california';
+  "https://premierfoodsafety.com/food-handlers-card/california";
 
 const HomeChefOnboarding = () => {
   const userInfo = useGetUserInfoQuery().data;
-  const { data: signingConfig } = useGetSigningConfigQuery();
-
-  const signLink =
-    signingConfig && signingConfig.limitReached ? 'emailAgreement' : 'sign/HC';
 
   const renderActive = () => {
-    if (userInfo?.homeChefStatus === 'Active') {
+    if (userInfo?.homeChefStatus === "Active") {
       return (
         <div className="home-chef-status">
           <p>
@@ -43,7 +38,7 @@ const HomeChefOnboarding = () => {
     return (
       <div className="col">
         <TextButton
-          to={signLink}
+          to={"sign/HC"}
           buttonText="Sign the Volunteer Agreement"
           descriptionText={agreementDescription}
         />
@@ -72,7 +67,7 @@ const HomeChefOnboarding = () => {
           buttonText="Watch the Orientation Video and Take the Home Chef Quiz"
           descriptionText={videoDescription}
         />
-        {userInfo?.homeChefStatus !== 'Active' && renderDocumentBtns()}
+        {userInfo?.homeChefStatus !== "Active" && renderDocumentBtns()}
       </div>
     </div>
   );

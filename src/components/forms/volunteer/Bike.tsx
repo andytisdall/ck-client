@@ -109,6 +109,14 @@ const Bike = () => {
           />
         </div>
 
+        <div className="form-disclaimer">
+          <strong>Bike East Bay eNews Opt-in</strong>
+          <br />
+          <i>
+            By using this service, you will automatically be added to Bike East
+            Bay's eNews list. You can unsubscribe at any time.
+          </i>
+        </div>
         {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
       </form>
     </>

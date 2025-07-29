@@ -1,10 +1,10 @@
 // import serverCall from 'state'
 import Loading from "../reusable/loading/Loading";
-import { useTestEmailMutation } from "../../state/apis/authApi";
+import { useLazyTestSignQuery } from "../../state/apis/authApi";
 
 const DoSomething = () => {
   const [doSomething, { isLoading, isError, data, isSuccess }] =
-    useTestEmailMutation();
+    useLazyTestSignQuery();
   return (
     <div>
       {isError ? (

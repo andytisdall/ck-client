@@ -6,7 +6,6 @@ import { RootState } from "../../../state/store";
 import Loading from "../../reusable/loading/Loading";
 import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
 import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
-import { useGetSigningConfigQuery } from "../../../state/apis/signApi";
 import {
   useGetUserQuery,
   useGetUserInfoQuery,
@@ -26,7 +25,6 @@ const SignupBase = () => {
 
   const { data: user } = useGetUserQuery();
 
-  const { data: signingConfig } = useGetSigningConfigQuery();
   const { data: userInfo } = useGetUserInfoQuery();
   const waiverSigned =
     userInfo?.volunteerAgreement || volunteer?.volunteerAgreement;
@@ -64,12 +62,7 @@ const SignupBase = () => {
   }, [bookedJobs, destinationUrl, hours, navigate, shiftId]);
 
   const afterSubmit = (hoursId: string) => {
-    if (
-      (userInfo || volunteer) &&
-      signingConfig &&
-      !waiverSigned &&
-      !signingConfig.limitReached
-    ) {
+    if ((userInfo || volunteer) && !waiverSigned) {
       navigate(`../../../sign/CKK/${contactId}/${hoursId}`);
     } else {
       navigate(destinationUrl + hoursId);

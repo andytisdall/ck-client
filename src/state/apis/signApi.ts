@@ -9,17 +9,7 @@ const signApi = api.injectEndpoints({
       query: ({ doc, contactId, hoursId }) =>
         `/sign/${doc}${contactId ? `/${hoursId}/${contactId}` : ""}`,
     }),
-    getSigningConfig: builder.query<{ limitReached: boolean }, void>({
-      query: () => "/sign/config",
-    }),
-    requestAgreement: builder.query<null, string>({
-      query: (doc) => "/sign/emailAgreement/" + doc,
-    }),
   }),
 });
 
-export const {
-  useGetSigningUrlQuery,
-  useGetSigningConfigQuery,
-  useRequestAgreementQuery,
-} = signApi;
+export const { useGetSigningUrlQuery } = signApi;

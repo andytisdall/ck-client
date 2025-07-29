@@ -289,6 +289,10 @@
   padding-top: 1rem;
 }
 
+.form-disclaimer {
+  padding: 1rem;
+}
+
 @media (max-width: 540px) {
   .form-bike-headline img {
     display: none;

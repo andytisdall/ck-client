@@ -5,7 +5,6 @@ import {
   useGetTodaysShiftsQuery,
 } from "../../state/apis/volunteerApi/checkInApi";
 import Loading from "../reusable/loading/Loading";
-import { useGetSigningConfigQuery } from "../../state/apis/signApi";
 
 const CheckInVolunteers = () => {
   const { shiftId } = useParams();
@@ -15,10 +14,6 @@ const CheckInVolunteers = () => {
 
   const navigate = useNavigate();
 
-  // get api sign limit info and don't refer to sign if it's at 40
-  const { data: signApiConfig } = useGetSigningConfigQuery(undefined, {
-    pollingInterval: 60000,
-  });
   const { data: volunteers, isLoading } = useGetVolunteersForCheckInQuery(
     shiftId || ""
   );
@@ -31,9 +26,7 @@ const CheckInVolunteers = () => {
     if (!volunteers?.length) {
       return <h4>No volunteers are scheduled for today</h4>;
     }
-    if (!signApiConfig) {
-      return <Loading />;
-    }
+
     const confirmedVols = volunteers?.filter(
       ({ status }) => status === "Confirmed"
     );
@@ -46,10 +39,9 @@ const CheckInVolunteers = () => {
           <h3>Not Checked In</h3>
           <div className="check-in-volunteer-list">
             {confirmedVols.map((vol) => {
-              const url =
-                vol.volunteerAgreement || signApiConfig.limitReached
-                  ? `../confirm/${vol.contactId}/${shiftId}`
-                  : `../sign/pre/${vol.contactId}/${shiftId}`;
+              const url = vol.volunteerAgreement
+                ? `../confirm/${vol.contactId}/${shiftId}`
+                : `../sign/pre/${vol.contactId}/${shiftId}`;
               return (
                 <Link
                   key={vol.hoursId}
