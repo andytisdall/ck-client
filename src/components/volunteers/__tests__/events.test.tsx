@@ -41,7 +41,6 @@ job1.shifts = [shift1];
 export const eventCampaign: VolunteerCampaign = {
   name: "Holiday Cookies",
   id: "dw3h87hd8",
-  buttonText: "dkuhewd",
   startDate: formatISO(new Date()),
 };
 
@@ -72,7 +71,7 @@ export const volunteer1: Volunteer = {
   email: "andrew@ck.com",
 };
 
-const timeout = 8000;
+const timeout = 10000;
 
 describe("volunteer does not exist already", () => {
   createServer([

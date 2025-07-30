@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-import { useSignInAsUserMutation } from '../../../state/apis/authApi';
-import { useGetAllUsersQuery } from '../../../state/apis/authApi';
-import Loading from '../../reusable/loading/Loading';
+import { useSignInAsUserMutation } from "../../../state/apis/authApi";
+import { useGetAllUsersQuery } from "../../../state/apis/authApi";
+import Loading from "../../reusable/loading/Loading";
 
 const SignInAsUser = () => {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
 
   const { data: users } = useGetAllUsersQuery();
   const [signInAsUser, { isLoading }] = useSignInAsUserMutation();
@@ -15,16 +15,18 @@ const SignInAsUser = () => {
 
   const renderUsers = () => {
     if (users) {
-      return Object.values(users)
-        .filter((u) => !u.admin)
-        .sort((a, b) => (a.username > b.username ? 1 : -1))
-        .map((u) => {
-          return (
-            <option key={u.id} value={u.id}>
-              {u.username}
-            </option>
-          );
-        });
+      return (
+        Object.values(users)
+          // .filter((u) => !u.admin)
+          .sort((a, b) => (a.username > b.username ? 1 : -1))
+          .map((u) => {
+            return (
+              <option key={u.id} value={u.id}>
+                {u.username}
+              </option>
+            );
+          })
+      );
     }
   };
 
@@ -41,7 +43,7 @@ const SignInAsUser = () => {
           <button
             onClick={async () => {
               await signInAsUser(userId).unwrap();
-              navigate('/');
+              navigate("/");
             }}
             disabled={!userId}
           >
