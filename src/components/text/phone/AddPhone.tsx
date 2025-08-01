@@ -41,6 +41,7 @@ const AddPhone = () => {
         >
           <option value={"EAST_OAKLAND"}>East Oakland</option>
           <option value={"WEST_OAKLAND"}>West Oakland</option>
+          <option value={"BERKELEY"}>Berkeley</option>
         </select>
         {addPhoneResult.isLoading ? (
           <Loading />

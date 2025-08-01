@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import { format, subDays } from 'date-fns';
+import { useState } from "react";
+import { format, subDays } from "date-fns";
 
 import {
   useGetFeedbackQuery,
   useDeleteFeedbackMutation,
   FeedbackResponse,
-} from '../../../state/apis/textApi';
-import Loading from '../../reusable/loading/Loading';
-import './Feedback.css';
-import CustomText, { ReplyToProps } from '../customText/CustomText';
+} from "../../../state/apis/textApi";
+import Loading from "../../reusable/loading/Loading";
+import "./Feedback.css";
+import CustomText, { ReplyToProps } from "../customText/CustomText";
 
 export const formatNumber = (num: string) => {
   return (
-    num.substring(2, 5) + '-' + num.substring(5, 8) + '-' + num.substring(8)
+    num.substring(2, 5) + "-" + num.substring(5, 8) + "-" + num.substring(8)
   );
 };
 
 const Feedback = () => {
-  const [dateRange, setDateRange] = useState('7');
+  const [dateRange, setDateRange] = useState("7");
   const [replyTo, setReplyTo] = useState<ReplyToProps>();
 
   const feedbackQuery = useGetFeedbackQuery();
@@ -25,8 +25,9 @@ const Feedback = () => {
   const [deleteFeedback, deleteFeedbackResult] = useDeleteFeedbackMutation();
 
   const regions = {
-    EAST_OAKLAND: 'East Oakland',
-    WEST_OAKLAND: 'West Oakland',
+    EAST_OAKLAND: "East Oakland",
+    WEST_OAKLAND: "West Oakland",
+    BERKELEY: "Berkeley",
   };
 
   const renderDateSelector = () => {
@@ -56,7 +57,7 @@ const Feedback = () => {
               return (
                 <ul key={response.date}>
                   <li>
-                    <div>{format(new Date(response.date), 'M/d/yy h:m a')}</div>
+                    <div>{format(new Date(response.date), "M/d/yy h:m a")}</div>
                     <div>{response.message}</div>
                   </li>
                 </ul>
@@ -72,7 +73,7 @@ const Feedback = () => {
     if (feedback) {
       return Object.values(feedback)
         .filter((fb) => {
-          if (dateRange === 'all') {
+          if (dateRange === "all") {
             return fb;
           } else {
             return new Date(fb.date) > subDays(new Date(), parseInt(dateRange));
@@ -85,16 +86,16 @@ const Feedback = () => {
               <div className="feedback-section">
                 <div className="feedback-line">
                   <span className="feedback-field">
-                    {format(new Date(fb.date), 'MM/dd/yy hh:mm a')}
+                    {format(new Date(fb.date), "MM/dd/yy hh:mm a")}
                   </span>
                 </div>
 
                 <div className="feedback-line">
-                  <span className="feedback-field">Region:</span>{' '}
+                  <span className="feedback-field">Region:</span>{" "}
                   {regions[fb.region]}
                 </div>
                 <div className="feedback-line">
-                  <span className="feedback-field">Sent by:</span>{' '}
+                  <span className="feedback-field">Sent by:</span>{" "}
                   {formatNumber(fb.sender)}
                 </div>
               </div>
@@ -158,7 +159,7 @@ const Feedback = () => {
             )}
             {!!feedback &&
               !Object.values(feedback).length &&
-              'No Feedback to Show.'}
+              "No Feedback to Show."}
           </ul>
         </>
       )}

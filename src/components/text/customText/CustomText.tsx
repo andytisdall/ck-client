@@ -23,7 +23,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
   });
 
   const [message, setMessage] = useState("");
-  const [region, setRegion] = useState<Region | "both" | null>(
+  const [region, setRegion] = useState<Region | "all" | null>(
     replyTo?.region ? replyTo.region : null
   );
   const [number, setNumber] = useState(
@@ -82,12 +82,28 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
             <div className="send-text-variables-radio">
               <input
                 required
+                id="to-2"
+                name="to"
+                type="radio"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setRegion("BERKELEY");
+                    setNumber("");
+                  }
+                }}
+              />
+              <label htmlFor="to-2">West Oakland</label>
+            </div>
+
+            <div className="send-text-variables-radio">
+              <input
+                required
                 id="to-3"
                 name="to"
                 type="radio"
                 onChange={(e) => {
                   if (e.target.checked) {
-                    setRegion("both");
+                    setRegion("all");
                     setNumber("");
                   }
                 }}

@@ -33,6 +33,8 @@ export interface Shift {
   distance?: string;
 }
 
+export type FridgeRegion = "East Oakland" | "West Oakland" | "Berkeley";
+
 export interface Job {
   id: string;
   name: string;
@@ -44,7 +46,7 @@ export interface Job {
   ongoing: boolean;
   description?: string;
   campaign: string;
-  region?: "East Oakland" | "West Oakland";
+  region?: FridgeRegion;
   notes?: string;
 }
 

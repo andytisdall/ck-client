@@ -15,6 +15,7 @@
   font-size: 1.3rem;
   display: flex;
   align-items: baseline;
+  margin-bottom: 2rem;
 }
 
 .job-name-small {
@@ -32,7 +33,7 @@
 .job-listing {
   display: flex;
   align-items: baseline;
-  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   padding: 0.5rem 0;
 }
 
@@ -88,8 +89,9 @@
 .home-chef-fridges-region {
   flex: 1;
   max-width: 40rem;
-  margin-bottom: 3rem;
   margin: 0 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 3rem;
 }
 
 .job-notes {

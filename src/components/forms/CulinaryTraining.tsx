@@ -135,7 +135,7 @@ const CulinaryTraining = () => {
           <br />
           Community Kitchens
           <br />
-          <a href="ckoakland.org/volunteer" className="retro-link">
+          <a href="https://ckoakland.org/volunteer" className="retro-link">
             ckoakland.org/volunteer
           </a>
         </p>
