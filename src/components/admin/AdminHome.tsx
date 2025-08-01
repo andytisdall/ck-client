@@ -6,15 +6,15 @@ const AdminHome = () => {
       <Link className="text-button-link admin-home-btn" to="user">
         Create or Edit a User
       </Link>
-      <Link className="text-button-link admin-home-btn" to="restaurant">
+      {/* <Link className="text-button-link admin-home-btn" to="restaurant">
         Create or Edit a Restaurant
-      </Link>
+      </Link> */}
       <Link className="text-button-link admin-home-btn" to="notifications">
         Send a Push Notification
       </Link>
-      <Link className="text-button-link admin-home-btn" to="d4j">
+      {/* <Link className="text-button-link admin-home-btn" to="d4j">
         Dining for Justice
-      </Link>
+      </Link> */}
       <Link
         className="text-button-link admin-home-btn"
         to="../volunteer-check-in"
@@ -24,9 +24,9 @@ const AdminHome = () => {
       <Link className="text-button-link admin-home-btn" to="/doorfront">
         Scan Barcode
       </Link>
-      <Link className="text-button-link admin-home-btn" to="action">
+      {/* <Link className="text-button-link admin-home-btn" to="action">
         Take Action
-      </Link>
+      </Link> */}
     </div>
   );
 };

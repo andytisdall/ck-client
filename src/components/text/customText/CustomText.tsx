@@ -92,7 +92,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
                   }
                 }}
               />
-              <label htmlFor="to-2">West Oakland</label>
+              <label htmlFor="to-2">Berkeley</label>
             </div>
 
             <div className="send-text-variables-radio">

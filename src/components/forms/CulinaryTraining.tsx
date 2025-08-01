@@ -146,213 +146,217 @@ const CulinaryTraining = () => {
   };
 
   return (
-    <>
-      {header()}
-      <form onSubmit={onSubmit}>
-        <div className="form-item">
-          <label>
-            First Name<span className="required">*</span>
-          </label>
-          <input
-            required
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </div>
-        <div className="form-item">
-          <label>
-            Last Name<span className="required">*</span>
-          </label>
-          <input
-            required
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </div>
-        <div className="form-item">
-          <label>
-            Email<span className="required">*</span>
-          </label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-item">
-          <label>
-            Mailing Address<span className="required">*</span>
-          </label>
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-item">
-          <label>
-            Phone Number<span className="required">*</span>
-          </label>
-          <input
-            required
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </div>
-        <div className="form-item">
-          <label>
-            Please check the boxes below to indicate that you meet each of the
-            following program requirements: <span className="required">*</span>
-          </label>
-          <div className="form-checkbox">
-            <input
-              type="checkbox"
-              onChange={(e) =>
-                setRequirements((current) => ({
-                  ...current,
-                  eighteen: e.target.checked,
-                }))
-              }
-            />
-            <label>I am at least 18 years of age</label>
-          </div>
-          <div className="form-checkbox">
-            <input
-              type="checkbox"
-              onChange={(e) =>
-                setRequirements((current) => ({
-                  ...current,
-                  eligible: e.target.checked,
-                }))
-              }
-            />
-            <label>I am legally eligible to work in the United States</label>
-          </div>
-          <div className="form-checkbox">
-            <input
-              type="checkbox"
-              onChange={(e) =>
-                setRequirements((current) => ({
-                  ...current,
-                  available: e.target.checked,
-                }))
-              }
-            />
-            <label>
-              I am available to attend during the designated hours for the
-              entirety of the program: August 11 - September 12
-            </label>
-          </div>
-          <div className="form-checkbox">
-            <input
-              type="checkbox"
-              onChange={(e) =>
-                setRequirements((current) => ({
-                  ...current,
-                  able: e.target.checked,
-                }))
-              }
-            />
-            <label>
-              I am able to stand up to 4 hours and lift up to 25 lbs
-            </label>
-          </div>
-          <div className="form-checkbox">
-            <input
-              type="checkbox"
-              onChange={(e) =>
-                setRequirements((current) => ({
-                  ...current,
-                  english: e.target.checked,
-                }))
-              }
-            />
-            <label>
-              I have basic understanding of English to follow instructions.
-            </label>
-          </div>
-          <div className="form-checkbox">
-            <input
-              type="checkbox"
-              onChange={(e) =>
-                setRequirements((current) => ({
-                  ...current,
-                  transportation: e.target.checked,
-                }))
-              }
-            />
-            <label>
-              I have reliable transportation for the duration of the program,
-              including access to public transportation.
-            </label>
-          </div>
-        </div>
+    <div className="form-item">
+      We are no longer accepting applications for Culinary Training in Summer
+      2025.
+    </div>
+    // <>
+    //   {header()}
+    //   <form onSubmit={onSubmit}>
+    //     <div className="form-item">
+    //       <label>
+    //         First Name<span className="required">*</span>
+    //       </label>
+    //       <input
+    //         required
+    //         type="text"
+    //         value={firstName}
+    //         onChange={(e) => setFirstName(e.target.value)}
+    //       />
+    //     </div>
+    //     <div className="form-item">
+    //       <label>
+    //         Last Name<span className="required">*</span>
+    //       </label>
+    //       <input
+    //         required
+    //         type="text"
+    //         value={lastName}
+    //         onChange={(e) => setLastName(e.target.value)}
+    //       />
+    //     </div>
+    //     <div className="form-item">
+    //       <label>
+    //         Email<span className="required">*</span>
+    //       </label>
+    //       <input
+    //         type="text"
+    //         value={email}
+    //         onChange={(e) => setEmail(e.target.value)}
+    //         required
+    //       />
+    //     </div>
+    //     <div className="form-item">
+    //       <label>
+    //         Mailing Address<span className="required">*</span>
+    //       </label>
+    //       <input
+    //         type="text"
+    //         value={address}
+    //         onChange={(e) => setAddress(e.target.value)}
+    //         required
+    //       />
+    //     </div>
+    //     <div className="form-item">
+    //       <label>
+    //         Phone Number<span className="required">*</span>
+    //       </label>
+    //       <input
+    //         required
+    //         type="text"
+    //         value={phone}
+    //         onChange={(e) => setPhone(e.target.value)}
+    //       />
+    //     </div>
+    //     <div className="form-item">
+    //       <label>
+    //         Please check the boxes below to indicate that you meet each of the
+    //         following program requirements: <span className="required">*</span>
+    //       </label>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="checkbox"
+    //           onChange={(e) =>
+    //             setRequirements((current) => ({
+    //               ...current,
+    //               eighteen: e.target.checked,
+    //             }))
+    //           }
+    //         />
+    //         <label>I am at least 18 years of age</label>
+    //       </div>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="checkbox"
+    //           onChange={(e) =>
+    //             setRequirements((current) => ({
+    //               ...current,
+    //               eligible: e.target.checked,
+    //             }))
+    //           }
+    //         />
+    //         <label>I am legally eligible to work in the United States</label>
+    //       </div>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="checkbox"
+    //           onChange={(e) =>
+    //             setRequirements((current) => ({
+    //               ...current,
+    //               available: e.target.checked,
+    //             }))
+    //           }
+    //         />
+    //         <label>
+    //           I am available to attend during the designated hours for the
+    //           entirety of the program: August 11 - September 12
+    //         </label>
+    //       </div>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="checkbox"
+    //           onChange={(e) =>
+    //             setRequirements((current) => ({
+    //               ...current,
+    //               able: e.target.checked,
+    //             }))
+    //           }
+    //         />
+    //         <label>
+    //           I am able to stand up to 4 hours and lift up to 25 lbs
+    //         </label>
+    //       </div>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="checkbox"
+    //           onChange={(e) =>
+    //             setRequirements((current) => ({
+    //               ...current,
+    //               english: e.target.checked,
+    //             }))
+    //           }
+    //         />
+    //         <label>
+    //           I have basic understanding of English to follow instructions.
+    //         </label>
+    //       </div>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="checkbox"
+    //           onChange={(e) =>
+    //             setRequirements((current) => ({
+    //               ...current,
+    //               transportation: e.target.checked,
+    //             }))
+    //           }
+    //         />
+    //         <label>
+    //           I have reliable transportation for the duration of the program,
+    //           including access to public transportation.
+    //         </label>
+    //       </div>
+    //     </div>
 
-        <div className="form-item">
-          <label>
-            Do you have access to a computer and reliable internet?
-            <span className="required">*</span>
-          </label>
-          <div className="form-checkbox">
-            <input
-              type="radio"
-              name="internet"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setInternet(true);
-                }
-              }}
-            />
-            <label>Yes</label>
-          </div>
-          <div className="form-checkbox">
-            <input
-              type="radio"
-              name="internet"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setInternet(false);
-                }
-              }}
-            />
-            <label>
-              No (I would like to use computer facilities at Community Kitchens
-              Central Kitchen)
-            </label>
-          </div>
-        </div>
+    //     <div className="form-item">
+    //       <label>
+    //         Do you have access to a computer and reliable internet?
+    //         <span className="required">*</span>
+    //       </label>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="radio"
+    //           name="internet"
+    //           onChange={(e) => {
+    //             if (e.target.checked) {
+    //               setInternet(true);
+    //             }
+    //           }}
+    //         />
+    //         <label>Yes</label>
+    //       </div>
+    //       <div className="form-checkbox">
+    //         <input
+    //           type="radio"
+    //           name="internet"
+    //           onChange={(e) => {
+    //             if (e.target.checked) {
+    //               setInternet(false);
+    //             }
+    //           }}
+    //         />
+    //         <label>
+    //           No (I would like to use computer facilities at Community Kitchens
+    //           Central Kitchen)
+    //         </label>
+    //       </div>
+    //     </div>
 
-        <div className="form-item">
-          <label>
-            Tell us a bit about yourself, why you're interested in the CK
-            Culinary Training Program, and what goals you have for the future.
-            <span className="required">*</span>
-          </label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
+    //     <div className="form-item">
+    //       <label>
+    //         Tell us a bit about yourself, why you're interested in the CK
+    //         Culinary Training Program, and what goals you have for the future.
+    //         <span className="required">*</span>
+    //       </label>
+    //       <textarea
+    //         value={description}
+    //         onChange={(e) => setDescription(e.target.value)}
+    //       />
+    //     </div>
 
-        <div className="form-item">
-          <label>
-            How did you hear about this program?
-            <span className="required">*</span>
-          </label>
-          <input
-            type="text"
-            value={source}
-            onChange={(e) => setSource(e.target.value)}
-          />
-        </div>
-        {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
-      </form>
-    </>
+    //     <div className="form-item">
+    //       <label>
+    //         How did you hear about this program?
+    //         <span className="required">*</span>
+    //       </label>
+    //       <input
+    //         type="text"
+    //         value={source}
+    //         onChange={(e) => setSource(e.target.value)}
+    //       />
+    //     </div>
+    //     {isLoading ? <Loading /> : <input type="submit" value="Submit" />}
+    //   </form>
+    // </>
   );
 };
 

@@ -251,8 +251,8 @@ describe("signed up for shift", () => {
 
     const calLink = await screen.findByText(/calendar/i);
     await userEvent.click(calLink);
-    // const arrow = await screen.findByText(/→/);
-    // await userEvent.click(arrow);
+    const arrow = await screen.findByText(/→/);
+    await userEvent.click(arrow);
     const jobLink = await screen.findByText(/signed up/i);
     expect(jobLink).toBeDefined();
 
