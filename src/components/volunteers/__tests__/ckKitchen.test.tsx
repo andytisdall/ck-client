@@ -95,7 +95,6 @@ describe("volunteer not found", () => {
       path: "/volunteers/hours/:campaignId/:contactId",
       res: async () => [hours],
     },
-    { path: "/sign/config", res: async () => ({ limitReached: false }) },
   ]);
 
   test("navigate to CK Kitchen home", async () => {
@@ -227,7 +226,6 @@ describe("signed up for shift", () => {
       method: "delete",
       res: async () => null,
     },
-    { path: "/sign/config", res: async () => ({ limitReached: false }) },
   ]);
 
   test("see signed up shift", async () => {
@@ -251,8 +249,8 @@ describe("signed up for shift", () => {
 
     const calLink = await screen.findByText(/calendar/i);
     await userEvent.click(calLink);
-    // const arrow = await screen.findByText(/→/);
-    // await userEvent.click(arrow);
+    const arrow = await screen.findByText(/→/);
+    await userEvent.click(arrow);
     const jobLink = await screen.findByText(/signed up/i);
     expect(jobLink).toBeDefined();
 

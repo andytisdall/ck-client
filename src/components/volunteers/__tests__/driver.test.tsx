@@ -226,7 +226,6 @@ describe("sign up", () => {
       path: "/volunteers/hours/:contactId",
       res: async () => [],
     },
-    { path: "/sign/config", res: async () => ({ limitReached: false }) },
     {
       path: "/volunteers/hours",
       method: "post",
