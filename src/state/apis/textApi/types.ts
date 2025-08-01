@@ -1,8 +1,8 @@
-export type Region = "WEST_OAKLAND" | "EAST_OAKLAND";
+export type Region = "WEST_OAKLAND" | "EAST_OAKLAND" | "BERKELEY";
 
 export interface SendTextBody {
   message: string;
-  region: Region | "East Oakland" | "West Oakland" | "both";
+  region: Region | "East Oakland" | "West Oakland" | "Berkeley" | "all";
   photo?: string | File;
   feedbackId?: string;
   number?: string;

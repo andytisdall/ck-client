@@ -17,10 +17,18 @@ import Loading from "../reusable/loading/Loading";
 const CampaignBase = () => {
   const { campaignId } = useParams();
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
-  const campaign = campaigns?.find(
-    (c) =>
-      c.id === campaignId || c.id.substring(0, c.id.length - 3) === campaignId
-  );
+  const campaign = campaigns?.find((c) => c.id === campaignId);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const shortenedCampaign = campaigns?.find(
+      (c) => c.id.substring(0, c.id.length - 3) === campaignId
+    );
+    if (shortenedCampaign) {
+      navigate("../" + shortenedCampaign.id);
+    }
+  }, [campaignId, campaigns, navigate]);
 
   const navigate = useNavigate();
 
