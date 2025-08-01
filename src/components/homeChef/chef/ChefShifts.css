@@ -1,8 +1,9 @@
 .chef-hours {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  border-bottom: 1px solid black;
 }
 
 .chef-hours h3 {
@@ -10,19 +11,18 @@
 }
 
 .chef-hours-list {
-  transition: all .4s;
+  transition: all 0.4s;
 }
-
 
 .chef-hours-list-closed {
   margin: 0;
-  transform: scaleY(.5);
+  transform: scaleY(0.5);
 }
 
 .chef-hours-title {
   display: flex;
   align-items: center;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   width: fit-content;
   margin-right: 1rem;
 }
@@ -34,25 +34,28 @@
 }
 
 .chef-hours-info {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 8rem;
+  box-sizing: border-box;
 }
 
 .chef-hours-meals {
   background-color: rgba(255, 225, 0, 0.58);
   padding: 5px 7px;
   border-radius: 25px;
+  text-align: center;
 }
 
 .chef-hours-edit {
   margin-left: 1rem;
-  background-color:rgba(153, 53, 247, 0.346);
+  background-color: rgba(153, 53, 247, 0.346);
   padding: 5px 7px;
-  font-size: .7rem;
+  font-size: 0.7rem;
   border-radius: 25px;
+  border: 1px solid rgb(54, 54, 54);
 }
 
 .chef-total-meals {
@@ -68,13 +71,18 @@
   display: flex;
 }
 
-
 .chef-images {
   max-width: 40%;
   margin-left: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.edit-chef-type {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  display: block;
 }
 
 @media (max-width: 650px) {
@@ -97,6 +105,6 @@
 .chef-signup-link {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  padding: 1.2rem .8rem;
+  padding: 1.2rem 0.8rem;
   background-color: rgba(255, 225, 0, 0.567);
 }

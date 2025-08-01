@@ -31,7 +31,7 @@ const EditShift = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit: FormEventHandler = (e) => {
+  const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     if ((!mealCount || parseInt(mealCount, 10) < 1) && !cancel) {
       throw Error("Invalid number of meals");
@@ -39,13 +39,18 @@ const EditShift = () => {
     if (jobs) {
       const fridge = jobs.find((j) => j.id === hour?.job)?.name;
       if (id && fridge && hour && mealType)
-        editHours({ id, mealCount, cancel, fridge, date: hour.time, mealType })
-          .unwrap()
-          .then(() => {
-            const action = cancel ? "Canceled" : "Edited";
-            dispatch(setAlert("Delivery " + action));
-            navigate("..");
-          });
+        await editHours({
+          id,
+          mealCount,
+          cancel,
+          fridge,
+          date: hour.time,
+          mealType,
+        }).unwrap();
+
+      const action = cancel ? "Canceled" : "Edited";
+      dispatch(setAlert("Delivery " + action));
+      navigate("..");
     }
   };
 
@@ -103,33 +108,37 @@ const EditShift = () => {
             required
           />
         </div>
-        <div className="edit-chef-type">
+        <div>
           Type of Meal:
-          <div>
-            <input
-              type="radio"
-              name="meal-type"
-              id="entree"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setMealType("Entree");
-                }
-              }}
-            />
-            <label htmlFor="entree">Entree</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="meal-type"
-              id="soup"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setMealType("Soup");
-                }
-              }}
-            />
-            <label htmlFor="soup">Soup</label>
+          <div className="edit-chef-type">
+            <div>
+              <input
+                type="radio"
+                name="meal-type"
+                id="entree"
+                checked={mealType === "Entree"}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setMealType("Entree");
+                  }
+                }}
+              />
+              <label htmlFor="entree">Entree</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="meal-type"
+                id="soup"
+                checked={mealType === "Soup"}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setMealType("Soup");
+                  }
+                }}
+              />
+              <label htmlFor="soup">Soup</label>
+            </div>
           </div>
         </div>
         {renderCancel()}
