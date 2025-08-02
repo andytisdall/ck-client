@@ -47,7 +47,7 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
           <div className="calendar-date-number">
             {format(utcToZonedTime(d, "America/Los_Angeles"), "d")}
           </div>
-          <div className="calendar-date-body">{items}</div>
+          {items}
         </div>
       );
     });
@@ -105,7 +105,7 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
           </button>
         </div>
       </div>
-      <div>{calendar()}</div>
+      {calendar()}
     </div>
   );
 };

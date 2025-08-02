@@ -108,7 +108,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
                   }
                 }}
               />
-              <label htmlFor="to-3">East & West Oakland</label>
+              <label htmlFor="to-3">All Regions</label>
             </div>
 
             <div className="send-text-variables-radio">
@@ -118,6 +118,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
                 name="to"
                 type="radio"
                 ref={numberRef}
+                defaultChecked={!!replyTo?.sender}
                 onChange={(e) => {
                   if (e.target.checked && numberTextRef.current) {
                     const ref = numberTextRef.current as HTMLInputElement;

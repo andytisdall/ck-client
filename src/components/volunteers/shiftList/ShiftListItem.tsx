@@ -24,7 +24,7 @@ const ShiftListItem = ({
   if (bookedHoursId) {
     linkUrl = `../../confirm/${contactId}/${bookedHoursId}`;
   } else if (shift.open) {
-    linkUrl = shift.id;
+    linkUrl = "../" + shift.id;
   }
 
   const driverCampaign = campaign.id === config.deliveryDrivers.id;

@@ -30,17 +30,6 @@ const CampaignBase = () => {
     }
   }, [campaignId, campaigns, navigate]);
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const shortenedCampaign = campaigns?.find(
-      (c) => c.id.substring(0, c.id.length - 3) === campaignId
-    );
-    if (shortenedCampaign) {
-      navigate("../" + shortenedCampaign.id);
-    }
-  }, [campaignId, campaigns, navigate]);
-
   const driver = campaign?.id === config.deliveryDrivers.id;
   const event = !!campaign?.startDate;
 
@@ -126,7 +115,7 @@ const CampaignBase = () => {
     return (
       <div className="volunteers-body">
         <div className="volunteers-shift-signup-links">
-          <NavLink className={navLink} to={`/volunteers/signup/${campaignId}`}>
+          <NavLink className={navLink} to="list">
             List
           </NavLink>
           <NavLink className={navLink} to="cal">

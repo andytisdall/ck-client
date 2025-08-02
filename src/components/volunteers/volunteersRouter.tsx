@@ -1,5 +1,5 @@
-import { lazy } from "react";
-import { Outlet, RouteObject, Link } from "react-router-dom";
+import { lazy, useEffect } from "react";
+import { Outlet, RouteObject, Link, useNavigate } from "react-router-dom";
 
 import "./Volunteers.css";
 import renderWithFallback from "../reusable/loading/renderWithFallback";
@@ -31,6 +31,14 @@ const VolunteersBase = () => {
   );
 };
 
+const RedirectSignup = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("list");
+  }, [navigate]);
+  return <></>;
+};
+
 const volunteersRouter: RouteObject = {
   path: "volunteers",
   element: <VolunteersBase />,
@@ -55,6 +63,10 @@ const volunteersRouter: RouteObject = {
           children: [
             {
               index: true,
+              element: <RedirectSignup />,
+            },
+            {
+              path: "list",
               element: renderWithFallback(<JobListBase />),
             },
 
