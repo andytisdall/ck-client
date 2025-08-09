@@ -1,34 +1,34 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import App from '../../../App';
-import { Root } from '../../../setupTests';
-import { User } from '../../../state/apis/authApi';
-import { createServer } from '../../../test/createServer';
+import App from "../../../App";
+import { Root } from "../../../setupTests";
+import { User } from "../../../state/apis/authApi";
+import { createServer } from "../../../test/createServer";
 
 const adminUser: User = {
-  username: 'bojee',
-  id: 'failjrse48jf48',
+  username: "bojee",
+  id: "failjrse48jf48",
   admin: true,
-  salesforceId: 'f4s9jf4s9j',
+  salesforceId: "f4s9jf4s9j",
   active: true,
 };
 
 const user: User = {
-  username: 'chompy',
-  id: '48yrf848fy48',
+  username: "chompy",
+  id: "48yrf848fy48",
   admin: false,
-  salesforceId: 'd093900',
+  salesforceId: "d093900",
   active: true,
 };
 
-describe('admin', () => {
+describe("admin", () => {
   createServer([
-    { path: '/user', res: async () => adminUser },
-    { path: '/meal-program/restaurant', res: async () => null },
+    { path: "/user", res: async () => adminUser },
+    { path: "/meal-program/restaurant", res: async () => null },
   ]);
 
-  test('can see admin btns if admin', async () => {
+  test("can see admin btns if admin", async () => {
     render(<App />, { wrapper: Root });
 
     const adminBtn = await screen.findAllByText(/admin/i);
@@ -42,10 +42,10 @@ describe('admin', () => {
   });
 });
 
-describe('not admin', () => {
-  createServer([{ path: '/user', res: async () => user }]);
+describe("not admin", () => {
+  createServer([{ path: "/user", res: async () => user }]);
 
-  test('rejected if not admin', async () => {
+  test("rejected if not admin", async () => {
     render(<App />, { wrapper: Root });
 
     const unauthorizedMessage = await screen.findByText(

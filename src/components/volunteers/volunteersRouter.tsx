@@ -1,5 +1,5 @@
-import { lazy, useEffect } from "react";
-import { Outlet, RouteObject, Link, useNavigate } from "react-router-dom";
+import { lazy } from "react";
+import { Outlet, RouteObject, Link, Navigate } from "react-router-dom";
 
 import "./Volunteers.css";
 import renderWithFallback from "../reusable/loading/renderWithFallback";
@@ -31,14 +31,6 @@ const VolunteersBase = () => {
   );
 };
 
-const RedirectSignup = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate("list");
-  }, [navigate]);
-  return <></>;
-};
-
 const volunteersRouter: RouteObject = {
   path: "volunteers",
   element: <VolunteersBase />,
@@ -63,7 +55,7 @@ const volunteersRouter: RouteObject = {
           children: [
             {
               index: true,
-              element: <RedirectSignup />,
+              element: <Navigate replace to="list" />,
             },
             {
               path: "list",
@@ -90,6 +82,19 @@ const volunteersRouter: RouteObject = {
         },
         {
           path: ":doc/:contactId/:hoursId",
+          element: renderWithFallback(<Sign />),
+        },
+      ],
+    },
+    {
+      path: "mobile-meal-team/sign",
+      children: [
+        {
+          path: "success/",
+          element: renderWithFallback(<SignSuccess returnLink="/volunteers" />),
+        },
+        {
+          path: ":doc/:contactId",
           element: renderWithFallback(<Sign />),
         },
       ],

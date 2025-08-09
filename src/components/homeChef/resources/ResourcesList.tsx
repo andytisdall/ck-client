@@ -1,13 +1,12 @@
-import TextButton from '../../reusable/TextButton';
-import './Resources.css';
+import TextButton from "../../reusable/TextButton";
 
 const recipesDescription =
   "Browse the CK recipe library, featuring dishes from some of Oakland's most beloved restaurants and some of our top home chefs, or add a recipe of your own.";
 
 const slackDescription =
-  'Our Slack channel is a message board where Home Chefs can ask questions, share info, and communicate with Community Kitchens staff.';
+  "Our Slack channel is a message board where Home Chefs can ask questions, share info, and communicate with Community Kitchens staff.";
 
-const labelDescription = 'Print out labels to put on your meal packaging.';
+const labelDescription = "Print out labels to put on your meal packaging.";
 
 const ResourcesList = () => {
   return (

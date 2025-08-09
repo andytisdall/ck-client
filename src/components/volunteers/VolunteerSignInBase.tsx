@@ -1,5 +1,4 @@
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { Link, Outlet, Navigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import "./Volunteers.css";
@@ -20,8 +19,6 @@ const VolunteerSignInBase = () => {
     (state: RootState) => state.volunteer.volunteer
   );
 
-  const navigate = useNavigate();
-
   const driverCampaign = campaignId === config.deliveryDrivers.id;
   const invalidDriver =
     driverCampaign &&
@@ -32,12 +29,6 @@ const VolunteerSignInBase = () => {
       !driver.licenseExpiration ||
       new Date() > new Date(driver.insuranceExpiration) ||
       new Date() > new Date(driver.licenseExpiration));
-
-  useEffect(() => {
-    if (invalidDriver) {
-      navigate("../driver-onboarding");
-    }
-  }, [invalidDriver, navigate]);
 
   if (userIsLoading || driverIsLoading) {
     return <Loading />;
@@ -62,6 +53,10 @@ const VolunteerSignInBase = () => {
         </p>
       </div>
     );
+  }
+
+  if (invalidDriver) {
+    return <Navigate replace to="../driver-onboarding" />;
   }
 
   return <Outlet />;

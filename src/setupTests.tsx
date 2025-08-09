@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./state/store";
 
 jest.mock("@react-oauth/google");
+jest.mock("react-barcode-scanner/polyfill");
 
 export const Root = ({ children }: PropsWithChildren) => {
   return <Provider store={store}>{children}</Provider>;

@@ -1,11 +1,11 @@
-import { Link, useParams } from 'react-router-dom';
-import { format, utcToZonedTime } from 'date-fns-tz';
+import { Link, useParams } from "react-router-dom";
+import { format, utcToZonedTime } from "date-fns-tz";
 
-import Loading from '../../reusable/loading/Loading';
+import Loading from "../../reusable/loading/Loading";
 import {
   useGetHomeChefHoursQuery,
   useGetShiftsQuery,
-} from '../../../state/apis/volunteerApi/homeChefApi';
+} from "../../../state/apis/volunteerApi/homeChefApi";
 
 const Confirmation = () => {
   const { hoursId } = useParams();
@@ -24,21 +24,31 @@ const Confirmation = () => {
           <p>You have successfully signed up for this shift:</p>
           <ul>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Date:</span>{' '}
+              <span className="hc-confirm-title">Date:</span>{" "}
               {format(
-                utcToZonedTime(hour.time, 'America/Los_Angeles'),
-                'eeee, M/d/yy'
+                utcToZonedTime(hour.time, "America/Los_Angeles"),
+                "eeee, M/d/yy"
               )}
             </li>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Fridge:</span> {job.name}
             </li>
+            {!!job.location && (
+              <li className="hc-confirm-item">
+                <span className="hc-confirm-title">Location:</span>{" "}
+                {job.location}
+                {!!job.locationCity && ", " + job.locationCity}{" "}
+                {!!job.notes && <p> {job.notes}</p>}
+              </li>
+            )}
+
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Location:</span> {job.location}
+              <span className="hc-confirm-title">Number of Meals:</span>{" "}
+              {hour.mealCount}
             </li>
             <li className="hc-confirm-item">
-              <span className="hc-confirm-title">Number of Meals:</span>{' '}
-              {hour.mealCount}
+              <span className="hc-confirm-title">Type of Meal:</span>{" "}
+              {hour.mealType}
             </li>
           </ul>
           <p>You have been sent an email with this information.</p>

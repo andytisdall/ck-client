@@ -1,9 +1,10 @@
 import { format } from "date-fns";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-import "./MealReport.css";
-import { useLazyGetMealsQuery } from "../../../state/apis/mealProgramApi/doorfrontApi";
-import Loading from "../../reusable/loading/Loading";
+import "../DoorfrontReport.css";
+import { useLazyGetMealsQuery } from "../../../../state/apis/mealProgramApi/doorfrontApi";
+import Loading from "../../../reusable/loading/Loading";
 import { useEffect, useState } from "react";
 import MealReportRow from "./MealReportRow";
 
@@ -15,6 +16,8 @@ const MealReport = () => {
   const [endDate, setEndDate] = useState(today);
 
   const [getMeals, { data: meals, isFetching }] = useLazyGetMealsQuery();
+
+  const navigate = useNavigate();
 
   const checkAllRef = useRef<HTMLInputElement>(null);
 
@@ -101,6 +104,11 @@ const MealReport = () => {
         {renderMeals()}
       </div>
       <button onClick={() => {}}>Log Selected</button>
+      <div className="doorfront-submit-row">
+        <button className="cancel" onClick={() => navigate("..")}>
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

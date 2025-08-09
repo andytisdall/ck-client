@@ -58,8 +58,9 @@
 
 .main {
   padding: 1rem;
-  min-height: 100vh;
   height: fit-content;
+  min-height: 100vh;
+
   padding-bottom: 5rem;
   min-width: fit-content;
 }

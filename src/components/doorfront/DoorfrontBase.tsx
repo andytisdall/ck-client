@@ -16,12 +16,14 @@ const DoorfrontBase = () => {
   }
 
   return (
-    <div className="main doorfront-base">
-      <div className="check-in-header-container">
-        <h1>CK Kitchen Doorfront</h1>
+    <main>
+      <div className="main doorfront-base">
+        <div className="check-in-header-container">
+          <h1>CK Kitchen Doorfront</h1>
+        </div>
+        <Outlet />
       </div>
-      <Outlet />
-    </div>
+    </main>
   );
 };
 

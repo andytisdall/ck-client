@@ -6,8 +6,16 @@ const signApi = api.injectEndpoints({
       { signingUrl: string },
       { doc?: string; contactId?: string; hoursId?: string }
     >({
-      query: ({ doc, contactId, hoursId }) =>
-        `/sign/${doc}${contactId ? `/${hoursId}/${contactId}` : ""}`,
+      query: ({ doc, contactId, hoursId }) => {
+        let url = "/sign/" + doc;
+        if (contactId) {
+          url += "/" + contactId;
+        }
+        if (hoursId) {
+          url += "/" + hoursId;
+        }
+        return url;
+      },
     }),
   }),
 });

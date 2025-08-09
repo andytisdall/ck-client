@@ -22,14 +22,34 @@ interface GetClientMealsResponse {
 
 export interface Client {
   id: string;
-  cCode: string;
-  barcode: string;
+  cCode?: string;
+  barcode?: string;
 }
 
 const doorfrontApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    scan: builder.query<
+      GetClientMealsResponse,
+      { scanValue: string; cCode: boolean }
+    >({
+      query: ({ scanValue, cCode }) =>
+        cCode
+          ? "/meal-program/doorfront/client/lookup-by-client-number/" +
+            scanValue
+          : "/meal-program/doorfront/scan/" + scanValue,
+      providesTags: ["Doorfront"],
+    }),
+    lookupByClientNumber: builder.query<GetClientMealsResponse, string>({
+      query: (cCode) =>
+        "/meal-program/doorfront/client/lookup-by-client-numeber/" + +cCode,
+      providesTags: ["Doorfront"],
+    }),
     getClient: builder.query<GetClientMealsResponse, string>({
-      query: (clientId) => "/meal-program/doorfront/" + clientId,
+      query: (id) => "/meal-program/doorfront/client/" + id,
+      providesTags: ["Doorfront"],
+    }),
+    getClients: builder.query<Client[], void>({
+      query: () => "/meal-program/doorfront/clients",
       providesTags: ["Doorfront"],
     }),
     addMeals: builder.mutation<null, AddMealsArgs>({
@@ -48,8 +68,48 @@ const doorfrontApi = api.injectEndpoints({
         "/meal-program/doorfront/meals/" + startDate + "&" + endDate,
       providesTags: ["Doorfront"],
     }),
+    editClient: builder.mutation<null, Client>({
+      query: (body) => ({
+        url: "/meal-program/doorfront/client/" + body.id,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["Doorfront"],
+    }),
+    editMeal: builder.mutation<null, Client>({
+      query: (body) => ({
+        url: "/meal-program/doorfront/meal/" + body.id,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["Doorfront"],
+    }),
+    deleteClient: builder.mutation<null, string>({
+      query: (id) => ({
+        url: "/meal-program/doorfront/client/" + id,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Doorfront"],
+    }),
+    deleteMeal: builder.mutation<null, string>({
+      query: (id) => ({
+        url: "/meal-program/doorfront/meal/" + id,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Doorfront"],
+    }),
   }),
 });
 
-export const { useGetClientQuery, useAddMealsMutation, useLazyGetMealsQuery } =
-  doorfrontApi;
+export const {
+  useScanQuery,
+  useGetClientQuery,
+  useAddMealsMutation,
+  useLazyGetMealsQuery,
+  useEditClientMutation,
+  useEditMealMutation,
+  useGetClientsQuery,
+  useDeleteClientMutation,
+  useDeleteMealMutation,
+  useLazyLookupByClientNumberQuery,
+} = doorfrontApi;

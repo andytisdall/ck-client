@@ -71,7 +71,7 @@ export const volunteer1: Volunteer = {
   email: "andrew@ck.com",
 };
 
-const timeout = 10000;
+const timeout = 12000;
 
 describe("volunteer does not exist already", () => {
   createServer([

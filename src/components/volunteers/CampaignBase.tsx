@@ -1,12 +1,5 @@
-import {
-  NavLink,
-  Outlet,
-  useParams,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, Outlet, useParams, Link, Navigate } from "react-router-dom";
 import { utcToZonedTime, format } from "date-fns-tz";
-import { useEffect } from "react";
 
 import "./Volunteers.css";
 import { navLink } from "../../utils/style";
@@ -18,17 +11,6 @@ const CampaignBase = () => {
   const { campaignId } = useParams();
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
   const campaign = campaigns?.find((c) => c.id === campaignId);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const shortenedCampaign = campaigns?.find(
-      (c) => c.id.substring(0, c.id.length - 3) === campaignId
-    );
-    if (shortenedCampaign) {
-      navigate("../" + shortenedCampaign.id);
-    }
-  }, [campaignId, campaigns, navigate]);
 
   const driver = campaign?.id === config.deliveryDrivers.id;
   const event = !!campaign?.startDate;
@@ -67,6 +49,13 @@ const CampaignBase = () => {
   }
 
   if (!campaign) {
+    const shortenedCampaign = campaigns?.find(
+      (c) => c.id.substring(0, c.id.length - 3) === campaignId
+    );
+    if (shortenedCampaign) {
+      return <Navigate replace to={`../${shortenedCampaign.id}`} />;
+    }
+
     if (event) {
       return (
         <h2>

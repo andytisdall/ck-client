@@ -9,15 +9,14 @@
 
 .calendar {
   display: grid;
-  grid-template-columns: repeat(7, 14%);
-  grid-auto-rows: minmax(14%, max-content);
+  grid-template-columns: repeat(7, 1fr);
   min-width: fit-content;
   width: 100%;
 }
 
 .calendar-days {
   display: grid;
-  grid-template-columns: repeat(7, 14%);
+  grid-template-columns: repeat(7, 1fr);
   grid-template-rows: max-content;
   width: 100%;
 }
@@ -36,6 +35,7 @@
   background-color: rgba(255, 255, 255, 0.291);
   width: 100%;
   box-sizing: border-box;
+  min-height: 15vw;
 }
 
 .calendar-date-number {
@@ -99,92 +99,47 @@
   word-wrap: break-word;
 }
 
-.calendar-color-0 {
-  background-color: rgb(193, 255, 193);
+.calendar-item:hover {
+  filter: brightness(1.2);
 }
 
-.calendar-color-0:hover {
-  background-color: rgb(157, 225, 157);
+.calendar-color-0 {
+  background-color: pink;
 }
 
 .calendar-color-1 {
-  background-color: rgb(255, 197, 255);
-}
-
-.calendar-color-1:hover {
-  background-color: rgb(255, 230, 255);
+  background-color: purple;
+  color: white;
 }
 
 .calendar-color-2 {
-  background-color: rgb(193, 199, 255);
-}
-
-.calendar-color-2:hover {
-  background-color: rgb(159, 157, 225);
+  background-color: orange;
 }
 
 .calendar-color-3 {
-  background-color: rgb(255, 212, 197);
-}
-
-.calendar-color-3:hover {
-  background-color: rgb(255, 238, 230);
+  background-color: rgb(118, 244, 118);
 }
 
 .calendar-color-4 {
-  background-color: rgb(248, 255, 193);
-}
-
-.calendar-color-4:hover {
-  background-color: rgb(225, 219, 157);
+  background-color: rgb(92, 92, 242);
+  color: white;
 }
 
 .calendar-color-5 {
-  background-color: rgb(137, 255, 229);
-}
-
-.calendar-color-5:hover {
-  background-color: rgb(255, 230, 234);
+  background-color: yellow;
 }
 
 .calendar-color-6 {
-  background-color: rgb(34, 255, 222);
-}
-
-.calendar-color-6:hover {
-  background-color: rgb(175, 252, 240);
+  background-color: turquoise;
 }
 
 .calendar-color-7 {
-  background-color: rgb(255, 197, 255);
-}
-
-.calendar-color-7:hover {
-  background-color: rgb(255, 230, 255);
+  background-color: rgb(131, 19, 19);
+  color: white;
 }
 
 .calendar-color-8 {
-  background-color: rgb(193, 199, 255);
-}
-
-.calendar-color-8:hover {
-  background-color: rgb(159, 157, 225);
-}
-
-.calendar-color-9 {
-  background-color: rgb(237, 121, 67);
-}
-
-.calendar-color-9:hover {
-  background-color: rgb(250, 195, 170);
-}
-
-.calendar-color-10 {
-  background-color: rgb(244, 80, 208);
-}
-
-.calendar-color-10:hover {
-  background-color: rgb(249, 174, 233);
+  background-color: rgb(190, 192, 65);
 }
 
 .calendar-set-current {

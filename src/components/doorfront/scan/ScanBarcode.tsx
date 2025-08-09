@@ -13,38 +13,22 @@ const ScanBarcode = () => {
 
   const navigate = useNavigate();
 
-  // manually entered (missing 0s)
-
   // scanned with camera or scanner
-  // scanned with C code
   // scanned with long code
 
-  const processScan = (scanValue: string) => {
-    if (scanValue.includes("C")) {
-      const id = scanValue.replace(/[^a-zA-Z0-9 ]/g, "");
-      navigate(id);
-    } else {
-      navigate(scanValue);
-    }
-  };
-
-  const submitManual = () => {
-    navigate(clientId);
-  };
+  // manually typed with the client id (not the barcode)
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    if (entryType === "manual") {
-      return submitManual();
-    }
+
     if (entryType === "external") {
       const scannerInputValue = scannerInputRef.current?.value;
       if (scannerInputValue) {
-        return processScan(scannerInputValue);
+        navigate(scannerInputValue);
       }
     }
-    if (entryType === "camera") {
-      return processScan(clientId);
+    if (entryType === "manual") {
+      navigate(clientId + "?cCode=true");
     }
   };
 
@@ -105,6 +89,7 @@ const ScanBarcode = () => {
           autoFocus
           className="doorfront-scan-input"
           ref={scannerInputRef}
+          data-testid="scanner"
         />
       </div>
     );
@@ -152,6 +137,11 @@ const ScanBarcode = () => {
       </form>
       {renderMode()}
       {renderNav()}
+      <div className="doorfront-submit-row">
+        <button className="cancel" onClick={() => navigate("..")}>
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

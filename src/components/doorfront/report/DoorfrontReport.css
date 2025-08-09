@@ -1,8 +1,7 @@
 .meal-report {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-  margin-left: 2rem;
+  margin: 2rem;
 }
 
 .meal-report-row {

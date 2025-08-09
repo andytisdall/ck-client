@@ -22,7 +22,7 @@ const ShiftListItem = ({
   const { data: driver } = useGetDriverQuery();
   let linkUrl = "";
   if (bookedHoursId) {
-    linkUrl = `../../confirm/${contactId}/${bookedHoursId}`;
+    linkUrl = `../../../confirm/${contactId}/${bookedHoursId}`;
   } else if (shift.open) {
     linkUrl = "../" + shift.id;
   }
