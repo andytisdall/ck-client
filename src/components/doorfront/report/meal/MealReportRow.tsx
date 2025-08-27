@@ -1,14 +1,6 @@
-import { format } from "date-fns";
-
 import { ClientMeal } from "../../../../state/apis/mealProgramApi/doorfrontApi";
-
-export const formatMealDate = (date: string) => {
-  const dateArray = new Date(date).toUTCString().split(" ");
-  return format(
-    new Date([dateArray[1], dateArray[2], dateArray[3]].join(" ")),
-    "M/d/yy"
-  );
-};
+import { formatMealDate } from "../../doorfrontFunctions";
+import IncorrectId from "./IncorrectId";
 
 const MealReportRow = ({
   meal,
@@ -19,15 +11,14 @@ const MealReportRow = ({
   selected: boolean;
   setSelected: (checked: boolean) => void;
 }) => {
-  const clientId = meal.client.cCode;
-
+  const { client } = meal;
   const dateString = formatMealDate(meal.date);
 
   const renderCheck = () => {
     if (meal.logged) {
-      return <>&check;</>;
+      return <div className="meal-report-check">&#9989;</div>;
     }
-    if (clientId) {
+    if (client.cCode) {
       return (
         <input
           type="checkbox"
@@ -38,11 +29,26 @@ const MealReportRow = ({
     }
   };
   return (
-    <div className="meal-report-row">
-      <div className="meal-report-checkbox">{renderCheck()}</div>
-      <div className="meal-report-col">{dateString}</div>
-      <div className="meal-report-col">{meal.amount}</div>
-      <div className="meal-report-col">{clientId}</div>
+    <div className="meal-report-row-container">
+      <div className="meal-report-row">
+        <div className="meal-report-checkbox">{renderCheck()}</div>
+        <div className="meal-report-col">{dateString}</div>
+        <div className="meal-report-col">{meal.amount}</div>
+        <div className="meal-report-col">{client.barcode}</div>
+        <div
+          className="meal-report-col meal-report-col-clickable"
+          onClick={(e) => {
+            const text = e.currentTarget.textContent;
+            if (text) {
+              navigator.clipboard.writeText(text);
+              setSelected(true);
+            }
+          }}
+        >
+          {client.cCode}
+        </div>
+      </div>
+      <IncorrectId client={client} />
     </div>
   );
 };

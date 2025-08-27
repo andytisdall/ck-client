@@ -12,7 +12,7 @@ const EditUser = () => {
   const [user, setUser] = useState("");
   const [username, setUsername] = useState("");
   const [salesforceId, setSalesforceId] = useState("");
-  const [busDriver, setBusdriver] = useState<boolean>();
+  const [busDriver, setBusdriver] = useState<boolean>(false);
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -65,7 +65,7 @@ const EditUser = () => {
         setUser(usr.id);
         setUsername(usr.username);
         setSalesforceId(usr.salesforceId);
-        setBusdriver(usr.busDriver);
+        setBusdriver(usr.busDriver || false);
         setPassword1("");
         setPassword2("");
       } else {
@@ -121,7 +121,6 @@ const EditUser = () => {
           <input
             type="checkbox"
             checked={busDriver}
-            id="password2"
             onChange={(e) => setBusdriver(e.target.checked)}
           />
         </div>

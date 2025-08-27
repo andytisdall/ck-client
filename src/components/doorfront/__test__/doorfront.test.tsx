@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { subDays } from "date-fns";
+import { subDays, formatISO, getDate, addDays } from "date-fns";
 
 import App from "../../../App";
 import { User } from "../../../state/apis/authApi";
@@ -24,57 +24,26 @@ const client2: Client = {
 const clientMeals: ClientMeal[] = [
   {
     client: client,
-    date: new Date().toLocaleDateString(),
+    date: formatISO(new Date()),
     id: "903933",
     amount: 4,
     logged: false,
   },
 ];
 
-const clientMeals2: ClientMeal[] = [
-  {
+const clientMeals2: ClientMeal[] = [1, 2, 3, 4, 5, 6].map((i) => {
+  const today = getDate(new Date());
+  return {
     client: client,
-    date: subDays(new Date(), 1).toLocaleDateString(),
+    date:
+      today < 15
+        ? formatISO(subDays(new Date(), i))
+        : formatISO(addDays(new Date(), i)),
     id: "903933",
     amount: 5,
     logged: false,
-  },
-  {
-    client: client,
-    date: subDays(new Date(), 2).toLocaleDateString(),
-    id: "903933",
-    amount: 5,
-    logged: false,
-  },
-  {
-    client: client,
-    date: subDays(new Date(), 3).toLocaleDateString(),
-    id: "903933",
-    amount: 5,
-    logged: false,
-  },
-  {
-    client: client,
-    date: subDays(new Date(), 4).toLocaleDateString(),
-    id: "903933",
-    amount: 5,
-    logged: false,
-  },
-  {
-    client: client,
-    date: subDays(new Date(), 5).toLocaleDateString(),
-    id: "903933",
-    amount: 5,
-    logged: false,
-  },
-  {
-    client: client,
-    date: subDays(new Date(), 6).toLocaleDateString(),
-    id: "903933",
-    amount: 5,
-    logged: false,
-  },
-];
+  };
+});
 
 const adminUser: User = {
   username: "bojee",

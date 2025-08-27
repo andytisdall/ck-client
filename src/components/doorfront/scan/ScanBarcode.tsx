@@ -2,6 +2,7 @@ import { FormEventHandler, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { BarcodeScanner } from "react-barcode-scanner";
 import "react-barcode-scanner/polyfill";
+import Freebie from "./Freebie";
 
 const ScanBarcode = () => {
   const [clientId, setClientId] = useState("");
@@ -141,6 +142,7 @@ const ScanBarcode = () => {
         <button className="cancel" onClick={() => navigate("..")}>
           Cancel
         </button>
+        <Freebie />
       </div>
     </div>
   );

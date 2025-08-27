@@ -1,15 +1,6 @@
-import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 
 import { Client } from "../../../../state/apis/mealProgramApi/doorfrontApi";
-
-export const formatMealDate = (date: string) => {
-  const dateArray = new Date(date).toUTCString().split(" ");
-  return format(
-    new Date([dateArray[1], dateArray[2], dateArray[3]].join(" ")),
-    "M/d/yy"
-  );
-};
 
 const ClientReportRow = ({ client }: { client: Client }) => {
   const navigate = useNavigate();

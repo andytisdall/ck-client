@@ -18,6 +18,9 @@ const AdminHome = () => {
       <Link className="text-button-link admin-home-btn" to="/doorfront">
         Doorfront
       </Link>
+      <Link className="text-button-link admin-home-btn" to="home-chef-supplies">
+        Home Chef Supply Orders
+      </Link>
     </div>
   );
 };

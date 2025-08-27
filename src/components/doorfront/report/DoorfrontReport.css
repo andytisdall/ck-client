@@ -10,13 +10,21 @@
   width: fit-content;
 }
 
+.meal-report-row-container {
+  display: flex;
+}
+
 .meal-report-col {
   padding: 10px;
   display: flex;
-  width: 8rem;
+  width: 10rem;
   justify-content: flex-end;
-  text-align: right;
+  border-right: 1px solid rgba(255, 255, 255, 0.432);
   align-items: center;
+}
+
+.meal-report-header-col {
+  cursor: pointer;
 }
 
 .meal-report-checkbox {
@@ -24,7 +32,7 @@
   width: 1rem;
 }
 
-.meal-report-checkbox input {
+.meal-report-checkbox * {
   margin: 0;
   height: auto;
 }
@@ -44,4 +52,56 @@
   justify-content: center;
   align-items: center;
   font-weight: 600;
+}
+
+.meal-report-arrow {
+  margin-right: 0.5rem;
+}
+
+.meal-report-check {
+  display: flex;
+  align-items: center;
+}
+
+.meal-report-col-clickable {
+  cursor: pointer;
+}
+
+.meal-report-copied-alert {
+  background-color: white;
+  color: rgb(18, 88, 0);
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  margin-right: 1rem;
+}
+
+.meal-report-warning {
+  padding: 1rem;
+  color: yellow;
+}
+
+.meal-report-dots {
+  margin: 1rem;
+  font-size: 2rem;
+  border-radius: 25px;
+  height: 1.5rem;
+  width: 1.5rem;
+  transform: translateY(-20px);
+  cursor: pointer;
+}
+
+.meal-report-menu {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  background-color: white;
+  color: black;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.meal-report-menu-container {
+  position: relative;
+  width: 100%;
 }

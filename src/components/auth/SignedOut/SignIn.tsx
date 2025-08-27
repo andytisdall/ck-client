@@ -1,13 +1,13 @@
-import { FormEventHandler, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FormEventHandler, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import './SignIn.css';
-import Loading from '../../reusable/loading/Loading';
-import { useSignInMutation } from '../../../state/apis/authApi';
+import "./SignIn.css";
+import Loading from "../../reusable/loading/Loading";
+import { useSignInMutation } from "../../../state/apis/authApi";
 
 const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const [signIn, signInResult] = useSignInMutation();
 
@@ -19,7 +19,7 @@ const SignIn = () => {
       .unwrap()
       .then((user) => {
         if (!user.active) {
-          navigate('/user/change-password');
+          navigate("/user/change-password");
         }
       });
   };

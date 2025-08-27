@@ -1,0 +1,72 @@
+.supply-btn {
+  display: flex;
+  margin: 1rem 0;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.supply-btn-label {
+  margin-right: 1rem;
+}
+
+.supply-btn-label span {
+  display: block;
+  font-size: 1rem;
+}
+
+.home-chef-supplies {
+  padding: 2rem;
+}
+
+.supply-btn-toggle {
+  background-color: white;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-radius: 50px;
+  margin: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: -2px 3px 5px rgba(0, 0, 0, 0.583);
+}
+
+.supply-btn-toggle:active {
+  transform: translateY(5px);
+}
+
+.supply-btn-plus {
+  color: green;
+}
+
+.supply-btn-minus {
+  color: red;
+}
+
+.supply-btn-value {
+  width: 3rem;
+  text-align: center;
+}
+
+.supply-img {
+  width: 50%;
+  max-width: 500px;
+}
+
+.supply-info {
+  padding: 2rem;
+  line-height: 1.5rem;
+}
+
+.supply-controls {
+  display: flex;
+  align-items: center;
+}
+
+.supply-success {
+  background-color: rgba(114, 255, 114, 0.582);
+  padding: 0.5rem 0.7rem;
+}

@@ -15,6 +15,8 @@ import {
   HomeChefQuizQuestion,
   HomeChefQuizAnswer,
   HomeChefQuizResponse,
+  SupplyOrderInfo,
+  SupplyOrder,
 } from "./types";
 
 export const homeChefApi = api.injectEndpoints({
@@ -101,6 +103,29 @@ export const homeChefApi = api.injectEndpoints({
       },
       invalidatesTags: ["UserInfo"],
     }),
+    orderSupplies: builder.mutation<null, SupplyOrderInfo>({
+      query: (body) => ({ url: "/home-chef/ordering", body, method: "POST" }),
+      invalidatesTags: ["HomeChefSupplies"],
+    }),
+    getSupplyOrders: builder.query<SupplyOrder[], void>({
+      query: () => "/home-chef/ordering",
+      providesTags: ["HomeChefSupplies"],
+    }),
+    updateSupplyOrders: builder.mutation<null, { orders: string[] }>({
+      query: (body) => ({ url: "/home-chef/ordering", method: "PATCH", body }),
+      invalidatesTags: ["HomeChefSupplies"],
+    }),
+    createManualSupplyOrder: builder.mutation<
+      null,
+      { firstName: string; lastName: string; items: SupplyOrderInfo }
+    >({
+      query: (body) => ({
+        body,
+        url: "/home-chef/ordering/manual",
+        method: "POST",
+      }),
+      invalidatesTags: ["HomeChefSupplies"],
+    }),
   }),
 });
 
@@ -116,4 +141,8 @@ export const {
   useGetQuizQuestionsQuery,
   useSubmitQuizAnswersMutation,
   useUploadFoodHandlerCertificateMutation,
+  useOrderSuppliesMutation,
+  useGetSupplyOrdersQuery,
+  useUpdateSupplyOrdersMutation,
+  useCreateManualSupplyOrderMutation,
 } = homeChefApi;

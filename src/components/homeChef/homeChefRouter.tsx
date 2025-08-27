@@ -9,7 +9,6 @@ import signupRouter from "./shiftSignup/signupRouter";
 import resourcesRouter from "./resources/resourcesRouter";
 import inviteRouter from "./invite/inviteRouter";
 import chefRouter from "./chef/chefRouter";
-import suppliesRouter from "./supplies/suppliesRouter";
 
 const HomeChefHome = lazy(() => import("./HomeChefHome"));
 
@@ -23,7 +22,6 @@ const homeChefRouter = {
     signupRouter,
     chefRouter,
     resourcesRouter,
-    suppliesRouter,
   ],
 };
 

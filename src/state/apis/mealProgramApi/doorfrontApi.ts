@@ -24,6 +24,7 @@ export interface Client {
   id: string;
   cCode?: string;
   barcode?: string;
+  cCodeIncorrect?: boolean;
 }
 
 const doorfrontApi = api.injectEndpoints({
@@ -76,9 +77,9 @@ const doorfrontApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Doorfront"],
     }),
-    editMeal: builder.mutation<null, Client>({
+    logMeals: builder.mutation<null, { mealIds: string[] }>({
       query: (body) => ({
-        url: "/meal-program/doorfront/meal/" + body.id,
+        url: "/meal-program/doorfront/meals",
         method: "PATCH",
         body,
       }),
@@ -107,7 +108,7 @@ export const {
   useAddMealsMutation,
   useLazyGetMealsQuery,
   useEditClientMutation,
-  useEditMealMutation,
+  useLogMealsMutation,
   useGetClientsQuery,
   useDeleteClientMutation,
   useDeleteMealMutation,

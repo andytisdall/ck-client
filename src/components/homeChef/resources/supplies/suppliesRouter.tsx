@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
-import renderWithFallback from "../../reusable/loading/renderWithFallback";
+import renderWithFallback from "../../../reusable/loading/renderWithFallback";
 
 const SuppliesHome = lazy(() => import("./SuppliesHome"));
 

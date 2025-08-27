@@ -133,6 +133,7 @@
   display: flex;
   margin-bottom: 1rem;
   margin-left: 1rem;
+  padding-bottom: 1rem;
 }
 
 .doorfront-client {
@@ -163,7 +164,7 @@
 
 .doorfront-past {
   min-width: 5rem;
-  max-width: 15rem;
+  max-width: 20rem;
   height: fit-content;
 }
 
@@ -184,7 +185,8 @@
   background-color: rgb(43, 43, 109);
   padding: 1rem;
   z-index: 100;
-  top: 0;
+  top: 30px;
+  right: -100px;
   border: white 2px solid;
 }
 

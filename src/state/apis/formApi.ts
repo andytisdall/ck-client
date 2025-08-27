@@ -97,7 +97,7 @@ type SubmitFormArgs =
 
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
-  CBO_REPORT: "/meal-program/cbo-report",
+  CBO_REPORT: "/meal-program/cbo",
   NEW_MEAL_SURVEY: "/meal-program/survey",
   BIKE_SIGNUP: "/volunteers/bike",
   CULINARY_TRAINING: "/meal-program/workforce-development",

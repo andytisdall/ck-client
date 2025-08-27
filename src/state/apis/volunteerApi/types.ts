@@ -187,3 +187,18 @@ export interface HomeChefQuizResponse {
   wrongAnswers: number[];
   rightAnswers?: string[];
 }
+
+export interface SupplyOrderInfo {
+  containers: number;
+  labels: number;
+  soup: number;
+  sandwich: number;
+}
+
+export interface SupplyOrder {
+  items: SupplyOrderInfo;
+  date: string;
+  fulfilled: boolean;
+  contact: { firstName: string; lastName: string; email: string };
+  id: string;
+}

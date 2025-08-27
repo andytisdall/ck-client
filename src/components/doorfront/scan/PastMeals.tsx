@@ -1,12 +1,12 @@
-import { getMonth, format } from "date-fns";
+import { getMonth } from "date-fns";
 import { useState } from "react";
 
 import {
   ClientMeal,
   useDeleteMealMutation,
 } from "../../../state/apis/mealProgramApi/doorfrontApi";
-import { utcToZonedTime } from "date-fns-tz";
 import DeleteModal from "../DeleteModal";
+import { formatMealDate } from "../doorfrontFunctions";
 
 const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
             ?.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1))
             .map((meal) => (
               <li key={meal.id} className="doorfront-past-meals-row">
-                <div>{`${format(utcToZonedTime(meal.date, "America/Los_Angeles"), "M/d/yy")} - ${meal.amount} meal${meal.amount === 1 ? "" : "s"}`}</div>
+                <div>{`${formatMealDate(meal.date)} - ${meal.amount} meal${meal.amount === 1 ? "" : "s"}`}</div>
                 <div className="doorfront-delete-container">
                   <div
                     className="doorfront-delete-meal"

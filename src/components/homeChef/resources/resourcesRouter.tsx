@@ -3,9 +3,10 @@ import { RouteObject } from "react-router-dom";
 
 import "./Resources.css";
 import renderWithFallback from "../../reusable/loading/renderWithFallback";
+import suppliesRouter from "./supplies/suppliesRouter";
 
 const Resources = lazy(() => import("./Resources"));
-const ResourcesList = lazy(() => import("./ResourcesList"));
+const ResourcesList = lazy(() => import("./ResourcesHome"));
 const RecipeList = lazy(() => import("./recipes/RecipeList"));
 const Recipe = lazy(() => import("./recipes/Recipe"));
 const CreateRecipe = lazy(() => import("./recipes/CreateRecipe"));
@@ -16,7 +17,7 @@ const resourcesRouter: RouteObject = {
   element: renderWithFallback(<Resources />),
   children: [
     { index: true, element: renderWithFallback(<ResourcesList />) },
-
+    suppliesRouter,
     {
       path: "recipes",
       children: [

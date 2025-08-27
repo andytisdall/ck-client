@@ -1,6 +1,6 @@
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useMemo } from "react";
-import { format, getMonth } from "date-fns";
+import { format } from "date-fns";
 import { useDispatch } from "react-redux";
 
 import {
@@ -11,10 +11,12 @@ import Loading from "../../reusable/loading/Loading";
 import { setAlert } from "../../../state/apis/slices/alertSlice";
 import PastMeals from "./PastMeals";
 import ClientInfo from "./ClientInformation";
-import { formatMealDate } from "../report/meal/MealReportRow";
-
-const monthlyMealMax = 30;
-const dailyMealMax = 4;
+import MealCounter from "./MealCounter";
+import {
+  mealIsWithinMonth,
+  monthlyMealMax,
+  dailyMealMax,
+} from "../doorfrontFunctions";
 
 const AddMeals = () => {
   const { scanValue } = useParams();
@@ -41,14 +43,15 @@ const AddMeals = () => {
 
   const isLoading = addIsLoading || getIsLoading;
 
-  const mealsThisMonth =
-    pastMeals
-      ?.filter((meal) => {
-        const mealMonth = getMonth(new Date(meal.date));
-        const thisMonth = getMonth(new Date());
-        return mealMonth === thisMonth;
-      })
-      .reduce((prev, cur) => prev + cur.amount, 0) || 0;
+  const mealsThisMonth = useMemo(() => {
+    return (
+      pastMeals
+        ?.filter((meal) => {
+          return mealIsWithinMonth(meal.date);
+        })
+        .reduce((prev, cur) => prev + cur.amount, 0) || 0
+    );
+  }, [pastMeals]);
 
   const mealsToday = useMemo(() => {
     const today = format(new Date(), "M/d/yy");
@@ -56,20 +59,25 @@ const AddMeals = () => {
     return (
       pastMeals
         ?.filter((meal) => {
-          const formattedDate = formatMealDate(meal.date);
+          const formattedDate = format(new Date(meal.date), "M/d/yy");
           return formattedDate === today;
         })
         .reduce((prev, cur) => prev + cur.amount, 0) || 0
     );
   }, [pastMeals]);
 
+  const regularClient =
+    client?.cCode !== "FREEBIE" && client?.cCode !== "189137";
+
   const monthlyLimitReached = mealsThisMonth + meals >= monthlyMealMax;
   const dailyLimitReached = mealsToday + meals >= dailyMealMax;
-  const cannotAddMeals = monthlyLimitReached || dailyLimitReached;
+  const cannotAddMeals =
+    (monthlyLimitReached || dailyLimitReached) && regularClient;
 
   const cannotSubmitMonthly = mealsThisMonth >= monthlyMealMax;
   const cannotSubmitDaily = mealsToday >= dailyMealMax;
-  const cannotSubmit = cannotSubmitDaily || cannotSubmitMonthly;
+  const cannotSubmit =
+    (cannotSubmitDaily || cannotSubmitMonthly) && regularClient;
 
   const onSubmit = async () => {
     if (clientId && !cannotSubmit) {
@@ -87,7 +95,7 @@ const AddMeals = () => {
     return <Loading />;
   }
 
-  if (!scanValue || !pastMeals) {
+  if (!scanValue || !pastMeals || !clientId) {
     return (
       <div>
         <h2>Something went wrong</h2>
@@ -95,47 +103,6 @@ const AddMeals = () => {
       </div>
     );
   }
-
-  const renderAddMeals = () => {
-    return (
-      <div className="doorfront-col">
-        <b>Client is receiving</b>
-        <h3 className="doorfront-meal-count">{`${meals} meal${meals === 1 ? "" : "s"}`}</h3>
-        {cannotAddMeals && (
-          <div className="doorfront-alert">{renderLimitReached()}</div>
-        )}
-
-        <div className="doorfront-btns">
-          <button
-            className={
-              "doorfront-btn-sub doorfront-btn " +
-              (meals === 1 ? "btn-inactive" : "")
-            }
-            onClick={() => {
-              if (meals > 1) {
-                setMeals((current) => current - 1);
-              }
-            }}
-          >
-            -
-          </button>
-          <button
-            className={
-              "doorfront-btn-add doorfront-btn " +
-              (cannotAddMeals ? "btn-inactive" : "")
-            }
-            onClick={() => {
-              if (!cannotAddMeals) {
-                setMeals((current) => current + 1);
-              }
-            }}
-          >
-            +
-          </button>
-        </div>
-      </div>
-    );
-  };
 
   const renderLimitReached = () => {
     if (monthlyLimitReached || cannotSubmitMonthly) {
@@ -146,7 +113,7 @@ const AddMeals = () => {
     }
   };
 
-  const renderCannotAdd = () => {
+  const renderCannotSubmit = () => {
     return (
       <div className="doorfront-col">
         <div className="doorfront-alert">
@@ -175,19 +142,23 @@ const AddMeals = () => {
     );
   };
 
-  if (!clientId) {
-    return <div>Error</div>;
-  }
-
-  // console.log(cannotSubmit);
   return (
     <div>
       <ClientInfo client={client} setClientInfo={setClientInfo} />
       <div className="doorfront">
-        {cannotSubmit ? renderCannotAdd() : renderAddMeals()}
+        {cannotSubmit ? (
+          renderCannotSubmit()
+        ) : (
+          <MealCounter
+            meals={meals}
+            setMeals={setMeals}
+            limitReachedAlert={
+              cannotAddMeals ? renderLimitReached() : undefined
+            }
+          />
+        )}
         <PastMeals meals={pastMeals} />
       </div>
-
       {renderControls()}
     </div>
   );

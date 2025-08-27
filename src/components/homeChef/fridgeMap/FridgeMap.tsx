@@ -1,11 +1,12 @@
-import './FridgeMap.css';
+import "./FridgeMap.css";
 
 const GOOGLE_MAP_URL =
-  'https://www.google.com/maps/d/embed?mid=1Y5Jf-_hOU2OHTTkcua8SZOvUPvj3jv90';
+  "https://www.google.com/maps/d/embed?mid=1Y5Jf-_hOU2OHTTkcua8SZOvUPvj3jv90";
 
 const FridgeMap = () => {
   return (
     <iframe
+      loading="lazy"
       src={GOOGLE_MAP_URL}
       className="fridge-map"
       title="Town Fridge Google Map"

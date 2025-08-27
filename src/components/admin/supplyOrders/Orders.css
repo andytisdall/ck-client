@@ -1,0 +1,60 @@
+.admin-supply-order {
+  display: flex;
+  border-bottom: white 1px solid;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.admin-supply-order-check {
+  border: red 1px solid;
+}
+
+.admin-supply-order-field {
+  line-height: 1.5rem;
+  width: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.admin-supply-order-field label {
+  font-weight: 600;
+  color: rgb(168, 168, 168);
+}
+
+.admin-supply-order-name {
+  margin-right: 0.5rem;
+  display: flex;
+}
+
+.admin-supply-order-name div {
+  margin-right: 0.5rem;
+}
+
+.admin-supply-order-create {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid white;
+  margin-top: 1rem;
+}
+
+.admin-supply-order-create div {
+  display: flex;
+}
+
+.admin-supply-order-create label {
+  width: 8rem;
+}
+
+.admin-supply-order-x {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.admin-supply-order-btn {
+  margin-top: 1rem;
+}

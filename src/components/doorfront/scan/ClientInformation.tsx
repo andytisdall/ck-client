@@ -71,14 +71,19 @@ const ClientInformation = ({
             }
           }}
         />
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <button onClick={onSubmit}>
-            Update client info without adding meals
-          </button>
+        {client.cCodeIncorrect && (
+          <div className="meal-report-warning">
+            ! This client number was marked incorrect
+          </div>
         )}
       </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <button onClick={onSubmit}>
+          Update client info without adding meals
+        </button>
+      )}
     </div>
   );
 };

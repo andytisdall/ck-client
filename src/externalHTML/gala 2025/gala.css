@@ -83,7 +83,7 @@ p {
 p {
   max-width: 800px;
   text-align: center;
-  color: #8e1e21;
+  color: #8e0e12;
   padding: 1rem;
   font-size: 2rem;
   line-height: 2rem;
@@ -239,7 +239,7 @@ p {
 }
 
 .sponsor-lg img {
-  width: 50%;
+  /* width: 50%; */
   max-width: 24rem;
   min-width: 18rem;
 }
@@ -255,6 +255,15 @@ p {
   width: 18%;
   max-width: 12rem;
   min-width: 10rem;
+}
+
+.block-logo {
+  max-width: 30rem !important;
+}
+
+.logo-nia {
+  width: 30% !important;
+  max-width: 12rem;
 }
 
 @media (max-width: 700px) {
