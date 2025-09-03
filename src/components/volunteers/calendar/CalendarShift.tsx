@@ -33,8 +33,7 @@ const CalendarShift = ({
         }
       }}
     >
-      {/* <div>{job.name}</div> */}
-      {shift.slots !== null && <>{shift.slots} Spots Left</>}
+      {shift.slots !== null ? <>{shift.slots} Spots Left</> : <>{job.name}</>}
       {children}
     </div>
   );

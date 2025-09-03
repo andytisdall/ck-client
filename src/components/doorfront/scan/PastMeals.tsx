@@ -1,5 +1,4 @@
-import { getMonth } from "date-fns";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import {
   ClientMeal,
@@ -7,6 +6,7 @@ import {
 } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import DeleteModal from "../DeleteModal";
 import { formatMealDate } from "../doorfrontFunctions";
+import { mealIsWithinMonth } from "../doorfrontFunctions";
 
 const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
   const [open, setOpen] = useState(false);
@@ -14,13 +14,14 @@ const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
 
   const [deleteMeal] = useDeleteMealMutation();
 
-  const mealsThisMonth = meals?.filter(
-    (meal) => getMonth(new Date(meal.date)) === getMonth(new Date())
-  );
-  const numberOfMealsThisMonth = mealsThisMonth?.reduce(
-    (prev, cur) => prev + cur.amount,
-    0
-  );
+  const mealsThisMonth = useMemo(() => {
+    return meals?.filter((meal) => {
+      return mealIsWithinMonth(meal.date);
+    });
+  }, [meals]);
+
+  const numberOfMealsThisMonth =
+    mealsThisMonth.reduce((prev, cur) => prev + cur.amount, 0) || 0;
 
   const openModal = (id: string) => {
     setMealHasModalOpen(id);

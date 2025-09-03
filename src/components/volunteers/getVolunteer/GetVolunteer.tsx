@@ -18,18 +18,15 @@ const GetVolunteer = () => {
   const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
   const [createVolunteer, createVolunteerResult] = useCreateVolunteerMutation();
 
-  const handleSubmit: FormEventHandler = (e) => {
+  const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     if (!showNameFields) {
-      getVolunteer(email)
-        .unwrap()
-        .then((volunteer) => {
-          if (!volunteer) {
-            setShowNameFields(true);
-          }
-        });
+      const volunteer = await getVolunteer(email).unwrap();
+      if (!volunteer) {
+        setShowNameFields(true);
+      }
     } else {
-      createVolunteer({ email, firstName, lastName }).unwrap();
+      await createVolunteer({ email, firstName, lastName }).unwrap();
     }
   };
 

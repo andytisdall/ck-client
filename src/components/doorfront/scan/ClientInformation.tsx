@@ -24,11 +24,13 @@ const ClientInformation = ({
 
   const navigate = useNavigate();
 
-  const missingCcodeStyle = !cCode ? "doorfront-client-missing" : "";
-  const missingBarCodeStyle = !barcode ? "doorfront-client-missing" : "";
+  const missingCcodeStyle =
+    !cCode || client.cCodeIncorrect ? "doorfront-client-missing" : "";
+  const missingBarCodeStyle =
+    !barcode || client.cCodeIncorrect ? "doorfront-client-missing" : "";
 
   const onSubmit = async () => {
-    await editClient({ cCode, barcode, id: client.id });
+    await editClient({ cCode, barcode, id: client.id }).unwrap();
     navigate(-1);
   };
 

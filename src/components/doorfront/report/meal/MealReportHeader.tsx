@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-export type OrderByField = "date" | "barcode" | "cCode" | "number";
+export type OrderByField = "date" | "barcode" | "cCode" | "amount";
 
 const MealReportHeader = ({
   sortBy,
@@ -41,14 +41,14 @@ const MealReportHeader = ({
       <div
         className="meal-report-col meal-report-header-col"
         onClick={() => {
-          if (orderBy === "number") {
+          if (orderBy === "amount") {
             toggleSort();
           } else {
-            setOrderBy("number");
+            setOrderBy("amount");
           }
         }}
       >
-        {orderBy === "number" && arrow()}
+        {orderBy === "amount" && arrow()}
         <strong>Number of Meals</strong>
       </div>
       <div

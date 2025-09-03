@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Outlet, RouteObject, Link, Navigate } from "react-router-dom";
+import { RouteObject, Navigate } from "react-router-dom";
 
 import "./Volunteers.css";
 import renderWithFallback from "../reusable/loading/renderWithFallback";
@@ -20,20 +20,11 @@ const VolunteerCalendar = lazy(() => import("./calendar/CalendarBase"));
 const ShiftSignup = lazy(() => import("./signup/SignupBase"));
 const VolunteerSignInBase = lazy(() => import("./VolunteerSignInBase"));
 
-const VolunteersBase = () => {
-  return (
-    <div className="main home-chef">
-      <Link to="/volunteers">
-        <h1 className="volunteers-main-header">CK Volunteers</h1>
-      </Link>
-      <Outlet />
-    </div>
-  );
-};
+const VolunteersBase = lazy(() => import("./VolunteersBase"));
 
 const volunteersRouter: RouteObject = {
   path: "volunteers",
-  element: <VolunteersBase />,
+  element: renderWithFallback(<VolunteersBase />),
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
     {
@@ -42,7 +33,7 @@ const volunteersRouter: RouteObject = {
     },
     driverRouter,
     {
-      path: "signin/:campaignId",
+      path: "signin/:campaignId/:shiftId",
       element: renderWithFallback(<GetVolunteer />),
     },
     {
@@ -82,19 +73,6 @@ const volunteersRouter: RouteObject = {
         },
         {
           path: ":doc/:contactId/:hoursId",
-          element: renderWithFallback(<Sign />),
-        },
-      ],
-    },
-    {
-      path: "mobile-meal-team/sign",
-      children: [
-        {
-          path: "success/",
-          element: renderWithFallback(<SignSuccess returnLink="/volunteers" />),
-        },
-        {
-          path: ":doc/:contactId",
           element: renderWithFallback(<Sign />),
         },
       ],

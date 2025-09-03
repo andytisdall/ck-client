@@ -10,7 +10,7 @@ const Freebie = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async () => {
-    await addMeals({ meals: 1, clientId: "689ba0b4e48faccd4d59a9f3" });
+    await addMeals({ meals: 1, clientId: "689ba0b4e48faccd4d59a9f3" }).unwrap();
     dispatch(setAlert("Freebie meal added"));
   };
 

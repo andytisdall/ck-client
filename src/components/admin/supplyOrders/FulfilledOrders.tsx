@@ -10,17 +10,17 @@ const FulfilledOrders = () => {
     return <Loading />;
   }
 
-  return (
-    <div>
-      <h2>Home Chef supply orders: Fulfilled</h2>
-      {orders
-        ?.filter((o) => o.fulfilled)
-        .sort((a, b) => (a.date > b.date ? -1 : 1))
+  const fulfilledOrders = orders
+    ?.filter((o) => o.fulfilled)
+    .sort((a, b) => (a.date > b.date ? -1 : 1));
 
-        .map((order) => {
-          return <Order order={order} />;
-        })}
-      {!orders?.length && <div>No Orders Found</div>}
+  return (
+    <div className="admin-supply-order-list">
+      <h2>Home Chef supply orders: Fulfilled</h2>
+      {fulfilledOrders?.map((order) => {
+        return <Order order={order} />;
+      })}
+      {!fulfilledOrders?.length && <div>No Orders Found</div>}
     </div>
   );
 };

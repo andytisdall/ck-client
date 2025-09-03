@@ -44,7 +44,7 @@ const MealReport = () => {
         if (orderBy === "date") {
           return new Date(a.date) > new Date(b.date) ? -sortBy : sortBy;
         }
-        if (orderBy === "number") {
+        if (orderBy === "amount") {
           return a.amount > b.amount ? -sortBy : sortBy;
         }
         if (orderBy === "cCode") {
