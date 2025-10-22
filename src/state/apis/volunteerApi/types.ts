@@ -26,6 +26,7 @@ export interface Shift {
   job: string;
   restaurantMeals?: boolean;
   duration: number;
+  endTime: string;
   slots: number;
   carSizeRequired?: CarSize;
   destination?: string;

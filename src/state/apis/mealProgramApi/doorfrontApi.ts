@@ -99,6 +99,9 @@ const doorfrontApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Doorfront"],
     }),
+    getMonthlyMeals: builder.query<Record<string, number>, void>({
+      query: () => "/meal-program/doorfront/monthly",
+    }),
   }),
 });
 
@@ -113,4 +116,5 @@ export const {
   useDeleteClientMutation,
   useDeleteMealMutation,
   useLazyLookupByClientNumberQuery,
+  useGetMonthlyMealsQuery,
 } = doorfrontApi;

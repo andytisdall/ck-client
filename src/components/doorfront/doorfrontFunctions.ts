@@ -33,5 +33,5 @@ export const mealIsWithinMonth = (date: string) => {
   return startDate <= mealDate && mealDate <= endDate;
 };
 
-export const monthlyMealMax = 30;
+export const monthlyMealMax = 3000;
 export const dailyMealMax = 4;

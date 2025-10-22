@@ -5,3 +5,8 @@
   flex-direction: column;
 }
 
+.style-img {
+  background-color: white;
+  width: 300px;
+  padding: 10px;
+}

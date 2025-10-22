@@ -19,7 +19,10 @@ const volunteerCampaignConfig = {
     images: ["gala1.jpg"],
   },
   bike: {
-    id: "701TH00000QTWFFYA5",
+    id:
+      process.env.NODE_ENV === "production"
+        ? "701UP00000Oyq4NYAR"
+        : "701TH00000QTWFFYA5",
     images: ["bike_volunteers.jpg", "bikes2.jpeg", "bikes_3.jpeg"],
   },
 };

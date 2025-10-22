@@ -1,4 +1,3 @@
-import { useGetUserQuery } from "../../../state/apis/authApi";
 import TextButton from "../../reusable/TextButton";
 
 const suppliesDescription =
@@ -13,17 +12,14 @@ const slackDescription =
 const labelDescription = "Print out labels to put on your meal packaging.";
 
 const ResourcesHome = () => {
-  const { data: user } = useGetUserQuery();
   return (
     <div className="resources">
       <div className="resources-list">
-        {user?.admin && (
-          <TextButton
-            to="supplies"
-            buttonText="Order Home Chef Supplies"
-            descriptionText={suppliesDescription}
-          />
-        )}
+        <TextButton
+          to="supplies"
+          buttonText="Order Home Chef Supplies"
+          descriptionText={suppliesDescription}
+        />
         <TextButton
           to="labels"
           buttonText="Label Templates"

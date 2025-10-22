@@ -1,0 +1,30 @@
+.xl-page {
+  /* height: 2550px;
+  width: 3300px; */
+  /* height: 1224px; */
+  height: 528px;
+  width: 100%;
+  /* border: solid red 5px; */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.xl-name {
+  font-size: 88px;
+  font-weight: 700;
+  text-align: center;
+  max-height: 25%;
+}
+
+.xl-bid-no {
+  font-size: 285px;
+  font-weight: 700;
+  height: 50%;
+}
+
+.xl-table {
+  font-size: 70px;
+  height: 15%;
+}

@@ -7,6 +7,7 @@ const Orders = () => {
     <div>
       <UnfulfilledOrders />
       <NewOrder />
+      <hr />
       <FulfilledOrders />
     </div>
   );

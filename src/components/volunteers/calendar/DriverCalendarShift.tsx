@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
 import { isCarBigEnough } from "../formatDateTime";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
@@ -42,7 +43,10 @@ const DriverCalendarShift = ({
         }
       }}
     >
-      <div>{shift.carSizeRequired}</div>
+      {/* <div>
+        Window: {format(new Date(shift.startTime), "hh:mm")} -{" "}
+        {format(new Date(shift.endTime), "hh:mm")}
+      </div> */}
       <div className="volunteers-calendar-spots">{shift.distance}</div>
       {children}
     </div>

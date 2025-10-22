@@ -266,6 +266,78 @@ p {
   max-width: 12rem;
 }
 
+.titos {
+  height: 7rem;
+  object-fit: contain;
+}
+
+.cbc {
+  min-width: 15rem !important;
+}
+
+.restaurant-list {
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.restaurants {
+  font-size: 2rem;
+  color: white;
+  background-color: #c32b2f;
+  padding: 3rem 1rem;
+}
+
+.restaurant-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.restaurant-list * {
+  margin: 0.5rem;
+}
+
+.restaurant-title {
+  font-size: 4rem;
+  text-align: center;
+  padding-top: 2rem;
+  text-decoration: underline;
+  padding-bottom: 1rem;
+  line-height: 3rem;
+}
+
+.kev-title {
+  font-size: 2.5rem;
+  text-align: center;
+  padding-top: 1rem;
+  text-decoration: underline;
+  padding-bottom: 1rem;
+}
+
+.kev-photo {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.kev-photo img {
+  width: 80%;
+}
+
+.restaurant-photo {
+  width: 30%;
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.restaurant-photo {
+  width: 20%;
+  max-width: 400px;
+  min-width: 200px;
+}
+
 @media (max-width: 700px) {
   .row {
     flex-direction: column;

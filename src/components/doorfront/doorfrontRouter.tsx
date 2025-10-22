@@ -10,6 +10,7 @@ const MealReport = lazy(() => import("./report/meal/MealReport"));
 const ClientReport = lazy(() => import("./report/client/ClientReport"));
 const DoorfrontHome = lazy(() => import("./DoorfrontHome"));
 const ClientDetail = lazy(() => import("./report/client/ClientDetail"));
+const MonthlyReport = lazy(() => import("./report/MonthlyReport"));
 
 const doorfrontRouter: RouteObject = {
   path: "doorfront",
@@ -31,6 +32,7 @@ const doorfrontRouter: RouteObject = {
         { path: ":id", element: renderWithFallback(<ClientDetail />) },
       ],
     },
+    { path: "monthly-report", element: renderWithFallback(<MonthlyReport />) },
   ],
 };
 

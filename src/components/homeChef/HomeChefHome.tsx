@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 import { useGetCampaignQuery } from "../../state/apis/volunteerApi/homeChefApi";
 import { useGetUserInfoQuery } from "../../state/apis/authApi";
@@ -13,7 +13,7 @@ const shiftSignupDescription =
 const chefDescription =
   "See upcoming deliveries you've signed up for, and past deliveries you've made";
 const resourcesDescription =
-  "Get access to the CK recipe library and connect with other Home Chefs on slack";
+  "Order containers and labels, access to the CK recipe library and connect with other Home Chefs on slack";
 const onboardingDescription =
   "Complete the tasks necessary to start making deliveries";
 const emailDescription =
@@ -57,21 +57,17 @@ const HomeChefHome = () => {
   };
 
   const renderAnnouncement = () => {
-    const ANNOUNCEMENT_DATE = new Date("2024/05/08");
-
-    if (new Date() <= ANNOUNCEMENT_DATE) {
-      return (
+    return (
+      <Link to={"resources/supplies"}>
         <div className="home-chef-announcement">
-          <h3>Upcoming Home Chef Supply Pick Up</h3>
-          <h4>{format(ANNOUNCEMENT_DATE, "eeee, M/d")}</h4>
-          <h4>4-6pm at the CK Kitchen, 2270 Telegraph Ave</h4>
+          <h3>NEW! Order Home Chef supplies online</h3>
           <p>
-            * pick up containers, labels and local produce sourced from Mandela
-            Partners.
+            Click here to make an order to pick up containers and labels from
+            the CK Kitchen
           </p>
         </div>
-      );
-    }
+      </Link>
+    );
   };
 
   return (

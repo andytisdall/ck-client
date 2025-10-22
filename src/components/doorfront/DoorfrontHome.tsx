@@ -12,6 +12,9 @@ const DoorfrontHome = () => {
       <Link className="text-button-link admin-home-btn" to="client-report">
         Client Report
       </Link>
+      <Link className="text-button-link admin-home-btn" to="monthly-report">
+        Monthly Report
+      </Link>
     </div>
   );
 };

@@ -66,8 +66,8 @@ const d4jApi = api.injectEndpoints({
       query: (body) => ({ url: "/d4j/style-week", method: "POST", body }),
       invalidatesTags: ["D4JConfig"],
     }),
-    declareWinner: builder.mutation<string[], void>({
-      query: () => ({ url: "/d4j/contest/winner", method: "POST" }),
+    declareWinner: builder.query<string[], void>({
+      query: () => "/d4j/contest/winner",
     }),
   }),
 });
@@ -82,5 +82,5 @@ export const {
   useLazyDeleteAndyQuery,
   useGetStyleWeekActiveQuery,
   useSetStyleWeekActiveMutation,
-  useDeclareWinnerMutation,
+  useDeclareWinnerQuery,
 } = d4jApi;

@@ -65,15 +65,6 @@ interface NewMealSurveyArgs {
   name: "NEW_MEAL_SURVEY";
 }
 
-interface BikeSignupArgs {
-  formData: {
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
-  name: "BIKE_SIGNUP";
-}
-
 interface CulinaryTrainingArgs {
   formData: {
     email: string;
@@ -92,14 +83,12 @@ type SubmitFormArgs =
   | CBOReportArgs
   | VolunteerInterestFormArgs
   | CulinaryTrainingArgs
-  | NewMealSurveyArgs
-  | BikeSignupArgs;
+  | NewMealSurveyArgs;
 
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
   CBO_REPORT: "/meal-program/cbo",
   NEW_MEAL_SURVEY: "/meal-program/survey",
-  BIKE_SIGNUP: "/volunteers/bike",
   CULINARY_TRAINING: "/meal-program/workforce-development",
 };
 

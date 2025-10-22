@@ -37,12 +37,7 @@ const SuppliesHome = () => {
 
   return (
     <div>
-      <img
-        src="/images/home-chef/meal-container.jpg"
-        alt="Meal Container"
-        className="supply-img"
-      />
-      <h2>Order Home Chef supplies to pick up from the CK Kitchen</h2>
+      <h3>Order Home Chef supplies to pick up from the CK Kitchen</h3>
       <div className="home-chef-supplies">
         <SupplyBtn
           onPress={(increment: number) =>
@@ -51,7 +46,11 @@ const SuppliesHome = () => {
           value={containers}
         >
           <div className="supply-btn-label">
-            <strong>Containers:</strong>{" "}
+            <img
+              src="/images/home-chef/meal-container.jpg"
+              alt="Meal Container"
+            />
+            <strong>Containers:</strong>
             <span>(quantities of {CONTAINER_UNIT})</span>
           </div>
         </SupplyBtn>
@@ -62,7 +61,12 @@ const SuppliesHome = () => {
           value={labels}
         >
           <div className="supply-btn-label">
-            <strong>Labels:</strong> <span>(quantities of {LABEL_UNIT})</span>
+            <img
+              src="/images/home-chef/food-label-example.jpg"
+              alt="meal label"
+            />
+            <strong>Labels:</strong>
+            <span>(quantities of {LABEL_UNIT})</span>
           </div>
         </SupplyBtn>
         <SupplyBtn
@@ -72,6 +76,8 @@ const SuppliesHome = () => {
           value={soup}
         >
           <div className="supply-btn-label">
+            <img src="/images/home-chef/soup.jpeg" alt="soup container" />
+
             <strong>Soup Containers:</strong>
             <span>(quantities of {SOUP_UNIT})</span>
           </div>
@@ -83,6 +89,7 @@ const SuppliesHome = () => {
           value={sandwich}
         >
           <div className="supply-btn-label">
+            <img src="/images/home-chef/sandwich.jpeg" alt="sandwich box" />
             <strong>Sandwich Boxes:</strong>
             <span>(quantities of {SANDWICH_UNIT})</span>
           </div>
@@ -103,7 +110,7 @@ const SuppliesHome = () => {
         <Loading />
       ) : (
         <div className="supply-controls">
-          <button className="cancel" onClick={() => navigate(-1)}>
+          <button className="cancel" onClick={() => navigate("..")}>
             Back
           </button>
           <button className={btnStyle} onClick={onSubmit}>

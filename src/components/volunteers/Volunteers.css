@@ -93,10 +93,10 @@
   color: rgb(179, 255, 179);
   background-color: rgba(94, 94, 94, 0.634);
   padding: 5px;
+  text-align: center;
 }
 
 .volunteers-calendar-checkmark {
-  font-size: 1.8vw;
   color: rgb(179, 255, 179);
   background-color: rgba(94, 94, 94, 0.634);
   padding: 5px;
