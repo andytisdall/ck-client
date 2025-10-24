@@ -1,149 +1,149 @@
-import { FormEventHandler, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { FormEventHandler, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
 
-import { setError } from "../../state/apis/slices/errorSlice";
-import { useSubmitFormMutation } from "../../state/apis/formApi";
-import Loading from "../reusable/loading/Loading";
+// import { setError } from "../../state/apis/slices/errorSlice";
+// import { useSubmitFormMutation } from "../../state/apis/formApi";
+// import Loading from "../reusable/loading/Loading";
 
-const programRequirements = {
-  eighteen: false,
-  eligible: false,
-  available: false,
-  able: false,
-  english: false,
-  transportation: false,
-};
+// const programRequirements = {
+//   eighteen: false,
+//   eligible: false,
+//   available: false,
+//   able: false,
+//   english: false,
+//   transportation: false,
+// };
 
 const CulinaryTraining = () => {
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
-  const [internet, setInternet] = useState<boolean>();
-  const [description, setDescription] = useState("");
-  const [source, setSource] = useState("");
-  const [requirements, setRequirements] = useState(programRequirements);
+  // const [email, setEmail] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [internet, setInternet] = useState<boolean>();
+  // const [description, setDescription] = useState("");
+  // const [source, setSource] = useState("");
+  // const [requirements, setRequirements] = useState(programRequirements);
 
-  const [submitForm, { isLoading }] = useSubmitFormMutation();
+  // const [submitForm, { isLoading }] = useSubmitFormMutation();
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
-  const onSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
+  // const onSubmit: FormEventHandler = (e) => {
+  //   e.preventDefault();
 
-    if (internet === undefined) {
-      return dispatch(
-        setError("Please fill out every question before submitting")
-      );
-    }
+  //   if (internet === undefined) {
+  //     return dispatch(
+  //       setError("Please fill out every question before submitting")
+  //     );
+  //   }
 
-    if (!Object.values(requirements).every((r) => r)) {
-      return dispatch(
-        setError("You must meet all program requirements to apply")
-      );
-    }
+  //   if (!Object.values(requirements).every((r) => r)) {
+  //     return dispatch(
+  //       setError("You must meet all program requirements to apply")
+  //     );
+  //   }
 
-    submitForm({
-      formData: {
-        email,
-        firstName,
-        lastName,
-        phone,
-        address,
-        internet,
-        description,
-        source,
-      },
-      name: "CULINARY_TRAINING",
-    })
-      .unwrap()
-      .then(() => {
-        navigate("/forms/form-sent", {
-          state: {
-            message:
-              "Thanks for submitting your information! We will get in touch with you to discuss your application.",
-          },
-        });
-      });
-  };
+  //   submitForm({
+  //     formData: {
+  //       email,
+  //       firstName,
+  //       lastName,
+  //       phone,
+  //       address,
+  //       internet,
+  //       description,
+  //       source,
+  //     },
+  //     name: "CULINARY_TRAINING",
+  //   })
+  //     .unwrap()
+  //     .then(() => {
+  //       navigate("/forms/form-sent", {
+  //         state: {
+  //           message:
+  //             "Thanks for submitting your information! We will get in touch with you to discuss your application.",
+  //         },
+  //       });
+  //     });
+  // };
 
-  const header = () => {
-    return (
-      <div className="form-item">
-        <h1>Community Kitchens Culinary Training Application</h1>
+  // const header = () => {
+  //   return (
+  //     <div className="form-item">
+  //       <h1>Community Kitchens Culinary Training Application</h1>
 
-        <br />
-        <p>Thank you for your interest in the CK Culinary Training Program!</p>
-        <br />
-        <p>
-          The CK Culinary Training Program provides 8-weeks of culinary
-          education to participants through training and hands-on experience in
-          order to build a broad range of skills for employment in the food and
-          hospitality sector. During the first 6-weeks of the Program, CK trains
-          participants at the CK Central Kitchen on kitchen operations, knife
-          skills, food safety, proper food handling & storage techniques,
-          various cooking methods, following large-scale recipes and standards
-          of professional behavior. During the last 2-weeks/48 hours of
-          training, interns are partnered with food service businesses who are
-          willing to provide hands-on work experience to participants. The CK
-          Culinary Training Program includes career readiness support and job
-          placement assistance within CK’s extensive network of Oakland
-          restaurant partners.
-        </p>
-        <br />
-        <p>
-          <strong>Program Details</strong>
-        </p>
-        <ul>
-          <li>
-            <strong>Compensation: </strong>$20/hour stipend - 24 hours/week for
-            8 weeks
-          </li>
-          <li>
-            <strong>Culinary Training Dates: </strong>August 11 - Sept. 19,
-            2025, Community Kitchens Central Kitchen, 2270 Telegraph Ave,
-            Oakland
-          </li>
-          <li>
-            <strong>Schedule: </strong>Monday - Friday, 5:00 - 9:00 PM (led by a
-            bilingual chef - Spanish & English)
-          </li>
-          <li>
-            <strong>Career Readiness + Homework: </strong>4 Hours
-          </li>
-          <li>
-            <strong>Individual internship location and schedule TBD</strong>
-          </li>
-        </ul>
-        <br />
-        <p>
-          Please reach out to Mollye Chuacoff at{" "}
-          <a href="mailto:mollye@ckoakland.org" className="retro-link">
-            mollye@ckoakland.org
-          </a>{" "}
-          with any questions. We are looking forward to reviewing your
-          application!
-        </p>
-        <br />
-        <p>
-          Best, Mollye Chudacoff
-          <br />
-          Sr. Program & Volunteer Manager
-          <br />
-          Community Kitchens
-          <br />
-          <a href="https://ckoakland.org/volunteer" className="retro-link">
-            ckoakland.org/volunteer
-          </a>
-        </p>
-        <br />
-        <p className="required">* Indicates required question</p>
-      </div>
-    );
-  };
+  //       <br />
+  //       <p>Thank you for your interest in the CK Culinary Training Program!</p>
+  //       <br />
+  //       <p>
+  //         The CK Culinary Training Program provides 8-weeks of culinary
+  //         education to participants through training and hands-on experience in
+  //         order to build a broad range of skills for employment in the food and
+  //         hospitality sector. During the first 6-weeks of the Program, CK trains
+  //         participants at the CK Central Kitchen on kitchen operations, knife
+  //         skills, food safety, proper food handling & storage techniques,
+  //         various cooking methods, following large-scale recipes and standards
+  //         of professional behavior. During the last 2-weeks/48 hours of
+  //         training, interns are partnered with food service businesses who are
+  //         willing to provide hands-on work experience to participants. The CK
+  //         Culinary Training Program includes career readiness support and job
+  //         placement assistance within CK's extensive network of Oakland
+  //         restaurant partners.
+  //       </p>
+  //       <br />
+  //       <p>
+  //         <strong>Program Details</strong>
+  //       </p>
+  //       <ul>
+  //         <li>
+  //           <strong>Compensation: </strong>$20/hour stipend - 24 hours/week for
+  //           8 weeks
+  //         </li>
+  //         <li>
+  //           <strong>Culinary Training Dates: </strong>August 11 - Sept. 19,
+  //           2025, Community Kitchens Central Kitchen, 2270 Telegraph Ave,
+  //           Oakland
+  //         </li>
+  //         <li>
+  //           <strong>Schedule: </strong>Monday - Friday, 5:00 - 9:00 PM (led by a
+  //           bilingual chef - Spanish & English)
+  //         </li>
+  //         <li>
+  //           <strong>Career Readiness + Homework: </strong>4 Hours
+  //         </li>
+  //         <li>
+  //           <strong>Individual internship location and schedule TBD</strong>
+  //         </li>
+  //       </ul>
+  //       <br />
+  //       <p>
+  //         Please reach out to Mollye Chuacoff at{" "}
+  //         <a href="mailto:mollye@ckoakland.org" className="retro-link">
+  //           mollye@ckoakland.org
+  //         </a>{" "}
+  //         with any questions. We are looking forward to reviewing your
+  //         application!
+  //       </p>
+  //       <br />
+  //       <p>
+  //         Best, Mollye Chudacoff
+  //         <br />
+  //         Sr. Program & Volunteer Manager
+  //         <br />
+  //         Community Kitchens
+  //         <br />
+  //         <a href="https://ckoakland.org/volunteer" className="retro-link">
+  //           ckoakland.org/volunteer
+  //         </a>
+  //       </p>
+  //       <br />
+  //       <p className="required">* Indicates required question</p>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="form-item">

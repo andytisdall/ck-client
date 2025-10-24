@@ -88,7 +88,8 @@ describe("get client and add meals", () => {
     const scanBtn = await screen.findByText(/scan/i);
     await userEvent.click(scanBtn);
 
-    await userEvent.keyboard("38678[Enter]");
+    const scanInput = await screen.findByTestId(/scanner/i);
+    await userEvent.type(scanInput, "38678[Enter]");
 
     const amount = await screen.findByRole("heading", { level: 3 });
     expect(amount).toHaveTextContent("1 meal");
@@ -163,7 +164,8 @@ describe("client has reached the limit for the month", () => {
   test("monthly limit reached", async () => {
     render(<App />, { wrapper: Root });
 
-    await userEvent.keyboard("5555[Enter]");
+    const scanInput = await screen.findByTestId(/scanner/i);
+    await userEvent.type(scanInput, "38678[Enter]");
     // const msg = await screen.findByText(/monthly limit reached/i);
     // expect(msg).toBeDefined();
   });

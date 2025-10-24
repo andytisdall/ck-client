@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { format } from "date-fns-tz";
-import { formatISO, addDays, addYears } from "date-fns";
+import { formatISO, addDays, addYears, addHours } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
 import App from "../../../App";
@@ -55,6 +55,7 @@ const driverJob: Job = {
 
 const driverShift: Shift = {
   startTime: formatISO(addDays(new Date(), 1)),
+  endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
   id: "cidhc",
   open: true,
   job: driverJob.id,
@@ -134,7 +135,7 @@ describe("onboarding", () => {
       res: async () => [ckKitchenCampaign, driversCampaign],
     },
     { path: "/volunteers/driver", res: async () => driver },
-    { path: "/sign/DRV", res: async () => ({}) },
+    { path: "/sign/DRV", res: async () => ({ signingUrl: "" }) },
     {
       path: "/volunteers/jobs/:campaignId",
       res: async () => [driverJob],
@@ -185,7 +186,7 @@ describe("onboarding", () => {
     const documentText = await screen.findByText(/document/i);
     expect(documentText).toBeDefined();
 
-    const backText = screen.getByText(/back/i);
+    const backText = await screen.findByText(/back/i);
     await userEvent.click(backText);
   });
 

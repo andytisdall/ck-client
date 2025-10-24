@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { format, utcToZonedTime } from "date-fns-tz";
-import { formatISO, addDays } from "date-fns";
+import { formatISO, addDays, addHours } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
 import App from "../../../App";
@@ -29,6 +29,7 @@ export const job1: Job = {
 export const shift1: Shift = {
   id: "4i3ghd",
   startTime: formatISO(addDays(new Date(), 1)),
+  endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
   open: true,
   job: job1.id,
   restaurantMeals: false,
@@ -39,6 +40,7 @@ export const shift1: Shift = {
 export const shift2: Shift = {
   id: "dei8hdew",
   startTime: formatISO(addDays(new Date(), 2)),
+  endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
   open: false,
   job: job1.id,
   restaurantMeals: false,

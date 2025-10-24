@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { format } from "date-fns-tz";
-import { formatISO, addDays } from "date-fns";
+import { formatISO, addDays, addHours } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
 import App from "../../../App";
@@ -29,10 +29,11 @@ export const job1: Job = {
 export const shift1: Shift = {
   id: "383u8e78",
   startTime: formatISO(addDays(new Date(), 1)),
+  endTime: formatISO(addHours(addDays(new Date(), 1), 5)),
   open: true,
   job: job1.id,
   restaurantMeals: false,
-  duration: 3,
+  duration: 5,
   slots: 3,
 };
 
@@ -71,7 +72,7 @@ export const volunteer1: Volunteer = {
   email: "andrew@ck.com",
 };
 
-const timeout = 12000;
+const timeout = 5000;
 
 describe("volunteer does not exist already", () => {
   createServer([
@@ -91,6 +92,10 @@ describe("volunteer does not exist already", () => {
     {
       path: "/volunteers/jobs/:campaignId",
       res: async () => [job1],
+    },
+    {
+      path: "/volunteers/driver",
+      res: async () => null,
     },
   ]);
 
@@ -112,14 +117,11 @@ describe("volunteer does not exist already", () => {
     render(<App />, { wrapper: Root });
 
     const eventLink = await screen.findByText(eventCampaign.name);
-    userEvent.click(eventLink);
+    await userEvent.click(eventLink);
 
     const email = "andrew@gmail.com";
 
-    let emailInput;
-    await waitFor(() => {
-      emailInput = screen.getByText("Email:");
-    });
+    const emailInput = await screen.findByText("Email:");
 
     if (emailInput) {
       await userEvent.click(emailInput);
@@ -179,8 +181,6 @@ describe("volunteer found", () => {
 
   test("get job info and sign up for shift", async () => {
     render(<App />, { wrapper: Root });
-
-    await new Promise<void>((resolve) => setTimeout(resolve, 1000));
 
     const jobLink = await screen.findByText(
       format(new Date(hours.time), "eee, M/d/yy")

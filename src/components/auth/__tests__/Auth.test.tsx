@@ -21,7 +21,7 @@ describe("not signed in", () => {
     {
       path: "/user",
       res: async (req) => {
-        if (![...req.headers].length) {
+        if ([...req.headers].length < 2) {
           return null;
         }
         return user;

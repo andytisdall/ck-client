@@ -48,7 +48,6 @@ const DeleteD4JAccount = lazy(
   () => import("./components/user/DeleteD4JAccount")
 );
 const ConfirmEmail = lazy(() => import("./components/user/ConfirmEmail"));
-const CocktailContest = lazy(() => import("./components/CocktailContest"));
 
 export const router = createBrowserRouter([
   {
@@ -92,7 +91,6 @@ export const router = createBrowserRouter([
   formsRouter,
   volunteerCheckInRouter,
   doorfrontRouter,
-  { path: "cocktails", element: renderWithFallback(<CocktailContest />) },
 ]);
 
 const App = () => {

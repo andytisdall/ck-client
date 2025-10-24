@@ -69,12 +69,12 @@ export const homeChefApi = api.injectEndpoints({
       }),
     }),
     editHours: builder.mutation<null, EditHoursArgs>({
-      query: ({ id, mealCount, cancel, date, fridge }) => ({
+      query: ({ id, mealCount, cancel, date, fridge, mealType }) => ({
         url: "/home-chef/hours/" + id,
         method: "PATCH",
-        body: { mealCount, cancel, emailData: { fridge, date } },
+        body: { mealCount, cancel, mealType, emailData: { fridge, date } },
       }),
-      invalidatesTags: ["HomeChefHours"],
+      invalidatesTags: ["HomeChefHours", "HomeChefShifts"],
     }),
     getQuizQuestions: builder.query<HomeChefQuizQuestion[], void>({
       query: () => "/home-chef/quiz",

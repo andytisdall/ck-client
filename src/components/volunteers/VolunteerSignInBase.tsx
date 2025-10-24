@@ -20,15 +20,6 @@ const VolunteerSignInBase = () => {
   );
 
   const driverCampaign = campaignId === config.deliveryDrivers.id;
-  const invalidDriver =
-    driverCampaign &&
-    driver &&
-    user &&
-    (driver.driverStatus !== "Active" ||
-      !driver.insuranceExpiration ||
-      !driver.licenseExpiration ||
-      new Date() > new Date(driver.insuranceExpiration) ||
-      new Date() > new Date(driver.licenseExpiration));
 
   if (userIsLoading || driverIsLoading) {
     return <Loading />;
@@ -55,8 +46,19 @@ const VolunteerSignInBase = () => {
     );
   }
 
-  if (invalidDriver) {
-    return <Navigate replace to="../driver-onboarding" />;
+  if (driverCampaign) {
+    const invalidDriver =
+      driverCampaign &&
+      driver &&
+      user &&
+      (driver.driverStatus !== "Active" ||
+        !driver.insuranceExpiration ||
+        !driver.licenseExpiration ||
+        new Date() > new Date(driver.insuranceExpiration) ||
+        new Date() > new Date(driver.licenseExpiration));
+    if (invalidDriver) {
+      return <Navigate replace to="../driver-onboarding" />;
+    }
   }
 
   return <Outlet />;
