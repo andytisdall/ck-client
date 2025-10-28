@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Client,
@@ -23,9 +24,6 @@ const IncorrectId = ({ client }: { client: Client }) => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  if (client.cCodeIncorrect) {
-    return <div className="meal-report-warning">Incorrect Client #</div>;
-  }
   return (
     <div className="meal-report-menu-container">
       <div
@@ -34,20 +32,32 @@ const IncorrectId = ({ client }: { client: Client }) => {
         onClick={() => setMenuOpen((current) => !current)}
       >
         ...
+        {client.cCodeIncorrect && (
+          <div className="meal-report-warning">Incorrect Client #</div>
+        )}
       </div>
+
       {menuOpen && (
-        <div
-          className="meal-report-menu"
-          onClick={async () => {
-            await editClient({
-              barcode: client.barcode,
-              cCode: client.cCode,
-              cCodeIncorrect: true,
-              id: client.id,
-            }).unwrap();
-          }}
-        >
-          Mark Client # as Incorrect
+        <div className="meal-report-menu">
+          <div
+            className="meal-report-menu-item"
+            onClick={async () => {
+              await editClient({
+                barcodes: client.barcodes,
+                cCode: client.cCode,
+                cCodeIncorrect: true,
+                id: client.id,
+              }).unwrap();
+            }}
+          >
+            Mark Client # as Incorrect
+          </div>
+          <div className="meal-report-menu-item">
+            {" "}
+            <Link to={"/doorfront/client-report/" + client.id}>
+              Go to Client
+            </Link>
+          </div>
         </div>
       )}
     </div>

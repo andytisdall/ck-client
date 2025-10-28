@@ -23,7 +23,7 @@ interface GetClientMealsResponse {
 export interface Client {
   id: string;
   cCode?: string;
-  barcode?: string;
+  barcodes: string[];
   cCodeIncorrect?: boolean;
 }
 
@@ -99,8 +99,13 @@ const doorfrontApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Doorfront"],
     }),
-    getMonthlyMeals: builder.query<Record<string, number>, void>({
-      query: () => "/meal-program/doorfront/monthly",
+    getMonthlyMeals: builder.query<
+      Record<string, number>,
+      { month: number; year: number }
+    >({
+      query: ({ month, year }) =>
+        "/meal-program/doorfront/monthly/" + month + "&" + year,
+      providesTags: ["Doorfront"],
     }),
   }),
 });

@@ -185,8 +185,7 @@
   background-color: rgb(43, 43, 109);
   padding: 1rem;
   z-index: 100;
-  top: 30px;
-  right: -100px;
+  transform: translate(150px, -75px);
   border: white 2px solid;
 }
 

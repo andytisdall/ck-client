@@ -4,10 +4,7 @@ import { useState, useMemo } from "react";
 import "../DoorfrontReport.css";
 import Loading from "../../../reusable/loading/Loading";
 import ClientReportRow from "./ClientReportRow";
-import {
-  useGetClientsQuery,
-  Client,
-} from "../../../../state/apis/mealProgramApi/doorfrontApi";
+import { useGetClientsQuery } from "../../../../state/apis/mealProgramApi/doorfrontApi";
 
 const ClientReport = () => {
   const [orderBy, setOrderBy] = useState<"cCode" | "barcode">("cCode");
@@ -19,18 +16,25 @@ const ClientReport = () => {
 
   const sortedClients = useMemo(() => {
     if (clients) {
-      return [...clients].sort((a: Client, b: Client) => {
-        if (a[orderBy] && b[orderBy]) {
-          return a[orderBy]! > b[orderBy]! ? -sortBy : sortBy;
-        }
-        if (a[orderBy]) {
-          return -sortBy;
-        }
-        if (b[orderBy]) {
-          return sortBy;
-        }
-        return 1;
-      });
+      return [...clients]
+        .map((c) => ({ ...c, barcode: c.barcodes[0] }))
+        .sort(
+          (
+            a: { cCode?: string; barcode?: string },
+            b: { cCode?: string; barcode?: string }
+          ) => {
+            if (a[orderBy] && b[orderBy]) {
+              return a[orderBy]! > b[orderBy]! ? -sortBy : sortBy;
+            }
+            if (a[orderBy]) {
+              return -sortBy;
+            }
+            if (b[orderBy]) {
+              return sortBy;
+            }
+            return 1;
+          }
+        );
     }
   }, [clients, orderBy, sortBy]);
 

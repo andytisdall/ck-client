@@ -18,7 +18,7 @@ const ClientInformation = ({
   setClientInfo?: (cb: (current: ClientInfo) => ClientInfo) => void;
 }) => {
   const [cCode, setCcode] = useState(client.cCode || "");
-  const [barcode, setBarcode] = useState(client.barcode || "");
+  const [barcodes, setBarcodes] = useState(client.barcodes);
 
   const [editClient, { isLoading }] = useEditClientMutation();
 
@@ -27,10 +27,10 @@ const ClientInformation = ({
   const missingCcodeStyle =
     !cCode || client.cCodeIncorrect ? "doorfront-client-missing" : "";
   const missingBarCodeStyle =
-    !barcode || client.cCodeIncorrect ? "doorfront-client-missing" : "";
+    !barcodes.length || client.cCodeIncorrect ? "doorfront-client-missing" : "";
 
   const onSubmit = async () => {
-    await editClient({ cCode, barcode, id: client.id }).unwrap();
+    await editClient({ cCode, barcodes, id: client.id }).unwrap();
     navigate(-1);
   };
 
@@ -40,20 +40,26 @@ const ClientInformation = ({
         <label htmlFor="barcode" className="doorfront-client-label">
           Barcode:
         </label>
-        <input
-          id="barcode"
-          className={`doorfront-client-value ${missingBarCodeStyle}`}
-          value={barcode}
-          onChange={(e) => {
-            setBarcode(e.target.value);
-            if (setClientInfo) {
-              setClientInfo((current) => ({
-                ...current,
-                barcode: e.target.value,
-              }));
-            }
-          }}
-        />
+        {barcodes.map((barcode, i) => (
+          <input
+            id="barcode"
+            className={`doorfront-client-value ${missingBarCodeStyle}`}
+            value={barcode}
+            onChange={(e) => {
+              setBarcodes((barcodes) => {
+                const newBarcodes = [...barcodes];
+                newBarcodes[i] = e.target.value;
+                return newBarcodes;
+              });
+              if (setClientInfo) {
+                setClientInfo((current) => ({
+                  ...current,
+                  barcode: e.target.value,
+                }));
+              }
+            }}
+          />
+        ))}
       </div>
       <div className="doorfront-client-row">
         <label htmlFor="cCode" className="doorfront-client-label">

@@ -60,13 +60,15 @@ const MealReport = () => {
           return 1;
         }
         if (orderBy === "barcode") {
-          if (a.client.barcode && b.client.barcode) {
-            return a.client.barcode > b.client.barcode ? -sortBy : sortBy;
+          if (a.client.barcodes[0] && b.client.barcodes[0]) {
+            return a.client.barcodes[0] > b.client.barcodes[0]
+              ? -sortBy
+              : sortBy;
           }
-          if (a.client.barcode) {
+          if (a.client.barcodes[0]) {
             return -sortBy;
           }
-          if (b.client.barcode) {
+          if (b.client.barcodes[0]) {
             return sortBy;
           }
           return 1;

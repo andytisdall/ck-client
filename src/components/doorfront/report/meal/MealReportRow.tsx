@@ -34,7 +34,7 @@ const MealReportRow = ({
         <div className="meal-report-checkbox">{renderCheck()}</div>
         <div className="meal-report-col">{dateString}</div>
         <div className="meal-report-col">{meal.amount}</div>
-        <div className="meal-report-col">{client.barcode}</div>
+        <div className="meal-report-col">{client.barcodes.map((bc) => bc)}</div>
         <div
           className="meal-report-col meal-report-col-clickable"
           onClick={(e) => {

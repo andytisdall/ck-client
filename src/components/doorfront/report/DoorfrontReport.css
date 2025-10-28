@@ -79,6 +79,7 @@
 .meal-report-warning {
   padding: 1rem;
   color: yellow;
+  font-size: 14px;
 }
 
 .meal-report-dots {
@@ -89,16 +90,23 @@
   width: 1.5rem;
   transform: translateY(-20px);
   cursor: pointer;
+  display: flex;
 }
 
 .meal-report-menu {
   position: absolute;
   top: 10px;
   left: 50px;
+  height: fit-content;
   background-color: white;
   color: black;
-  padding: 0.5rem;
   cursor: pointer;
+  border: red solid 1px;
+  z-index: 10;
+}
+.meal-report-menu-item {
+  border: 1px grey solid;
+  padding: 0.5rem;
 }
 
 .meal-report-menu-container {
