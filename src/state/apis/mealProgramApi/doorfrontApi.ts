@@ -23,7 +23,7 @@ interface GetClientMealsResponse {
 export interface Client {
   id: string;
   cCode?: string;
-  barcodes: string[];
+  barcode: string[];
   cCodeIncorrect?: boolean;
 }
 
@@ -107,6 +107,12 @@ const doorfrontApi = api.injectEndpoints({
         "/meal-program/doorfront/monthly/" + month + "&" + year,
       providesTags: ["Doorfront"],
     }),
+    updateClients: builder.mutation<null, void>({
+      query: () => ({
+        url: "/meal-program/doorfront/update-contacts",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -122,4 +128,5 @@ export const {
   useDeleteMealMutation,
   useLazyLookupByClientNumberQuery,
   useGetMonthlyMealsQuery,
+  useUpdateClientsMutation,
 } = doorfrontApi;

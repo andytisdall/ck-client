@@ -7,7 +7,7 @@ const ClientReportRow = ({ client }: { client: Client }) => {
   return (
     <div className="meal-report-row">
       <div className="meal-report-col">
-        {client.barcodes.map((bc) => (
+        {client.barcode.map((bc) => (
           <div>{bc}</div>
         ))}
       </div>

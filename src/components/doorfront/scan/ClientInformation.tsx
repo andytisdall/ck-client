@@ -18,7 +18,7 @@ const ClientInformation = ({
   setClientInfo?: (cb: (current: ClientInfo) => ClientInfo) => void;
 }) => {
   const [cCode, setCcode] = useState(client.cCode || "");
-  const [barcodes, setBarcodes] = useState(client.barcodes);
+  const [barcode, setBarcode] = useState(client.barcode);
 
   const [editClient, { isLoading }] = useEditClientMutation();
 
@@ -27,10 +27,10 @@ const ClientInformation = ({
   const missingCcodeStyle =
     !cCode || client.cCodeIncorrect ? "doorfront-client-missing" : "";
   const missingBarCodeStyle =
-    !barcodes.length || client.cCodeIncorrect ? "doorfront-client-missing" : "";
+    !barcode.length || client.cCodeIncorrect ? "doorfront-client-missing" : "";
 
   const onSubmit = async () => {
-    await editClient({ cCode, barcodes, id: client.id }).unwrap();
+    await editClient({ cCode, barcode, id: client.id }).unwrap();
     navigate(-1);
   };
 
@@ -40,14 +40,14 @@ const ClientInformation = ({
         <label htmlFor="barcode" className="doorfront-client-label">
           Barcode:
         </label>
-        {barcodes.map((barcode, i) => (
+        {barcode.map((bc, i) => (
           <input
             id="barcode"
             className={`doorfront-client-value ${missingBarCodeStyle}`}
-            value={barcode}
+            value={bc}
             onChange={(e) => {
-              setBarcodes((barcodes) => {
-                const newBarcodes = [...barcodes];
+              setBarcode((barcode) => {
+                const newBarcodes = [...barcode];
                 newBarcodes[i] = e.target.value;
                 return newBarcodes;
               });

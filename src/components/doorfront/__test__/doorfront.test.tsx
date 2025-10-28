@@ -13,12 +13,13 @@ import { Root } from "../../../setupTests";
 
 const client: Client = {
   id: "client",
-  barcode: "293944747",
+  barcode: ["293944747"],
 };
 
 const client2: Client = {
   id: "client",
   cCode: "4843",
+  barcode: [],
 };
 
 const clientMeals: ClientMeal[] = [

@@ -16,25 +16,23 @@ const ClientReport = () => {
 
   const sortedClients = useMemo(() => {
     if (clients) {
-      return [...clients]
-        .map((c) => ({ ...c, barcode: c.barcodes[0] }))
-        .sort(
-          (
-            a: { cCode?: string; barcode?: string },
-            b: { cCode?: string; barcode?: string }
-          ) => {
-            if (a[orderBy] && b[orderBy]) {
-              return a[orderBy]! > b[orderBy]! ? -sortBy : sortBy;
-            }
-            if (a[orderBy]) {
-              return -sortBy;
-            }
-            if (b[orderBy]) {
-              return sortBy;
-            }
-            return 1;
+      return [...clients].sort(
+        (
+          a: { cCode?: string; barcode?: string[] },
+          b: { cCode?: string; barcode?: string[] }
+        ) => {
+          if (a[orderBy] && b[orderBy]) {
+            return a[orderBy]! > b[orderBy]! ? -sortBy : sortBy;
           }
-        );
+          if (a[orderBy]) {
+            return -sortBy;
+          }
+          if (b[orderBy]) {
+            return sortBy;
+          }
+          return 1;
+        }
+      );
     }
   }, [clients, orderBy, sortBy]);
 

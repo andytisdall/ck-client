@@ -43,7 +43,7 @@ const IncorrectId = ({ client }: { client: Client }) => {
             className="meal-report-menu-item"
             onClick={async () => {
               await editClient({
-                barcodes: client.barcodes,
+                barcode: client.barcode,
                 cCode: client.cCode,
                 cCodeIncorrect: true,
                 id: client.id,
