@@ -108,10 +108,12 @@ describe("get client and add meals", () => {
   test("get client by c code", async () => {
     render(<App />, { wrapper: Root });
 
-    const manualBtn = await screen.findByText(/manual/i);
+    const manualBtn = await screen.findByText(/manually/i);
     await userEvent.click(manualBtn);
 
-    await userEvent.keyboard("38383[Enter]");
+    const manualInput = await screen.findByLabelText(/client id:/i);
+
+    await userEvent.type(manualInput, "38383[enter]");
   });
 
   test("edit client", async () => {

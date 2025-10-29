@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-import { useUpdateClientsMutation } from "../../state/apis/mealProgramApi/doorfrontApi";
+// import { useUpdateClientsMutation } from "../../state/apis/mealProgramApi/doorfrontApi";
 
 const DoorfrontHome = () => {
-  const [updateClients, { isSuccess }] = useUpdateClientsMutation();
+  // const [updateClients, { isSuccess }] = useUpdateClientsMutation();
   return (
     <div>
       <Link className="text-button-link admin-home-btn" to="scan">
@@ -18,8 +18,8 @@ const DoorfrontHome = () => {
       <Link className="text-button-link admin-home-btn" to="monthly-report">
         Monthly Report
       </Link>
-      <div onClick={() => updateClients().unwrap()}>Update clients</div>
-      {isSuccess && "Update Successful!"}
+      {/* <div onClick={() => updateClients().unwrap()}>Update clients</div>
+      {isSuccess && "Update Successful!"} */}
     </div>
   );
 };

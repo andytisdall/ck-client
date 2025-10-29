@@ -1,7 +1,7 @@
 import { api } from "../../api";
 
 export interface ClientMeal {
-  client: Client;
+  client: Client | null;
   date: string;
   id: string;
   amount: number;
@@ -11,8 +11,6 @@ export interface ClientMeal {
 interface AddMealsArgs {
   meals: number;
   clientId: string;
-  cCode?: string;
-  barcode?: string;
 }
 
 interface GetClientMealsResponse {
@@ -38,11 +36,6 @@ const doorfrontApi = api.injectEndpoints({
           ? "/meal-program/doorfront/client/lookup-by-client-number/" +
             scanValue
           : "/meal-program/doorfront/scan/" + scanValue,
-      providesTags: ["Doorfront"],
-    }),
-    lookupByClientNumber: builder.query<GetClientMealsResponse, string>({
-      query: (cCode) =>
-        "/meal-program/doorfront/client/lookup-by-client-numeber/" + +cCode,
       providesTags: ["Doorfront"],
     }),
     getClient: builder.query<GetClientMealsResponse, string>({
@@ -109,7 +102,7 @@ const doorfrontApi = api.injectEndpoints({
     }),
     updateClients: builder.mutation<null, void>({
       query: () => ({
-        url: "/meal-program/doorfront/update-contacts",
+        url: "/meal-program/doorfront/combine",
         method: "POST",
       }),
     }),
@@ -126,7 +119,6 @@ export const {
   useGetClientsQuery,
   useDeleteClientMutation,
   useDeleteMealMutation,
-  useLazyLookupByClientNumberQuery,
   useGetMonthlyMealsQuery,
   useUpdateClientsMutation,
 } = doorfrontApi;

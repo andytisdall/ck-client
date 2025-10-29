@@ -69,8 +69,9 @@ const ScanBarcode = () => {
   const renderManualEntry = () => {
     return (
       <div>
-        <label>Client ID:</label>
+        <label htmlFor="manual-entry">Client ID:</label>
         <input
+          id="manual-entry"
           value={clientId}
           onChange={(e) => setClientId(e.target.value.toUpperCase())}
           autoFocus

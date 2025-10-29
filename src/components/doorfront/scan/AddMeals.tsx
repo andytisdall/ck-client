@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import {
   useScanQuery,
   useAddMealsMutation,
+  useEditClientMutation,
 } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../../reusable/loading/Loading";
 import { setAlert } from "../../../state/apis/slices/alertSlice";
@@ -25,9 +26,10 @@ const AddMeals = () => {
   const cCode = searchParams[0].get("cCode");
 
   const [meals, setMeals] = useState(1);
-  const [clientInfo, setClientInfo] = useState({ cCode: "", barcode: "" });
 
   const [addMeals, { isLoading: addIsLoading }] = useAddMealsMutation();
+  const [editClient, { isLoading: editClientIsLoading }] =
+    useEditClientMutation();
 
   const { data, isLoading: getIsLoading } = useScanQuery({
     scanValue: scanValue || "",
@@ -38,10 +40,15 @@ const AddMeals = () => {
   const client = data?.client;
   const clientId = client?.id;
 
+  const [clientInfo, setClientInfo] = useState<{
+    cCode: string;
+    barcode: string[];
+  }>({ cCode: "", barcode: [] });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const isLoading = addIsLoading || getIsLoading;
+  const isLoading = addIsLoading || getIsLoading || editClientIsLoading;
 
   const mealsThisMonth = useMemo(() => {
     return (
@@ -84,8 +91,8 @@ const AddMeals = () => {
       await addMeals({
         clientId,
         meals,
-        ...clientInfo,
       }).unwrap();
+      await editClient({ ...clientInfo, id: clientId }).unwrap();
       dispatch(setAlert("Data Entered Sucessfully"));
       navigate("..");
     }

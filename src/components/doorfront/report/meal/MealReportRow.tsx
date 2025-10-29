@@ -18,7 +18,7 @@ const MealReportRow = ({
     if (meal.logged) {
       return <div className="meal-report-check">&#9989;</div>;
     }
-    if (client.cCode) {
+    if (client?.cCode) {
       return (
         <input
           type="checkbox"
@@ -34,7 +34,11 @@ const MealReportRow = ({
         <div className="meal-report-checkbox">{renderCheck()}</div>
         <div className="meal-report-col">{dateString}</div>
         <div className="meal-report-col">{meal.amount}</div>
-        <div className="meal-report-col">{client.barcode.map((bc) => bc)}</div>
+        <div className="meal-report-col doorfront-barcode-list">
+          {client?.barcode.map((bc) => (
+            <div key={bc}>{bc}</div>
+          ))}
+        </div>
         <div
           className="meal-report-col meal-report-col-clickable"
           onClick={(e) => {
@@ -45,10 +49,10 @@ const MealReportRow = ({
             }
           }}
         >
-          {client.cCode}
+          {client?.cCode}
         </div>
       </div>
-      <IncorrectId client={client} />
+      {!!client && <IncorrectId client={client} />}
     </div>
   );
 };

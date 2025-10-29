@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Client } from "../../../state/apis/mealProgramApi/doorfrontApi";
@@ -7,7 +7,7 @@ import Loading from "../../reusable/loading/Loading";
 
 interface ClientInfo {
   cCode: string;
-  barcode: string;
+  barcode: string[];
 }
 
 const ClientInformation = ({
@@ -15,12 +15,21 @@ const ClientInformation = ({
   setClientInfo,
 }: {
   client: Client;
-  setClientInfo?: (cb: (current: ClientInfo) => ClientInfo) => void;
+  setClientInfo?: (newInfo: ClientInfo) => void;
 }) => {
   const [cCode, setCcode] = useState(client.cCode || "");
   const [barcode, setBarcode] = useState(client.barcode);
 
   const [editClient, { isLoading }] = useEditClientMutation();
+
+  useEffect(() => {
+    if (setClientInfo) {
+      setClientInfo({
+        cCode,
+        barcode,
+      });
+    }
+  }, [setClientInfo, cCode, barcode]);
 
   const navigate = useNavigate();
 
@@ -31,8 +40,10 @@ const ClientInformation = ({
 
   const onSubmit = async () => {
     await editClient({ cCode, barcode, id: client.id }).unwrap();
-    navigate(-1);
+    navigate("..");
   };
+
+  const inputsToRender = barcode.length ? barcode : [""];
 
   return (
     <div className="doorfront-client">
@@ -40,26 +51,23 @@ const ClientInformation = ({
         <label htmlFor="barcode" className="doorfront-client-label">
           Barcode:
         </label>
-        {barcode.map((bc, i) => (
-          <input
-            id="barcode"
-            className={`doorfront-client-value ${missingBarCodeStyle}`}
-            value={bc}
-            onChange={(e) => {
-              setBarcode((barcode) => {
-                const newBarcodes = [...barcode];
-                newBarcodes[i] = e.target.value;
-                return newBarcodes;
-              });
-              if (setClientInfo) {
-                setClientInfo((current) => ({
-                  ...current,
-                  barcode: e.target.value,
-                }));
-              }
-            }}
-          />
-        ))}
+        <div className="doorfront-barcode-list">
+          {inputsToRender.map((bc, i) => (
+            <input
+              key={`barcode-${i}`}
+              id="barcode"
+              className={`doorfront-client-value ${missingBarCodeStyle}`}
+              value={bc}
+              onChange={(e) => {
+                setBarcode((current) => {
+                  const newBarcodes = [...current];
+                  newBarcodes[i] = e.target.value.toUpperCase();
+                  return newBarcodes;
+                });
+              }}
+            />
+          ))}
+        </div>
       </div>
       <div className="doorfront-client-row">
         <label htmlFor="cCode" className="doorfront-client-label">
@@ -70,13 +78,7 @@ const ClientInformation = ({
           className={`doorfront-client-value ${missingCcodeStyle}`}
           value={cCode}
           onChange={(e) => {
-            setCcode(e.target.value);
-            if (setClientInfo) {
-              setClientInfo((current) => ({
-                ...current,
-                cCode: e.target.value,
-              }));
-            }
+            setCcode(e.target.value.toUpperCase());
           }}
         />
         {client.cCodeIncorrect && (

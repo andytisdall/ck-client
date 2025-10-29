@@ -41,6 +41,9 @@ const MealReport = () => {
   const sortedMeals = useMemo(() => {
     if (meals) {
       return [...meals].sort((a: ClientMeal, b: ClientMeal) => {
+        if (!a.client || !b.client) {
+          return 1;
+        }
         if (orderBy === "date") {
           return new Date(a.date) > new Date(b.date) ? -sortBy : sortBy;
         }
@@ -137,7 +140,7 @@ const MealReport = () => {
                 if (meals) {
                   if (e.target.checked) {
                     setMealsToLog(
-                      meals.filter((m) => m.client.cCode).map((m) => m.id)
+                      meals.filter((m) => m.client?.cCode).map((m) => m.id)
                     );
                   } else {
                     setMealsToLog([]);

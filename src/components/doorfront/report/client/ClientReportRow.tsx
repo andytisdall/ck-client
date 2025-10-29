@@ -6,9 +6,9 @@ const ClientReportRow = ({ client }: { client: Client }) => {
   const navigate = useNavigate();
   return (
     <div className="meal-report-row">
-      <div className="meal-report-col">
+      <div className="meal-report-col doorfront-barcode-list">
         {client.barcode.map((bc) => (
-          <div>{bc}</div>
+          <div key={bc}>{bc}</div>
         ))}
       </div>
       <div className="meal-report-col">{client.cCode}</div>
