@@ -16,7 +16,7 @@ const ShiftListItem = ({
 }: {
   shift: Shift;
   bookedHoursId?: string;
-  contactId: string;
+  contactId?: string;
   campaign: VolunteerCampaign;
 }) => {
   const { data: driver } = useGetDriverQuery();

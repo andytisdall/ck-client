@@ -79,17 +79,29 @@ interface CulinaryTrainingArgs {
   name: "CULINARY_TRAINING";
 }
 
+interface HomeChefOrientationArgs {
+  formData: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+  };
+  name: "HOME_CHEF_ORIENTATION";
+}
+
 type SubmitFormArgs =
   | CBOReportArgs
   | VolunteerInterestFormArgs
   | CulinaryTrainingArgs
-  | NewMealSurveyArgs;
+  | NewMealSurveyArgs
+  | HomeChefOrientationArgs;
 
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
   CBO_REPORT: "/meal-program/cbo",
   NEW_MEAL_SURVEY: "/meal-program/survey",
   CULINARY_TRAINING: "/meal-program/workforce-development",
+  HOME_CHEF_ORIENTATION: "/volunteers/events/home-chef-orientation",
 };
 
 const formApi = api.injectEndpoints({

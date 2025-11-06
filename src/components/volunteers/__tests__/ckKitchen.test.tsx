@@ -97,6 +97,10 @@ describe("volunteer not found", () => {
       path: "/volunteers/hours/:campaignId/:contactId",
       res: async () => [hours],
     },
+    {
+      path: "/volunteers/hours/:campaignId/",
+      res: async () => null,
+    },
   ]);
 
   test("navigate to CK Kitchen home", async () => {
@@ -120,6 +124,16 @@ describe("volunteer not found", () => {
     const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
     await userEvent.click(kitchenLink);
 
+    const jobName = await screen.findByText("Positions Available");
+    expect(jobName).toBeDefined();
+
+    const jobLink = await screen.findByText(
+      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "eee, M/d/yy")
+    );
+    expect(jobLink).toBeDefined();
+
+    await userEvent.click(jobLink);
+
     const email = "andrew@gmail.com";
 
     const emailInput = await screen.findByText("Email:");
@@ -139,10 +153,8 @@ describe("volunteer not found", () => {
       userEvent.type(lastNameInputLabel, "User[Enter]");
     }, 50);
 
-    await waitFor(() => {
-      const jobName = screen.getByText("Positions Available");
-      expect(jobName).toBeDefined();
-    });
+    const notes = await screen.findByText(job1.description!);
+    expect(notes).toBeDefined();
   });
 });
 
@@ -180,16 +192,6 @@ describe("volunteer found", () => {
     render(<App />, { wrapper: Root });
 
     // const signedUpShift = await screen.findByText(/signed up/i);
-
-    const jobLink = await screen.findByText(
-      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "eee, M/d/yy")
-    );
-    expect(jobLink).toBeDefined();
-
-    await userEvent.click(jobLink);
-
-    const jobName = await screen.findByText(job1.name);
-    expect(jobName).toBeDefined();
 
     const confirmSignup = await screen.findByText("Confirm Signup");
     await userEvent.click(confirmSignup);

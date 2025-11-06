@@ -11,6 +11,7 @@ import {
   useGetUserInfoQuery,
 } from "../../../state/apis/authApi";
 import Signup from "./Signup";
+import GetVolunteer from "../getVolunteer/GetVolunteer";
 
 const SignupBase = () => {
   const navigate = useNavigate();
@@ -75,6 +76,10 @@ const SignupBase = () => {
 
   if (!campaign || !shiftId) {
     return <>Could not find the requested info.</>;
+  }
+
+  if (!volunteer && !user) {
+    return <GetVolunteer />;
   }
 
   return (

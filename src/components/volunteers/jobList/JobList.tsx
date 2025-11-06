@@ -28,7 +28,7 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
     return <Loading />;
   }
 
-  if (!jobs || !campaign || !contactId) {
+  if (!jobs) {
     return <div>Could not find info.</div>;
   }
 

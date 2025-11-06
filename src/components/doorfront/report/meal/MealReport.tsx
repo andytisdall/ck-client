@@ -111,7 +111,14 @@ const MealReport = () => {
   }, [isFetching, mealsToLog, sortedMeals]);
 
   return (
-    <div>
+    <div className="meal-report">
+      <div className="doorfront-submit-row">
+        <button className="cancel" onClick={() => navigate("..")}>
+          Back
+        </button>
+      </div>
+      <h2>Meal Report</h2>
+      <div>Date Range:</div>
       <div className="meal-reports-dates">
         <input
           type="date"
@@ -125,45 +132,44 @@ const MealReport = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-      <div className="meal-report">
-        <MealReportHeader
-          sortBy={sortBy}
-          orderBy={orderBy}
-          setOrderBy={setOrderBy}
-          toggleSort={() => setSortBy((current) => -current)}
-        >
-          <div className="meal-report-checkbox">
-            <input
-              ref={checkAllRef}
-              type="checkbox"
-              onChange={(e) => {
-                if (meals) {
-                  if (e.target.checked) {
-                    setMealsToLog(
-                      meals.filter((m) => m.client?.cCode).map((m) => m.id)
-                    );
-                  } else {
-                    setMealsToLog([]);
-                  }
+      <MealReportHeader
+        sortBy={sortBy}
+        orderBy={orderBy}
+        setOrderBy={setOrderBy}
+        toggleSort={() => setSortBy((current) => -current)}
+      >
+        <div className="meal-report-checkbox">
+          <input
+            ref={checkAllRef}
+            type="checkbox"
+            onChange={(e) => {
+              if (meals) {
+                if (e.target.checked) {
+                  setMealsToLog(
+                    meals.filter((m) => m.client?.cCode).map((m) => m.id)
+                  );
+                } else {
+                  setMealsToLog([]);
                 }
-              }}
-            />
-          </div>
-        </MealReportHeader>
-        {mealRows}
-        {!!meals && <MealReportFooter meals={meals} />}
-      </div>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <button onClick={() => logMeals({ mealIds: mealsToLog })}>
-          Log Selected
-        </button>
-      )}
+              }
+            }}
+          />
+        </div>
+      </MealReportHeader>
+      {mealRows}
+      {!!meals && <MealReportFooter meals={meals} />}
       <div className="doorfront-submit-row">
-        <button className="cancel" onClick={() => navigate("..")}>
-          Cancel
-        </button>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <button
+            onClick={() => {
+              if (mealsToLog.length) logMeals({ mealIds: mealsToLog });
+            }}
+          >
+            Log Selected
+          </button>
+        )}
       </div>
     </div>
   );

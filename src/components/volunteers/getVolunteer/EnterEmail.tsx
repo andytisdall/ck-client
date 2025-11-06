@@ -7,7 +7,6 @@ const EnterEmail = ({
 }) => {
   return (
     <div className="volunteers-signin-field">
-      <h3>Enter your email</h3>
       <label htmlFor="email">Email:</label>
       <input
         className="volunteers-email-field"

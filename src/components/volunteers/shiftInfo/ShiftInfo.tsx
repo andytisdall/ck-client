@@ -26,7 +26,6 @@ const ShiftInfo = ({
   );
 
   const driver = campaign.id === config.deliveryDrivers.id;
-  const bike = campaign.id === config.bike.id;
 
   const renderVolunteer = () => {
     if (volunteer) {
@@ -61,11 +60,6 @@ const ShiftInfo = ({
       <ShiftInfoField label="Duration" value={`${shift.duration} Hours`} />
 
       {renderVolunteer()}
-      {bike && (
-        <div className="vol-info">
-          Bring any extra storage you have - panniers, baskets, etc.
-        </div>
-      )}
     </div>
   );
 };

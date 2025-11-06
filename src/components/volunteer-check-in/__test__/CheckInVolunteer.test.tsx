@@ -5,7 +5,10 @@ import App from "../../../App";
 import Root from "../../../Root";
 import { createServer } from "../../../test/createServer";
 import { User } from "../../../state/apis/authApi";
-import { VolunteerForCheckIn } from "../../../state/apis/volunteerApi/checkInApi";
+import {
+  CheckInShiftsResponse,
+  VolunteerForCheckIn,
+} from "../../../state/apis/volunteerApi/checkInApi";
 import { Volunteer } from "../../../state/apis/volunteerApi/types";
 
 const adminUser: User = {
@@ -43,12 +46,18 @@ const newVolunteer: Volunteer = {
   volunteerAgreement: false,
 };
 
+const getShiftsResponse: CheckInShiftsResponse = {
+  sampleJob: [
+    { id: "3o8dh", job: "CK Kitchen", startTime: new Date().toString() },
+  ],
+};
+
 describe("volunteer not checked in", () => {
   createServer([
     { path: "/user", res: async () => adminUser },
     {
       path: "/volunteers/check-in/shifts",
-      res: async () => [{ id: "3o8dh", job: "CK Kitchen" }],
+      res: async () => getShiftsResponse,
     },
     {
       path: "/volunteers/check-in/:shiftId",
@@ -91,7 +100,7 @@ describe("volunteer is checked in", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/volunteers/check-in/shifts",
-      res: async () => [{ id: "3o8dh", job: "CK Kitchen" }],
+      res: async () => getShiftsResponse,
     },
     {
       path: "/volunteers/check-in/:shiftId",
@@ -123,7 +132,7 @@ describe("agreement not signed and limit not reached", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/volunteers/check-in/shifts",
-      res: async () => [{ id: "3o8dh", job: "CK Kitchen" }],
+      res: async () => getShiftsResponse,
     },
     {
       path: "/volunteers/check-in/:shiftId",
@@ -152,7 +161,7 @@ describe("volunteer not on list and not in salesforce", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/volunteers/check-in/shifts",
-      res: async () => [{ shiftId: "d3i7h", job: "CK Kitchen" }],
+      res: async () => getShiftsResponse,
     },
     {
       path: "/volunteers/check-in/:shiftId",
@@ -200,7 +209,11 @@ describe("volunteer not on list but does exist in salesforce", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/volunteers/check-in/shifts",
-      res: async () => [{ shiftId: "d3i7h", job: "CK Kitchen" }],
+      res: async () => ({
+        sampleJob: [
+          { id: "3o8dh", job: "CK Kitchen", startTime: new Date().toString() },
+        ],
+      }),
     },
     {
       path: "/volunteers/check-in/:shiftId",

@@ -90,6 +90,10 @@ describe("volunteer does not exist already", () => {
       res: async () => [hours, hours2],
     },
     {
+      path: "/volunteers/hours/:campaignId/",
+      res: async () => null,
+    },
+    {
       path: "/volunteers/jobs/:campaignId",
       res: async () => [job1],
     },
@@ -119,6 +123,15 @@ describe("volunteer does not exist already", () => {
     const eventLink = await screen.findByText(eventCampaign.name);
     await userEvent.click(eventLink);
 
+    await screen.findByText(RegExp(eventCampaign.name));
+
+    const jobLink = await screen.findByText(
+      format(new Date(hours.time), "eee, M/d/yy")
+    );
+    expect(jobLink).toBeDefined();
+
+    await userEvent.click(jobLink);
+
     const email = "andrew@gmail.com";
 
     const emailInput = await screen.findByText("Email:");
@@ -139,7 +152,8 @@ describe("volunteer does not exist already", () => {
     await userEvent.type(firstNameInputLabel, "New");
     await userEvent.type(lastNameInputLabel, "User[Enter]");
 
-    await screen.findByText(RegExp(eventCampaign.name));
+    const jobName = await screen.findByText(job1.name);
+    expect(jobName).toBeDefined();
   });
 });
 
@@ -181,16 +195,6 @@ describe("volunteer found", () => {
 
   test("get job info and sign up for shift", async () => {
     render(<App />, { wrapper: Root });
-
-    const jobLink = await screen.findByText(
-      format(new Date(hours.time), "eee, M/d/yy")
-    );
-    expect(jobLink).toBeDefined();
-
-    await userEvent.click(jobLink);
-
-    const jobName = await screen.findByText(job1.name);
-    expect(jobName).toBeDefined();
 
     const confirmSignup = await screen.findByText("Confirm Signup");
     await userEvent.click(confirmSignup);

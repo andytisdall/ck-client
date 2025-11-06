@@ -14,6 +14,9 @@ const VolunteerInterestForm = lazy(
   () => import("./volunteer/VolunteerInterestForm")
 );
 const CulinaryTraining = lazy(() => import("./CulinaryTraining"));
+const HomeChefOrientation = lazy(
+  () => import("./volunteer/HomeChefOrientation")
+);
 
 const formsRouter: RouteObject = {
   path: "forms",
@@ -40,6 +43,10 @@ const formsRouter: RouteObject = {
     {
       path: "culinary-training",
       element: renderWithFallback(<CulinaryTraining />),
+    },
+    {
+      path: "home-chef-training",
+      element: renderWithFallback(<HomeChefOrientation />),
     },
     { path: "form-sent", element: renderWithFallback(<FormSent />) },
   ],

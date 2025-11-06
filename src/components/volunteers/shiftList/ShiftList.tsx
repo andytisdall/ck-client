@@ -15,13 +15,13 @@ const ShiftList = ({
   job,
   campaign,
 }: {
-  contactId: string;
+  contactId?: string;
   job: Job;
   campaign: VolunteerCampaign;
 }) => {
   const { data: hours } = useGetHoursQuery({
     campaignId: campaign.id,
-    contactId,
+    contactId: contactId || "",
   });
 
   const { shifts } = job;

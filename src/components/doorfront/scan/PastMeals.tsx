@@ -12,7 +12,7 @@ const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
   const [open, setOpen] = useState(false);
   const [mealHasModalOpen, setMealHasModalOpen] = useState("");
 
-  const [deleteMeal] = useDeleteMealMutation();
+  const [deleteMeal, { isLoading }] = useDeleteMealMutation();
 
   const mealsThisMonth = useMemo(() => {
     return meals?.filter((meal) => {
@@ -59,6 +59,7 @@ const PastMeals = ({ meals }: { meals: ClientMeal[] }) => {
                         setMealHasModalOpen("");
                       }}
                       onCancel={() => setMealHasModalOpen("")}
+                      isLoading={isLoading}
                     />
                   )}
                 </div>

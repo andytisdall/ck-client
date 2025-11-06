@@ -149,6 +149,7 @@
   background-color: rgb(202, 202, 202);
   opacity: 0.5;
   cursor: default;
+  color: black;
 }
 
 .calendar-shift-disabled:hover {

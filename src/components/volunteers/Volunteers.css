@@ -143,6 +143,7 @@
 
 .volunteers-photo-frame {
   padding: 1.5rem;
+  box-sizing: border-box;
   background-color: rgba(240, 240, 240, 0.4);
 }
 
@@ -181,18 +182,23 @@
 }
 
 .volunteers-signin {
-  padding: 1rem;
+  margin: 1rem;
+  padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .volunteers-signin-field {
-  background-color: rgba(255, 255, 255, 0.4);
-  margin: 1rem;
-  padding: 1rem;
-  width: fit-content;
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
 }
 
-.volunteers-signin-field-item input {
-  margin-top: 10px;
+.volunteers-signin-field label {
+  font-weight: 700;
+}
+
+.volunteers-signin-field-name {
+  margin-top: 2rem;
 }
 
 .volunteers-home-section {
@@ -214,6 +220,31 @@
 .volunteers-driver-info-btn {
   display: flex;
   justify-content: center;
+}
+
+.volunteers-home-ad {
+  margin-bottom: 2rem;
+  background-color: rgba(255, 183, 105, 0.853);
+  border: 2px purple solid;
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.volunteers-home-ad img {
+  max-width: 20rem;
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.volunteers-home-ad div {
+  padding: 1rem;
+  flex: 1;
+  min-width: 300px;
 }
 
 @media (max-width: 600px) {

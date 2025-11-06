@@ -58,15 +58,13 @@ const HomeChefHome = () => {
 
   const renderAnnouncement = () => {
     return (
-      <Link to={"resources/supplies"}>
-        <div className="home-chef-announcement">
-          <h3>NEW! Order Home Chef supplies online</h3>
-          <p>
-            Click here to make an order to pick up containers and labels from
-            the CK Kitchen
-          </p>
-        </div>
-      </Link>
+      <div className="home-chef-announcement">
+        <h3>Upcoming Produce Pick Up:</h3>
+        <p>
+          <strong>Wed. 11/12, 4-6pm</strong>
+        </p>
+        <p>CK Kitchen - 2270 Telegraph Ave</p>
+      </div>
     );
   };
 

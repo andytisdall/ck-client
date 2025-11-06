@@ -4,22 +4,33 @@ import { useGetTodaysShiftsQuery } from "../../state/apis/volunteerApi/checkInAp
 import Loading from "../reusable/loading/Loading";
 
 const CheckInHome = () => {
-  const { data: shifts, isLoading } = useGetTodaysShiftsQuery();
+  const { data: jobs, isLoading } = useGetTodaysShiftsQuery();
 
   if (isLoading) {
     return <Loading />;
   }
 
-  const renderKitchenShift = () => {
-    if (shifts?.length) {
-      return shifts.map((shift) => {
-        return (
-          <Link to={`list/${shift.id}`} key={shift.id}>
-            <button>
-              <h4>{shift.job}</h4>
-            </button>
-          </Link>
-        );
+  const renderJobs = () => {
+    if (jobs && Object.keys(jobs).length) {
+      return Object.keys(jobs).map((job) => {
+        const jobName = jobs[job][0].job;
+        if (jobs[job].length > 1) {
+          return (
+            <Link to={`job/${job}`} key={job}>
+              <button>
+                <h4>{jobName}</h4>
+              </button>
+            </Link>
+          );
+        } else {
+          return (
+            <Link to={`list/${jobs[job][0].id}`} key={job}>
+              <button>
+                <h4>{jobName}</h4>
+              </button>
+            </Link>
+          );
+        }
       });
     } else {
       return (
@@ -33,7 +44,7 @@ const CheckInHome = () => {
   return (
     <div>
       <h2>Today's Volunteer Jobs</h2>
-      {renderKitchenShift()}
+      {renderJobs()}
     </div>
   );
 };

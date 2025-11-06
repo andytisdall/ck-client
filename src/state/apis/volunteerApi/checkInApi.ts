@@ -11,14 +11,14 @@ export interface VolunteerForCheckIn {
   status: string;
 }
 
-interface ShiftForCheckIn {
-  id: string;
-  job: string;
-}
+export type CheckInShiftsResponse = Record<
+  string,
+  { id: string; job: string; startTime: string }[]
+>;
 
 const checkInApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getTodaysShifts: builder.query<ShiftForCheckIn[] | null, void>({
+    getTodaysShifts: builder.query<CheckInShiftsResponse | null, void>({
       query: () => "/volunteers/check-in/shifts",
     }),
 

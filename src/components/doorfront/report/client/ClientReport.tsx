@@ -58,6 +58,12 @@ const ClientReport = () => {
 
   return (
     <div className="meal-report">
+      <div className="doorfront-submit-row">
+        <button className="cancel" onClick={() => navigate("..")}>
+          Back
+        </button>
+      </div>
+      <h2>Client Report</h2>
       <div className="meal-report-row">
         <div
           className="meal-report-col meal-report-header-col"
@@ -85,13 +91,9 @@ const ClientReport = () => {
           {orderBy === "cCode" && arrow()}
           <strong>Client ID</strong>
         </div>
+        <div className="meal-report-col meal-report-header-col">Detail</div>
       </div>
       {renderClients()}
-      <div className="doorfront-submit-row">
-        <button className="cancel" onClick={() => navigate("..")}>
-          Cancel
-        </button>
-      </div>
     </div>
   );
 };

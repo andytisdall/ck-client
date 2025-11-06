@@ -13,6 +13,7 @@ const CreateVolunteer = lazy(() => import("./CreateVolunteer"));
 const Sign = lazy(() => import("../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
 const CheckInSign = lazy(() => import("./CheckInSign"));
+const ShiftSelect = lazy(() => import("./ShiftSelect"));
 
 const volunteerCheckInRouter: RouteObject = {
   path: "volunteer-check-in",
@@ -24,6 +25,7 @@ const volunteerCheckInRouter: RouteObject = {
       path: "list/:shiftId",
       element: renderWithFallback(<CheckInList />),
     },
+    { path: "job/:jobId", element: renderWithFallback(<ShiftSelect />) },
     {
       path: "confirm/:contactId/:shiftId",
       element: renderWithFallback(<CheckInConfirm />),

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { PropsWithChildren } from "react";
+import { format } from "date-fns";
 
 import { Shift, Job } from "../../../state/apis/volunteerApi/types";
 
@@ -33,7 +34,12 @@ const CalendarShift = ({
         }
       }}
     >
-      {shift.slots !== null ? <>{shift.slots} Spots Left</> : <>{job.name}</>}
+      <div>
+        <strong>{job.name}</strong>
+      </div>
+      <div>{format(new Date(shift.startTime), "h:mm a")}</div>
+      <div>{shift.slots !== null && <>{shift.slots} Spots</>}</div>
+      <div></div>
       {children}
     </div>
   );

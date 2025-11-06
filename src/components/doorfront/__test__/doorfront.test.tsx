@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { subDays, formatISO, getDate, addDays } from "date-fns";
 
@@ -108,8 +108,11 @@ describe("get client and add meals", () => {
   test("get client by c code", async () => {
     render(<App />, { wrapper: Root });
 
-    const manualBtn = await screen.findByText(/manually/i);
-    await userEvent.click(manualBtn);
+    await waitFor(() => {
+      screen.getByText(/manually/i);
+    });
+    const manualBtn = screen.getByText(/manually/i);
+    userEvent.click(manualBtn);
 
     const manualInput = await screen.findByLabelText(/client id:/i);
 

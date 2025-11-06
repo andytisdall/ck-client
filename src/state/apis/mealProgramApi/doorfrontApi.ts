@@ -25,6 +25,16 @@ export interface Client {
   cCodeIncorrect?: boolean;
 }
 
+export type MonthlyReportResponse = Record<
+  string,
+  { meals: number; visits: number }
+>;
+
+interface MonthlyReportArgs {
+  month: number;
+  year: number;
+}
+
 const doorfrontApi = api.injectEndpoints({
   endpoints: (builder) => ({
     scan: builder.query<
@@ -92,10 +102,7 @@ const doorfrontApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Doorfront"],
     }),
-    getMonthlyMeals: builder.query<
-      Record<string, number>,
-      { month: number; year: number }
-    >({
+    getMonthlyMeals: builder.query<MonthlyReportResponse, MonthlyReportArgs>({
       query: ({ month, year }) =>
         "/meal-program/doorfront/monthly/" + month + "&" + year,
       providesTags: ["Doorfront"],

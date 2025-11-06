@@ -117,12 +117,15 @@ const EditUser = () => {
           onChange={(e) => setPassword2(e.target.value)}
         />
         <div>
-          <label htmlFor="busDriver">Bus Driver</label>
+          <label htmlFor="busDriver">Bus Driver:</label>
           <input
             type="checkbox"
             checked={busDriver}
             onChange={(e) => setBusdriver(e.target.checked)}
           />
+        </div>
+        <div>
+          Active: {!!users && !!users[user] && users[user].active.toString()}
         </div>
 
         <input type="submit" />

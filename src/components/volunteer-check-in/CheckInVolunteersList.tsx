@@ -1,4 +1,5 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
 import {
   useGetVolunteersForCheckInQuery,
@@ -9,8 +10,12 @@ import Loading from "../reusable/loading/Loading";
 const CheckInVolunteers = () => {
   const { shiftId } = useParams();
 
-  const { data: shifts } = useGetTodaysShiftsQuery();
-  const shift = shifts?.find((sh) => sh.id === shiftId);
+  const { data: jobs } = useGetTodaysShiftsQuery();
+  const shift = jobs
+    ? Object.values(jobs)
+        .flat()
+        .find((sh) => sh.id === shiftId)
+    : undefined;
 
   const navigate = useNavigate();
 
@@ -107,11 +112,23 @@ const CheckInVolunteers = () => {
     );
   };
 
+  if (!shift) {
+    return (
+      <div className="check-in-list">
+        <div className="check-in-list-header">
+          <h2>Something went wrong. Please start over.</h2>
+          <button onClick={() => navigate("..")}>Back to Jobs</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="check-in-list">
       <div className="check-in-list-header">
         <button onClick={() => navigate("..")}>Back to Jobs</button>
         <h2>{shift?.job}</h2>
+        <h3>{format(new Date(shift.startTime), "h:mm a")}</h3>
       </div>
       <div className="check-in-list-detail">{renderVolunteers()}</div>
     </div>

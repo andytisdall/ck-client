@@ -15,10 +15,10 @@ const MonthlyReportHeader = () => {
 
   const startDate = new Date(
     month === 1 ? year - 1 : year,
-    month === 1 ? 12 : month - 2,
+    month === 1 ? 11 : month - 2,
     15
   );
-  const endDate = new Date(month === 12 ? year + 1 : year, month - 1, 14);
+  const endDate = new Date(year, month - 1, 14);
 
   const controls = (
     <div>
@@ -49,12 +49,12 @@ const MonthlyReportHeader = () => {
   );
 
   return (
-    <div>
+    <div className="meal-report">
+      <h2>Monthly Report</h2>
       {controls}
-      <h3>
-        Monthly Report: {format(startDate, "M/d/yy")} -{" "}
-        {format(endDate, "M/d/yy")}
-      </h3>
+      <div>
+        Date Range: {format(startDate, "M/d/yy")} - {format(endDate, "M/d/yy")}
+      </div>
 
       <MonthlyReport month={month} year={year} />
     </div>
