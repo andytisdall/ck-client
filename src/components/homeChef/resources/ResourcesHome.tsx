@@ -31,7 +31,7 @@ const ResourcesHome = () => {
           descriptionText={recipesDescription}
         />
         <TextButton
-          to="https://join.slack.com/t/community-kitchens/shared_invite/zt-27qcrhzdc-Fn0AZbI1auiiymFId9sYjw"
+          to="https://join.slack.com/t/community-kitchens/shared_invite/zt-3htez0t6d-GmtW6aKJPEvfdocRTzz_EA"
           buttonText="Get Connected to our Slack Channel"
           descriptionText={slackDescription}
           outside

@@ -18,7 +18,7 @@ const KitchenCalendar = ({
   contactId,
   campaign,
 }: {
-  contactId: string;
+  contactId?: string;
   campaign: VolunteerCampaign;
 }) => {
   const { data: jobs } = useGetJobsQuery({
@@ -26,7 +26,7 @@ const KitchenCalendar = ({
   });
 
   const { data: hours, isLoading } = useGetHoursQuery({
-    contactId,
+    contactId: contactId || "",
     campaignId: campaign.id,
   });
   const shifts = jobs?.map((j) => j.shifts).flat();

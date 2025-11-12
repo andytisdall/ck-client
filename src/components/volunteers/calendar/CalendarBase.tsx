@@ -24,7 +24,7 @@ const KitchenCalBase = () => {
     return <Loading />;
   }
 
-  if (!(contactId && campaign)) {
+  if (!campaign) {
     return <div>Volunteer campaign data not found</div>;
   }
 

@@ -79,14 +79,15 @@ interface CulinaryTrainingArgs {
   name: "CULINARY_TRAINING";
 }
 
-interface HomeChefOrientationArgs {
+interface SNAPSurveyArgs {
   formData: {
-    email: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
+    receiveSNAP: boolean;
+    november?: boolean;
+    whatDay?: string;
+    howMuch?: string;
+    reduce?: boolean;
   };
-  name: "HOME_CHEF_ORIENTATION";
+  name: "SNAP_SURVEY";
 }
 
 type SubmitFormArgs =
@@ -94,14 +95,14 @@ type SubmitFormArgs =
   | VolunteerInterestFormArgs
   | CulinaryTrainingArgs
   | NewMealSurveyArgs
-  | HomeChefOrientationArgs;
+  | SNAPSurveyArgs;
 
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
   CBO_REPORT: "/meal-program/cbo",
   NEW_MEAL_SURVEY: "/meal-program/survey",
   CULINARY_TRAINING: "/meal-program/workforce-development",
-  HOME_CHEF_ORIENTATION: "/volunteers/events/home-chef-orientation",
+  SNAP_SURVEY: "/meal-program/survey/snap",
 };
 
 const formApi = api.injectEndpoints({

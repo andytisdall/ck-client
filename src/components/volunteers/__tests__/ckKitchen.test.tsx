@@ -124,15 +124,19 @@ describe("volunteer not found", () => {
     const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
     await userEvent.click(kitchenLink);
 
-    const jobName = await screen.findByText("Positions Available");
-    expect(jobName).toBeDefined();
+    const header = await screen.findByText("Positions Available");
+    expect(header).toBeDefined();
 
-    const jobLink = await screen.findByText(
-      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "eee, M/d/yy")
+    const calendarBtn = screen.getByText(/calendar/i);
+
+    await userEvent.click(calendarBtn);
+
+    const jobLink = await screen.findAllByText(
+      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "h:mm a")
     );
     expect(jobLink).toBeDefined();
 
-    await userEvent.click(jobLink);
+    await userEvent.click(jobLink[0]);
 
     const email = "andrew@gmail.com";
 

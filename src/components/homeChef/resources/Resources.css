@@ -4,17 +4,9 @@
 }
 
 .resources-image {
-  max-width: 30%;
-}
-
-@media (max-width: 1000px) {
-  .resources {
-    justify-content: center;
-  }
-
-  .resources-image {
-    max-width: 80%;
-  }
+  flex: 1;
+  max-width: 500px;
+  min-width: 300px;
 }
 
 .label-photo {

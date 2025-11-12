@@ -8,6 +8,7 @@ import Loading from "../../reusable/loading/Loading";
 import ShiftList from "../shiftList/ShiftList";
 import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
 import config from "../config";
+import { Link } from "react-router-dom";
 
 const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const { data: jobs, isLoading } = useGetJobsQuery({
@@ -42,13 +43,28 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
     return j.active && filteredShifts.length;
   });
 
+  const renderSignIn = () => {
+    if (!user && !volunteer) {
+      return (
+        <Link to={`../../../signin/${campaign.id}`}>
+          <button className="volunteers-shift-space">
+            Click here to see shifts you signed up for
+          </button>
+        </Link>
+      );
+    }
+  };
+
   if (!visibleJobs.length) {
     return <div>No upcoming shifts are available for sign up.</div>;
   }
 
   return (
     <div>
-      <h3 className="volunteers-signup-btns">Positions Available</h3>
+      <div className="volunteers-email-display">
+        <h3>Positions Available</h3>
+        {renderSignIn()}
+      </div>
       {visibleJobs.map((j) => {
         return (
           <ShiftList

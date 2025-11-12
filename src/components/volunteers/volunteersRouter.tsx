@@ -33,7 +33,7 @@ const volunteersRouter: RouteObject = {
     },
     driverRouter,
     {
-      path: "signin/:campaignId/:shiftId",
+      path: "signin/:campaignId",
       element: renderWithFallback(<GetVolunteer />),
     },
     {

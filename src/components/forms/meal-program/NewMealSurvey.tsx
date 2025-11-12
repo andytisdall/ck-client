@@ -2,11 +2,11 @@ import { FormEventHandler, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
-import FormHeader from "./../reusable/FormHeader";
+import FormHeader from "./../reusable/MealSurvey/FormHeader";
 import Loading from "../../reusable/loading/Loading";
-import RadioFormSet from "./../reusable/RadioFormSet";
-import MultiSelectSet from "./../reusable/MultiSelect";
-import LanguageSwitch from "./../reusable/LanguageSwitch";
+import RadioFormSet from "./../reusable/MealSurvey/RadioFormSet";
+import MultiSelectSet from "./../reusable/MealSurvey/MultiSelect";
+import LanguageSwitch from "./../reusable/MealSurvey/LanguageSwitch";
 import { questions } from "./mealSurveyQuestions";
 
 const NewMealSurvey = () => {

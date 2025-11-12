@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Client } from "../../../state/apis/mealProgramApi/doorfrontApi";
@@ -22,14 +22,14 @@ const ClientInformation = ({
 
   const [editClient, { isLoading }] = useEditClientMutation();
 
-  useEffect(() => {
-    if (setClientInfo) {
-      setClientInfo({
-        cCode,
-        barcode,
-      });
-    }
-  }, [setClientInfo, cCode, barcode]);
+  // useEffect(() => {
+  //   if (setClientInfo) {
+  //     setClientInfo({
+  //       cCode,
+  //       barcode,
+  //     });
+  //   }
+  // }, [setClientInfo, cCode, barcode]);
 
   const navigate = useNavigate();
 
@@ -59,11 +59,15 @@ const ClientInformation = ({
               className={`doorfront-client-value ${missingBarCodeStyle}`}
               value={bc}
               onChange={(e) => {
-                setBarcode((current) => {
-                  const newBarcodes = [...current];
-                  newBarcodes[i] = e.target.value.toUpperCase();
-                  return newBarcodes;
-                });
+                const newBarcodes = [...barcode];
+                newBarcodes[i] = e.target.value.toUpperCase();
+                setBarcode(newBarcodes);
+                if (setClientInfo) {
+                  setClientInfo({
+                    cCode,
+                    barcode: newBarcodes,
+                  });
+                }
               }}
             />
           ))}
@@ -78,7 +82,11 @@ const ClientInformation = ({
           className={`doorfront-client-value ${missingCcodeStyle}`}
           value={cCode}
           onChange={(e) => {
-            setCcode(e.target.value.toUpperCase());
+            const upperCaseCode = e.target.value.toUpperCase();
+            setCcode(upperCaseCode);
+            if (setClientInfo) {
+              setClientInfo({ cCode: upperCaseCode, barcode });
+            }
           }}
         />
         {client.cCodeIncorrect && (

@@ -1,4 +1,4 @@
-import { Question } from "../reusable/RadioFormSet";
+import { Question } from "../reusable/MealSurvey/RadioFormSet";
 
 export const questions: Question[] = [
   {

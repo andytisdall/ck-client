@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { subDays, formatISO, getDate, addDays } from "date-fns";
 
@@ -108,10 +108,7 @@ describe("get client and add meals", () => {
   test("get client by c code", async () => {
     render(<App />, { wrapper: Root });
 
-    await waitFor(() => {
-      screen.getByText(/manually/i);
-    });
-    const manualBtn = screen.getByText(/manually/i);
+    const manualBtn = await screen.findByText(/manually/i);
     userEvent.click(manualBtn);
 
     const manualInput = await screen.findByLabelText(/client id:/i);
@@ -143,8 +140,9 @@ describe("client has reached the limit for the day", () => {
 
   test("daily limit reached", async () => {
     render(<App />, { wrapper: Root });
+    const scanInput = await screen.findByTestId(/scanner/i);
 
-    await userEvent.keyboard("38678[Enter]");
+    await userEvent.type(scanInput, "38678[Enter]");
     const msg = await screen.findByText(/daily limit reached/i);
     expect(msg).toBeDefined();
 

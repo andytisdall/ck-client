@@ -57,7 +57,11 @@ const CreateVolunteer = () => {
       contactId: volunteer.id,
     }).unwrap();
 
-    navigate("../sign/pre/" + volunteer.id + "/" + shiftId);
+    if (!volunteer.volunteerAgreement) {
+      navigate("../sign/pre/" + volunteer.id + "/" + shiftId);
+    } else {
+      navigate("../list/" + shiftId);
+    }
   };
 
   return (
