@@ -158,3 +158,9 @@ textarea {
   width: fit-content;
   padding: 0.5rem;
 }
+
+.local-error {
+  background-color: rgba(253, 5, 104, 0.382);
+  width: fit-content;
+  padding: 0.5rem 1rem;
+}

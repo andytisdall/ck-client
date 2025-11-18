@@ -17,17 +17,14 @@
   margin-left: 2rem;
 }
 
-
 .shift-detail h3 {
   border-top: solid 1px rgb(113, 19, 103);
   margin-top: 1rem;
   padding-top: 2rem;
 }
 
-
-
 .shift-detail-submit {
-  width: fit-content
+  width: fit-content;
 }
 
 .signup-form-meal-count {
@@ -49,7 +46,7 @@
 }
 
 .signup-form-notes {
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: 1rem;
   max-width: 25rem;
 }
@@ -60,11 +57,10 @@
   }
 
   .shift-detail-meal-number-note {
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 }
 
 .shift-detail-meal-number-note {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
-

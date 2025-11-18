@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom';
-import { format } from 'date-fns';
+import { Outlet, Link } from "react-router-dom";
+import { format } from "date-fns";
 
-import { useGetUserQuery } from '../../state/apis/authApi';
-import '../header/Header.css';
-import './volunteerCheckIn.css';
-import Loading from '../reusable/loading/Loading';
+import { useGetUserQuery } from "../../state/apis/authApi";
+import "../header/Header.css";
+import "./volunteerCheckIn.css";
+import Loading from "../reusable/loading/Loading";
 
 const CheckInVolunteerBase = () => {
   const { data: user, isLoading } = useGetUserQuery();
@@ -22,9 +22,9 @@ const CheckInVolunteerBase = () => {
   }
 
   return (
-    <div className="main check-in">
-      <div className="check-in-header-container">
-        <div className="check-in-header">
+    <div className="check-in">
+      <div className="check-in-header">
+        <div className="check-in-header-left">
           <img
             src="/images/logos/ck-logo.png"
             alt="ck logo"
@@ -32,9 +32,16 @@ const CheckInVolunteerBase = () => {
           />
           <h1>Volunteer Check-In</h1>
         </div>
-        <p>{format(new Date(), 'eeee, M/d/yy')}</p>
+        <div className="check-in-header-right">
+          <Link to="/volunteer-check-in">
+            <button className="cancel">Start Over</button>
+          </Link>
+          <strong>{format(new Date(), "eeee, M/d/yy")}</strong>
+        </div>
       </div>
-      <Outlet />
+      <div className="main">
+        <Outlet />
+      </div>
     </div>
   );
 };

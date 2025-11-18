@@ -1,10 +1,9 @@
 import { useParams } from "react-router-dom";
-
 import Loading from "../../reusable/loading/Loading";
 import VolunteerJob from "./VolunteerJob";
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 
-const VJobSingle = () => {
+const JobDetail = () => {
   const { jobId } = useParams();
 
   const { data, isLoading } = useGetShiftsQuery();
@@ -22,9 +21,9 @@ const VJobSingle = () => {
 
   return (
     <div className="jobs-list">
-      <VolunteerJob job={job} />
+      <VolunteerJob job={job} open={true} />
     </div>
   );
 };
 
-export default VJobSingle;
+export default JobDetail;

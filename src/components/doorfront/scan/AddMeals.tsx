@@ -33,7 +33,7 @@ const AddMeals = () => {
 
   const { data, isLoading: getIsLoading } = useScanQuery({
     scanValue: scanValue || "",
-    cCode: cCode === "true",
+    useCcode: cCode === "true",
   });
 
   const pastMeals = data?.clientMeals;

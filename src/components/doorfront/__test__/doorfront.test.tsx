@@ -41,7 +41,7 @@ const clientMeals2: ClientMeal[] = [1, 2, 3, 4, 5, 6].map((i) => {
         ? formatISO(subDays(new Date(), i))
         : formatISO(addDays(new Date(), i)),
     id: "903933",
-    amount: 5,
+    amount: 3,
     logged: false,
   };
 });
@@ -54,26 +54,28 @@ const adminUser: User = {
   active: true,
 };
 
-describe("get client and add meals", () => {
+describe("get client by barcode and add meals", () => {
   createServer([
     { path: "/user", res: async () => adminUser },
     {
       path: "/meal-program/doorfront/scan/:scanValue",
       res: async () => ({ client, clientMeals: [] }),
     },
-    {
-      path: "/meal-program/doorfront/client/lookup-by-client-number/:clientNumber",
-      res: async () => ({ client: client2, clientMeals }),
-    },
+
     {
       path: "/meal-program/doorfront/meals",
       method: "post",
-      res: async () => null,
+      res: async (req) => null,
     },
     {
       path: "/meal-program/doorfront/client/:clientId",
       method: "patch",
-      res: async () => null,
+      res: async (req) => {
+        if (!req.body.barcode.length) {
+          throw Error();
+        }
+        return null;
+      },
     },
   ]);
 
@@ -103,7 +105,35 @@ describe("get client and add meals", () => {
 
     const submitBtn = screen.getByText(/submit/i);
     await userEvent.click(submitBtn);
+    const manualBtn = await screen.findByText(/manually/i);
+    expect(manualBtn).toBeDefined();
   });
+});
+
+describe("get client by c code and add meals", () => {
+  createServer([
+    { path: "/user", res: async () => adminUser },
+
+    {
+      path: "/meal-program/doorfront/client/lookup-by-client-number/:clientNumber",
+      res: async () => ({ client: client2, clientMeals: [] }),
+    },
+    {
+      path: "/meal-program/doorfront/meals",
+      method: "post",
+      res: async () => null,
+    },
+    {
+      path: "/meal-program/doorfront/client/:clientId",
+      method: "patch",
+      res: async (req) => {
+        if (!req.body.cCode) {
+          throw Error();
+        }
+        return null;
+      },
+    },
+  ]);
 
   test("get client by c code", async () => {
     render(<App />, { wrapper: Root });
@@ -114,6 +144,8 @@ describe("get client and add meals", () => {
     const manualInput = await screen.findByLabelText(/client id:/i);
 
     await userEvent.type(manualInput, "38383[enter]");
+    const barcodeInput = await screen.findByLabelText(/barcode/i);
+    expect(barcodeInput).toHaveTextContent("");
   });
 
   test("edit client", async () => {
@@ -122,7 +154,7 @@ describe("get client and add meals", () => {
     expect(barcodeInput).toHaveTextContent("");
 
     await userEvent.type(barcodeInput, "84848484");
-    const editClientBtn = await screen.findByText(/update client/i);
+    const editClientBtn = await screen.findByText(/submit/i);
     await userEvent.click(editClientBtn);
     const scanText = await screen.findAllByText(/scan/i);
     expect(scanText).not.toHaveLength(0);

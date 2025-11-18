@@ -56,22 +56,22 @@ const HomeChefHome = () => {
     }
   };
 
-  const renderAnnouncement = () => {
-    return (
-      <div className="home-chef-announcement">
-        <h3>Upcoming Produce Pick Up:</h3>
-        <p>
-          <strong>Wed. 11/12, 4-6pm</strong>
-        </p>
-        <p>CK Kitchen - 2270 Telegraph Ave</p>
-      </div>
-    );
-  };
+  // const renderAnnouncement = () => {
+  //   return (
+  //     <div className="home-chef-announcement">
+  //       <h3>Upcoming Produce Pick Up:</h3>
+  //       <p>
+  //         <strong>Wed. 11/12, 4-6pm</strong>
+  //       </p>
+  //       <p>CK Kitchen - 2270 Telegraph Ave</p>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="hc-home">
       <div>
-        {renderAnnouncement()}
+        {/* {renderAnnouncement()} */}
         {renderStatus()}
         <TextButton
           to="signup/list"

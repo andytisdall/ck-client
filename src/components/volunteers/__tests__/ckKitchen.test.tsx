@@ -239,6 +239,12 @@ describe("signed up for shift", () => {
   test("see signed up shift", async () => {
     render(<App />, { wrapper: Root });
 
+    const backBtn = await screen.findByText(/back/i);
+    await userEvent.click(backBtn);
+
+    const shift = await screen.findByText(/signed up/i);
+    await userEvent.click(shift);
+
     const confirmationMsg = await screen.findByText(
       "You have successfully signed up for this shift:"
     );

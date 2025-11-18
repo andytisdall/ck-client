@@ -1,14 +1,19 @@
 import { useCallback, useMemo } from "react";
+import { Link } from "react-router-dom";
 
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 import VolunteerJob from "./VolunteerJob";
 import Loading from "../../reusable/loading/Loading";
 import { FridgeRegion, Job } from "../../../state/apis/volunteerApi/types";
 import "./VolunteerJob.css";
+import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const VolunteerJobsList = () => {
   const { data, isLoading } = useGetShiftsQuery();
   const jobs = data?.jobs;
+  const { data: user } = useGetUserQuery();
+
+  const kitchenJob = jobs?.find((job) => !job.region);
 
   const renderFridges = useCallback((fridges: Job[]) => {
     return fridges
@@ -44,8 +49,18 @@ const VolunteerJobsList = () => {
     }
 
     return (
-      <div className="home-chef-fridges">
-        {regions.map((r) => renderRegion(r))}
+      <div>
+        {user?.admin && kitchenJob && (
+          <Link
+            to={`../job/${kitchenJob.id}`}
+            className="deliver-to-kitchen-btn"
+          >
+            NEW! Deliver your Home Chef meals directly to the CK Kitchen
+          </Link>
+        )}
+        <div className="home-chef-fridges">
+          {regions.map((r) => renderRegion(r))}
+        </div>
       </div>
     );
   };

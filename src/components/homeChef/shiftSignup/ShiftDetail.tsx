@@ -45,7 +45,11 @@ const ShiftDetail = () => {
   const shift = shifts && shiftId ? shifts[shiftId] : null;
   const job = jobs?.find((j) => j.id === shift?.job);
 
-  if (!shift?.open) {
+  if (!shift) {
+    return <p>Could not find shift</p>;
+  }
+
+  if (!shift.open) {
     return <p>This shift is not available for signup</p>;
   }
 

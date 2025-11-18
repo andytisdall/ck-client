@@ -126,6 +126,17 @@ export const homeChefApi = api.injectEndpoints({
       }),
       invalidatesTags: ["HomeChefSupplies"],
     }),
+    createDeliverToKitchenShift: builder.mutation<
+      { shiftId: string },
+      { date: string }
+    >({
+      query: (body) => ({
+        url: "/home-chef/deliver-to-kitchen",
+        body,
+        method: "POST",
+      }),
+      invalidatesTags: ["HomeChefShifts"],
+    }),
   }),
 });
 
@@ -145,4 +156,5 @@ export const {
   useGetSupplyOrdersQuery,
   useUpdateSupplyOrdersMutation,
   useCreateManualSupplyOrderMutation,
+  useCreateDeliverToKitchenShiftMutation,
 } = homeChefApi;

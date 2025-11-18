@@ -39,10 +39,10 @@ const doorfrontApi = api.injectEndpoints({
   endpoints: (builder) => ({
     scan: builder.query<
       GetClientMealsResponse,
-      { scanValue: string; cCode: boolean }
+      { scanValue: string; useCcode: boolean }
     >({
-      query: ({ scanValue, cCode }) =>
-        cCode
+      query: ({ scanValue, useCcode }) =>
+        useCcode
           ? "/meal-program/doorfront/client/lookup-by-client-number/" +
             scanValue
           : "/meal-program/doorfront/scan/" + scanValue,

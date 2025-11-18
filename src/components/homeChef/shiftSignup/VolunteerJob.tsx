@@ -6,8 +6,8 @@ import { Job } from "../../../state/apis/volunteerApi/types";
 import { Link } from "react-router-dom";
 import "./VolunteerJob.css";
 
-const VolunteerJob = ({ job }: { job: Job }) => {
-  const [expand, setExpand] = useState(false);
+const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
+  const [expand, setExpand] = useState(open);
 
   const { data } = useGetShiftsQuery();
   const shifts = data?.shifts;

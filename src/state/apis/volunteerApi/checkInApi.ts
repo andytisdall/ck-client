@@ -13,7 +13,7 @@ export interface VolunteerForCheckIn {
 
 export type CheckInShiftsResponse = Record<
   string,
-  { id: string; job: string; startTime: string }[]
+  { id: string; job: string; startTime: string; duration: number }[]
 >;
 
 const checkInApi = api.injectEndpoints({
@@ -26,7 +26,10 @@ const checkInApi = api.injectEndpoints({
       query: (shiftId) => "/volunteers/check-in/" + shiftId,
       providesTags: ["VolunteerCheckInList"],
     }),
-    checkInVolunteer: builder.mutation<null, { hoursId: string }>({
+    checkInVolunteer: builder.mutation<
+      null,
+      { hoursId: string; duration: number }
+    >({
       query: (body) => ({
         url: "/volunteers/check-in",
         method: "POST",

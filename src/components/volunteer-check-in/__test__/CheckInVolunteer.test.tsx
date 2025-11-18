@@ -48,7 +48,23 @@ const newVolunteer: Volunteer = {
 
 const getShiftsResponse: CheckInShiftsResponse = {
   sampleJob: [
-    { id: "3o8dh", job: "CK Kitchen", startTime: new Date().toString() },
+    {
+      id: "3o8dh",
+      job: "CK Kitchen",
+      startTime: new Date().toString(),
+      duration: 2,
+    },
+  ],
+};
+
+const getShiftsResponse2: CheckInShiftsResponse = {
+  sampleJob: [
+    {
+      id: "3o8dh",
+      job: "CK Kitchen",
+      startTime: new Date().toString(),
+      duration: 3,
+    },
   ],
 };
 
@@ -151,8 +167,8 @@ describe("agreement not signed and limit not reached", () => {
     const signLink = await screen.findByText(/sign the agreement/i);
     expect(signLink).toBeInTheDocument();
 
-    const startOverBtn = await screen.findByText(/start over/i);
-    await userEvent.click(startOverBtn);
+    const startOverBtn = await screen.findAllByText(/start over/i);
+    await userEvent.click(startOverBtn[startOverBtn.length - 1]);
   });
 });
 
@@ -199,8 +215,8 @@ describe("volunteer not on list and not in salesforce", () => {
     const signLink = await screen.findByText(/sign the agreement/i);
     expect(signLink).toBeInTheDocument();
 
-    const startOverBtn = screen.getByText(/start over/i);
-    await userEvent.click(startOverBtn);
+    const startOverBtn = await screen.findAllByText(/start over/i);
+    await userEvent.click(startOverBtn[0]);
   });
 });
 
@@ -209,11 +225,7 @@ describe("volunteer not on list but does exist in salesforce", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/volunteers/check-in/shifts",
-      res: async () => ({
-        sampleJob: [
-          { id: "3o8dh", job: "CK Kitchen", startTime: new Date().toString() },
-        ],
-      }),
+      res: async () => getShiftsResponse2,
     },
     {
       path: "/volunteers/check-in/:shiftId",
@@ -230,6 +242,9 @@ describe("volunteer not on list but does exist in salesforce", () => {
 
   test("find existing contact", async () => {
     render(<App />, { wrapper: Root });
+
+    const kitchenBtn = await screen.findByText(/kitchen/i);
+    await userEvent.click(kitchenBtn);
 
     const newVolunteerBtn = await screen.findByText(/new volunteer/i);
     await userEvent.click(newVolunteerBtn);

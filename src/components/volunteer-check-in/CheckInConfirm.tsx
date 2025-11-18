@@ -3,11 +3,19 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   useGetVolunteersForCheckInQuery,
   useCheckInVolunteerMutation,
+  useGetTodaysShiftsQuery,
 } from "../../state/apis/volunteerApi/checkInApi";
 import Loading from "../reusable/loading/Loading";
 
 const CheckInConfirm = () => {
   const { contactId, shiftId } = useParams();
+
+  const { data: jobs } = useGetTodaysShiftsQuery();
+  const shift = jobs
+    ? Object.values(jobs)
+        .flat()
+        .find((sh) => sh.id === shiftId)
+    : undefined;
 
   const { data: volunteers, isLoading } = useGetVolunteersForCheckInQuery(
     shiftId || ""
@@ -21,8 +29,11 @@ const CheckInConfirm = () => {
   const volunteer = volunteers?.find((vol) => vol.contactId === contactId);
 
   const handleCheckIn = async () => {
-    if (volunteer?.hoursId) {
-      await checkInVolunteer({ hoursId: volunteer.hoursId });
+    if (volunteer?.hoursId && shift) {
+      await checkInVolunteer({
+        hoursId: volunteer.hoursId,
+        duration: shift.duration,
+      });
       navigate("../success/" + shiftId);
     }
   };

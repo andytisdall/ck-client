@@ -1,5 +1,5 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { format } from "date-fns";
+import { format, addHours } from "date-fns";
 
 import {
   useGetVolunteersForCheckInQuery,
@@ -127,8 +127,14 @@ const CheckInVolunteers = () => {
     <div className="check-in-list">
       <div className="check-in-list-header">
         <button onClick={() => navigate("..")}>Back to Jobs</button>
-        <h2>{shift?.job}</h2>
-        <h3>{format(new Date(shift.startTime), "h:mm a")}</h3>
+        <h2>{shift.job}</h2>
+        <h3>
+          {format(new Date(shift.startTime), "h:mm a")} -{" "}
+          {format(
+            addHours(new Date(shift.startTime), shift.duration),
+            "h:mm a"
+          )}
+        </h3>
       </div>
       <div className="check-in-list-detail">{renderVolunteers()}</div>
     </div>

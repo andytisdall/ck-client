@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Client } from "../../../state/apis/mealProgramApi/doorfrontApi";
@@ -22,14 +22,14 @@ const ClientInformation = ({
 
   const [editClient, { isLoading }] = useEditClientMutation();
 
-  // useEffect(() => {
-  //   if (setClientInfo) {
-  //     setClientInfo({
-  //       cCode,
-  //       barcode,
-  //     });
-  //   }
-  // }, [setClientInfo, cCode, barcode]);
+  useEffect(() => {
+    if (setClientInfo) {
+      setClientInfo({
+        cCode,
+        barcode,
+      });
+    }
+  }, [setClientInfo, cCode, barcode]);
 
   const navigate = useNavigate();
 
@@ -62,12 +62,6 @@ const ClientInformation = ({
                 const newBarcodes = [...barcode];
                 newBarcodes[i] = e.target.value.toUpperCase();
                 setBarcode(newBarcodes);
-                if (setClientInfo) {
-                  setClientInfo({
-                    cCode,
-                    barcode: newBarcodes,
-                  });
-                }
               }}
             />
           ))}
@@ -84,9 +78,6 @@ const ClientInformation = ({
           onChange={(e) => {
             const upperCaseCode = e.target.value.toUpperCase();
             setCcode(upperCaseCode);
-            if (setClientInfo) {
-              setClientInfo({ cCode: upperCaseCode, barcode });
-            }
           }}
         />
         {client.cCodeIncorrect && (

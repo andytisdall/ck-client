@@ -1,27 +1,32 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
-import renderWithFallback from '../../reusable/loading/renderWithFallback';
+import renderWithFallback from "../../reusable/loading/renderWithFallback";
 
-const ShiftSignup = lazy(() => import('./ShiftSignup'));
-const VolunteerJobsList = lazy(() => import('./VolunteerJobsList'));
-const VJobSingle = lazy(() => import('./VJobSingle'));
-const Calendar = lazy(() => import('./HomeChefCalendar'));
-const ShiftDetail = lazy(() => import('./ShiftDetail'));
-const Confirmation = lazy(() => import('./Confirmation'));
+const ShiftSignup = lazy(() => import("./ShiftSignup"));
+const VolunteerJobsList = lazy(() => import("./VolunteerJobsList"));
+const Calendar = lazy(() => import("./HomeChefCalendar"));
+const ShiftDetail = lazy(() => import("./ShiftDetail"));
+const Confirmation = lazy(() => import("./Confirmation"));
+const DeliverToKitchen = lazy(() => import("./DeliverToKitchen"));
+const JobDetail = lazy(() => import("./JobDetail"));
 
 const signupRouter = {
-  path: 'signup',
+  path: "signup",
   element: renderWithFallback(<ShiftSignup />),
   children: [
-    { path: 'list', element: renderWithFallback(<VolunteerJobsList />) },
-    { path: 'fridge/:jobId', element: renderWithFallback(<VJobSingle />) },
-    { path: 'calendar', element: renderWithFallback(<Calendar />) },
+    { path: "list", element: renderWithFallback(<VolunteerJobsList />) },
     {
-      path: 'shift/:shiftId',
+      path: "deliver-to-kitchen",
+      element: renderWithFallback(<DeliverToKitchen />),
+    },
+    { path: "calendar", element: renderWithFallback(<Calendar />) },
+    {
+      path: "shift/:shiftId",
       element: renderWithFallback(<ShiftDetail />),
     },
+    { path: "job/:jobId", element: renderWithFallback(<JobDetail />) },
     {
-      path: 'confirm/:hoursId',
+      path: "confirm/:hoursId",
       element: renderWithFallback(<Confirmation />),
     },
   ],

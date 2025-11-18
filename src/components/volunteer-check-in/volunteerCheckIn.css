@@ -1,16 +1,24 @@
 .check-in {
-  background-image: linear-gradient(rgb(3, 130, 1), rgb(29, 231, 39));
-}
-
-.check-in-header-container {
-  margin-bottom: 3rem;
+  background-image: linear-gradient(rgb(58, 163, 56), rgb(172, 246, 176));
 }
 
 .check-in-header {
   display: flex;
   justify-content: space-between;
+  background-color: rgb(86, 85, 85);
+  padding: 1rem 2rem;
+  color: white;
+}
+
+.check-in-header-left {
+  display: flex;
   align-items: center;
-  border-bottom: 1px solid black;
+}
+
+.check-in-header-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .check-in-volunteer {
@@ -77,13 +85,12 @@
 }
 
 .check-in-list {
-  margin: 3rem;
+  margin: 1rem;
 }
 
 .check-in-list-header {
   display: flex;
   align-items: center;
-  width: 50%;
   justify-content: space-between;
   padding-left: 2rem;
 }
