@@ -8,6 +8,7 @@
   background-color: rgb(86, 85, 85);
   padding: 1rem 2rem;
   color: white;
+  flex-wrap: wrap;
 }
 
 .check-in-header-left {
@@ -99,4 +100,11 @@
   text-align: left;
   border-top: 1px solid black;
   padding: 2rem;
+}
+
+@media (max-width: 750px) {
+  .check-in-header-right {
+    flex-direction: row;
+    align-items: center;
+  }
 }

@@ -36,7 +36,9 @@ const MealReportRow = ({
         <div className="meal-report-col">{meal.amount}</div>
         <div className="meal-report-col doorfront-barcode-list">
           {client?.barcode.map((bc) => (
-            <div key={bc}>{bc}</div>
+            <div className="meal-report-col" key={bc}>
+              {bc}
+            </div>
           ))}
         </div>
         <div

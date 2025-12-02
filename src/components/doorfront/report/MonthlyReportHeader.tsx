@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format, getDate, getMonth, getYear } from "date-fns";
 import MonthlyReport from "./MonthlyReport";
 
@@ -10,17 +10,27 @@ const MonthlyReportHeader = () => {
     currentMonth += 1;
   }
 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(getYear(today));
 
-  const startDate = new Date(
-    month === 1 ? year - 1 : year,
-    month === 1 ? 11 : month - 2,
-    15
-  );
-  const endDate = new Date(year, month - 1, 14);
+  useEffect(() => {
+    setStartDate(
+      format(
+        new Date(
+          month === 1 ? year - 1 : year,
+          month === 1 ? 11 : month - 2,
+          15
+        ),
+        "yyyy-MM-dd"
+      )
+    );
+    setEndDate(format(new Date(year, month - 1, 14), "yyyy-MM-dd"));
+  }, [month, year]);
 
-  const controls = (
+  const monthControls = (
     <div>
       <label>Month:</label>
       <select
@@ -48,15 +58,29 @@ const MonthlyReportHeader = () => {
     </div>
   );
 
+  const dayControls = (
+    <div>
+      <label>Date Range:</label>
+      <input
+        type="date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+      />
+      -{" "}
+      <input
+        type="date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+      />
+    </div>
+  );
+
   return (
     <div className="meal-report">
       <h2>Monthly Report</h2>
-      {controls}
-      <div>
-        Date Range: {format(startDate, "M/d/yy")} - {format(endDate, "M/d/yy")}
-      </div>
-
-      <MonthlyReport month={month} year={year} />
+      {monthControls}
+      {dayControls}
+      <MonthlyReport startDate={startDate} endDate={endDate} />
     </div>
   );
 };

@@ -26,7 +26,13 @@ const VolunteerJobsList = () => {
 
   const regions = useMemo(
     () =>
-      Array.from(new Set(jobs?.filter((j) => j.region).map((j) => j.region!))),
+      Array.from(
+        new Set(
+          jobs
+            ?.filter((j) => j.region && j.region !== "CK Kitchen")
+            .map((j) => j.region!)
+        )
+      ),
     [jobs]
   );
 

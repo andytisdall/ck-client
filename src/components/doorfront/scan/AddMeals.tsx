@@ -1,4 +1,9 @@
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useSearchParams,
+  Navigate,
+} from "react-router-dom";
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
 import { useDispatch } from "react-redux";
@@ -98,14 +103,19 @@ const AddMeals = () => {
     }
   };
 
+  if (!scanValue) {
+    return <Navigate replace to="/doorfront/scan" />;
+  }
+
   if (isLoading) {
     return <Loading />;
   }
 
-  if (!scanValue || !pastMeals || !clientId) {
+  if (!data) {
     return (
       <div>
-        <h2>Something went wrong</h2>
+        <h2>There was an error fetching data. Try reloading.</h2>
+        <button onClick={() => window.location.reload()}>Reload</button>
         <button onClick={() => navigate("..")}>Back</button>
       </div>
     );
@@ -151,7 +161,7 @@ const AddMeals = () => {
 
   return (
     <div>
-      <ClientInfo client={client} setClientInfo={setClientInfo} />
+      <ClientInfo client={data.client} setClientInfo={setClientInfo} />
       <div className="doorfront">
         {cannotSubmit ? (
           renderCannotSubmit()
@@ -164,7 +174,7 @@ const AddMeals = () => {
             }
           />
         )}
-        <PastMeals meals={pastMeals} />
+        <PastMeals meals={data.clientMeals} />
       </div>
       {renderControls()}
     </div>

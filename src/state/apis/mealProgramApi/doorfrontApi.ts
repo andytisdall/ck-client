@@ -28,11 +28,11 @@ export interface Client {
 export type MonthlyReportResponse = Record<
   string,
   { meals: number; visits: number }
->;
+> | null;
 
 interface MonthlyReportArgs {
-  month: number;
-  year: number;
+  startDate: string;
+  endDate: string;
 }
 
 const doorfrontApi = api.injectEndpoints({
@@ -103,8 +103,8 @@ const doorfrontApi = api.injectEndpoints({
       invalidatesTags: ["Doorfront"],
     }),
     getMonthlyMeals: builder.query<MonthlyReportResponse, MonthlyReportArgs>({
-      query: ({ month, year }) =>
-        "/meal-program/doorfront/monthly/" + month + "&" + year,
+      query: ({ startDate, endDate }) =>
+        "/meal-program/doorfront/monthly/" + startDate + "&" + endDate,
       providesTags: ["Doorfront"],
     }),
     updateClients: builder.mutation<null, void>({

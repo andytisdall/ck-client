@@ -144,7 +144,7 @@ const ScanBarcode = () => {
         <button className="cancel" onClick={() => navigate("..")}>
           Cancel
         </button>
-        <button onClick={() => navigate(GENERIC_CARD_CODE)}>
+        <button onClick={() => navigate(GENERIC_CARD_CODE + "?cCode=true")}>
           Add Meals to Generic Card
         </button>
       </div>

@@ -4,8 +4,14 @@ import {
 } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../../reusable/loading/Loading";
 
-const MonthlyReport = ({ month, year }: { month: number; year: number }) => {
-  const { data, isFetching } = useGetMonthlyMealsQuery({ month, year });
+const MonthlyReport = ({
+  startDate,
+  endDate,
+}: {
+  startDate: string;
+  endDate: string;
+}) => {
+  const { data, isFetching } = useGetMonthlyMealsQuery({ startDate, endDate });
 
   const clients: MonthlyReportResponse = data || {};
 

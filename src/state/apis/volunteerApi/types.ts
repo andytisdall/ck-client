@@ -34,7 +34,11 @@ export interface Shift {
   distance?: string;
 }
 
-export type FridgeRegion = "East Oakland" | "West Oakland" | "Berkeley";
+export type FridgeRegion =
+  | "East Oakland"
+  | "West Oakland"
+  | "Berkeley"
+  | "CK Kitchen";
 
 export interface Job {
   id: string;
