@@ -1,5 +1,4 @@
 import { useState, FormEventHandler } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
 import Loading from "../../reusable/loading/Loading";
 import "../Volunteers.css";
@@ -16,9 +15,6 @@ const GetVolunteer = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const { campaignId } = useParams();
-  const navigate = useNavigate();
-
   const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
   const [createVolunteer, createVolunteerResult] = useCreateVolunteerMutation();
 
@@ -28,8 +24,6 @@ const GetVolunteer = () => {
       const volunteer = await getVolunteer(email).unwrap();
       if (!volunteer) {
         setShowNameFields(true);
-      } else if (campaignId) {
-        navigate("../signup/" + campaignId);
       }
     } else {
       await createVolunteer({ email, firstName, lastName }).unwrap();

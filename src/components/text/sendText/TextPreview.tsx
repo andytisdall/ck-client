@@ -1,10 +1,10 @@
-import { format } from 'date-fns-tz';
+import { format } from "date-fns-tz";
 
 interface TextPreviewProps {
   onSubmit: () => void;
-  message: string;
+  message?: string;
   region?: string;
-  photo?: File | string;
+  photo?: File | FileList | string;
   onCancel: () => void;
   number?: string;
   sendAt?: string;
@@ -19,29 +19,37 @@ const TextPreview = ({
   number,
   sendAt,
 }: TextPreviewProps) => {
-  const getSrc = () => {
+  const getSrcs = () => {
     if (photo) {
-      if (typeof photo !== 'string') {
-        return URL.createObjectURL(photo);
+      if (photo instanceof FileList) {
+        return Array.from(photo).map((p) => URL.createObjectURL(p));
       }
-      return photo;
+      if (typeof photo !== "string") {
+        return [URL.createObjectURL(photo)];
+      }
+      return [photo];
     }
+    return [];
   };
 
   return (
     <div>
       <h3>Confirm Your Message:</h3>
       <div className="text-preview">{message}</div>
-      {photo && <img className="photo-preview" src={getSrc()} alt="preview" />}
+      <div>
+        {getSrcs().map((src) => (
+          <img key={src} className="photo-preview" src={src} alt="preview" />
+        ))}
+      </div>
 
       <div>
         {!!region && <p>Region: {region}</p>}
-        <p>To: {!!number ? number : 'All Subscribers in this Region'}</p>
+        <p>To: {!!number ? number : "All Subscribers in this Region"}</p>
       </div>
 
       {sendAt && (
         <p>
-          Scheduled to send at {format(new Date(sendAt), 'MM/dd/yy hh:mm a')}
+          Scheduled to send at {format(new Date(sendAt), "MM/dd/yy hh:mm a")}
         </p>
       )}
 

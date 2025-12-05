@@ -6,7 +6,6 @@ import TextPreview from "../sendText/TextPreview";
 import "../sendText/SendText.css";
 //@ts-ignore
 import { formatNumber } from "../feedback/Feedback";
-import FileInput from "../../reusable/file/FileInput";
 import { useSendTextMutation } from "../../../state/apis/textApi";
 import { Region } from "../../../state/apis/textApi";
 
@@ -29,7 +28,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
   const [number, setNumber] = useState(
     replyTo?.sender ? formatNumber(replyTo.sender) : ""
   );
-  const [photo, setPhoto] = useState<File | string | undefined>();
+  const [photo, setPhoto] = useState<File | FileList | string | undefined>();
   const [imageError, setImageError] = useState(false);
 
   const [preview, setPreview] = useState(false);
@@ -40,7 +39,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
   const numberTextRef = useRef<HTMLInputElement | null>(null);
 
   const composeText = () => {
-    const btnActive = message && (region || number);
+    const btnActive = (message || photo) && (region || number);
     return (
       <div className="send-text">
         <div className="send-text-variables">
@@ -157,10 +156,10 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
             <div className="send-text-section-title">Photo (Optional):</div>
             <div className="send-text-variables-item">
               <div className="send-text-photo-field-container">
-                <FileInput
-                  file={typeof photo !== "string" ? photo : undefined}
-                  setFile={setPhoto}
-                  label="Upload Photo:"
+                <input
+                  type="file"
+                  multiple
+                  onChange={(e) => setPhoto(e.target.files || undefined)}
                 />
               </div>
               <div className="send-text-photo-field-or">Or</div>
@@ -205,6 +204,8 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
       </div>
     );
   };
+
+  console.log(photo);
 
   const renderContent = () => {
     if (sendTextResult.isLoading) {

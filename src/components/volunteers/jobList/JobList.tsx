@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { utcToZonedTime } from "date-fns-tz";
+import { useState, useEffect } from "react";
 
 import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
 import { RootState } from "../../../state/store";
@@ -8,9 +9,10 @@ import Loading from "../../reusable/loading/Loading";
 import ShiftList from "../shiftList/ShiftList";
 import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
 import config from "../config";
-import { Link } from "react-router-dom";
+import GetVolunteer from "../getVolunteer/GetVolunteer";
 
 const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
+  const [getContact, setGetContact] = useState(false);
   const { data: jobs, isLoading } = useGetJobsQuery({
     campaignId: campaign.id,
   });
@@ -24,6 +26,12 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const { data: user } = useGetUserQuery();
 
   const contactId = volunteer?.id || user?.salesforceId;
+
+  useEffect(() => {
+    if (contactId) {
+      setGetContact(false);
+    }
+  }, [contactId]);
 
   if (isLoading) {
     return <Loading />;
@@ -46,17 +54,22 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const renderSignIn = () => {
     if (!user && !volunteer) {
       return (
-        <Link to={`../../../signin/${campaign.id}`}>
-          <button className="volunteers-shift-space">
-            Click here to see shifts you signed up for
-          </button>
-        </Link>
+        <button
+          onClick={() => setGetContact(true)}
+          className="volunteers-shift-space"
+        >
+          Click here to see shifts you signed up for
+        </button>
       );
     }
   };
 
   if (!visibleJobs.length) {
     return <div>No upcoming shifts are available for sign up.</div>;
+  }
+
+  if (getContact) {
+    return <GetVolunteer />;
   }
 
   return (

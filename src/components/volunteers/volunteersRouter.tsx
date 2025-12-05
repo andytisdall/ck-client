@@ -5,8 +5,6 @@ import "./Volunteers.css";
 import renderWithFallback from "../reusable/loading/renderWithFallback";
 import driverRouter from "./driver/driverRouter";
 
-const GetVolunteer = lazy(() => import("./getVolunteer/GetVolunteer"));
-
 const Sign = lazy(() => import("../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
 
@@ -32,10 +30,6 @@ const volunteersRouter: RouteObject = {
       element: renderWithFallback(<ConfirmationBase />),
     },
     driverRouter,
-    {
-      path: "signin/:campaignId",
-      element: renderWithFallback(<GetVolunteer />),
-    },
     {
       path: "signup",
       element: renderWithFallback(<VolunteerSignInBase />),

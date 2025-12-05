@@ -86,7 +86,7 @@ const SendText = () => {
     const btnActive =
       fridge !== undefined &&
       date &&
-      message &&
+      (message || photo) &&
       time &&
       source &&
       name &&
@@ -241,22 +241,31 @@ const SendText = () => {
   };
 
   const renderContent = () => {
-    if (!fridges || sendTextResult.isLoading) {
+    if (sendTextResult.isLoading) {
       return <Loading />;
     }
     if (!preview) {
       return composeText();
     }
-    if (message && fridge !== undefined && fridges[fridge].region) {
+    if (!fridges || fridge === undefined) {
+      return <div>Reload the page.</div>;
+    }
+    const reg = fridges[fridge]?.region;
+    if (reg) {
       return renderWithFallback(
         <TextPreview
           message={message}
-          region={fridges[fridge].region}
+          region={reg}
           photo={photo}
-          onSubmit={() => {
-            sendText({ message, region: fridges[fridge].region!, photo })
-              .unwrap()
-              .then(() => navigate("../text-success"));
+          onSubmit={async () => {
+            if (reg !== "CK Kitchen") {
+              await sendText({
+                message,
+                region: reg,
+                photo,
+              }).unwrap();
+              navigate("../text-success");
+            }
           }}
           onCancel={() => setPreview(false)}
         />

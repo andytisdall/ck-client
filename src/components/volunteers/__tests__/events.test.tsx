@@ -180,7 +180,7 @@ describe("volunteer found", () => {
       method: "delete",
       res: async () => null,
     },
-    { path: "/volunteers/hours", method: "post", res: async () => hours },
+    { path: "/volunteers/hours", method: "post", res: async () => [] },
     { path: "/sign/config", res: async () => ({ limitReached: false }) },
     { path: "sign/CKK/:idd/:id", res: async () => {} },
     {
@@ -195,6 +195,9 @@ describe("volunteer found", () => {
 
   test("get job info and sign up for shift", async () => {
     render(<App />, { wrapper: Root });
+
+    const emailField = await screen.findByLabelText(/email/i);
+    await userEvent.type(emailField, volunteer1.email + "[Enter]");
 
     const confirmSignup = await screen.findByText("Confirm Signup");
     await userEvent.click(confirmSignup);

@@ -45,6 +45,7 @@ const FileInput = ({ file, setFile, label }: FileInputProps) => {
         id={label}
         className="file-hidden"
         onChange={processFile}
+        multiple
       />
     </div>
   );

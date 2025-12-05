@@ -17,10 +17,18 @@ export const sendTextApi = api.injectEndpoints({
     sendText: builder.mutation<SendTextResponse, SendTextBody>({
       query: (body) => {
         const postBody = new FormData();
-        postBody.append("message", body.message);
+        if (body.message) {
+          postBody.append("message", body.message);
+        }
         postBody.append("region", body.region);
         if (body.photo) {
-          postBody.append("photo", body.photo);
+          if (body.photo instanceof FileList) {
+            Array.from(body.photo).forEach((file) => {
+              postBody.append("photo", file);
+            });
+          } else {
+            postBody.append("photo", body.photo);
+          }
         }
         if (body.feedbackId) {
           postBody.append("feedbackId", body.feedbackId);
