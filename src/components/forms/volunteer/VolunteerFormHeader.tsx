@@ -64,7 +64,7 @@ const VolunteerFormHeader = () => {
         connect with neighbors and ensure dignified access to food.
       </p>
       <br />
-      <p>
+      <div>
         <strong>Questions?</strong>
         <ul>
           <li>
@@ -89,7 +89,7 @@ const VolunteerFormHeader = () => {
             </a>
           </li>
         </ul>
-      </p>
+      </div>
 
       <p className="required">* Indicates required question</p>
     </div>

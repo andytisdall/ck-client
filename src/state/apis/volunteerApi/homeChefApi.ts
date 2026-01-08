@@ -30,7 +30,7 @@ export const homeChefApi = api.injectEndpoints({
       invalidatesTags: ["PushNotifications"],
     }),
     getHomeChefNotifications: builder.query<Notification[], void>({
-      query: () => "/home-chef/notifications",
+      query: () => "/home-chef/notifications/all",
       providesTags: ["PushNotifications"],
     }),
     getCampaign: builder.query<Campaign, void>({
@@ -107,8 +107,12 @@ export const homeChefApi = api.injectEndpoints({
       query: (body) => ({ url: "/home-chef/ordering", body, method: "POST" }),
       invalidatesTags: ["HomeChefSupplies"],
     }),
-    getSupplyOrders: builder.query<SupplyOrder[], void>({
-      query: () => "/home-chef/ordering",
+    getFulfilledSupplyOrders: builder.query<SupplyOrder[], void>({
+      query: () => "/home-chef/ordering/fulfilled",
+      providesTags: ["HomeChefSupplies"],
+    }),
+    getUnfulfilledSupplyOrders: builder.query<SupplyOrder[], void>({
+      query: () => "/home-chef/ordering/unfulfilled",
       providesTags: ["HomeChefSupplies"],
     }),
     updateSupplyOrders: builder.mutation<null, { orders: string[] }>({
@@ -153,7 +157,8 @@ export const {
   useSubmitQuizAnswersMutation,
   useUploadFoodHandlerCertificateMutation,
   useOrderSuppliesMutation,
-  useGetSupplyOrdersQuery,
+  useGetFulfilledSupplyOrdersQuery,
+  useGetUnfulfilledSupplyOrdersQuery,
   useUpdateSupplyOrdersMutation,
   useCreateManualSupplyOrderMutation,
   useCreateDeliverToKitchenShiftMutation,

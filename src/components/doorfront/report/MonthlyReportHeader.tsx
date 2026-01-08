@@ -6,15 +6,21 @@ const MonthlyReportHeader = () => {
   const today = new Date();
   const todaysDate = getDate(today);
   let currentMonth = getMonth(today) + 1;
+  let currentYear = getYear(today);
   if (todaysDate > 14) {
-    currentMonth += 1;
+    if (currentMonth < 12) {
+      currentMonth += 1;
+    } else {
+      currentMonth = 1;
+      currentYear += 1;
+    }
   }
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
   const [month, setMonth] = useState(currentMonth);
-  const [year, setYear] = useState(getYear(today));
+  const [year, setYear] = useState(currentYear);
 
   useEffect(() => {
     setStartDate(

@@ -65,7 +65,17 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
           <div className="calendar-day">Fri</div>
           <div className="calendar-day">Sat</div>
         </div>
-        <div className="calendar">{getDays()}</div>
+        <div
+          // onDrag={(e) => {
+          //   if (e.screenX > window.innerWidth / 3) {
+          //     setMonth(addMonths(month, 1));
+          //   }
+          // }}
+          // draggable
+          className="calendar"
+        >
+          {getDays()}
+        </div>
       </>
     );
   };

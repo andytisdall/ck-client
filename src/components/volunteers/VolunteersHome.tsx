@@ -49,7 +49,7 @@ const VolunteersHome = () => {
   const renderOngoing = () => {
     return (
       <div className="volunteers-home-section">
-        {renderAnnouncement()}
+        {/* {renderAnnouncement()} */}
         <div className="volunteers-home-section-title">
           Ongoing Volunteer Programs
         </div>

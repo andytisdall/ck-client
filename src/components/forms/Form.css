@@ -299,6 +299,11 @@
   padding: 1rem;
 }
 
+.form-phone-error {
+  border: red 3px solid;
+  background-color: rgba(255, 192, 203, 0.501);
+}
+
 @media (max-width: 540px) {
   .form-bike-headline img {
     display: none;

@@ -111,7 +111,8 @@
 }
 
 .volunteers-email-field {
-  width: 90%;
+  width: 100%;
+  max-width: 300px;
 }
 
 .volunteers-email-display {
@@ -160,8 +161,14 @@
 }
 
 .volunteers-kitchen-signup-photo {
-  max-height: 30vw;
+  max-height: 33vw;
   box-sizing: border-box;
+}
+
+.volunteers-event-photo {
+  width: 500px;
+  max-width: 100%;
+  max-height: max-content;
 }
 
 .volunteers-home-img {
@@ -183,14 +190,13 @@
 
 .volunteers-signin {
   margin: 1rem;
-  padding: 1rem 2rem;
+  padding: 1rem;
   background-color: rgba(255, 255, 255, 0.4);
 }
 
 .volunteers-signin-field {
   display: flex;
   align-items: center;
-  margin-left: 2rem;
 }
 
 .volunteers-signin-field label {
@@ -248,10 +254,19 @@
 }
 
 @media (max-width: 600px) {
-  .volunteers-kitchen-signup-photos {
+  .volunteers-kitchen-signup-photo {
     display: none;
   }
 
+  .volunteers-kitchen-signup-photo:first-child {
+    display: flex;
+    max-height: 100vw;
+    width: 100%;
+    object-fit: contain;
+  }
+  .volunteers-photo-frame {
+    padding: 0.5rem;
+  }
   .volunteers-shift {
     flex-direction: column;
     align-items: center;

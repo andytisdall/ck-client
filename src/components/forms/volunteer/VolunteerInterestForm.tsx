@@ -1,6 +1,8 @@
 import { useState, FormEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
+import { setError } from "../../../state/apis/slices/errorSlice";
 import Loading from "../../reusable/loading/Loading";
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
 import VolunteerFormHeader from "./VolunteerFormHeader";
@@ -15,15 +17,43 @@ const InterestForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [instagramHandle, setInstagramHandle] = useState("");
 
+  const [phoneError, setPhoneError] = useState("");
+
   const [source, setSource] = useState("");
   const [corporate, setCorporate] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
+
+    const formattedPhoneNumber = phoneNumber
+      .replace(/-/g, "")
+      .replace(/ /g, "")
+      .replace(/\(|\)/g, "");
+
+    let phoneErrorText = "";
+
+    if (formattedPhoneNumber.length > 10) {
+      phoneErrorText = "Please enter a 10 digit phone number";
+    }
+    if (formattedPhoneNumber[0] === "1") {
+      phoneErrorText =
+        "Please remove the 1 from the beginning of your phone number";
+    }
+    if (formattedPhoneNumber.length < 10) {
+      phoneErrorText = "Please enter your full phone number with area code";
+    }
+    if (formattedPhoneNumber.match(/[a-zA-Z]+/)) {
+      phoneErrorText = "Invalid phone number: No letters allowed";
+    }
+    if (phoneErrorText) {
+      setPhoneError(phoneErrorText);
+      return dispatch(setError(phoneErrorText));
+    }
 
     await submitForm({
       formData: {
@@ -96,10 +126,14 @@ const InterestForm = () => {
             id="phoneNumber"
             type="tel"
             required
-            maxLength={10}
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={(e) => {
+              setPhoneError("");
+              setPhoneNumber(e.target.value);
+            }}
+            className={phoneError ? "form-phone-error" : ""}
           />
+          {phoneError && <div className="required">{phoneError}</div>}
         </div>
 
         <div className="form-item">

@@ -6,7 +6,6 @@ import Loading from "../../reusable/loading/Loading";
 import Calendar from "../../reusable/calendar/Calendar";
 import { Shift } from "../../../state/apis/volunteerApi/types";
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
-import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const HomeChefCalendar = () => {
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ const HomeChefCalendar = () => {
   const { data, isLoading } = useGetShiftsQuery();
   const shifts = data?.shifts;
   const jobs = data?.jobs;
-  const { data: user } = useGetUserQuery();
 
   const orderedShifts = useMemo(() => {
     const orderedByDate: Record<string, Shift[]> = {};
@@ -26,9 +24,7 @@ const HomeChefCalendar = () => {
       .filter((sh) => {
         const job = jobs.find((j) => j.id === sh.job);
         // lose the region filter if using blank as ck kitchen dropoffs
-        return !user?.admin
-          ? job?.ongoing && job.active && job.region
-          : job?.ongoing && job.active;
+        return job?.ongoing && job.active;
       })
       .forEach((sh) => {
         const formattedTime = format(
@@ -42,16 +38,17 @@ const HomeChefCalendar = () => {
         }
       });
     return orderedByDate;
-  }, [shifts, jobs, user]);
+  }, [shifts, jobs]);
 
   const getShifts = useCallback(
     (d: string) => {
       let dayShifts: JSX.Element[] = [];
 
       if (orderedShifts[d] && jobs) {
+        const visibleJobs = jobs.filter((j) => j.active && j.ongoing);
         dayShifts = orderedShifts[d].map((sh) => {
-          const jobIndex = jobs.findIndex((j) => j.id === sh.job);
-          const job = jobs[jobIndex];
+          const jobIndex = visibleJobs.findIndex((j) => j.id === sh.job);
+          const job = visibleJobs[jobIndex];
           const available = sh.open;
           const status = available ? "" : "calendar-shift-disabled";
           const link = () => navigate("../shift/" + sh.id);

@@ -1,19 +1,40 @@
 import { NavLink, Outlet, useParams, Link, Navigate } from "react-router-dom";
 import { utcToZonedTime, format } from "date-fns-tz";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
+import { RootState } from "../../state/store";
+import { useGetUserQuery } from "../../state/apis/authApi";
 import "./Volunteers.css";
 import { navLink } from "../../utils/style";
 import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import config from "./config";
 import Loading from "../reusable/loading/Loading";
+import GetVolunteer from "./getVolunteer/GetVolunteer";
 
 const CampaignBase = () => {
   const { campaignId } = useParams();
+  const [getContact, setGetContact] = useState(false);
+
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
   const campaign = campaigns?.find((c) => c.id === campaignId);
 
   const driver = campaign?.id === config.deliveryDrivers.id;
   const event = !!campaign?.startDate;
+
+  const volunteer = useSelector(
+    (state: RootState) => state.volunteer.volunteer
+  );
+
+  const { data: user } = useGetUserQuery();
+
+  const contactId = volunteer?.id || user?.salesforceId;
+
+  useEffect(() => {
+    if (contactId) {
+      setGetContact(false);
+    }
+  }, [contactId]);
 
   const renderImages = () => {
     const campaignConfig = Object.values(config).find(
@@ -26,22 +47,20 @@ const CampaignBase = () => {
           key={img}
           src={`/images/volunteers/${img}`}
           alt="CK Volunteers"
-          className="volunteers-kitchen-signup-photo volunteers-photo-frame"
+          className={`volunteers-kitchen-signup-photo volunteers-photo-frame ${event ? "volunteers-event-photo" : ""}`}
         />
       ));
     }
   };
 
   const renderEditDriverInfoBtn = () => {
-    if (driver) {
-      return (
-        <div className="volunteers-driver-info-btn">
-          <Link to="../../driver-onboarding">
-            <button>Edit your information</button>
-          </Link>
-        </div>
-      );
-    }
+    return (
+      <div className="volunteers-driver-info-btn">
+        <Link to="../../driver-onboarding">
+          <button>Edit your information</button>
+        </Link>
+      </div>
+    );
   };
 
   if (isLoading) {
@@ -100,6 +119,18 @@ const CampaignBase = () => {
     );
   };
 
+  const renderSignIn = () => {
+    if (!user && !volunteer) {
+      return (
+        <div className="volunteers-driver-info-btn">
+          <button onClick={() => setGetContact(true)}>
+            See Shifts You Signed Up For
+          </button>
+        </div>
+      );
+    }
+  };
+
   const renderOngoing = () => {
     return (
       <div className="volunteers-body">
@@ -111,10 +142,14 @@ const CampaignBase = () => {
             Calendar
           </NavLink>
         </div>
-        {renderEditDriverInfoBtn()}
+        {driver ? renderEditDriverInfoBtn() : renderSignIn()}
       </div>
     );
   };
+
+  if (getContact) {
+    return <GetVolunteer />;
+  }
 
   return (
     <div>

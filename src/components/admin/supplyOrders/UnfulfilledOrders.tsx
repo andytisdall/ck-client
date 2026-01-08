@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { setAlert } from "../../../state/apis/slices/alertSlice";
 import {
-  useGetSupplyOrdersQuery,
+  useGetUnfulfilledSupplyOrdersQuery,
   useUpdateSupplyOrdersMutation,
 } from "../../../state/apis/volunteerApi/homeChefApi";
 import Loading from "../../reusable/loading/Loading";
@@ -13,16 +13,16 @@ import Order from "./Order";
 const UnfulfilledOrders = () => {
   const [ordersToUpdate, setOrdersToUpdate] = useState<string[]>([]);
 
-  const { data: orders, isLoading } = useGetSupplyOrdersQuery();
+  const { data: orders, isLoading } = useGetUnfulfilledSupplyOrdersQuery();
 
   const [updateOrders, { isLoading: mutationIsLoading }] =
     useUpdateSupplyOrdersMutation();
 
   const dispatch = useDispatch();
 
-  const unfulfilledOrders = orders
-    ?.filter((o) => !o.fulfilled)
-    .sort((a, b) => (a.date > b.date ? 1 : -1));
+  const sortedUnfulfilledOrders = orders
+    ? [...orders].sort((a, b) => (a.date > b.date ? 1 : -1))
+    : undefined;
 
   if (isLoading || mutationIsLoading) {
     return <Loading />;
@@ -33,7 +33,7 @@ const UnfulfilledOrders = () => {
   return (
     <div className="admin-supply-order-list">
       <h2>Home Chef supply orders: Unfulfilled</h2>
-      {unfulfilledOrders?.map((order) => {
+      {sortedUnfulfilledOrders?.map((order) => {
         const renderCheck = () => {
           if (order.fulfilled) {
             return <div className="meal-report-check">&#9989;</div>;
@@ -57,7 +57,7 @@ const UnfulfilledOrders = () => {
 
         return <Order order={order}>{renderCheck()}</Order>;
       })}
-      {!unfulfilledOrders?.length ? (
+      {!sortedUnfulfilledOrders?.length ? (
         <div>No Orders Found</div>
       ) : (
         <button

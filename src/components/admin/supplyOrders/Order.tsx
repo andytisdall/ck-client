@@ -10,7 +10,7 @@ const Order = ({
   return (
     <div key={order.id} className="admin-supply-order">
       {children}
-      <div className="admin-supply-order-field">
+      <div>
         <label>Name</label>
         <div className="admin-supply-order-name">
           <div>{order.contact.firstName}</div>

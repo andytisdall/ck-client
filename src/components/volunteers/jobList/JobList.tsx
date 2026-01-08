@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { utcToZonedTime } from "date-fns-tz";
-import { useState, useEffect } from "react";
 
 import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
 import { RootState } from "../../../state/store";
@@ -9,10 +8,8 @@ import Loading from "../../reusable/loading/Loading";
 import ShiftList from "../shiftList/ShiftList";
 import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
 import config from "../config";
-import GetVolunteer from "../getVolunteer/GetVolunteer";
 
 const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
-  const [getContact, setGetContact] = useState(false);
   const { data: jobs, isLoading } = useGetJobsQuery({
     campaignId: campaign.id,
   });
@@ -26,12 +23,6 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const { data: user } = useGetUserQuery();
 
   const contactId = volunteer?.id || user?.salesforceId;
-
-  useEffect(() => {
-    if (contactId) {
-      setGetContact(false);
-    }
-  }, [contactId]);
 
   if (isLoading) {
     return <Loading />;
@@ -51,32 +42,14 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
     return j.active && filteredShifts.length;
   });
 
-  const renderSignIn = () => {
-    if (!user && !volunteer) {
-      return (
-        <button
-          onClick={() => setGetContact(true)}
-          className="volunteers-shift-space"
-        >
-          Click here to see shifts you signed up for
-        </button>
-      );
-    }
-  };
-
   if (!visibleJobs.length) {
     return <div>No upcoming shifts are available for sign up.</div>;
-  }
-
-  if (getContact) {
-    return <GetVolunteer />;
   }
 
   return (
     <div>
       <div className="volunteers-email-display">
         <h3>Positions Available</h3>
-        {renderSignIn()}
       </div>
       {visibleJobs.map((j) => {
         return (
