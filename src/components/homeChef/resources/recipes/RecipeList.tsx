@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useGetRecipesQuery } from "../../../../state/apis/volunteerApi/recipeApi";
-import { Recipe } from "../../../../state/apis/volunteerApi/types";
+import { useGetRecipesQuery } from "../../../../state/apis/volunteerApi/homeChefApi/recipeApi";
+import { Recipe } from "../../../../state/apis/volunteerApi/homeChefApi/types";
 
 import Loading from "../../../reusable/loading/Loading";
 import "./RecipeList.css";

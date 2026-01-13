@@ -1,5 +1,8 @@
 import { api } from "../api";
-import { NotificationArgs, Notification } from "./volunteerApi/types";
+import {
+  NewAppNotificationArgs,
+  AppNotification,
+} from "./volunteerApi/homeChefApi/types";
 
 interface PrizeDrawingResponse {
   firstPrize: Winner;
@@ -27,7 +30,7 @@ const d4jApi = api.injectEndpoints({
         method: "POST",
       }),
     }),
-    sendD4JNotification: builder.mutation<null, NotificationArgs>({
+    sendD4JNotification: builder.mutation<null, NewAppNotificationArgs>({
       query: (body) => ({
         url: "/d4j/notifications",
         body,
@@ -35,7 +38,7 @@ const d4jApi = api.injectEndpoints({
       }),
       invalidatesTags: ["PushNotifications"],
     }),
-    getD4JNotifications: builder.query<Notification[], void>({
+    getD4JNotifications: builder.query<AppNotification[], void>({
       query: () => "/d4j/notifications",
       providesTags: ["PushNotifications"],
     }),

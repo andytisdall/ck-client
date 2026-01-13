@@ -7,7 +7,6 @@ const VolunteerJobsList = lazy(() => import("./VolunteerJobsList"));
 const Calendar = lazy(() => import("./HomeChefCalendar"));
 const ShiftDetail = lazy(() => import("./ShiftDetail"));
 const Confirmation = lazy(() => import("./Confirmation"));
-const DeliverToKitchen = lazy(() => import("./DeliverToKitchen"));
 const JobDetail = lazy(() => import("./JobDetail"));
 
 const signupRouter = {
@@ -15,10 +14,6 @@ const signupRouter = {
   element: renderWithFallback(<ShiftSignup />),
   children: [
     { path: "list", element: renderWithFallback(<VolunteerJobsList />) },
-    {
-      path: "deliver-to-kitchen",
-      element: renderWithFallback(<DeliverToKitchen />),
-    },
     { path: "calendar", element: renderWithFallback(<Calendar />) },
     {
       path: "shift/:shiftId",

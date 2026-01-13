@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { format } from "date-fns";
 
-import { SupplyOrder } from "../../../state/apis/volunteerApi/types";
+import { SupplyOrder } from "../../../state/apis/volunteerApi/homeChefApi/types";
 
 const Order = ({
   order,

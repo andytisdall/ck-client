@@ -5,8 +5,11 @@ import { setError } from "../../../../state/apis/slices/errorSlice";
 import {
   useEditRecipeMutation,
   useCreateRecipeMutation,
-} from "../../../../state/apis/volunteerApi/recipeApi";
-import { Recipe, RecipeItem } from "../../../../state/apis/volunteerApi/types";
+} from "../../../../state/apis/volunteerApi/homeChefApi/recipeApi";
+import {
+  Recipe,
+  RecipeItem,
+} from "../../../../state/apis/volunteerApi/homeChefApi/types";
 import "./CreateRecipe.css";
 import Loading from "../../../reusable/loading/Loading";
 import FileInput from "../../../reusable/file/FileInput";

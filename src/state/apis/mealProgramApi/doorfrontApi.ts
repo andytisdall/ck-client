@@ -107,12 +107,6 @@ const doorfrontApi = api.injectEndpoints({
         "/meal-program/doorfront/monthly/" + startDate + "&" + endDate,
       providesTags: ["Doorfront"],
     }),
-    updateClients: builder.mutation<null, void>({
-      query: () => ({
-        url: "/meal-program/doorfront/combine",
-        method: "POST",
-      }),
-    }),
   }),
 });
 
@@ -127,5 +121,4 @@ export const {
   useDeleteClientMutation,
   useDeleteMealMutation,
   useGetMonthlyMealsQuery,
-  useUpdateClientsMutation,
 } = doorfrontApi;

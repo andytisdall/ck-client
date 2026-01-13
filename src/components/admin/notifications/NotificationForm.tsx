@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import Loading from "../../reusable/loading/Loading";
 import { setAlert } from "../../../state/apis/slices/alertSlice";
-import { NotificationArgs } from "../../../state/apis/volunteerApi/types";
+import { NewAppNotificationArgs } from "../../../state/apis/volunteerApi/homeChefApi/types";
 
 const D4J_SCREENS = {
   Restaurants: {
@@ -25,7 +25,7 @@ const NotificationForm = ({
   onSubmit,
   isLoading,
 }: {
-  onSubmit: (args: NotificationArgs) => {
+  onSubmit: (args: NewAppNotificationArgs) => {
     unwrap: () => Promise<null>;
   };
   isLoading: boolean;

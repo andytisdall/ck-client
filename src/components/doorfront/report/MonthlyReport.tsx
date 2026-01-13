@@ -70,6 +70,12 @@ const MonthlyReport = ({
 
   return (
     <div>
+      <div>Number of unique clients: {uniqueClients}</div>
+      <div>Average number of visits per client: {averageVisitsPerClient}</div>
+      <div>Total number of visits: {totalVisits}</div>
+      <div>Total number of meals: {totalMeals}</div>
+      <div>Number of untracked visits: {data?.unknown?.visits || 0}</div>
+      <div>Number of untracked meals: {data?.unknown?.meals || 0}</div>
       <ul>
         <li>
           <strong>1 - 10 Meals: {mealBrackets["1-10"]} clients</strong>
@@ -84,13 +90,6 @@ const MonthlyReport = ({
           <strong>Over 30 Meals: {mealBrackets["30+"]} clients</strong>
         </li>
       </ul>
-      <div>Number of unique clients: {uniqueClients}</div>
-      <div>Average number of visits per client: {averageVisitsPerClient}</div>
-      <div>Total number of visits: {totalVisits}</div>
-      <div>Total number of meals: {totalMeals}</div>
-      <div>Number of untracked visits: {data?.unknown?.visits || 0}</div>
-
-      <div>Number of untracked meals: {data?.unknown?.meals || 0}</div>
     </div>
   );
 };
