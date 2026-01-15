@@ -1,10 +1,9 @@
 import { PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
-import { format } from "date-fns";
 
 import { isCarBigEnough } from "../formatDateTime";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
-import { Shift } from "../../../state/apis/volunteerApi/types";
+import { Job, Shift } from "../../../state/apis/volunteerApi/types";
 import "./DriverCalendar.css";
 
 const DriverCalendarShift = ({
@@ -12,10 +11,12 @@ const DriverCalendarShift = ({
   linkUrl,
   children,
   index,
+  job,
 }: {
   shift: Shift;
   linkUrl?: string;
   index: number;
+  job: Job;
 } & PropsWithChildren) => {
   const { data: driver } = useGetDriverQuery();
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const DriverCalendarShift = ({
   const carIsBigEnough =
     driver &&
     isCarBigEnough({
-      requirement: shift.carSizeRequired,
+      requirement: job.carSizeRequired,
       userCar: driver?.car.size,
     });
 
@@ -47,7 +48,10 @@ const DriverCalendarShift = ({
         Window: {format(new Date(shift.startTime), "hh:mm")} -{" "}
         {format(new Date(shift.endTime), "hh:mm")}
       </div> */}
-      <div className="volunteers-calendar-spots">{shift.distance}</div>
+      <div>
+        <strong>{job.name}</strong>
+      </div>
+      <div className="volunteers-calendar-spots">{job.distance}</div>
       {children}
     </div>
   );

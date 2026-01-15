@@ -59,6 +59,7 @@ const ShiftList = ({
             contactId={contactId}
             bookedHoursId={bookedHours?.id}
             campaign={campaign}
+            job={job}
           />
         );
       })}

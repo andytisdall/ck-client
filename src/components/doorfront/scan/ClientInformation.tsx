@@ -18,7 +18,7 @@ const ClientInformation = ({
   setClientInfo?: (newInfo: ClientInfo) => void;
 }) => {
   const [cCode, setCcode] = useState(client.cCode || "");
-  const [barcode, setBarcode] = useState(client.barcode);
+  const [barcode, setBarcode] = useState([...client.barcode, ""]);
 
   const [editClient, { isLoading }] = useEditClientMutation();
 

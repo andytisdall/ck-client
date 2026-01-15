@@ -117,7 +117,7 @@ const EditUser = () => {
           onChange={(e) => setPassword2(e.target.value)}
         />
         <div>
-          <label htmlFor="busDriver">Bus Driver:</label>
+          <label htmlFor="busDriver">Delivery Driver:</label>
           <input
             type="checkbox"
             checked={busDriver}

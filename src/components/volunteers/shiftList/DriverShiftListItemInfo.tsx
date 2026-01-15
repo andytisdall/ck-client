@@ -1,7 +1,7 @@
 import { addHours, formatISO } from "date-fns";
 import { Link } from "react-router-dom";
 
-import { Shift } from "../../../state/apis/volunteerApi/types";
+import { Job, Shift } from "../../../state/apis/volunteerApi/types";
 import { PropsWithChildren } from "react";
 import { formatDate, formatTime } from "../formatDateTime";
 
@@ -10,10 +10,12 @@ const DriverShiftListItemInfo = ({
   isAvailable,
   linkUrl,
   children,
+  job,
 }: {
   shift: Shift;
   isAvailable: boolean;
   linkUrl: string;
+  job: Job;
 } & PropsWithChildren) => {
   const formattedStartDate = formatDate(shift.startTime);
   const formattedStartTime = formatTime(shift.startTime);
@@ -41,8 +43,8 @@ const DriverShiftListItemInfo = ({
           <>
             <div className="volunteers-shift-space"></div>
             <ul>
-              <li>Minimum vehicle size required: {shift.carSizeRequired}</li>
-              <li>Distance: {shift.distance}</li>
+              <li>Minimum vehicle size required: {job.carSizeRequired}</li>
+              <li>Distance: {job.distance}</li>
             </ul>
           </>
         )}

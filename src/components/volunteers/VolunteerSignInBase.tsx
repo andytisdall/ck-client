@@ -29,7 +29,7 @@ const VolunteerSignInBase = () => {
       <div>
         <h3>Please sign in to access this page.</h3>
         <p>
-          To get a username,{" "}
+          To get sign in and become a Delivery Driver volunteer,{" "}
           <Link className="retro-link" to="/forms/volunteer">
             register as a volunteer here.
           </Link>

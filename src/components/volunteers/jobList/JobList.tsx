@@ -36,7 +36,7 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
     const filteredShifts = j.shifts.filter(
       (shift) =>
         utcToZonedTime(shift.startTime, "America/Los_Angeles") > new Date() &&
-        (!driver ? true : shift.carSizeRequired)
+        (!driver ? true : j.carSizeRequired)
     );
 
     return j.active && filteredShifts.length;

@@ -19,7 +19,7 @@ const DriverShiftInfo = ({ shift, job }: { shift: Shift; job: Job }) => {
       <ShiftInfoField label="Description" value={job.description} />
       <ShiftInfoField
         label="Minimum Vehicle Size Required"
-        value={shift.carSizeRequired}
+        value={job.carSizeRequired}
       />
       <ShiftInfoField
         label="Pick Up Location"
@@ -28,10 +28,10 @@ const DriverShiftInfo = ({ shift, job }: { shift: Shift; job: Job }) => {
       />
       <ShiftInfoField
         label="Drop Off Location"
-        value={shift.destination}
-        notes={shift.dropoffNotes}
+        value={job.destination}
+        notes={job.dropoffNotes}
       />
-      <ShiftInfoField label="Distance" value={shift.distance} />
+      <ShiftInfoField label="Distance" value={job.distance} />
       <ShiftInfoField label="Date" value={formatDate(shift.startTime)} />
       <ShiftInfoField
         label="Pickup Window"

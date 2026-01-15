@@ -42,6 +42,7 @@ const SignIn = () => {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <input
           name="password"
@@ -50,6 +51,7 @@ const SignIn = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
       </div>
     </form>

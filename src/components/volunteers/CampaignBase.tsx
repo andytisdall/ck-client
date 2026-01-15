@@ -75,14 +75,6 @@ const CampaignBase = () => {
       return <Navigate replace to={`../${shortenedCampaign.id}`} />;
     }
 
-    if (event) {
-      return (
-        <h2>
-          This event is no longer open to sign ups. Check the volunteers page
-          for events in the future!
-        </h2>
-      );
-    }
     return (
       <div>
         <p>Could not find the required info. Please start over.</p>

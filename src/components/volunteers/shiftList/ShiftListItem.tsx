@@ -1,5 +1,6 @@
 import config from "../config";
 import {
+  Job,
   Shift,
   VolunteerCampaign,
 } from "../../../state/apis/volunteerApi/types";
@@ -13,11 +14,13 @@ const ShiftListItem = ({
   bookedHoursId,
   contactId,
   campaign,
+  job,
 }: {
   shift: Shift;
   bookedHoursId?: string;
   contactId?: string;
   campaign: VolunteerCampaign;
+  job: Job;
 }) => {
   const { data: driver } = useGetDriverQuery();
   let linkUrl = "";
@@ -33,7 +36,7 @@ const ShiftListItem = ({
 
   if (driverCampaign) {
     const carIsBigEnough = isCarBigEnough({
-      requirement: shift.carSizeRequired,
+      requirement: job.carSizeRequired,
       userCar: driver?.car.size,
     });
     const disabled = !bookedHoursId && !carIsBigEnough;
@@ -46,7 +49,12 @@ const ShiftListItem = ({
     : ShiftListItemInfo;
 
   return (
-    <Component shift={shift} isAvailable={isAvailable} linkUrl={linkUrl}>
+    <Component
+      shift={shift}
+      isAvailable={isAvailable}
+      linkUrl={linkUrl}
+      job={job}
+    >
       {bookedHoursId && (
         <div className="volunteers-shift-checkmark">&#x2713; Signed Up</div>
       )}

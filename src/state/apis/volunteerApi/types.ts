@@ -13,10 +13,6 @@ export interface Shift {
   duration: number;
   endTime: string;
   slots: number;
-  carSizeRequired?: CarSize;
-  destination?: string;
-  dropoffNotes?: string;
-  distance?: string;
 }
 
 export type FridgeRegion =
@@ -38,6 +34,10 @@ export interface Job {
   campaign: string;
   region?: FridgeRegion;
   notes?: string;
+  carSizeRequired?: CarSize;
+  destination?: string;
+  dropoffNotes?: string;
+  distance?: string;
 }
 
 export interface GetShiftsResponse {

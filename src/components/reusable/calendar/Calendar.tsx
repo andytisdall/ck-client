@@ -111,7 +111,7 @@ const Calendar = ({ renderItems }: { renderItems: RenderItems }) => {
             onClick={() => setMonth(new Date())}
             className="calendar-set-current"
           >
-            Set to Current Month
+            Go to Current Month
           </button>
         </div>
       </div>
