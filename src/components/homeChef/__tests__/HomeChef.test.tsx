@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { format, utcToZonedTime } from "date-fns-tz";
-import { formatISO, addDays } from "date-fns";
+import { formatISO, addDays, addHours } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
 import { User, ContactInfo } from "../../../state/apis/authApi";
@@ -9,8 +9,8 @@ import {
   Shift,
   VolunteerHours,
   Campaign,
-  HomeChefJob,
 } from "../../../state/apis/volunteerApi/types";
+import { HomeChefJob } from "../../../state/apis/volunteerApi/homeChefApi/types";
 import App from "../../../App";
 import { Root } from "../../../setupTests";
 
@@ -51,6 +51,8 @@ export const job1: HomeChefJob = {
 export const shift1: Shift = {
   id: job1.shifts[0],
   startTime: formatISO(addDays(new Date(), 1)),
+  endTime: formatISO(addHours(addDays(new Date(), 1), 2)),
+
   open: true,
   job: job1.id,
   restaurantMeals: false,
@@ -61,6 +63,7 @@ export const shift1: Shift = {
 export const shift2: Shift = {
   id: job1.shifts[1],
   startTime: formatISO(addDays(new Date(), 2)),
+  endTime: formatISO(addHours(addDays(new Date(), 2), 2)),
   open: true,
   job: job1.id,
   restaurantMeals: false,
@@ -121,13 +124,14 @@ describe("signed in", () => {
     },
     { path: "/home-chef/hours", res: async () => [hours1, hours2] },
     { path: "/home-chef/hours", method: "post", res: async () => hours2 },
+    { path: "/home-chef/ordering", method: "post", res: async () => null },
   ]);
 
   test("see chef shifts", async () => {
     render(<App />, { wrapper: Root });
 
     const chefLink = await screen.findByText(
-      "See upcoming deliveries you've signed up for, and past deliveries you've made"
+      "See upcoming deliveries you've signed up for, and past deliveries you've made",
     );
     await userEvent.click(chefLink);
 
@@ -138,7 +142,7 @@ describe("signed in", () => {
     expect(upcomingShifts).toBeDefined();
 
     const hours = screen.getByText(
-      format(utcToZonedTime(hours1.time, "America/Los_Angeles"), "eee, M/d/yy")
+      format(utcToZonedTime(hours1.time, "America/Los_Angeles"), "eee, M/d/yy"),
     );
     expect(hours).toBeDefined();
   });
@@ -149,7 +153,7 @@ describe("signed in", () => {
     const homeChefHome = await screen.findByAltText("home chef header");
     await userEvent.click(homeChefHome);
     const signupLink = await screen.findByText(
-      "Sign Up to Stock a Town Fridge"
+      "Sign Up to Stock a Town Fridge",
     );
     await userEvent.click(signupLink);
 
@@ -158,7 +162,7 @@ describe("signed in", () => {
     const jobTitle = await screen.findByText(job1.name);
     await userEvent.click(jobTitle);
     const shiftDate = await screen.findByText(
-      format(utcToZonedTime(shift1.startTime, "America/Los_Angeles"), "M/d/yy")
+      format(utcToZonedTime(shift1.startTime, "America/Los_Angeles"), "M/d/yy"),
     );
     expect(shiftDate).toBeDefined();
 
@@ -182,9 +186,9 @@ describe("signed in", () => {
       RegExp(
         format(
           utcToZonedTime(hours2.time, "America/Los_Angeles"),
-          "eeee, M/d/yy"
-        )
-      )
+          "eeee, M/d/yy",
+        ),
+      ),
     );
     expect(date).toBeDefined();
 
@@ -192,5 +196,27 @@ describe("signed in", () => {
       name: "See your future and past shifts",
     });
     await userEvent.click(chefLink);
+  });
+
+  test("order home chef supplies", async () => {
+    render(<App />, { wrapper: Root });
+
+    const homeLink = await screen.findByAltText(/home chef header/i);
+    await userEvent.click(homeLink);
+
+    const resourcesBtn = await screen.findByText(/home chef resources/i);
+    await userEvent.click(resourcesBtn);
+
+    const suppliesBtn = await screen.findByText(/supplies/i);
+    await userEvent.click(suppliesBtn);
+
+    const addBoxesBtns = await screen.findAllByText("+");
+    await userEvent.click(addBoxesBtns[addBoxesBtns.length - 1]);
+
+    const submitBtn = await screen.findByText(/submit/i);
+    await userEvent.click(submitBtn);
+
+    const confirmMsg = await screen.findByText(/success/i);
+    expect(confirmMsg).toBeDefined();
   });
 });

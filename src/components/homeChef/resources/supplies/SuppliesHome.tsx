@@ -31,7 +31,7 @@ const SuppliesHome = () => {
     }
   };
 
-  const btnActive = !isSuccess && (labels || containers);
+  const btnActive = !isSuccess && (labels || containers || soup || sandwich);
 
   const btnStyle = btnActive ? "" : "btn-inactive";
 
