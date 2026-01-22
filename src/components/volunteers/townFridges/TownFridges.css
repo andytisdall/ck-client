@@ -1,0 +1,50 @@
+.town-fridge-base {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.town-fridge-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.town-fridge-region {
+  margin: 1rem;
+}
+
+.town-fridge-region-name {
+  text-align: center;
+  text-decoration: underline;
+  color: rgb(55, 55, 55);
+}
+
+.town-fridge {
+  margin: 1rem;
+  padding: 1rem;
+  min-width: 200px;
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.431);
+}
+
+.town-fridge-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.town-fridge p {
+  font-size: 0.9rem;
+}
+
+.town-fridge-map-link {
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.town-fridge-map-icon {
+  width: 2rem;
+  margin-right: 0.3rem;
+}

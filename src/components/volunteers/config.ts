@@ -29,6 +29,7 @@ const volunteerCampaignConfig = {
     id: "701UP00000Xj0VVYAZ",
     images: ["events/EOYDC_Winter_Wonderland.jpg"],
   },
+  homeChef: { id: "7018Z000003C3MxQAK", images: [] },
 };
 
 export default volunteerCampaignConfig;

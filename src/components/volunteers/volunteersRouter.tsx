@@ -20,11 +20,14 @@ const VolunteerSignInBase = lazy(() => import("./VolunteerSignInBase"));
 
 const VolunteersBase = lazy(() => import("./VolunteersBase"));
 
+const TownFridges = lazy(() => import("./townFridges/TownFridges"));
+
 const volunteersRouter: RouteObject = {
   path: "volunteers",
   element: renderWithFallback(<VolunteersBase />),
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
+    { path: "town-fridges", element: renderWithFallback(<TownFridges />) },
     {
       path: "confirm/:contactId/:hoursId",
       element: renderWithFallback(<ConfirmationBase />),

@@ -13,11 +13,14 @@ const VolunteerJobsList = () => {
   const jobs = data?.jobs;
   const { data: user } = useGetUserQuery();
 
-  const kitchenJob = jobs?.find((job) => !job.region);
+  const kitchenJob = jobs?.find((job) => job.region === "CK Kitchen");
+
+  const validJobs = jobs?.filter(
+    (j) => j.ongoing && j.region && j.region !== "CK Kitchen",
+  );
 
   const renderFridges = useCallback((fridges: Job[]) => {
     return fridges
-      .filter((job) => job.ongoing)
       .sort((a) => (a.active ? -1 : 1))
       .map((job) => {
         return <VolunteerJob job={job} key={job.id} />;
@@ -25,24 +28,19 @@ const VolunteerJobsList = () => {
   }, []);
 
   const regions = useMemo(
-    () =>
-      Array.from(
-        new Set(
-          jobs
-            ?.filter((j) => j.region && j.region !== "CK Kitchen")
-            .map((j) => j.region!)
-        )
-      ),
-    [jobs]
+    () => Array.from(new Set(validJobs?.map((j) => j.region!))),
+    [validJobs],
   );
 
   const renderRegion = (region: FridgeRegion) => {
-    if (jobs) {
+    if (validJobs) {
       return (
         <div className="home-chef-fridges-region" key={region}>
           <h2 className="region-name">{region}</h2>
           <div>
-            {renderFridges(jobs.filter((fridge) => fridge.region === region))}
+            {renderFridges(
+              validJobs.filter((fridge) => fridge.region === region),
+            )}
           </div>
         </div>
       );
@@ -64,9 +62,7 @@ const VolunteerJobsList = () => {
             NEW! Deliver your Home Chef meals directly to the CK Kitchen
           </Link>
         )}
-        <div className="home-chef-fridges">
-          {regions.map((r) => renderRegion(r))}
-        </div>
+        <div className="home-chef-fridges">{regions.map(renderRegion)}</div>
       </div>
     );
   };
