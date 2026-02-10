@@ -1,18 +1,20 @@
 import { useParams, Link } from "react-router-dom";
-import { format } from "date-fns";
 
+import { formatTime } from "../volunteers/formatDateTime";
 import { useGetTodaysShiftsQuery } from "../../state/apis/volunteerApi/checkInApi";
 import Loading from "../reusable/loading/Loading";
 
 const ShiftSelect = () => {
   const { jobId } = useParams();
-  const { data: jobs, isLoading } = useGetTodaysShiftsQuery();
+  const { data, isLoading } = useGetTodaysShiftsQuery();
 
   if (isLoading) {
     return <Loading />;
   }
 
-  const shifts = jobs && jobId ? jobs[jobId] : undefined;
+  const shifts = jobId
+    ? data?.jobs[jobId].shifts.map((shiftId) => data.shifts[shiftId])
+    : undefined;
 
   if (!shifts) {
     return <h3>Something went wrong. Please start over.</h3>;
@@ -25,7 +27,7 @@ const ShiftSelect = () => {
         return (
           <Link to={`../list/${shift.id}`} key={shift.id}>
             <button>
-              <h4>{format(new Date(shift.startTime), "h:mm a")}</h4>
+              <h4>{formatTime(shift.startTime)}</h4>
             </button>
           </Link>
         );
@@ -34,7 +36,7 @@ const ShiftSelect = () => {
 
   return (
     <div>
-      <h2>Select Shift for {shifts[0].job}</h2>
+      <h2>Select Shift for {shifts[0].jobName}</h2>
       {renderShifts()}
     </div>
   );

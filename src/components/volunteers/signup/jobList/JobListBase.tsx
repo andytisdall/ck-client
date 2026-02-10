@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
+import { useGetCampaignsQuery } from "../../../../state/apis/volunteerApi/campaigns";
 
-import Loading from "../../reusable/loading/Loading";
+import Loading from "../../../reusable/loading/Loading";
 import JobList from "./JobList";
 
 const JobListBase = () => {

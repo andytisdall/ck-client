@@ -6,7 +6,7 @@ import Loading from "../reusable/loading/Loading";
 const Text = () => {
   const { data: user, isLoading } = useGetUserQuery();
 
-  const permitted = user?.admin || user?.busDriver;
+  const permitted = user?.admin;
 
   const renderSignIn = () => {
     return <h3>You must have the proper permissions to access this page.</h3>;

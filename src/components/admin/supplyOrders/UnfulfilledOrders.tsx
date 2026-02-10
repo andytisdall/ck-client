@@ -47,7 +47,7 @@ const UnfulfilledOrders = () => {
                   setOrdersToUpdate((current) => [...current, order.id]);
                 } else {
                   setOrdersToUpdate((current) =>
-                    current.filter((id) => id !== order.id)
+                    current.filter((id) => id !== order.id),
                   );
                 }
               }}

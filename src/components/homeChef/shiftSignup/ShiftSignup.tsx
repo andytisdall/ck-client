@@ -1,11 +1,17 @@
-import { Outlet, NavLink, Link } from 'react-router-dom';
+import { Outlet, NavLink, Link, useNavigate } from "react-router-dom";
 
-import { navLink } from '../../../utils/style';
-import './ShiftSignup.css';
-import { useGetUserInfoQuery } from '../../../state/apis/authApi';
+import { navLink } from "../../../utils/style";
+import "./ShiftSignup.css";
+import {
+  useGetUserInfoQuery,
+  useGetUserQuery,
+} from "../../../state/apis/authApi";
 
 const ShiftSignup = () => {
   const userInfo = useGetUserInfoQuery().data;
+  const { data: user } = useGetUserQuery();
+
+  const navigate = useNavigate();
 
   const renderInactive = () => {
     return (
@@ -19,6 +25,22 @@ const ShiftSignup = () => {
   };
 
   const renderSignup = () => {
+    if (!userInfo?.homeChefSurveyCompleted && !user?.admin) {
+      return (
+        <div className="shift-signup-header home-chef-survey">
+          <div>
+            <h3>
+              Please take a short survey so that CK can improve the Home Chef
+              experience
+            </h3>
+          </div>
+          <div>
+            <button onClick={() => navigate("../survey")}>Take Survey</button>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <>
         <div className="shift-signup-header">
@@ -38,7 +60,7 @@ const ShiftSignup = () => {
   };
 
   const renderContent = () => {
-    if (!userInfo || userInfo.homeChefStatus !== 'Active') {
+    if (!userInfo || userInfo.homeChefStatus !== "Active") {
       return renderInactive();
     }
     return renderSignup();

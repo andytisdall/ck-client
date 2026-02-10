@@ -11,7 +11,6 @@ const IncorrectId = ({ client }: { client: Client }) => {
 
   useEffect(() => {
     const callback = (e: Event) => {
-      console.log(e.target);
       if (e.target !== ref.current) {
         setMenuOpen(false);
       }

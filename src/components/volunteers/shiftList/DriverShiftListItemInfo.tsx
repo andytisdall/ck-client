@@ -20,7 +20,7 @@ const DriverShiftListItemInfo = ({
   const formattedStartDate = formatDate(shift.startTime);
   const formattedStartTime = formatTime(shift.startTime);
   const endTime = formatISO(
-    addHours(new Date(shift.startTime), shift.duration)
+    addHours(new Date(shift.startTime), shift.duration),
   );
   const formattedEndTime = formatTime(endTime);
 
@@ -44,7 +44,6 @@ const DriverShiftListItemInfo = ({
             <div className="volunteers-shift-space"></div>
             <ul>
               <li>Minimum vehicle size required: {job.carSizeRequired}</li>
-              <li>Distance: {job.distance}</li>
             </ul>
           </>
         )}

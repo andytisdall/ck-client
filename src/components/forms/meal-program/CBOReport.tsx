@@ -1,62 +1,62 @@
-import { useState, FormEventHandler } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, FormEventHandler } from "react";
+import { useNavigate } from "react-router-dom";
 
-import Loading from '../../reusable/loading/Loading';
-import ZipCodeSelector from '../../reusable/form/ZipCodeSelector';
-import { useSubmitFormMutation } from '../../../state/apis/formApi';
+import Loading from "../../reusable/loading/Loading";
+import ZipCodeSelector from "../../reusable/form/ZipCodeSelector";
+import { useSubmitFormMutation } from "../../../state/apis/formApi";
 
-const successMessage = 'Thank you for providing this information.';
+const successMessage = "Thank you for providing this information.";
 
 const CBOReport = () => {
-  const [month, setMonth] = useState('');
-  const [name, setName] = useState('');
-  const [CBOName, setCBOName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [year, setYear] = useState('2025');
+  const [month, setMonth] = useState("");
+  const [name, setName] = useState("");
+  const [CBOName, setCBOName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [year, setYear] = useState("2026");
 
-  const [percentWOAccess, setPercentWOAccess] = useState('');
-  const [mealsProvided, setMealsProvided] = useState('');
-  const [unusable, setUnusable] = useState('');
-  const [postcards, setPostcards] = useState('');
-  const [calfreshApps, setCalfreshApps] = useState('');
-  const [SSA, setSSA] = useState('');
+  const [percentWOAccess, setPercentWOAccess] = useState("");
+  const [mealsProvided, setMealsProvided] = useState("");
+  const [unusable, setUnusable] = useState("");
+  const [postcards, setPostcards] = useState("");
+  const [calfreshApps, setCalfreshApps] = useState("");
+  const [SSA, setSSA] = useState("");
 
-  const [age17, setAge17] = useState('');
-  const [age26, setAge26] = useState('');
-  const [age49, setAge49] = useState('');
-  const [age60, setAge60] = useState('');
-  const [ageOver60, setAgeOver60] = useState('');
-  const [ageUnknown, setAgeUnknown] = useState('');
+  const [age17, setAge17] = useState("");
+  const [age26, setAge26] = useState("");
+  const [age49, setAge49] = useState("");
+  const [age60, setAge60] = useState("");
+  const [ageOver60, setAgeOver60] = useState("");
+  const [ageUnknown, setAgeUnknown] = useState("");
 
-  const [raceAfrican, setRaceAfrican] = useState('');
-  const [raceLatin, setRaceLatin] = useState('');
-  const [raceAsian, setRaceAsian] = useState('');
-  const [raceNativeAmerican, setRaceNativeAmerican] = useState('');
-  const [raceWhite, setRaceWhite] = useState('');
-  const [raceDecline, setRaceDecline] = useState('');
-  const [raceUnknown, setRaceUnknown] = useState('');
-  const [raceOther, setRaceOther] = useState('');
-  const [raceOtherText, setRaceOtherText] = useState('');
-  const [raceMixed, setRaceMixed] = useState('');
-  const [raceMixedText, setRaceMixedText] = useState('');
+  const [raceAfrican, setRaceAfrican] = useState("");
+  const [raceLatin, setRaceLatin] = useState("");
+  const [raceAsian, setRaceAsian] = useState("");
+  const [raceNativeAmerican, setRaceNativeAmerican] = useState("");
+  const [raceWhite, setRaceWhite] = useState("");
+  const [raceDecline, setRaceDecline] = useState("");
+  const [raceUnknown, setRaceUnknown] = useState("");
+  const [raceOther, setRaceOther] = useState("");
+  const [raceOtherText, setRaceOtherText] = useState("");
+  const [raceMixed, setRaceMixed] = useState("");
+  const [raceMixedText, setRaceMixedText] = useState("");
 
-  const [individuals, setIndividuals] = useState('');
-  const [households, setHouseholds] = useState('');
+  const [individuals, setIndividuals] = useState("");
+  const [households, setHouseholds] = useState("");
 
   const [zips, setZips] = useState({});
   const [numberOfZips, setNumberOfZips] = useState(0);
 
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
 
-  const [waters, setWaters] = useState('');
-  const [juices, setJuices] = useState('');
-  const [socks, setSocks] = useState('');
-  const [granolaBars, setGranolaBars] = useState('');
-  const [tortillaChips, setTortillaChips] = useState('');
+  const [waters, setWaters] = useState("");
+  const [juices, setJuices] = useState("");
+  const [socks, setSocks] = useState("");
+  const [granolaBars, setGranolaBars] = useState("");
+  const [tortillaChips, setTortillaChips] = useState("");
 
-  const [extraItem, setExtraItem] = useState('');
-  const [extraItemAmount, setExtraItemAmount] = useState('');
+  const [extraItem, setExtraItem] = useState("");
+  const [extraItemAmount, setExtraItemAmount] = useState("");
 
   const [mobileOasisSectionOpen, setMobileOasisSectionOpen] = useState(false);
 
@@ -115,35 +115,35 @@ const CBOReport = () => {
         extraItem,
         extraItemAmount,
       },
-      name: 'CBO_REPORT',
+      name: "CBO_REPORT",
     })
       .unwrap()
       .then(() => {
-        navigate('/forms/form-sent', { state: { message: successMessage } });
+        navigate("/forms/form-sent", { state: { message: successMessage } });
       });
   };
 
   const monthOptions = [
-    { name: '', value: '' },
-    { name: 'January', value: 0 },
-    { name: 'February', value: 1 },
-    { name: 'March', value: 2 },
-    { name: 'April', value: 3 },
-    { name: 'May', value: 4 },
-    { name: 'June', value: 5 },
-    { name: 'July', value: 6 },
-    { name: 'August', value: 7 },
-    { name: 'September', value: 8 },
-    { name: 'October', value: 9 },
-    { name: 'November', value: 10 },
-    { name: 'December', value: 11 },
+    { name: "", value: "" },
+    { name: "January", value: 0 },
+    { name: "February", value: 1 },
+    { name: "March", value: 2 },
+    { name: "April", value: 3 },
+    { name: "May", value: 4 },
+    { name: "June", value: 5 },
+    { name: "July", value: 6 },
+    { name: "August", value: 7 },
+    { name: "September", value: 8 },
+    { name: "October", value: 9 },
+    { name: "November", value: 10 },
+    { name: "December", value: 11 },
   ];
 
   const renderZipInputs = () => {
     const zipList = [];
     for (let i = 0; i < numberOfZips; i++) {
       zipList.push(
-        <ZipCodeSelector zips={zips} setZips={setZips} key={'ziplist-' + i} />
+        <ZipCodeSelector zips={zips} setZips={setZips} key={"ziplist-" + i} />,
       );
     }
     return zipList;
@@ -190,8 +190,8 @@ const CBOReport = () => {
           onChange={(e) => setYear(e.target.value)}
           required
         >
-          <option value="2025">2025</option>
-          <option value="2024">2024</option>
+          <option value="2025">2026</option>
+          <option value="2024">2025</option>
         </select>
       </div>
       <div className="form-item">

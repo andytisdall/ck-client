@@ -1,23 +1,16 @@
 import { lazy } from "react";
-import { RouteObject, Navigate } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 
 import "./Volunteers.css";
 import renderWithFallback from "../reusable/loading/renderWithFallback";
 import driverRouter from "./driver/driverRouter";
+import signupRouter from "./signup/signupRouter";
 
 const Sign = lazy(() => import("../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../reusable/signature/SignSuccess"));
 
 const VolunteersHome = lazy(() => import("./VolunteersHome"));
 const ConfirmationBase = lazy(() => import("./confirmation/ConfirmationBase"));
-
-const CampaignBase = lazy(() => import("./CampaignBase"));
-const JobListBase = lazy(() => import("./jobList/JobListBase"));
-const VolunteerCalendar = lazy(() => import("./calendar/CalendarBase"));
-
-const ShiftSignup = lazy(() => import("./signup/SignupBase"));
-const VolunteerSignInBase = lazy(() => import("./VolunteerSignInBase"));
-
 const VolunteersBase = lazy(() => import("./VolunteersBase"));
 
 const TownFridges = lazy(() => import("./townFridges/TownFridges"));
@@ -27,40 +20,18 @@ const volunteersRouter: RouteObject = {
   element: renderWithFallback(<VolunteersBase />),
   children: [
     { index: true, element: renderWithFallback(<VolunteersHome />) },
-    { path: "town-fridges", element: renderWithFallback(<TownFridges />) },
     {
       path: "confirm/:contactId/:hoursId",
       element: renderWithFallback(<ConfirmationBase />),
     },
-    driverRouter,
     {
-      path: "signup",
-      element: renderWithFallback(<VolunteerSignInBase />),
-      children: [
-        {
-          path: ":campaignId",
-          element: renderWithFallback(<CampaignBase />),
-          children: [
-            {
-              index: true,
-              element: <Navigate replace to="list" />,
-            },
-            {
-              path: "list",
-              element: renderWithFallback(<JobListBase />),
-            },
-
-            { path: "cal", element: renderWithFallback(<VolunteerCalendar />) },
-
-            {
-              path: ":shiftId",
-              element: renderWithFallback(<ShiftSignup />),
-            },
-          ],
-        },
-      ],
+      path: "town-fridges",
+      element: renderWithFallback(<TownFridges />),
     },
-
+    {
+      path: "town-fridges/:region",
+      element: renderWithFallback(<TownFridges />),
+    },
     {
       path: "sign",
       children: [
@@ -74,6 +45,8 @@ const volunteersRouter: RouteObject = {
         },
       ],
     },
+    driverRouter,
+    signupRouter,
   ],
 };
 

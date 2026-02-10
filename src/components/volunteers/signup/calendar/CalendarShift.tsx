@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import { format } from "date-fns";
 
-import { Shift, Job } from "../../../state/apis/volunteerApi/types";
+import { Shift, Job } from "../../../../state/apis/volunteerApi/types";
 
 const CalendarShift = ({
   shift,

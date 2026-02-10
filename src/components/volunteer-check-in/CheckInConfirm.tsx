@@ -10,15 +10,11 @@ import Loading from "../reusable/loading/Loading";
 const CheckInConfirm = () => {
   const { contactId, shiftId } = useParams();
 
-  const { data: jobs } = useGetTodaysShiftsQuery();
-  const shift = jobs
-    ? Object.values(jobs)
-        .flat()
-        .find((sh) => sh.id === shiftId)
-    : undefined;
+  const { data } = useGetTodaysShiftsQuery();
+  const shift = shiftId ? data?.shifts[shiftId] : undefined;
 
   const { data: volunteers, isLoading } = useGetVolunteersForCheckInQuery(
-    shiftId || ""
+    shiftId || "",
   );
 
   const [checkInVolunteer, { isLoading: checkInLoading }] =

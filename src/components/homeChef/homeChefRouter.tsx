@@ -12,6 +12,8 @@ import chefRouter from "./chef/chefRouter";
 
 const HomeChefHome = lazy(() => import("./HomeChefHome"));
 
+const Survey = lazy(() => import("./Survey"));
+
 const homeChefRouter = {
   path: "home-chef",
   element: renderWithFallback(<HomeChefBase />),
@@ -22,6 +24,7 @@ const homeChefRouter = {
     signupRouter,
     chefRouter,
     resourcesRouter,
+    { path: "survey", element: renderWithFallback(<Survey />) },
   ],
 };
 

@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { isCarBigEnough } from "../formatDateTime";
-import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
-import { Job, Shift } from "../../../state/apis/volunteerApi/types";
+import { isCarBigEnough } from "../../formatDateTime";
+import { useGetDriverQuery } from "../../../../state/apis/volunteerApi/driver";
+import { Job, Shift } from "../../../../state/apis/volunteerApi/types";
 import "./DriverCalendar.css";
 
 const DriverCalendarShift = ({
@@ -51,7 +51,6 @@ const DriverCalendarShift = ({
       <div>
         <strong>{job.name}</strong>
       </div>
-      <div className="volunteers-calendar-spots">{job.distance}</div>
       {children}
     </div>
   );

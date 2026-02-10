@@ -63,3 +63,10 @@
 .admin-supply-order-list {
   margin: 2rem;
 }
+
+.admin-supply-order-x {
+  color: red;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}

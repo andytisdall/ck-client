@@ -12,24 +12,9 @@ const VolunteersHome = () => {
 
   const renderAnnouncement = () => {
     return (
-      <a href="https://www.classy.org/event/a-tamale-making-master-class-with-chef-reyna-maldonado/e739089">
-        <div className="volunteers-home-ad">
-          <img
-            src="https://assets.classy.org/31865501/7a60f9c4-ba9b-11f0-a703-0eb66cefea69.jpg"
-            alt="Chef Ofelia Barajas"
-          />
-          <div>
-            <h3>The Recipe for Home: A Tamales Workshop by Las Guerreras</h3>
-            <p>
-              Chef Ofelia Barajas is the chef and owner of Las Guerreras, one of
-              Oakland's top spots for authentic Mexican cuisine. On Saturday,
-              December 6th, you'll have an opportunity to learn the art of
-              tamale-making from Chef Ofelia at a special event at the CK
-              Kitchen! Click here to reserve your spot.
-            </p>
-          </div>
-        </div>
-      </a>
+      <div className="volunteers-home-ad">
+        <img src="/images/volunteers/ava-banner.png" alt="home chef" />
+      </div>
     );
   };
 
@@ -49,7 +34,7 @@ const VolunteersHome = () => {
   const renderOngoing = () => {
     return (
       <div className="volunteers-home-section">
-        {/* {renderAnnouncement()} */}
+        {renderAnnouncement()}
         <div className="volunteers-home-section-title">
           Ongoing Volunteer Programs
         </div>

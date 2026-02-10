@@ -31,6 +31,13 @@ export const supplyOrderApi = api.injectEndpoints({
       }),
       invalidatesTags: ["HomeChefSupplies"],
     }),
+    deleteSupplyOrder: builder.mutation<null, { id: string }>({
+      query: ({ id }) => ({
+        url: "/home-chef/ordering/" + id,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["HomeChefSupplies"],
+    }),
   }),
 });
 
@@ -40,4 +47,5 @@ export const {
   useGetUnfulfilledSupplyOrdersQuery,
   useUpdateSupplyOrdersMutation,
   useCreateManualSupplyOrderMutation,
+  useDeleteSupplyOrderMutation,
 } = supplyOrderApi;

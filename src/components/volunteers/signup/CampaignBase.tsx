@@ -3,14 +3,14 @@ import { utcToZonedTime, format } from "date-fns-tz";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { RootState } from "../../state/store";
-import { useGetUserQuery } from "../../state/apis/authApi";
-import "./Volunteers.css";
-import { navLink } from "../../utils/style";
-import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
-import config from "./config";
-import Loading from "../reusable/loading/Loading";
-import GetVolunteer from "./getVolunteer/GetVolunteer";
+import { RootState } from "../../../state/store";
+import { useGetUserQuery } from "../../../state/apis/authApi";
+import "../Volunteers.css";
+import { navLink } from "../../../utils/style";
+import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
+import config from "../config";
+import Loading from "../../reusable/loading/Loading";
+import GetVolunteer from "../getVolunteer/GetVolunteer";
 
 const CampaignBase = () => {
   const { campaignId } = useParams();
@@ -23,7 +23,7 @@ const CampaignBase = () => {
   const event = !!campaign?.startDate;
 
   const volunteer = useSelector(
-    (state: RootState) => state.volunteer.volunteer
+    (state: RootState) => state.volunteer.volunteer,
   );
 
   const { data: user } = useGetUserQuery();
@@ -38,7 +38,7 @@ const CampaignBase = () => {
 
   const renderImages = () => {
     const campaignConfig = Object.values(config).find(
-      ({ id }) => id === campaignId
+      ({ id }) => id === campaignId,
     );
 
     if (campaignConfig) {
@@ -69,7 +69,7 @@ const CampaignBase = () => {
 
   if (!campaign) {
     const shortenedCampaign = campaigns?.find(
-      (c) => c.id.substring(0, c.id.length - 3) === campaignId
+      (c) => c.id.substring(0, c.id.length - 3) === campaignId,
     );
     if (shortenedCampaign) {
       return <Navigate replace to={`../${shortenedCampaign.id}`} />;
@@ -89,7 +89,7 @@ const CampaignBase = () => {
     const startDate = campaign?.startDate
       ? format(
           utcToZonedTime(campaign.startDate, "America/Los_Angeles"),
-          "eeee, MMMM do"
+          "eeee, MMMM do",
         )
       : "";
 
@@ -97,7 +97,7 @@ const CampaignBase = () => {
       ? " - " +
         format(
           utcToZonedTime(campaign?.endDate, "America/Los_Angeles"),
-          "eeee, MMMM do"
+          "eeee, MMMM do",
         )
       : "";
 

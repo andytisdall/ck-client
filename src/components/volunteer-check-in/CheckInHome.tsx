@@ -4,29 +4,29 @@ import { useGetTodaysShiftsQuery } from "../../state/apis/volunteerApi/checkInAp
 import Loading from "../reusable/loading/Loading";
 
 const CheckInHome = () => {
-  const { data: jobs, isLoading } = useGetTodaysShiftsQuery();
+  const { data, isLoading } = useGetTodaysShiftsQuery();
 
   if (isLoading) {
     return <Loading />;
   }
 
   const renderJobs = () => {
+    const jobs = data?.jobs;
     if (jobs && Object.keys(jobs).length) {
-      return Object.keys(jobs).map((job) => {
-        const jobName = jobs[job][0].job;
-        if (jobs[job].length > 1) {
+      return Object.values(jobs).map((job) => {
+        if (job.shifts.length > 1) {
           return (
-            <Link to={`job/${job}`} key={job}>
+            <Link to={`job/${job.id}`} key={job.id}>
               <button>
-                <h4>{jobName}</h4>
+                <h4>{job.name}</h4>
               </button>
             </Link>
           );
         } else {
           return (
-            <Link to={`list/${jobs[job][0].id}`} key={job}>
+            <Link to={`list/${job.shifts[0]}`} key={job.id}>
               <button>
-                <h4>{jobName}</h4>
+                <h4>{job.name}</h4>
               </button>
             </Link>
           );

@@ -10,7 +10,9 @@ const Fridge = ({ fridge }: { fridge: Job }) => {
       ? "http://maps.apple.com/?q="
       : "https://www.google.com/maps/place/";
     const location = fridge.location || fridge.name;
-    return baseUrl + location.replace(/ /g, "+") + "+" + fridge.locationCity;
+    return (
+      baseUrl + location.replace(/ /g, "+") + "+" + (fridge.locationCity || "")
+    );
   }, [fridge]);
 
   return (

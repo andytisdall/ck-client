@@ -34,6 +34,7 @@ export const userInfo1: ContactInfo = {
   foodHandler: true,
   homeChefStatus: "Active",
   homeChefQuizPassed: true,
+  homeChefSurveyCompleted: true,
 };
 
 export const job1: HomeChefJob = {

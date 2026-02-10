@@ -1,6 +1,5 @@
 .home-chef-app-links {
   display: flex;
-  margin-top: 2rem;
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
@@ -14,7 +13,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  margin: 2rem;
+  margin: 1rem;
   box-sizing: border-box;
   padding: 2rem;
   box-shadow: -8px 5px 20px rgba(0, 0, 0, 0.273);

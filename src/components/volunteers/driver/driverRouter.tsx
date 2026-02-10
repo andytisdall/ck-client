@@ -7,6 +7,7 @@ import "./Driver.css";
 const License = lazy(() => import("./License"));
 const Car = lazy(() => import("./Car"));
 const Insurance = lazy(() => import("./Insurance"));
+const DriverApp = lazy(() => import("./DriverApp"));
 
 const Sign = lazy(() => import("../../reusable/signature/Sign"));
 const SignSuccess = lazy(() => import("../../reusable/signature/SignSuccess"));
@@ -21,6 +22,7 @@ const driverRouter: RouteObject = {
     { index: true, element: renderWithFallback(<OnboardingHome />) },
     { path: "license", element: renderWithFallback(<License />) },
     { path: "insurance", element: renderWithFallback(<Insurance />) },
+    { path: "app", element: renderWithFallback(<DriverApp />) },
 
     { path: "car", element: renderWithFallback(<Car />) },
     {

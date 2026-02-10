@@ -97,22 +97,3 @@
 .job-notes {
   font-size: 0.9rem;
 }
-
-.deliver-to-kitchen-btn {
-  display: flex;
-  border: purple 2px solid;
-  padding: 1rem;
-  margin: 1.5rem auto;
-  width: fit-content;
-  font-weight: 600;
-  box-shadow: -0.3rem 0.2rem 0.5rem rgba(0, 0, 0, 0.56);
-  background-color: rgb(219, 155, 232);
-}
-
-.deliver-to-kitchen {
-  margin-left: 2rem;
-}
-
-.deliver-to-kitchen p {
-  max-width: 600px;
-}

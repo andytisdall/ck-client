@@ -37,7 +37,7 @@ export interface Job {
   carSizeRequired?: CarSize;
   destination?: string;
   dropoffNotes?: string;
-  distance?: string;
+  // distance?: string;
 }
 
 export interface GetShiftsResponse {

@@ -11,10 +11,23 @@ export interface VolunteerForCheckIn {
   status: string;
 }
 
-export type CheckInShiftsResponse = Record<
-  string,
-  { id: string; job: string; startTime: string; duration: number }[]
->;
+interface ShiftForCheckIn {
+  id: string;
+  jobName: string;
+  startTime: string;
+  duration: number;
+}
+
+interface JobForCheckIn {
+  name: string;
+  shifts: string[];
+  id: string;
+}
+
+export type CheckInShiftsResponse = {
+  jobs: Record<string, JobForCheckIn>;
+  shifts: Record<string, ShiftForCheckIn>;
+};
 
 const checkInApi = api.injectEndpoints({
   endpoints: (builder) => ({

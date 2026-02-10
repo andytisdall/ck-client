@@ -152,6 +152,7 @@
   width: 85%;
   max-width: 600px;
   margin-bottom: 1rem;
+  object-fit: cover;
 }
 
 .volunteers-kitchen-signup-photos {
@@ -228,29 +229,10 @@
   justify-content: center;
 }
 
-.volunteers-home-ad {
-  margin-bottom: 2rem;
-  background-color: rgba(255, 183, 105, 0.853);
-  border: 2px purple solid;
-  width: fit-content;
-  display: flex;
-  flex-wrap: wrap;
-  cursor: pointer;
-  justify-content: center;
-  align-items: flex-start;
-  box-sizing: border-box;
-}
-
 .volunteers-home-ad img {
-  max-width: 20rem;
+  max-width: 30rem;
   object-fit: contain;
   padding: 1rem;
-}
-
-.volunteers-home-ad div {
-  padding: 1rem;
-  flex: 1;
-  min-width: 300px;
 }
 
 @media (max-width: 600px) {

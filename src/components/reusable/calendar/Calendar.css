@@ -116,39 +116,40 @@
 }
 
 .calendar-color-3 {
-  background-color: rgb(250, 254, 25);
+  background-color: rgb(238, 212, 77);
 }
 
 .calendar-color-4 {
-  background-color: rgb(224, 181, 62);
+  background-color: rgb(230, 154, 82);
 }
 
 .calendar-color-5 {
-  background-color: rgb(239, 137, 86);
+  background-color: rgb(133, 77, 34);
+  color: white;
 }
 
 .calendar-color-6 {
-  background-color: rgb(160, 94, 45);
+  background-color: rgb(186, 42, 42);
   color: white;
 }
 
 .calendar-color-7 {
-  background-color: rgb(160, 40, 80);
+  background-color: rgb(172, 26, 112);
   color: white;
 }
 
 .calendar-color-8 {
-  background-color: rgb(150, 0, 60);
+  background-color: rgb(134, 28, 156);
   color: white;
 }
 
 .calendar-color-9 {
-  background-color: rgb(130, 0, 30);
+  background-color: rgb(74, 0, 130);
   color: white;
 }
 
 .calendar-color-10 {
-  background-color: rgb(100, 0, 0);
+  background-color: rgb(20, 38, 119);
   color: white;
 }
 

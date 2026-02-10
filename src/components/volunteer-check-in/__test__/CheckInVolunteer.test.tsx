@@ -1,6 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { addHours, formatISO } from "date-fns";
 
+import { formatTime } from "../../volunteers/formatDateTime";
 import App from "../../../App";
 import Root from "../../../Root";
 import { createServer } from "../../../test/createServer";
@@ -46,26 +48,47 @@ const newVolunteer: Volunteer = {
   volunteerAgreement: false,
 };
 
+const sampleShift1 = {
+  id: "3o8dh",
+  jobName: "CK Kitchen",
+  startTime: new Date().toString(),
+  duration: 2,
+};
+
 const getShiftsResponse: CheckInShiftsResponse = {
-  sampleJob: [
-    {
-      id: "3o8dh",
-      job: "CK Kitchen",
-      startTime: new Date().toString(),
-      duration: 2,
+  jobs: {
+    sampleJobId1: {
+      name: "CK Kitchen",
+      shifts: [sampleShift1.id],
+      id: "sampleJobId1",
     },
-  ],
+  },
+  shifts: { [sampleShift1.id]: sampleShift1 },
+};
+
+const sampleShift2 = {
+  id: "3wedc8dh",
+  jobName: "Door Distribution",
+  startTime: formatISO(new Date()),
+  duration: 3,
+};
+
+const sampleShift3 = {
+  id: "f4i37h",
+  jobName: "Door Distribution",
+  startTime: formatISO(addHours(new Date(), 1)),
+  duration: 3,
 };
 
 const getShiftsResponse2: CheckInShiftsResponse = {
-  sampleJob: [
-    {
-      id: "3o8dh",
-      job: "CK Kitchen",
-      startTime: new Date().toString(),
-      duration: 3,
+  jobs: {
+    sampleJobId2: {
+      name: "Door Distribution",
+      shifts: [sampleShift2.id, sampleShift3.id],
+      id: "sampleJobId2",
     },
-  ],
+  },
+  shifts: { [sampleShift2.id]: sampleShift2, [sampleShift3.id]: sampleShift3 },
 };
 
 describe("volunteer not checked in", () => {
@@ -133,7 +156,7 @@ describe("volunteer is checked in", () => {
         const volunteer1Name = screen.getByText(RegExp(volunteer1.lastName));
         expect(volunteer1Name).toBeInTheDocument();
       },
-      { timeout: 3500 }
+      { timeout: 3500 },
     );
 
     const volunteer1Btn = screen.queryByRole("link", {
@@ -243,8 +266,13 @@ describe("volunteer not on list but does exist in salesforce", () => {
   test("find existing contact", async () => {
     render(<App />, { wrapper: Root });
 
-    const kitchenBtn = await screen.findByText(/kitchen/i);
+    const kitchenBtn = await screen.findByText(/distribution/i);
     await userEvent.click(kitchenBtn);
+
+    const shiftSelect = await screen.findByText(
+      formatTime(sampleShift2.startTime),
+    );
+    await userEvent.click(shiftSelect);
 
     const newVolunteerBtn = await screen.findByText(/new volunteer/i);
     await userEvent.click(newVolunteerBtn);

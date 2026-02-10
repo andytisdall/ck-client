@@ -1,10 +1,10 @@
 import { Link, Outlet, Navigate, useParams } from "react-router-dom";
 
-import "./Volunteers.css";
-import { useGetUserQuery } from "../../state/apis/authApi";
-import Loading from "../reusable/loading/Loading";
-import { useGetDriverQuery } from "../../state/apis/volunteerApi/driver";
-import config from "./config";
+import "../Volunteers.css";
+import { useGetUserQuery } from "../../../state/apis/authApi";
+import Loading from "../../reusable/loading/Loading";
+import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
+import config from "../config";
 
 const VolunteerSignInBase = () => {
   const { campaignId } = useParams();

@@ -1,12 +1,28 @@
 import { PropsWithChildren } from "react";
 import { format } from "date-fns";
 
+import { useDeleteSupplyOrderMutation } from "../../../state/apis/volunteerApi/homeChefApi";
 import { SupplyOrder } from "../../../state/apis/volunteerApi/homeChefApi/types";
 
 const Order = ({
   order,
   children,
 }: { order: SupplyOrder } & PropsWithChildren) => {
+  const [deleteOrder] = useDeleteSupplyOrderMutation();
+
+  const renderDelete = () => {
+    return (
+      <div
+        className="admin-supply-order-x"
+        onClick={async () => {
+          await deleteOrder({ id: order.id }).unwrap();
+        }}
+      >
+        X
+      </div>
+    );
+  };
+
   return (
     <div key={order.id} className="admin-supply-order">
       {children}
@@ -38,6 +54,8 @@ const Order = ({
         <label>Date</label>
         <div>{format(new Date(order.date), "M/d/yy")}</div>
       </div>
+
+      {!order.fulfilled && renderDelete()}
     </div>
   );
 };

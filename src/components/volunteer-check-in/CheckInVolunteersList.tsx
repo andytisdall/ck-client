@@ -10,17 +10,13 @@ import Loading from "../reusable/loading/Loading";
 const CheckInVolunteers = () => {
   const { shiftId } = useParams();
 
-  const { data: jobs } = useGetTodaysShiftsQuery();
-  const shift = jobs
-    ? Object.values(jobs)
-        .flat()
-        .find((sh) => sh.id === shiftId)
-    : undefined;
+  const { data } = useGetTodaysShiftsQuery();
+  const shift = shiftId ? data?.shifts[shiftId] : undefined;
 
   const navigate = useNavigate();
 
   const { data: volunteers, isLoading } = useGetVolunteersForCheckInQuery(
-    shiftId || ""
+    shiftId || "",
   );
 
   if (isLoading) {
@@ -33,7 +29,7 @@ const CheckInVolunteers = () => {
     }
 
     const confirmedVols = volunteers?.filter(
-      ({ status }) => status === "Confirmed"
+      ({ status }) => status === "Confirmed",
     );
     if (confirmedVols?.length === 0) {
       return <h4>All scheduled volunteers are checked in</h4>;
@@ -67,7 +63,7 @@ const CheckInVolunteers = () => {
 
   const renderCheckedInVolunteers = () => {
     const checkedInVols = volunteers?.filter(
-      ({ status }) => status === "Completed"
+      ({ status }) => status === "Completed",
     );
     if (checkedInVols?.length) {
       return (
@@ -127,12 +123,12 @@ const CheckInVolunteers = () => {
     <div className="check-in-list">
       <div className="check-in-list-header">
         <button onClick={() => navigate("..")}>Back to Jobs</button>
-        <h2>{shift.job}</h2>
+        <h2>{shift.jobName}</h2>
         <h3>
           {format(new Date(shift.startTime), "h:mm a")} -{" "}
           {format(
             addHours(new Date(shift.startTime), shift.duration),
-            "h:mm a"
+            "h:mm a",
           )}
         </h3>
       </div>

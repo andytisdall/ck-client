@@ -2,16 +2,16 @@ import { format, utcToZonedTime } from "date-fns-tz";
 import { useMemo } from "react";
 
 import CalendarShift from "./CalendarShift";
-import Calendar from "../../reusable/calendar/Calendar";
-import Loading from "../../reusable/loading/Loading";
+import Calendar from "../../../reusable/calendar/Calendar";
+import Loading from "../../../reusable/loading/Loading";
 import {
   Shift,
   VolunteerHours,
   VolunteerCampaign,
-} from "../../../state/apis/volunteerApi/types";
-import { useGetHoursQuery } from "../../../state/apis/volunteerApi/volunteerApi";
-import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
-import config from "../config";
+} from "../../../../state/apis/volunteerApi/types";
+import { useGetHoursQuery } from "../../../../state/apis/volunteerApi/volunteerApi";
+import { useGetJobsQuery } from "../../../../state/apis/volunteerApi/jobs";
+import config from "../../config";
 import DriverCalendarShift from "./DriverCalendarShift";
 
 const KitchenCalendar = ({
@@ -51,7 +51,7 @@ const KitchenCalendar = ({
         .forEach((shift) => {
           const formattedTime = format(
             utcToZonedTime(shift.startTime, "America/Los_Angeles"),
-            "yyyy-MM-dd"
+            "yyyy-MM-dd",
           );
           if (!sortedShifts[formattedTime]) {
             sortedShifts[formattedTime] = [shift];
@@ -74,7 +74,7 @@ const KitchenCalendar = ({
         let bookedHours: VolunteerHours | undefined;
         if (jobBooked && hours) {
           bookedHours = Object.values(hours).find(
-            (h) => h.shift === sh.id && h.status === "Confirmed"
+            (h) => h.shift === sh.id && h.status === "Confirmed",
           );
         }
 

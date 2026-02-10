@@ -1,5 +1,5 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const CheckInSuccess = () => {
   const navigate = useNavigate();
@@ -7,9 +7,10 @@ const CheckInSuccess = () => {
   const { shiftId } = useParams();
 
   useEffect(() => {
+    const timeout = process.env.NODE_ENV === "production" ? 3000 : 10;
     setTimeout(() => {
-      navigate('../list/' + shiftId);
-    }, 3000);
+      navigate("../list/" + shiftId);
+    }, timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

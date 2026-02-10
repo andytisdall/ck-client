@@ -1,6 +1,6 @@
 .volunteers-shift-detail {
   border: 1px solid black;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -36,4 +36,10 @@
   padding: 1rem;
   width: fit-content;
   margin-bottom: 0.5rem;
+}
+
+@media (max-width: 450px) {
+  .volunteers-shift-detail-field {
+    flex-direction: column;
+  }
 }

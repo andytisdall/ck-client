@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { useGetCampaignsQuery } from "../../../state/apis/volunteerApi/campaigns";
-import { RootState } from "../../../state/store";
-import { useGetUserQuery } from "../../../state/apis/authApi";
-import Loading from "../../reusable/loading/Loading";
+import { useGetCampaignsQuery } from "../../../../state/apis/volunteerApi/campaigns";
+import { RootState } from "../../../../state/store";
+import { useGetUserQuery } from "../../../../state/apis/authApi";
+import Loading from "../../../reusable/loading/Loading";
 import KitchenCalendar from "./VolunteerCalendar";
 
 const KitchenCalBase = () => {
@@ -14,7 +14,7 @@ const KitchenCalBase = () => {
   const campaign = campaigns?.find((cam) => cam.id === campaignId);
 
   const volunteer = useSelector(
-    (state: RootState) => state.volunteer.volunteer
+    (state: RootState) => state.volunteer.volunteer,
   );
 
   const { data: user, isLoading: userIsLoading } = useGetUserQuery();
