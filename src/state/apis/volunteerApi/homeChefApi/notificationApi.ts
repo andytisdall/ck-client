@@ -5,7 +5,7 @@ export const notificationApi = api.injectEndpoints({
   endpoints: (builder) => ({
     sendHomeChefNotification: builder.mutation<null, NewAppNotificationArgs>({
       query: (body) => ({
-        url: "/home-chef/notifications/all",
+        url: "/home-chef/notifications",
         body,
         method: "POST",
       }),

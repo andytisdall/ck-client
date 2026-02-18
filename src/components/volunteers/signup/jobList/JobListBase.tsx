@@ -18,7 +18,14 @@ const JobListBase = () => {
     return <div>Could not find campaign.</div>;
   }
 
-  return <JobList campaign={campaign} />;
+  return (
+    <>
+      <div className="volunteers-email-display">
+        <h3>Positions Available</h3>
+      </div>
+      <JobList campaign={campaign} />
+    </>
+  );
 };
 
 export default JobListBase;

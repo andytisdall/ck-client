@@ -42,4 +42,7 @@
   .volunteers-shift-detail-field {
     flex-direction: column;
   }
+  .volunteers-shift-detail-field-title {
+    max-width: 100%;
+  }
 }

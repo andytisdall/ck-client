@@ -42,8 +42,9 @@ const Onboarding = () => {
   return (
     <div className="driver-onboarding">
       <img
-        src="/images/volunteers/driver-onboarding.jpg"
+        src="/images/volunteers/drivers/driver-onboarding.jpg"
         alt="CK Driver Volunteers"
+        className="driver-onboarding-home"
       />
       <div className="driver-onboarding-text">
         <p>

@@ -57,8 +57,15 @@ const HomeChefHome = () => {
 
   const renderAnnouncement = () => {
     return (
-      <div className="home-chef-announcement">
-        <img src="/images/volunteers/ava-banner.png" alt="ava logo" />
+      <div className="volunteers-home-ad">
+        <img src="/images/volunteers/ava-banner.png" alt="home chef" />
+        <div>
+          Ava provides clean energy at lower rates and reinvests in our
+          community through programs, grants, and sponsorships. Learn more at{" "}
+          <a href="https://avaenergy.org" className="retro-link">
+            AvaEnergy.org!
+          </a>
+        </div>
       </div>
     );
   };

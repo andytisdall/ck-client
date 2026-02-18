@@ -51,7 +51,6 @@ const driverJob: Job = {
   campaign: driversCampaign.id,
   shifts: [],
   location: "CK Kitchen",
-  distance: "5 mi",
   destination: "EOC",
   carSizeRequired: "Small",
 };
@@ -109,8 +108,8 @@ describe("no user", () => {
     render(<App />, { wrapper: Root });
     const volunteerLinks = await screen.findAllByText(/ck volunteers/i);
     await userEvent.click(volunteerLinks[1]);
-    const driverLink = await screen.findByText(/drivers/i);
-    await userEvent.click(driverLink);
+    const driverLinks = await screen.findAllByText(/drivers/i);
+    await userEvent.click(driverLinks[0]);
 
     const noUserText = await screen.findByText(/register as a volunteer here/i);
     expect(noUserText).toBeDefined();
@@ -146,7 +145,7 @@ describe("onboarding", () => {
     render(<App />, { wrapper: Root });
 
     const onboardingText = await screen.findByText(
-      /You must complete onboardin/i
+      /You must complete onboardin/i,
     );
     expect(onboardingText).toBeDefined();
   });
@@ -197,7 +196,7 @@ describe("onboarding", () => {
     await userEvent.click(carText);
 
     const sizeText = await screen.findByText(
-      /Enter your vehicle's information/i
+      /Enter your vehicle's information/i,
     );
     expect(sizeText).toBeDefined();
     const back = screen.getByText(/back/i);
@@ -253,7 +252,7 @@ describe("sign up", () => {
     render(<App />, { wrapper: Root });
 
     const date = await screen.findByText(
-      RegExp(format(new Date(driverShift.startTime), "eee, M/d/yy"))
+      RegExp(format(new Date(driverShift.startTime), "eee, M/d/yy")),
     );
 
     await userEvent.click(date);
@@ -272,7 +271,7 @@ describe("sign up", () => {
     render(<App />, { wrapper: Root });
 
     const confirmText = await screen.findByText(
-      /You have successfully signed up for this shift/i
+      /You have successfully signed up for this shift/i,
     );
     expect(confirmText).toBeDefined();
   });

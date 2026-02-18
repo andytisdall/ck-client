@@ -1,9 +1,9 @@
 import { api } from "../../api";
-import { Job } from "./types";
+import { DriverJob, Job } from "./types";
 
 const jobsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getJobs: builder.query<Job[], { campaignId: string }>({
+    getJobs: builder.query<Job[] | DriverJob[], { campaignId: string }>({
       query: ({ campaignId }) => "/volunteers/jobs/" + campaignId,
       providesTags: ["VolunteerShifts"],
     }),

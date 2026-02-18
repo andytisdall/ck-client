@@ -14,6 +14,13 @@ const VolunteersHome = () => {
     return (
       <div className="volunteers-home-ad">
         <img src="/images/volunteers/ava-banner.png" alt="home chef" />
+        <div>
+          Ava provides clean energy at lower rates and reinvests in our
+          community through programs, grants, and sponsorships. Learn more at{" "}
+          <a href="https://avaenergy.org" className="retro-link">
+            AvaEnergy.org!
+          </a>
+        </div>
       </div>
     );
   };
@@ -25,7 +32,9 @@ const VolunteersHome = () => {
       <TextButton
         key={cam.id}
         to={link}
-        descriptionText={cam.description!}
+        descriptionText={
+          cam.shortDescription || "Sign up for " + cam.name + "."
+        }
         buttonText={cam.name}
       />
     );

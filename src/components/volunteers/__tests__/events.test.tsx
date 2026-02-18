@@ -113,7 +113,7 @@ describe("volunteer does not exist already", () => {
       () => {
         screen.getByText("Special Event Volunteer Opportunities");
       },
-      { timeout }
+      { timeout },
     );
   });
 
@@ -126,7 +126,7 @@ describe("volunteer does not exist already", () => {
     await screen.findByText(RegExp(eventCampaign.name));
 
     const jobLink = await screen.findByText(
-      format(new Date(hours.time), "eee, M/d/yy")
+      RegExp(format(new Date(hours.time), "eee, M/d/yy")),
     );
     expect(jobLink).toBeDefined();
 
@@ -234,7 +234,7 @@ describe("canceled hours", () => {
       () => {
         expect(cancelMsg).toBeDefined();
       },
-      { timeout }
+      { timeout },
     );
   });
 });

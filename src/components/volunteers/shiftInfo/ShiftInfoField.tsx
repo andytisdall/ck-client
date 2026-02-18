@@ -13,23 +13,38 @@ const ShiftInfoField = ({
     if (!notes) {
       return;
     }
-    const words = notes.split(" ");
-    const wordsWithLinks = words.map((word) => {
-      if (word.startsWith("http")) {
-        let newWord = word;
-        if (word.endsWith(".")) {
-          newWord = word.slice(0, word.length - 1);
+    const newline = "<br/>";
+    const words = notes
+      .replace(RegExp("\\r", "g"), " " + newline + " ")
+      .replace(RegExp("\\n", "g"), " " + newline + " ")
+      .split(" ");
+
+    const wordsWithLinks = words
+      .filter((word) => word)
+      .map((word) => {
+        if (word.startsWith("http")) {
+          let newWord = word;
+          if (word.endsWith(".")) {
+            newWord = word.slice(0, word.length - 1);
+          }
+          return (
+            <>
+              <a href={newWord} className="retro-link">
+                {word}
+              </a>{" "}
+            </>
+          );
         }
-        return (
-          <>
-            <a href={newWord} className="retro-link">
-              {word}
-            </a>{" "}
-          </>
-        );
-      }
-      return word + " ";
-    });
+        if (word === newline) {
+          return (
+            <>
+              <br />
+              <br />
+            </>
+          );
+        }
+        return word + " ";
+      });
 
     return (
       <div className="volunteers-shift-detail-field-notes">

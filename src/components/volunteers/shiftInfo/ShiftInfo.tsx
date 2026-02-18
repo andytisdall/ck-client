@@ -1,31 +1,19 @@
 import { useSelector } from "react-redux";
 
 import { RootState } from "../../../state/store";
-import {
-  Job,
-  Shift,
-  VolunteerCampaign,
-} from "../../../state/apis/volunteerApi/types";
+import { DriverJob, Job, Shift } from "../../../state/apis/volunteerApi/types";
 import ShiftInfoField from "./ShiftInfoField";
 import config from "../config";
 import { formatDate, formatTime } from "../formatDateTime";
 import DriverShiftInfo from "./DriverInfo";
 import "./ShiftInfo.css";
 
-const ShiftInfo = ({
-  job,
-  shift,
-  campaign,
-}: {
-  job: Job;
-  shift: Shift;
-  campaign: VolunteerCampaign;
-}) => {
+const ShiftInfo = ({ job, shift }: { job: Job; shift: Shift }) => {
   const volunteer = useSelector(
-    (state: RootState) => state.volunteer.volunteer
+    (state: RootState) => state.volunteer.volunteer,
   );
 
-  const driver = campaign.id === config.deliveryDrivers.id;
+  const driver = job.campaign === config.deliveryDrivers.id;
 
   const renderVolunteer = () => {
     if (volunteer) {
@@ -43,7 +31,7 @@ const ShiftInfo = ({
   };
 
   if (driver) {
-    return <DriverShiftInfo shift={shift} job={job} />;
+    return <DriverShiftInfo shift={shift} job={job as DriverJob} />;
   }
 
   return (

@@ -34,10 +34,14 @@ export interface Job {
   campaign: string;
   region?: FridgeRegion;
   notes?: string;
-  carSizeRequired?: CarSize;
-  destination?: string;
-  dropoffNotes?: string;
-  // distance?: string;
+}
+
+export interface DriverJob extends Job {
+  carSizeRequired: CarSize;
+  destination: string;
+  dropoffNotes: string;
+  distance: number;
+  timeRequired?: number;
 }
 
 export interface GetShiftsResponse {
@@ -51,6 +55,7 @@ export interface VolunteerCampaign {
   endDate?: string;
   description?: string;
   id: string;
+  shortDescription?: string;
 }
 
 export interface VolunteerHours {

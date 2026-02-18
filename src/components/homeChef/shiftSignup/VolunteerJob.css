@@ -1,6 +1,8 @@
 .job-container {
   border-bottom: 1px solid grey;
-  padding: 1rem 0;
+  padding: 1rem;
+  max-width: 500px;
+  background-color: rgba(255, 255, 255, 0.396);
 }
 
 .region-name {
@@ -83,7 +85,7 @@
 .home-chef-fridges {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .home-chef-fridges-region {
@@ -96,4 +98,6 @@
 
 .job-notes {
   font-size: 0.9rem;
+  font-weight: 600;
+  margin-left: 1rem;
 }

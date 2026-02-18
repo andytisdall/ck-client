@@ -39,7 +39,7 @@ const Confirmation = ({
       cancelShift({ hoursId: hour.id, contactId })
         .unwrap()
         .then(() =>
-          dispatch(setAlert("You have canceled your volunteer shift"))
+          dispatch(setAlert("You have canceled your volunteer shift")),
         );
     }
   };
@@ -66,7 +66,7 @@ const Confirmation = ({
       return (
         <div className="volunteers-signup-confirm">
           {renderMessage()}
-          <ShiftInfo job={job} shift={shift} campaign={campaign} />
+          <ShiftInfo job={job} shift={shift} />
           <p>You have been sent an email with this information.</p>
         </div>
       );

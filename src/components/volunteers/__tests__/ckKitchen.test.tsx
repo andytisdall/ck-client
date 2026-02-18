@@ -134,7 +134,7 @@ describe("volunteer not found", () => {
     await userEvent.click(calendarBtn);
 
     const jobLink = await screen.findAllByText(
-      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "h:mm a")
+      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "h:mm a"),
     );
     expect(jobLink).toBeDefined();
 
@@ -212,7 +212,12 @@ describe("volunteer looked up and found", () => {
     expect(header).toBeDefined();
 
     const jobLink = await screen.findAllByText(
-      format(utcToZonedTime(hours.time, "America/Los_Angeles"), "eee, M/d/yy")
+      RegExp(
+        format(
+          utcToZonedTime(hours.time, "America/Los_Angeles"),
+          "eee, M/d/yy",
+        ),
+      ),
     );
     expect(jobLink).toBeDefined();
 
@@ -276,17 +281,17 @@ describe("signed up for shift", () => {
     const submitBtns = await screen.findAllByText(/submit/i);
     await userEvent.click(submitBtns[1]);
 
-    const shift = await screen.findByText(/signed up/i);
+    const shift = await screen.findByText(/✓/);
     await userEvent.click(shift);
 
     const confirmationMsg = await screen.findByText(
-      "You have successfully signed up for this shift:"
+      "You have successfully signed up for this shift:",
     );
     await waitFor(
       () => {
         expect(confirmationMsg).toBeDefined();
       },
-      { timeout: 500 }
+      { timeout: 500 },
     );
   });
 
@@ -305,7 +310,7 @@ describe("signed up for shift", () => {
     await userEvent.click(jobLink);
 
     const cancelBtn = await screen.findByText(
-      "Cancel Your Booked Volunteer Time"
+      "Cancel Your Booked Volunteer Time",
     );
     await userEvent.click(cancelBtn);
   });

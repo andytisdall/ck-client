@@ -28,7 +28,6 @@
 
 .driver-onboarding {
   margin: 0 auto;
-
   margin-top: 2rem;
   max-width: 800px;
 }
@@ -45,7 +44,7 @@
   margin-top: 1rem;
 }
 
-.driver-onboarding img {
+.driver-onboarding-home {
   width: 100%;
 }
 
@@ -201,32 +200,30 @@
   justify-content: center;
 }
 
-.driver-app-gif {
-  max-height: 500px;
-  margin: 2rem 0;
-}
-
-.driver-app-gif img {
-  object-fit: contain;
-  height: 100%;
-}
-
-.driver-app-container {
+.driver-app-text {
   display: flex;
   flex-wrap: wrap;
 }
 
-.driver-app-text {
-  max-width: 300px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.driver-app-text > * {
+  width: 13rem;
   margin: 1rem;
+}
+
+.driver-app-text li {
+  padding: 0.5rem;
 }
 
 .driver-app {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.driver-app-qr-code {
+  height: 4rem;
+}
+
+.driver-app-instructions-photo {
+  width: 100%;
 }

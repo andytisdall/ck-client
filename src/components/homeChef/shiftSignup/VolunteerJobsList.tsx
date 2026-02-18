@@ -6,18 +6,14 @@ import VolunteerJob from "./VolunteerJob";
 import Loading from "../../reusable/loading/Loading";
 import { FridgeRegion, Job } from "../../../state/apis/volunteerApi/types";
 import "./VolunteerJob.css";
-import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const VolunteerJobsList = () => {
   const { data, isLoading } = useGetShiftsQuery();
   const jobs = data?.jobs;
-  const { data: user } = useGetUserQuery();
 
   const kitchenJob = jobs?.find((job) => job.region === "CK Kitchen");
 
-  const validJobs = jobs?.filter(
-    (j) => j.ongoing && j.region && (j.region !== "CK Kitchen" || user?.admin),
-  );
+  const validJobs = jobs?.filter((j) => j.ongoing && j.region);
 
   const renderFridges = useCallback((fridges: Job[]) => {
     return fridges
@@ -54,7 +50,7 @@ const VolunteerJobsList = () => {
 
     return (
       <div>
-        {user?.admin && kitchenJob && (
+        {kitchenJob && (
           <Link
             to={`../job/${kitchenJob.id}`}
             className="deliver-to-kitchen-btn"

@@ -9,7 +9,7 @@ const volunteerCampaignConfig = {
   },
   deliveryDrivers: {
     id: "701UP00000KA6bhYAD",
-    images: ["driver-onboarding.jpg"],
+    images: ["drivers/driver-onboarding.jpg"],
   },
   gala2025: {
     id:

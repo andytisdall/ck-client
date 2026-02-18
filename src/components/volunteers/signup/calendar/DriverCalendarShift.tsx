@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { isCarBigEnough } from "../../formatDateTime";
 import { useGetDriverQuery } from "../../../../state/apis/volunteerApi/driver";
-import { Job, Shift } from "../../../../state/apis/volunteerApi/types";
+import { DriverJob, Shift } from "../../../../state/apis/volunteerApi/types";
 import "./DriverCalendar.css";
 
 const DriverCalendarShift = ({
@@ -16,7 +16,7 @@ const DriverCalendarShift = ({
   shift: Shift;
   linkUrl?: string;
   index: number;
-  job: Job;
+  job: DriverJob;
 } & PropsWithChildren) => {
   const { data: driver } = useGetDriverQuery();
   const navigate = useNavigate();
@@ -44,10 +44,6 @@ const DriverCalendarShift = ({
         }
       }}
     >
-      {/* <div>
-        Window: {format(new Date(shift.startTime), "hh:mm")} -{" "}
-        {format(new Date(shift.endTime), "hh:mm")}
-      </div> */}
       <div>
         <strong>{job.name}</strong>
       </div>

@@ -20,7 +20,7 @@ const JobDetail = () => {
   }
 
   return (
-    <div className="jobs-list">
+    <div className="home-chef-fridges">
       <VolunteerJob job={job} open={true} />
     </div>
   );

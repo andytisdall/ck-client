@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
 import { useSignUpForVolunteerShiftMutation } from "../../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
 import ShiftInfo from "../shiftInfo/ShiftInfo";
 import Loading from "../../reusable/loading/Loading";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
 
 const Signup = ({
   shiftId,
@@ -24,6 +26,7 @@ const Signup = ({
     useSignUpForVolunteerShiftMutation();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const shifts = jobs?.map((j) => j.shifts).flat();
   const shift = shiftId ? shifts?.find((sh) => sh.id === shiftId) : undefined;
@@ -37,6 +40,8 @@ const Signup = ({
         date: shift.startTime,
         contactSalesforceId: contactId,
       }).unwrap();
+
+      dispatch(setAlert("You have successfully signed up for a shift!"));
       afterSubmit(hour.id);
     }
   };
@@ -71,7 +76,7 @@ const Signup = ({
   return (
     <div>
       <h3 className="volunteers-signup-btns">Confirm your signup:</h3>
-      <ShiftInfo shift={shift} job={job} campaign={campaign} />
+      <ShiftInfo shift={shift} job={job} />
       {submitLoading ? <Loading /> : renderBtns()}
     </div>
   );

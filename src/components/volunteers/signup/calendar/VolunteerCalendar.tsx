@@ -8,6 +8,7 @@ import {
   Shift,
   VolunteerHours,
   VolunteerCampaign,
+  DriverJob,
 } from "../../../../state/apis/volunteerApi/types";
 import { useGetHoursQuery } from "../../../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../../../state/apis/volunteerApi/jobs";
@@ -32,7 +33,6 @@ const KitchenCalendar = ({
   const shifts = jobs?.map((j) => j.shifts).flat();
 
   const driverCampaign = campaign.id === config.deliveryDrivers.id;
-  const Component = driverCampaign ? DriverCalendarShift : CalendarShift;
 
   const bookedJobs = hours
     ? Object.values(hours)
@@ -88,8 +88,26 @@ const KitchenCalendar = ({
           }
         };
 
+        if (driverCampaign) {
+          return (
+            <DriverCalendarShift
+              shift={sh}
+              job={job as DriverJob}
+              linkUrl={getLinkUrl()}
+              key={sh.id}
+              index={index}
+            >
+              {jobBooked && (
+                <div className="volunteers-calendar-checkmark">
+                  &#x2713; Signed Up
+                </div>
+              )}
+            </DriverCalendarShift>
+          );
+        }
+
         return (
-          <Component
+          <CalendarShift
             shift={sh}
             job={job}
             linkUrl={getLinkUrl()}
@@ -101,7 +119,7 @@ const KitchenCalendar = ({
                 &#x2713; Signed Up
               </div>
             )}
-          </Component>
+          </CalendarShift>
         );
       });
     } else {

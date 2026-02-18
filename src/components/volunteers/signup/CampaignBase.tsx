@@ -85,7 +85,7 @@ const CampaignBase = () => {
     );
   }
 
-  const renderEvent = () => {
+  const getDate = () => {
     const startDate = campaign?.startDate
       ? format(
           utcToZonedTime(campaign.startDate, "America/Los_Angeles"),
@@ -101,12 +101,14 @@ const CampaignBase = () => {
         )
       : "";
 
-    const date = startDate + endDate;
+    return startDate + endDate;
+  };
 
+  const renderCampaignDescription = () => {
     return (
       <div className="volunteers-body">
-        <h3>{date}</h3>
-        <p className="volunteers-home-section-body">{campaign.description}</p>
+        {event && <h3>{getDate()}</h3>}
+        <p className="vol-campaign-description">{campaign.description}</p>
       </div>
     );
   };
@@ -121,20 +123,27 @@ const CampaignBase = () => {
         </div>
       );
     }
+    if (driver) {
+      return renderEditDriverInfoBtn();
+    }
   };
 
   const renderOngoing = () => {
     return (
       <div className="volunteers-body">
-        <div className="volunteers-shift-signup-links">
-          <NavLink className={navLink} to="list">
-            List
-          </NavLink>
-          <NavLink className={navLink} to="cal">
-            Calendar
-          </NavLink>
-        </div>
-        {driver ? renderEditDriverInfoBtn() : renderSignIn()}
+        {renderCampaignDescription()}
+
+        {!event && (
+          <div className="volunteers-shift-signup-links">
+            <NavLink className={navLink} to="list">
+              List
+            </NavLink>
+            <NavLink className={navLink} to="cal">
+              Calendar
+            </NavLink>
+          </div>
+        )}
+        {renderSignIn()}
       </div>
     );
   };
@@ -150,7 +159,7 @@ const CampaignBase = () => {
       </h1>
       <div className="volunteers-kitchen-signup-photos">{renderImages()}</div>
 
-      {event ? renderEvent() : renderOngoing()}
+      {renderOngoing()}
       <Outlet />
     </div>
   );

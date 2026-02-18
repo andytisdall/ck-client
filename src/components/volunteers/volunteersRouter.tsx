@@ -14,6 +14,7 @@ const ConfirmationBase = lazy(() => import("./confirmation/ConfirmationBase"));
 const VolunteersBase = lazy(() => import("./VolunteersBase"));
 
 const TownFridges = lazy(() => import("./townFridges/TownFridges"));
+const DriverApp = lazy(() => import("./driver/DriverApp"));
 
 const volunteersRouter: RouteObject = {
   path: "volunteers",
@@ -47,6 +48,7 @@ const volunteersRouter: RouteObject = {
     },
     driverRouter,
     signupRouter,
+    { path: "driver-app", element: renderWithFallback(<DriverApp />) },
   ],
 };
 
