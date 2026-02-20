@@ -31,13 +31,13 @@ const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
               <div className={`job-date ${shift.open ? "" : "job-date-full"}`}>
                 {format(
                   utcToZonedTime(shift.startTime, "America/Los_Angeles"),
-                  "M/d/yy"
+                  "M/d/yy",
                 )}
               </div>
               <div className={`job-time ${shift.open ? "" : "job-date-full"}`}>
                 {format(
                   utcToZonedTime(shift.startTime, "America/Los_Angeles"),
-                  "eeee"
+                  "eeee",
                 )}
                 {/* <span className="job-name-small"> - {job.name}</span> */}
               </div>
@@ -50,29 +50,29 @@ const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
   const expanded = expand ? "expanded" : "";
   const inactive = job.active ? "" : "job-name-inactive";
   return (
-    <div
-      className="job-container"
-      onClick={() => {
-        if (job.active) {
-          setExpand(!expand);
-        }
-      }}
-    >
-      <div className={`job-name ${inactive}`}>
-        {job.active && <div className={`expand-btn ${expanded}`}>&rarr;</div>}
-        <div>{job.name}</div>
-        {job.active ? (
-          <div className="job-location">{job.location}</div>
-        ) : (
-          <div className="job-disabled">Out of Service</div>
+    <div className="job-container">
+      <div
+        onClick={() => {
+          if (job.active) {
+            setExpand(!expand);
+          }
+        }}
+      >
+        <div className={`job-name ${inactive}`}>
+          {job.active && <div className={`expand-btn ${expanded}`}>&rarr;</div>}
+          <div>{job.name}</div>
+          {job.active ? (
+            <div className="job-location">{job.location}</div>
+          ) : (
+            <div className="job-disabled">Out of Service</div>
+          )}
+        </div>
+        {job.active && job.notes && (
+          <div className="job-notes">
+            <p>{job.notes}</p>
+          </div>
         )}
       </div>
-      {job.active && job.notes && (
-        <div className="job-notes">
-          <p>{job.notes}</p>
-        </div>
-      )}
-
       <div className={`shift-list ${expanded ? "" : "closed"}`}>
         {expand && renderShifts()}
       </div>

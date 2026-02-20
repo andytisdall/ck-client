@@ -47,16 +47,9 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
 
   return (
     <div className="volunteers-job-list">
-      {visibleJobs
-        .filter((j) => {
-          if (!user?.admin) {
-            return !j.name.includes("Town Fridges");
-          }
-          return true;
-        })
-        .map((j) => {
-          return <JobItem job={j} key={j.id} contactId={contactId} />;
-        })}
+      {visibleJobs.map((j) => {
+        return <JobItem job={j} key={j.id} contactId={contactId} />;
+      })}
     </div>
   );
 };

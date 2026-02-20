@@ -5,7 +5,7 @@ import { DriverJob, Job, Shift } from "../../../state/apis/volunteerApi/types";
 import ShiftInfoField from "./ShiftInfoField";
 import config from "../config";
 import { formatDate, formatTime } from "../formatDateTime";
-import DriverShiftInfo from "./DriverInfo";
+import DriverShiftInfo from "./DriverShiftInfo";
 import "./ShiftInfo.css";
 
 const ShiftInfo = ({ job, shift }: { job: Job; shift: Shift }) => {

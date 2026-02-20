@@ -15,7 +15,7 @@ const ShiftInfoField = ({
     }
     const newline = "<br/>";
     const words = notes
-      .replace(RegExp("\\r", "g"), " " + newline + " ")
+      .replace(RegExp("\\r", "g"), " ")
       .replace(RegExp("\\n", "g"), " " + newline + " ")
       .split(" ");
 
@@ -38,7 +38,6 @@ const ShiftInfoField = ({
         if (word === newline) {
           return (
             <>
-              <br />
               <br />
             </>
           );
