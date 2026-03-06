@@ -4,6 +4,7 @@
   align-items: center;
   background-image: url("https://storage.googleapis.com/coherent-vision-368820.appspot.com/plate-pattern.jpg");
   padding-bottom: 5rem;
+  flex: 1;
 }
 
 .form {
@@ -31,6 +32,7 @@
   border-radius: 10px;
   padding: 2rem;
   background-color: white;
+  position: relative;
 }
 
 .form-item textarea {
@@ -104,6 +106,10 @@
   color: red;
 }
 
+.form-error {
+  background-color: pink;
+}
+
 .required-error {
   color: red;
 }
@@ -112,15 +118,18 @@
   display: flex;
   align-items: center;
   width: 100%;
+  margin-top: 2rem;
 }
 
 .form-horizontal label {
   margin: 0;
   margin-right: 1.2rem;
+  width: 20%;
 }
 
 .form-horizontal input {
   flex: 1;
+  margin-bottom: 0;
 }
 
 .form-horizontal input[type="radio"] {
@@ -334,6 +343,16 @@
   margin: 0;
   width: 1rem;
   height: 1rem;
+}
+
+.form-delete {
+  position: absolute;
+  right: 1rem;
+  top: 0.75rem;
+  color: rgb(173, 0, 0);
+  font-weight: 700;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 @media (max-width: 540px) {

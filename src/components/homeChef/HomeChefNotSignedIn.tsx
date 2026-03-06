@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const HomeChefNotSignedIn = () => {
   return (
@@ -16,7 +16,7 @@ const HomeChefNotSignedIn = () => {
       <br />
       <h3>If not:</h3>
       <p>
-        To become a Home Chef,{' '}
+        To become a Home Chef,{" "}
         <Link to="/forms/volunteer" className="retro-link">
           please complete the signup form.
         </Link>
@@ -27,7 +27,9 @@ const HomeChefNotSignedIn = () => {
       <br />
       <br />
       <Link to="../volunteers" className="retro-link">
-        <strong>Other volunteer opportunities</strong>
+        <button>
+          <strong>Other volunteer opportunities</strong>
+        </button>
       </Link>
     </div>
   );

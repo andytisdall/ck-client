@@ -26,7 +26,6 @@ export interface ContactInfo {
   homeChefAgreement: boolean;
   homeChefQuizPassed: boolean;
   homeChefStatus?: string;
-  homeChefSurveyCompleted?: boolean;
 }
 export interface CreateUserArgs {
   username: string;

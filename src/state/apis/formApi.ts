@@ -1,5 +1,24 @@
 import { api } from "../api";
 
+export type Service = {
+  name: string;
+  location: string;
+  time: string;
+  description?: string;
+  instructions?: string;
+};
+
+interface MealsPlusArgs {
+  formData: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    cbo: string;
+    services: Service[];
+  };
+  name: "MEALS_PLUS";
+}
+
 interface CBOReportArgs {
   formData: {
     month: string;
@@ -95,7 +114,8 @@ type SubmitFormArgs =
   | VolunteerInterestFormArgs
   | CulinaryTrainingArgs
   | NewMealSurveyArgs
-  | SNAPSurveyArgs;
+  | SNAPSurveyArgs
+  | MealsPlusArgs;
 
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
@@ -103,6 +123,7 @@ const urls = {
   NEW_MEAL_SURVEY: "/meal-program/survey",
   CULINARY_TRAINING: "/meal-program/workforce-development",
   SNAP_SURVEY: "/meal-program/survey/snap",
+  MEALS_PLUS: "/meal-program/meals-plus",
 };
 
 const formApi = api.injectEndpoints({
