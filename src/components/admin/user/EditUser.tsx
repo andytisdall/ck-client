@@ -7,6 +7,7 @@ import {
 } from "../../../state/apis/authApi";
 import { setError } from "../../../state/apis/slices/errorSlice";
 import { setAlert } from "../../../state/apis/slices/alertSlice";
+import Loading from "../../reusable/loading/Loading";
 
 const EditUser = () => {
   const [user, setUser] = useState("");
@@ -18,7 +19,7 @@ const EditUser = () => {
   const [password2, setPassword2] = useState("");
 
   const dispatch = useDispatch();
-  const [editUser] = useEditUserMutation();
+  const [editUser, { isLoading }] = useEditUserMutation();
   const users = useGetAllUsersQuery().data;
 
   const handleSubmit: FormEventHandler = async (e) => {
@@ -81,55 +82,59 @@ const EditUser = () => {
   return (
     <div className="admin-item">
       <h2>Edit a User</h2>
-      <form onSubmit={handleSubmit} className="admin-form">
-        <select required name="user" value={user} onChange={onUserSelect}>
-          <option value="">Select a User</option>
-          {renderUsers()}
-        </select>
-        {!!user && <div className="admin-id-text">ID: {user}</div>}
-        <label htmlFor="name">Username:</label>
-        <input
-          id="name"
-          type="text"
-          value={username}
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="salesforceId">Salesforce ID:</label>
-        <input
-          id="salesforceId"
-          type="text"
-          value={salesforceId}
-          onChange={(e) => setSalesforceId(e.target.value)}
-        />
-        <label htmlFor="password1">Password:</label>
-        <input
-          id="password1"
-          type="password"
-          value={password1}
-          onChange={(e) => setPassword1(e.target.value)}
-        />
-        <label htmlFor="password2">Re-Enter Password:</label>
-        <input
-          type="password"
-          value={password2}
-          id="password2"
-          onChange={(e) => setPassword2(e.target.value)}
-        />
-        <div>
-          <label htmlFor="busDriver">Delivery Driver:</label>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <form onSubmit={handleSubmit} className="admin-form">
+          <select required name="user" value={user} onChange={onUserSelect}>
+            <option value="">Select a User</option>
+            {renderUsers()}
+          </select>
+          {!!user && <div className="admin-id-text">ID: {user}</div>}
+          <label htmlFor="name">Username:</label>
           <input
-            type="checkbox"
-            checked={busDriver}
-            onChange={(e) => setBusdriver(e.target.checked)}
+            id="name"
+            type="text"
+            value={username}
+            required
+            onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div>
-          Active: {!!users && !!users[user] && users[user].active.toString()}
-        </div>
+          <label htmlFor="salesforceId">Salesforce ID:</label>
+          <input
+            id="salesforceId"
+            type="text"
+            value={salesforceId}
+            onChange={(e) => setSalesforceId(e.target.value)}
+          />
+          <label htmlFor="password1">Password:</label>
+          <input
+            id="password1"
+            type="password"
+            value={password1}
+            onChange={(e) => setPassword1(e.target.value)}
+          />
+          <label htmlFor="password2">Re-Enter Password:</label>
+          <input
+            type="password"
+            value={password2}
+            id="password2"
+            onChange={(e) => setPassword2(e.target.value)}
+          />
+          <div>
+            <label htmlFor="busDriver">Delivery Driver:</label>
+            <input
+              type="checkbox"
+              checked={busDriver}
+              onChange={(e) => setBusdriver(e.target.checked)}
+            />
+          </div>
+          <div>
+            Active: {!!users && !!users[user] && users[user].active.toString()}
+          </div>
 
-        <input type="submit" />
-      </form>
+          <input type="submit" />
+        </form>
+      )}
     </div>
   );
 };

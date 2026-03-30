@@ -23,7 +23,7 @@ interface CBOReportArgs {
   formData: {
     month: string;
     name: string;
-    CBOName: string;
+    cboName: string;
     performanceMeasures: Record<string, string>;
     age: Record<string, string>;
     race: Record<string, string>;
@@ -109,13 +109,35 @@ interface SNAPSurveyArgs {
   name: "SNAP_SURVEY";
 }
 
+interface HomeChefPollArgs {
+  formData: {
+    city: string;
+    miles: string;
+    active: boolean;
+    support?: string;
+  };
+  name: "HOME_CHEF_POLL";
+}
+
+interface HomeChefOrientationArgs {
+  formData: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+  };
+  name: "HOME_CHEF_ORIENTATION";
+}
+
 type SubmitFormArgs =
   | CBOReportArgs
   | VolunteerInterestFormArgs
   | CulinaryTrainingArgs
   | NewMealSurveyArgs
   | SNAPSurveyArgs
-  | MealsPlusArgs;
+  | MealsPlusArgs
+  | HomeChefPollArgs
+  | HomeChefOrientationArgs;
 
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
@@ -124,6 +146,8 @@ const urls = {
   CULINARY_TRAINING: "/meal-program/workforce-development",
   SNAP_SURVEY: "/meal-program/survey/snap",
   MEALS_PLUS: "/meal-program/meals-plus",
+  HOME_CHEF_POLL: "/home-chef/poll",
+  HOME_CHEF_ORIENTATION: "/home-chef/orientation",
 };
 
 const formApi = api.injectEndpoints({

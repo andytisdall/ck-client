@@ -20,8 +20,8 @@ import ClientInfo from "./ClientInformation";
 import MealCounter from "./MealCounter";
 import {
   mealIsWithinMonth,
-  monthlyMealMax,
-  dailyMealMax,
+  MONTHLY_MEAL_MAX,
+  DAILY_MEAL_MAX,
 } from "../doorfrontFunctions";
 
 const AddMeals = () => {
@@ -81,13 +81,13 @@ const AddMeals = () => {
   const regularClient =
     client?.cCode !== "FREEBIE" && client?.cCode !== "189137";
 
-  const monthlyLimitReached = mealsThisMonth + meals >= monthlyMealMax;
-  const dailyLimitReached = mealsToday + meals >= dailyMealMax;
+  const monthlyLimitReached = mealsThisMonth + meals >= MONTHLY_MEAL_MAX;
+  const dailyLimitReached = mealsToday + meals >= DAILY_MEAL_MAX;
   const cannotAddMeals =
     (monthlyLimitReached || dailyLimitReached) && regularClient;
 
-  const cannotSubmitMonthly = mealsThisMonth >= monthlyMealMax;
-  const cannotSubmitDaily = mealsToday >= dailyMealMax;
+  const cannotSubmitMonthly = mealsThisMonth >= MONTHLY_MEAL_MAX;
+  const cannotSubmitDaily = mealsToday >= DAILY_MEAL_MAX;
   const cannotSubmit =
     (cannotSubmitDaily || cannotSubmitMonthly) && regularClient;
 

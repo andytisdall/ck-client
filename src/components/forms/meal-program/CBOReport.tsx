@@ -10,7 +10,7 @@ const successMessage = "Thank you for providing this information.";
 const CBOReport = () => {
   const [month, setMonth] = useState("");
   const [name, setName] = useState("");
-  const [CBOName, setCBOName] = useState("");
+  const [cboName, setCboName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [year, setYear] = useState("2026");
@@ -96,7 +96,7 @@ const CBOReport = () => {
       formData: {
         month,
         name,
-        CBOName,
+        cboName,
         performanceMeasures,
         age,
         race,
@@ -160,8 +160,8 @@ const CBOReport = () => {
         <input
           id="cbo-name"
           type="text"
-          value={CBOName}
-          onChange={(e) => setCBOName(e.target.value)}
+          value={cboName}
+          onChange={(e) => setCboName(e.target.value)}
           required
         />
       </div>

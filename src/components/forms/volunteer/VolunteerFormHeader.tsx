@@ -64,6 +64,14 @@ const VolunteerFormHeader = () => {
         connect with neighbors and ensure dignified access to food.
       </p>
       <br />
+      <p>
+        🚲 <strong>Mobile Meal Team</strong>
+        <br />
+        Join our group of bicyclists to deliver CK Kitchen meals directly to
+        encampments and anyone who needs a meal. We have monthly events where we
+        ride around Oakland's neighborhoods distributing delicious food!
+      </p>
+      <br />
       <div>
         <strong>Questions?</strong>
         <ul>

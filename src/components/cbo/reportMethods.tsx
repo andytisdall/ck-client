@@ -1,15 +1,15 @@
-import { CBOReport } from '../../state/apis/cboApi';
+import { CBOReport } from "../../state/apis/mealProgramApi/cboApi";
 
-export const filterByDate = (
-  startDate: string,
-  endDate: string,
-  data: CBOReport[]
-) => {
-  return data.filter((report) => {
-    const reportDate = new Date(`${report.month} ${report.year}`);
-    return reportDate >= new Date(startDate) && reportDate <= new Date(endDate);
-  });
-};
+// export const filterByDate = (
+//   startDate: string,
+//   endDate: string,
+//   data: CBOReport[],
+// ) => {
+//   return data.filter((report) => {
+//     const reportDate = new Date(`${report.month} ${report.year}`);
+//     return reportDate >= new Date(startDate) && reportDate <= new Date(endDate);
+//   });
+// };
 
 export function sumField<T>(reportList: T[], field: keyof T) {
   return reportList.reduce((prev, cur) => prev + (cur[field] as number), 0);
@@ -41,14 +41,14 @@ export const renderValues = (obj: Record<string, number>, sorted = false) => {
 
 export function averageField(
   reportList: CBOReport[],
-  field: keyof CBOReport['performanceMeasures']
+  field: keyof CBOReport["performanceMeasures"],
 ) {
   return (
     reportList.reduce(
       (prev, cur) =>
         prev +
-        ((cur['performanceMeasures'][field] as number) / 100) * cur.individuals,
-      0
-    ) / sumField(reportList, 'individuals')
+        ((cur["performanceMeasures"][field] as number) / 100) * cur.individuals,
+      0,
+    ) / sumField(reportList, "individuals")
   );
 }

@@ -86,7 +86,7 @@ const MealsPlus = () => {
           <div className="form-title">Service {i + 1}</div>
           <div className="form-horizontal">
             <label>
-              <strong>Name:</strong>
+              <strong>Service Name:</strong>
               <span className="required">*</span>
             </label>
             <input
@@ -136,8 +136,8 @@ const MealsPlus = () => {
           </div>
           <div className="form-horizontal" />
           <label>
-            <strong>Description</strong> (Some guidance on how to fill this
-            out):
+            <strong>Description</strong> (What other info do you want people to
+            know about this service):
           </label>
           <input
             value={serv.description}
@@ -153,8 +153,8 @@ const MealsPlus = () => {
 
           <div className="form-horizontal" />
           <label>
-            <strong>Instructions</strong> (Include any sign up links, phone
-            numbers, etc.):
+            <strong>Instructions</strong> (How can people take advantage of this
+            service? Include any sign up links, phone numbers to call, etc.):
           </label>
           <input
             value={serv.instructions}
@@ -191,7 +191,19 @@ const MealsPlus = () => {
   return (
     <form onSubmit={onSubmit}>
       <FormHeader title="Meals Plus Form">
-        <p>Please fill out this form.</p>
+        <p>
+          The CK Meals Plus program sends out text message alerts to subscribers
+          in the East Bay, informing the community of various services provided
+          by local organizations. Each text alert will include information about
+          a particular service; what it is, when and where to find it, and what
+          people need to do to receive it.
+        </p>
+        <br />
+        <p>
+          Please use this form to submit information about services your
+          organization provides that we can include in our regular schedule of
+          announcements.
+        </p>
       </FormHeader>
 
       <div className="form-item">
@@ -241,8 +253,12 @@ const MealsPlus = () => {
         <h3>Enter Your Services Below</h3>
         <p>
           Include any services that you'd like to include on the announcement
-          calendar. To enter an additional service, click the "Add Service"
-          button at the bottom
+          calendar.
+          <p>
+            <br />
+          </p>
+          To enter an additional service, click the "Add Service" button at the
+          bottom.
         </p>
       </div>
       {renderServices()}

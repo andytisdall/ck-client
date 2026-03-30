@@ -1,11 +1,11 @@
-import { useState, FormEventHandler } from 'react';
+import { useState, FormEventHandler } from "react";
 
-import './SignedOut/SignIn.css';
-import Loading from '../reusable//loading/Loading';
-import { useForgotPasswordMutation } from '../../state/apis/authApi';
+import "./SignedOut/SignIn.css";
+import Loading from "../reusable//loading/Loading";
+import { useForgotPasswordMutation } from "../../state/apis/authApi";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const [forgotPassword, { isLoading, isSuccess }] =
     useForgotPasswordMutation();
@@ -33,9 +33,14 @@ const ForgotPassword = () => {
 
   return (
     <div className="main user">
-      <form onSubmit={handleSubmit} className="signin">
+      <h3>Forgot Your Password?</h3>
+
+      <form onSubmit={handleSubmit}>
         <div className="signin-fields">
-          <label htmlFor="email">Enter your email address:</label>
+          <label htmlFor="email">
+            Enter your email address below and we'll send you a link to reset
+            your password:
+          </label>
           <input
             id="email"
             required

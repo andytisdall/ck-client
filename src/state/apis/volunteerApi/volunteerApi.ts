@@ -54,6 +54,13 @@ export const volunteerApi = api.injectEndpoints({
       },
       invalidatesTags: ["VolunteerHours", "VolunteerShifts"],
     }),
+
+    resetWaivers: builder.mutation<{ number: string }, void>({
+      query: () => ({
+        url: "/volunteers/reset-waivers",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -65,4 +72,5 @@ export const {
   useGetVolunteerQuery,
   useGetHoursQuery,
   useGetHourQuery,
+  useResetWaiversMutation,
 } = volunteerApi;

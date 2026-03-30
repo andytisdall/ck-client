@@ -1,10 +1,10 @@
 // import serverCall from 'state'
 import Loading from "../reusable/loading/Loading";
-import { useLazyTestSignQuery } from "../../state/apis/authApi";
+import { useResetWaiversMutation } from "../../state/apis/volunteerApi/volunteerApi";
 
 const DoSomething = () => {
   const [doSomething, { isLoading, isError, data, isSuccess }] =
-    useLazyTestSignQuery();
+    useResetWaiversMutation();
   return (
     <div>
       {isError ? (
@@ -12,9 +12,9 @@ const DoSomething = () => {
       ) : isLoading ? (
         <Loading />
       ) : isSuccess ? (
-        `${data}`
+        `Contacts updated: ${data?.number}`
       ) : (
-        <button onClick={() => doSomething()}>Do the Thing</button>
+        <button onClick={() => doSomething().unwrap()}>Do the Thing</button>
       )}
     </div>
   );

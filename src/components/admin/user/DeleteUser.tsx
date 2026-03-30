@@ -1,26 +1,26 @@
-import { useState, ChangeEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, ChangeEventHandler } from "react";
+import { useDispatch } from "react-redux";
 
 import {
   User,
   useDeleteUserMutation,
   useGetAllUsersQuery,
-} from '../../../state/apis/authApi';
-import { setAlert } from '../../../state/apis/slices/alertSlice';
+} from "../../../state/apis/authApi";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
+import Loading from "../../reusable/loading/Loading";
 
 const DeleteUser = () => {
   const [user, setUser] = useState<User>();
 
   const users = useGetAllUsersQuery().data;
-  const [deleteUser] = useDeleteUserMutation();
+  const [deleteUser, { isLoading }] = useDeleteUserMutation();
 
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (user && window.confirm(`Seriously delete ${user.username}`)) {
-      deleteUser(user.id)
-        .unwrap()
-        .then(() => dispatch(setAlert('User Deleted')));
+      await deleteUser(user.id).unwrap();
+      dispatch(setAlert("User Deleted"));
       setUser(undefined);
     }
   };
@@ -73,16 +73,20 @@ const DeleteUser = () => {
   return (
     <div className="admin-item">
       <h2>Delete a User</h2>
-      <div onSubmit={handleSubmit} className="admin-form">
-        <select required name="user" value={user?.id} onChange={onUserSelect}>
-          <option value="">Select a User</option>
-          {renderUsers()}
-        </select>
-        {user ? showUserDetails() : null}
-        <button className="cancel" onClick={handleSubmit}>
-          Delete User
-        </button>
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div onSubmit={handleSubmit} className="admin-form">
+          <select required name="user" value={user?.id} onChange={onUserSelect}>
+            <option value="">Select a User</option>
+            {renderUsers()}
+          </select>
+          {user ? showUserDetails() : null}
+          <button className="cancel" onClick={handleSubmit}>
+            Delete User
+          </button>
+        </div>
+      )}
     </div>
   );
 };

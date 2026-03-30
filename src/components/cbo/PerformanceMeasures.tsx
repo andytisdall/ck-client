@@ -1,40 +1,40 @@
-import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { useMemo } from "react";
+import { Bar } from "react-chartjs-2";
 
-import { PerformanceMeasures } from '../../state/apis/cboApi';
-import { defaultOptions, CBOReportProps } from './CBO';
+import { PerformanceMeasures } from "../../state/apis/mealProgramApi/cboApi";
+import { defaultOptions, CBOReportProps } from "./CBO";
 import {
   sumField,
   renderValues,
   sortKeys,
   sortValues,
   averageField,
-} from './reportMethods';
-import Chart from './Chart';
+} from "./reportMethods";
+import Chart from "./Chart";
 
 const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
   const data = useMemo(() => {
     const performanceMeasures: PerformanceMeasures[] = reports.map(
-      (r) => r.performanceMeasures
+      (r) => r.performanceMeasures,
     );
     return {
-      'Percent without Access to Kitchen': averageField(
+      "Percent without Access to Kitchen": averageField(
         reports,
-        'percentWOAccess'
+        "percentWOAccess",
       ),
-      'Meals Provided': sumField(performanceMeasures, 'mealsProvided'),
-      'Unusable Meals': sumField(performanceMeasures, 'unusable'),
-      'Number of Calfresh postcards given out': sumField(
+      "Meals Provided": sumField(performanceMeasures, "mealsProvided"),
+      "Unusable Meals": sumField(performanceMeasures, "unusable"),
+      "Number of Calfresh postcards given out": sumField(
         performanceMeasures,
-        'postcards'
+        "postcards",
       ),
-      'Number of Calfresh applications assisted': sumField(
+      "Number of Calfresh applications assisted": sumField(
         performanceMeasures,
-        'calfreshApps'
+        "calfreshApps",
       ),
-      'Number of Calfresh applications sent to SSA': sumField(
+      "Number of Calfresh applications sent to SSA": sumField(
         performanceMeasures,
-        'SSA'
+        "SSA",
       ),
     };
   }, [reports]);
@@ -45,7 +45,7 @@ const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
       datasets: [
         {
           data: sortValues(data),
-          backgroundColor: 'pink',
+          backgroundColor: "pink",
         },
       ],
     };

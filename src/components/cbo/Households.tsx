@@ -1,13 +1,14 @@
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
-import { CBOReportProps } from './CBO';
-import { sumField, renderValues } from './reportMethods';
-import Chart from './Chart';
+import { CBOReportProps } from "./CBO";
+import { sumField, renderValues } from "./reportMethods";
+import Chart from "./Chart";
 
 const Households = ({ reports }: CBOReportProps) => {
   const data = useMemo(() => {
     return {
-      'Households Provided Meals': sumField(reports, 'households'),
+      "Households Provided Meals": sumField(reports, "households"),
+      "Individuals Provided Meals": sumField(reports, "individuals"),
     };
   }, [reports]);
 

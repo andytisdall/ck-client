@@ -28,7 +28,7 @@ const Sign = () => {
 
   return (
     <div>
-      <h2>Sign this Document</h2>
+      <h2>Please Sign the CK Volunteer Agreement</h2>
       <p>You will be redirected to sign.</p>
       {isLoading && <Loading />}
     </div>

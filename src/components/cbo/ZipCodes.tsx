@@ -1,16 +1,16 @@
-import { useMemo } from 'react';
-import { Pie } from 'react-chartjs-2';
-import randomColor from 'randomcolor';
+import { useMemo } from "react";
+import { Pie } from "react-chartjs-2";
+import randomColor from "randomcolor";
 
-import { ZipCode } from '../../state/apis/cboApi';
-import { sumField, renderValues, sortKeys, sortValues } from './reportMethods';
-import { CBOReportProps } from './CBO';
-import Chart from './Chart';
+import { ZipCode } from "../../state/apis/mealProgramApi/cboApi";
+import { sumField, renderValues, sortKeys, sortValues } from "./reportMethods";
+import { CBOReportProps } from "./CBO";
+import Chart from "./Chart";
 
 const ZipCodes = ({ reports }: CBOReportProps) => {
   const data = useMemo(() => {
     const zips: Record<ZipCode, number | undefined>[] = reports.map(
-      (r) => r.zips
+      (r) => r.zips,
     );
 
     const obj: Partial<Record<ZipCode, number>> = {};
