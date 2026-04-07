@@ -16,7 +16,7 @@ const UploadPhoto = ({
   label: string;
   dateLabel: string;
 }) => {
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | FileList>();
   const [date, setDate] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const navigate = useNavigate();
@@ -32,6 +32,10 @@ const UploadPhoto = ({
     if (!dateIsValid) {
       return setErrorMessage("The expiration date must be in the future");
     }
+    if (file instanceof FileList) {
+      return setErrorMessage("Attach only one file");
+    }
+
     setErrorMessage(undefined);
     await upload({ file, date }).unwrap();
     navigate("..");

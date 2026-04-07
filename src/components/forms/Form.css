@@ -69,6 +69,15 @@
   margin-bottom: 2rem;
 }
 
+.form-label-subheader {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.cbo-form label {
+  font-weight: 600;
+}
+
 .form-checkbox input {
   margin-bottom: 0;
 }

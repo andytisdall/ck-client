@@ -23,14 +23,14 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
 
   const [name, setName] = useState(recipe?.name || "");
   const [ingredients, setIngredients] = useState(
-    recipe?.ingredients.map(mapSections) || [{ header: "", text: "" }]
+    recipe?.ingredients.map(mapSections) || [{ header: "", text: "" }],
   );
   const [instructions, setInstructions] = useState(
-    recipe?.instructions.map(mapSections) || [{ header: "", text: "" }]
+    recipe?.instructions.map(mapSections) || [{ header: "", text: "" }],
   );
   const [description, setDescription] = useState(recipe?.description || "");
   const [category, setCategory] = useState(recipe?.category || "");
-  const [photo, setPhoto] = useState<File>();
+  const [photo, setPhoto] = useState<File | FileList>();
   const [author, setAuthor] = useState(recipe?.author || "");
 
   const [editRecipe, editRecipeResult] = useEditRecipeMutation();
@@ -43,6 +43,9 @@ const CreateRecipe = ({ recipe }: { recipe?: Recipe }) => {
     }
     if (!category) {
       return dispatch(setError("Please choose a category"));
+    }
+    if (photo instanceof FileList) {
+      return dispatch(setError("Only attach one file"));
     }
     const formValues = {
       name,

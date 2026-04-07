@@ -3,13 +3,7 @@ import { Bar } from "react-chartjs-2";
 
 import { PerformanceMeasures } from "../../state/apis/mealProgramApi/cboApi";
 import { defaultOptions, CBOReportProps } from "./CBO";
-import {
-  sumField,
-  renderValues,
-  sortKeys,
-  sortValues,
-  averageField,
-} from "./reportMethods";
+import { sumField, renderValues, sortKeys, sortValues } from "./reportMethods";
 import Chart from "./Chart";
 
 const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
@@ -18,9 +12,13 @@ const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
       (r) => r.performanceMeasures,
     );
     return {
-      "Percent without Access to Kitchen": averageField(
-        reports,
-        "percentWOAccess",
+      "Individuals without Access to Kitchen": sumField(
+        performanceMeasures,
+        "withoutAccess",
+      ),
+      "Households that receive benefits or identify as low-income": sumField(
+        performanceMeasures,
+        "lowIncome",
       ),
       "Meals Provided": sumField(performanceMeasures, "mealsProvided"),
       "Unusable Meals": sumField(performanceMeasures, "unusable"),

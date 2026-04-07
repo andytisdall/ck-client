@@ -12,7 +12,7 @@ import {
 } from "../../../state/apis/volunteerApi/types";
 import { HomeChefJob } from "../../../state/apis/volunteerApi/homeChefApi/types";
 import App from "../../../App";
-import { Root } from "../../../setupTests";
+import { Root } from "../../../test/setupTests";
 
 export const campaign: Campaign = {
   mealsDonated: 100,
@@ -34,7 +34,6 @@ export const userInfo1: ContactInfo = {
   foodHandler: true,
   homeChefStatus: "Active",
   homeChefQuizPassed: true,
-  homeChefSurveyCompleted: true,
 };
 
 export const job1: HomeChefJob = {

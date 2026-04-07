@@ -52,5 +52,4 @@ export interface SendTextResponse {
   region: Region;
   photoUrl?: string;
   number: string;
-  sendAt?: string;
 }

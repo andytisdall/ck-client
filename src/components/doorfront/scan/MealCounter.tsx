@@ -12,7 +12,7 @@ const MealCounter = ({
       <b>Client is receiving</b>
       <h3 className="doorfront-meal-count">{`${meals} meal${meals === 1 ? "" : "s"}`}</h3>
       {!!limitReachedAlert && (
-        <div className="doorfront-alert">{limitReachedAlert}</div>
+        <div className="doorfront-col">{limitReachedAlert}</div>
       )}
 
       <div className="doorfront-btns">

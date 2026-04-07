@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { BarcodeScanner } from "react-barcode-scanner";
 import "react-barcode-scanner/polyfill";
 
+import NumberEntry from "./NumberEntry";
+
 const GENERIC_CARD_CODE = "189137";
 
 const ScanBarcode = () => {
   const [clientId, setClientId] = useState("");
   const [entryType, setEntryType] = useState<"manual" | "external" | "camera">(
-    "external"
+    "external",
   );
 
   const scannerInputRef = useRef<HTMLInputElement>(null);
@@ -78,7 +80,14 @@ const ScanBarcode = () => {
           autoFocus
           className="doorfront-text-input"
         />
-        <input type="submit" />
+        <input type="submit" className="doorfront-submit-btn" />
+        <NumberEntry
+          addNumber={(num: number) => setClientId((cur) => cur + num)}
+          deleteNumber={() =>
+            setClientId((cur) => cur.slice(0, cur.length - 1))
+          }
+          close={() => setEntryType("external")}
+        />
       </div>
     );
   };

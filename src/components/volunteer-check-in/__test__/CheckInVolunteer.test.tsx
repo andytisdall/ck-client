@@ -4,7 +4,7 @@ import { addHours, formatISO } from "date-fns";
 
 import { formatTime } from "../../volunteers/formatDateTime";
 import App from "../../../App";
-import Root from "../../../Root";
+import { Root } from "../../../test/setupTests";
 import { createServer } from "../../../test/createServer";
 import { User } from "../../../state/apis/authApi";
 import {

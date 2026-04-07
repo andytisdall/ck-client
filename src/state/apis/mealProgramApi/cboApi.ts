@@ -69,6 +69,29 @@ export type ZipCode =
   | "Unhoused"
   | "Other";
 
+export interface CBOReport {
+  month: string;
+  name: string;
+  cboName: string;
+  performanceMeasures: PerformanceMeasures;
+  age: Age;
+  race: Race;
+  individuals: number;
+  households: number;
+  zips: Record<ZipCode, number>;
+  feedback?: string;
+  phone?: string;
+  email: string;
+  year: string;
+  waters: string;
+  juices: string;
+  socks: string;
+  granolaBars: string;
+  tortillaChips: string;
+  extraItem: string;
+  extraItemAmount: string;
+}
+
 export interface Age {
   age17: number;
   age26: number;
@@ -93,29 +116,13 @@ export interface Race {
 }
 
 export interface PerformanceMeasures {
-  percentWOAccess: number;
+  withoutAccess: number;
+  lowIncome: number;
   mealsProvided: number;
   unusable: number;
   postcards: number;
   calfreshApps: number;
   SSA: number;
-}
-
-export interface CBOReport {
-  month: string;
-  year: string;
-  name: string;
-  performanceMeasures: PerformanceMeasures;
-  age: Age;
-  race: Race;
-  households: number;
-  zips: Record<ZipCode, number | undefined>;
-  feedback: string;
-  phoneNumber: string;
-  email: string;
-  cboId: string;
-  individuals: number;
-  cboName: string;
 }
 
 const cboApi = api.injectEndpoints({

@@ -5,7 +5,7 @@ import { formatISO, addDays, addHours } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
 import App from "../../../App";
-import { Root } from "../../../setupTests";
+import { Root } from "../../../test/setupTests";
 import {
   VolunteerCampaign,
   Job,

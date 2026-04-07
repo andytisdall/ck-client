@@ -5,12 +5,12 @@ import { formatISO, addDays, addYears, addHours } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
 import App from "../../../App";
-import { Root } from "../../../setupTests";
+import { Root } from "../../../test/setupTests";
 import {
   VolunteerCampaign,
-  Job,
   Shift,
   VolunteerHours,
+  DriverJob,
 } from "../../../state/apis/volunteerApi/types";
 import { ContactInfo, User } from "../../../state/apis/authApi";
 import { DriverInfo } from "../../../state/apis/volunteerApi/driver";
@@ -43,7 +43,7 @@ const user: User = {
   id: "oseifhjwosiefjc",
 };
 
-const driverJob: Job = {
+const driverJob: DriverJob = {
   name: "Job 1",
   id: "eijfd",
   active: true,
@@ -51,8 +51,10 @@ const driverJob: Job = {
   campaign: driversCampaign.id,
   shifts: [],
   location: "CK Kitchen",
-  destination: "EOC",
   carSizeRequired: "Small",
+  destination: "Something",
+  dropoffNotes: "Do this",
+  distance: 12.2,
 };
 
 const driverShift: Shift = {

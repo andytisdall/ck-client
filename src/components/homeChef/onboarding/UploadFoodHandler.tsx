@@ -10,14 +10,14 @@ import { useUploadFoodHandlerCertificateMutation } from "../../../state/apis/vol
 const UploadFoodHandler = () => {
   const [uploadFiles, { isLoading }] =
     useUploadFoodHandlerCertificateMutation();
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | FileList>();
 
   const navigate = useNavigate();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    if (file) {
+    if (file && !(file instanceof FileList)) {
       await uploadFiles(file).unwrap();
       navigate("../file-success/");
     }

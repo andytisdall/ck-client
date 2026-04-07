@@ -1,11 +1,10 @@
-import { Link } from 'react-router-dom';
-import { format } from 'date-fns-tz';
+import { Link } from "react-router-dom";
 
-import { useSendTextMutation } from '../../../state/apis/textApi';
+import { useSendTextMutation } from "../../../state/apis/textApi";
 
 const TextSuccess = () => {
   const [, sendTextResult] = useSendTextMutation({
-    fixedCacheKey: 'sent-text',
+    fixedCacheKey: "sent-text",
   });
   const message = sendTextResult.data;
   if (message) {
@@ -20,12 +19,7 @@ const TextSuccess = () => {
           ) : (
             <p>Number: {message.number}</p>
           )}
-          {message.sendAt && (
-            <p>
-              This message will be sent at{' '}
-              {format(new Date(message.sendAt), 'MM/dd/yy hh:mm a')}
-            </p>
-          )}
+
           {message.photoUrl && (
             <img
               src={message.photoUrl}
@@ -40,7 +34,14 @@ const TextSuccess = () => {
       </div>
     );
   } else {
-    return <h4>Message Not Found</h4>;
+    return (
+      <div>
+        <h4>Message Not Found</h4>
+        <Link to="../">
+          <button>Back to Text Home</button>
+        </Link>
+      </div>
+    );
   }
 };
 

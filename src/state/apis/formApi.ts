@@ -1,4 +1,5 @@
 import { api } from "../api";
+import { CBOReport } from "./mealProgramApi/cboApi";
 
 export type Service = {
   name: string;
@@ -20,28 +21,7 @@ interface MealsPlusArgs {
 }
 
 interface CBOReportArgs {
-  formData: {
-    month: string;
-    name: string;
-    cboName: string;
-    performanceMeasures: Record<string, string>;
-    age: Record<string, string>;
-    race: Record<string, string>;
-    individuals?: string;
-    households?: string;
-    zips: Record<string, string>;
-    feedback?: string;
-    phone?: string;
-    email: string;
-    year: string;
-    waters: string;
-    juices: string;
-    socks: string;
-    granolaBars: string;
-    tortillaChips: string;
-    extraItem: string;
-    extraItemAmount: string;
-  };
+  formData: CBOReport;
   name: "CBO_REPORT";
 }
 

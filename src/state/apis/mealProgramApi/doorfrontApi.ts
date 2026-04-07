@@ -33,6 +33,7 @@ export type MonthlyReportResponse = Record<
 interface MonthlyReportArgs {
   startDate: string;
   endDate: string;
+  sunMonOnly?: boolean;
 }
 
 const doorfrontApi = api.injectEndpoints({
@@ -103,8 +104,12 @@ const doorfrontApi = api.injectEndpoints({
       invalidatesTags: ["Doorfront"],
     }),
     getMonthlyMeals: builder.query<MonthlyReportResponse, MonthlyReportArgs>({
-      query: ({ startDate, endDate }) =>
-        "/meal-program/doorfront/monthly/" + startDate + "&" + endDate,
+      query: ({ startDate, endDate, sunMonOnly }) =>
+        "/meal-program/doorfront/monthly/" +
+        startDate +
+        "&" +
+        endDate +
+        (sunMonOnly ? "/sunMon" : ""),
       providesTags: ["Doorfront"],
     }),
   }),

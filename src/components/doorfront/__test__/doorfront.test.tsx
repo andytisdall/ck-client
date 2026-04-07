@@ -9,7 +9,7 @@ import {
   ClientMeal,
 } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import { createServer } from "../../../test/createServer";
-import { Root } from "../../../setupTests";
+import { Root } from "../../../test/setupTests";
 
 const client: Client = {
   id: "client",
@@ -46,6 +46,16 @@ const clientMeals2: ClientMeal[] = [1, 2, 3, 4, 5, 6].map((i) => {
   };
 });
 
+const clientMeals3: ClientMeal[] = [
+  {
+    client: client,
+    date: formatISO(new Date()),
+    id: "903933",
+    amount: 3000,
+    logged: false,
+  },
+];
+
 const adminUser: User = {
   username: "bojee",
   id: "failjrse48jf48",
@@ -59,7 +69,7 @@ describe("get client by barcode and add meals", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/meal-program/doorfront/scan/:scanValue",
-      res: async () => ({ client, clientMeals: [] }),
+      res: async () => ({ client: client2, clientMeals: [] }),
     },
 
     {
@@ -166,7 +176,7 @@ describe("client has reached the limit for the day", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/meal-program/doorfront/scan/:scanValue",
-      res: async () => ({ client, clientMeals }),
+      res: async () => ({ client: client2, clientMeals }),
     },
   ]);
 
@@ -188,7 +198,7 @@ describe("client has reached the limit for the month", () => {
     { path: "/user", res: async () => adminUser },
     {
       path: "/meal-program/doorfront/scan/:scanValue",
-      res: async () => ({ client, clientMeals: clientMeals2 }),
+      res: async () => ({ client: client2, clientMeals: clientMeals3 }),
     },
     {
       path: "/meal-program/doorfront/client/:id",
@@ -202,14 +212,14 @@ describe("client has reached the limit for the month", () => {
 
     const scanInput = await screen.findByTestId(/scanner/i);
     await userEvent.type(scanInput, "38678[Enter]");
-    // const msg = await screen.findByText(/monthly limit reached/i);
-    // expect(msg).toBeDefined();
+    const msg = await screen.findByText(/monthly limit reached/i);
+    expect(msg).toBeDefined();
   });
 
   test("update client without adding meals", async () => {
     render(<App />, { wrapper: Root });
     const btn = await screen.findByText(
-      /update client info without adding meals/i
+      /update client info without adding meals/i,
     );
     const textInput = screen.getByLabelText(/client number/i);
     await userEvent.type(textInput, "12345");
@@ -217,5 +227,26 @@ describe("client has reached the limit for the month", () => {
 
     const scanText = await screen.findByText(/scan barcode/i);
     expect(scanText).toBeDefined();
+  });
+});
+
+describe("client is missing client id", () => {
+  createServer([
+    { path: "/user", res: async () => adminUser },
+    {
+      path: "/meal-program/doorfront/scan/:scanValue",
+      res: async () => ({ client, clientMeals: clientMeals2 }),
+    },
+  ]);
+
+  test("error if client id is missing", async () => {
+    render(<App />, { wrapper: Root });
+
+    const scanInput = await screen.findByTestId(/scanner/i);
+    await userEvent.type(scanInput, "38678[Enter]");
+    const msg = await screen.findByText(
+      /You must input a Client Voice ID before adding meals/i,
+    );
+    expect(msg).toBeDefined();
   });
 });

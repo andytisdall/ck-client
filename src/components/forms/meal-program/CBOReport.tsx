@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Loading from "../../reusable/loading/Loading";
 import ZipCodeSelector from "../../reusable/form/ZipCodeSelector";
+import { ZipCode } from "../../../state/apis/mealProgramApi/cboApi";
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
 
 const successMessage = "Thank you for providing this information.";
@@ -15,7 +16,8 @@ const CBOReport = () => {
   const [phone, setPhone] = useState("");
   const [year, setYear] = useState("2026");
 
-  const [percentWOAccess, setPercentWOAccess] = useState("");
+  const [withoutAccess, setWithoutAccess] = useState("");
+  const [lowIncome, setLowIncome] = useState("");
   const [mealsProvided, setMealsProvided] = useState("");
   const [unusable, setUnusable] = useState("");
   const [postcards, setPostcards] = useState("");
@@ -64,35 +66,43 @@ const CBOReport = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit: FormEventHandler = (e) => {
+  const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
-    const age = { age17, age26, age49, age60, ageOver60, ageUnknown };
+    const age = {
+      age17: parseInt(age17),
+      age26: parseInt(age26),
+      age49: parseInt(age49),
+      age60: parseInt(age60),
+      ageOver60: parseInt(ageOver60),
+      ageUnknown: parseInt(ageUnknown),
+    };
 
     const race = {
-      raceAfrican,
-      raceLatin,
-      raceAsian,
-      raceNativeAmerican,
-      raceWhite,
-      raceDecline,
-      raceUnknown,
-      raceOther,
-      raceOtherText,
-      raceMixed,
-      raceMixedText,
+      raceAfrican: parseInt(raceAfrican),
+      raceLatin: parseInt(raceLatin),
+      raceAsian: parseInt(raceAsian),
+      raceNativeAmerican: parseInt(raceNativeAmerican),
+      raceWhite: parseInt(raceWhite),
+      raceDecline: parseInt(raceDecline),
+      raceUnknown: parseInt(raceUnknown),
+      raceOther: parseInt(raceOther),
+      raceOtherText: parseInt(raceOtherText),
+      raceMixed: parseInt(raceMixed),
+      raceMixedText: parseInt(raceMixedText),
     };
 
     const performanceMeasures = {
-      percentWOAccess,
-      mealsProvided,
-      unusable,
-      postcards,
-      calfreshApps,
-      SSA,
+      withoutAccess: parseInt(withoutAccess),
+      lowIncome: parseInt(lowIncome),
+      mealsProvided: parseInt(mealsProvided),
+      unusable: parseInt(unusable),
+      postcards: parseInt(postcards),
+      calfreshApps: parseInt(calfreshApps),
+      SSA: parseInt(SSA),
     };
 
-    submitForm({
+    await submitForm({
       formData: {
         month,
         name,
@@ -100,9 +110,9 @@ const CBOReport = () => {
         performanceMeasures,
         age,
         race,
-        individuals,
-        households,
-        zips,
+        individuals: parseInt(individuals),
+        households: parseInt(households),
+        zips: zips as Record<ZipCode, number>,
         feedback,
         phone,
         email,
@@ -116,11 +126,9 @@ const CBOReport = () => {
         extraItemAmount,
       },
       name: "CBO_REPORT",
-    })
-      .unwrap()
-      .then(() => {
-        navigate("/forms/form-sent", { state: { message: successMessage } });
-      });
+    }).unwrap();
+
+    navigate("/forms/form-sent", { state: { message: successMessage } });
   };
 
   const monthOptions = [
@@ -150,13 +158,17 @@ const CBOReport = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="cbo-form">
       <div className="form-item">
         <h1>CBO Monthly Report</h1>
-        <p>Please fill out and submit this form by the 3rd of every month</p>
+        <p>Please fill out and submit this form by the 3rd of every month.</p>
+        <br />
+        <p className="required">* Indicates required question</p>
       </div>
       <div className="form-item">
-        <label htmlFor="cbo-name">CBO Name</label>
+        <label htmlFor="cbo-name">
+          CBO Name<span className="required">*</span>
+        </label>
         <input
           id="cbo-name"
           type="text"
@@ -166,7 +178,9 @@ const CBOReport = () => {
         />
       </div>
       <div className="form-item">
-        <label htmlFor="month">Month</label>
+        <label htmlFor="month">
+          Month<span className="required">*</span>
+        </label>
         <select
           id="month"
           value={month}
@@ -183,7 +197,9 @@ const CBOReport = () => {
         </select>
       </div>
       <div className="form-item">
-        <label htmlFor="year">Year</label>
+        <label htmlFor="year">
+          Year<span className="required">*</span>
+        </label>
         <select
           id="year"
           value={year}
@@ -195,7 +211,9 @@ const CBOReport = () => {
         </select>
       </div>
       <div className="form-item">
-        <label htmlFor="name">Report Completed By</label>
+        <label htmlFor="name">
+          Report Completed By<span className="required">*</span>
+        </label>
         <input
           id="name"
           type="text"
@@ -226,10 +244,18 @@ const CBOReport = () => {
       </div>
 
       <div className="form-item">
-        <label htmlFor="meals"># of CK Meals provided</label>
+        <label htmlFor="meals">
+          # of meals CK provided<span className="required">*</span>
+          <div className="form-label-subheader">
+            Record all prepared meals distributed to individuals and households
+            for the reporting period.
+          </div>
+        </label>
+
         <input
           id="meals"
           type="number"
+          required
           min={0}
           value={mealsProvided}
           onChange={(e) => setMealsProvided(e.target.value)}
@@ -237,9 +263,17 @@ const CBOReport = () => {
       </div>
 
       <div className="form-item">
-        <label htmlFor="unusable"># of unusable meals</label>
+        <label htmlFor="unusable">
+          # of meals procured that were wasted or undelivered due to spoilage
+          <span className="required">*</span>
+          <div className="form-label-subheader">
+            Record number of spoiled meals (spoilage). Spoilage is defined as
+            "any food that is left out for too long or not suitable to serve”.
+          </div>
+        </label>
         <input
           id="unusable"
+          required
           type="number"
           min={0}
           value={unusable}
@@ -250,10 +284,18 @@ const CBOReport = () => {
       <div className="form-item">
         <label htmlFor="households">
           # of unduplicated individuals provided food in the month
+          <span className="required">*</span>
+          <div className="form-label-subheader">
+            Record only the first time an individual receives a prepared meal
+            during the reporting period (month). If the same individual receives
+            meals at multiple events in the same month, do not record subsequent
+            interactions.
+          </div>
         </label>
         <input
           id="households"
           type="number"
+          required
           min={0}
           value={individuals}
           onChange={(e) => setIndividuals(e.target.value)}
@@ -263,9 +305,18 @@ const CBOReport = () => {
       <div className="form-item">
         <label htmlFor="households">
           # of unduplicated households provided food in the month
+          <span className="required">*</span>
+          <div className="form-label-subheader">
+            Record only the first time a household receives a prepared meal
+            during the reporting period (month). If the same household receives
+            meals at multiple events in the same month, do not record subsequent
+            interactions. A household may be a person or group who live together
+            and purchases/prepares meals together.
+          </div>
         </label>
         <input
           id="households"
+          required
           type="number"
           min={0}
           value={households}
@@ -275,16 +326,29 @@ const CBOReport = () => {
 
       <div className="form-item">
         <label htmlFor="access">
-          Percent of people served who do not have access to a kitchen to
+          # unduplicated individuals served without access to a kitchen to
           prepare meals
         </label>
         <input
           id="access"
           type="number"
           min={0}
-          max={100}
-          value={percentWOAccess}
-          onChange={(e) => setPercentWOAccess(e.target.value)}
+          value={withoutAccess}
+          onChange={(e) => setWithoutAccess(e.target.value)}
+        />
+      </div>
+
+      <div className="form-item">
+        <label htmlFor="low-income">
+          # of unduplicated households served without access to a kitchen to
+          prepare meals
+        </label>
+        <input
+          id="low-income"
+          type="number"
+          min={0}
+          value={lowIncome}
+          onChange={(e) => setLowIncome(e.target.value)}
         />
       </div>
 

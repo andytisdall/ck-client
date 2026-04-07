@@ -1,5 +1,3 @@
-import { Dispatch } from "react";
-
 import { useGetUserQuery } from "../../state/apis/authApi";
 import Loading from "./../reusable/loading/Loading";
 import SignedIn from "./../auth/SignedIn/SignedIn";

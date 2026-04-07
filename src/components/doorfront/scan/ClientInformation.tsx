@@ -13,9 +13,11 @@ interface ClientInfo {
 const ClientInformation = ({
   client,
   setClientInfo,
+  setClientIdMissing,
 }: {
   client: Client;
   setClientInfo?: (newInfo: ClientInfo) => void;
+  setClientIdMissing?: (missing: boolean) => void;
 }) => {
   const [cCode, setCcode] = useState(client.cCode || "");
   const [barcode, setBarcode] = useState([...client.barcode, ""]);
@@ -29,7 +31,10 @@ const ClientInformation = ({
         barcode,
       });
     }
-  }, [setClientInfo, cCode, barcode]);
+    if (setClientIdMissing) {
+      setClientIdMissing(!cCode || client.cCodeIncorrect || false);
+    }
+  }, [setClientInfo, cCode, barcode, setClientIdMissing, client]);
 
   const navigate = useNavigate();
 

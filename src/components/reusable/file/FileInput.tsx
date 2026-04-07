@@ -1,22 +1,29 @@
 import "./FileInput.css";
 
 interface FileInputProps {
-  file?: File;
-  setFile: (file: File | undefined) => void;
+  file?: File | FileList;
+  setFile: (file: File | FileList | undefined) => void;
   label?: string;
 }
 
 const FileInput = ({ file, setFile, label }: FileInputProps) => {
   const processFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.target;
-    if (files && files[0]) {
-      setFile(files[0]);
+    if (files) {
+      if (!files[1]) {
+        setFile(files[0]);
+      } else {
+        setFile(files);
+      }
     }
   };
 
   const displayName = () => {
-    if (typeof file !== "string") {
+    if (file instanceof File) {
       return file?.name.slice(0, 15) + "...";
+    }
+    if (file instanceof FileList) {
+      return file[0]?.name.slice(0, 15) + "...";
     }
   };
 

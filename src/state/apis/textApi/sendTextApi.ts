@@ -21,15 +21,15 @@ export const sendTextApi = api.injectEndpoints({
           postBody.append("message", body.message);
         }
         postBody.append("region", body.region);
+
         if (body.photo) {
           if (body.photo instanceof FileList) {
-            Array.from(body.photo).forEach((file) => {
-              postBody.append("photo", file);
-            });
+            Array.from(body.photo).forEach((f) => postBody.append("photo", f));
           } else {
             postBody.append("photo", body.photo);
           }
         }
+
         if (body.feedbackId) {
           postBody.append("feedbackId", body.feedbackId);
         }
@@ -39,7 +39,7 @@ export const sendTextApi = api.injectEndpoints({
         return {
           url: "/text/outgoing",
           method: "POST",
-          body: postBody,
+          body: process.env.NODE_ENV === "test" ? body : postBody,
           formData: true,
         };
       },

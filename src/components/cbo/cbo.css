@@ -1,12 +1,12 @@
 .cbo {
   background-color: beige;
   color: black;
-  padding: 1rem;
+  padding-left: 2rem;
 }
 
 .cbo-report {
   border: 1px solid grey;
-  margin: 1rem;
+  margin: 1rem 0;
   max-width: 50rem;
 }
 
@@ -15,6 +15,7 @@
   border-bottom: 1px solid black;
   padding: 1rem;
   margin: 0;
+  cursor: pointer;
 }
 
 .cbo-report-open {
@@ -30,7 +31,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 2rem;
 }
 
 .cbo-date-filter-item {
@@ -54,7 +54,6 @@
   display: flex;
   align-items: center;
   padding: 0.5rem;
-  margin: 0.5rem 1rem;
 }
 
 .cbo-input-selected {
@@ -70,4 +69,8 @@
 
 .cbo-date-bold {
   font-weight: 700;
+}
+
+.cbo-input {
+  margin-left: 1rem;
 }

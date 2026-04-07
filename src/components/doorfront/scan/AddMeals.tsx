@@ -35,6 +35,7 @@ const AddMeals = () => {
   const [addMeals, { isLoading: addIsLoading }] = useAddMealsMutation();
   const [editClient, { isLoading: editClientIsLoading }] =
     useEditClientMutation();
+  const [cCodeMissing, setCcodeMissing] = useState(false);
 
   const { data, isLoading: getIsLoading } = useScanQuery({
     scanValue: scanValue || "",
@@ -89,7 +90,7 @@ const AddMeals = () => {
   const cannotSubmitMonthly = mealsThisMonth >= MONTHLY_MEAL_MAX;
   const cannotSubmitDaily = mealsToday >= DAILY_MEAL_MAX;
   const cannotSubmit =
-    (cannotSubmitDaily || cannotSubmitMonthly) && regularClient;
+    (cannotSubmitDaily || cannotSubmitMonthly || cCodeMissing) && regularClient;
 
   const onSubmit = async () => {
     if (clientId && !cannotSubmit) {
@@ -131,12 +132,13 @@ const AddMeals = () => {
   };
 
   const renderCannotSubmit = () => {
+    const message = cCodeMissing
+      ? "You must input a Client Voice ID before adding meals"
+      : "Cannot add more meals for this client";
     return (
-      <div className="doorfront-col">
-        <div className="doorfront-alert">
-          Cannot add more meals for this client
-        </div>
-        <div className="doorfront-alert">{renderLimitReached()}</div>
+      <div className="doorfront-col doorfront-alert">
+        <div>{message}</div>
+        {!cCodeMissing && <div>{renderLimitReached()}</div>}
       </div>
     );
   };
@@ -158,10 +160,13 @@ const AddMeals = () => {
       </div>
     );
   };
-
   return (
     <div>
-      <ClientInfo client={data.client} setClientInfo={setClientInfo} />
+      <ClientInfo
+        client={data.client}
+        setClientInfo={setClientInfo}
+        setClientIdMissing={setCcodeMissing}
+      />
       <div className="doorfront">
         {cannotSubmit ? (
           renderCannotSubmit()

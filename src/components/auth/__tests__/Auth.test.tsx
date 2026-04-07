@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import App from "../../../App";
-import { Root } from "../../../setupTests";
+import { Root } from "../../../test/setupTests";
 import { createServer } from "../../../test/createServer";
 import { User } from "../../../state/apis/authApi";
 
@@ -46,7 +46,7 @@ describe("not signed in", () => {
 
         expect(unauthorizedMessage).toBeInTheDocument();
       },
-      { timeout }
+      { timeout },
     );
   });
 
@@ -66,7 +66,7 @@ describe("not signed in", () => {
       () => {
         screen.getByText(user.username);
       },
-      { timeout }
+      { timeout },
     );
   });
 });
@@ -92,7 +92,7 @@ describe("signed in", () => {
       () => {
         expect(username).toBeInTheDocument();
       },
-      { timeout }
+      { timeout },
     );
   });
 });

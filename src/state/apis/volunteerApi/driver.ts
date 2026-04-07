@@ -91,7 +91,7 @@ export const optimisticallyUpdateDriverStatus = driverApi.util.updateQueryData(
     }
 
     return newUserInfo;
-  }
+  },
 );
 
 export const {

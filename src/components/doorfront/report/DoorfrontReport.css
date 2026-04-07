@@ -111,5 +111,31 @@
 
 .meal-report-menu-container {
   position: relative;
-  width: 100%;
+}
+
+.monthly-report {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+}
+
+.monthly-report div {
+  border-bottom: 1px black solid;
+  padding: 0.5rem 1rem;
+}
+
+.monthly-report-title {
+  font-weight: 600;
+}
+
+.monthly-report-sun-mon {
+  background-color: rgba(126, 126, 126, 0.444);
+  width: fit-content;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.monthly-report-footnote {
+  font-style: italic;
+  font-size: 14px;
+  margin-left: 1rem;
 }

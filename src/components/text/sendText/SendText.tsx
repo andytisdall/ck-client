@@ -1,15 +1,15 @@
-import { lazy, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
+import { compressImage } from "./compressFile";
 import renderWithFallback from "../../reusable/loading/renderWithFallback";
 import "./SendText.css";
 import Loading from "../../reusable/loading/Loading";
 import FileInput from "../../reusable/file/FileInput";
 import { useGetFridgesQuery } from "../../../state/apis/textApi/sendTextApi";
 import { useSendTextMutation } from "../../../state/apis/textApi";
-
-const TextPreview = lazy(() => import("./TextPreview"));
+import TextPreview from "./TextPreview";
 
 const SendText = () => {
   const [fridge, setFridge] = useState<number | undefined>();
@@ -17,9 +17,11 @@ const SendText = () => {
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [time, setTime] = useState(format(new Date(), "HH:mm"));
   const [source, setSource] = useState("CK Home Chef Volunteers");
-  const [imageError, setImageError] = useState(false);
+  const [imageError, setImageError] = useState("");
   const [name, setName] = useState("");
-  const [photo, setPhoto] = useState<File | string | undefined>(undefined);
+  const [photo, setPhoto] = useState<File | string | undefined | FileList>(
+    undefined,
+  );
   const [dietary, setDietary] = useState("");
   const [preview, setPreview] = useState(false);
 
@@ -53,7 +55,7 @@ const SendText = () => {
           !!fridges && fridges[fridge].name
         } Town Fridge${getAddress()} has been stocked with ${mealCount} meals on ${format(
           new Date(`${date} ${time}`),
-          "M/d 'at' h:mm a"
+          "M/d 'at' h:mm a",
         )}, made with love by ${source}! Please take only what you need, and leave the rest to share. The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`
       : undefined;
 
@@ -61,9 +63,7 @@ const SendText = () => {
     if (imageError) {
       return (
         <div className="send-text-small-photo">
-          <div className="send-text-photo-error">
-            Photo URL is not a valid image
-          </div>
+          <div className="send-text-photo-error">{imageError}</div>
         </div>
       );
     }
@@ -71,12 +71,24 @@ const SendText = () => {
       let src = "";
       if (typeof photo === "string") {
         src = photo;
-      } else {
+      } else if (photo instanceof Blob) {
         src = URL.createObjectURL(photo);
+      } else {
+        src = URL.createObjectURL(photo[0]);
       }
       return (
         <div className="send-text-small-photo">
-          <img onError={() => setImageError(true)} src={src} alt="meal" />
+          <img
+            onError={() => {
+              const message =
+                typeof photo === "string"
+                  ? "Photo URL is not a valid image"
+                  : "File format is incorrect";
+              setImageError(message);
+            }}
+            src={src}
+            alt="meal"
+          />
         </div>
       );
     }
@@ -100,7 +112,7 @@ const SendText = () => {
             <label htmlFor="date">Date:</label>
             <input
               required
-              name="date"
+              id="date"
               type="date"
               onChange={(e) => setDate(e.target.value)}
               value={date}
@@ -112,7 +124,7 @@ const SendText = () => {
             <input
               className="send-text-time"
               required
-              name="time"
+              id="time"
               type="time"
               onChange={(e) => setTime(e.target.value)}
               value={time}
@@ -123,7 +135,7 @@ const SendText = () => {
             <label htmlFor="fridge">Town Fridge Location:</label>
             <select
               required
-              name="fridge"
+              id="fridge"
               value={fridge}
               onChange={(e) => setFridge(parseInt(e.target.value))}
             >
@@ -155,7 +167,7 @@ const SendText = () => {
             <label htmlFor="name">Name of Meal:</label>
             <textarea
               value={name}
-              name="name"
+              id="name"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -165,7 +177,7 @@ const SendText = () => {
             <input
               type="number"
               value={mealCount}
-              name="mealCount"
+              id="mealCount"
               onChange={(e) => setMealCount(parseInt(e.target.value))}
               min={1}
             />
@@ -175,7 +187,7 @@ const SendText = () => {
             <label htmlFor="source">Prepared By:</label>
             <textarea
               value={source}
-              name="source"
+              id="source"
               onChange={(e) => setSource(e.target.value)}
             />
           </div>
@@ -184,7 +196,7 @@ const SendText = () => {
             <label htmlFor="dietary">Dietary Information (optional):</label>
             <textarea
               value={dietary}
-              name="dietary"
+              id="dietary"
               onChange={(e) => setDietary(e.target.value)}
             />
           </div>
@@ -194,7 +206,21 @@ const SendText = () => {
             <div className="send-text-photo-field-container">
               <FileInput
                 file={typeof photo === "string" ? undefined : photo}
-                setFile={setPhoto}
+                setFile={async (e) => {
+                  const file = e;
+                  if (file instanceof FileList) {
+                    const promises = Array.from(file).map((file) => {
+                      return compressImage(file);
+                    });
+                    const files = await Promise.all(promises);
+                    const fileList = new DataTransfer();
+                    files.forEach((f) => fileList.items.add(f));
+                    setPhoto(fileList.files);
+                  } else if (file) {
+                    const f = await compressImage(file);
+                    setPhoto(f);
+                  }
+                }}
                 label="Upload Photo:"
               />
             </div>
@@ -205,9 +231,9 @@ const SendText = () => {
                 className={`send-text-photo-field ${
                   imageError && "send-text-photo-field-error"
                 }`}
-                value={!photo ? "" : photo instanceof File ? "" : photo}
+                value={!photo ? "" : typeof photo !== "string" ? "" : photo}
                 onChange={(e) => {
-                  setImageError(false);
+                  setImageError("");
                   setPhoto(e.target.value);
                 }}
               />
@@ -216,7 +242,7 @@ const SendText = () => {
                   className="send-text-photo-field-clear"
                   onClick={() => {
                     setPhoto("");
-                    setImageError(false);
+                    setImageError("");
                   }}
                 >
                   X
@@ -268,7 +294,7 @@ const SendText = () => {
             }
           }}
           onCancel={() => setPreview(false)}
-        />
+        />,
       );
     }
   };

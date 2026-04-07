@@ -6,10 +6,18 @@ import "@testing-library/jest-dom";
 
 import { PropsWithChildren } from "react";
 import { Provider } from "react-redux";
-import { store } from "./state/store";
+import { store } from "../state/store";
 
 jest.mock("@react-oauth/google");
 jest.mock("react-barcode-scanner/polyfill");
+
+// class FormDataMock {
+//   public append() {
+//     return jest.fn();
+//   }
+// }
+// @ts-ignore
+// global.FormData = FormData;
 
 export const Root = ({ children }: PropsWithChildren) => {
   return <Provider store={store}>{children}</Provider>;

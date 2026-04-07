@@ -34,6 +34,11 @@ const HomeChefOrientation = () => {
     return (
       <div className="form-item">
         <h1>Home Chef Live Training</h1>
+        <img
+          src="/images/home-chef/home-chef-meals.jpg"
+          alt="town fridge"
+          className="form-img"
+        />
         <p>
           Thanks for signing up for the Home Chef Training on Wednesday, 4/22 at
           6pm. This is a virtual event, and you'll receive an email inviation
@@ -67,7 +72,7 @@ const HomeChefOrientation = () => {
   return (
     <>
       {header()}
-      <div className="form-item">
+      {/* <div className="form-item">
         <p>
           <strong>The Home Chef Training is under way!</strong> Join us here:{" "}
           <a
@@ -77,7 +82,7 @@ const HomeChefOrientation = () => {
             Zoom Link
           </a>
         </p>
-      </div>
+      </div> */}
       <form onSubmit={onSubmit}>
         <div className="form-item">
           <label>

@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import App from "../../../App";
-import { Root } from "../../../setupTests";
+import { Root } from "../../../test/setupTests";
 import { User } from "../../../state/apis/authApi";
 import { createServer } from "../../../test/createServer";
 
@@ -35,7 +35,7 @@ describe("admin", () => {
     await userEvent.click(adminBtn[0]);
 
     const pushNotificationBtn = await screen.findByText(
-      /send a push notification/i
+      /send a push notification/i,
     );
 
     expect(pushNotificationBtn).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe("not admin", () => {
     render(<App />, { wrapper: Root });
 
     const unauthorizedMessage = await screen.findByText(
-      /You must be an admin to access this page/i
+      /You must be an admin to access this page/i,
     );
 
     expect(unauthorizedMessage).toBeInTheDocument();

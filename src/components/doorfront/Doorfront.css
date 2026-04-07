@@ -63,7 +63,13 @@
 }
 
 .doorfront-text-input {
-  max-width: 10rem;
+  max-width: 20rem;
+  font-size: 1.5rem;
+  padding: 0.7rem;
+}
+
+.doorfront-submit-btn {
+  font-size: 1.7rem !important;
 }
 
 .doorfront-camera-scanner {
@@ -107,7 +113,10 @@
 .doorfront-alert {
   font-weight: 600;
   margin-bottom: 1rem;
-  color: rgb(246, 174, 245);
+  text-align: center;
+  background-color: rgb(246, 174, 174);
+  border: red 2px solid;
+  color: black;
 }
 
 .doorfront-scan-now {
@@ -225,4 +234,42 @@
 .doorfront-barcode-list {
   display: flex;
   flex-direction: column;
+}
+
+.doorfront-number-pad {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 2rem);
+  background-color: white;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  border: grey 2px solid;
+  box-shadow: -1rem 1.5rem 2rem rgba(0, 0, 0, 0.532);
+}
+
+.doorfront-number-pad-digit {
+  padding: 1.5rem 2rem;
+  color: black;
+  font-weight: 700;
+  font-size: 4rem;
+  border: 1px grey solid;
+  text-align: center;
+  transition: all 0.1s;
+}
+
+.doorfront-number-pad div:active {
+  background-color: rgba(0, 0, 0, 0.456);
+  color: white;
+}
+
+.doorfront-number-pad-yellow {
+  background-color: rgba(255, 255, 0, 0.522);
+}
+.doorfront-number-pad-red {
+  background-color: rgba(255, 0, 55, 0.522);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

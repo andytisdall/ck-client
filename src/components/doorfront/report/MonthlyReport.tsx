@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   MonthlyReportResponse,
   useGetMonthlyMealsQuery,
 } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../../reusable/loading/Loading";
+import "./DoorfrontReport.css";
 
 const MonthlyReport = ({
   startDate,
@@ -12,7 +13,12 @@ const MonthlyReport = ({
   startDate: string;
   endDate: string;
 }) => {
-  const { data, isFetching } = useGetMonthlyMealsQuery({ startDate, endDate });
+  const [sunMonOnly, setSunMonOnly] = useState(false);
+  const { data, isFetching } = useGetMonthlyMealsQuery({
+    startDate,
+    endDate,
+    sunMonOnly,
+  });
 
   const clients: MonthlyReportResponse = useMemo(() => data || {}, [data]);
   const clientsWithoutUnknown = useMemo(() => {
@@ -45,17 +51,17 @@ const MonthlyReport = ({
     .map((c) => c.meals)
     .reduce((prev, cur) => prev + cur, 0);
 
-  const uniqueClients = Object.keys(clients).length;
+  const uniqueClients = Object.keys(clientsWithoutUnknown).length;
 
   const averageVisitsPerClient = useMemo(() => {
     return (
       Math.round(
         (Object.values(clientsWithoutUnknown).reduce(
           (prev, cur) => prev + cur.visits,
-          0
+          0,
         ) /
           uniqueClients) *
-          100
+          100,
       ) / 100
     );
   }, [clientsWithoutUnknown, uniqueClients]);
@@ -64,32 +70,82 @@ const MonthlyReport = ({
     .map((c) => c.visits)
     .reduce((prev, cur) => prev + cur, 0);
 
-  if (isFetching) {
-    return <Loading />;
-  }
+  const renderBreakdown = () => {
+    return (
+      <div>
+        <h4>Meals Per Client:</h4>
+        <ul>
+          <li>
+            <strong>1 - 10 Meals:</strong> {mealBrackets["1-10"]} clients
+          </li>
+          <li>
+            <strong>11 - 20 Meals:</strong> {mealBrackets["11-20"]} clients
+          </li>
+          <li>
+            <strong>21 - 30 Meals:</strong> {mealBrackets["21-30"]} clients
+          </li>
+          <li>
+            <strong>Over 30 Meals:</strong> {mealBrackets["30+"]} clients
+          </li>
+        </ul>
+      </div>
+    );
+  };
+
+  const untrackedVisits = data?.unknown?.visits || 0;
+  const untrackedVisitsPercent = Math.round(
+    (untrackedVisits / totalVisits) * 100,
+  );
+  const untrackedMeals = data?.unknown?.meals || 0;
+  const untrackedMealsPercent = Math.round((untrackedMeals / totalMeals) * 100);
+
+  const renderData = () => {
+    if (isFetching) {
+      return <Loading />;
+    }
+
+    return (
+      <div className="monthly-report">
+        <div className="monthly-report-title">Number of unique clients:</div>
+        <div>{uniqueClients}</div>
+        <div className="monthly-report-title">
+          Average number of visits per client:
+        </div>
+        <div>{averageVisitsPerClient}</div>
+        <div className="monthly-report-title">Total number of visits:</div>
+        <div>{totalVisits}</div>
+        <div className="monthly-report-title">Total number of meals:</div>
+        <div>{totalMeals}</div>
+        <div className="monthly-report-title">Number of untracked visits:</div>
+        <div>
+          {untrackedVisits}
+          <span className="monthly-report-footnote">
+            ({untrackedVisitsPercent}%)
+          </span>
+        </div>
+        <div className="monthly-report-title">Number of untracked meals:</div>
+        <div>
+          {untrackedMeals}
+          <span className="monthly-report-footnote">
+            ({untrackedMealsPercent}%)
+          </span>
+        </div>
+        {renderBreakdown()}
+      </div>
+    );
+  };
 
   return (
     <div>
-      <div>Number of unique clients: {uniqueClients}</div>
-      <div>Average number of visits per client: {averageVisitsPerClient}</div>
-      <div>Total number of visits: {totalVisits}</div>
-      <div>Total number of meals: {totalMeals}</div>
-      <div>Number of untracked visits: {data?.unknown?.visits || 0}</div>
-      <div>Number of untracked meals: {data?.unknown?.meals || 0}</div>
-      <ul>
-        <li>
-          <strong>1 - 10 Meals: {mealBrackets["1-10"]} clients</strong>
-        </li>
-        <li>
-          <strong>11 - 20 Meals: {mealBrackets["11-20"]} clients</strong>
-        </li>
-        <li>
-          <strong>21 - 30 Meals: {mealBrackets["21-30"]} clients</strong>
-        </li>
-        <li>
-          <strong>Over 30 Meals: {mealBrackets["30+"]} clients</strong>
-        </li>
-      </ul>
+      <div className="monthly-report-sun-mon">
+        <label>Sunday & Monday doorfront meals only</label>
+        <input
+          type="checkbox"
+          checked={sunMonOnly}
+          onChange={(e) => setSunMonOnly(e.target.checked)}
+        />
+      </div>
+      {renderData()}
     </div>
   );
 };

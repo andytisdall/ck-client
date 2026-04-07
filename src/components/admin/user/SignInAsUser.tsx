@@ -15,18 +15,16 @@ const SignInAsUser = () => {
 
   const renderUsers = () => {
     if (users) {
-      return (
-        Object.values(users)
-          // .filter((u) => !u.admin)
-          .sort((a, b) => (a.username > b.username ? 1 : -1))
-          .map((u) => {
-            return (
-              <option key={u.id} value={u.id}>
-                {u.username}
-              </option>
-            );
-          })
-      );
+      return Object.values(users)
+        .filter((u) => !u.admin)
+        .sort((a, b) => (a.username > b.username ? 1 : -1))
+        .map((u) => {
+          return (
+            <option key={u.id} value={u.id}>
+              {u.username}
+            </option>
+          );
+        });
     }
   };
 
