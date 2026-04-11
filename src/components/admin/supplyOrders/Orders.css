@@ -12,7 +12,7 @@
 
 .admin-supply-order-field {
   line-height: 1.5rem;
-  width: 8rem;
+  width: 7rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -32,7 +32,7 @@
 }
 
 .admin-supply-order-name div {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 
 .admin-supply-order-create {
@@ -51,12 +51,6 @@
   width: 8rem;
 }
 
-.admin-supply-order-x {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1.5rem;
-}
-
 .admin-supply-order-btn {
   margin: 1rem;
 }
@@ -69,4 +63,5 @@
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+  margin-left: 2rem;
 }

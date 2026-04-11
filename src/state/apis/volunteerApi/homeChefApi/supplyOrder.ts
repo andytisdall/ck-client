@@ -38,6 +38,13 @@ export const supplyOrderApi = api.injectEndpoints({
       }),
       invalidatesTags: ["HomeChefSupplies"],
     }),
+    sendReminder: builder.mutation<null, { orderId: string }>({
+      query: (body) => ({
+        url: "/home-chef/ordering/reminder",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -48,4 +55,5 @@ export const {
   useUpdateSupplyOrdersMutation,
   useCreateManualSupplyOrderMutation,
   useDeleteSupplyOrderMutation,
+  useSendReminderMutation,
 } = supplyOrderApi;

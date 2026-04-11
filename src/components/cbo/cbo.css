@@ -74,3 +74,10 @@
 .cbo-input {
   margin-left: 1rem;
 }
+
+.cbo-error {
+  background-color: pink;
+  width: fit-content;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}

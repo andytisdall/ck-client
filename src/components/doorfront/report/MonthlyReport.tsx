@@ -54,7 +54,7 @@ const MonthlyReport = ({
   const uniqueClients = Object.keys(clientsWithoutUnknown).length;
 
   const averageVisitsPerClient = useMemo(() => {
-    return (
+    const visitsPerClient =
       Math.round(
         (Object.values(clientsWithoutUnknown).reduce(
           (prev, cur) => prev + cur.visits,
@@ -62,8 +62,8 @@ const MonthlyReport = ({
         ) /
           uniqueClients) *
           100,
-      ) / 100
-    );
+      ) / 100;
+    return isNaN(visitsPerClient) ? 0 : visitsPerClient;
   }, [clientsWithoutUnknown, uniqueClients]);
 
   const totalVisits = Object.values(clients)
@@ -120,14 +120,16 @@ const MonthlyReport = ({
         <div>
           {untrackedVisits}
           <span className="monthly-report-footnote">
-            ({untrackedVisitsPercent}%)
+            {isNaN(untrackedVisitsPercent)
+              ? ""
+              : `(${untrackedVisitsPercent}%)`}
           </span>
         </div>
         <div className="monthly-report-title">Number of untracked meals:</div>
         <div>
           {untrackedMeals}
           <span className="monthly-report-footnote">
-            ({untrackedMealsPercent}%)
+            {isNaN(untrackedMealsPercent) ? "" : `(${untrackedMealsPercent}%)`}
           </span>
         </div>
         {renderBreakdown()}

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { format, getDate, getMonth, getYear } from "date-fns";
+
+import { useDebounce } from "../../../hooks/useDebounce";
 import MonthlyReport from "./MonthlyReport";
 
 const MonthlyReportHeader = () => {
@@ -19,6 +21,8 @@ const MonthlyReportHeader = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const debouncedQuery = useDebounce({ startDate, endDate });
+
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
 
@@ -28,10 +32,10 @@ const MonthlyReportHeader = () => {
         new Date(
           month === 1 ? year - 1 : year,
           month === 1 ? 11 : month - 2,
-          15
+          15,
         ),
-        "yyyy-MM-dd"
-      )
+        "yyyy-MM-dd",
+      ),
     );
     setEndDate(format(new Date(year, month - 1, 14), "yyyy-MM-dd"));
   }, [month, year]);
@@ -86,7 +90,10 @@ const MonthlyReportHeader = () => {
       <h2>Monthly Report</h2>
       {monthControls}
       {dayControls}
-      <MonthlyReport startDate={startDate} endDate={endDate} />
+      <MonthlyReport
+        startDate={debouncedQuery.startDate}
+        endDate={debouncedQuery.endDate}
+      />
     </div>
   );
 };

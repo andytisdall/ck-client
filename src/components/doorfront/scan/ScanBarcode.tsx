@@ -77,7 +77,6 @@ const ScanBarcode = () => {
           id="manual-entry"
           value={clientId}
           onChange={(e) => setClientId(e.target.value.toUpperCase())}
-          autoFocus
           className="doorfront-text-input"
         />
         <input type="submit" className="doorfront-submit-btn" />

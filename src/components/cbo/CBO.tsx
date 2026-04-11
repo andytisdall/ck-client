@@ -10,7 +10,7 @@ import {
   //@ts-ignore
 } from "chart.js";
 import { useState, useMemo } from "react";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 
 import MonthlyReport from "../doorfront/report/MonthlyReport";
 import {
@@ -25,7 +25,6 @@ import ZipCodes from "./ZipCodes";
 import Loading from "../reusable/loading/Loading";
 import Households from "./Households";
 import { useGetUserQuery } from "../../state/apis/authApi";
-import { subMonths } from "date-fns";
 import { useDebounce } from "../../hooks/useDebounce";
 
 ChartJS.register(
@@ -50,8 +49,11 @@ export const defaultOptions = {
 };
 
 const CBO = () => {
+  // const [startDate, setStartDate] = useState(
+  //   format(subMonths(new Date(), 1), "yyyy-MM-dd"),
+  // );
   const [startDate, setStartDate] = useState(
-    format(subMonths(new Date(), 1), "yyyy-MM-dd"),
+    format(addDays(new Date(), 1), "yyyy-MM-dd"),
   );
   const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [filterByCbo, setFilterByCbo] = useState<string>("all");
@@ -156,6 +158,12 @@ const CBO = () => {
             />
           </div>
         </div>
+        {startDate > endDate && (
+          <div className="cbo-error">
+            Start date cannot be later than end date
+          </div>
+        )}
+
         <div className="cbo-date-input-row">
           <label htmlFor="oasis-only">
             <span className="cbo-date-bold">Filter by CBO</span>
