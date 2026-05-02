@@ -18,6 +18,8 @@ const HomeChefOrientation = lazy(
   () => import("./volunteer/HomeChefOrientation"),
 );
 
+const BallersRSVP = lazy(() => import("./BallersRSVP"));
+
 const formsRouter: RouteObject = {
   path: "forms",
   element: renderWithFallback(<Form />),
@@ -46,6 +48,7 @@ const formsRouter: RouteObject = {
       path: "home-chef-orientation",
       element: renderWithFallback(<HomeChefOrientation />),
     },
+    { path: "ballers", element: renderWithFallback(<BallersRSVP />) },
   ],
 };
 

@@ -9,15 +9,15 @@ const AdminHome = lazy(() => import("./AdminHome"));
 const Restaurant = lazy(() => import("./restaurant/Restaurant"));
 const User = lazy(() => import("./user/User"));
 const HomeChefNotification = lazy(
-  () => import("./notifications/HomeChefNotification")
+  () => import("./notifications/HomeChefNotification"),
 );
 const AdminBase = lazy(() => import("./AdminBase"));
 const D4JNotification = lazy(() => import("./notifications/D4JNotification"));
 const NotificationsHome = lazy(
-  () => import("./notifications/NotificationsHome")
+  () => import("./notifications/NotificationsHome"),
 );
 const DoSomething = lazy(() => import("./DoSomething"));
-
+const RSVP = lazy(() => import("./RSVP"));
 const Orders = lazy(() => import("./supplyOrders/Orders"));
 
 const adminRouter: RouteObject = {
@@ -35,6 +35,7 @@ const adminRouter: RouteObject = {
       element: renderWithFallback(<Orders />),
     },
     { path: "action", element: renderWithFallback(<DoSomething />) },
+    { path: "rsvp", element: renderWithFallback(<RSVP />) },
     {
       path: "notifications",
       children: [

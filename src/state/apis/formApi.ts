@@ -109,6 +109,17 @@ interface HomeChefOrientationArgs {
   name: "HOME_CHEF_ORIENTATION";
 }
 
+export interface BallersRSVPArgs {
+  formData: {
+    name: string;
+    email: string;
+    additional: boolean;
+    numberOfPeople: string;
+    numberOfAdditional: string;
+  };
+  name: "BALLERS_RSVP";
+}
+
 type SubmitFormArgs =
   | CBOReportArgs
   | VolunteerInterestFormArgs
@@ -117,7 +128,8 @@ type SubmitFormArgs =
   | SNAPSurveyArgs
   | MealsPlusArgs
   | HomeChefPollArgs
-  | HomeChefOrientationArgs;
+  | HomeChefOrientationArgs
+  | BallersRSVPArgs;
 
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
@@ -128,6 +140,7 @@ const urls = {
   MEALS_PLUS: "/meal-program/meals-plus",
   HOME_CHEF_POLL: "/home-chef/poll",
   HOME_CHEF_ORIENTATION: "/home-chef/orientation",
+  BALLERS_RSVP: "/events/rsvp",
 };
 
 const formApi = api.injectEndpoints({
@@ -139,7 +152,10 @@ const formApi = api.injectEndpoints({
         method: "POST",
       }),
     }),
+    getRSVPs: builder.query<BallersRSVPArgs["formData"][], void>({
+      query: () => "/events/rsvp",
+    }),
   }),
 });
 
-export const { useSubmitFormMutation } = formApi;
+export const { useSubmitFormMutation, useGetRSVPsQuery } = formApi;

@@ -1,13 +1,9 @@
 import { useGetUserQuery } from "../state/apis/authApi";
-// import { useGetRestaurantQuery } from '../state/apis/mealProgramApi/restaurantApi';
 import TextButton from "./reusable/TextButton";
 import "./Home.css";
 
 const volunteersDescription =
   "Sign up to volunteer as a Home Chef, help out in the CK Kitchen, or donate your time at special events.";
-
-// const mealProgramDescription =
-// 'A portal for restaurants participating in our meal program to complete the tasks necessary to start providing meals.';
 
 const textServiceDescription =
   "An interface for sending out text message alerts, adding phone numbers to the subscriber lists and reviewing feedback received from users.";
@@ -19,8 +15,7 @@ const adminDescription =
   "An interface for CK staff to create users or restaurants for this site.";
 
 const Home = () => {
-  const userQuery = useGetUserQuery();
-  const user = userQuery.data;
+  const { data: user } = useGetUserQuery();
 
   const renderVolunteers = () => {
     return (
@@ -31,18 +26,6 @@ const Home = () => {
       />
     );
   };
-
-  // const renderMealProgram = () => {
-  //   if (restaurant) {
-  //     return (
-  //       <TextButton
-  //         to="meal-program"
-  //         buttonText="Restaurant Meal Program"
-  //         descriptionText={mealProgramDescription}
-  //       />
-  //     );
-  //   }
-  // };
 
   const renderTextService = () => {
     if (user?.admin || user?.busDriver) {
@@ -75,7 +58,6 @@ const Home = () => {
   const renderWithUser = () => {
     return (
       <>
-        {/* {renderMealProgram()} */}
         {renderTextService()}
         {renderVolunteers()}
         <TextButton

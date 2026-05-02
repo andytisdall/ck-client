@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
 
 import {
   useGetFeedbackQuery,
@@ -20,7 +20,7 @@ const Feedback = () => {
   const [dateRange, setDateRange] = useState("7");
   const [replyTo, setReplyTo] = useState<ReplyToProps>();
 
-  const feedbackQuery = useGetFeedbackQuery();
+  const feedbackQuery = useGetFeedbackQuery(dateRange);
   const feedback = feedbackQuery.data;
   const [deleteFeedback, deleteFeedbackResult] = useDeleteFeedbackMutation();
 
@@ -28,6 +28,7 @@ const Feedback = () => {
     EAST_OAKLAND: "East Oakland",
     WEST_OAKLAND: "West Oakland",
     BERKELEY: "Berkeley",
+    RESOURCES: "Resources",
   };
 
   const renderDateSelector = () => {
@@ -72,13 +73,6 @@ const Feedback = () => {
   const renderFeedback = () => {
     if (feedback) {
       return Object.values(feedback)
-        .filter((fb) => {
-          if (dateRange === "all") {
-            return fb;
-          } else {
-            return new Date(fb.date) > subDays(new Date(), parseInt(dateRange));
-          }
-        })
         .sort((a, b) => (a.date > b.date ? -1 : 1))
         .map((fb: FeedbackResponse) => {
           return (

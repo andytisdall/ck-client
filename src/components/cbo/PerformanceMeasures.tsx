@@ -3,7 +3,13 @@ import { Bar } from "react-chartjs-2";
 
 import { PerformanceMeasures } from "../../state/apis/mealProgramApi/cboApi";
 import { defaultOptions, CBOReportProps } from "./CBO";
-import { sumField, renderValues, sortKeys, sortValues } from "./reportMethods";
+import {
+  sumField,
+  renderValues,
+  sortKeys,
+  sortValues,
+  averageField,
+} from "./reportMethods";
 import Chart from "./Chart";
 
 const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
@@ -33,6 +39,9 @@ const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
       "Number of Calfresh applications sent to SSA": sumField(
         performanceMeasures,
         "SSA",
+      ),
+      "Percent without Access to Kitchen": Math.round(
+        averageField(reports, "percentWithoutAccess") * 100,
       ),
     };
   }, [reports]);

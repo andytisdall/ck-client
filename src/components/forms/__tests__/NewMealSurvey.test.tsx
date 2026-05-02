@@ -16,4 +16,5 @@ it("fills out the meal survey", async () => {
   );
 
   const q1 = screen.getByText(questions[0].English);
+  expect(q1).toBeInTheDocument();
 });

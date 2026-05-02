@@ -1,43 +1,28 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./App.css";
 import "./components/reusable/TextButton.css";
 import renderWithFallback from "./components/reusable/loading/renderWithFallback";
-import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "./state/store";
 import { setError } from "./state/apis/slices/errorSlice";
 import { setAlert } from "./state/apis/slices/alertSlice";
-// text service
+
 import textRouter from "./components/text/textRouter";
-
-// // meal program onboarding
-// import mealProgramRouter from "./components/mealProgram/mealProgramRouter";
-
-// // admin
 import adminRouter from "./components/admin/adminRouter";
-
-// user settings
 import userRouter from "./components/user/userRouter";
-
-// // home chef
 import homeChefRouter from "./components/homeChef/homeChefRouter";
-
-// // forms
 import formsRouter from "./components/forms/formsRouter";
-
-// // volunteers
 import volunteersRouter from "./components/volunteers/volunteersRouter";
-
 import cboRouter from "./components/cbo/cboRouter";
-
 import volunteerCheckInRouter from "./components/volunteer-check-in/volunteerCheckInRouter";
 import doorfrontRouter from "./components/doorfront/doorfrontRouter";
 
 // public home chef app page (no sign in required)
 const HomeChefApp = lazy(() => import("./components/homeChef/HomeChefApp"));
 const SalesforceNotFound = lazy(
-  () => import("./components/error/SalesforceNotFound")
+  () => import("./components/error/SalesforceNotFound"),
 );
 const Home = lazy(() => import("./components/Home"));
 const Header = lazy(() => import("./components/header/Header"));
@@ -45,7 +30,7 @@ const PageNotFound = lazy(() => import("./components/error/PageNotFound"));
 const ForgotPassword = lazy(() => import("./components/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const DeleteD4JAccount = lazy(
-  () => import("./components/user/DeleteD4JAccount")
+  () => import("./components/user/DeleteD4JAccount"),
 );
 const ConfirmEmail = lazy(() => import("./components/user/ConfirmEmail"));
 
@@ -77,10 +62,8 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<ResetPassword />),
       },
       { path: "home-chef-app", element: renderWithFallback(<HomeChefApp />) },
-
       textRouter,
       adminRouter,
-      // mealProgramRouter,
       userRouter,
       homeChefRouter,
       volunteersRouter,

@@ -10,7 +10,7 @@ import {
   //@ts-ignore
 } from "chart.js";
 import { useState, useMemo } from "react";
-import { addDays, format } from "date-fns";
+import { subMonths, format } from "date-fns";
 
 import MonthlyReport from "../doorfront/report/MonthlyReport";
 import {
@@ -49,12 +49,10 @@ export const defaultOptions = {
 };
 
 const CBO = () => {
-  // const [startDate, setStartDate] = useState(
-  //   format(subMonths(new Date(), 1), "yyyy-MM-dd"),
-  // );
   const [startDate, setStartDate] = useState(
-    format(addDays(new Date(), 1), "yyyy-MM-dd"),
+    format(subMonths(new Date(), 1), "yyyy-MM-dd"),
   );
+
   const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [filterByCbo, setFilterByCbo] = useState<string>("all");
 

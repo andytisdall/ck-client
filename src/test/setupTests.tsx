@@ -1,7 +1,3 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
 
 import { PropsWithChildren } from "react";
@@ -10,14 +6,6 @@ import { store } from "../state/store";
 
 jest.mock("@react-oauth/google");
 jest.mock("react-barcode-scanner/polyfill");
-
-// class FormDataMock {
-//   public append() {
-//     return jest.fn();
-//   }
-// }
-// @ts-ignore
-// global.FormData = FormData;
 
 export const Root = ({ children }: PropsWithChildren) => {
   return <Provider store={store}>{children}</Provider>;
@@ -47,5 +35,5 @@ Object.defineProperty(window, "localStorage", {
 });
 
 Object.defineProperty(window, "scrollTo", {
-  value: (to: number) => {},
+  value: (_to: number) => {},
 });
