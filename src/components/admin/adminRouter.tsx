@@ -17,7 +17,7 @@ const NotificationsHome = lazy(
   () => import("./notifications/NotificationsHome"),
 );
 const DoSomething = lazy(() => import("./DoSomething"));
-const RSVP = lazy(() => import("./RSVP"));
+const RSVPList = lazy(() => import("./rsvp/RSVPList"));
 const Orders = lazy(() => import("./supplyOrders/Orders"));
 
 const adminRouter: RouteObject = {
@@ -35,7 +35,7 @@ const adminRouter: RouteObject = {
       element: renderWithFallback(<Orders />),
     },
     { path: "action", element: renderWithFallback(<DoSomething />) },
-    { path: "rsvp", element: renderWithFallback(<RSVP />) },
+    { path: "rsvp", element: renderWithFallback(<RSVPList />) },
     {
       path: "notifications",
       children: [

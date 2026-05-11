@@ -105,9 +105,6 @@ const CBO = () => {
     );
   }
   const renderData = () => {
-    if (reportsIsLoading || userIsLoading) {
-      return <Loading />;
-    }
     if (filterByCbo === "CK Doorfront") {
       return (
         <div>
@@ -117,6 +114,9 @@ const CBO = () => {
           />
         </div>
       );
+    }
+    if (reportsIsLoading || userIsLoading) {
+      return <Loading />;
     }
     if (filteredReports) {
       return (

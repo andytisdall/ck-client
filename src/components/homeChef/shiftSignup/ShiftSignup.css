@@ -15,6 +15,7 @@
 .shift-detail {
   margin-top: 2rem;
   margin-left: 2rem;
+  max-width: 600px;
 }
 
 .shift-detail h3 {

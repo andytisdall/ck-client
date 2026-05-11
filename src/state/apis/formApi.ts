@@ -143,6 +143,8 @@ const urls = {
   BALLERS_RSVP: "/events/rsvp",
 };
 
+export type RSVP = BallersRSVPArgs["formData"] & { id: string };
+
 const formApi = api.injectEndpoints({
   endpoints: (builder) => ({
     submitForm: builder.mutation<null, SubmitFormArgs>({
@@ -152,10 +154,28 @@ const formApi = api.injectEndpoints({
         method: "POST",
       }),
     }),
-    getRSVPs: builder.query<BallersRSVPArgs["formData"][], void>({
+    getRSVPs: builder.query<RSVP[], void>({
       query: () => "/events/rsvp",
+      providesTags: ["RSVP"],
+    }),
+    deleteRSVP: builder.mutation<null, string>({
+      query: (id) => ({ url: "/events/rsvp/" + id, method: "DELETE" }),
+      invalidatesTags: ["RSVP"],
+    }),
+    editRSVP: builder.mutation<null, RSVP>({
+      query: (body) => ({
+        url: "/events/rsvp",
+        body,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["RSVP"],
     }),
   }),
 });
 
-export const { useSubmitFormMutation, useGetRSVPsQuery } = formApi;
+export const {
+  useSubmitFormMutation,
+  useGetRSVPsQuery,
+  useDeleteRSVPMutation,
+  useEditRSVPMutation,
+} = formApi;

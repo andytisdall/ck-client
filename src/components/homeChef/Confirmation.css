@@ -24,3 +24,8 @@
   margin-bottom: 1rem;
   color: black;
 }
+
+.hc-photo {
+  width: 100%;
+  max-width: 500px;
+}

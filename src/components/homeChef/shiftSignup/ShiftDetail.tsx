@@ -60,7 +60,7 @@ const ShiftDetail = () => {
         <strong>Date: </strong>
         {format(
           utcToZonedTime(shift.startTime, "America/Los_Angeles"),
-          "eeee, M/d/yy"
+          "eeee, M/d/yy",
         )}
       </div>
       <div className="signup-form-item">
@@ -120,7 +120,17 @@ const ShiftDetail = () => {
             <label>Soup</label>
           </div>
         </div>
-
+        {!!job?.notes && (
+          <div className="signup-form-notes">
+            <strong>Note: </strong>
+            {job.notes}
+          </div>
+        )}
+        {!!job?.photo && (
+          <div className="signup-form-notes">
+            <img src={job?.photo} alt="town fridge" className="hc-photo" />
+          </div>
+        )}
         {signUpForShiftResult.isLoading ? (
           <Loading />
         ) : (
@@ -131,12 +141,6 @@ const ShiftDetail = () => {
           />
         )}
       </form>
-      {!!job?.notes && (
-        <div className="signup-form-notes">
-          <strong>Note: </strong>
-          {job.notes}
-        </div>
-      )}
     </div>
   );
 };

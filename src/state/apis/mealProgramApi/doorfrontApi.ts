@@ -8,10 +8,17 @@ export interface ClientMeal {
   logged: boolean;
 }
 
-interface AddMealsArgs {
-  meals: number;
-  clientId: string;
-}
+type AddMealsArgs =
+  | {
+      meals: number;
+      clientId: string;
+    }
+  | {
+      meals: number;
+      clientId: string;
+      findByCCode: boolean;
+      date: string;
+    };
 
 interface GetClientMealsResponse {
   clientMeals: ClientMeal[];
@@ -120,6 +127,7 @@ export const {
   useGetClientQuery,
   useAddMealsMutation,
   useLazyGetMealsQuery,
+  useGetMealsQuery,
   useEditClientMutation,
   useLogMealsMutation,
   useGetClientsQuery,

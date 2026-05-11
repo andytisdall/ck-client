@@ -5,7 +5,7 @@ import Loading from "../loading/Loading";
 
 const Sign = () => {
   const { doc, contactId, hoursId } = useParams();
-  const { data, isLoading } = useGetSigningUrlQuery({
+  const { data, isLoading, isError } = useGetSigningUrlQuery({
     doc,
     contactId,
     hoursId,
@@ -24,6 +24,12 @@ const Sign = () => {
         </div>
       );
     }
+  }
+
+  if (isError) {
+    <div>
+      <h2>Unable to connect to e-sign service.</h2>
+    </div>;
   }
 
   return (

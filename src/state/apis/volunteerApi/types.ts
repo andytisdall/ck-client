@@ -34,6 +34,7 @@ export interface Job {
   campaign: string;
   region?: FridgeRegion;
   notes?: string;
+  photo?: string;
 }
 
 export interface DriverJob extends Job {

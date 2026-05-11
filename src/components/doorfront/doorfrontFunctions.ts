@@ -34,4 +34,4 @@ export const mealIsWithinMonth = (date: string) => {
 };
 
 export const MONTHLY_MEAL_MAX = 3000;
-export const DAILY_MEAL_MAX = 3;
+export const DAILY_MEAL_MAX = 2;

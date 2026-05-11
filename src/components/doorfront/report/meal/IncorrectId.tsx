@@ -53,9 +53,7 @@ const IncorrectId = ({ client }: { client: Client }) => {
           </div>
           <div className="meal-report-menu-item">
             {" "}
-            <Link to={"/doorfront/client-report/" + client.id}>
-              Go to Client
-            </Link>
+            <Link to={"../client-report/" + client.id}>Go to Client</Link>
           </div>
         </div>
       )}

@@ -12,9 +12,10 @@ const ShiftSelect = () => {
     return <Loading />;
   }
 
-  const shifts = jobId
-    ? data?.jobs[jobId].shifts.map((shiftId) => data.shifts[shiftId])
-    : undefined;
+  const job = jobId ? data?.jobs[jobId] : undefined;
+
+  const shifts =
+    job && data ? job.shifts.map((shiftId) => data.shifts[shiftId]) : undefined;
 
   if (!shifts) {
     return <h3>Something went wrong. Please start over.</h3>;
@@ -36,7 +37,7 @@ const ShiftSelect = () => {
 
   return (
     <div>
-      <h2>Select Shift for {shifts[0].jobName}</h2>
+      <h2>Select Shift for {job!.name}</h2>
       {renderShifts()}
     </div>
   );

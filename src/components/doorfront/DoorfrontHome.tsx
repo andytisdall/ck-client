@@ -6,14 +6,13 @@ const DoorfrontHome = () => {
       <Link className="text-button-link admin-home-btn" to="scan">
         Scan Barcode
       </Link>
-      <Link className="text-button-link admin-home-btn" to="meal-report">
-        Meal Report
+
+      <Link className="text-button-link admin-home-btn" to="reports">
+        Reports
       </Link>
-      <Link className="text-button-link admin-home-btn" to="client-report">
-        Client Report
-      </Link>
-      <Link className="text-button-link admin-home-btn" to="monthly-report">
-        Monthly Report
+
+      <Link className="text-button-link admin-home-btn" to="create">
+        Create Meals
       </Link>
     </div>
   );

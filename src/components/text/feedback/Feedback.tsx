@@ -20,8 +20,7 @@ const Feedback = () => {
   const [dateRange, setDateRange] = useState("7");
   const [replyTo, setReplyTo] = useState<ReplyToProps>();
 
-  const feedbackQuery = useGetFeedbackQuery(dateRange);
-  const feedback = feedbackQuery.data;
+  const { data: feedback, isFetching } = useGetFeedbackQuery(dateRange);
   const [deleteFeedback, deleteFeedbackResult] = useDeleteFeedbackMutation();
 
   const regions = {
@@ -146,7 +145,7 @@ const Feedback = () => {
         <>
           {renderDateSelector()}
           <ul className="feedback-list">
-            {feedbackQuery.isLoading || deleteFeedbackResult.isLoading ? (
+            {isFetching || deleteFeedbackResult.isLoading ? (
               <Loading />
             ) : (
               !!feedback && renderFeedback()

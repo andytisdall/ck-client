@@ -53,5 +53,6 @@ export const api = createApi({
     "DriverInfo",
     "Doorfront",
     "HomeChefSupplies",
+    "RSVP",
   ],
 });

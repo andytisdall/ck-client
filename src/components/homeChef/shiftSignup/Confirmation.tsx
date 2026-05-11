@@ -27,7 +27,7 @@ const Confirmation = () => {
               <span className="hc-confirm-title">Date:</span>{" "}
               {format(
                 utcToZonedTime(hour.time, "America/Los_Angeles"),
-                "eeee, M/d/yy"
+                "eeee, M/d/yy",
               )}
             </li>
             <li className="hc-confirm-item">
@@ -38,7 +38,6 @@ const Confirmation = () => {
                 <span className="hc-confirm-title">Location:</span>{" "}
                 {job.location}
                 {!!job.locationCity && ", " + job.locationCity}{" "}
-                {!!job.notes && <p> {job.notes}</p>}
               </li>
             )}
 
@@ -51,6 +50,14 @@ const Confirmation = () => {
               {hour.mealType}
             </li>
           </ul>
+          {!!job.notes && (
+            <p>
+              <strong>Notes:</strong> {job.notes}
+            </p>
+          )}
+          {!!job.photo && (
+            <img src={job.photo} alt="town fridge" className="hc-photo" />
+          )}
           <p>You have been sent an email with this information.</p>
         </div>
       );
@@ -64,7 +71,7 @@ const Confirmation = () => {
   };
 
   return (
-    <div>
+    <div className="shift-detail">
       <h1>Home Chef Sign Up Confirmation</h1>
       {!jobs || !hours ? <Loading /> : renderShiftDetails()}
       <Link to="/home-chef/signup/list">

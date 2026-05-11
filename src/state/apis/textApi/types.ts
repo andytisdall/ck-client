@@ -45,6 +45,7 @@ export interface TextRecord {
   sender: string;
   region: Region;
   image: string;
+  sendCount?: number;
 }
 
 export interface SendTextResponse {

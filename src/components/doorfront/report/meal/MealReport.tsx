@@ -146,7 +146,7 @@ const MealReport = () => {
               if (meals) {
                 if (e.target.checked) {
                   setMealsToLog(
-                    meals.filter((m) => m.client?.cCode).map((m) => m.id)
+                    meals.filter((m) => m.client?.cCode).map((m) => m.id),
                   );
                 } else {
                   setMealsToLog([]);

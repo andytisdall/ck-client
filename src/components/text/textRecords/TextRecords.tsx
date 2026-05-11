@@ -11,9 +11,9 @@ const TextRecords = () => {
   const [userId, setUserId] = useState("");
 
   const users = useGetAllUsersQuery().data;
-  const textRecords = useGetTextRecordsQuery({
+  const { data: textRecords, isFetching } = useGetTextRecordsQuery({
     startDate: startDate.toString(),
-  }).data;
+  });
 
   const filteredRecords = useMemo(() => {
     if (textRecords && users) {
@@ -36,6 +36,9 @@ const TextRecords = () => {
                     : users[rec.sender]?.username}
                 </div>
                 <div>To: {rec.region}</div>
+                {rec.sendCount !== undefined && (
+                  <div># of Recipients: {rec.sendCount}</div>
+                )}
               </div>
               <div>{rec.message}</div>
               {!!rec.image && (
@@ -50,7 +53,7 @@ const TextRecords = () => {
   }, [textRecords, userId, users]);
 
   const renderTextRecords = () => {
-    if (!textRecords || !users) {
+    if (!textRecords || !users || isFetching) {
       return <Loading />;
     }
     if (!textRecords?.length) {

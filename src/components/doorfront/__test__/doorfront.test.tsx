@@ -109,9 +109,8 @@ describe("get client by barcode and add meals", () => {
 
     const plus = await screen.findByText("+");
     await userEvent.click(plus);
-    await userEvent.click(plus);
 
-    expect(amount).toHaveTextContent("3 meals");
+    expect(amount).toHaveTextContent("2 meals");
 
     const submitBtn = screen.getByText(/submit/i);
     await userEvent.click(submitBtn);

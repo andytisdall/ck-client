@@ -68,12 +68,15 @@
 }
 
 .meal-report-copied-alert {
-  background-color: white;
-  color: rgb(18, 88, 0);
-  font-size: 12px;
-  padding: 2px 5px;
+  color: white;
+  background-color: rgb(64, 140, 45);
+  font-size: 13px;
+  padding: 4px 6px;
   border-radius: 10px;
   margin-right: 1rem;
+  display: flex;
+  height: 1rem;
+  align-self: center;
 }
 
 .meal-report-warning {

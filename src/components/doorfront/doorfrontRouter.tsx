@@ -11,12 +11,16 @@ const ClientReport = lazy(() => import("./report/client/ClientReport"));
 const DoorfrontHome = lazy(() => import("./DoorfrontHome"));
 const ClientDetail = lazy(() => import("./report/client/ClientDetail"));
 const MonthlyReportHeader = lazy(() => import("./report/MonthlyReportHeader"));
+const CopyClientIDs = lazy(() => import("./report/CopyClientIDs"));
+const ReportsHome = lazy(() => import("./report/ReportsHome"));
+const CreateMeals = lazy(() => import("./report/CreateMeals"));
 
 const doorfrontRouter: RouteObject = {
   path: "doorfront",
   element: renderWithFallback(<DoorfrontBase />),
   children: [
     { index: true, element: renderWithFallback(<DoorfrontHome />) },
+    { path: "create", element: renderWithFallback(<CreateMeals />) },
     {
       path: "scan",
       children: [
@@ -24,17 +28,30 @@ const doorfrontRouter: RouteObject = {
         { path: ":scanValue", element: renderWithFallback(<AddMeals />) },
       ],
     },
-    { path: "meal-report", element: renderWithFallback(<MealReport />) },
     {
-      path: "client-report",
+      path: "reports",
       children: [
-        { index: true, element: renderWithFallback(<ClientReport />) },
-        { path: ":id", element: renderWithFallback(<ClientDetail />) },
+        { index: true, element: renderWithFallback(<ReportsHome />) },
+        {
+          path: "meal-report",
+          element: renderWithFallback(<MealReport />),
+        },
+        {
+          path: "client-report",
+          children: [
+            { index: true, element: renderWithFallback(<ClientReport />) },
+            { path: ":id", element: renderWithFallback(<ClientDetail />) },
+          ],
+        },
+        {
+          path: "monthly-report",
+          element: renderWithFallback(<MonthlyReportHeader />),
+        },
+        {
+          path: "copy-client-ids",
+          element: renderWithFallback(<CopyClientIDs />),
+        },
       ],
-    },
-    {
-      path: "monthly-report",
-      element: renderWithFallback(<MonthlyReportHeader />),
     },
   ],
 };
