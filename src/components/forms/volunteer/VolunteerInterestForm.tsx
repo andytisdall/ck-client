@@ -161,7 +161,9 @@ const InterestForm = () => {
           <input
             id="corporate"
             value={corporate}
+            maxLength={100}
             onChange={(e) => setCorporate(e.target.value)}
+            type="text"
           />
         </div>
 

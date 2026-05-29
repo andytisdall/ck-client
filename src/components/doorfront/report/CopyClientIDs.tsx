@@ -7,7 +7,7 @@ import "./DoorfrontReport.css";
 
 const MealsByDay = () => {
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
-  const [copiedList, setCopiedList] = useState<number>();
+  const [copiedList, setCopiedList] = useState<string>();
 
   const { data: meals, isFetching } = useGetMealsQuery({
     startDate: date,
@@ -43,10 +43,10 @@ const MealsByDay = () => {
         {amounts.map((amount) => {
           const clientIds = mealsByAmount[amount];
           return (
-            <div key={amount} className="meal-report-row-container">
+            <div key={date + amount} className="meal-report-row-container">
               <div className="meal-report-row">
                 <div className="meal-report-col">
-                  {copiedList === amount && (
+                  {copiedList === date + amount && (
                     <div className="meal-report-copied-alert">Copied!</div>
                   )}
                   {amount} Meal{amount > 1 && "s"}:
@@ -56,7 +56,7 @@ const MealsByDay = () => {
                     onClick={() => {
                       const text = clientIds.join(",");
                       navigator.clipboard.writeText(text);
-                      setCopiedList(amount);
+                      setCopiedList(date + amount);
                     }}
                   >
                     Copy Client IDs

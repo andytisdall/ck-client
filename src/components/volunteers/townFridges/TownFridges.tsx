@@ -15,8 +15,6 @@ const REGION_VALUES = {
   berkeley: "Berkeley",
 };
 
-const BARTLETT_FRIDGE_ID = "a0w8Z00000YU0nHQAT";
-
 const TownFridges = () => {
   const { region }: { region?: keyof typeof REGION_VALUES } = useParams();
   const { data: jobs, isLoading } = useGetJobsQuery({
@@ -28,9 +26,8 @@ const TownFridges = () => {
       return (
         j.active &&
         j.region &&
-        j.region !== "CK Kitchen" &&
-        (region ? j.region === REGION_VALUES[region] : true) &&
-        (region ? j.id !== BARTLETT_FRIDGE_ID : true)
+        !j.noText &&
+        (region ? j.region === REGION_VALUES[region] : true)
       );
     });
   }, [jobs, region]);

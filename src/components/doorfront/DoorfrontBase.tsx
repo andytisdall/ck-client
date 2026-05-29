@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useGetUserQuery } from "../../state/apis/authApi";
 
 import "./Doorfront.css";
@@ -18,7 +18,9 @@ const DoorfrontBase = () => {
   return (
     <main>
       <div className="main doorfront-base">
-        <h1>CK Kitchen Doorfront</h1>
+        <Link to="/doorfront">
+          <h1>CK Kitchen Doorfront</h1>
+        </Link>
         <Outlet />
       </div>
     </main>

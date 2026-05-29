@@ -153,6 +153,11 @@
   color: white;
 }
 
+.calendar-color-11 {
+  background-color: rgb(0, 48, 190);
+  color: white;
+}
+
 .calendar-set-current {
   font-size: 45%;
 }

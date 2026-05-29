@@ -18,7 +18,7 @@ const ShiftSelect = lazy(() => import("./ShiftSelect"));
 const volunteerCheckInRouter: RouteObject = {
   path: "volunteer-check-in",
   element: renderWithFallback(<CheckInVolunteerBase />),
-  errorElement: renderWithFallback(<div>Start Over</div>),
+  errorElement: renderWithFallback(<div>Error: You must start over</div>),
   children: [
     { index: true, element: renderWithFallback(<CheckInHome />) },
     {

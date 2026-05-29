@@ -11,26 +11,18 @@ const CheckInHome = () => {
   }
 
   const renderJobs = () => {
-    const jobs = data?.jobs;
-    if (jobs && Object.keys(jobs).length) {
-      return Object.values(jobs).map((job) => {
-        if (job.shifts.length > 1) {
-          return (
-            <Link to={`job/${job.id}`} key={job.id}>
-              <button>
-                <h4>{job.name}</h4>
-              </button>
-            </Link>
-          );
-        } else {
-          return (
-            <Link to={`list/${job.shifts[0]}`} key={job.id}>
-              <button>
-                <h4>{job.name}</h4>
-              </button>
-            </Link>
-          );
-        }
+    const jobsList = data ? Object.values(data.jobs) : undefined;
+    if (jobsList?.length) {
+      return jobsList.map((job) => {
+        const link =
+          job.shifts.length > 1 ? `job/${job.id}` : `list/${job.shifts[0]}`;
+        return (
+          <Link to={link} key={job.id}>
+            <button>
+              <h4>{job.name}</h4>
+            </button>
+          </Link>
+        );
       });
     } else {
       return (

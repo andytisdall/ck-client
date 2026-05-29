@@ -19,7 +19,7 @@ const ClientReport = () => {
       return [...clients].sort(
         (
           a: { cCode?: string; barcode?: string[] },
-          b: { cCode?: string; barcode?: string[] }
+          b: { cCode?: string; barcode?: string[] },
         ) => {
           if (a[orderBy] && b[orderBy]) {
             return a[orderBy]! > b[orderBy]! ? -sortBy : sortBy;
@@ -31,7 +31,7 @@ const ClientReport = () => {
             return sortBy;
           }
           return 1;
-        }
+        },
       );
     }
   }, [clients, orderBy, sortBy]);

@@ -8,15 +8,15 @@ const Text = () => {
 
   const permitted = user?.admin;
 
-  const renderSignIn = () => {
-    return <h3>You must have the proper permissions to access this page.</h3>;
-  };
-
   const renderTextBase = () => {
     if (isLoading) {
       return <Loading />;
     }
-    return permitted ? <Outlet /> : renderSignIn();
+    return permitted ? (
+      <Outlet />
+    ) : (
+      <h3>You must have the proper permissions to access this page.</h3>
+    );
   };
 
   return (
