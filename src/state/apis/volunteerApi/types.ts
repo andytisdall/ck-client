@@ -19,7 +19,8 @@ export type FridgeRegion =
   | "East Oakland"
   | "West Oakland"
   | "Berkeley"
-  | "CK Kitchen";
+  | "CK Kitchen"
+  | "Alameda";
 
 export interface Job {
   id: string;

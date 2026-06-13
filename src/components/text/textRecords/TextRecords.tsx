@@ -78,6 +78,8 @@ const TextRecords = () => {
           {users && (
             <select onChange={(e) => setUserId(e.target.value)}>
               <option value="">All Users</option>
+              <option value="salesforce">Salesforce</option>
+
               {Object.values(users)
                 .sort((a, b) => (a.username > b.username ? 1 : -1))
                 .map((user) => (

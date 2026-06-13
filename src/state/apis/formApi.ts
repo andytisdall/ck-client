@@ -35,6 +35,7 @@ interface VolunteerInterestFormArgs {
     corporate?: string;
     source: string;
     extraInfo?: string;
+    employer?: string;
   };
   name: "VOLUNTEER_INTEREST";
 }

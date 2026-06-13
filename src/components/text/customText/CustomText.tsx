@@ -32,7 +32,7 @@ const CustomText = ({ replyTo }: { replyTo?: ReplyToProps }) => {
   );
   const [photo, setPhoto] = useState<File | FileList | string | undefined>();
   const [imageError, setImageError] = useState("");
-  const debouncedPhoto = useDebounce(photo);
+  const [debouncedPhoto] = useDebounce(photo);
 
   const [preview, setPreview] = useState(false);
 

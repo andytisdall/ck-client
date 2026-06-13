@@ -2,17 +2,20 @@ import { FormEventHandler, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
-import FormHeader from "./../reusable/MealSurvey/FormHeader";
+import FormHeader from "../reusable/MealSurvey/FormHeader";
 import Loading from "../../reusable/loading/Loading";
-import RadioFormSet from "./../reusable/MealSurvey/RadioFormSet";
-import MultiSelectSet from "./../reusable/MealSurvey/MultiSelect";
-import LanguageSwitch from "./../reusable/MealSurvey/LanguageSwitch";
-import { questions } from "./mealSurveyQuestions";
+import RadioFormSet from "../reusable/MealSurvey/RadioFormSet";
+import MultiSelectSet from "../reusable/MealSurvey/MultiSelect";
+import LanguageSwitch from "../reusable/MealSurvey/LanguageSwitch";
+import { questions } from "./mealSurveyQuestionsV3";
 
 const NewMealSurvey = () => {
   const [age, setAge] = useState<string>();
   const [ethnicity, setEthnicity] = useState<string>();
   const [zip, setZip] = useState<string>();
+
+  const [preferredLanguage, setPreferredLanguage] = useState<string>();
+  const [otherPreferredLanguage, setOtherPreferredLanguage] = useState("");
 
   const [language, setLanguage] = useState<"English" | "Spanish">("English");
   const [microwave, setMicrowave] = useState<boolean>();
@@ -100,14 +103,25 @@ const NewMealSurvey = () => {
           question={questions[0]}
           language={language}
         />
+
         <RadioFormSet
           name="ethnicity"
           setValue={setEthnicity}
           question={questions[1]}
           language={language}
         />
+
+        <RadioFormSet
+          name="preferredLanguage"
+          setValue={setPreferredLanguage}
+          question={questions[2]}
+          language={language}
+          customAnswer={otherPreferredLanguage}
+          setCustomAnswer={setOtherPreferredLanguage}
+        />
+
         <div className="form-item">
-          <label htmlFor="zip">{questions[14][language]}</label>
+          <label htmlFor="zip">{questions[3][language]}</label>
           <input
             id="zip"
             maxLength={5}
@@ -116,6 +130,25 @@ const NewMealSurvey = () => {
             onChange={(e) => setZip(e.target.value)}
           />
         </div>
+
+        <RadioFormSet
+          name="number-of-people"
+          setValue={setNumberOfPeople}
+          question={questions[4]}
+          language={language}
+        />
+
+        <RadioFormSet
+          name="children"
+          setValue={setChildren}
+          question={questions[5]}
+          language={language}
+        />
+
+        <div className="form-item">
+          <strong>Housing and Access</strong>
+        </div>
+
         <RadioFormSet
           name="fridge"
           setValue={setFridge}
@@ -134,18 +167,7 @@ const NewMealSurvey = () => {
           question={questions[3]}
           language={language}
         />
-        <RadioFormSet
-          name="number-of-people"
-          setValue={setNumberOfPeople}
-          question={questions[4]}
-          language={language}
-        />
-        <RadioFormSet
-          name="children"
-          setValue={setChildren}
-          question={questions[5]}
-          language={language}
-        />
+
         <RadioFormSet
           name="time"
           question={questions[6]}

@@ -56,7 +56,11 @@ const CBO = () => {
   const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [filterByCbo, setFilterByCbo] = useState<string>("all");
 
-  const debouncedQuery = useDebounce({ startDate, endDate });
+  const query = useMemo(() => {
+    return { startDate, endDate };
+  }, [startDate, endDate]);
+
+  const [debouncedQuery, isDebouncing] = useDebounce(query);
 
   const { data: reports, isFetching: reportsIsLoading } = useGetCBOReportsQuery(
     {
@@ -111,6 +115,7 @@ const CBO = () => {
           <MonthlyReport
             startDate={debouncedQuery.startDate}
             endDate={debouncedQuery.endDate}
+            isLoading={isDebouncing}
           />
         </div>
       );

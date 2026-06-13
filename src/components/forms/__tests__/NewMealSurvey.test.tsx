@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 
 import { Root } from "../../../test/setupTests";
-import NewMealSurvey from "../meal-program/NewMealSurvey";
-import { questions } from "../meal-program/mealSurveyQuestions";
+import NewMealSurvey from "../old/MealSurveyV2";
+import { questions } from "../old/mealSurveyQuestionsV2";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 it("fills out the meal survey", async () => {

@@ -13,7 +13,9 @@ const VolunteerJobsList = () => {
 
   const kitchenJob = jobs?.find((job) => job.region === "CK Kitchen");
 
-  const validJobs = jobs?.filter((j) => j.ongoing && j.region);
+  const validJobs = jobs?.filter(
+    (j) => j.ongoing && j.region && j.shifts.length > 0,
+  );
 
   const renderFridges = useCallback((fridges: Job[]) => {
     return fridges

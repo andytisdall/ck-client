@@ -7,6 +7,8 @@ import { store } from "../state/store";
 jest.mock("@react-oauth/google");
 jest.mock("react-barcode-scanner/polyfill");
 
+global.URL.createObjectURL = jest.fn((file: File) => file.name);
+
 export const Root = ({ children }: PropsWithChildren) => {
   return <Provider store={store}>{children}</Provider>;
 };

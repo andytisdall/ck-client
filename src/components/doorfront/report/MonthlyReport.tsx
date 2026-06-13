@@ -9,9 +9,11 @@ import "./DoorfrontReport.css";
 const MonthlyReport = ({
   startDate,
   endDate,
+  isLoading,
 }: {
   startDate: string;
   endDate: string;
+  isLoading?: boolean;
 }) => {
   const [sunMonOnly, setSunMonOnly] = useState(false);
   const { data, isFetching } = useGetMonthlyMealsQuery({
@@ -100,7 +102,7 @@ const MonthlyReport = ({
   const untrackedMealsPercent = Math.round((untrackedMeals / totalMeals) * 100);
 
   const renderData = () => {
-    if (isFetching) {
+    if (isFetching || isLoading) {
       return <Loading />;
     }
 

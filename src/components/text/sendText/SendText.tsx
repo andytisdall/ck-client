@@ -69,6 +69,8 @@ const SendText = () => {
     }
     if (photo) {
       let src = "";
+      console.log(typeof photo);
+
       if (typeof photo === "string") {
         src = photo;
       } else if (photo instanceof Blob) {

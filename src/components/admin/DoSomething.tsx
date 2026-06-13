@@ -1,10 +1,10 @@
 // import serverCall from 'state'
 import Loading from "../reusable/loading/Loading";
-import { useResetWaiversMutation } from "../../state/apis/volunteerApi/volunteerApi";
+import { useAddAllToResourcesMutation } from "../../state/apis/textApi";
 
 const DoSomething = () => {
   const [doSomething, { isLoading, isError, data, isSuccess }] =
-    useResetWaiversMutation();
+    useAddAllToResourcesMutation();
   return (
     <div>
       {isError ? (
@@ -12,7 +12,7 @@ const DoSomething = () => {
       ) : isLoading ? (
         <Loading />
       ) : isSuccess ? (
-        `Contacts updated: ${data?.number}`
+        `Users: ${data?.length}`
       ) : (
         <button onClick={() => doSomething().unwrap()}>Do the Thing</button>
       )}

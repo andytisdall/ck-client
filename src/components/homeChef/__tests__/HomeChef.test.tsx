@@ -166,8 +166,7 @@ describe("signed in", () => {
     );
     expect(shiftDate).toBeDefined();
 
-    const signupBtn = screen.getAllByRole("button", { name: "Sign Up" });
-    await userEvent.click(signupBtn[1]);
+    await userEvent.click(shiftDate);
 
     // sign up screen
 

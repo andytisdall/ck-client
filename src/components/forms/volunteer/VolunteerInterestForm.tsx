@@ -22,6 +22,7 @@ const InterestForm = () => {
   const [source, setSource] = useState("");
   const [corporate, setCorporate] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
+  const [employer, setEmployer] = useState("");
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const InterestForm = () => {
         corporate,
         source,
         extraInfo,
+        employer,
       },
       name: "VOLUNTEER_INTEREST",
     });
@@ -164,6 +166,20 @@ const InterestForm = () => {
             maxLength={100}
             onChange={(e) => setCorporate(e.target.value)}
             type="text"
+          />
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="employer">
+            Who is your employer? (Some employers offer matching donations, PTO,
+            or other incentives for employees who volunteer)
+          </label>
+          <input
+            id="employer"
+            maxLength={100}
+            type="text"
+            value={employer}
+            onChange={(e) => setEmployer(e.target.value)}
           />
         </div>
 

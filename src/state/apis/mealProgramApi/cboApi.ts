@@ -123,7 +123,6 @@ export interface PerformanceMeasures {
   postcards: number;
   calfreshApps: number;
   SSA: number;
-  percentWithoutAccess: number;
 }
 
 const cboApi = api.injectEndpoints({

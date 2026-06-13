@@ -8,7 +8,7 @@ import volunteerCampaignConfig from "../volunteers/config";
 const Form = lazy(() => import("./Form"));
 const FormSent = lazy(() => import("./FormSent"));
 
-const NewMealSurvey = lazy(() => import("./meal-program/NewMealSurvey"));
+const NewMealSurvey = lazy(() => import("./meal-program/MealSurveyV3"));
 const CBOReport = lazy(() => import("./meal-program/CBOReport"));
 const VolunteerInterestForm = lazy(
   () => import("./volunteer/VolunteerInterestForm"),

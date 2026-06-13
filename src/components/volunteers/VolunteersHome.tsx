@@ -10,20 +10,20 @@ const homeChefDescription =
 const VolunteersHome = () => {
   const { data: campaigns, isLoading } = useGetCampaignsQuery();
 
-  const renderAnnouncement = () => {
-    return (
-      <div className="volunteers-home-ad">
-        <img src="/images/volunteers/ava-banner.png" alt="home chef" />
-        <div>
-          Ava provides clean energy at lower rates and reinvests in our
-          community through programs, grants, and sponsorships. Learn more at{" "}
-          <a href="https://avaenergy.org" className="retro-link">
-            AvaEnergy.org!
-          </a>
-        </div>
-      </div>
-    );
-  };
+  // const renderAnnouncement = () => {
+  //   return (
+  //     <div className="volunteers-home-ad">
+  //       <img src="/images/volunteers/ava-banner.png" alt="home chef" />
+  //       <div>
+  //         Ava provides clean energy at lower rates and reinvests in our
+  //         community through programs, grants, and sponsorships. Learn more at{" "}
+  //         <a href="https://avaenergy.org" className="retro-link">
+  //           AvaEnergy.org!
+  //         </a>
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   const renderOngoingCampaign = (cam: VolunteerCampaign) => {
     const link = `signup/${cam.id}`;
@@ -43,7 +43,7 @@ const VolunteersHome = () => {
   const renderOngoing = () => {
     return (
       <div className="volunteers-home-section">
-        {renderAnnouncement()}
+        {/* {renderAnnouncement()} */}
         <div className="volunteers-home-section-title">
           Ongoing Volunteer Programs
         </div>

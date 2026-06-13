@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { format, getDate, getMonth, getYear } from "date-fns";
 
 import { useDebounce } from "../../../hooks/useDebounce";
 import MonthlyReport from "./MonthlyReport";
+import Loading from "../../reusable/loading/Loading";
 
 const MonthlyReportHeader = () => {
   const today = new Date();
@@ -21,7 +22,11 @@ const MonthlyReportHeader = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const debouncedQuery = useDebounce({ startDate, endDate });
+  const query = useMemo(() => {
+    return { startDate, endDate };
+  }, [startDate, endDate]);
+
+  const [debouncedQuery, isDebouncing] = useDebounce(query);
 
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
@@ -90,9 +95,11 @@ const MonthlyReportHeader = () => {
       <h2>Monthly Report</h2>
       {monthControls}
       {dayControls}
+
       <MonthlyReport
         startDate={debouncedQuery.startDate}
         endDate={debouncedQuery.endDate}
+        isLoading={isDebouncing}
       />
     </div>
   );

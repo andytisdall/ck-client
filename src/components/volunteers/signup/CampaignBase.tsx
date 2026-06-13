@@ -36,23 +36,6 @@ const CampaignBase = () => {
     }
   }, [contactId]);
 
-  const renderImages = () => {
-    const campaignConfig = Object.values(config).find(
-      ({ id }) => id === campaignId,
-    );
-
-    if (campaignConfig) {
-      return campaignConfig.images.map((img) => (
-        <img
-          key={img}
-          src={`/images/volunteers/${img}`}
-          alt="CK Volunteers"
-          className={`volunteers-kitchen-signup-photo volunteers-photo-frame ${event ? "volunteers-event-photo" : ""}`}
-        />
-      ));
-    }
-  };
-
   const renderEditDriverInfoBtn = () => {
     return (
       <div className="volunteers-driver-info-btn">
@@ -104,19 +87,10 @@ const CampaignBase = () => {
     return startDate + endDate;
   };
 
-  const renderCampaignDescription = () => {
-    return (
-      <div className="volunteers-body">
-        {event && <h3>{getDate()}</h3>}
-        <p className="vol-campaign-description">{campaign.description}</p>
-      </div>
-    );
-  };
-
   const renderSignIn = () => {
     if (!user && !volunteer) {
       return (
-        <div className="volunteers-driver-info-btn">
+        <div className="volunteers-shift-signup-links">
           <button onClick={() => setGetContact(true)}>
             See Shifts You Signed Up For
           </button>
@@ -128,11 +102,45 @@ const CampaignBase = () => {
     }
   };
 
-  const renderOngoing = () => {
-    return (
-      <div className="volunteers-body">
-        {renderCampaignDescription()}
+  const renderImages = () => {
+    const campaignConfig = Object.values(config).find(
+      ({ id }) => id === campaignId,
+    );
 
+    if (campaignConfig) {
+      return (
+        <div className="volunteers-kitchen-signup-photos">
+          {campaignConfig.images.map((img) => (
+            <img
+              key={img}
+              src={`/images/volunteers/${img}`}
+              alt="CK Volunteers"
+              className={`volunteers-kitchen-signup-photo volunteers-photo-frame ${event ? "volunteers-event-photo" : ""}`}
+            />
+          ))}
+        </div>
+      );
+    }
+  };
+
+  const renderHeader = () => {
+    return (
+      <>
+        <h1 className="volunteers-main-header volunteers-kitchen-header">
+          {campaign.name}
+        </h1>
+        <div className="volunteers-body">
+          {renderImages()}
+          {event && <h3>{getDate()}</h3>}
+          <p className="vol-campaign-description">{campaign.description}</p>
+        </div>
+      </>
+    );
+  };
+
+  const renderButtons = () => {
+    return (
+      <div className="volunteers-buttons">
         {!event && (
           <div className="volunteers-shift-signup-links">
             <NavLink className={navLink} to="list">
@@ -154,12 +162,8 @@ const CampaignBase = () => {
 
   return (
     <div>
-      <h1 className="volunteers-main-header volunteers-kitchen-header">
-        {campaign.name}
-      </h1>
-      <div className="volunteers-kitchen-signup-photos">{renderImages()}</div>
-
-      {renderOngoing()}
+      {renderHeader()}
+      {renderButtons()}
       <Outlet />
     </div>
   );

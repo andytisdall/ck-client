@@ -5,8 +5,6 @@ import "react-barcode-scanner/polyfill";
 
 import NumberEntry from "./NumberEntry";
 
-const GENERIC_CARD_CODE = "189137";
-
 const ScanBarcode = () => {
   const [clientId, setClientId] = useState("");
   const [entryType, setEntryType] = useState<"manual" | "external" | "camera">(
@@ -151,9 +149,6 @@ const ScanBarcode = () => {
       <div className="doorfront-submit-row">
         <button className="cancel" onClick={() => navigate("..")}>
           Cancel
-        </button>
-        <button onClick={() => navigate(GENERIC_CARD_CODE + "?cCode=true")}>
-          Add Meals to Generic Card
         </button>
       </div>
     </div>

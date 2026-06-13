@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { utcToZonedTime, format } from "date-fns-tz";
+import { useNavigate } from "react-router-dom";
 
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 import { Job } from "../../../state/apis/volunteerApi/types";
-import { Link } from "react-router-dom";
 import "./VolunteerJob.css";
 
 const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
@@ -12,6 +12,8 @@ const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
   const { data } = useGetShiftsQuery();
   const shifts = data?.shifts;
 
+  const navigate = useNavigate();
+
   const renderShifts = () => {
     if (shifts) {
       const jobShifts = Object.values(shifts).filter((sh) => sh.job === job.id);
@@ -19,28 +21,31 @@ const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
       return jobShifts
         .sort((a, b) => (a.startTime > b.startTime ? 1 : -1))
         .map((shift) => {
+          const active = shift.open;
+          const inactiveStyle = active ? "job-active" : "job-full";
           return (
-            <div className="job-listing" key={shift.id}>
-              {shift.open ? (
-                <Link to={`../shift/${shift.id}`}>
-                  <button>Sign Up</button>
-                </Link>
-              ) : (
-                <div className="job-full">full</div>
-              )}
-              <div className={`job-date ${shift.open ? "" : "job-date-full"}`}>
+            <div
+              className={`job-listing ${inactiveStyle}`}
+              key={shift.id}
+              onClick={() => {
+                if (active) {
+                  navigate(`../shift/${shift.id}`);
+                }
+              }}
+            >
+              <div className={`job-date ${active ? "" : "job-date-full"}`}>
                 {format(
                   utcToZonedTime(shift.startTime, "America/Los_Angeles"),
                   "M/d/yy",
                 )}
               </div>
-              <div className={`job-time ${shift.open ? "" : "job-date-full"}`}>
+              <div className={`job-time ${active ? "" : "job-date-full"}`}>
                 {format(
                   utcToZonedTime(shift.startTime, "America/Los_Angeles"),
                   "eeee",
                 )}
-                {/* <span className="job-name-small"> - {job.name}</span> */}
               </div>
+              {!active && <div className="job-time">Full</div>}
             </div>
           );
         });
@@ -67,13 +72,13 @@ const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
             <div className="job-disabled">Out of Service</div>
           )}
         </div>
-        {job.active && job.notes && (
+      </div>
+      <div className={`shift-list ${expanded ? "" : "closed"}`}>
+        {expand && job.notes && (
           <div className="job-notes">
             <p>{job.notes}</p>
           </div>
         )}
-      </div>
-      <div className={`shift-list ${expanded ? "" : "closed"}`}>
         {expand && renderShifts()}
       </div>
     </div>
