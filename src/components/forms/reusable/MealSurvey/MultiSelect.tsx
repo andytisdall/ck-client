@@ -1,42 +1,64 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useRef } from "react";
 
-import MultiSelectItem from './MultiSelectItem';
-import { Question } from './RadioFormSet';
+import MultiSelectItem from "./MultiSelectItem";
+import { Question } from "../../meal-program/types";
 
 const MultiSelectSet = ({
   setValue,
   question,
-  label,
-  language,
+  customAnswer,
+  setCustomAnswer,
 }: {
   setValue: Dispatch<SetStateAction<string[]>>;
   question: Question;
-  label: string;
-  language: 'English' | 'Spanish';
+  customAnswer?: string;
+  setCustomAnswer?: (answer: string) => void;
 }) => {
-  const options = question.options![language];
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { options } = question;
 
   return (
     <div className="form-item">
-      <label>{label}</label>
-      {options.map((option, index) => (
-        <MultiSelectItem
-          value={option}
-          addValue={() =>
-            setValue((current) => [
-              ...current,
-              question.options!.English[index],
-            ])
-          }
-          removeValue={() =>
-            setValue((current) =>
-              current.filter((val) => val !== question.options!.English[index])
-            )
-          }
-          key={`${label}-${index}`}
-          id={`${label}-${index}`}
-        />
-      ))}
+      <label>{question.question}</label>
+      {options.map((option, index) => {
+        const key = `${question.question}-${index}`;
+        if (setCustomAnswer && index === options.length - 1) {
+          <div className="form-checkbox">
+            <MultiSelectItem
+              value={option}
+              addValue={() =>
+                setValue((current) => [...current, options[index]])
+              }
+              removeValue={() =>
+                setValue((current) =>
+                  current.filter((val) => val !== options[index]),
+                )
+              }
+              key={key}
+              id={key}
+            />
+            <input
+              className="form-other-input"
+              onChange={(e) => setCustomAnswer(e.target.value)}
+              value={customAnswer}
+              ref={inputRef}
+            />
+          </div>;
+        }
+        return (
+          <MultiSelectItem
+            value={option}
+            addValue={() => setValue((current) => [...current, options[index]])}
+            removeValue={() =>
+              setValue((current) =>
+                current.filter((val) => val !== options[index]),
+              )
+            }
+            key={key}
+            id={key}
+          />
+        );
+      })}
     </div>
   );
 };

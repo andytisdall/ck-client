@@ -36,7 +36,7 @@
   display: flex;
   align-items: baseline;
   border-top: 1px solid black;
-  padding: 0.5rem 0;
+  padding: 0.7rem;
 }
 
 .shift-list {
@@ -54,14 +54,12 @@
 
 .job-full {
   color: red;
-  padding: 0.5rem;
   font-style: italic;
   cursor: auto;
 }
 
 .job-active {
   cursor: pointer;
-  padding: 0.5rem;
 }
 
 .job-active:hover {
@@ -69,7 +67,8 @@
 }
 
 .job-date {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .job-date-full {
@@ -78,7 +77,6 @@
 
 .job-time {
   margin-left: 1rem;
-  font-size: 0.8rem;
 }
 
 .job-name-inactive {

@@ -1,6 +1,4 @@
-import { Question } from "../reusable/MealSurvey/RadioFormSet";
-
-export const questions: Question[] = [
+export const questions = [
   {
     English: "What is your age?",
     Spanish: "¿Cuál es tu edad?",

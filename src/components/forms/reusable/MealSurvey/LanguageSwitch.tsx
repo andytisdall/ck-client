@@ -1,9 +1,11 @@
+import { Language } from "../../meal-program/types";
+
 const LanguageSwitch = ({
   setLanguage,
   language,
 }: {
-  setLanguage: (newLanguage: 'English' | 'Spanish') => void;
-  language: 'English' | 'Spanish';
+  setLanguage: (newLanguage: Language) => void;
+  language: Language;
 }) => {
   return (
     <div className="form-switch">
@@ -13,30 +15,30 @@ const LanguageSwitch = ({
         id="english"
         onChange={(e) => {
           if (e.target.checked) {
-            setLanguage('English');
+            setLanguage("English");
           }
         }}
       />
       <label
         htmlFor="english"
         className={
-          language === 'English'
-            ? 'form-switch-selected-english'
-            : 'form-switch-label'
+          language === "English"
+            ? "form-switch-selected-english"
+            : "form-switch-label"
         }
       >
         English
       </label>
 
-      <div
+      {/* <div
         className={`form-switch-toggle ${
-          language === 'Spanish' ? 'form-switch-toggled' : ''
+          language === "Spanish" ? "form-switch-toggled" : ""
         }`}
         onClick={() => {
-          if (language === 'English') {
-            setLanguage('Spanish');
+          if (language === "English") {
+            setLanguage("Spanish");
           } else {
-            setLanguage('English');
+            setLanguage("English");
           }
         }}
       >
@@ -49,20 +51,20 @@ const LanguageSwitch = ({
         id="spanish"
         onChange={(e) => {
           if (e.target.checked) {
-            setLanguage('Spanish');
+            setLanguage("Spanish");
           }
         }}
       />
       <label
         htmlFor="spanish"
         className={
-          language === 'Spanish'
-            ? 'form-switch-selected-spanish'
-            : 'form-switch-label'
+          language === "Spanish"
+            ? "form-switch-selected-spanish"
+            : "form-switch-label"
         }
       >
         Español
-      </label>
+      </label> */}
     </div>
   );
 };

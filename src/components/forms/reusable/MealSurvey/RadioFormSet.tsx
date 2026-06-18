@@ -1,51 +1,49 @@
 import { useRef } from "react";
 
 import RadioFormItem from "./RadioFormItem";
+import { Question } from "../../meal-program/types";
 
-export interface Question {
-  English: string;
-  Spanish: string;
-  options?: { English: string[]; Spanish: string[] };
-}
+// export interface Question {
+//   English: string;
+//   Spanish: string;
+//   options?: { English: string[]; Spanish: string[] };
+// }
 
 const RadioFormSet = ({
   name,
   setValue,
   question,
-  language,
   customAnswer,
   setCustomAnswer,
 }: {
   name: string;
   setValue: (newValue: any) => void;
   question: Question;
-  language: "English" | "Spanish";
   customAnswer?: string;
   setCustomAnswer?: (answer: string) => void;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const options = question.options ? question.options[language] : [true, false];
 
   return (
     <div className="form-item">
-      <label>{question[language]}</label>
-      {options.map((option, index) => {
+      <label>{question.question}</label>
+      {question.options.map((option, index) => {
         const key = `${name}-${index}`;
         const id = `${name}-${index}`;
 
-        if (setCustomAnswer && index === options.length - 1) {
+        if (setCustomAnswer && index === question.options.length - 1) {
           return (
-            <div className="form-checkbox">
+            <div className="form-checkbox" key={key}>
               <RadioFormItem
                 value={option}
                 setValue={() => {
                   inputRef.current?.focus();
-                  return setValue(question.options?.English[index] || option);
+                  return setValue(
+                    question.options ? question.options[index] : option,
+                  );
                 }}
                 name={name}
-                key={key}
                 id={id}
-                language={language}
               />
               <input
                 className="form-other-input"
@@ -59,13 +57,10 @@ const RadioFormSet = ({
         return (
           <RadioFormItem
             value={option}
-            setValue={() =>
-              setValue(question.options?.English[index] || option)
-            }
+            setValue={() => setValue(question.options[index])}
             name={name}
             key={key}
             id={id}
-            language={language}
           />
         );
       })}

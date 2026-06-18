@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
 import FormHeader from "../reusable/MealSurvey/FormHeader";
 import Loading from "../../reusable/loading/Loading";
-import RadioFormSet from "../reusable/MealSurvey/RadioFormSet";
+import RadioFormSet from "./OldRadioFormSet";
 import MultiSelectSet from "../reusable/MealSurvey/MultiSelect";
 import LanguageSwitch from "../reusable/MealSurvey/LanguageSwitch";
 import { questions } from "./mealSurveyQuestionsV2";

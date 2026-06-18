@@ -1,3 +1,4 @@
+import { Language } from "../../components/forms/meal-program/types";
 import { api } from "../api";
 import { CBOReport } from "./mealProgramApi/cboApi";
 
@@ -40,27 +41,41 @@ interface VolunteerInterestFormArgs {
   name: "VOLUNTEER_INTEREST";
 }
 
+export interface FavoriteOptions {
+  American?: number[];
+  "Asian Cuisine"?: number[];
+  Barbecue?: number[];
+  Italian?: number[];
+  Mexican?: number[];
+  Sandwiches?: number[];
+  "Southern/ Soul"?: number[];
+}
+
 interface NewMealSurveyArgs {
   formData: {
-    language: "English" | "Spanish";
+    language: Language;
     age?: string;
     ethnicity?: string;
+    preferredLanguage?: string;
+    otherPreferredLanguage?: string;
     zip?: string;
-    microwave?: boolean;
-    utensils?: boolean;
     numberOfPeople?: string;
-    children?: boolean;
-    time?: string;
-    mealType?: string;
-    mealType2?: string;
+    children?: string;
+    homelessness?: string;
+    homelessnessOther?: string;
+    cookingItems?: string[];
+    cookingItemsOther?: string;
+    healthConcerns?: string[];
     dietary?: string[];
-    fruit?: boolean;
-    taste?: boolean;
-    access?: boolean;
+    dietaryOther?: string;
+    fruit?: string;
+    favorites?: FavoriteOptions;
+    calfresh?: string;
+    resources?: string[];
+    rating?: string;
     skip?: string;
-    fridge?: boolean;
-    diabetes?: boolean;
-    hbp?: boolean;
+    location?: string;
+    access?: string;
   };
   name: "NEW_MEAL_SURVEY";
 }

@@ -8,7 +8,7 @@ import volunteerCampaignConfig from "../volunteers/config";
 const Form = lazy(() => import("./Form"));
 const FormSent = lazy(() => import("./FormSent"));
 
-const NewMealSurvey = lazy(() => import("./meal-program/MealSurveyV3"));
+const NewMealSurvey = lazy(() => import("./old/MealSurveyV2"));
 const CBOReport = lazy(() => import("./meal-program/CBOReport"));
 const VolunteerInterestForm = lazy(
   () => import("./volunteer/VolunteerInterestForm"),
@@ -19,6 +19,8 @@ const HomeChefOrientation = lazy(
 );
 
 const BallersRSVP = lazy(() => import("./BallersRSVP"));
+
+const MealSurveyV3 = lazy(() => import("./meal-program/MealSurveyV3"));
 
 const formsRouter: RouteObject = {
   path: "forms",
@@ -49,6 +51,7 @@ const formsRouter: RouteObject = {
       element: renderWithFallback(<HomeChefOrientation />),
     },
     { path: "ballers", element: renderWithFallback(<BallersRSVP />) },
+    { path: "meal-survey-3", element: renderWithFallback(<MealSurveyV3 />) },
   ],
 };
 

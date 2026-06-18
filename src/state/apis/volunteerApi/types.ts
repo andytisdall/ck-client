@@ -36,7 +36,7 @@ export interface Job {
   region?: FridgeRegion;
   notes?: string;
   photo?: string;
-  noText?: boolean;
+  noTextAlert?: boolean;
 }
 
 export interface DriverJob extends Job {

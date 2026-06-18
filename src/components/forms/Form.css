@@ -370,3 +370,33 @@
     display: none;
   }
 }
+
+.form-matrix {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-auto-columns: auto;
+}
+
+.form-matrix-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(214, 214, 214);
+  margin-bottom: 0.5rem;
+  padding: 0.8rem 0.2rem;
+}
+
+.form-matrix-row div {
+  text-align: center;
+  width: 13%;
+  font-size: 13px;
+}
+
+.form-matrix-row input {
+  margin: 0;
+}
+
+.form-matrix-col {
+  width: 2rem !important;
+  font-size: 16px !important;
+}

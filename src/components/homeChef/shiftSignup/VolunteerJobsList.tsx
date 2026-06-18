@@ -13,6 +13,8 @@ const VolunteerJobsList = () => {
 
   const kitchenJob = jobs?.find((job) => job.region === "CK Kitchen");
 
+  console.log(jobs?.filter((f) => f.noTextAlert));
+
   const validJobs = jobs?.filter(
     (j) => j.ongoing && j.region && j.shifts.length > 0,
   );
@@ -26,7 +28,10 @@ const VolunteerJobsList = () => {
   }, []);
 
   const regions = useMemo(
-    () => Array.from(new Set(validJobs?.map((j) => j.region!))),
+    () =>
+      Array.from(new Set(validJobs?.map((j) => j.region!))).sort((_a, b) =>
+        b === "CK Kitchen" ? -1 : 1,
+      ),
     [validJobs],
   );
 
