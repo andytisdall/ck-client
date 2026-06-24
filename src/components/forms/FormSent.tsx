@@ -5,7 +5,9 @@ import "./Form.css";
 import Loading from "../reusable/loading/Loading";
 
 const FormSent = () => {
-  const { state }: { state?: { message?: string; redirect?: string } } =
+  const {
+    state,
+  }: { state?: { title?: string; message?: string; redirect?: string } } =
     useLocation();
 
   const navigate = useNavigate();
@@ -26,11 +28,15 @@ const FormSent = () => {
     }
   };
 
+  const renderTitle = () => {
+    return state?.title || "Your Submission Was Successful!";
+  };
+
   return (
     <div className="form-background form-sent">
       <div className="form">
         <div className="form-item">
-          <h1>Your Submission Was Successful!</h1>
+          <h1>{renderTitle()}</h1>
           {renderMessage()}
           {state?.redirect ? (
             <Loading />

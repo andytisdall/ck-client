@@ -4,25 +4,23 @@ const MultiRadioSet = ({
   value,
   setValue,
   question,
+  errorMsg,
+  error,
 }: {
   value: Record<string, number[]>;
   setValue: (newValue: any) => void;
   question: Question;
+  errorMsg?: string;
+  error?: boolean;
 }) => {
-  console.log(value);
-
   const renderError = () => {
-    if (
-      !Object.keys(value).every(
-        (key) => value[key].length > 0 && value[key].length < 2,
-      )
-    ) {
-      return "Error";
+    if (!Object.keys(value).every((key) => value[key].length < 2)) {
+      return errorMsg || "Error";
     }
   };
 
   return (
-    <div className="form-item">
+    <div className={`form-item ${error ? "form-error" : ""}`}>
       <label>{question.question}</label>
       <div className="form-matrix">
         <div className="form-matrix-row">
@@ -35,22 +33,30 @@ const MultiRadioSet = ({
           <div className="form-matrix-row" key={number}>
             <div className="form-matrix-col">{number}</div>
             {question.options.map((option, index) => {
-              const key = `${option}-${index}`;
+              const key = `${option.replace(/ /g, "").replace("/", "")}-${number}`;
               return (
                 <div key={key}>
                   <input
                     id={key}
                     name={`${number}`}
+                    data-testid={key}
                     type="radio"
                     onChange={(e) => {
                       if (e.target.checked) {
-                        const newValue = value[option]
+                        const newArray = value[option]
                           ? [...value[option], number]
                           : [number];
-                        setValue({
-                          ...value,
-                          [option]: newValue,
-                        });
+
+                        const newValue = { ...value, [option]: newArray };
+                        const oldOption = Object.keys(value).find((opt) =>
+                          value[opt].includes(number),
+                        );
+                        if (oldOption) {
+                          newValue[oldOption] = newValue[oldOption].filter(
+                            (n) => n !== number,
+                          );
+                        }
+                        setValue(newValue);
                       }
                     }}
                   />
@@ -60,7 +66,7 @@ const MultiRadioSet = ({
           </div>
         ))}
       </div>
-      {renderError()}
+      <div className="required">{renderError()}</div>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { LanguageText } from "../types";
 
-export const English: LanguageText = {
-  title: "Meal Quality Survey",
+const displayText = {
+  title: "Community Kitchens Client Survey",
   headerText:
-    "Thank you for completing the Community Kitchens meal survey. Rest assured, your personal data will remain confidential. Your input is invaluable and plays a crucial role in securing funding to provide free meals to those in need.",
+    "Thank you for completing the Community Kitchens meal survey. Rest assured, your personal data will remain confidential. Your input is invaluable and plays a crucial role in securing funding to provide free meals to the people.",
   submitText: "Submit",
   headers: [
     "Tell Us About Yourself",
@@ -14,8 +14,18 @@ export const English: LanguageText = {
     "Meal Feedback",
   ],
   requiredText: "* Indicates required question",
+  successHeader: "Your Submission Was Successful!",
   successText:
     "Thank you for filling out this survey! We will use your info to improve our free meal program.",
+};
+
+export const English: LanguageText = {
+  errors: {
+    incomplete: "Please complete all questions before submitting",
+    required: "This is a required question",
+    ratingError: "Please don't select more than one response per column",
+  },
+  displayText,
   questions: [
     {
       question: "What age range are you in?",
@@ -126,7 +136,7 @@ export const English: LanguageText = {
         "Yes, I am enrolled",
         "Yes, I would like assistance enrolling",
         "No, I am not interested in enrolling",
-        "No, I recently lost my CalFresh benefits.",
+        "No, I recently lost my CalFresh benefits",
       ],
     },
     {

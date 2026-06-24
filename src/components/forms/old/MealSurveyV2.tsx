@@ -5,8 +5,8 @@ import { useSubmitFormMutation } from "../../../state/apis/formApi";
 import FormHeader from "../reusable/MealSurvey/FormHeader";
 import Loading from "../../reusable/loading/Loading";
 import RadioFormSet from "./OldRadioFormSet";
-import MultiSelectSet from "../reusable/MealSurvey/MultiSelect";
-import LanguageSwitch from "../reusable/MealSurvey/LanguageSwitch";
+import MultiSelectSet from "./OldMultiSelect";
+import LanguageSwitch from "./OldLanguageSwitch";
 import { questions } from "./mealSurveyQuestionsV2";
 
 const NewMealSurvey = () => {
@@ -75,7 +75,7 @@ const NewMealSurvey = () => {
         diabetes,
         hbp,
       },
-      name: "NEW_MEAL_SURVEY",
+      name: "MEAL_SURVEY_V2",
     }).unwrap();
     navigate("/forms/form-sent", {
       state: {
@@ -88,7 +88,7 @@ const NewMealSurvey = () => {
 
   return (
     <>
-      <FormHeader title={title[language]} spanish={language === "Spanish"}>
+      <FormHeader title={title[language]} spanish={language !== "English"}>
         {headerText[language]}
         <LanguageSwitch language={language} setLanguage={setLanguage} />
       </FormHeader>
@@ -209,7 +209,7 @@ const NewMealSurvey = () => {
         {!isLoading ? (
           <input
             type="submit"
-            value={language === "Spanish" ? "Enviar" : "Submit"}
+            value={language !== "English" ? "Enviar" : "Submit"}
           />
         ) : (
           <Loading />

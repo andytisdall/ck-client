@@ -51,7 +51,32 @@ export interface FavoriteOptions {
   "Southern/ Soul"?: number[];
 }
 
-interface NewMealSurveyArgs {
+interface MealSurveyArgsV2 {
+  formData: {
+    language: "English" | "Spanish";
+    age?: string;
+    ethnicity?: string;
+    zip?: string;
+    microwave?: boolean;
+    utensils?: boolean;
+    numberOfPeople?: string;
+    children?: boolean;
+    time?: string;
+    mealType?: string;
+    mealType2?: string;
+    dietary?: string[];
+    fruit?: boolean;
+    taste?: boolean;
+    access?: boolean;
+    skip?: string;
+    fridge?: boolean;
+    diabetes?: boolean;
+    hbp?: boolean;
+  };
+  name: "MEAL_SURVEY_V2";
+}
+
+interface MealSurveyArgsV3 {
   formData: {
     language: Language;
     age?: string;
@@ -72,12 +97,14 @@ interface NewMealSurveyArgs {
     favorites?: FavoriteOptions;
     calfresh?: string;
     resources?: string[];
+    resourcesOther: string;
     rating?: string;
     skip?: string;
-    location?: string;
+    location?: string[];
+    locationOther: string;
     access?: string;
   };
-  name: "NEW_MEAL_SURVEY";
+  name: "MEAL_SURVEY_V3";
 }
 
 interface CulinaryTrainingArgs {
@@ -140,7 +167,8 @@ type SubmitFormArgs =
   | CBOReportArgs
   | VolunteerInterestFormArgs
   | CulinaryTrainingArgs
-  | NewMealSurveyArgs
+  | MealSurveyArgsV2
+  | MealSurveyArgsV3
   | SNAPSurveyArgs
   | MealsPlusArgs
   | HomeChefPollArgs
@@ -150,7 +178,8 @@ type SubmitFormArgs =
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
   CBO_REPORT: "/meal-program/cbo",
-  NEW_MEAL_SURVEY: "/meal-program/survey",
+  MEAL_SURVEY_V3: "/meal-program/survey3",
+  MEAL_SURVEY_V2: "/meal-program/survey",
   CULINARY_TRAINING: "/meal-program/workforce-development",
   SNAP_SURVEY: "/meal-program/survey/snap",
   MEALS_PLUS: "/meal-program/meals-plus",

@@ -6,14 +6,19 @@ export interface Question {
 export type Language = "English";
 
 export interface LanguageText {
-  title: string;
-  headerText: string;
-  submitText: string;
-  headers: string[];
-  requiredText: string;
-  successText: string;
-  questions: {
-    question: string;
-    options: string[];
-  }[];
+  displayText: {
+    title: string;
+    headerText: string;
+    submitText: string;
+    headers: string[];
+    requiredText: string;
+    successHeader: string;
+    successText: string;
+  };
+  questions: Question[];
+  errors: {
+    incomplete: string;
+    ratingError: string;
+    required: string;
+  };
 }
