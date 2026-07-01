@@ -49,6 +49,7 @@ const MultiSelectSet = ({
                 onChange={(e) => setCustomAnswer(e.target.value)}
                 value={customAnswer}
                 ref={inputRef}
+                maxLength={99}
               />
             </div>
           );

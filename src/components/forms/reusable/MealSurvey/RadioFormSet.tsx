@@ -49,7 +49,7 @@ const RadioFormSet = ({
                 onChange={(e) => setCustomAnswer(e.target.value)}
                 value={customAnswer}
                 ref={inputRef}
-                maxLength={100}
+                maxLength={99}
               />
             </div>
           );
