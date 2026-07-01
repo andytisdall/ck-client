@@ -1,31 +1,29 @@
 import { LanguageText } from "../types";
 
-const displayText = {
-  title: "Community Kitchens Client Survey",
-  headerText:
-    "Thank you for completing the Community Kitchens meal survey. Rest assured, your personal data will remain confidential. Your input is invaluable and plays a crucial role in securing funding to provide free meals to the people.",
-  submitText: "Submit",
-  headers: [
-    "Tell Us About Yourself",
-    "Housing and Access",
-    "Health and Diet",
-    "Food Preferences",
-    "Resources",
-    "Meal Feedback",
-  ],
-  requiredText: "* Indicates required question",
-  successHeader: "Your Submission Was Successful!",
-  successText:
-    "Thank you for filling out this survey! We will use your info to improve our free meal program.",
-};
-
 export const English: LanguageText = {
   errors: {
     incomplete: "Please complete all questions before submitting",
     required: "This is a required question",
     ratingError: "Please don't select more than one response per column",
   },
-  displayText,
+  displayText: {
+    title: "Community Kitchens Client Survey",
+    headerText:
+      "Thank you for completing the Community Kitchens meal survey. Rest assured, your personal data will remain confidential. Your input is invaluable and plays a crucial role in securing funding to provide free meals to the people.",
+    submitText: "Submit",
+    headers: [
+      "Tell Us About Yourself",
+      "Housing and Access",
+      "Health and Diet",
+      "Food Preferences",
+      "Resources",
+      "Meal Feedback",
+    ],
+    requiredText: "* Indicates required question",
+    successHeader: "Your Submission Was Successful!",
+    successText:
+      "Thank you for filling out this survey! We will use your info to improve our free meal program.",
+  },
   questions: [
     {
       question: "What age range are you in?",
@@ -47,11 +45,11 @@ export const English: LanguageText = {
     {
       question: "What is your preferred language?",
       options: [
+        "Chinese (Cantonese or Mandarin)",
         "English",
         "Spanish",
-        "Chinese (Cantonese or Mandarin)",
-        "Vietnamese",
         "Tagalog",
+        "Vietnamese",
         "Other:",
       ],
     },
@@ -92,6 +90,7 @@ export const English: LanguageText = {
         "Type I Diabetes",
         "Type II Diabetes",
         "Other",
+        "None",
         "Prefer not to answer",
       ],
     },

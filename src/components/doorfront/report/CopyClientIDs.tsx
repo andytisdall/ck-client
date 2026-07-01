@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 import { useGetMealsQuery } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../../reusable/loading/Loading";
@@ -8,6 +9,8 @@ import "./DoorfrontReport.css";
 const MealsByDay = () => {
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [copiedList, setCopiedList] = useState<string>();
+
+  const navigate = useNavigate();
 
   const { data: meals, isFetching } = useGetMealsQuery({
     startDate: date,
@@ -92,19 +95,22 @@ const MealsByDay = () => {
 
   return (
     <div>
-      <h2>Copy Client IDs by Date & Number of Meals</h2>
-      <label htmlFor="date">Date:</label>
-      <input
-        id="date"
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-      {renderMealsByAmount()}
-      {/* <input value={test} onChange={(e) => setTest(e.target.value)} />
-      <div>{test.split(",").filter((i) => i).length}</div>
-      <input value={test2} onChange={(e) => setTest2(e.target.value)} />
-      <div>{test2.split("").filter((e) => e === "—").length}</div> */}
+      <div className="doorfront-header">
+        <h2>Copy Client IDs by Date & Number of Meals</h2>
+        <button className="cancel" onClick={() => navigate("..")}>
+          Back
+        </button>
+      </div>
+      <div>
+        <label htmlFor="date">Date:</label>
+        <input
+          id="date"
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+        {renderMealsByAmount()}
+      </div>
     </div>
   );
 };

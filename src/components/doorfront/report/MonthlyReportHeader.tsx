@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { format, getDate, getMonth, getYear } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 import { useDebounce } from "../../../hooks/useDebounce";
 import MonthlyReport from "./MonthlyReport";
-import Loading from "../../reusable/loading/Loading";
 
 const MonthlyReportHeader = () => {
   const today = new Date();
@@ -30,6 +30,8 @@ const MonthlyReportHeader = () => {
 
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setStartDate(
@@ -92,7 +94,12 @@ const MonthlyReportHeader = () => {
 
   return (
     <div className="meal-report">
-      <h2>Monthly Report</h2>
+      <div className="doorfront-header">
+        <h2>Monthly Report</h2>
+        <button className="cancel" onClick={() => navigate("..")}>
+          Back
+        </button>
+      </div>
       {monthControls}
       {dayControls}
 

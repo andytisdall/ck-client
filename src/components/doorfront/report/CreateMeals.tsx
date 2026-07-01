@@ -35,8 +35,13 @@ const CreateMeals = () => {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <div className="doorfront-header">
         <h2>Create Meals</h2>
+        <button className="cancel" onClick={() => navigate("..")}>
+          Back
+        </button>
+      </div>
+      <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="clientId">Client ID:</label>
           <input
@@ -67,9 +72,6 @@ const CreateMeals = () => {
         </div>
         {isLoading ? <Loading /> : <input type="submit" />}
       </form>
-      <button className="cancel" onClick={() => navigate("..")}>
-        Back
-      </button>
     </div>
   );
 };

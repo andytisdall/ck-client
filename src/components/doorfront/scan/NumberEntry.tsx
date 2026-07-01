@@ -35,7 +35,7 @@ const NumberEntry = ({
             onClick={close}
             className="doorfront-number-pad-digit doorfront-number-pad-red"
           >
-            x
+            X
           </div>
         );
       }

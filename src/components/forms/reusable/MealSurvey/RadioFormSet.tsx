@@ -16,13 +16,18 @@ const RadioFormSet = ({
   question: Question;
   customAnswer?: string;
   setCustomAnswer?: (answer: string) => void;
-  error?: boolean;
+  error?: string;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const requiredAsterisk = <span className="required">*</span>;
+
   return (
     <div className={`form-item ${error ? "form-error" : ""}`}>
-      <label>{question.question}</label>
+      <label>
+        {question.question}
+        {requiredAsterisk}
+      </label>
       {question.options.map((option, index) => {
         const key = `${name}-${index}`;
         const id = `${name}-${index}`;
@@ -34,9 +39,7 @@ const RadioFormSet = ({
                 value={option}
                 setValue={() => {
                   inputRef.current?.focus();
-                  return setValue(
-                    question.options ? question.options[index] : option,
-                  );
+                  return setValue(index);
                 }}
                 name={name}
                 id={id}
@@ -54,13 +57,14 @@ const RadioFormSet = ({
         return (
           <RadioFormItem
             value={option}
-            setValue={() => setValue(question.options[index])}
+            setValue={() => setValue(index)}
             name={name}
             key={key}
             id={id}
           />
         );
       })}
+      <div className="required">{error}</div>
     </div>
   );
 };

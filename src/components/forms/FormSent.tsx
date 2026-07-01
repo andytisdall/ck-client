@@ -15,9 +15,11 @@ const FormSent = () => {
   useEffect(() => {
     window.scrollTo({ top: 0 });
     if (state?.redirect) {
+      const timeout = process.env.NODE_ENV === "production" ? 5000 : 10;
+
       setTimeout(() => {
         navigate(state.redirect!);
-      }, 5000);
+      }, timeout);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

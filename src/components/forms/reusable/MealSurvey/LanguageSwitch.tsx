@@ -10,6 +10,7 @@ const LanguageSwitch = ({
   return (
     <div className="form-switch">
       <input
+        data-testid="language-btn-english"
         type="radio"
         name="language"
         id="english"
@@ -21,31 +22,13 @@ const LanguageSwitch = ({
       />
       <label
         htmlFor="english"
-        className={
-          language === "English"
-            ? "form-switch-selected-english"
-            : "form-switch-label"
-        }
+        className={language === "English" ? "form-switch-selected" : ""}
       >
         English
       </label>
 
-      {/* <div
-        className={`form-switch-toggle ${
-          language === "Spanish" ? "form-switch-toggled" : ""
-        }`}
-        onClick={() => {
-          if (language === "English") {
-            setLanguage("Spanish");
-          } else {
-            setLanguage("English");
-          }
-        }}
-      >
-        <div className="form-switch-button"></div>
-      </div>
-
       <input
+        data-testid="language-btn-spanish"
         type="radio"
         name="language"
         id="spanish"
@@ -57,14 +40,28 @@ const LanguageSwitch = ({
       />
       <label
         htmlFor="spanish"
-        className={
-          language === "Spanish"
-            ? "form-switch-selected-spanish"
-            : "form-switch-label"
-        }
+        className={language === "Spanish" ? "form-switch-selected" : ""}
       >
         Español
-      </label> */}
+      </label>
+
+      <input
+        data-testid="language-btn-chinese"
+        type="radio"
+        name="language"
+        id="chinese"
+        onChange={(e) => {
+          if (e.target.checked) {
+            setLanguage("Chinese");
+          }
+        }}
+      />
+      <label
+        htmlFor="chinese"
+        className={language === "Chinese" ? "form-switch-selected" : ""}
+      >
+        中文
+      </label>
     </div>
   );
 };

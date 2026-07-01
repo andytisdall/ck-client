@@ -4,24 +4,29 @@ const MultiRadioSet = ({
   value,
   setValue,
   question,
-  errorMsg,
+  columnError,
   error,
 }: {
   value: Record<string, number[]>;
   setValue: (newValue: any) => void;
   question: Question;
-  errorMsg?: string;
-  error?: boolean;
+  columnError: string;
+  error?: string;
 }) => {
   const renderError = () => {
     if (!Object.keys(value).every((key) => value[key].length < 2)) {
-      return errorMsg || "Error";
+      return columnError;
     }
   };
 
+  const requiredAsterisk = <span className="required">*</span>;
+
   return (
     <div className={`form-item ${error ? "form-error" : ""}`}>
-      <label>{question.question}</label>
+      <label>
+        {question.question}
+        {requiredAsterisk}
+      </label>
       <div className="form-matrix">
         <div className="form-matrix-row">
           <div className="form-matrix-col"> </div>
@@ -43,11 +48,14 @@ const MultiRadioSet = ({
                     type="radio"
                     onChange={(e) => {
                       if (e.target.checked) {
-                        const newArray = value[option]
-                          ? [...value[option], number]
+                        const newArray = value[index]
+                          ? [...value[index], number]
                           : [number];
 
-                        const newValue = { ...value, [option]: newArray };
+                        const newValue: Record<string, number[]> = {
+                          ...value,
+                          [index]: newArray,
+                        };
                         const oldOption = Object.keys(value).find((opt) =>
                           value[opt].includes(number),
                         );
@@ -67,6 +75,7 @@ const MultiRadioSet = ({
         ))}
       </div>
       <div className="required">{renderError()}</div>
+      <div className="required">{error}</div>
     </div>
   );
 };

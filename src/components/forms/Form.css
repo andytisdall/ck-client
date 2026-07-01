@@ -47,7 +47,7 @@
 .form-item input[type="tel"] .form-item textarea {
   border: none;
   border-bottom: 1px rgb(176, 176, 176) solid;
-  width: 80%;
+  width: 65%;
 }
 
 .form-item input[type="text"]:focus-visible,
@@ -113,11 +113,13 @@
 
 .required {
   margin-left: 10px;
+  margin-top: 0.5rem;
   color: red;
 }
 
 .form-error {
   background-color: pink;
+  border: red 2px solid;
 }
 
 .required-error {
@@ -227,16 +229,6 @@
   margin-bottom: 2rem;
 }
 
-.form-language-switch {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-language-switch-label {
-  font-weight: 600;
-}
-
 /* The switch - the box around the slider */
 .form-switch {
   margin-top: 2rem;
@@ -244,26 +236,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-}
-
-.form-switch-toggle {
-  background-color: green;
-  height: 30px;
-  width: 60px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  transition: all 0.3s;
-  margin-left: 1.5rem;
-}
-
-.form-switch-button {
-  background-color: white;
-  border-radius: 50px;
-  height: 30px;
-  width: 30px;
-  transition: all 0.3s;
 }
 
 /* Hide default HTML checkbox */
@@ -277,26 +249,14 @@
   margin: 0;
   font-size: 1.2rem;
   font-weight: 800;
+  border: 1px solid grey;
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
-.form-switch-label {
-  color: rgb(80, 80, 80);
-}
-
-.form-switch-toggled {
-  background-color: blue;
-}
-
-.form-switch-toggled .form-switch-button {
-  transform: translateX(30px);
-}
-
-.form-switch-selected-english {
-  color: green;
-}
-
-.form-switch-selected-spanish {
-  color: blue;
+.form-switch-selected {
+  background-color: green;
+  color: white;
 }
 
 .form-bike-headline {
@@ -365,12 +325,6 @@
   cursor: pointer;
 }
 
-@media (max-width: 540px) {
-  .form-bike-headline img {
-    display: none;
-  }
-}
-
 .form-matrix {
   display: grid;
   grid-auto-rows: auto;
@@ -398,5 +352,21 @@
 
 .form-matrix-col {
   width: 2rem !important;
-  font-size: 16px !important;
+  font-size: 13px !important;
+}
+
+@media (max-width: 540px) {
+  .form-bike-headline img {
+    display: none;
+  }
+  .form-matrix-row div {
+    font-size: 10px !important;
+    line-break: anywhere;
+  }
+  .form-matrix-col {
+    width: 0.4rem !important;
+  }
+  .form-item {
+    padding: 1rem;
+  }
 }

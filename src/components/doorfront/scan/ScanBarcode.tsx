@@ -140,16 +140,16 @@ const ScanBarcode = () => {
   };
 
   return (
-    <div className="doorfront-scan-container">
-      <form onSubmit={onSubmit} className="doorfront-scan">
-        <div className="doorfront-content">{renderContent()}</div>
-      </form>
-      {renderMode()}
-      {renderNav()}
-      <div className="doorfront-submit-row">
-        <button className="cancel" onClick={() => navigate("..")}>
-          Cancel
-        </button>
+    <div>
+      <button className="cancel" onClick={() => navigate("..")}>
+        Back
+      </button>
+      <div className="doorfront-scan-container">
+        <form onSubmit={onSubmit} className="doorfront-scan">
+          <div className="doorfront-content">{renderContent()}</div>
+        </form>
+        {renderMode()}
+        {renderNav()}
       </div>
     </div>
   );

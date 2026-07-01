@@ -2,10 +2,12 @@ import { format } from "date-fns";
 import { useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
+import DeleteModal from "../../DeleteModal";
 import "../DoorfrontReport.css";
 import {
   ClientMeal,
   useLazyGetMealsQuery,
+  useDeleteMealMutation,
   useLogMealsMutation,
 } from "../../../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../../../reusable/loading/Loading";
@@ -27,6 +29,10 @@ const MealReport = () => {
   const [getMeals, { data: meals, isFetching }] = useLazyGetMealsQuery();
   const [logMeals, { isLoading }] = useLogMealsMutation();
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const [deleteMeal, { isLoading: deleteIsLoading }] = useDeleteMealMutation();
+
   const navigate = useNavigate();
 
   const checkAllRef = useRef<HTMLInputElement>(null);
@@ -37,6 +43,12 @@ const MealReport = () => {
       endDate,
     });
   }, [getMeals, startDate, endDate]);
+
+  const onDelete = async () => {
+    const promises = mealsToLog.map((id) => deleteMeal(id));
+    await Promise.all(promises);
+    setModalOpen(false);
+  };
 
   const sortedMeals = useMemo(() => {
     if (meals) {
@@ -112,12 +124,13 @@ const MealReport = () => {
 
   return (
     <div className="meal-report">
-      <div className="doorfront-submit-row">
+      <div className="doorfront-header">
+        <h2>Meal Report</h2>
+
         <button className="cancel" onClick={() => navigate("..")}>
           Back
         </button>
       </div>
-      <h2>Meal Report</h2>
       <div>Date Range:</div>
       <div className="meal-reports-dates">
         <input
@@ -169,6 +182,23 @@ const MealReport = () => {
           >
             Log Selected
           </button>
+        )}
+      </div>
+      <div className="doorfront-submit-row">
+        {deleteIsLoading ? (
+          <Loading />
+        ) : (
+          <div className="doorfront-delete-container">
+            <button className="cancel" onClick={() => setModalOpen(true)}>
+              Delete Selected
+            </button>
+            {modalOpen && (
+              <DeleteModal
+                onDelete={onDelete}
+                onCancel={() => setModalOpen(false)}
+              />
+            )}
+          </div>
         )}
       </div>
     </div>

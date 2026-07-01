@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   MonthlyReportResponse,
   useGetMonthlyMealsQuery,
@@ -21,6 +23,8 @@ const MonthlyReport = ({
     endDate,
     sunMonOnly,
   });
+
+  const navigate = useNavigate();
 
   const clients: MonthlyReportResponse = useMemo(() => data || {}, [data]);
   const clientsWithoutUnknown = useMemo(() => {

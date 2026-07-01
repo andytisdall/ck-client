@@ -58,12 +58,13 @@ const ClientReport = () => {
 
   return (
     <div className="meal-report">
-      <div className="doorfront-submit-row">
+      <div className="doorfront-header">
+        <h2>Client Report</h2>
+
         <button className="cancel" onClick={() => navigate("..")}>
           Back
         </button>
       </div>
-      <h2>Client Report</h2>
       <div className="meal-report-row">
         <div
           className="meal-report-col meal-report-header-col"

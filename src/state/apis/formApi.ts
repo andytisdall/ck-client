@@ -42,13 +42,13 @@ interface VolunteerInterestFormArgs {
 }
 
 export interface FavoriteOptions {
-  American?: number[];
-  "Asian Cuisine"?: number[];
-  Barbecue?: number[];
-  Italian?: number[];
-  Mexican?: number[];
-  Sandwiches?: number[];
-  "Southern/ Soul"?: number[];
+  American?: number;
+  "Asian Cuisine"?: number;
+  Barbecue?: number;
+  Italian?: number;
+  Mexican?: number;
+  Sandwiches?: number;
+  "Southern/ Soul"?: number;
 }
 
 interface MealSurveyArgsV2 {
