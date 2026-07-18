@@ -13,7 +13,7 @@ const { English, Chinese, Spanish } = questionsByLanguage;
 describe("meal survey form", () => {
   createServer([
     {
-      path: "/meal-program/survey3",
+      path: "/meal-program/survey",
       res: async (req) => {
         const values = Object.values(req.body);
         let index = -1;

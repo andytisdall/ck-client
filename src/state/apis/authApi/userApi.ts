@@ -83,6 +83,17 @@ export const userApi = api.injectEndpoints({
     testSign: builder.query<null, void>({
       query: () => "/sign/token",
     }),
+
+    getPermissionsSets: builder.query<{ Name: string; Id: string }[], void>({
+      query: () => "/user/salesforce-user-permissions",
+    }),
+    updatePermissionSet: builder.mutation<null, { permissionSetId: string }>({
+      query: (body) => ({
+        url: "/user/salesforce-user-permissions",
+        method: "PATCH",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -97,6 +108,9 @@ export const {
   useResetPasswordMutation,
   useForgotPasswordMutation,
   useLazyTestSignQuery,
+
+  useGetPermissionsSetsQuery,
+  useUpdatePermissionSetMutation,
 } = userApi;
 
 export const optimisticallyUpdateHomeChefAgreement =

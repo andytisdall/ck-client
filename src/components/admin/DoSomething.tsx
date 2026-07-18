@@ -1,10 +1,36 @@
 // import serverCall from 'state'
 import Loading from "../reusable/loading/Loading";
-import { useAddAllToResourcesMutation } from "../../state/apis/textApi";
+import {
+  useGetPermissionsSetsQuery,
+  useUpdatePermissionSetMutation,
+} from "../../state/apis/authApi";
 
 const DoSomething = () => {
-  const [doSomething, { isLoading, isError, data, isSuccess }] =
-    useAddAllToResourcesMutation();
+  const { data: permissionSets } = useGetPermissionsSetsQuery();
+  const [updatePermissionSet, { isLoading, isError, isSuccess }] =
+    useUpdatePermissionSetMutation();
+  const renderPermissionSets = () => {
+    if (permissionSets) {
+      return [...permissionSets]
+        .sort((a, b) => (a.Name > b.Name ? 1 : -1))
+        .map((perm) => {
+          return (
+            <div key={perm.Id}>
+              <button
+                onClick={
+                  () =>
+                    updatePermissionSet({ permissionSetId: perm.Id }).unwrap()
+                  // console.log(perm)
+                }
+              >
+                {perm.Name}
+              </button>
+            </div>
+          );
+        });
+    }
+  };
+
   return (
     <div>
       {isError ? (
@@ -12,9 +38,9 @@ const DoSomething = () => {
       ) : isLoading ? (
         <Loading />
       ) : isSuccess ? (
-        `Users: ${data?.length}`
+        `Updated`
       ) : (
-        <button onClick={() => doSomething().unwrap()}>Do the Thing</button>
+        renderPermissionSets()
       )}
     </div>
   );

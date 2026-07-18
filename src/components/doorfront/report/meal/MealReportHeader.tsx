@@ -25,6 +25,7 @@ const MealReportHeader = ({
   return (
     <div className="meal-report-row">
       {children}
+      <div className="meal-report-checkbox" />
       <div
         className="meal-report-col meal-report-header-col"
         onClick={() => {

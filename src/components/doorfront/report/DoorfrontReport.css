@@ -147,3 +147,13 @@
   margin-bottom: 2rem;
   text-decoration: underline;
 }
+
+.meal-report-delete {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: 700;
+  align-self: center;
+  margin-left: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+}

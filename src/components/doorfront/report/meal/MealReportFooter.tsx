@@ -6,6 +6,7 @@ const MealReportFooter = ({ meals }: { meals: ClientMeal[] }) => {
   return (
     <div className="meal-report-row">
       <div className="meal-report-checkbox"></div>
+      <div className="meal-report-checkbox"></div>
       <div className="meal-report-col">Total Records: {totalRecords}</div>
       <div className="meal-report-col">Total Meals: {totalMeals}</div>
       <div className="meal-report-col"></div>

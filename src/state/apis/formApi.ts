@@ -167,7 +167,6 @@ type SubmitFormArgs =
   | CBOReportArgs
   | VolunteerInterestFormArgs
   | CulinaryTrainingArgs
-  | MealSurveyArgsV2
   | MealSurveyArgsV3
   | SNAPSurveyArgs
   | MealsPlusArgs
@@ -178,8 +177,7 @@ type SubmitFormArgs =
 const urls = {
   VOLUNTEER_INTEREST: "/volunteers/signup",
   CBO_REPORT: "/meal-program/cbo",
-  MEAL_SURVEY_V3: "/meal-program/survey3",
-  MEAL_SURVEY_V2: "/meal-program/survey",
+  MEAL_SURVEY_V3: "/meal-program/survey",
   CULINARY_TRAINING: "/meal-program/workforce-development",
   SNAP_SURVEY: "/meal-program/survey/snap",
   MEALS_PLUS: "/meal-program/meals-plus",

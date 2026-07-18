@@ -1,6 +1,12 @@
-import { ClientMeal } from "../../../../state/apis/mealProgramApi/doorfrontApi";
+import { useState } from "react";
+
+import {
+  ClientMeal,
+  useDeleteMealMutation,
+} from "../../../../state/apis/mealProgramApi/doorfrontApi";
 import { formatMealDate } from "../../doorfrontFunctions";
 import IncorrectId from "./IncorrectId";
+import DeleteModal from "../../DeleteModal";
 
 const MealReportRow = ({
   meal,
@@ -11,8 +17,12 @@ const MealReportRow = ({
   selected: boolean;
   setSelected: (checked: boolean) => void;
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const { client } = meal;
   const dateString = formatMealDate(meal.date);
+
+  const [deleteMeal, { isLoading }] = useDeleteMealMutation();
 
   const renderCheck = () => {
     if (meal.logged) {
@@ -28,10 +38,31 @@ const MealReportRow = ({
       );
     }
   };
+
+  const deleteThisMeal = async () => {
+    await deleteMeal(meal.id).unwrap();
+  };
+
   return (
     <div className="meal-report-row-container">
+      {modalOpen && (
+        <DeleteModal
+          onDelete={deleteThisMeal}
+          onCancel={() => setModalOpen(false)}
+          isLoading={isLoading}
+        />
+      )}
       <div className="meal-report-row">
         <div className="meal-report-checkbox">{renderCheck()}</div>
+        <div className="meal-report-checkbox">
+          <div
+            className="meal-report-delete"
+            onClick={() => setModalOpen(true)}
+          >
+            X
+          </div>
+        </div>
+
         <div className="meal-report-col">{dateString}</div>
         <div className="meal-report-col">{meal.amount}</div>
         <div className="meal-report-col doorfront-barcode-list">
