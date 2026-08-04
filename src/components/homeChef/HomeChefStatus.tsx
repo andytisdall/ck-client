@@ -2,7 +2,9 @@ import { useGetUserInfoQuery } from "../../state/apis/authApi";
 import Status, { Task } from "../reusable/status/Status";
 
 const HomeChefStatus = () => {
-  const { data: userInfo } = useGetUserInfoQuery();
+  const { data: userInfo } = useGetUserInfoQuery(undefined, {
+    pollingInterval: 10000,
+  });
 
   const foodHandler: Task = {
     text: "Obtain a Food Handler certification and upload the certificate",

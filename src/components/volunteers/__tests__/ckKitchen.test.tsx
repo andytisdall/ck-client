@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { format, utcToZonedTime } from "date-fns-tz";
-import { formatISO, addDays, addHours } from "date-fns";
+import { formatISO, addDays, addHours, lastDayOfMonth } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
 import App from "../../../App";
@@ -132,6 +132,14 @@ describe("volunteer not found", () => {
     const calendarBtn = screen.getByText(/calendar/i);
 
     await userEvent.click(calendarBtn);
+
+    if (
+      format(new Date(), "yyyy-MM-dd") ===
+      format(lastDayOfMonth(new Date()), "yyyy-MM-dd")
+    ) {
+      const arrow = await screen.findByText(/→/);
+      await userEvent.click(arrow);
+    }
 
     const jobLink = await screen.findAllByText(
       format(utcToZonedTime(hours.time, "America/Los_Angeles"), "h:mm a"),
@@ -302,8 +310,15 @@ describe("signed up for shift", () => {
 
     const calLink = await screen.findByText(/calendar/i);
     await userEvent.click(calLink);
-    // const arrow = await screen.findByText(/→/);
-    // await userEvent.click(arrow);
+
+    if (
+      format(new Date(), "yyyy-MM-dd") ===
+      format(lastDayOfMonth(new Date()), "yyyy-MM-dd")
+    ) {
+      const arrow = await screen.findByText(/→/);
+      await userEvent.click(arrow);
+    }
+
     const jobLink = await screen.findByText(/✓/);
     expect(jobLink).toBeDefined();
 

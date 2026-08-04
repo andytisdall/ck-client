@@ -78,7 +78,7 @@ export interface CBOReport {
   race: Race;
   individuals: number;
   households: number;
-  zips: Record<ZipCode, number>;
+  zips: Partial<Record<ZipCode, number>>;
   feedback?: string;
   phone?: string;
   email: string;
@@ -110,9 +110,9 @@ export interface Race {
   raceDecline: number;
   raceUnknown: number;
   raceOther: number;
-  raceOtherText: number;
+  raceOtherText: string;
   raceMixed: number;
-  raceMixedText: number;
+  raceMixedText: string;
 }
 
 export interface PerformanceMeasures {

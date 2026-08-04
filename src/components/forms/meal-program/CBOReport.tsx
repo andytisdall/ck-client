@@ -87,9 +87,9 @@ const CBOReport = () => {
       raceDecline: parseInt(raceDecline),
       raceUnknown: parseInt(raceUnknown),
       raceOther: parseInt(raceOther),
-      raceOtherText: parseInt(raceOtherText),
+      raceOtherText,
       raceMixed: parseInt(raceMixed),
-      raceMixedText: parseInt(raceMixedText),
+      raceMixedText,
     };
 
     const performanceMeasures = {
@@ -151,7 +151,12 @@ const CBOReport = () => {
     const zipList = [];
     for (let i = 0; i < numberOfZips; i++) {
       zipList.push(
-        <ZipCodeSelector zips={zips} setZips={setZips} key={"ziplist-" + i} />,
+        <ZipCodeSelector
+          zips={zips}
+          setZips={setZips}
+          testId={"ziplist-" + i}
+          key={"ziplist-" + i}
+        />,
       );
     }
     return zipList;
@@ -185,6 +190,7 @@ const CBOReport = () => {
           id="month"
           value={month}
           onChange={(e) => setMonth(e.target.value)}
+          data-testid="monthselect"
           required
         >
           {monthOptions.map((mo) => {
@@ -282,7 +288,7 @@ const CBOReport = () => {
       </div>
 
       <div className="form-item">
-        <label htmlFor="households">
+        <label htmlFor="individuals">
           # of unduplicated individuals provided food in the month
           <span className="required">*</span>
           <div className="form-label-subheader">
@@ -293,7 +299,7 @@ const CBOReport = () => {
           </div>
         </label>
         <input
-          id="households"
+          id="individuals"
           type="number"
           required
           min={0}
@@ -377,11 +383,11 @@ const CBOReport = () => {
         />
       </div>
       <div className="form-item">
-        <label htmlFor="postcards">
+        <label htmlFor="ssa">
           # prescreened CalFresh applications sent to SSA each month
         </label>
         <input
-          id="postcards"
+          id="ssa"
           type="number"
           min={0}
           value={SSA}
@@ -593,11 +599,13 @@ const CBOReport = () => {
         </div>
         <div>{renderZipInputs()}</div>
       </div>
+
       <div className="form-item">
-        <label>
-          Do you have any feedback about the meals you’ve been receiving?
+        <label htmlFor="feedback">
+          Do you have any feedback about the meals you've been receiving?
         </label>
         <input
+          id="feedback"
           type="text"
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const zipCodeOptions = [
   "94501",
@@ -73,18 +73,22 @@ export const zipCodeOptions = [
 const ZipCodeSelector = ({
   zips,
   setZips,
+  testId,
 }: {
   zips: Record<string, string>;
   setZips: React.Dispatch<React.SetStateAction<{}>>;
+  testId?: string;
 }) => {
   const [zipCode, setZipCode] = useState("");
   const [amount, setAmount] = useState("0");
 
-  const setValues = () => {
+  useEffect(() => {
     if (zipCode) {
       setZips({ ...zips, [zipCode]: amount });
     }
-  };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zipCode, amount]);
 
   return (
     <div>
@@ -92,8 +96,8 @@ const ZipCodeSelector = ({
         value={zipCode}
         onChange={(e) => {
           setZipCode(e.target.value);
-          setValues();
         }}
+        data-testid={testId}
       >
         <option value={undefined}></option>
         {zipCodeOptions.map((z) => {
@@ -112,8 +116,8 @@ const ZipCodeSelector = ({
         type="number"
         onChange={(e) => {
           setAmount(e.target.value);
-          setValues();
         }}
+        data-testid={testId + "-input"}
       />
     </div>
   );
