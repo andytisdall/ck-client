@@ -1,5 +1,8 @@
 import { api } from "../../api";
-import { AddPhoneArgs, GetPhoneNumberResponse } from "./types";
+import {
+  AddPhoneArgs,
+  GetPhoneNumberResponse,
+} from "@community-kitchens/apiinterfaces";
 
 export const phoneApi = api.injectEndpoints({
   endpoints: (builder) => ({

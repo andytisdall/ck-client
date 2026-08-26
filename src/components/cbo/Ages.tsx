@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 
-import { Age } from "../../state/apis/mealProgramApi/cboApi";
+import { Age } from "@community-kitchens/apiinterfaces";
 import { defaultOptions, CBOReportProps } from "./CBO";
 import { sumField, renderValues } from "./reportMethods";
 import Chart from "./Chart";

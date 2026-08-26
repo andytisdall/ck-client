@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import { formatISO, addHours } from "date-fns";
 
-import { Shift } from "../../../state/apis/volunteerApi/types";
+import { VolunteerShift } from "@community-kitchens/apiinterfaces";
 import { formatDate, formatTime } from "../formatDateTime";
 
 const ShiftListItemInfo = ({
@@ -12,7 +12,7 @@ const ShiftListItemInfo = ({
   children,
   driver,
 }: {
-  shift: Shift;
+  shift: VolunteerShift;
   isAvailable: boolean;
   linkUrl: string;
   driver?: boolean;
@@ -24,6 +24,8 @@ const ShiftListItemInfo = ({
     addHours(new Date(shift.startTime), shift.duration),
   );
   const formattedEndTime = formatTime(endTime);
+
+  const volunteersNeeded = shift.slots || (isAvailable ? 1 : 0);
 
   return (
     <Link to={linkUrl}>
@@ -37,7 +39,7 @@ const ShiftListItemInfo = ({
         </div>
         {shift.slots !== null && !driver && (
           <div className={`volunteers-shift-volunteers-needed ${available}`}>
-            {shift.slots} volunteers needed
+            {volunteersNeeded} volunteers needed
           </div>
         )}
         {children}

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import { format } from "date-fns";
 
-import { Shift, Job } from "../../../../state/apis/volunteerApi/types";
+import { VolunteerShift, Job } from "@community-kitchens/apiinterfaces";
 
 const CalendarShift = ({
   shift,
@@ -11,7 +11,7 @@ const CalendarShift = ({
   index,
   children,
 }: {
-  shift: Shift;
+  shift: VolunteerShift;
   job: Job;
   index: number;
   linkUrl?: string;

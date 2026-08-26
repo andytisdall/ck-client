@@ -1,8 +1,8 @@
 import { useState, ChangeEventHandler } from "react";
 import { useDispatch } from "react-redux";
+import { User } from "@community-kitchens/apiinterfaces";
 
 import {
-  User,
   useDeleteUserMutation,
   useGetAllUsersQuery,
 } from "../../../state/apis/authApi";

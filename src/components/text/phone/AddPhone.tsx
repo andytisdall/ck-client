@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Region } from "@community-kitchens/apiinterfaces";
 
 import { setAlert } from "../../../state/apis/slices/alertSlice";
-import { Region, useAddPhoneMutation } from "../../../state/apis/textApi";
+import { useAddPhoneMutation } from "../../../state/apis/textApi";
 import Loading from "../../reusable/loading/Loading";
 
 const AddPhone = () => {

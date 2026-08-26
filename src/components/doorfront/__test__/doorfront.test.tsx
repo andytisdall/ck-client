@@ -3,11 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { subDays, formatISO, getDate, addDays } from "date-fns";
 
 import App from "../../../App";
-import { User } from "../../../state/apis/authApi";
-import {
-  Client,
-  ClientMeal,
-} from "../../../state/apis/mealProgramApi/doorfrontApi";
+import { User, Client, ClientMeal } from "@community-kitchens/apiinterfaces";
 import { createServer } from "../../../test/createServer";
 import { Root } from "../../../test/setupTests";
 

@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import App from "../../../App";
 import { Root } from "../../../test/setupTests";
 import { createServer } from "../../../test/createServer";
-import { User } from "../../../state/apis/authApi";
+import { User } from "@community-kitchens/apiinterfaces";
 
 const user: User = {
   username: "chompy",

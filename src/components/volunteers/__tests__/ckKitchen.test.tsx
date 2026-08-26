@@ -9,10 +9,12 @@ import { Root } from "../../../test/setupTests";
 import {
   VolunteerCampaign,
   Job,
-  Shift,
+  VolunteerShift,
   VolunteerHours,
   Volunteer,
-} from "../../../state/apis/volunteerApi/types";
+  ContactInfo,
+  User,
+} from "@community-kitchens/apiinterfaces";
 
 export const job1: Job = {
   id: "398y",
@@ -26,10 +28,10 @@ export const job1: Job = {
   region: "East Oakland",
 };
 
-export const shift1: Shift = {
+export const shift1: VolunteerShift = {
   id: "4i3ghd",
   startTime: formatISO(addDays(new Date(), 1)),
-  endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
+  // endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
   open: true,
   job: job1.id,
   restaurantMeals: false,
@@ -37,15 +39,16 @@ export const shift1: Shift = {
   slots: 3,
 };
 
-export const shift2: Shift = {
+export const shift2: VolunteerShift = {
   id: "dei8hdew",
   startTime: formatISO(addDays(new Date(), 2)),
-  endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
+  // endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
   open: false,
   job: job1.id,
   restaurantMeals: false,
   duration: 3,
   slots: 0,
+  reservedOpen: true,
 };
 
 job1.shifts = [shift1, shift2];
@@ -69,6 +72,15 @@ export const hours: VolunteerHours = {
   campaign: ckKitchenCampaign.id,
 };
 
+export const hours2: VolunteerHours = {
+  id: "456456",
+  time: shift2.startTime,
+  job: job1.id,
+  status: "Confirmed",
+  shift: shift2.id,
+  campaign: ckKitchenCampaign.id,
+};
+
 export const volunteer1: Volunteer = {
   id: "0037400000FU7XrAAL",
   householdId: "0017400000IG2QzAAL",
@@ -77,6 +89,24 @@ export const volunteer1: Volunteer = {
   name: "Andrew Tisdall",
   volunteerAgreement: true,
   email: "andrew@ck.com",
+};
+
+export const volunteer2: ContactInfo = {
+  firstName: "Andrew",
+  volunteerAgreement: false,
+  calfreshVolunteer: true,
+  lastName: "finkle",
+  homeChefAgreement: false,
+  homeChefQuizPassed: false,
+  foodHandler: false,
+};
+
+export const user: User = {
+  username: "Andy",
+  admin: false,
+  active: false,
+  salesforceId: volunteer1.id,
+  id: "987",
 };
 
 describe("volunteer not found", () => {
@@ -206,7 +236,6 @@ describe("volunteer looked up and found", () => {
       method: "post",
       res: async () => hours,
     },
-    { path: "/sign/config", res: async () => ({ limitReached: false }) },
     { path: "/sign/CKK/:idd/:id", res: async () => {} },
   ]);
 
@@ -279,7 +308,7 @@ describe("signed up for shift", () => {
     const backBtn = await screen.findByText(/back/i);
     await userEvent.click(backBtn);
 
-    const signInLink = await screen.findByText(/see shifts/i);
+    const signInLink = await screen.findByText(/enter email/i);
     await userEvent.click(signInLink);
 
     const email = "andrew@gmail.com";
@@ -328,5 +357,107 @@ describe("signed up for shift", () => {
       "Cancel Your Booked Volunteer Time",
     );
     await userEvent.click(cancelBtn);
+  });
+});
+
+describe("sign up for reserved shift", () => {
+  createServer([
+    { path: "/user", res: async () => user },
+    {
+      path: "/volunteers/campaigns",
+      res: async () => [ckKitchenCampaign, ckDoorCampaign],
+    },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
+
+    { path: "/user/userInfo", res: async () => volunteer2 },
+    {
+      path: "/volunteers/hours/:campaignId/:contactId",
+      res: async () => [],
+    },
+    {
+      path: "/volunteers/hours/:campaignId/",
+      res: async () => [],
+    },
+    {
+      path: "/volunteers/hours/reserved",
+      method: "post",
+      res: async () => hours,
+    },
+    {
+      path: "/volunteers/hour/:hoursId",
+      res: async () => hours,
+    },
+    { path: "/volunteers/driver", res: async () => null },
+  ]);
+
+  test("sign up for reserved shift", async () => {
+    render(<App />, { wrapper: Root });
+
+    const volunteerLinks = await screen.findAllByText("CK Volunteers");
+    await userEvent.click(volunteerLinks[0]);
+
+    const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
+    await userEvent.click(kitchenLink);
+
+    const jobLink = await screen.findByText("1 volunteers needed");
+    expect(jobLink).toBeDefined();
+
+    await userEvent.click(jobLink);
+
+    const confirmSignup = await screen.findByText("Confirm Signup");
+    expect(confirmSignup).toBeInTheDocument();
+  });
+});
+
+describe("denied for reserved shift", () => {
+  createServer([
+    { path: "/user", res: async () => user },
+    {
+      path: "/volunteers/campaigns",
+      res: async () => [ckKitchenCampaign, ckDoorCampaign],
+    },
+    {
+      path: "/volunteers/jobs/:campaignId",
+      res: async () => [job1],
+    },
+
+    {
+      path: "/user/userInfo",
+      res: async () => ({ ...volunteer2, calfreshVolunteer: false }),
+    },
+    {
+      path: "/volunteers/hours/:campaignId/:contactId",
+      res: async () => [],
+    },
+    {
+      path: "/volunteers/hours/:campaignId/",
+      res: async () => [],
+    },
+    {
+      path: "/volunteers/hours/reserved",
+      method: "post",
+      res: async () => hours,
+    },
+    {
+      path: "/volunteers/hour/:hoursId",
+      res: async () => hours,
+    },
+    { path: "/volunteers/driver", res: async () => null },
+  ]);
+
+  test("sign up for reserved shift", async () => {
+    render(<App />, { wrapper: Root });
+
+    const volunteerLinks = await screen.findAllByText("CK Volunteers");
+    await userEvent.click(volunteerLinks[0]);
+
+    const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
+    await userEvent.click(kitchenLink);
+
+    const jobLink = await screen.findByText("0 volunteers needed");
+    expect(jobLink).toBeDefined();
   });
 });

@@ -1,26 +1,15 @@
-import { useSelector } from "react-redux";
 import { utcToZonedTime } from "date-fns-tz";
 import { useMemo } from "react";
 
 import { useGetJobsQuery } from "../../../../state/apis/volunteerApi/jobs";
-import { RootState } from "../../../../state/store";
-import { useGetUserQuery } from "../../../../state/apis/authApi";
 import Loading from "../../../reusable/loading/Loading";
 import JobItem from "./JobItem";
-import { VolunteerCampaign } from "../../../../state/apis/volunteerApi/types";
+import { VolunteerCampaign } from "@community-kitchens/apiinterfaces";
 
 const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   const { data: jobs, isLoading } = useGetJobsQuery({
     campaignId: campaign.id,
   });
-
-  const volunteer = useSelector(
-    (state: RootState) => state.volunteer.volunteer,
-  );
-
-  const { data: user } = useGetUserQuery();
-
-  const contactId = volunteer?.id || user?.salesforceId;
 
   const visibleJobs = useMemo(() => {
     return jobs?.filter((j) => {
@@ -48,7 +37,7 @@ const JobList = ({ campaign }: { campaign: VolunteerCampaign }) => {
   return (
     <div className="volunteers-job-list">
       {visibleJobs.map((j) => {
-        return <JobItem job={j} key={j.id} contactId={contactId} />;
+        return <JobItem job={j} key={j.id} />;
       })}
     </div>
   );

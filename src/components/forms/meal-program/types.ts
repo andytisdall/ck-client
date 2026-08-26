@@ -3,8 +3,6 @@ export interface Question {
   options: string[];
 }
 
-export type Language = "English" | "Spanish" | "Chinese";
-
 export interface LanguageText {
   displayText: {
     title: string;

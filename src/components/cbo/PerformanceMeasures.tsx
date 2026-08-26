@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 
-import { PerformanceMeasures } from "../../state/apis/mealProgramApi/cboApi";
+import { PerformanceMeasures } from "@community-kitchens/apiinterfaces";
 import { defaultOptions, CBOReportProps } from "./CBO";
 import {
   sumField,
@@ -41,7 +41,7 @@ const PerformanceMeasuresComponent = ({ reports }: CBOReportProps) => {
         "SSA",
       ),
       "Percent without Access to Kitchen": Math.round(
-        averageField(reports, "percentWithoutAccess") * 100,
+        averageField(reports, "withoutAccess") * 100,
       ),
     };
   }, [reports]);

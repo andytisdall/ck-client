@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { UploadDocArgs } from "@community-kitchens/apiinterfaces";
 
 import Loading from "../../reusable/loading/Loading";
 import FileInput from "../../reusable/file/FileInput";
-import { UploadDocArgs } from "../../../state/apis/volunteerApi/driver";
 
 const UploadPhoto = ({
   upload,

@@ -1,6 +1,9 @@
 import { api } from "../../../api";
 
-import { SupplyOrder, SupplyOrderInfo } from "./types";
+import {
+  SupplyOrder,
+  SupplyOrderInfo,
+} from "@community-kitchens/apiinterfaces";
 
 export const supplyOrderApi = api.injectEndpoints({
   endpoints: (builder) => ({

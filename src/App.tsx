@@ -33,6 +33,9 @@ const DeleteD4JAccount = lazy(
   () => import("./components/user/DeleteD4JAccount"),
 );
 const ConfirmEmail = lazy(() => import("./components/user/ConfirmEmail"));
+const CocktailContestResults = lazy(
+  () => import("./components/CocktailContestResults"),
+);
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +65,10 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<ResetPassword />),
       },
       { path: "home-chef-app", element: renderWithFallback(<HomeChefApp />) },
+      {
+        path: "cocktail-contest",
+        element: renderWithFallback(<CocktailContestResults />),
+      },
       textRouter,
       adminRouter,
       userRouter,

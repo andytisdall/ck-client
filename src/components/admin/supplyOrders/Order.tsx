@@ -1,13 +1,13 @@
 import { PropsWithChildren } from "react";
 import { format } from "date-fns";
 import { useDispatch } from "react-redux";
+import { SupplyOrder } from "@community-kitchens/apiinterfaces";
 
 import Loading from "../../reusable/loading/Loading";
 import {
   useDeleteSupplyOrderMutation,
   useSendReminderMutation,
 } from "../../../state/apis/volunteerApi/homeChefApi";
-import { SupplyOrder } from "../../../state/apis/volunteerApi/homeChefApi/types";
 import { setAlert } from "../../../state/apis/slices/alertSlice";
 
 const Order = ({

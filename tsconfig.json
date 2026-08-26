@@ -18,5 +18,9 @@
     "rewriteRelativeImportExtensions": true,
     "noUncheckedSideEffectImports": false
   },
-  "include": ["./src/**/*", "setupTests.tsx"]
+  "include": [
+    "./src/**/*",
+    "setupTests.tsx",
+    "../apiInterfaces/homeChef/types.ts"
+  ]
 }

@@ -1,10 +1,10 @@
 import { format } from "date-fns";
 import { useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClientMeal } from "@community-kitchens/apiinterfaces";
 
 import "../DoorfrontReport.css";
 import {
-  ClientMeal,
   useLazyGetMealsQuery,
   useLogMealsMutation,
 } from "../../../../state/apis/mealProgramApi/doorfrontApi";

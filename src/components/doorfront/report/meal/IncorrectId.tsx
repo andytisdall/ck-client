@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Client } from "@community-kitchens/apiinterfaces";
 
-import {
-  Client,
-  useEditClientMutation,
-} from "../../../../state/apis/mealProgramApi/doorfrontApi";
+import { useEditClientMutation } from "../../../../state/apis/mealProgramApi/doorfrontApi";
 
 const IncorrectId = ({ client }: { client: Client }) => {
   const [menuOpen, setMenuOpen] = useState(false);

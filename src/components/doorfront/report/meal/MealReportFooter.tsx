@@ -1,4 +1,4 @@
-import { ClientMeal } from "../../../../state/apis/mealProgramApi/doorfrontApi";
+import { ClientMeal } from "@community-kitchens/apiinterfaces";
 
 const MealReportFooter = ({ meals }: { meals: ClientMeal[] }) => {
   const totalMeals = meals.reduce((prev, cur) => prev + cur.amount, 0);

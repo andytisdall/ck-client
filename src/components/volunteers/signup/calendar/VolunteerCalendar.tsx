@@ -5,11 +5,11 @@ import CalendarShift from "./CalendarShift";
 import Calendar from "../../../reusable/calendar/Calendar";
 import Loading from "../../../reusable/loading/Loading";
 import {
-  Shift,
+  VolunteerShift,
   VolunteerHours,
   VolunteerCampaign,
   DriverJob,
-} from "../../../../state/apis/volunteerApi/types";
+} from "@community-kitchens/apiinterfaces";
 import { useGetHoursQuery } from "../../../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../../../state/apis/volunteerApi/jobs";
 import config from "../../config";
@@ -41,7 +41,7 @@ const KitchenCalendar = ({
     : [];
 
   const shiftsByDate = useMemo(() => {
-    const sortedShifts: Record<string, Shift[]> = {};
+    const sortedShifts: Record<string, VolunteerShift[]> = {};
     if (shifts) {
       Object.values(shifts)
         .filter((shift) => {

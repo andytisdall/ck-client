@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setError } from "../../../state/apis/slices/errorSlice";
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
 import FormHeader from "../reusable/MealSurvey/FormHeader";
-import { Service } from "../../../state/apis/formApi";
+import { Service } from "@community-kitchens/apiinterfaces";
 import Loading from "../../reusable/loading/Loading";
 
 const defaultService: Service = {

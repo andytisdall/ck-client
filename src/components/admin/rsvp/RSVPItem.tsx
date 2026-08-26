@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { RSVP } from "@community-kitchens/apiinterfaces";
 
 import {
-  RSVP,
   useDeleteRSVPMutation,
   useEditRSVPMutation,
 } from "../../../state/apis/formApi";

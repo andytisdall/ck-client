@@ -1,4 +1,4 @@
-import { CBOReport } from "../../state/apis/mealProgramApi/cboApi";
+import { CBOReport } from "@community-kitchens/apiinterfaces";
 
 // export const filterByDate = (
 //   startDate: string,

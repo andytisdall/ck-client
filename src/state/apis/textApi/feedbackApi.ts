@@ -1,7 +1,7 @@
 import _ from "lodash";
+import { Region } from "@community-kitchens/apiinterfaces";
 
 import { api } from "../../api";
-import { Region } from "./types";
 
 export interface FeedbackResponse {
   message: string;

@@ -8,7 +8,7 @@ import TextPreview from "../sendText/TextPreview";
 import "../sendText/SendText.css";
 import { formatNumber } from "../feedback/Feedback";
 import { useSendTextMutation } from "../../../state/apis/textApi";
-import { Region } from "../../../state/apis/textApi";
+import { Region } from "@community-kitchens/apiinterfaces";
 import { useDebounce } from "../../../hooks/useDebounce";
 
 export type ReplyToProps = {

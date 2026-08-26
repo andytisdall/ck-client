@@ -1,27 +1,10 @@
 import { api } from "../../api";
 
-export type CarSize = "Small" | "Medium" | "Large" | "Bike";
-
-export interface DriverInfo {
-  licenseExpiration?: string;
-  insuranceExpiration?: string;
-  volunteerAgreement: boolean;
-  car: CarInfo;
-  driverStatus?: "Active" | "Inactive";
-}
-
-interface CarInfo {
-  size?: CarSize;
-  make?: string;
-  model?: string;
-  year?: string;
-  color?: string;
-}
-
-export interface UploadDocArgs {
-  file: File;
-  date: string;
-}
+import {
+  DriverInfo,
+  UploadDocArgs,
+  CarInfo,
+} from "@community-kitchens/apiinterfaces";
 
 const driverApi = api.injectEndpoints({
   endpoints: (builder) => ({

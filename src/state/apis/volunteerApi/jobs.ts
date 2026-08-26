@@ -1,5 +1,5 @@
 import { api } from "../../api";
-import { DriverJob, Job } from "./types";
+import { DriverJob, Job } from "@community-kitchens/apiinterfaces";
 
 const jobsApi = api.injectEndpoints({
   endpoints: (builder) => ({

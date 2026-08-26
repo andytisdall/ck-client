@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import Loading from "../../reusable/loading/Loading";
 import { setAlert } from "../../../state/apis/slices/alertSlice";
-import { NewAppNotificationArgs } from "../../../state/apis/volunteerApi/homeChefApi/types";
+import { NotificationPayload } from "@community-kitchens/apiinterfaces";
 
 const D4J_SCREENS = {
   Restaurants: {
@@ -25,7 +25,7 @@ const NotificationForm = ({
   onSubmit,
   isLoading,
 }: {
-  onSubmit: (args: NewAppNotificationArgs) => {
+  onSubmit: (args: NotificationPayload) => {
     unwrap: () => Promise<null>;
   };
   isLoading: boolean;
@@ -44,10 +44,12 @@ const NotificationForm = ({
       screen && subScreen ? D4J_SCREENS[screen][subScreen] : undefined;
     onSubmit({
       title,
-      message,
-      screen,
-      subScreen,
-      params: paramsKey ? { [paramsKey]: paramsValue } : undefined,
+      body: message,
+      custom: {
+        screen,
+        subScreen,
+        params: paramsKey ? { [paramsKey]: paramsValue } : undefined,
+      },
     })
       .unwrap()
       .then(() => {

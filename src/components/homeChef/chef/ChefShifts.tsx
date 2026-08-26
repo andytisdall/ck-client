@@ -8,7 +8,7 @@ import {
   useGetShiftsQuery,
   useGetHomeChefHoursQuery,
 } from "../../../state/apis/volunteerApi/homeChefApi";
-import { VolunteerHours } from "../../../state/apis/volunteerApi/types";
+import { VolunteerHours } from "@community-kitchens/apiinterfaces";
 import { useGetUserInfoQuery } from "../../../state/apis/authApi";
 
 const ChefShifts = () => {
@@ -29,7 +29,7 @@ const ChefShifts = () => {
             <div className="chef-hours-date">
               {format(
                 utcToZonedTime(hour.time, "America/Los_Angeles"),
-                "eee, M/d/yy"
+                "eee, M/d/yy",
               )}
             </div>
             <p>{job.name}</p>
@@ -50,7 +50,7 @@ const ChefShifts = () => {
   const sortedHours = useMemo(() => {
     if (hours) {
       return [...Object.values(hours)].sort((a, b) =>
-        a.time > b.time ? 1 : -1
+        a.time > b.time ? 1 : -1,
       );
     }
   }, [hours]);
@@ -61,7 +61,7 @@ const ChefShifts = () => {
         .filter((h) => h.status === "Completed")
         .reduce(
           (total, current) => total + parseInt(current.mealCount || "0"),
-          0
+          0,
         );
     }
   }, [hours]);

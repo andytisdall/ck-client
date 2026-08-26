@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 import VolunteerJob from "./VolunteerJob";
 import Loading from "../../reusable/loading/Loading";
-import { FridgeRegion, Job } from "../../../state/apis/volunteerApi/types";
+import { FridgeRegion, Job } from "@community-kitchens/apiinterfaces";
 import "./VolunteerJob.css";
 
 const VolunteerJobsList = () => {

@@ -3,7 +3,7 @@ import {
   HomeChefQuizAnswer,
   HomeChefQuizResponse,
   HomeChefQuizQuestion,
-} from "./types";
+} from "@community-kitchens/apiinterfaces";
 
 export const quizApi = api.injectEndpoints({
   endpoints: (builder) => ({

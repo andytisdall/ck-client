@@ -11,10 +11,10 @@ import {
 } from "chart.js";
 import { useState, useMemo } from "react";
 import { subMonths, format } from "date-fns";
+import { CBOReport } from "@community-kitchens/apiinterfaces";
 
 import MonthlyReport from "../doorfront/report/MonthlyReport";
 import {
-  CBOReport,
   useGetCBOReportsQuery,
   useEmailReportMutation,
 } from "../../state/apis/mealProgramApi/cboApi";

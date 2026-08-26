@@ -1,5 +1,3 @@
-import { CarSize } from "../../../state/apis/volunteerApi/driver";
-
 const sizeMeasurements: Record<CarSize, string> = {
   Bike: "",
   Small: "2-3 cambros",

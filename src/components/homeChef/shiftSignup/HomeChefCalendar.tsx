@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Loading from "../../reusable/loading/Loading";
 import Calendar from "../../reusable/calendar/Calendar";
-import { Shift } from "../../../state/apis/volunteerApi/types";
+import { Shift } from "@community-kitchens/apiinterfaces";
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 
 const HomeChefCalendar = () => {
@@ -29,7 +29,7 @@ const HomeChefCalendar = () => {
       .forEach((sh) => {
         const formattedTime = format(
           utcToZonedTime(sh.startTime, "America/Los_Angeles"),
-          "yyyy-MM-dd"
+          "yyyy-MM-dd",
         );
         if (orderedByDate[formattedTime]) {
           orderedByDate[formattedTime].push(sh);
@@ -65,7 +65,7 @@ const HomeChefCalendar = () => {
       }
       return dayShifts;
     },
-    [jobs, navigate, orderedShifts]
+    [jobs, navigate, orderedShifts],
   );
 
   if (isLoading) {

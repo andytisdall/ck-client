@@ -1,9 +1,9 @@
 import { useState, FormEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
+import { ZipCode } from "@community-kitchens/apiinterfaces";
 
 import Loading from "../../reusable/loading/Loading";
 import ZipCodeSelector from "../../reusable/form/ZipCodeSelector";
-import { ZipCode } from "../../../state/apis/mealProgramApi/cboApi";
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
 
 const successMessage = "Thank you for providing this information.";
@@ -242,6 +242,7 @@ const CBOReport = () => {
       <div className="form-item">
         <label htmlFor="email">Email</label>
         <input
+          required
           type="email"
           id="email"
           value={email}

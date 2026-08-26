@@ -1,7 +1,10 @@
 import _ from "lodash";
 
 import { api } from "../../api";
-import { MealProgramState, MealProgramScheduleResponse } from "./types";
+import {
+  MealProgramState,
+  MealProgramScheduleResponse,
+} from "@community-kitchens/apiinterfaces";
 
 const mealProgramApi = api.injectEndpoints({
   endpoints: (builder) => ({

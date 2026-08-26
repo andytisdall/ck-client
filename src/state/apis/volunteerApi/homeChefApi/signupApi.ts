@@ -5,8 +5,10 @@ import {
   VolunteerHoursState,
   JobShiftsState,
   SignUpForHomeChefShiftArgs,
-} from "./types";
-import { GetShiftsResponse, VolunteerHours, EditHoursArgs } from "../types";
+  GetShiftsResponse,
+  VolunteerHours,
+  EditHoursArgs,
+} from "@community-kitchens/apiinterfaces";
 
 export const signupApi = api.injectEndpoints({
   endpoints: (builder) => ({

@@ -8,12 +8,13 @@ import App from "../../../App";
 import { Root } from "../../../test/setupTests";
 import {
   VolunteerCampaign,
-  Shift,
+  VolunteerShift,
   VolunteerHours,
   DriverJob,
-} from "../../../state/apis/volunteerApi/types";
-import { ContactInfo, User } from "../../../state/apis/authApi";
-import { DriverInfo } from "../../../state/apis/volunteerApi/driver";
+  ContactInfo,
+  User,
+  DriverInfo,
+} from "@community-kitchens/apiinterfaces";
 import config from "../config";
 
 const userInfo: ContactInfo = {
@@ -57,9 +58,9 @@ const driverJob: DriverJob = {
   distance: 12.2,
 };
 
-const driverShift: Shift = {
+const driverShift: VolunteerShift = {
   startTime: formatISO(addDays(new Date(), 1)),
-  endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
+  // endTime: formatISO(addHours(addDays(new Date(), 1), 3)),
   id: "cidhc",
   open: true,
   job: driverJob.id,

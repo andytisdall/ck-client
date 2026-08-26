@@ -1,47 +1,12 @@
 import { api } from "../../api";
-
-export interface ClientMeal {
-  client: Client | null;
-  date: string;
-  id: string;
-  amount: number;
-  logged: boolean;
-}
-
-type AddMealsArgs =
-  | {
-      meals: number;
-      clientId: string;
-    }
-  | {
-      meals: number;
-      clientId: string;
-      findByCCode: boolean;
-      date: string;
-    };
-
-interface GetClientMealsResponse {
-  clientMeals: ClientMeal[];
-  client: Client;
-}
-
-export interface Client {
-  id: string;
-  cCode?: string;
-  barcode: string[];
-  cCodeIncorrect?: boolean;
-}
-
-export type MonthlyReportResponse = Record<
-  string,
-  { meals: number; visits: number }
-> | null;
-
-interface MonthlyReportArgs {
-  startDate: string;
-  endDate: string;
-  sunMonOnly?: boolean;
-}
+import {
+  GetClientMealsResponse,
+  Client,
+  AddMealsArgs,
+  ClientMeal,
+  MonthlyReportArgs,
+  MonthlyReportResponse,
+} from "@community-kitchens/apiinterfaces";
 
 const doorfrontApi = api.injectEndpoints({
   endpoints: (builder) => ({

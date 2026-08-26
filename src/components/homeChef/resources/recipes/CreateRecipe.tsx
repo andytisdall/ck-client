@@ -9,7 +9,7 @@ import {
 import {
   Recipe,
   RecipeItem,
-} from "../../../../state/apis/volunteerApi/homeChefApi/types";
+} from "../../../../../../apiInterfaces/homeChef/types";
 import "./CreateRecipe.css";
 import Loading from "../../../reusable/loading/Loading";
 import FileInput from "../../../reusable/file/FileInput";

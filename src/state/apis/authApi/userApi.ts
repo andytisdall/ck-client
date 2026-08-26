@@ -7,7 +7,7 @@ import {
   EditUserArgs,
   ContactInfo,
   CreateUserArgs,
-} from "./types";
+} from "@community-kitchens/apiinterfaces";
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({

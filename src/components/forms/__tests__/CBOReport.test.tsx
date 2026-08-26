@@ -6,7 +6,7 @@ import CBOReport from "../meal-program/CBOReport";
 import userEvent from "@testing-library/user-event";
 import { createServer } from "../../../test/createServer";
 import FormSent from "../FormSent";
-import { CBOReport as CBOReportType } from "../../../state/apis/mealProgramApi/cboApi";
+import { CBOReport as CBOReportType } from "@community-kitchens/apiinterfaces";
 
 const CBOReportAnswers: CBOReportType = {
   month: "1",

@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import App from "../../../App";
 import { Root } from "../../../test/setupTests";
-import { User } from "../../../state/apis/authApi";
+import { User } from "@community-kitchens/apiinterfaces";
 import { createServer } from "../../../test/createServer";
 
 const adminUser: User = {

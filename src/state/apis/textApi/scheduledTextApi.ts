@@ -1,27 +1,27 @@
-import { utcToZonedTime, format } from 'date-fns-tz';
+import { utcToZonedTime, format } from "date-fns-tz";
 
-import { api } from '../../api';
+import { api } from "../../api";
 
 import {
   MessageInstance,
   ScheduledTextState,
   TextRecord,
   GetTextRecordsArgs,
-} from './types';
+} from "@community-kitchens/apiinterfaces";
 
 export const scheduledTextApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getScheduledTexts: builder.query<ScheduledTextState, void>({
       query: () => ({
-        url: '/text/scheduled',
+        url: "/text/scheduled",
       }),
-      providesTags: ['ScheduledText'],
+      providesTags: ["ScheduledText"],
       transformResponse: (res: MessageInstance[]) => {
         const state: ScheduledTextState = {};
         res.forEach((message) => {
           const formattedTime = format(
-            utcToZonedTime(message.dateCreated, 'America/Los_Angeles'),
-            'M/d/yy hh:mm'
+            utcToZonedTime(message.dateCreated, "America/Los_Angeles"),
+            "M/d/yy hh:mm",
           );
           const messageKey = formattedTime + message.body;
           if (state[messageKey]) {
@@ -36,16 +36,16 @@ export const scheduledTextApi = api.injectEndpoints({
 
     deleteScheduledText: builder.mutation<null, string[]>({
       query: (body) => ({
-        url: '/text/scheduled/delete',
+        url: "/text/scheduled/delete",
         body: { ids: body },
-        method: 'POST',
+        method: "POST",
       }),
-      invalidatesTags: ['ScheduledText'],
+      invalidatesTags: ["ScheduledText"],
     }),
 
     getTextRecords: builder.query<TextRecord[], GetTextRecordsArgs>({
       query: ({ startDate }) => ({
-        url: '/text/text-records/list/' + startDate,
+        url: "/text/text-records/list/" + startDate,
       }),
     }),
   }),

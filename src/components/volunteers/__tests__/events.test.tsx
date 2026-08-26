@@ -9,10 +9,10 @@ import { Root } from "../../../test/setupTests";
 import {
   VolunteerCampaign,
   Job,
-  Shift,
+  VolunteerShift,
   Volunteer,
   VolunteerHours,
-} from "../../../state/apis/volunteerApi/types";
+} from "@community-kitchens/apiinterfaces";
 
 export const job1: Job = {
   id: "398y",
@@ -26,10 +26,10 @@ export const job1: Job = {
   region: "East Oakland",
 };
 
-export const shift1: Shift = {
+export const shift1: VolunteerShift = {
   id: "383u8e78",
   startTime: formatISO(addDays(new Date(), 1)),
-  endTime: formatISO(addHours(addDays(new Date(), 1), 5)),
+  // endTime: formatISO(addHours(addDays(new Date(), 1), 5)),
   open: true,
   job: job1.id,
   restaurantMeals: false,

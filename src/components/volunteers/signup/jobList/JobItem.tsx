@@ -1,24 +1,26 @@
 import { utcToZonedTime } from "date-fns-tz";
-
+import { useSelector } from "react-redux";
 import { useMemo } from "react";
 
+import { RootState } from "../../../../state/store";
+import { useGetUserQuery } from "../../../../state/apis/authApi";
 import config from "../../config";
 import {
   DriverJob,
   Job,
   VolunteerHours,
-} from "../../../../state/apis/volunteerApi/types";
+} from "@community-kitchens/apiinterfaces";
 import { useGetHoursQuery } from "../../../../state/apis/volunteerApi/volunteerApi";
 import ShiftListItem from "../../shiftList/ShiftListItem";
 import DriverJobInfo from "./DriverJobInfo";
 
-const ShiftList = ({
-  contactId,
-  job,
-}: {
-  contactId?: string;
-  job: Job | DriverJob;
-}) => {
+const ShiftList = ({ job }: { job: Job | DriverJob }) => {
+  const volunteer = useSelector(
+    (state: RootState) => state.volunteer.volunteer,
+  );
+  const { data: user } = useGetUserQuery();
+  const contactId = volunteer?.id || user?.salesforceId;
+
   const { data: hours } = useGetHoursQuery({
     campaignId: job.campaign,
     contactId: contactId || "",
@@ -58,7 +60,6 @@ const ShiftList = ({
           <ShiftListItem
             key={shift.id}
             shift={shift}
-            contactId={contactId}
             bookedHoursId={bookedHours?.id}
             job={job}
           />

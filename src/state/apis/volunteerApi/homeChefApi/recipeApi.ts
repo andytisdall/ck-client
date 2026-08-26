@@ -1,7 +1,12 @@
 import _ from "lodash";
 
 import { api } from "../../../api";
-import { RecipeState, Recipe, CreateRecipeArgs, EditRecipeArgs } from "./types";
+import {
+  RecipeState,
+  Recipe,
+  CreateRecipeArgs,
+  EditRecipeArgs,
+} from "@community-kitchens/apiinterfaces";
 
 const recipeApi = api.injectEndpoints({
   endpoints: (builder) => ({

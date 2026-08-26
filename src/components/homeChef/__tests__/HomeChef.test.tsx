@@ -4,13 +4,14 @@ import { format, utcToZonedTime } from "date-fns-tz";
 import { formatISO, addDays, addHours } from "date-fns";
 
 import { createServer } from "../../../test/createServer";
-import { User, ContactInfo } from "../../../state/apis/authApi";
 import {
-  Shift,
+  User,
+  ContactInfo,
+  VolunteerShift,
   VolunteerHours,
   Campaign,
-} from "../../../state/apis/volunteerApi/types";
-import { HomeChefJob } from "../../../state/apis/volunteerApi/homeChefApi/types";
+  HomeChefJob,
+} from "@community-kitchens/apiinterfaces";
 import App from "../../../App";
 import { Root } from "../../../test/setupTests";
 
@@ -48,10 +49,10 @@ export const job1: HomeChefJob = {
   region: "East Oakland",
 };
 
-export const shift1: Shift = {
+export const shift1: VolunteerShift = {
   id: job1.shifts[0],
   startTime: formatISO(addDays(new Date(), 1)),
-  endTime: formatISO(addHours(addDays(new Date(), 1), 2)),
+  // endTime: formatISO(addHours(addDays(new Date(), 1), 2)),
 
   open: true,
   job: job1.id,
@@ -60,10 +61,10 @@ export const shift1: Shift = {
   slots: 3,
 };
 
-export const shift2: Shift = {
+export const shift2: VolunteerShift = {
   id: job1.shifts[1],
   startTime: formatISO(addDays(new Date(), 2)),
-  endTime: formatISO(addHours(addDays(new Date(), 2), 2)),
+  // endTime: formatISO(addHours(addDays(new Date(), 2), 2)),
   open: true,
   job: job1.id,
   restaurantMeals: false,

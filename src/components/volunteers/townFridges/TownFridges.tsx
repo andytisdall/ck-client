@@ -7,7 +7,7 @@ import FridgeMap from "../../homeChef/fridgeMap/FridgeMap";
 import Loading from "../../reusable/loading/Loading";
 import volunteerCampaignConfig from "../config";
 import Fridge from "./Fridge";
-import { FridgeRegion } from "../../../state/apis/volunteerApi/types";
+import { FridgeRegion } from "@community-kitchens/apiinterfaces";
 
 const REGION_VALUES = {
   "east-oakland": "East Oakland",
@@ -26,7 +26,7 @@ const TownFridges = () => {
       return (
         j.active &&
         j.region &&
-        !j.noText &&
+        !j.noTextAlert &&
         (region ? j.region === REGION_VALUES[region] : true)
       );
     });

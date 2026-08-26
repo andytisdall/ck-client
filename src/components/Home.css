@@ -10,3 +10,14 @@
   width: 300px;
   padding: 10px;
 }
+
+.contest-table {
+  max-width: 20rem;
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.contest-table td {
+  border: 1px solid white;
+  padding: 0.3rem;
+}

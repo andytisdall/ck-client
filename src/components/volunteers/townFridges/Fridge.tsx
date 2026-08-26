@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
 
-import { Job } from "../../../state/apis/volunteerApi/types";
+import { Job } from "@community-kitchens/apiinterfaces";
 
 const Fridge = ({ fridge }: { fridge: Job }) => {
   const locationUrl = useMemo(() => {

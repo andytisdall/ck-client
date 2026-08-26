@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 
-import { Race } from "../../state/apis/mealProgramApi/cboApi";
+import { Race } from "@community-kitchens/apiinterfaces";
 import { CBOReportProps, defaultOptions } from "./CBO";
 import { sumField, renderValues, sortKeys, sortValues } from "./reportMethods";
 import Chart from "./Chart";

@@ -3,7 +3,7 @@ import { utcToZonedTime, format } from "date-fns-tz";
 import { useNavigate } from "react-router-dom";
 
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
-import { Job } from "../../../state/apis/volunteerApi/types";
+import { Job } from "@community-kitchens/apiinterfaces";
 import "./VolunteerJob.css";
 
 const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {

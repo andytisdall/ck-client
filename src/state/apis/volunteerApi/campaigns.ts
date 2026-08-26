@@ -1,5 +1,5 @@
 import { api } from "../../api";
-import { VolunteerCampaign } from "./types";
+import { VolunteerCampaign } from "@community-kitchens/apiinterfaces";
 
 const eventsApi = api.injectEndpoints({
   endpoints: (builder) => ({

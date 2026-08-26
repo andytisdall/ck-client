@@ -2,7 +2,7 @@ import { useGetCampaignsQuery } from "../../state/apis/volunteerApi/campaigns";
 import TextButton from "../reusable/TextButton";
 import EventsList from "./events/EventsList";
 import Loading from "../reusable/loading/Loading";
-import { VolunteerCampaign } from "../../state/apis/volunteerApi/types";
+import { VolunteerCampaign } from "@community-kitchens/apiinterfaces";
 
 const homeChefDescription =
   "A hub for CK Home Chefs to get started in the program, sign up for Town Fridge Deliveries, and access resources like recipes.";

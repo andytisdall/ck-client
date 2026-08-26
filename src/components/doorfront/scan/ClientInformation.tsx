@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Client } from "../../../state/apis/mealProgramApi/doorfrontApi";
+import { Client } from "@community-kitchens/apiinterfaces";
 import { useEditClientMutation } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../../reusable/loading/Loading";
 

@@ -1,9 +1,7 @@
 import { useState } from "react";
+import { ClientMeal } from "@community-kitchens/apiinterfaces";
 
-import {
-  ClientMeal,
-  useDeleteMealMutation,
-} from "../../../../state/apis/mealProgramApi/doorfrontApi";
+import { useDeleteMealMutation } from "../../../../state/apis/mealProgramApi/doorfrontApi";
 import { formatMealDate } from "../../doorfrontFunctions";
 import IncorrectId from "./IncorrectId";
 import DeleteModal from "../../DeleteModal";

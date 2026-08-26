@@ -90,10 +90,14 @@ const CampaignBase = () => {
   const renderSignIn = () => {
     if (!user && !volunteer) {
       return (
-        <div className="volunteers-shift-signup-links">
-          <button onClick={() => setGetContact(true)}>
-            See Shifts You Signed Up For
-          </button>
+        <div className="volunteers-shift-signup-links volunteer-login">
+          <div className="volunteer-calfresh-alert">
+            Enter your email if you are volunteering to fulfill Calfresh work
+            requirements
+          </div>
+          <div>Or to see / edit shifts you've signed up for</div>
+
+          <button onClick={() => setGetContact(true)}>Enter Email</button>
         </div>
       );
     }
@@ -151,6 +155,7 @@ const CampaignBase = () => {
             </NavLink>
           </div>
         )}
+
         {renderSignIn()}
       </div>
     );

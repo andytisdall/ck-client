@@ -1,4 +1,6 @@
-import { Language, LanguageText } from "../types";
+import { Language } from "@community-kitchens/apiinterfaces";
+
+import { LanguageText } from "../types";
 import { English } from "./english";
 import { Spanish } from "./spanish";
 import { Chinese } from "./chinese";

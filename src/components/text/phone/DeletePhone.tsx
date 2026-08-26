@@ -1,13 +1,11 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { GetPhoneNumberResponse } from "@community-kitchens/apiinterfaces";
 
-import SearchPhone from './SearchPhone';
-import Loading from '../../reusable/loading/Loading';
-import {
-  useDeletePhoneMutation,
-  GetPhoneNumberResponse,
-} from '../../../state/apis/textApi';
-import { setAlert } from '../../../state/apis/slices/alertSlice';
+import SearchPhone from "./SearchPhone";
+import Loading from "../../reusable/loading/Loading";
+import { useDeletePhoneMutation } from "../../../state/apis/textApi";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
 
 const DeletePhone = () => {
   const [number, setNumber] = useState<GetPhoneNumberResponse>();
@@ -28,14 +26,14 @@ const DeletePhone = () => {
                     .unwrap()
                     .then(() => {
                       setNumber(undefined);
-                      dispatch(setAlert('Number has been removed'));
+                      dispatch(setAlert("Number has been removed"));
                     });
                 }}
                 className="cancel"
               >
                 Delete this Number
               </button>
-              <button onClick={() => setNumber(undefined)}>Cancel</button>{' '}
+              <button onClick={() => setNumber(undefined)}>Cancel</button>{" "}
             </>
           ) : (
             <Loading />

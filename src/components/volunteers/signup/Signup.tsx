@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { VolunteerCampaign } from "../../../state/apis/volunteerApi/types";
+import { RootState } from "../../../state/store";
+import { useGetUserInfoQuery } from "../../../state/apis/authApi";
+import { VolunteerCampaign } from "@community-kitchens/apiinterfaces";
 import { useSignUpForVolunteerShiftMutation } from "../../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
 import ShiftInfo from "../shiftInfo/ShiftInfo";
@@ -24,6 +27,13 @@ const Signup = ({
   });
   const [signUpForVolunteerShift, { isLoading: submitLoading }] =
     useSignUpForVolunteerShiftMutation();
+  const volunteer = useSelector(
+    (state: RootState) => state.volunteer.volunteer,
+  );
+  const { data: userInfo } = useGetUserInfoQuery();
+
+  const calfreshVolunteer =
+    volunteer?.calfreshVolunteer || userInfo?.calfreshVolunteer;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,6 +42,8 @@ const Signup = ({
   const shift = shiftId ? shifts?.find((sh) => sh.id === shiftId) : undefined;
   const job = shift ? jobs?.find((j) => j.id === shift.job) : undefined;
 
+  const reserved = calfreshVolunteer && shift?.reservedOpen;
+
   const onSubmit = async () => {
     if (shift && job) {
       const hour = await signUpForVolunteerShift({
@@ -39,6 +51,7 @@ const Signup = ({
         jobId: job.id,
         date: shift.startTime,
         contactSalesforceId: contactId,
+        reserved,
       }).unwrap();
 
       dispatch(setAlert("You have successfully signed up for a shift!"));
@@ -65,7 +78,7 @@ const Signup = ({
     return <p>Could not find the requested info.</p>;
   }
 
-  if (!shift.open) {
+  if (!shift.open && !reserved) {
     return <p>This shift is not available for signup</p>;
   }
 

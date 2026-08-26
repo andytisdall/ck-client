@@ -1,14 +1,18 @@
 import { useSelector } from "react-redux";
 
 import { RootState } from "../../../state/store";
-import { DriverJob, Job, Shift } from "../../../state/apis/volunteerApi/types";
+import {
+  DriverJob,
+  Job,
+  VolunteerShift,
+} from "@community-kitchens/apiinterfaces";
 import ShiftInfoField from "./ShiftInfoField";
 import config from "../config";
 import { formatDate, formatTime } from "../formatDateTime";
 import DriverShiftInfo from "./DriverShiftInfo";
 import "./ShiftInfo.css";
 
-const ShiftInfo = ({ job, shift }: { job: Job; shift: Shift }) => {
+const ShiftInfo = ({ job, shift }: { job: Job; shift: VolunteerShift }) => {
   const volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer,
   );

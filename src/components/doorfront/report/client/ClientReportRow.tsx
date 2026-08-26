@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { Client } from "../../../../state/apis/mealProgramApi/doorfrontApi";
+import { Client } from "@community-kitchens/apiinterfaces";
 
 const ClientReportRow = ({ client }: { client: Client }) => {
   const navigate = useNavigate();

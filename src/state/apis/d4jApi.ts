@@ -2,34 +2,11 @@ import { api } from "../api";
 import {
   NewAppNotificationArgs,
   AppNotification,
-} from "./volunteerApi/homeChefApi/types";
-
-interface PrizeDrawingResponse {
-  firstPrize: Winner;
-  secondPrize: Winner;
-  thirdPrize: Winner;
-  numberOfCheckIns: number;
-}
-
-interface Winner {
-  id: string;
-  firstName?: string;
-  lastName: string;
-}
-
-interface EventConfig {
-  contestActive: boolean;
-  styleMonthActive: boolean;
-}
+  EventConfig,
+} from "@community-kitchens/apiinterfaces";
 
 const d4jApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    drawPrize: builder.mutation<PrizeDrawingResponse, void>({
-      query: () => ({
-        url: "/d4j/rewards/prize-drawing",
-        method: "POST",
-      }),
-    }),
     sendD4JNotification: builder.mutation<null, NewAppNotificationArgs>({
       query: (body) => ({
         url: "/d4j/notifications",
@@ -69,7 +46,7 @@ const d4jApi = api.injectEndpoints({
       query: (body) => ({ url: "/d4j/style-week", method: "POST", body }),
       invalidatesTags: ["D4JConfig"],
     }),
-    declareWinner: builder.query<string[], void>({
+    declareWinner: builder.query<Record<string, number>, void>({
       query: () => "/d4j/contest/winner",
     }),
   }),
@@ -78,7 +55,6 @@ const d4jApi = api.injectEndpoints({
 export const {
   useSendD4JNotificationMutation,
   useGetD4JNotificationsQuery,
-  useDrawPrizeMutation,
   useLazyGenerateDeleteAccountCodeQuery,
   useVerifyDeleteAccountCodeMutation,
   useConfirmEmailMutation,

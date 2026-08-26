@@ -327,3 +327,24 @@
   margin: auto;
   flex: 1;
 }
+
+.volunteer-login {
+  flex-direction: column;
+  align-items: center;
+  border: 1px grey solid;
+  padding: 1rem;
+  width: fit-content;
+  justify-self: center;
+  margin-top: 1rem;
+}
+
+.volunteer-calfresh-alert {
+  background-color: yellow;
+  font-weight: 600;
+  padding: 0.2rem;
+}
+
+.volunteer-login * {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

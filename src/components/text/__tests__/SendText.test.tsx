@@ -4,9 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { createServer } from "../../../test/createServer";
 import App from "../../../App";
 import { Root } from "../../../test/setupTests";
-import { User } from "../../../state/apis/authApi";
-import { Job } from "../../../state/apis/volunteerApi/types";
-import { SendTextResponse } from "../../../state/apis/textApi";
+import { Job, User, SendTextResponse } from "@community-kitchens/apiinterfaces";
 
 const user: User = {
   username: "chompy",

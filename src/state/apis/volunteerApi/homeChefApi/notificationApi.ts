@@ -1,9 +1,12 @@
 import { api } from "../../../api";
-import { NewAppNotificationArgs, AppNotification } from "./types";
+import {
+  NotificationPayload,
+  Notification,
+} from "@community-kitchens/apiinterfaces";
 
 export const notificationApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    sendHomeChefNotification: builder.mutation<null, NewAppNotificationArgs>({
+    sendHomeChefNotification: builder.mutation<null, NotificationPayload>({
       query: (body) => ({
         url: "/home-chef/notifications",
         body,
@@ -11,7 +14,7 @@ export const notificationApi = api.injectEndpoints({
       }),
       invalidatesTags: ["PushNotifications"],
     }),
-    getHomeChefNotifications: builder.query<AppNotification[], void>({
+    getHomeChefNotifications: builder.query<Notification[], void>({
       query: () => "/home-chef/notifications/all",
       providesTags: ["PushNotifications"],
     }),

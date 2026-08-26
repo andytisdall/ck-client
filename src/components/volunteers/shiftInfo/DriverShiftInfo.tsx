@@ -2,11 +2,17 @@ import { addHours, formatISO } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import { formatDate, formatTime } from "../formatDateTime";
 
-import { DriverJob, Shift } from "../../../state/apis/volunteerApi/types";
+import { DriverJob, VolunteerShift } from "@community-kitchens/apiinterfaces";
 import ShiftInfoField from "./ShiftInfoField";
 import DriverApp from "../driver/DriverApp";
 
-const DriverShiftInfo = ({ shift, job }: { shift: Shift; job: DriverJob }) => {
+const DriverShiftInfo = ({
+  shift,
+  job,
+}: {
+  shift: VolunteerShift;
+  job: DriverJob;
+}) => {
   const endTime = formatISO(
     addHours(
       utcToZonedTime(shift.startTime, "America/Los_Angeles"),

@@ -1,12 +1,12 @@
 import { api } from "../../api";
 import {
   VolunteerHours,
-  SignUpForVolunteerShiftArgs,
+  CreateVolunteerHoursArgs,
   CancelVolunteerHoursArgs,
   Volunteer,
   CreateVolunteerArgs,
   GetVolunteerHoursArgs,
-} from "./types";
+} from "@community-kitchens/apiinterfaces";
 
 export const volunteerApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,10 +34,10 @@ export const volunteerApi = api.injectEndpoints({
 
     signUpForVolunteerShift: builder.mutation<
       VolunteerHours,
-      SignUpForVolunteerShiftArgs
+      CreateVolunteerHoursArgs
     >({
       query: (body) => ({
-        url: "/volunteers/hours",
+        url: `/volunteers/hours${body.reserved ? "/reserved" : ""}`,
         method: "POST",
         body,
       }),

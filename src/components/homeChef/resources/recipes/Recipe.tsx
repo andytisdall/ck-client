@@ -5,7 +5,7 @@ import {
   useGetRecipesQuery,
   useDeleteRecipeMutation,
 } from "../../../../state/apis/volunteerApi/homeChefApi/recipeApi";
-import { RecipeItem } from "../../../../state/apis/volunteerApi/homeChefApi/types";
+import { RecipeItem } from "../../../../../../apiInterfaces/homeChef/types";
 import { useGetUserQuery } from "../../../../state/apis/authApi";
 import CreateRecipe from "./CreateRecipe";
 import Loading from "../../../reusable/loading/Loading";

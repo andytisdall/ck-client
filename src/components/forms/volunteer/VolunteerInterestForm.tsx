@@ -23,6 +23,7 @@ const InterestForm = () => {
   const [corporate, setCorporate] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
   const [employer, setEmployer] = useState("");
+  const [calfresh, setCalfresh] = useState(false);
 
   const [submitForm, { isLoading }] = useSubmitFormMutation();
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const InterestForm = () => {
         source,
         extraInfo,
         employer,
+        calfresh,
       },
       name: "VOLUNTEER_INTEREST",
     });
@@ -147,6 +149,23 @@ const InterestForm = () => {
             value={instagramHandle}
             onChange={(e) => setInstagramHandle(e.target.value)}
           />
+        </div>
+
+        <div className="form-item">
+          <div className="form-checkbox">
+            <input
+              id="calfresh"
+              type="checkbox"
+              checked={calfresh}
+              onChange={(e) => setCalfresh(e.target.checked)}
+            />
+            <label htmlFor="calfresh">
+              <strong>
+                I am volunteering in order to meet Calfresh certification
+                requirements
+              </strong>
+            </label>
+          </div>
         </div>
 
         <div className="form-item">

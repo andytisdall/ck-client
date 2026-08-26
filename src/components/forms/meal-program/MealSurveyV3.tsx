@@ -1,5 +1,5 @@
 import { FormEventHandler, useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useSubmitFormMutation } from "../../../state/apis/formApi";
@@ -9,10 +9,12 @@ import RadioFormSet from "../reusable/MealSurvey/RadioFormSet";
 import MultiSelectSet from "../reusable/MealSurvey/MultiSelect";
 import LanguageSwitch from "../reusable/MealSurvey/LanguageSwitch";
 import { questionsByLanguage } from "./mealSurveyQuestions/mealSurveyQuestionsV3";
-import { Language } from "./types";
+import { Language } from "@community-kitchens/apiinterfaces";
 import MultiRadioSet from "../reusable/MealSurvey/MultiRadioSet";
 
 const NewMealSurvey = () => {
+  const [queryParams] = useSearchParams();
+
   const [language, setLanguage] = useState<Language>("English");
 
   // About
@@ -121,7 +123,6 @@ const NewMealSurvey = () => {
 
     if (currentlyUnanswered.length) {
       dispatch(setError(errors.incomplete));
-      console.log(currentlyUnanswered);
       return setUnanswered(currentlyUnanswered);
     }
 
@@ -134,6 +135,9 @@ const NewMealSurvey = () => {
       const cuisine = favoriteOptions[parseInt(index)];
       newFavs[cuisine] = favorites[parseInt(index)][0];
     });
+
+    // detect link source from query params
+    const source = queryParams.get("source") || undefined;
 
     await submitForm({
       formData: {
@@ -164,6 +168,7 @@ const NewMealSurvey = () => {
         location: location.map((i) => englishQuestions[16].options[i]),
         locationOther,
         access: englishQuestions[17].options[access!],
+        source,
       },
       name: "MEAL_SURVEY_V3",
     }).unwrap();

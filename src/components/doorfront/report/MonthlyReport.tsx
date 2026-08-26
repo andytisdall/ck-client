@@ -1,10 +1,7 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { MonthlyReportResponse } from "@community-kitchens/apiinterfaces";
 
-import {
-  MonthlyReportResponse,
-  useGetMonthlyMealsQuery,
-} from "../../../state/apis/mealProgramApi/doorfrontApi";
+import { useGetMonthlyMealsQuery } from "../../../state/apis/mealProgramApi/doorfrontApi";
 import Loading from "../../reusable/loading/Loading";
 import "./DoorfrontReport.css";
 
@@ -23,8 +20,6 @@ const MonthlyReport = ({
     endDate,
     sunMonOnly,
   });
-
-  const navigate = useNavigate();
 
   const clients: MonthlyReportResponse = useMemo(() => data || {}, [data]);
   const clientsWithoutUnknown = useMemo(() => {

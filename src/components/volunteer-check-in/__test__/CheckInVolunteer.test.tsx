@@ -6,12 +6,12 @@ import { formatTime } from "../../volunteers/formatDateTime";
 import App from "../../../App";
 import { Root } from "../../../test/setupTests";
 import { createServer } from "../../../test/createServer";
-import { User } from "../../../state/apis/authApi";
 import {
   CheckInShiftsResponse,
   VolunteerForCheckIn,
-} from "../../../state/apis/volunteerApi/checkInApi";
-import { Volunteer } from "../../../state/apis/volunteerApi/types";
+  User,
+  Volunteer,
+} from "@community-kitchens/apiinterfaces";
 
 const adminUser: User = {
   username: "bojee",

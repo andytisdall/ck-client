@@ -1,33 +1,10 @@
 import { api } from "../../api";
-import { VolunteerHours } from "./types";
-
-export interface VolunteerForCheckIn {
-  hoursId: string;
-  contactId: string;
-  firstName?: string;
-  lastName: string;
-  email?: string;
-  volunteerAgreement: boolean;
-  status: string;
-}
-
-interface ShiftForCheckIn {
-  id: string;
-  jobName: string;
-  startTime: string;
-  duration: number;
-}
-
-interface JobForCheckIn {
-  name: string;
-  shifts: string[];
-  id: string;
-}
-
-export type CheckInShiftsResponse = {
-  jobs: Record<string, JobForCheckIn>;
-  shifts: Record<string, ShiftForCheckIn>;
-};
+import {
+  VolunteerHours,
+  CheckInShiftsResponse,
+  VolunteerForCheckIn,
+  CheckInArgs,
+} from "@community-kitchens/apiinterfaces";
 
 const checkInApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -39,10 +16,7 @@ const checkInApi = api.injectEndpoints({
       query: (shiftId) => "/volunteers/check-in/" + shiftId,
       providesTags: ["VolunteerCheckInList"],
     }),
-    checkInVolunteer: builder.mutation<
-      null,
-      { hoursId: string; duration: number }
-    >({
+    checkInVolunteer: builder.mutation<null, CheckInArgs>({
       query: (body) => ({
         url: "/volunteers/check-in",
         method: "POST",

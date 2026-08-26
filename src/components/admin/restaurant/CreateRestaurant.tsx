@@ -1,14 +1,15 @@
-import { useState, FormEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, FormEventHandler } from "react";
+import { useDispatch } from "react-redux";
+import { User } from "@community-kitchens/apiinterfaces";
 
-import { useGetAllUsersQuery, User } from '../../../state/apis/authApi';
-import { useCreateRestaurantMutation } from '../../../state/apis/mealProgramApi/restaurantApi';
-import { setAlert } from '../../../state/apis/slices/alertSlice';
+import { useGetAllUsersQuery } from "../../../state/apis/authApi";
+import { useCreateRestaurantMutation } from "../../../state/apis/mealProgramApi/restaurantApi";
+import { setAlert } from "../../../state/apis/slices/alertSlice";
 
 const CreateRestaurant = () => {
-  const [name, setName] = useState('');
-  const [salesforceId, setSalesforceId] = useState('');
-  const [userId, setUserId] = useState('');
+  const [name, setName] = useState("");
+  const [salesforceId, setSalesforceId] = useState("");
+  const [userId, setUserId] = useState("");
 
   const users = useGetAllUsersQuery().data;
   const [createRestaurant] = useCreateRestaurantMutation();
@@ -18,10 +19,10 @@ const CreateRestaurant = () => {
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     createRestaurant({ name, salesforceId, userId }).then(() => {
-      dispatch(setAlert('Restaurant Created'));
-      setName('');
-      setSalesforceId('');
-      setUserId('');
+      dispatch(setAlert("Restaurant Created"));
+      setName("");
+      setSalesforceId("");
+      setUserId("");
     });
   };
 

@@ -1,5 +1,9 @@
 import { api } from "../../api";
-import { User, SignInResponse, SignInArgs } from "./types";
+import {
+  User,
+  SignInResponse,
+  SignInArgs,
+} from "@community-kitchens/apiinterfaces";
 
 export const loginApi = api.injectEndpoints({
   endpoints: (builder) => ({

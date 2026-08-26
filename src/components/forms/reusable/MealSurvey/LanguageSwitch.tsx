@@ -1,4 +1,4 @@
-import { Language } from "../../meal-program/types";
+import { Language } from "@community-kitchens/apiinterfaces";
 
 const LanguageSwitch = ({
   setLanguage,

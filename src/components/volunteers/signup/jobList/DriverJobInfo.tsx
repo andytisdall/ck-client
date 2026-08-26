@@ -1,4 +1,4 @@
-import { DriverJob } from "../../../../state/apis/volunteerApi/types";
+import { DriverJob } from "@community-kitchens/apiinterfaces";
 
 const DriverJobInfo = ({ job }: { job: DriverJob }) => {
   return (

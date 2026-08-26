@@ -1,31 +1,52 @@
+import { useSelector } from "react-redux";
+
 import config from "../config";
-import { DriverJob, Job, Shift } from "../../../state/apis/volunteerApi/types";
+import {
+  DriverJob,
+  Job,
+  VolunteerShift,
+} from "@community-kitchens/apiinterfaces";
 import ShiftListItemInfo from "./ShiftListItemInfo";
 import { useGetDriverQuery } from "../../../state/apis/volunteerApi/driver";
 import { isCarBigEnough } from "../formatDateTime";
+import {
+  useGetUserInfoQuery,
+  useGetUserQuery,
+} from "../../../state/apis/authApi";
+import { RootState } from "../../../state/store";
 
 const ShiftListItem = ({
   shift,
   bookedHoursId,
-  contactId,
   job,
 }: {
-  shift: Shift;
+  shift: VolunteerShift;
   bookedHoursId?: string;
-  contactId?: string;
   job: Job | DriverJob;
 }) => {
+  const volunteer = useSelector(
+    (state: RootState) => state.volunteer.volunteer,
+  );
+  const { data: user } = useGetUserQuery();
+  const { data: userInfo } = useGetUserInfoQuery();
   const { data: driver } = useGetDriverQuery();
+
+  const calfreshVolunteer =
+    volunteer?.calfreshVolunteer || userInfo?.calfreshVolunteer;
+  const contactId = volunteer?.id || user?.salesforceId;
+
+  const reservedAvailable = calfreshVolunteer && shift.reservedOpen;
+  let isAvailable =
+    shift.open || reservedAvailable || bookedHoursId ? true : false;
+
   let linkUrl = "";
   if (bookedHoursId) {
     linkUrl = `../../../confirm/${contactId}/${bookedHoursId}`;
-  } else if (shift.open) {
+  } else if (isAvailable) {
     linkUrl = "../" + shift.id;
   }
 
   const driverCampaign = job.campaign === config.deliveryDrivers.id;
-
-  let isAvailable = shift.open || bookedHoursId ? true : false;
 
   if (driverCampaign) {
     const carIsBigEnough = isCarBigEnough({

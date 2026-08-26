@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { isCarBigEnough } from "../../formatDateTime";
 import { useGetDriverQuery } from "../../../../state/apis/volunteerApi/driver";
-import { DriverJob, Shift } from "../../../../state/apis/volunteerApi/types";
+import { DriverJob, VolunteerShift } from "@community-kitchens/apiinterfaces";
 import "./DriverCalendar.css";
 
 const DriverCalendarShift = ({
@@ -13,7 +13,7 @@ const DriverCalendarShift = ({
   index,
   job,
 }: {
-  shift: Shift;
+  shift: VolunteerShift;
   linkUrl?: string;
   index: number;
   job: DriverJob;

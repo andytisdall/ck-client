@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { GetPhoneNumberResponse } from "@community-kitchens/apiinterfaces";
 
-import Loading from '../../reusable/loading/Loading';
-import {
-  useLazyGetPhoneNumberQuery,
-  GetPhoneNumberResponse,
-} from '../../../state/apis/textApi';
+import Loading from "../../reusable/loading/Loading";
+import { useLazyGetPhoneNumberQuery } from "../../../state/apis/textApi";
 
 const SearchPhone = ({
   setSearchResult,
@@ -13,7 +11,7 @@ const SearchPhone = ({
     React.SetStateAction<GetPhoneNumberResponse | undefined>
   >;
 }) => {
-  const [number, setNumber] = useState('');
+  const [number, setNumber] = useState("");
   const [notFound, setNotFound] = useState(false);
 
   const [getPhoneNumber, getPhoneNumberResult] = useLazyGetPhoneNumberQuery();
@@ -26,7 +24,7 @@ const SearchPhone = ({
         getPhoneNumber(number).then(({ data }) => {
           if (data) {
             setSearchResult(data);
-            setNumber('');
+            setNumber("");
           } else {
             setNotFound(true);
           }

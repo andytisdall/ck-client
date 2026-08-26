@@ -9,7 +9,7 @@ import Loading from "../../reusable/loading/Loading";
 import {
   VolunteerCampaign,
   VolunteerHours,
-} from "../../../state/apis/volunteerApi/types";
+} from "@community-kitchens/apiinterfaces";
 // import config from "../driver/config";
 
 const Confirmation = ({

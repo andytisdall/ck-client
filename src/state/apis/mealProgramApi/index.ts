@@ -1,3 +1,2 @@
-export * from './types';
-export * from './mealProgramApi';
-export * from './restaurantApi';
+export * from "./mealProgramApi";
+export * from "./restaurantApi";
