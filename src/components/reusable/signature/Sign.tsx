@@ -1,12 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 
+import { DocType } from "@community-kitchens/apiinterfaces";
 import { useGetSigningUrlQuery } from "../../../state/apis/signApi";
 import Loading from "../loading/Loading";
 
 const Sign = () => {
   const { doc, contactId, hoursId } = useParams();
   const { data, isLoading, isError } = useGetSigningUrlQuery({
-    doc,
+    doc: doc as DocType,
     contactId,
     hoursId,
   });
