@@ -20,14 +20,12 @@
 }
 
 .text-button-link {
-  font-weight: 600;
   display: block;
-  background-color: white;
-  padding: 1rem;
+  background-color: #ef9c0e;
+  padding: 0.6rem 0.8rem;
   text-align: center;
   transition: all 0.15s;
   border-radius: 50px;
-  border: 2px solid grey;
   box-sizing: border-box;
   margin-right: 1rem;
   color: black;
@@ -43,13 +41,11 @@
 }
 
 .text-button-link:hover {
-  background-color: rgba(154, 83, 185, 0.958);
-  color: white;
+  background-color: #ffcd71;
 }
 
 .text-button:hover > .text-button-link {
-  background-color: rgba(154, 83, 185, 0.958);
-  color: white;
+  background-color: #ffcd71;
 }
 
 .text-button-description {

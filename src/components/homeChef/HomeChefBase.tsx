@@ -31,7 +31,7 @@ const HomeChef = () => {
   };
 
   return (
-    <div className="main home-chef">
+    <div className="main">
       <Link to="/home-chef">
         <img
           src="/images/home-chef/home-chef-header.png"

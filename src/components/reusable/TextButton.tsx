@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import './TextButton.css';
+import "./TextButton.css";
 
 interface TextButtonProps {
   to: string;

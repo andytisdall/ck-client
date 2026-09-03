@@ -71,10 +71,7 @@ const Home = () => {
   };
 
   return (
-    <div className="home main">
-      <h1>Home</h1>
-      {user ? renderWithUser() : renderNoUser()}
-    </div>
+    <div className="home main">{user ? renderWithUser() : renderNoUser()}</div>
   );
 };
 

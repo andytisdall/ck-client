@@ -2,7 +2,7 @@ nav {
   display: flex;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  background-color: #6b0508;
+  background-color: black;
 }
 
 .nav-btns {

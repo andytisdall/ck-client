@@ -1,8 +1,3 @@
-.admin {
-  background-image: linear-gradient(rgb(79, 22, 79), rgb(0, 0, 0));
-  color: white;
-}
-
 .admin-home {
   display: flex;
   flex-direction: column;
@@ -34,7 +29,7 @@
 
 .alert-box {
   height: 200px;
-  color: black
+  color: black;
 }
 
 .admin-form textarea {
@@ -61,15 +56,15 @@
 .admin-app-name {
   font-size: 2rem;
   color: yellow;
-  margin-left: .5rem;
-  margin-right: .5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .d4j-btn {
   margin-bottom: 2rem;
   color: black;
   font-size: 2rem;
-  padding:1rem;
+  padding: 1rem;
 }
 
 .d4j-item {

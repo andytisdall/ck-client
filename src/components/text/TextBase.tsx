@@ -20,7 +20,7 @@ const Text = () => {
   };
 
   return (
-    <div className="main text-home">
+    <div className="main">
       <h1 className="page-header">Text Service</h1>
       {renderTextBase()}
     </div>

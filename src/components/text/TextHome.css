@@ -1,8 +1,3 @@
-.text-home {
-  background-image: linear-gradient(rgb(21, 114, 65), rgb(11, 28, 8));
-  color: white
-}
-
 .text-main {
   display: flex;
   flex-direction: column;

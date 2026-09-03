@@ -1,15 +1,14 @@
-import { useParams, Link } from 'react-router-dom';
-import { useState, FormEventHandler } from 'react';
-import { useDispatch } from 'react-redux';
+import { useParams, Link } from "react-router-dom";
+import { useState, FormEventHandler } from "react";
+import { useDispatch } from "react-redux";
 
-import { useResetPasswordMutation } from '../../state/apis/authApi';
-import { setError } from '../../state/apis/slices/errorSlice';
-import Loading from '../reusable/loading/Loading';
-import './User.css';
+import { useResetPasswordMutation } from "../../state/apis/authApi";
+import { setError } from "../../state/apis/slices/errorSlice";
+import Loading from "../reusable/loading/Loading";
 
 const ResetPassword = () => {
-  const [password1, setPassword1] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const { token } = useParams();
 
@@ -24,7 +23,7 @@ const ResetPassword = () => {
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (password1 !== password2) {
-      return dispatch(setError('Passwords do not match'));
+      return dispatch(setError("Passwords do not match"));
     }
     resetPassword({ password: password1, token });
   };

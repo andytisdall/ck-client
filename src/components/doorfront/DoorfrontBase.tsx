@@ -17,9 +17,9 @@ const DoorfrontBase = () => {
 
   return (
     <main>
-      <div className="main doorfront-base">
+      <div className="main">
         <Link to="/doorfront">
-          <h1>CK Kitchen Doorfront</h1>
+          <h1 className="page-header">CK Kitchen Doorfront</h1>
         </Link>
         <Outlet />
       </div>
