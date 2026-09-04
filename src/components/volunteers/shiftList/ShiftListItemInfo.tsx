@@ -25,7 +25,14 @@ const ShiftListItemInfo = ({
   );
   const formattedEndTime = formatTime(endTime);
 
-  const volunteersNeeded = shift.slots || (isAvailable ? 1 : 0);
+  const volunteersNeeded =
+    shift.slots && shift.totalSlots
+      ? `${shift.slots}  Volunteers Needed`
+      : isAvailable && shift.totalSlots
+        ? "1 Volunteer Needed"
+        : isAvailable
+          ? "Available for Signup"
+          : "No Signups Available";
 
   return (
     <Link to={linkUrl}>
@@ -39,7 +46,7 @@ const ShiftListItemInfo = ({
         </div>
         {shift.slots !== null && !driver && (
           <div className={`volunteers-shift-volunteers-needed ${available}`}>
-            {volunteersNeeded} volunteers needed
+            {volunteersNeeded}
           </div>
         )}
         {children}

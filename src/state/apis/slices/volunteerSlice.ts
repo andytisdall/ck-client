@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { Volunteer } from "../volunteerApi/types";
+import { Volunteer } from "@community-kitchens/apiinterfaces";
 import { userApi } from "../authApi";
 import { volunteerApi } from "../volunteerApi/volunteerApi";
 
@@ -15,13 +15,13 @@ const volunteerSlice = createSlice({
       volunteerApi.endpoints.getVolunteer.matchFulfilled,
       (state, { payload }) => {
         state.volunteer = payload;
-      }
+      },
     );
     builder.addMatcher(
       volunteerApi.endpoints.createVolunteer.matchFulfilled,
       (state, { payload }) => {
         state.volunteer = payload;
-      }
+      },
     );
     builder.addMatcher(
       userApi.endpoints.getUser.matchFulfilled,
@@ -29,11 +29,11 @@ const volunteerSlice = createSlice({
         if (payload) {
           state.volunteer = null;
         }
-      }
+      },
     );
     builder.addMatcher(
       ({ type }) => type === "volunteer/reset",
-      () => initialState
+      () => initialState,
     );
   },
 });

@@ -14,6 +14,7 @@ const GetVolunteer = () => {
   const [showNameFields, setShowNameFields] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [calfresh, setCalfresh] = useState(false);
 
   const [getVolunteer, getVolunteerResult] = useLazyGetVolunteerQuery();
   const [createVolunteer, createVolunteerResult] = useCreateVolunteerMutation();
@@ -26,7 +27,12 @@ const GetVolunteer = () => {
         setShowNameFields(true);
       }
     } else {
-      await createVolunteer({ email, firstName, lastName }).unwrap();
+      await createVolunteer({
+        email,
+        firstName,
+        lastName,
+        calfreshVolunteer: calfresh,
+      }).unwrap();
     }
   };
 
@@ -58,6 +64,8 @@ const GetVolunteer = () => {
               lastName={lastName}
               setFirstName={setFirstName}
               setLastName={setLastName}
+              calfresh={calfresh}
+              setCalfresh={setCalfresh}
             />
           </>
         ) : (

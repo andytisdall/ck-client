@@ -1,13 +1,17 @@
 const EnterName = ({
   firstName,
   lastName,
+  calfresh,
   setFirstName,
   setLastName,
+  setCalfresh,
 }: {
   firstName: string;
   lastName: string;
-  setFirstName: React.Dispatch<React.SetStateAction<string>>;
-  setLastName: React.Dispatch<React.SetStateAction<string>>;
+  calfresh: boolean;
+  setFirstName: (fn: string) => void;
+  setLastName: (ln: string) => void;
+  setCalfresh: (cf: boolean) => void;
 }) => {
   return (
     <div>
@@ -36,6 +40,18 @@ const EnterName = ({
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
+        </div>
+        <div>
+          <input
+            id="calfresh"
+            type="checkbox"
+            checked={calfresh}
+            onChange={(e) => setCalfresh(e.target.checked)}
+          />
+          <label htmlFor="calfresh">
+            I am volunteering in order to meet Calfresh certification
+            requirements
+          </label>
         </div>
       </div>
     </div>

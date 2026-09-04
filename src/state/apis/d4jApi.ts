@@ -1,13 +1,13 @@
 import { api } from "../api";
 import {
-  NewAppNotificationArgs,
-  AppNotification,
+  NotificationPayload,
+  Notification,
   EventConfig,
 } from "@community-kitchens/apiinterfaces";
 
 const d4jApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    sendD4JNotification: builder.mutation<null, NewAppNotificationArgs>({
+    sendD4JNotification: builder.mutation<null, NotificationPayload>({
       query: (body) => ({
         url: "/d4j/notifications",
         body,
@@ -15,7 +15,7 @@ const d4jApi = api.injectEndpoints({
       }),
       invalidatesTags: ["PushNotifications"],
     }),
-    getD4JNotifications: builder.query<AppNotification[], void>({
+    getD4JNotifications: builder.query<Notification[], void>({
       query: () => "/d4j/notifications",
       providesTags: ["PushNotifications"],
     }),

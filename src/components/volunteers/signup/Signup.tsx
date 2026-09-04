@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 
 import { RootState } from "../../../state/store";
 import { useGetUserInfoQuery } from "../../../state/apis/authApi";
-import { VolunteerCampaign } from "@community-kitchens/apiinterfaces";
+import {
+  Volunteer,
+  VolunteerCampaign,
+} from "@community-kitchens/apiinterfaces";
 import { useSignUpForVolunteerShiftMutation } from "../../../state/apis/volunteerApi/volunteerApi";
 import { useGetJobsQuery } from "../../../state/apis/volunteerApi/jobs";
 import ShiftInfo from "../shiftInfo/ShiftInfo";
@@ -27,7 +30,7 @@ const Signup = ({
   });
   const [signUpForVolunteerShift, { isLoading: submitLoading }] =
     useSignUpForVolunteerShiftMutation();
-  const volunteer = useSelector(
+  const volunteer: Volunteer = useSelector(
     (state: RootState) => state.volunteer.volunteer,
   );
   const { data: userInfo } = useGetUserInfoQuery();

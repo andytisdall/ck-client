@@ -38,7 +38,13 @@ const CalendarShift = ({
         <strong>{job.name}</strong>
       </div>
       <div>{format(new Date(shift.startTime), "h:mm a")}</div>
-      <div>{shift.slots !== null && <>{shift.slots} Spots</>}</div>
+      <div>
+        {shift.totalSlots && shift.slots !== null ? (
+          <>{shift.slots} Spots</>
+        ) : (
+          <></>
+        )}
+      </div>
       <div></div>
       {children}
     </div>

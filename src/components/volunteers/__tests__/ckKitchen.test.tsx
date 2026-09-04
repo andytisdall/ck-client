@@ -48,6 +48,7 @@ export const shift2: VolunteerShift = {
   restaurantMeals: false,
   duration: 3,
   slots: 0,
+  totalSlots: 2,
   reservedOpen: true,
 };
 
@@ -402,7 +403,7 @@ describe("sign up for reserved shift", () => {
     const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
     await userEvent.click(kitchenLink);
 
-    const jobLink = await screen.findByText("1 volunteers needed");
+    const jobLink = await screen.findByText("1 Volunteer Needed");
     expect(jobLink).toBeDefined();
 
     await userEvent.click(jobLink);
@@ -436,11 +437,7 @@ describe("denied for reserved shift", () => {
       path: "/volunteers/hours/:campaignId/",
       res: async () => [],
     },
-    {
-      path: "/volunteers/hours/reserved",
-      method: "post",
-      res: async () => hours,
-    },
+
     {
       path: "/volunteers/hour/:hoursId",
       res: async () => hours,
@@ -457,7 +454,7 @@ describe("denied for reserved shift", () => {
     const kitchenLink = await screen.findByText("CK Kitchen Volunteers");
     await userEvent.click(kitchenLink);
 
-    const jobLink = await screen.findByText("0 volunteers needed");
+    const jobLink = await screen.findByText("No Signups Available");
     expect(jobLink).toBeDefined();
   });
 });
