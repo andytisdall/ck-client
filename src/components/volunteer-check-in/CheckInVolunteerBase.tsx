@@ -15,14 +15,14 @@ const CheckInVolunteerBase = () => {
 
   if (!user?.admin) {
     return (
-      <div className="main check-in">
+      <div className="main">
         <h2>You do not have permission to use this page.</h2>
       </div>
     );
   }
 
   return (
-    <div className="check-in">
+    <div>
       <div className="check-in-header">
         <div className="check-in-header-left">
           <img

@@ -8,6 +8,7 @@ import {
   GetShiftsResponse,
   VolunteerHours,
   EditHoursArgs,
+  CreateVolunteerHoursArgs,
 } from "@community-kitchens/apiinterfaces";
 
 export const signupApi = api.injectEndpoints({
@@ -21,7 +22,7 @@ export const signupApi = api.injectEndpoints({
       providesTags: ["HomeChefShifts"],
     }),
     signUpForHomeChefShift: builder.mutation<
-      VolunteerHours,
+      CreateVolunteerHoursArgs,
       SignUpForHomeChefShiftArgs
     >({
       query: (body) => ({
