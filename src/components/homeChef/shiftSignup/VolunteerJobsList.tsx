@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 import VolunteerJob from "./VolunteerJob";
 import Loading from "../../reusable/loading/Loading";
-import { FridgeRegion, Job } from "@community-kitchens/apiinterfaces";
+import { LowercaseRegion, Job } from "@community-kitchens/apiinterfaces";
 import "./VolunteerJob.css";
 
 const VolunteerJobsList = () => {
@@ -33,7 +33,7 @@ const VolunteerJobsList = () => {
     [validJobs],
   );
 
-  const renderRegion = (region: FridgeRegion) => {
+  const renderRegion = (region: LowercaseRegion) => {
     if (validJobs) {
       return (
         <div className="home-chef-fridges-region" key={region}>

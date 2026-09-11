@@ -2,13 +2,20 @@ import _ from "lodash";
 
 import { api } from "../../../api";
 import {
-  VolunteerHoursState,
-  JobShiftsState,
-  SignUpForHomeChefShiftArgs,
   GetShiftsResponse,
+  CreateVolunteerHoursArgs,
   VolunteerHours,
   EditHoursArgs,
+  VolunteerShift,
+  Job,
 } from "@community-kitchens/apiinterfaces";
+
+export interface JobShiftsState {
+  shifts: Record<string, VolunteerShift>;
+  jobs: Job[];
+}
+
+export type VolunteerHoursState = Record<string, VolunteerHours>;
 
 export const signupApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,7 +29,7 @@ export const signupApi = api.injectEndpoints({
     }),
     signUpForHomeChefShift: builder.mutation<
       VolunteerHours,
-      SignUpForHomeChefShiftArgs
+      CreateVolunteerHoursArgs
     >({
       query: (body) => ({
         url: "/home-chef/hours",

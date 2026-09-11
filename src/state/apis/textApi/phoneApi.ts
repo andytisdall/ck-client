@@ -27,8 +27,17 @@ export const phoneApi = api.injectEndpoints({
       }),
     }),
 
-    addAllToResources: builder.mutation<string[], void>({
-      query: () => ({ method: "POST", url: "/text/migrate" }),
+    getVoicemail: builder.query<
+      { dateCreated: string; mediaUrl: string; sid: string }[],
+      void
+    >({
+      query: () => "/voicemail",
+      providesTags: ["Voicemail"],
+    }),
+
+    deleteVoicemail: builder.mutation<null, string>({
+      query: (id) => ({ method: "DELETE", url: "/voicemail/" + id }),
+      invalidatesTags: ["Voicemail"],
     }),
   }),
 });
@@ -37,5 +46,6 @@ export const {
   useAddPhoneMutation,
   useDeletePhoneMutation,
   useLazyGetPhoneNumberQuery,
-  useAddAllToResourcesMutation,
+  useGetVoicemailQuery,
+  useDeleteVoicemailMutation,
 } = phoneApi;

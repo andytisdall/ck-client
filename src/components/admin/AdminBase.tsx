@@ -1,6 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
+import "./Admin.css";
 
-import { useGetUserQuery } from '../../state/apis/authApi';
+import { useGetUserQuery } from "../../state/apis/authApi";
 
 const AdminBase = () => {
   const user = useGetUserQuery().data;

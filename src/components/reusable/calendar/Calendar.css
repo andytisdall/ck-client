@@ -173,6 +173,20 @@
   color: white;
 }
 
+.calendar-color-15 {
+  background-color: rgb(138, 170, 0);
+}
+
+.calendar-color-16 {
+  background-color: rgb(67, 44, 0);
+  color: white;
+}
+
+.calendar-color-17 {
+  background-color: rgb(67, 0, 58);
+  color: white;
+}
+
 .calendar-set-current {
   font-size: 45%;
 }

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { setError } from "../../../state/apis/slices/errorSlice";
 import Loading from "../../reusable/loading/Loading";
-import { useSubmitFormMutation } from "../../../state/apis/formApi";
+import { useSubmitVolunteerFormMutation } from "../../../state/apis/formApi";
 import VolunteerFormHeader from "./VolunteerFormHeader";
 
 const successMessage =
@@ -24,8 +24,9 @@ const InterestForm = () => {
   const [extraInfo, setExtraInfo] = useState("");
   const [employer, setEmployer] = useState("");
   const [calfresh, setCalfresh] = useState(false);
+  const [pronouns, setPronouns] = useState("");
 
-  const [submitForm, { isLoading }] = useSubmitFormMutation();
+  const [submitForm, { isLoading }] = useSubmitVolunteerFormMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -58,19 +59,17 @@ const InterestForm = () => {
     }
 
     await submitForm({
-      formData: {
-        email,
-        firstName,
-        lastName,
-        phoneNumber,
-        instagramHandle,
-        corporate,
-        source,
-        extraInfo,
-        employer,
-        calfresh,
-      },
-      name: "VOLUNTEER_INTEREST",
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      instagramHandle,
+      corporate,
+      source,
+      extraInfo,
+      employer,
+      calfresh,
+      pronouns,
     });
 
     navigate("/forms/form-sent", { state: { message: successMessage } });
@@ -119,6 +118,17 @@ const InterestForm = () => {
             maxLength={80}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="pronouns">Preferred Pronouns</label>
+          <input
+            id="pronouns"
+            type="text"
+            maxLength={25}
+            value={pronouns}
+            onChange={(e) => setPronouns(e.target.value)}
           />
         </div>
 

@@ -2,11 +2,12 @@ import _ from "lodash";
 
 import { api } from "../../../api";
 import {
-  RecipeState,
   Recipe,
   CreateRecipeArgs,
   EditRecipeArgs,
 } from "@community-kitchens/apiinterfaces";
+
+export type RecipeState = Record<string, Recipe>;
 
 const recipeApi = api.injectEndpoints({
   endpoints: (builder) => ({

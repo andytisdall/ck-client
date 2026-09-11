@@ -1,12 +1,9 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
-import "./Admin.css";
-
 import renderWithFallback from "../reusable/loading/renderWithFallback";
 
 const AdminHome = lazy(() => import("./AdminHome"));
-const Restaurant = lazy(() => import("./restaurant/Restaurant"));
 const User = lazy(() => import("./user/User"));
 const HomeChefNotification = lazy(
   () => import("./notifications/HomeChefNotification"),
@@ -16,8 +13,8 @@ const D4JNotification = lazy(() => import("./notifications/D4JNotification"));
 const NotificationsHome = lazy(
   () => import("./notifications/NotificationsHome"),
 );
-const DoSomething = lazy(() => import("./DoSomething"));
-const RSVPList = lazy(() => import("./rsvp/RSVPList"));
+const CheckVoicemail = lazy(() => import("./CheckVoicemail"));
+// const RSVPList = lazy(() => import("./rsvp/RSVPList"));
 const Orders = lazy(() => import("./supplyOrders/Orders"));
 
 const adminRouter: RouteObject = {
@@ -29,13 +26,12 @@ const adminRouter: RouteObject = {
       element: renderWithFallback(<AdminHome />),
     },
     { path: "user", element: renderWithFallback(<User />) },
-    { path: "restaurant", element: renderWithFallback(<Restaurant />) },
     {
       path: "home-chef-supplies",
       element: renderWithFallback(<Orders />),
     },
-    { path: "action", element: renderWithFallback(<DoSomething />) },
-    { path: "rsvp", element: renderWithFallback(<RSVPList />) },
+    { path: "voicemail", element: renderWithFallback(<CheckVoicemail />) },
+    // { path: "rsvp", element: renderWithFallback(<RSVPList />) },
     {
       path: "notifications",
       children: [

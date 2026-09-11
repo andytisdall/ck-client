@@ -7,11 +7,13 @@ import {
   useSignUpForHomeChefShiftMutation,
 } from "../../../state/apis/volunteerApi/homeChefApi";
 import Loading from "../../reusable/loading/Loading";
+import { useGetUserQuery } from "../../../state/apis/authApi";
 
 const ShiftDetail = () => {
   const [mealCount, setMealCount] = useState("");
   const [soup, setSoup] = useState(false);
 
+  const { data: user } = useGetUserQuery();
   const { data, isLoading } = useGetShiftsQuery();
   const [signUpForShift, signUpForShiftResult] =
     useSignUpForHomeChefShiftMutation();
@@ -24,14 +26,15 @@ const ShiftDetail = () => {
   const navigate = useNavigate();
 
   const onSubmit: FormEventHandler = (e) => {
-    if (job && shift && shiftId) {
+    if (job && shift && shiftId && user) {
       e.preventDefault();
       signUpForShift({
         shiftId,
-        mealCount,
+        mealCount: parseInt(mealCount),
         jobId: job.id,
         date: shift.startTime,
-        soup,
+        mealType: soup ? "Soup" : "Entree",
+        contactId: user.id,
       })
         .unwrap()
         .then((hours) => navigate("/home-chef/signup/confirm/" + hours.id));

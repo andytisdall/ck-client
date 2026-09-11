@@ -21,6 +21,6 @@
   "include": [
     "./src/**/*",
     "setupTests.tsx",
-    "../apiInterfaces/homeChef/types.ts"
+    "../apiInterfaces/homeChef/index.ts"
   ]
 }

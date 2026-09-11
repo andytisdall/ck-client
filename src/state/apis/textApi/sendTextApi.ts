@@ -1,7 +1,7 @@
 import { api } from "../../api";
 import {
   SendTextResponse,
-  SendTextBody,
+  SendTextArgs,
   Job,
 } from "@community-kitchens/apiinterfaces";
 
@@ -17,7 +17,7 @@ export const sendTextApi = api.injectEndpoints({
     getFridges: builder.query<Job[], void>({
       query: () => "/home-chef/fridges",
     }),
-    sendText: builder.mutation<SendTextResponse, SendTextBody>({
+    sendText: builder.mutation<SendTextResponse, SendTextArgs>({
       query: (body) => {
         const postBody = new FormData();
         if (body.message) {

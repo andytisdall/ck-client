@@ -30,7 +30,7 @@ const Signup = ({
   });
   const [signUpForVolunteerShift, { isLoading: submitLoading }] =
     useSignUpForVolunteerShiftMutation();
-  const volunteer: Volunteer = useSelector(
+  const volunteer: Volunteer | null = useSelector(
     (state: RootState) => state.volunteer.volunteer,
   );
   const { data: userInfo } = useGetUserInfoQuery();
@@ -53,7 +53,7 @@ const Signup = ({
         shiftId: shift.id,
         jobId: job.id,
         date: shift.startTime,
-        contactSalesforceId: contactId,
+        contactId,
         reserved,
       }).unwrap();
 

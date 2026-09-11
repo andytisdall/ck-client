@@ -12,12 +12,6 @@ const CBOReport = lazy(() => import("./meal-program/CBOReport"));
 const VolunteerInterestForm = lazy(
   () => import("./volunteer/VolunteerInterestForm"),
 );
-// const MealsPlus = lazy(() => import("./meal-program/MealsPlus"));
-const HomeChefOrientation = lazy(
-  () => import("./volunteer/HomeChefOrientation"),
-);
-
-const BallersRSVP = lazy(() => import("./BallersRSVP"));
 
 const MealSurveyV3 = lazy(() => import("./meal-program/MealSurveyV3"));
 
@@ -43,12 +37,6 @@ const formsRouter: RouteObject = {
       element: renderWithFallback(<CBOReport />),
     },
     { path: "form-sent", element: renderWithFallback(<FormSent />) },
-    // { path: "meals-plus", element: renderWithFallback(<MealsPlus />) },
-    {
-      path: "home-chef-orientation",
-      element: renderWithFallback(<HomeChefOrientation />),
-    },
-    { path: "ballers", element: renderWithFallback(<BallersRSVP />) },
     { path: "meal-survey", element: renderWithFallback(<MealSurveyV3 />) },
   ],
 };

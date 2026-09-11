@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { useCreateManualSupplyOrderMutation } from "../../../state/apis/volunteerApi/homeChefApi";
-import { SupplyOrderInfo } from "../../../../../apiInterfaces/homeChef/types";
+import { SupplyOrderInfo } from "@community-kitchens/apiinterfaces";
 import { setAlert } from "../../../state/apis/slices/alertSlice";
 import Loading from "../../reusable/loading/Loading";
 

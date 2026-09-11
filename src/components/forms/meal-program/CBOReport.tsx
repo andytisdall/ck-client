@@ -4,7 +4,7 @@ import { ZipCode } from "@community-kitchens/apiinterfaces";
 
 import Loading from "../../reusable/loading/Loading";
 import ZipCodeSelector from "../../reusable/form/ZipCodeSelector";
-import { useSubmitFormMutation } from "../../../state/apis/formApi";
+import { useSubmitCboReportMutation } from "../../../state/apis/formApi";
 
 const successMessage = "Thank you for providing this information.";
 
@@ -62,7 +62,7 @@ const CBOReport = () => {
 
   const [mobileOasisSectionOpen, setMobileOasisSectionOpen] = useState(false);
 
-  const [submitForm, { isLoading }] = useSubmitFormMutation();
+  const [submitForm, { isLoading }] = useSubmitCboReportMutation();
 
   const navigate = useNavigate();
 
@@ -103,29 +103,26 @@ const CBOReport = () => {
     };
 
     await submitForm({
-      formData: {
-        month,
-        name,
-        cboName,
-        performanceMeasures,
-        age,
-        race,
-        individuals: parseInt(individuals),
-        households: parseInt(households),
-        zips: zips as Record<ZipCode, number>,
-        feedback,
-        phone,
-        email,
-        year,
-        waters,
-        juices,
-        socks,
-        granolaBars,
-        tortillaChips,
-        extraItem,
-        extraItemAmount,
-      },
-      name: "CBO_REPORT",
+      month,
+      name,
+      cboName,
+      performanceMeasures,
+      age,
+      race,
+      individuals: parseInt(individuals),
+      households: parseInt(households),
+      zips: zips as Record<ZipCode, number>,
+      feedback,
+      phone,
+      email,
+      year,
+      waters,
+      juices,
+      socks,
+      granolaBars,
+      tortillaChips,
+      extraItem,
+      extraItemAmount,
     }).unwrap();
 
     navigate("/forms/form-sent", { state: { message: successMessage } });

@@ -2,7 +2,7 @@ import { FormEventHandler, useState, useEffect } from "react";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { useSubmitFormMutation } from "../../../state/apis/formApi";
+import { useSubmitMealSurveyMutation } from "../../../state/apis/formApi";
 import { setError } from "../../../state/apis/slices/errorSlice";
 import Loading from "../../reusable/loading/Loading";
 import RadioFormSet from "../reusable/MealSurvey/RadioFormSet";
@@ -56,7 +56,7 @@ const NewMealSurvey = () => {
   // Errors
   const [unanswered, setUnanswered] = useState<number[]>([]);
 
-  const [submitForm, { isLoading }] = useSubmitFormMutation();
+  const [submitForm, { isLoading }] = useSubmitMealSurveyMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const url = useLocation();
@@ -140,37 +140,32 @@ const NewMealSurvey = () => {
     const source = queryParams.get("source") || undefined;
 
     await submitForm({
-      formData: {
-        language,
-        age: englishQuestions[0].options[age!],
-        ethnicity: englishQuestions[1].options[ethnicity!],
-        preferredLanguage: englishQuestions[2].options[preferredLanguage!],
-        otherPreferredLanguage,
-        zip,
-        numberOfPeople: englishQuestions[4].options[numberOfPeople!],
-        children: englishQuestions[5].options[children!],
-        homelessness: englishQuestions[6].options[homelessness!],
-        homelessnessOther,
-        cookingItems: cookingItems.map((i) => englishQuestions[7].options[i]),
-        cookingItemsOther,
-        healthConcerns: healthConcerns.map(
-          (i) => englishQuestions[8].options[i],
-        ),
-        dietary: dietary.map((i) => englishQuestions[9].options[i]),
-        dietaryOther,
-        fruit: englishQuestions[10].options[fruit!],
-        favorites: newFavs,
-        calfresh: englishQuestions[12].options[calfresh!],
-        resources: resources.map((i) => englishQuestions[13].options[i]),
-        resourcesOther,
-        rating: englishQuestions[14].options[rating!],
-        skip: englishQuestions[15].options[skip!],
-        location: location.map((i) => englishQuestions[16].options[i]),
-        locationOther,
-        access: englishQuestions[17].options[access!],
-        source,
-      },
-      name: "MEAL_SURVEY_V3",
+      language,
+      age: englishQuestions[0].options[age!],
+      ethnicity: englishQuestions[1].options[ethnicity!],
+      preferredLanguage: englishQuestions[2].options[preferredLanguage!],
+      otherPreferredLanguage,
+      zip,
+      numberOfPeople: englishQuestions[4].options[numberOfPeople!],
+      children: englishQuestions[5].options[children!],
+      homelessness: englishQuestions[6].options[homelessness!],
+      homelessnessOther,
+      cookingItems: cookingItems.map((i) => englishQuestions[7].options[i]),
+      cookingItemsOther,
+      healthConcerns: healthConcerns.map((i) => englishQuestions[8].options[i]),
+      dietary: dietary.map((i) => englishQuestions[9].options[i]),
+      dietaryOther,
+      fruit: englishQuestions[10].options[fruit!],
+      favorites: newFavs,
+      calfresh: englishQuestions[12].options[calfresh!],
+      resources: resources.map((i) => englishQuestions[13].options[i]),
+      resourcesOther,
+      rating: englishQuestions[14].options[rating!],
+      skip: englishQuestions[15].options[skip!],
+      location: location.map((i) => englishQuestions[16].options[i]),
+      locationOther,
+      access: englishQuestions[17].options[access!],
+      source,
     }).unwrap();
 
     navigate("/forms/form-sent", {
