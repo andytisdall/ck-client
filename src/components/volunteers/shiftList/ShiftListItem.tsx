@@ -37,7 +37,9 @@ const ShiftListItem = ({
 
   const reservedAvailable = calfreshVolunteer && shift.reservedOpen;
   let isAvailable =
-    shift.open || reservedAvailable || bookedHoursId ? true : false;
+    shift.open || (reservedAvailable && shift.totalSlots !== 0) || bookedHoursId
+      ? true
+      : false;
 
   let linkUrl = "";
   if (bookedHoursId) {

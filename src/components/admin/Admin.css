@@ -76,15 +76,21 @@
   margin-bottom: 1rem;
 }
 
+.voicemail {
+  max-width: 500px;
+}
+
 .voicemail-item {
   display: flex;
   align-items: center;
-  width: 100%;
   margin-bottom: 1rem;
+  padding-top: 1rem;
+  border-top: white 1px solid;
+  position: relative;
 }
 
-.voicemail audio {
-  width: 60%;
+.voicemail-info {
+  width: 35%;
 }
 
 .voicemail-item div {
@@ -97,4 +103,14 @@
   font-size: 1.5rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.voicemail-delete-modal {
+  background-color: white;
+  position: absolute;
+  z-index: 10;
+  color: black;
+  text-align: center;
+  padding: 0 1rem 1rem 1rem;
+  right: 0;
 }

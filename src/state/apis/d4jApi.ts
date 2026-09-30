@@ -32,9 +32,7 @@ const d4jApi = api.injectEndpoints({
         body,
       }),
     }),
-    confirmEmail: builder.mutation<null, { code: string }>({
-      query: (body) => ({ url: "/d4j/confirm-email", method: "POST", body }),
-    }),
+
     deleteAndy: builder.query<null, void>({
       query: () => "/d4j/delete-andy",
     }),
@@ -42,7 +40,7 @@ const d4jApi = api.injectEndpoints({
       query: () => "/d4j/style-week",
       providesTags: ["D4JConfig"],
     }),
-    setStyleWeekActive: builder.mutation<null, EventConfig>({
+    setStyleWeekActive: builder.mutation<null, { active: boolean }>({
       query: (body) => ({ url: "/d4j/style-week", method: "POST", body }),
       invalidatesTags: ["D4JConfig"],
     }),
@@ -57,7 +55,6 @@ export const {
   useGetD4JNotificationsQuery,
   useLazyGenerateDeleteAccountCodeQuery,
   useVerifyDeleteAccountCodeMutation,
-  useConfirmEmailMutation,
   useLazyDeleteAndyQuery,
   useGetStyleWeekActiveQuery,
   useSetStyleWeekActiveMutation,

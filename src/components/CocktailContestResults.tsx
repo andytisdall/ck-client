@@ -4,7 +4,9 @@ import Loading from "./reusable/loading/Loading";
 import "./Home.css";
 
 const CocktailContestResults = () => {
-  const { data, isLoading } = useDeclareWinnerQuery();
+  const { data, isLoading } = useDeclareWinnerQuery(undefined, {
+    pollingInterval: 60 * 1000 * 2,
+  });
 
   const sortedTotals = data
     ? Object.keys(data)
@@ -23,18 +25,28 @@ const CocktailContestResults = () => {
       <table className="contest-table">
         <tr>
           <td>
+            <strong>Place</strong>
+          </td>
+          <td>
             <strong>Bar</strong>
           </td>
           <td>
             <strong>Votes</strong>
           </td>
         </tr>
-        {sortedTotals?.map((bar) => (
-          <tr>
-            <td>{bar[0]}</td>
-            <td>{bar[1]}</td>
-          </tr>
-        ))}
+        {sortedTotals?.map((bar, i) => {
+          let style = "";
+          if (i === 0) {
+            style = "contest-winner";
+          }
+          return (
+            <tr className={style}>
+              <td>{i + 1}</td>
+              <td>{bar[0]}</td>
+              <td>{bar[1]}</td>
+            </tr>
+          );
+        })}
       </table>
     );
   };

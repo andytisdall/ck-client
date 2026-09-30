@@ -2,6 +2,7 @@ import { api } from "../../api";
 import {
   AddPhoneArgs,
   GetPhoneNumberResponse,
+  GetVoicemailResponse,
 } from "@community-kitchens/apiinterfaces";
 
 export const phoneApi = api.injectEndpoints({
@@ -27,10 +28,7 @@ export const phoneApi = api.injectEndpoints({
       }),
     }),
 
-    getVoicemail: builder.query<
-      { dateCreated: string; mediaUrl: string; sid: string }[],
-      void
-    >({
+    getVoicemail: builder.query<GetVoicemailResponse, void>({
       query: () => "/voicemail",
       providesTags: ["Voicemail"],
     }),

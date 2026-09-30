@@ -32,7 +32,6 @@ const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const DeleteD4JAccount = lazy(
   () => import("./components/user/DeleteD4JAccount"),
 );
-const ConfirmEmail = lazy(() => import("./components/user/ConfirmEmail"));
 const CocktailContestResults = lazy(
   () => import("./components/CocktailContestResults"),
 );
@@ -56,10 +55,7 @@ export const router = createBrowserRouter([
         path: "delete-data/:email",
         element: renderWithFallback(<DeleteD4JAccount />),
       },
-      {
-        path: "d4japp/account/confirm/:code",
-        element: renderWithFallback(<ConfirmEmail />),
-      },
+
       {
         path: "reset-password/:token",
         element: renderWithFallback(<ResetPassword />),
