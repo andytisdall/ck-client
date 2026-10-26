@@ -16,7 +16,7 @@ const NotificationsHome = lazy(
 const CheckVoicemail = lazy(() => import("./CheckVoicemail"));
 // const RSVPList = lazy(() => import("./rsvp/RSVPList"));
 const Orders = lazy(() => import("./supplyOrders/Orders"));
-const Style = lazy(() => import("./StyleWeek"));
+// const CampaignMembers = lazy(() => import("./CampaignMembers"));
 
 const adminRouter: RouteObject = {
   path: "admin",
@@ -32,7 +32,7 @@ const adminRouter: RouteObject = {
       element: renderWithFallback(<Orders />),
     },
     { path: "voicemail", element: renderWithFallback(<CheckVoicemail />) },
-    { path: "style", element: renderWithFallback(<Style />) },
+
     {
       path: "notifications",
       children: [

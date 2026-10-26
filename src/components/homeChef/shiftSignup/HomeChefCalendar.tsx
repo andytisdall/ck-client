@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Loading from "../../reusable/loading/Loading";
 import Calendar from "../../reusable/calendar/Calendar";
-import { Shift } from "@community-kitchens/apiinterfaces";
+import { VolunteerShift } from "@community-kitchens/apiinterfaces";
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 
 const HomeChefCalendar = () => {
@@ -15,7 +15,7 @@ const HomeChefCalendar = () => {
   const jobs = data?.jobs;
 
   const orderedShifts = useMemo(() => {
-    const orderedByDate: Record<string, Shift[]> = {};
+    const orderedByDate: Record<string, VolunteerShift[]> = {};
 
     if (!shifts || !jobs) {
       return orderedByDate;

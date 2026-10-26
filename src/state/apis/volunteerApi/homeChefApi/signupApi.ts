@@ -29,7 +29,7 @@ export const signupApi = api.injectEndpoints({
     }),
     signUpForHomeChefShift: builder.mutation<
       VolunteerHours,
-      CreateVolunteerHoursArgs
+      Required<Omit<CreateVolunteerHoursArgs, "reserved" | "restaurantMeals">>
     >({
       query: (body) => ({
         url: "/home-chef/hours",

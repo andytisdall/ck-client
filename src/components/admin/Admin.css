@@ -77,7 +77,12 @@
 }
 
 .voicemail {
-  max-width: 500px;
+  max-width: 1000px;
+}
+
+.voicemail-item audio {
+  width: 50%;
+  max-width: 700px;
 }
 
 .voicemail-item {
@@ -91,6 +96,18 @@
 
 .voicemail-info {
   width: 35%;
+}
+
+@media (max-width: 500px) {
+  .voicemail-item {
+    flex-direction: column;
+  }
+
+  .voicemail-item > * {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .voicemail-item div {
@@ -113,4 +130,8 @@
   text-align: center;
   padding: 0 1rem 1rem 1rem;
   right: 0;
+}
+
+.voicemail-highlight {
+  color: yellow;
 }

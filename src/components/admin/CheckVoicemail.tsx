@@ -6,14 +6,12 @@ import {
   useGetVoicemailQuery,
   useDeleteVoicemailMutation,
 } from "../../state/apis/textApi";
-import { useGetAllUsersQuery } from "../../state/apis/authApi";
 
 const CheckVoicemail = () => {
   const [modalOpen, setModalOpen] = useState("");
   const { data: voicemail, isFetching } = useGetVoicemailQuery(undefined, {
     pollingInterval: 1000 * 60 * 5,
   });
-  const { data: allUsers } = useGetAllUsersQuery();
 
   const [deleteVoicemail, { isLoading: deleteLoading }] =
     useDeleteVoicemailMutation();
@@ -23,14 +21,20 @@ const CheckVoicemail = () => {
   }
 
   const userVmIds = voicemail?.userVms?.map((vm) => vm.recordingId);
+
   const renderUser = (vmId: string) => {
-    if (userVmIds?.includes(vmId) && allUsers) {
-      const userId = voicemail?.userVms?.find(
+    if (userVmIds?.includes(vmId)) {
+      const username = voicemail?.userVms?.find(
         (uvm) => uvm.recordingId === vmId,
       )?.user;
-      if (userId) {
-        return <div>For: {allUsers[userId].username}</div>;
-      }
+      return (
+        <div>
+          For:{" "}
+          <span className="voicemail-highlight">
+            {username || "Jaynemarie Angbah"}
+          </span>
+        </div>
+      );
     } else {
       return <div>General Inbox</div>;
     }
@@ -51,6 +55,17 @@ const CheckVoicemail = () => {
     );
   };
 
+  const formatPhoneNumber = (number: string) => {
+    return (
+      <div>
+        From:{" "}
+        <span className="voicemail-highlight">
+          ({number.slice(0, 3)}) {number.slice(3, 6)}-{number.slice(6)}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <ul className="voicemail">
       <h3>Voicemail</h3>
@@ -60,6 +75,7 @@ const CheckVoicemail = () => {
           <div className="voicemail-info">
             <div>{format(new Date(vm.dateCreated), "M/d/yy h:mm a")}</div>
             {renderUser(vm.sid)}
+            {!!vm.from && <div>{formatPhoneNumber(vm.from)}</div>}
           </div>
           <audio src={vm.mediaUrl} controls />
           <div

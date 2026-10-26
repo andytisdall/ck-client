@@ -27,7 +27,7 @@ export const English: LanguageText = {
   questions: [
     {
       question: "What age range are you in?",
-      options: ["0-17", "18-26", "27-49", "50-59", "60-65", "70-75", "75+"],
+      options: ["0-17", "18-26", "27-49", "50-59", "60-69", "70-75", "75+"],
     },
     {
       question: "What is your race and/or ethnicity?",

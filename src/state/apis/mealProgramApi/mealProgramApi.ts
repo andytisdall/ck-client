@@ -7,7 +7,11 @@ const mealProgramApi = api.injectEndpoints({
     getTotalMeals: builder.query<{ total: number }, void>({
       query: () => "/meal-program/campaign",
     }),
+    deleteCampaignMembers: builder.query<null, void>({
+      query: () => "/meal-program/campaign-members",
+    }),
   }),
 });
 
-export const { useGetTotalMealsQuery } = mealProgramApi;
+export const { useGetTotalMealsQuery, useDeleteCampaignMembersQuery } =
+  mealProgramApi;

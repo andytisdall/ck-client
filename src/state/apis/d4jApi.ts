@@ -36,14 +36,7 @@ const d4jApi = api.injectEndpoints({
     deleteAndy: builder.query<null, void>({
       query: () => "/d4j/delete-andy",
     }),
-    getStyleWeekActive: builder.query<EventConfig, void>({
-      query: () => "/d4j/style-week",
-      providesTags: ["D4JConfig"],
-    }),
-    setStyleWeekActive: builder.mutation<null, { active: boolean }>({
-      query: (body) => ({ url: "/d4j/style-week", method: "POST", body }),
-      invalidatesTags: ["D4JConfig"],
-    }),
+
     declareWinner: builder.query<Record<string, number>, void>({
       query: () => "/d4j/contest/winner",
     }),
@@ -56,7 +49,5 @@ export const {
   useLazyGenerateDeleteAccountCodeQuery,
   useVerifyDeleteAccountCodeMutation,
   useLazyDeleteAndyQuery,
-  useGetStyleWeekActiveQuery,
-  useSetStyleWeekActiveMutation,
   useDeclareWinnerQuery,
 } = d4jApi;

@@ -32,7 +32,7 @@ export const Spanish: LanguageText = {
         "De 18 a 26",
         "De 27a 49",
         "De 50 a 59",
-        "De 60 a 65",
+        "De 60 a 69",
         "De 70 a 75",
         "Más de 75",
       ],
