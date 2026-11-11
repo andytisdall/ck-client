@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetShiftsQuery } from "../../../state/apis/volunteerApi/homeChefApi";
 import { Job } from "@community-kitchens/apiinterfaces";
 import "./VolunteerJob.css";
+import FridgeNotes from "./FridgeNotes";
 
 const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
   const [expand, setExpand] = useState(open);
@@ -76,7 +77,9 @@ const VolunteerJob = ({ job, open }: { job: Job; open?: boolean }) => {
       <div className={`shift-list ${expanded ? "" : "closed"}`}>
         {expand && job.notes && (
           <div className="job-notes">
-            <p>{job.notes}</p>
+            <p>
+              <FridgeNotes notes={job.notes} />
+            </p>
           </div>
         )}
         {expand && renderShifts()}

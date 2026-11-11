@@ -8,6 +8,7 @@ import {
 } from "../../../state/apis/volunteerApi/homeChefApi";
 import Loading from "../../reusable/loading/Loading";
 import { useGetUserQuery } from "../../../state/apis/authApi";
+import FridgeNotes from "./FridgeNotes";
 
 const ShiftDetail = () => {
   const [mealCount, setMealCount] = useState("");
@@ -125,8 +126,7 @@ const ShiftDetail = () => {
         </div>
         {!!job?.notes && (
           <div className="signup-form-notes">
-            <strong>Note: </strong>
-            {job.notes}
+            <FridgeNotes notes={job.notes} />
           </div>
         )}
         {!!job?.photo && (

@@ -1,7 +1,7 @@
 .cbo {
   background-color: beige;
   color: black;
-  padding-left: 2rem;
+  padding: 2rem;
 }
 
 .cbo-report {
@@ -80,4 +80,9 @@
   width: fit-content;
   padding: 1rem;
   margin-bottom: 0.5rem;
+}
+
+.pie {
+  height: 30rem;
+  padding-bottom: 5rem;
 }

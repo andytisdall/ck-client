@@ -32,6 +32,7 @@ const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const DeleteD4JAccount = lazy(
   () => import("./components/user/DeleteD4JAccount"),
 );
+const ParseReport = lazy(() => import("./components/ParseReport"));
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,7 @@ export const router = createBrowserRouter([
         element: renderWithFallback(<ResetPassword />),
       },
       { path: "home-chef-app", element: renderWithFallback(<HomeChefApp />) },
+      { path: "data", element: renderWithFallback(<ParseReport />) },
 
       textRouter,
       adminRouter,

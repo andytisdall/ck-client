@@ -13,7 +13,10 @@ const D4JNotification = lazy(() => import("./notifications/D4JNotification"));
 const NotificationsHome = lazy(
   () => import("./notifications/NotificationsHome"),
 );
-const CheckVoicemail = lazy(() => import("./CheckVoicemail"));
+const VoicemailBase = lazy(() => import("./voicemail/VoicemailBase"));
+const VoicemailHome = lazy(() => import("./voicemail/VoicemailHome"));
+const VoicemailItem = lazy(() => import("./voicemail/VoicemailItem"));
+
 // const RSVPList = lazy(() => import("./rsvp/RSVPList"));
 const Orders = lazy(() => import("./supplyOrders/Orders"));
 // const CampaignMembers = lazy(() => import("./CampaignMembers"));
@@ -31,8 +34,14 @@ const adminRouter: RouteObject = {
       path: "home-chef-supplies",
       element: renderWithFallback(<Orders />),
     },
-    { path: "voicemail", element: renderWithFallback(<CheckVoicemail />) },
-
+    {
+      path: "voicemail",
+      element: renderWithFallback(<VoicemailBase />),
+      children: [
+        { index: true, element: renderWithFallback(<VoicemailHome />) },
+        { path: ":id", element: renderWithFallback(<VoicemailItem />) },
+      ],
+    },
     {
       path: "notifications",
       children: [

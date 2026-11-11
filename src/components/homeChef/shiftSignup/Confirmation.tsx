@@ -6,6 +6,7 @@ import {
   useGetHomeChefHoursQuery,
   useGetShiftsQuery,
 } from "../../../state/apis/volunteerApi/homeChefApi";
+import FridgeNotes from "./FridgeNotes";
 
 const Confirmation = () => {
   const { hoursId } = useParams();
@@ -21,7 +22,10 @@ const Confirmation = () => {
     if (hour && job) {
       return (
         <div className="hc-confirm-details">
-          <p>You have successfully signed up for this shift:</p>
+          <p>
+            You have successfully signed up for the following shift. You have
+            also been sent an email with this information.
+          </p>
           <ul>
             <li className="hc-confirm-item">
               <span className="hc-confirm-title">Date:</span>{" "}
@@ -52,13 +56,12 @@ const Confirmation = () => {
           </ul>
           {!!job.notes && (
             <p>
-              <strong>Notes:</strong> {job.notes}
+              <FridgeNotes notes={job.notes} />
             </p>
           )}
           {!!job.photo && (
             <img src={job.photo} alt="town fridge" className="hc-photo" />
           )}
-          <p>You have been sent an email with this information.</p>
         </div>
       );
     } else {

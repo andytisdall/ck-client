@@ -26,7 +26,7 @@ const MonthlyReportHeader = () => {
     return { startDate, endDate };
   }, [startDate, endDate]);
 
-  const [debouncedQuery, isDebouncing] = useDebounce(query);
+  const [debouncedQuery, isDebouncing] = useDebounce(query, 2000);
 
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
